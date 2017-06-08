@@ -101,6 +101,7 @@ type Vote {
 - CLI imports
 - authentication based on project.graphcool / authenticable types
 - relation constraints (at most 1 vote)
+- include relational meta info in subscription: https://github.com/graphcool/api-bugs/issues/96
 
 
 
