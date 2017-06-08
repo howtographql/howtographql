@@ -4,12 +4,12 @@
 
 ## Structure
 
-1. Intro
+1. Movtivation: Intro
     - Motivation / Demo
     - Why a GraphQL client?
     - Apollo vs Relay
     - Apollo overview
-2. Getting Started
+2. Setup: Getting Started
     - Backend
         - Create Graphcool backend 
         - Add initial data (CLI) (add note to verify in Playground)
@@ -18,7 +18,7 @@
         - Install dependencies
         - Configure Apollo
         - Send first query (`client.query(...)`)
-3. Display list of links
+3. Queries: Display list of links
     - Define query in Playground
     - Load & display with `graphql` HOC
     - Render results
@@ -26,18 +26,18 @@
     - Enable Auth Provider
     - Implement login + signup
     - [Set permissions for creating and deleting links]
-5. Creating new links
+5. Mutations: Creating new links
     - Define mutation in Playground
     - Mutation with `graphql` HOC
     - Refetch
     - Update store with `updateQuery`
-6. Voting on links
+6. Mutations: Voting on links
     - Mutation with `graphql` HOC
     - Update store with `updateQuery`
 7. Routing
     - Add route for search 
     - Setup routes for login, display link list, create link, link details
-8. Search 
+8. Advanced queries: Search 
     - Implement query with filters 
 9. Pagination
     - Limit/Offset vs Cursor 
