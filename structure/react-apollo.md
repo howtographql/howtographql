@@ -6,7 +6,7 @@
 
 1. Introduction
     - Motivation
-    - Why a GraphQL client?
+    - Why a GraphQL Client?
     - Apollo vs Relay
     - Apollo Overview
 2. Getting Started
