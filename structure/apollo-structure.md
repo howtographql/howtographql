@@ -51,11 +51,11 @@
 
 ### Features
 
-- display list of links (incl pagination)
-- user login
-- posting new links
-- up- / downvoting links
-- adding comments
+- Display list of links (incl pagination)
+- User login
+- Posting new links
+- Up- / downvoting links
+- [Optional]: Adding comments
 
 
 ### Schema
