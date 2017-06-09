@@ -8,14 +8,14 @@
     - Motivation / Demo
     - Why a GraphQL client?
     - Apollo vs Relay
-    - Apollo overview
+    - Apollo Overview
 2. Getting Started
     - Backend
-        - Create Graphcool backend 
-        - Add initial data (CLI) (add note to verify in Playground)
+        - Create Graphcool Backend 
+        - Populate Database
     - Frontend
-        - Create app with: `create-react-app`
-        - Install dependencies
+        - Create Project (`create-react-app`)
+        - Install Dependencies
         - Configure Apollo
         - Send first query (`client.query(...)`)
 3. Display list of links
