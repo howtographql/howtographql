@@ -71,14 +71,14 @@ type User {
 type Link { 
   url: String!
   postedBy: User! @relation(name: "UsersLinks")
-  comments: [Comment!]! @relation(name: "UsersComments")
+  comments: [Comment!]! @relation(name: "CommentsOnLink")
   votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
 type Comment {
   text: String!
   author: User! @relation(name: "UsersComments")
-  link: Link! @relation(name: "UsersComments")
+  link: Link! @relation(name: "CommentsOnLink")
 }
 
 type Vote {
