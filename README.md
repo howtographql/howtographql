@@ -1,27 +1,20 @@
 # howtographql
 
-## Contribution process
-
-- clear ownership (don't work on other stuff without PR)
-- reviews + PRs
-- keep issues up to date
-
 ## Goals
 
+Read [this issue](https://github.com/howtographql/howtographql/issues/3)
 
+## Roadmap
 
-### TODO questions
-
-- @nilan how to stay up to date with people?
-
-## Progress
-
-- [ ] Planning
-- [ ] Implementation & infrastructure
-- [ ] Content creation
-  - [ ] GraphQL introduction
-- [ ] Feedback
-- [ ] Release & launch
+- [ ] Foundation [Milestone](https://github.com/howtographql/howtographql/milestone/1)
+  - [ ] Design
+  - [ ] Content structure
+  - [ ] Example applications
+  - [ ] Infrastructure
+- [ ] First version [Milestone](https://github.com/howtographql/howtographql/milestone/2)
+  - [ ] Content writing
+  - [ ] Feedback
+- [ ] Launch [Milestone](https://github.com/howtographql/howtographql/milestone/2)
 
 ## Content stages
 
@@ -30,6 +23,11 @@
 3) Feedback + iterate
 4) Record video
 
-## Task board
+## Team & responsibilities
 
-## Team
+
+## Contribution process
+
+- clear ownership (don't work on other stuff without PR)
+- reviews + PRs
+- keep issues up to date
