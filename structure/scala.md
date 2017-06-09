@@ -1,6 +1,5 @@
-# Backend - Express
+# Backend - Scala / Sangria
 
-**Example:** Simple Hackernews API
 
 ## Structure
 
@@ -8,7 +7,6 @@
     - Motivation
     - What is a GraphQL Server?
     - Schema-Driven Development
-    - Using `graphql-tools`
 2. Getting Started
     - Defining the Schema
     - Install Dependencies
@@ -30,7 +28,6 @@
 9. Subscriptions
     - Updating the Schema
     - PubSub Events
-    - Configuring the `SubscriptionServer`
 10. Filtering
 11. Pagination
 12. Bonus: Comments

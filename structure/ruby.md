@@ -1,4 +1,4 @@
-# Backend - Express
+# Backend - Ruby / Rails
 
 **Example:** Simple Hackernews API
 
@@ -8,7 +8,6 @@
     - Motivation
     - What is a GraphQL Server?
     - Schema-Driven Development
-    - Using `graphql-tools`
 2. Getting Started
     - Defining the Schema
     - Install Dependencies
@@ -30,7 +29,6 @@
 9. Subscriptions
     - Updating the Schema
     - PubSub Events
-    - Configuring the `SubscriptionServer`
 10. Filtering
 11. Pagination
 12. Bonus: Comments
