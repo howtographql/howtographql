@@ -53,7 +53,7 @@
 - Display list of links (incl pagination)
 - User login
 - Posting new links
-- Up- / downvoting links
+- Voting for links
 - [Optional]: Adding comments
 
 
@@ -85,21 +85,6 @@ type Vote {
   link: Link! @relation(name: "VotesOnLink")
 }
 ```
-
-## Questions
-
-- Should provide "starter/final"-code for each step (similar to LA)?
-- How to deal with styling?
-- Gamification? Actual questions / problems users need to solve?
-- How to deal with different platforms?
-
-## Backend TODO
-
-- CLI imports
-- Authentication based on `project.graphcool` / authenticable types
-- Relation constraints (at most 1 vote)
-- Include relational meta info in subscription: https://github.com/graphcool/api-bugs/issues/96
-
 
 
 

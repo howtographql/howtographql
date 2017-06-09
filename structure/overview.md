@@ -51,8 +51,3 @@
 
 - Next Steps
   
-## Notes
-
-- standalone Playgrounds
-- include GraphQL Playgrounds with ovefview of data (table / data browser)
-- GraphQL is a language for requesting data from an API
