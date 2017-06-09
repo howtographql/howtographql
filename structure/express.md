@@ -33,6 +33,7 @@
     - Configuring the `SubscriptionServer`
 10. Filtering
 11. Pagination
+12. Bonus: Comments
 
 ## Notes
 
