@@ -31,9 +31,8 @@
     - Signup & Login
 6. Routing
     - `react-router` with Apollo
-7. Mote Mutations
+7. More Mutations
     - Mutation: Vote for Links
-    - Mutations with Apollo
     - Updating the Cache
 8. Filtering
     - Search Links

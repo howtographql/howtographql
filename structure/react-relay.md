@@ -31,9 +31,8 @@
     - Signup & Login
 6. Routing
     - `react-router` with Relay
-7. Mote Mutations
+7. More Mutations
     - Mutation: Vote for Links
-    - Mutations with Relay
     - Updating the Cache
 8. Filtering
     - Search Links
@@ -42,6 +41,7 @@
     - Subscribe to new Votes
 10. Pagination
     - Limit/Offset vs Cursor 
+    - Relay Connections
     - Load Chunks of Links
 11. Summary 
 12. Bonus: Comments
