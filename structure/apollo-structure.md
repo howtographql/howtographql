@@ -4,8 +4,8 @@
 
 ## Structure
 
-1. Intro
-    - Motivation / Demo
+1. Introduction
+    - Motivation
     - Why a GraphQL client?
     - Apollo vs Relay
     - Apollo Overview
@@ -14,38 +14,37 @@
         - Create Graphcool Backend 
         - Populate Database
     - Frontend
-        - Create Project (`create-react-app`)
+        - Create Project 
         - Install Dependencies
         - Configure Apollo
-        - Send first query (`client.query(...)`)
-3. Display list of links
-    - Define query in Playground
-    - Load & display with `graphql` HOC
-    - Render results
-4. Authentication (Email + PW)
-    - Enable Auth Provider
-    - Implement login + signup
-    - [Set permissions for creating and deleting links]
-5. Creating new links
-    - Define mutation in Playground
-    - Mutation with `graphql` HOC
-    - Refetch
-    - Update store with `updateQuery`
-6. Voting on links
-    - Mutation with `graphql` HOC
-    - Update store with `updateQuery`
-7. Routing
-    - Add route for search 
-    - Setup routes for login, display link list, create link, link details
-8. Search 
-    - Implement query with filters 
-9. Pagination
+        - The `ApolloClient`
+3. Queries
+    - Query: Fetching Links
+    - Queries with Apollo
+    - Rendering Query Results
+4. Mutations
+    - Mutation: Creating Links
+    - Mutations with Apollo
+    - Updating the Cache
+5. Authentication
+    - Backend Setup
+    - Signup & Login
+6. Routing
+    - `react-router` with Apollo
+7. Mote Mutations
+    - Mutation: Vote for Links
+    - Mutations with Apollo
+    - Updating the Cache
+8. Filtering
+    - Search Links
+9. Subscriptions
+    - Subscribe to new Links
+    - Subscribe to new Votes
+10. Pagination
     - Limit/Offset vs Cursor 
-    - Load chunks of lists
-10. Subscriptions
-    - Subscribe to new links + votes
-12. Summary 
-13. Bonus: Comments
+    - Load Chunks of Links
+11. Summary 
+12. Bonus: Comments
 
 
 ## HN Example
@@ -95,12 +94,12 @@ type Vote {
 - Gamification? Actual questions / problems users need to solve?
 - How to deal with different platforms?
 
-
 ## Backend TODO
 
 - CLI imports
 - authentication based on project.graphcool / authenticable types
 - relation constraints (at most 1 vote)
+- include relational meta info in subscription: https://github.com/graphcool/api-bugs/issues/96
 
 
 
