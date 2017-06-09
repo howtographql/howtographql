@@ -31,6 +31,8 @@
     - Updating the Schema
     - PubSub Events
     - Configuring the `SubscriptionServer`
+10. Filtering
+11. Pagination
 
 ## Notes
 
