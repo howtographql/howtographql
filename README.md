@@ -24,7 +24,7 @@ Read [this issue](https://github.com/howtographql/howtographql/issues/3)
 - Frontend
   - React + Apollo
   - React + Relay
-  - Expo + Apollo
+  - React Native (Expo) + Apollo
   - Angular + Apollo
   - Vue + Apollo
 - Backend
