@@ -6,15 +6,15 @@ Read [this issue](https://github.com/howtographql/howtographql/issues/3)
 
 ## Roadmap
 
-- [ ] Foundation [Milestone](https://github.com/howtographql/howtographql/milestone/1)
+- [ ] Foundation ([Milestone](https://github.com/howtographql/howtographql/milestone/1))
   - [ ] Design
   - [ ] Content structure
   - [ ] Example applications
   - [ ] Infrastructure
-- [ ] First version [Milestone](https://github.com/howtographql/howtographql/milestone/2)
+- [ ] First version ([Milestone](https://github.com/howtographql/howtographql/milestone/2))
   - [ ] Content writing
   - [ ] Feedback
-- [ ] Launch [Milestone](https://github.com/howtographql/howtographql/milestone/2)
+- [ ] Launch ([Milestone](https://github.com/howtographql/howtographql/milestone/2))
 
 ## Content stages
 
