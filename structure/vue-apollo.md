@@ -1,4 +1,4 @@
-# Frontent - Vue
+# Frontent - Vue + Apollo
 
 **Example:** Simple Hackernews Clone
 

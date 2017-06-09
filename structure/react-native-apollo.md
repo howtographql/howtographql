@@ -1,4 +1,4 @@
-# Frontent - React + Apollo
+# Frontent - React Native + Apollo
 
 **Example:** Simple Hackernews Clone
 
