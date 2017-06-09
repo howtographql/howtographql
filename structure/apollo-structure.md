@@ -97,9 +97,9 @@ type Vote {
 ## Backend TODO
 
 - CLI imports
-- authentication based on project.graphcool / authenticable types
-- relation constraints (at most 1 vote)
-- include relational meta info in subscription: https://github.com/graphcool/api-bugs/issues/96
+- Authentication based on `project.graphcool` / authenticable types
+- Relation constraints (at most 1 vote)
+- Include relational meta info in subscription: https://github.com/graphcool/api-bugs/issues/96
 
 
 
