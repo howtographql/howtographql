@@ -30,7 +30,7 @@
     - Backend Setup
     - Signup & Login
 6. Routing
-    - `react-router` with Apollo
+    - `react-navigation` with Apollo
 7. More Mutations
     - Mutation: Vote for Links
     - Updating the Cache
