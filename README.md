@@ -49,7 +49,7 @@ Read [this issue](https://github.com/howtographql/howtographql/issues/3)
 - graphql-js: ???
 - Ruby/Rails: @RStankov
 - Scala/Sangria: @OlegIlyenko
-- Expo + Apollo: ???
+- Expo + Apollo: @brentvatne
 - Vue + Apollo: ???
 - Angular + Apollo: ???
 
