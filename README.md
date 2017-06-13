@@ -42,6 +42,16 @@ Read [this issue](https://github.com/howtographql/howtographql/issues/3)
 
 ## Team & responsibilities
 
+- GraphQL: @nikolasburk
+- React + Apollo: @nikolasburk
+- React + Relay: @nikolasburk
+- Graphcool: @nikolasburk
+- graphql-js: ???
+- Ruby/Rails: @RStankov
+- Scala/Sangria: @OlegIlyenko
+- Expo + Apollo: ???
+- Vue + Apollo: ???
+- Angular + Apollo: ???
 
 ## Contribution process
 
