@@ -37,6 +37,7 @@
 - strong type system
 - type definitions and fields
 - relations
+- introspection
 
 #### Queries
 - read data
