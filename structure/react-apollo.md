@@ -8,7 +8,6 @@
     - Overview
     - Why a GraphQL Client?
     - Apollo vs Relay
-    - Apollo Overview
 2. Getting Started
     - Backend
         - Create Graphcool Backend 
