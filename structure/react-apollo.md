@@ -5,7 +5,7 @@
 ## Structure
 
 1. Introduction
-    - Motivation
+    - Overview
     - Why a GraphQL Client?
     - Apollo vs Relay
     - Apollo Overview
