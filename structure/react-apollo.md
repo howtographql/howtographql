@@ -24,11 +24,11 @@
 4. Mutations
     - Mutation: Creating Links
     - Mutations with Apollo
-5. Authentication
+5. Routing
+    - `react-router` with Apollo
+6. Authentication
     - Backend Setup
     - Signup & Login
-6. Routing
-    - `react-router` with Apollo
 7. More Mutations
     - Mutation: Vote for Links
     - Updating the Cache
