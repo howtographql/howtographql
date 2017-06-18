@@ -317,6 +317,10 @@ class Link extends Component {
       </div>
     )
   }
+  
+  _voteForLink = async () => {
+    // ... you'll implement this in chapter 6  
+  }
 
 }
 
@@ -717,7 +721,7 @@ render() {
 For this code to work, you need to import the required dependencies of `react-router`. Add the following statement to the top of the file:
 
 ```
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 ```
 
 Now you need to wrap the `App` with with `BrowserRouter` so that all child components of `App` will get access to the routing functionality.
@@ -979,7 +983,7 @@ type Link implements Node {
   id: ID! @isUnique
   updatedAt: DateTime!
   url: String!
-  postedBy: User! @relation(name: "UsersLinks")
+  postedBy: User @relation(name: "UsersLinks")
 }
 
 type User implements Node {
@@ -1005,6 +1009,7 @@ graphcool push
 Here is the Terminal output after you can the command:
 
 ```sh
+$ graphcool push
  ✔ Your schema was successfully updated. Here are the changes: 
 
   | (*)  The type `User` is updated.
@@ -1013,6 +1018,9 @@ Here is the Terminal output after you can the command:
   | (+)  The relation `UsersLinks` is created. It connects the type `Link` with the type `User`.
 
 Your project file project.graphcool was updated. Reload it in your editor if needed.
+
+nburk@macbook-pro hackernews-react-apollo $ 
+
 ```
 
 > **Note**: You can also use the `graphcool status` after having made changes to the schema to see the potential changes that would be performed with `graphcool push`.
@@ -1087,16 +1095,1010 @@ The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It
 
 The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always from to bottom. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows to sign up and login in a single request!
 
+All right, all that's left to do is call the two mutations inside the code!
+
+Open `Login.js` and implement `_confirm` as follows:
+
+```js
+_confirm = async () => {
+  const { name, email, password } = this.state
+  if (this.state.login) {
+    const result = await this.props.signinUserMutation({
+      variables: {
+        email,
+        password
+      }
+    })
+    const id = result.data.signinUser.user.id
+    const token = result.data.signinUser.token
+    this._saveUserData(id, token)
+  } else {
+    const result = await this.props.createUserMutation({
+      variables: {
+        name,
+        email,
+        password
+      }
+    })
+    const id = result.data.signinUser.user.id
+    const token = result.data.signinUser.token
+    this._saveUserData(id, token)
+  }
+  this.props.history.push(`/`)
+}
+```
+
+The code is pretty straightforward. If the user wants to only login, you're calling the `signinUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `createUserMutation` where you also pass the user's `name`. After the mutation was performed, you're storing the `id` and `token` in `localStorage` and navigate back to the root route.
 
 
+#### Updating the `createLink`-mutation
+
+Since you're now able to authenticate users and also added a new relation between the `Link` and `User` type, you can also make sure that every new link that gets created in the app can store information about the user that posted it. That's what the `postedBy` field on `Link` will be used for.
+
+Open `CreateLink.js` and update the definition of `CREATE_LINK_MUTATION`    as follows:
+
+```js
+const CREATE_LINK_MUTATION = gql`
+  mutation CreateLinkMutation($description: String!, $url: String!, $postedById: ID!) {
+    createLink(
+      description: $description,
+      url: $url,
+      postedById: $postedById
+    ) {
+      id
+      createdAt
+      url
+      description
+      postedBy {
+        id
+        name
+      }
+    }
+  }
+`
+```
+
+There are two major changes. You first added another argument to the mutation that represents the `id` of the user that is posting the link. Secondly, you also include the `postedBy` information in the _payload_ of the mutation.
+
+Now you need to make sure that the `id` of the posting user is included when you're calling the mutation in `_createLink`.
+
+Still in `CreateLink.js`, update the implementation of `_createLink` like so:
+
+```js
+_createLink = async () => {
+  const postedById = localStorage.getItem(GC_USER_ID)
+  if (!postedById) {
+    console.error('No user logged in')
+    return
+  }
+  const { description, url } = this.state
+  await this.props.createLinkMutation({
+    variables: {
+      description,
+      url,
+      postedById
+    }
+  })
+  this.props.history.push(`/`)
+}
+```
+
+For this to work, you also need to import the `GC_USER_ID` key. Add the following import statement to the top of `CreateLink.js`.
+
+```js
+import { GC_USER_ID } from '../constants'
+```
+
+Perfect! Before sending the mutation, you're now also retrieving the corresponding user id from `localStorage`. If that succeeds, you'll pass it to the call to `createLinkMutation` so that every new links will from now on store information about the user that created it.
+
+Go ahead and test the login functionality. run `yarn start` and open `http://localhost:3000/login`. Then click the _Need to create an account?_-button and provide some user data for the user you're crreating. Finally, click the _Create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
 
 
+### More Mutations and Updating the Store
+
+The next piece of functionality that you'll implement is the voting feature! Authenticated users are allowed to submit a vote for a link. The most upvoted links will later be displayed on a separate route that you'll implement soon!
+
+#### Preparing the React Components
+
+Once more, the first step to implement this new feature is to make your React components ready for the expected functionality.
+
+Open `Link.js` and update `render` to look as follows:
+
+```js
+render() {
+  const userId = localStorage.getItem(GC_USER_ID)
+  return (
+    <div>
+      {userId && <div onClick={() => this._voteForLink()}>▲</div>}
+      <div>{this.props.link.description} ({this.props.link.url})</div>
+        <div>{this.props.link.votes.length} votes | by {this.props.link.postedBy ? this.props.link.postedBy.name : 'Unknown'} {this.props.link.createdAt}</div>
+    </div>
+  )
+}
+```
+
+You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in.
+
+Also make sure to import `GC_USER_ID` on top the file:
+
+```js
+import { GC_USER_ID } from '../constants'
+```
+
+#### Updating the Schema
+
+For this new feature, you also need to update the schema again since votes on links will be represented with a custom type.
+
+Open `project.graphcool` and add the following type:
+
+```js
+type Vote {
+  user: User! @relation(name: "UsersVotes")
+  link: Link! @relation(name: "VotesOnLink")
+}
+```
+
+Each `Vote` will be associated with the `User` who created it as well as the `Link` that it belongs to. You also have to add the other end of the relation. 
+
+Still in `project.graphcool`, add the following field to the `User` type:
+
+```graphql
+votes: [Vote!]! @relation(name: "UsersVotes")
+```  
+
+Now add another field to the `Link` type:
+
+```graphql
+votes: [Vote!]! @relation(name: "VotesOnLink")
+```
+
+Next open up a Terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
+
+```sh
+graphcool push
+```
+
+Here is what the Terminal output looks like:
+
+```sh
+$ gc push
+ ✔ Your schema was successfully updated. Here are the changes: 
+
+  | (+)  A new type with the name `Vote` is created.
+  |
+  | (+)  The relation `UsersVotes` is created. It connects the type `User` with the type `Vote`.
+  |
+  | (+)  The relation `VotesOnLink` is created. It connects the type `Link` with the type `Vote`.
+
+Your project file project.graphcool was updated. Reload it in your editor if needed.
+```
+
+Awesome! Let's now move on and implement the upvote mutation!
 
 
+#### Calling the Mutation
+
+Open `Link.js` and add the following mutation definition to the bottom of the file:
+
+```js
+const CREATE_VOTE_MUTATION = gql`
+  mutation CreateVoteMutation($userId: ID!, $linkId: ID!) {
+    createVote(userId: $userId, linkId: $linkId) {
+      id
+      link {
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+      user {
+        id
+      }
+    }
+  }
+`
+
+export default graphql(CREATE_VOTE_MUTATION, {
+  name: 'createVoteMutation'
+})(Link)
+```
+
+This step should feel pretty familiar by now. You're adding the ability to call the `createVoteMutation` to the `Link` component by wrapping it with the `CREATE_VOTE_MUTATIIN`.
+
+Finally, you need to implement `_voteForLink` as follows:
+
+```js
+_voteForLink = async () => {
+  const userId = localStorage.getItem(GC_USER_ID)
+  const voterIds = this.props.link.votes.map(vote => vote.user.id)
+  if (voterIds.includes(userId)) {
+    console.log(`User (${userId}) already voted for this link.`)
+    return
+  }
+
+  const linkId = this.props.link.id
+  await this.props.createVoteMutation({
+    variables: {
+      userId,
+      linkId
+    }
+  })
+}
+```
+
+Notice that in the first part of the method, you're checking whether the current user already voted for that link. If that's the case, you return early from the method and not actually execute the mutation.
+
+You now also need to include the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
+
+Open `LinkList.js` and update the definition of `ALL_LINKS_QUERY` to look as follows:
+
+```js
+export const ALL_LINKS_QUERY = gql`
+  query AllLinksQuery($first: Int, $skip: Int, $orderBy: LinkOrderBy) {
+    allLinks(first: $first, skip: $skip, orderBy: $orderBy) {
+      id
+      createdAt
+      url
+      description
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+  }
+`
+```
+
+All you do here is to also include information about the user who posted a link as well as information about the links' votes in the query's payload.
+
+You can now go and test the implementation! Run `yarn start` and click the upvote button on a link. You're not getting any UI feedback yet, however, you'll notice that after you clicked the button for the first time, all subsequent clicks will simply print the loggin statement: _User (cj42qfzwnugfo01955uasit8l) already voted for this link._
+
+Great, so you at least know that the mutation is working! You can also refresh the page and you'll see the vote is counted and the link is now shown to have one upvote.
 
 
+#### Updating the Cache
+
+One cool thing about Apollo is that you can manually control the contents of the cache. This is really handy especially after a mutation was performed, since this allows to determine precisely how you want the cache to be updated. Here, you'll use it to make sure the UI gets updated after the mutation was performed.
+
+You can implement this functionality by using Apollo's [imperative store API](https://dev-blog.apollodata.com/apollo-clients-new-imperative-store-api-6cb69318a1e3).
+
+Open `Link` and update the call to `createVoteMutation` inside the `_voteForLink` method as follows:
+
+```js
+const linkId = this.props.link.id
+await this.props.createVoteMutation({
+  variables: {
+    userId,
+    linkId
+  },
+  update: (store, { data: { createVote } }) => {
+    this.props.updateStoreAfterVote(store, createVote, linkId)
+  }
+})
+```
+
+The `update` function that we're adding as an argument to the mutation call will be called when the server returns the response. It receives the payload of the mutation (`data`) and the current cache (`store`) as arguments. You can then use this input to determine a new state of the cache. 
+
+Notice that we're already _desctructuring_ the server response and retrieving the `createVote` field from it. 
+
+All right, so now you know what this `update` function is, but the actual implementation will be done in the parent component of `Link`, which is `LinkList`. 
+
+Open `LinkList.js` and add the following method to inside the scope of the `LinkList` component:
+
+```js
+_updateCacheAfterVote = (store, createVote, linkId) => {
+  // 1
+  const data = store.readQuery({ query: ALL_LINKS_QUERY })
+  
+  // 2
+  const votedLink = data.allLinks.find(link => link.id === linkId)
+  votedLink.votes = createVote.link.votes
+  
+  // 3
+  store.writeQuery({ query: ALL_LINKS_QUERY, data })
+}
+```
+
+What's going on here?
+
+1. You start by reading the current state of the cached data for the `ALL_LINKS_QUERY` from the `store`.
+2. Now you're retrieving the link that the user just voted for from that list. You're also manipulating that link by resetting its `votes` to the `votes` that were just returned by the server.
+3. Finally, you take the modified data and write it back into the store.
+
+Next you need to pass this function down to the `Link` component so it can be called from there. 
+
+Still in `LinkList.js`, update the way how links are rendered in `render`:
+
+```js
+<Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote} link={link}/>
+```
+
+That's it! The `updater` function will now be executed and make sure that the store gets updated properly after a mutation was performed. The store update will trigger a rerender of the component and thus update the UI with the correct information!
+
+While we're at it, let's also implement `update` for adding new links!
+
+Open `CreateLink.js` and update the call to `createLinkMutation` inside `_createLink` like so:
+
+```js
+await this.props.createLinkMutation({
+  variables: {
+    description,
+    url,
+    postedById
+  },
+  update: (store, { data: { createLink } }) => {
+    const data = store.readQuery({ query: ALL_LINKS_QUERY })
+    data.allLinks.splice(0,0,createLink)
+    store.writeQuery({
+      query: ALL_LINKS_QUERY,
+      data
+    })
+  }
+})
+```
+
+The `update` function works in a very similar way as before. You first read the current state of the results of the `ALL_LINKS_QUERY`. Then you insert the newest link to the top and write the query results back to the store.
+
+The last think you need to do for this to work is add import the `ALL_LINKS_QUERY` into that file:
+
+```js
+import { ALL_LINKS_QUERY } from './LinkList'
+```
+
+Conversely, it also needs to be exported from where it is defined. 
+
+Open `LinkList.js` and adjust the definition of the `ALL_LINKS_QUERY` by adding the `export` keyword to it:
+
+```js
+export const ALL_LINKS_QUERY = ...
+```
+
+Awesome, now the store also updates with the right information after new links are added. The app is getting in shape. 🤓
 
 
+### Filtering: Searching the List of Links
+
+In this section, you'll implement a search feature and learn about the filtering capabilities of your GraphQL API.
+
+> Note: If you're interested in all the filtering capabilities of Graphcool, you can check out the [documentation](https://www.graph.cool/docs/reference/simple-api/filtering-by-field-xookaexai0/) on it.
 
 
+#### Preparing the React Components
 
+The search will be available under a new route and implemented in a new React component.
+
+Start by creating a new file called `Search.js` in `src/components` and add the following code:
+
+```js
+import React, { Component } from 'react'
+import { gql, withApollo } from 'react-apollo'
+import Link from './Link'
+
+class Search extends Component {
+
+  state = {
+    links: [],
+    searchText: ''
+  }
+
+  render() {
+    return (
+      <div>
+        <div>
+          Search
+          <input
+            type='text'
+            onChange={(e) => this.setState({ searchText: e.target.value })}
+          />
+          <button
+            onClick={() => this._executeSearch()}
+          >
+            OK
+          </button>
+        </div>
+        {this.state.links.map(link => <Link key={link.id} link={link}/>)}
+      </div>
+    )
+  }
+
+  _executeSearch = async () => {
+    // ... you'll implement this in a bit
+  }
+
+}
+
+export default withApollo(Search)
+```
+
+Again, this is a pretty standard setup. You're rendering an `input` field where the user can type a search string. 
+
+Notice that the `links` field in the component state will hold all the links to be rendered, so this time we're not accessing query results through the component props! We'll also talk about the `withApollo` function that you're using when exporting the component in a bit!
+
+Now add the `Search` component as a new route to the app. Open `App.js` and update render to look as follows:
+
+```js
+render() {
+  return (
+    <Switch>
+      <Route exact path='/search' component={Search}/>
+      <Route exact path='/login' component={Login}/>
+      <Route exact path='/create' component={CreateLink}/>
+      <Route exact path='/' component={LinkList}/>
+    </Switch>
+  )
+}
+```  
+
+Also import the component on top of the file:
+
+```js
+import Search from './Search'
+```
+
+Great, let's now go back to the `Search` component and see how we can implement the actual search.
+
+#### Filtering Links
+
+Open `Search.js` and add the following query definition on the bottom of the file:
+
+```js
+const ALL_LINKS_SEARCH_QUERY = gql`
+  query AllLinksSearchQuery($searchText: String!) {
+    allLinks(filter: {
+      OR: [{
+        url_contains: $searchText
+      }, {
+        description_contains: $searchText
+      }]
+    }) {
+      id
+      url
+      description
+      createdAt
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+  }
+`
+```
+
+This query looks similar to the `allLinks` query that's used in `LinkList`. However, this time it takes in an argument called `searchTect` and specifies a `filter` object that will be used to specify conditions on the links that you want to retrieve.
+
+In this case, you're specifying two filters that account for the following two conditions. A link is only returned if either its `url` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
+
+Perfect, the query is defined! But this time we actually want to load the data every time the user hits the _OK_-button. 
+
+That's what you're using the `withApollo` function for. All it does is injecting a new prop into the `Search` component called `client`. This `client` is precisely the `ApolloClient` instance that you're creating in `index.js` and that's now directly available inside `Search`.
+
+The `client` has a method called `query` that you can use to send a query manually instead of using the `graphql` HOC.
+
+Here's what the code looks like. Open `Search.js` and implement `_executeSearch` as follows:
+
+```js
+_executeSearch = async () => {
+  const { searchText } = this.state
+  const result = await this.props.client.query({
+    query: ALL_LINKS_SEARCH_QUERY,
+    variables: { searchText }
+  })
+  const links = result.data.allLinks
+  this.setState({ links })
+}
+```
+
+The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually, retrieve the `links` from the response that's returned by the server to finally put them into the component's `state` from where they can be rendered.
+
+Go ahead and test the app by running `yarn start` in a Terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, click the _OK_-button and make sure the links that are returned fit the filter conditions.
+
+
+### Subscriptions
+
+This section is all about bringing realtime functionality into the app by using GraphQL subscriptions.
+
+
+#### What are GraphQL Subscriptions?
+
+Subscriptions are a GraphQL feature that allows the server to send data to the clients when a specific event happens on the backend. Subscriptions are usually implemented with WebSockets, where the server holds a steady connection to the client. That is, the _Request-Response-Cycle_ that we used for all previous interactions with the API is not used for subscriptions. Instead, the client initially opens up a steady connection to the server by specifying which events it is interested in. Once this event happens, the server uses the connection to push the data that's related to the event to the client.
+
+#### Subscriptions with Apollo 
+
+When using Apollo, you need to configure your `ApolloClient` with information about the subscriptions endpoint. This is done by using functionality from the `subscriptions-transport-ws` npm module.
+
+Go and add this dependency to your app first. Open a Terminal and navigate to the project's root directory. Then execute the following command:
+
+```sh
+yarn add subscriptions-transport-ws
+```
+
+Next, make sure your `ApolloClient` instance knows about the subscription server.
+
+Open `index.js` and add the following import to the top of the file:
+
+```
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
+```
+
+Now update the configuration code like so:
+
+```js
+const networkInterface = createNetworkInterface({
+  uri: 'https://api.graph.cool/simple/v1/<project-id>'
+})
+
+const wsClient = new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
+  reconnect: true,
+  connectionParams: {
+     authToken: localStorage.getItem(GC_AUTH_TOKEN),
+  }
+})
+
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+  networkInterface,
+  wsClient
+)
+
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {}
+    }
+    const token = localStorage.getItem(GC_AUTH_TOKEN)
+    req.options.headers.authorization = token ? `Bearer ${token}` : null
+    next()
+  }
+}])
+
+const client = new ApolloClient({
+  networkInterface: networkInterfaceWithSubscriptions
+})
+```
+
+You're instantiating a `SubscriptionClient` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the websocket connection with the user's token that you retrieve from `localStorage`.
+
+Now you need to replace the placeholder `__SUBSCRIPTION_API_ENDPOINT__ ` with the endpoint for the subscriptions API.
+
+To get access to this endpoint, open up a Terminal and navigate to the directory where `project.graphcool` is located. Then type the `graphcool endpoints` command. Now copy the endpoint for the `Subscriptions API` and replace the placeholder with it. 
+
+> Note: The endpoints for the Subscription API generally are of the form: `wss://subscriptions.graph.cool/v1/<project-id>`
+
+
+#### Subscribing to new Links
+
+For the app to update in realtime when new links are created, you need to subscribe to events that are happening on the `Link` type. There generally are three kinds of events you can subscribe to:
+
+- a new `Link` is _created_
+- an existing `Link` is _updated_
+- an existing `Link` is _deleted_
+
+You'll implement the subscription in the `LinkList` component since that's where all the links are rendered.
+
+Open `LinkList.js` and add the following method inside the scope of the `LinkList` component:
+
+```js
+_subscribeToNewLinks = () => {
+  this.props.allLinksQuery.subscribeToMore({
+    document: gql`
+      subscription {
+        Link(filter: {
+          mutation_in: [CREATED]
+        }) {
+          node {
+            id
+            url
+            description
+            createdAt
+            postedBy {
+              id
+              name
+            }
+            votes {
+              id
+              user {
+                id
+              }
+            }
+          }
+        }
+      }
+    `,
+    updateQuery: (previous, { subscriptionData }) => {
+      // ... you'll implement this in a bit
+    }
+  })
+}
+```
+
+Let's understand what's going on here! You're using the `allLinksQuery` that you have access to inside the component's props (because you wrapped it with the `graphql` container) to call [`subscribeToMore`](http://dev.apollodata.com/react/subscriptions.html#subscribe-to-more). This call opens up a websocket connection to the subscription server.
+
+You're passing two arguments to `subscribeToMore`:
+
+1. `document`: This represents the subscription itself. In your case, the subscription will fire for `CREATED` events on the `Link` type, i.e. every time a new link is created.
+2. `updateQuery`: Similar to `update`, this function allows you to determine how the store should be updated with the information that was sent by the server.
+
+Go ahead and implement `updateQuery` next. This function works slightly differently than `update`. In fact, it follows exactly the same principle as a [Redux reducer](http://redux.js.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that's sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated version. Let's see what this looks like in action!
+
+Still in `LinkList.js` implement `updateQuery` like so:
+
+```js
+updateQuery: (previous, { subscriptionData }) => {
+  const newAllLinks = [
+    subscriptionData.data.Link.node,
+    ...previous.allLinks
+  ]
+  const result = {
+    ...previous,
+    allLinks: newAllLinks
+  }
+  return result
+}
+```
+
+All you do here is retrieve the new link from the subscription data (` subscriptionData.data.Link.node`), merge it into the existing list of links and return the result of this operation.
+
+The last thing here is to make sure that the component actually subscribes to the events by calling `subscribeToMore`. 
+
+In `LinkList.js`, add a new method inside the scope of the `LinkList` component and implement it like so:
+
+```js
+componentDidMount() {
+  this._subscribeToNewLinks()
+}
+```
+> **Note**: `componentDidMount` is a so-called [_lifecycle_ method](https://facebook.github.io/react/docs/react-component.html#the-component-lifecycle) of React components that will be called once right after the component was initialized.
+
+Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application runnning on `http://localhost:3000/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
+
+#### Susbcribing to new Votes
+
+Next you'll subscribe to new votes that are emitted by other users as well so that the latest vote count is always visible in the app.
+
+Open `LinkList.js` and add the following method to the `LinkList` component:
+
+```js
+_subscribeToNewVotes = () => {
+  this.props.allLinksQuery.subscribeToMore({
+    document: gql`
+      subscription {
+        Vote(filter: {
+          mutation_in: [CREATED]
+        }) {
+          node {
+            id
+            link {
+              id
+              url
+              description
+              createdAt
+              postedBy {
+                id
+                name
+              }
+              votes {
+                id
+                user {
+                  id
+                }
+              }
+            }
+            user {
+              id
+            }
+          }
+        }
+      }
+    `,
+    updateQuery: (previous, { subscriptionData }) => {
+      const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.data.Vote.node.link.id)
+      const link = subscriptionData.data.Vote.node.link
+      const newAllLinks = previous.allLinks.slice()
+      newAllLinks[votedLinkIndex] = link
+      const result = {
+        ...previous,
+        allLinks: newAllLinks
+      }
+      return result
+    }
+  })
+}
+```
+
+Similar as before, you're calling `subscribeToMore` on the `allLinksQuery`. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted and and then updating its `votes` with the `Vote` element that was sent from the server.
+
+Finally, go ahead and call `_subscribeToNewVotes` inside `componentDidMount` as well:
+
+```js
+componentDidMount() {
+  this._subscribeToNewLinks()
+  this. _subscribeToNewVotes()
+}
+```
+
+Fantastic! Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.
+
+
+### Pagination
+
+The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that user's are able to view the links in smaller chunks rather than having an extremely list of `Link` elements.
+
+
+### Preparing the React Components
+
+Once more, you first need to prepare the React components for this new functionality. In fact, we'll slightly adjust the current routing setup. Here's the idea: The `LinkList` component will be used for two different use cases (and routes). The first one is to display the 10 top voted links. And its second use case is to display a _new_ links in a list where the user can paginate.
+
+Open `App.js` and adjust the render method like so:
+
+
+```js
+render() {
+  return (
+    <Switch>
+      <Route exact path='/' render={() => <Redirect to='/new/1' />} />
+      <Route exact path='/login' component={Login}/>
+      <Route exact path='/create' component={CreateLink}/>
+      <Route exact path='/search' component={Search}/>
+      <Route exact path='/top' component={LinkList}/>
+      <Route exact path='/new/:page' component={LinkList}/>
+    </Switch>
+  )
+}
+```
+
+You now added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkList`.
+
+The root route `/` now redirects to the first page of the route where new posts are displayed.
+
+We need to add quite some logic to the `LinkList` component to account for the two different responsibilities that it now has. 
+
+Open `LinkList.js` and add three arguments to the `AllLinksQuery` by replacing the `ALL_LINKS_QUERY` definition with the following:
+
+```js
+export const ALL_LINKS_QUERY = gql`
+  query AllLinksQuery($first: Int, $skip: Int, $orderBy: LinkOrderBy) {
+    allLinks(first: $first, skip: $skip, orderBy: $orderBy) {
+      id
+      createdAt
+      url
+      description
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+    _allLinksMeta {
+      count
+    }
+  }
+`
+```  
+
+The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` to this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.   
+
+ But how can we pass the variables when using the `graphql` container which is fetching the data under the hood? You need to provide the arguments right where you're wrapping your component with the query.
+
+Still in `LinkList.js`, replace the current `export` statement with the following:
+
+```js
+export default graphql(ALL_LINKS_QUERY, {
+  name: 'allLinksQuery',
+  options: (ownProps) => {
+    const page = parseInt(ownProps.match.params.page, 10)
+    const isNewPage = ownProps.location.pathname.includes('new')
+    const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
+    const first = isNewPage ? LINKS_PER_PAGE : 100
+    const orderBy = isNewPage ? 'createdAt_DESC' : null
+    return {
+      variables: { first, skip, orderBy }
+    }
+  }
+}) (LinkList)
+```
+
+You're now passing a function to `graphql` that takes in the props of the component (`ownProps`) before the query is executed. This allows you to retrieve the information about the current page from the router (`ownProps.match.params.page`) and use it to calculate the chunk of links that you retrieve with `first` and `skip`.
+
+Also note that we're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
+
+You also need to define the `LINKS_PER_PAGE` constant and then import it into the `ListList` component.
+
+Open `src/constants.js` and add the following definition:
+
+```js
+export const LINKS_PER_PAGE = 5
+```
+
+Now adjust the import statement from `../constants` in `LinkList.js` to also include the new constant: 
+
+```js
+import { GC_USER_ID, GC_AUTH_TOKEN, LINKS_PER_PAGE } from '../constants'
+```
+
+#### Implementing Navigation
+
+Next, you need functionality for the user to switch between the pages. First add two `button` elements to the bottom of the `LinkList` component that can be used to navigate back and forth.
+
+Open `LinkList.js` and update `render` to look as follows:
+
+```js
+render() {
+
+  if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
+    return <div>Loading</div>
+  }
+
+  if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
+    return <div>Error</div>
+  }
+
+  const isNewPage = this.props.location.pathname.includes('new')
+  const linksToRender = this._getLinksToRender(isNewPage)
+  const userId = localStorage.getItem(GC_USER_ID)
+
+  return (
+    <div>
+      {!userId ?
+        <button onClick={() => {
+          this.props.history.push('/login')
+        }}>Login</button> :
+        <div>
+          <button onClick={() => {
+            this.props.history.push('/create')
+          }}>New Post</button>
+          <button onClick={() => {
+            localStorage.removeItem(GC_USER_ID)
+            localStorage.removeItem(GC_AUTH_TOKEN)
+            this.forceUpdate() // doesn't work as it should :(
+          }}>Logout</button>
+        </div>
+      }
+      <div>
+        {linksToRender.map(link => (
+          <Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote} link={link}/>
+        ))}
+      </div>
+      {isNewPage &&
+      <div>
+        <button onClick={() => this._previousPage()}>Previous</button>
+        <button onClick={() => this._nextPage()}>Next</button>
+      </div>
+      }
+    </div>
+  )
+
+}
+```
+
+Since the setup is slightly more complicated now, you are going to calculate the list of links to be rendered in a separate method.
+
+Still in `LinkList.js`, add the following method implementation:
+
+```js
+_getLinksToRender = (isNewPage) => {
+  if (isNewPage) {
+    return this.props.allLinksQuery.allLinks
+  }
+  const rankedLinks = this.props.allLinksQuery.allLinks.slice()
+  rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length)
+  return rankedLinks
+}
+```
+
+For the `newPage`, you'll simply return all the links returned by the query. That's logical since here you don't have to make any manual modifications to the list that is to be rendered. If the user loaded the component from the `/top` route, you'll sort the list according to the number of votes and return the top 10 links.
+
+Next, you'll implement the functionality for the _Previous_- and _Next_-buttons.
+
+In `LinkList.js`, add the following two methods that will be called when the buttons are pressed:
+
+```js
+_nextPage = () => {
+  const page = parseInt(this.props.match.params.page, 10)
+  if (page <= this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
+    const nextPage = page + 1
+    this.props.history.push(`/new/${nextPage}`)
+  }
+}
+
+_previousPage = () => {
+  const page = parseInt(this.props.match.params.page, 10)
+  if (page > 1) {
+    const nextPage = page - 1
+    this.props.history.push(`/new/${nextPage}`)
+  }
+}
+```
+
+The implementation of these is very simple. You're retrieving the current page from the url and implement a sanity check to make sure that it makes sense to paginate back or forth. Then you simply calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the url that will be used to calculate the right chunk of links to load. Run the app by typing `yarn start` in a Terminal and use the new buttons to paginate through your list of links!
+
+#### Final Adjustments
+
+Through the changes that we made to the `ALL_LINKS_QUERY`, you'll notice that the `update` functions of your mutations don't work any more. That's because `readQuery` now also expects to get passed the same variables that we defined before.
+
+> **Note**: `readyQuery` essentially works in the same way as the `query` method on the `ApolloClient` that you used to implement the search. However, instead of making a call to the server, it will simply resolve the query against the local store! If a query was fetched from the server with variables, `readQuery` also needs to know the variables to make sure it can deliver the right information from the cache.
+
+With that information, open `LinkList.js` and update the `_updateCacheAfterVote` method to look as follows:
+
+```js
+_updateCacheAfterVote = (store, createVote, linkId) => {
+  const isNewPage = this.props.location.pathname.includes('new')
+  const page = parseInt(this.props.match.params.page, 10)
+  const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
+  const first = isNewPage ? LINKS_PER_PAGE : 100
+  const orderBy = isNewPage ? "createdAt_DESC" : null
+  const data = store.readQuery({ query: ALL_LINKS_QUERY, variables: { first, skip, orderBy } })
+
+  const votedLink = data.allLinks.find(link => link.id === linkId)
+  votedLink.votes = createVote.link.votes
+  store.writeQuery({ query: ALL_LINKS_QUERY, data })
+}
+```
+ 
+All that's happening here is the computation of the variables depending on whether the user currently is on the `/top` or `/new` route.  
+
+Finally, you also need to adjust the implementation of `update` when new links are created. 
+
+Open `CreateLink.js` and replace the current contents of `_createLink` like so:
+
+```js
+_createLink = async () => {
+  const postedById = localStorage.getItem(GC_USER_ID)
+  if (!postedById) {
+    console.error('No user logged in')
+    return
+  }
+  const { description, url } = this.state
+  await this.props.createLinkMutation({
+    variables: {
+      description,
+      url,
+      postedById
+    },
+    update: (store, { data: { createLink } }) => {
+      const first = LINKS_PER_PAGE
+      const skip = 0
+      const orderBy = 'createdAt_DESC'
+      const data = store.readQuery({
+        query: ALL_LINKS_QUERY,
+        variables: { first, skip, orderBy }
+      })
+      data.allLinks.splice(0,0,createLink)
+      data.allLinks.pop()
+      store.writeQuery({
+        query: ALL_LINKS_QUERY,
+        data,
+        variables: { first, skip, orderBy }
+      })
+    }
+  })
+  this.props.history.push(`/new/1`)
+}
+``` 
+
+Since we don't have the `LINKS_PER_PAGE` constant available in this component yet, make sure to import it on top of the file:
+
+```js
+import { GC_USER_ID, LINKS_PER_PAGE } from '../constants'
+```
+
+### Summary
+
+In this chapter, you learned how to build an application with React and Apollo. 
