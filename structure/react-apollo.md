@@ -32,7 +32,6 @@
     - `react-router` with Apollo
 7. More Mutations
     - Mutation: Vote for Links
-    - Updating the Cache
 8. Filtering
     - Search Links
 9. Subscriptions
