@@ -5,10 +5,9 @@
 ## Structure
 
 1. Introduction
-    - Motivation
+    - Overview
     - Why a GraphQL Client?
     - Apollo vs Relay
-    - Apollo Overview
 2. Getting Started
     - Backend
         - Create Graphcool Backend 
@@ -25,12 +24,11 @@
 4. Mutations
     - Mutation: Creating Links
     - Mutations with Apollo
-    - Updating the Cache
-5. Authentication
+5. Routing
+    - `react-router` with Apollo
+6. Authentication
     - Backend Setup
     - Signup & Login
-6. Routing
-    - `react-router` with Apollo
 7. More Mutations
     - Mutation: Vote for Links
     - Updating the Cache
