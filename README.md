@@ -57,6 +57,7 @@ Read [this issue](https://github.com/howtographql/howtographql/issues/3)
 
 ## Contribution process
 
+- please read our [Writing Guidelines](https://github.com/howtographql/howtographql/blob/master/meta/writing-guidelines.md)
 - clear ownership (don't work on other stuff without PR)
 - reviews + PRs
 - keep issues up to date
