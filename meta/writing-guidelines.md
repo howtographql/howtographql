@@ -18,47 +18,38 @@ The first and second categories will be used most often, the third one will prob
 
 For code that is not part of the project (category 1), simply use language indicator on the code block, e.g.:
 
-```
- ```graphql
- query {
-   allMovies {
-     id
-     title
-   }
- }
- ```
-```
+<pre lang="no-highlight"><code>```graphql
+query {
+  allMovies {
+    id
+    title
+  }
+}
+``` 
+</code></pre>
 
 For code that is part of the project and that the user needs to copy or type (category 2), use the filename as an additional annotation on the code block:
-
-```
- ```js@App.js
- class App extends React.Component {
+<pre lang="no-highlight"><code>```js@App.js
+class App extends React.Component {
  
-   render() {
-     <div>Hello World</div>
-   }
+  render() {
+    <div>Hello World</div>
+  }
  
- }
- ```
-```
+}
+```</code></pre>
 
 For code that is part of the project but that the user should not copy or type at this point (category 2), the filename should be prepended with the `sample` keyword and a dash:
 
-```
- ```js@sample-App.js
- class App extends React.Component {
+<pre lang="no-highlight"><code>```js@sample-App.js
+class App extends React.Component {
  
-   render() {
-     <div>Hello World</div>
-   }
+  render() {
+    <div>Hello World</div>
+  }
  
- }
- ```
-```
-
-
-
+}
+```</code></pre>
 
 
 ## Style
