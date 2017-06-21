@@ -1,4 +1,4 @@
-# Backend - Express
+# Backend - Express / `graphql-js`
 
 **Example:** Simple Hackernews API
 
