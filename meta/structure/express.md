@@ -37,8 +37,7 @@
 
 ## Notes
 
-- 4 major parts: Schema, Resolvers, Models, and Connectors
-- [Cheat Sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png)
+- [GraphQL Cheat Sheet](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png)
 
 
 ## HN Example
