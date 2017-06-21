@@ -1,0 +1,12 @@
+.DS_STORE
+*.log
+node_modules
+dist
+dist*
+coverage
+.envrc
+.netlify
+.idea
+.prep-tmp
+lib/
+.cache

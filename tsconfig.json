@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "strictNullChecks": false,
+    "lib": ["es7", "dom"]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "muteNodeModules": true
+  }
+}
