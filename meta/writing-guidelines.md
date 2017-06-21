@@ -88,6 +88,6 @@ You might not be able to cover all the topics that are relevant to your tutorial
 
 ### Explain what's going on in a code block
 
-When you're showing a code block to the reader, make sure to explain what's going on in there. A nice approach approach is to put numbers on different parts inside the code block and then explain each step with 1 or 2 short sentences. 
+When you're showing a code block to the reader, make sure to explain what's going on in there. A nice approach approach is to put numbers on different parts inside the code block and then explain each step with 1 or 2 short sentences. For example:
 
 ![](http://imgur.com/LLRqPgT.png)
