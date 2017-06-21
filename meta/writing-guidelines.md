@@ -29,25 +29,29 @@ query {
 </code></pre>
 
 For code that is part of the project and that the user needs to copy or type (category 2), use the filename as an additional annotation on the code block:
-<pre lang="no-highlight"><code>```js@App.js
-class App extends React.Component {
- 
-  render() {
-    <div>Hello World</div>
-  }
- 
+<pre lang="no-highlight"><code>```js@CreateLink.js
+_createLink = async () => {
+  const { description, url } = this.state
+  await this.props.createLinkMutation({
+    variables: {
+      description,
+      url
+    }
+  })
 }
 ```</code></pre>
 
 For code that is part of the project but that the user should not copy or type at this point (category 2), the filename should be prepended with the `sample` keyword and a dash:
 
-<pre lang="no-highlight"><code>```js@sample-App.js
-class App extends React.Component {
- 
-  render() {
-    <div>Hello World</div>
-  }
- 
+<pre lang="no-highlight"><code>```js@sample-CreateLink.js
+_createLink = async () => {
+  const { description, url } = this.state
+  await this.props.createLinkMutation({
+    variables: {
+      description,
+      url
+    }
+  })
 }
 ```</code></pre>
 
