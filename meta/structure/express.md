@@ -47,7 +47,7 @@
 - Display list of links (incl pagination)
 - User login
 - Posting new links
-- Up- / downvoting links
+- Upvoting links
 - [Optional]: Adding comments
 
 
