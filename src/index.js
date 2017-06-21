@@ -3,7 +3,7 @@ import Link from 'gatsby-link'
 
 export default () => (
   <div>
-    <div>Helloooo</div>
+    <div>How to GraphQL</div>
     <Link to='/page'>go to page</Link>
   </div>
 )
