@@ -24,7 +24,7 @@ class Chooser extends React.Component {
     const { selectedIndex } = this.state;
     const selected = data[selectedIndex];
     const widthElement = 140 + 20;
-    const widthElementSelected = 140 + 84;
+    const widthElementSelected = 140 + 80;
     const translateX = (width / 2) - (widthElement * selectedIndex) - (widthElementSelected / 2);
     return (
       <div className="steps-container">
@@ -35,8 +35,8 @@ class Chooser extends React.Component {
 
           img {
             @p: .mh6;
-            height: 40px !important;
-            width: auto !important;
+            height: 40px;
+            width: auto;
           }
 
           .stacks-content {
@@ -50,12 +50,10 @@ class Chooser extends React.Component {
             align-items: center;
           }
           .stacks-item {
-            @p: .tc, .pointer;
-            cursor: pointer;
+            @p: .tc, .pointer, .mv0, .mh10;
             transition: all 0.1s ease-out;
             user-select: none;
             width: 140px;
-            margin: 0 10px;
           }
           .stacks-item img {
             @p: .o30;
@@ -65,10 +63,9 @@ class Chooser extends React.Component {
             @p: .mt10, .o40, .f14;
           }
           .stacks-item.active {
-            @p: .ba, .bWhite20, .bw2, .pv16;
+            @p: .ba, .bWhite20, .bw2, .pv16, .mv0, .mh38;
             transform: scale(1.2);
             border-radius: 6px;
-            margin: 0 40px;
           }
           .stacks-item.active img {
             @p: .o100;
@@ -88,8 +85,8 @@ class Chooser extends React.Component {
             @p: .w50;
           }
           .steps-list.fade-before::before {
+            @p: .db;
             content: '';
-            display: block;
             height: 48px;
             background-image: linear-gradient(to top, rgba(225, 225, 225, 0.2), #172a3a);
             width: 2px;
