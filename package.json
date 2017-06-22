@@ -5,7 +5,6 @@
     "gatsby-link": "next",
     "gatsby-plugin-sharp": "next",
     "gatsby-plugin-styled-jsx": "next",
-    "gatsby-plugin-typescript": "next",
     "gatsby-remark-copy-linked-files": "next",
     "gatsby-remark-prismjs": "next",
     "gatsby-remark-responsive-iframe": "next",
@@ -14,9 +13,22 @@
     "gatsby-source-filesystem": "next",
     "gatsby-transformer-remark": "next",
     "graphcool-styles": "^0.1.23",
+    "postcss-cssnext": "^2.11.0",
     "postcss-inherit": "git+https://github.com/timsuchanek/postcss-inherit#build3",
     "postcss-simple-vars": "^4.0.0",
+    "prep-cloud": "^0.0.8",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
-    "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3"
+    "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
+    "ts-loader": "^2.2.0",
+    "typescript": "2.2.1"
+  },
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build"
+  },
+  "devDependencies": {
+    "@types/react-router": "^4.0.11",
+    "postcss-discard-comments": "^2.0.4",
+    "tslint-microsoft-contrib": "^5.0.0"
   }
 }

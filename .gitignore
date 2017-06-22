@@ -10,3 +10,5 @@ coverage
 .prep-tmp
 lib/
 .cache
+public
+public*

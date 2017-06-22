@@ -1,7 +1,20 @@
-import React from 'react'
+import * as React from 'react'
 import '../styles/prism-ghcolors.css'
 
-class BlogPostTemplate extends React.Component {
+interface MarkdownRemark {
+  html: string
+  frontmatter: {
+    title: string
+  }
+}
+
+interface Props {
+  data: {
+    markdownRemark: MarkdownRemark
+  }
+}
+
+class BlogPostTemplate extends React.Component<Props, null> {
   render() {
     const post = this.props.data.markdownRemark
 
