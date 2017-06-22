@@ -1,33 +1,47 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
 
-const Html = props => (
-  <html lang="en">
-  <head>
-    <meta charSet="utf-8" />
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0 maximum-scale=5.0"
-    />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
-  </head>
-  <body>
-    <div
-      id="___gatsby"
-      dangerouslySetInnerHTML={{ __html: props.body }}
-    />
-    {props.postBodyComponents}
-  </body>
-  </html>
-)
-
-Html.propTypes = {
-  body: PropTypes.node,
+let stylesStr
+if (process.env.NODE_ENV === `production`) {
+  try {
+    stylesStr = require(`!raw-loader!../public/styles.css`)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-Html.defaultProps = {
-  body: '',
-}
-
-export default Html
+module.exports = React.createClass({
+  render() {
+    let css
+    if (process.env.NODE_ENV === `production`) {
+      css = (
+        <style
+          id="gatsby-inlined-css"
+          dangerouslySetInnerHTML={{ __html: stylesStr }}
+        />
+      )
+    }
+    return (
+      <html>
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <title>How to GraphQL</title>
+        {this.props.headComponents}
+        {css}
+      </head>
+      <body>
+      {this.props.preBodyComponents}
+      <div
+        id="___gatsby"
+        dangerouslySetInnerHTML={{ __html: this.props.body }}
+      />
+      {this.props.postBodyComponents}
+      </body>
+      </html>
+    )
+  },
+})
