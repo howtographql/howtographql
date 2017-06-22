@@ -12,8 +12,6 @@
   },
   "exclude": [
     "node_modules",
-    "node_modules/**",
-    "node_modules/gatsby-link/index.d.ts",
     "dist",
     ".cache"
   ]

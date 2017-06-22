@@ -14,5 +14,3 @@ export default () =>
     <Link to="/chooser">chooser</Link>
     <Link to="/tracks/frontend/react-apollo">React Apollo Markdown</Link>
   </div>
-
-const a = 5
