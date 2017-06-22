@@ -31,6 +31,7 @@ module.exports = {
     },
     `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-jsx`,
-    `gatsby-plugin-typescript`
+    `gatsby-plugin-typescript`,
+    `styled-jsx-plugin`
   ],
 }

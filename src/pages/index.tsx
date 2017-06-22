@@ -5,9 +5,9 @@ export default () => (
   <div className='index'>
     <style jsx>{`
       .index {
-        padding: 60px;
+        @p: .pa60;
       }
-      .index a {
+      .index :global(a) {
         display: block;
       }
     `}</style>
