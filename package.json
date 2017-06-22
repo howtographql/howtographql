@@ -40,6 +40,7 @@
   "devDependencies": {
     "@types/node": "^8.0.1",
     "@types/react-router": "^4.0.11",
+    "lint-staged": "^4.0.0",
     "postcss-discard-comments": "^2.0.4",
     "prettier": "^1.4.4",
     "tslint": "^5.4.3",
