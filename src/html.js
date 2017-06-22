@@ -1,15 +1,5 @@
-/* @flow weak */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { prefixLink } from 'gatsby-helpers'
-
-const defaultMessage = `
-Gatsby is currently using the default template for HTML. You can override
-this functionality by creating a React component at "/html.js"
-You can see what this default template does by visiting:
-https://github.com/gatsbyjs/gatsby/blob/master/lib/isomorphic/html.js
-`
-console.info(defaultMessage)
 
 const Html = props => (
   <html lang="en">
@@ -23,8 +13,11 @@ const Html = props => (
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
   </head>
   <body>
-  <div id="react-mount" dangerouslySetInnerHTML={{ __html: props.body }} />
-  <script src={prefixLink('/bundle.js')} />
+    <div
+      id="___gatsby"
+      dangerouslySetInnerHTML={{ __html: props.body }}
+    />
+    {props.postBodyComponents}
   </body>
   </html>
 )
