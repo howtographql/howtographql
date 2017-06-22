@@ -1,5 +1,13 @@
 {
   "extends": [
-    "tslint-microsoft-contrib"
-  ]
+    "tslint:latest",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "jsx-boolean-value": "never",
+    "semicolon": false,
+    "ordered-imports": false
+  }
 }
