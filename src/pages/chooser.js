@@ -4,7 +4,7 @@ import '../styles/reset.css'
 import '../styles/main.css'
 
 export default () => (
-  <div className={styles.chooser}>
+  <div>
     <h1>Chooser</h1>
   </div>
 )
