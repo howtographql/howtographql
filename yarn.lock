@@ -3066,9 +3066,9 @@ function-bind@^1.0.2, function-bind@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
 
-gatsby-link@next:
+"gatsby-link@git+https://github.com/timsuchanek/gatsby-link":
   version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/gatsby-link/-/gatsby-link-1.0.0-beta.2.tgz#0b0b58dbbbe0481b2632826d378a8f65425e7152"
+  resolved "git+https://github.com/timsuchanek/gatsby-link#216e37b08eaab7006dd34ab7b152564542d1d72c"
   dependencies:
     prop-types "^15.5.8"
     ric "^1.3.0"
