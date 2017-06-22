@@ -30,6 +30,7 @@ module.exports = React.createClass({
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <title>How to GraphQL</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
         {this.props.headComponents}
         {css}
       </head>

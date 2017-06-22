@@ -1,6 +1,7 @@
-import flush from 'styled-jsx-postcss/server'
-
 exports.onRenderBody = ({setHeadComponents}, pluginOptions) => {
-  const css = flush()
-  setHeadComponents([css])
+  if (process.env.NODE_ENV === `production`) {
+    const flush = require('styled-jsx-postcss/server')
+    const css = flush()
+    setHeadComponents([css])
+  }
 }
