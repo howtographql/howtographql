@@ -1,14 +1,13 @@
 {
   "extends": [
-    "tslint-config-standard"
+    "tslint:latest",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
   ],
   "rules": {
-    "trailing-comma": [
-      true,
-      {
-        "multiline": "always",
-        "singleline": "never"
-      }
-    ]
+    "jsx-boolean-value": "never",
+    "semicolon": false,
+    "ordered-imports": false
   }
 }

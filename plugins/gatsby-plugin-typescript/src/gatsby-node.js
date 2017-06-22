@@ -45,6 +45,13 @@ module.exports.modifyWebpackConfig = ({ config }, { compilerOptions }) => {
       `ts-loader?${JSON.stringify(opts)}`,
     ],
   })
+
+  config.preLoader(`typescript`, {
+    test,
+    loaders: [
+      `tslint-loader`
+    ]
+  })
 }
 
 module.exports.preprocessSource = (

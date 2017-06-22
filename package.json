@@ -19,11 +19,22 @@
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
     "ts-loader": "^2.2.0",
+    "tslint-config-prettier": "^1.1.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "tslint-react": "^3.0.0",
     "typescript": "2.2.1"
   },
   "scripts": {
     "start": "gatsby develop",
-    "build": "gatsby build"
+    "build": "gatsby build",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --single-quote --no-semi --trailing-comma all --write",
+      "tslint",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@types/react-router": "^4.0.11",
