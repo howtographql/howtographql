@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "classnames": "^2.2.5",
     "gatsby": "next",
     "gatsby-link": "next",
     "gatsby-plugin-sharp": "next",
