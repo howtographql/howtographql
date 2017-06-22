@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "gatsby": "next",
-    "gatsby-link": "next",
+    "gatsby-link": "git+https://github.com/timsuchanek/gatsby-link",
     "gatsby-plugin-sharp": "next",
     "gatsby-plugin-styled-jsx": "next",
     "gatsby-remark-copy-linked-files": "next",
