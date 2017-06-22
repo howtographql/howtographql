@@ -28,6 +28,9 @@
   "devDependencies": {
     "@types/react-router": "^4.0.11",
     "postcss-discard-comments": "^2.0.4",
-    "tslint-microsoft-contrib": "^5.0.0"
+    "prettier": "^1.4.4",
+    "tslint": "^5.4.3",
+    "tslint-config-standard": "^6.0.1",
+    "tslint-loader": "^3.5.3"
   }
 }

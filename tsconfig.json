@@ -7,7 +7,8 @@
     "jsx": "preserve",
     "sourceMap": true,
     "strictNullChecks": true,
-    "lib": ["es7", "dom"]
+    "lib": ["es7", "dom"],
+    "noUnusedLocals": true
   },
   "exclude": [
     "node_modules",

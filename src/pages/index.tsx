@@ -15,3 +15,5 @@ export default () => (
     <Link to='/tracks/frontend/react-apollo'>React Apollo Markdown</Link>
   </div>
 )
+
+const a = 5
