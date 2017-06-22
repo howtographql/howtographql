@@ -1,8 +1,12 @@
-import React from 'react'
+import * as React from 'react'
+
+interface State {
+  width: number
+}
 
 export default function withWidth() {
   return Component => {
-    class WithWidth extends React.Component {
+    class WithWidth extends React.Component<null, State> {
       constructor(props) {
         super(props);
         this.state = {

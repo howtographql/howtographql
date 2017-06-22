@@ -1,6 +1,10 @@
-import React from 'react'
+import * as React from 'react'
 
-const DottedListItem = ({ children }) => {
+interface Props {
+  children?: JSX.Element
+}
+
+const DottedListItem = ({ children }: Props) => {
   return (
     <div className="dotted-list-item">
       <style jsx={true}>{`

@@ -1,7 +1,6 @@
-import React from 'react'
-import {Icon} from 'graphcool-styles'
+import * as React from 'react'
 import Link from 'gatsby-link'
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import withWidth from '../components/with-width';
 import DottedListItem from '../components/dotted-list-item';
 import LeftColumn from '../components/left-column';
@@ -10,7 +9,15 @@ import data from '../components/list';
 import '../styles/reset.css'
 import '../styles/main.css'
 
-class Chooser extends React.Component {
+interface Props {
+  width: number
+}
+
+interface State {
+  selectedIndex: number
+}
+
+class Chooser extends React.Component<Props, State> {
   state = {
     selectedIndex: 0
   }

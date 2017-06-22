@@ -1,7 +1,12 @@
-import React from 'react'
-import classNames from 'classnames';
+import * as React from 'react'
+import * as classNames from 'classnames'
 
-const LeftColumn = ({ children, className }) => {
+interface Props {
+  children?: JSX.Element | JSX.Element[]
+  className?: string
+}
+
+const LeftColumn = ({ children, className }: Props) => {
   return (
     <div className={classNames('left-column', className)}>
       <style jsx={true}>{`
