@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "classnames": "^2.2.5",
     "gatsby": "next",
     "gatsby-link": "git+https://github.com/timsuchanek/gatsby-link",
     "gatsby-plugin-sharp": "next",
@@ -39,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^8.0.1",
     "@types/react-router": "^4.0.11",
     "lint-staged": "^4.0.0",
     "postcss-discard-comments": "^2.0.4",
