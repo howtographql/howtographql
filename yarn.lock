@@ -9017,9 +9017,9 @@ xml-char-classes@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/xml-char-classes/-/xml-char-classes-1.0.0.tgz#64657848a20ffc5df583a42ad8a277b4512bbc4d"
 
-"xmldom@git+https://github.com/timsuchanek/xmldom":
+"xmldom@git+https://github.com/timsuchanek/xmldom#node-list":
   version "0.1.27"
-  resolved "git+https://github.com/timsuchanek/xmldom#95b3627ad32aa5e8dc1b0974599a44fcbf1e72ff"
+  resolved "git+https://github.com/timsuchanek/xmldom#1ca3a99d09d024c9e30d7fd43a10dee36fea887c"
 
 "xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"
