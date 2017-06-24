@@ -8,7 +8,11 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "lib": ["es7", "dom"],
-    "noUnusedLocals": true
+    "allowJs": true,
+    "noUnusedLocals": true,
+    "types": [
+      "@types/node"
+    ]
   },
   "exclude": [
     "node_modules",
