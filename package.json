@@ -46,6 +46,6 @@
     "tslint": "^5.4.3",
     "tslint-config-standard": "^6.0.1",
     "tslint-loader": "^3.5.3",
-    "xmldom": "^0.1.27"
+    "xmldom": "git+https://github.com/timsuchanek/xmldom"
   }
 }
