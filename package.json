@@ -16,6 +16,8 @@
     "postcss-inherit": "git+https://github.com/timsuchanek/postcss-inherit#build3",
     "postcss-simple-vars": "^4.0.0",
     "prep-cloud": "^0.0.8",
+    "react": "15.5.4",
+    "react-jsx-parser": "git+https://github.com/timsuchanek/react-jsx-parser#components-object2",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
     "ts-loader": "^2.2.0",
@@ -43,6 +45,7 @@
     "prettier": "^1.4.4",
     "tslint": "^5.4.3",
     "tslint-config-standard": "^6.0.1",
-    "tslint-loader": "^3.5.3"
+    "tslint-loader": "^3.5.3",
+    "xmldom": "^0.1.27"
   }
 }

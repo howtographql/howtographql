@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === `production`) {
   }
 }
 
-module.exports = React.createClass({
+module.exports = class Html extends React.Component {
   render() {
     let css
     if (process.env.NODE_ENV === `production`) {
@@ -43,5 +43,5 @@ module.exports = React.createClass({
       </body>
       </html>
     )
-  },
-})
+  }
+}

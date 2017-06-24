@@ -1,4 +1,6 @@
 const path = require('path')
+const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
+const xmldom = require('xmldom')
 
 exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators
@@ -62,4 +64,26 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       })
     )
   })
+}
+
+exports.modifyWebpackConfig = function modifyWebpackConfig({config, stage}) {
+  config.removeLoader('md')
+  config.loader('md', {
+    test: /\.md$/,
+    loader: 'babel-loader!reactdown/webpack'
+  })
+
+  if (stage === 'build-html') {
+    const pages = config._config.plugins[0].paths
+    config._config.plugins[0] = new StaticSiteGeneratorPlugin({
+      entry: `render-page.js`,
+      paths: pages,
+      globals: {
+        DOMParser: xmldom.DOMParser,
+        NodeList: xmldom.NodeList,
+      }
+    })
+  }
+
+  return config
 }

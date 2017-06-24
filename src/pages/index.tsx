@@ -12,5 +12,6 @@ export default () =>
       }
     `}</style>
     <Link to="/chooser">chooser</Link>
+    <Link to="/tracks/">Tracks Home</Link>
     <Link to="/tracks/frontend/react-apollo">React Apollo Markdown</Link>
   </div>

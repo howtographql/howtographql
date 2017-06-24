@@ -1,39 +1,82 @@
----
-title: "AlphabetJS: The latest and greatest Javascript framework"
----
+<Hello />
 
-## Inops magnis Acrisius remisit Circes
+# graphcool-cli [![npm version](https://badge.fury.io/js/graphcool.svg)](https://badge.fury.io/js/graphcool) [![CircleCI](https://circleci.com/gh/graphcool/graphcool-cli.svg?style=svg)](https://circleci.com/gh/graphcool/graphcool-cli)
 
-Lorem markdownum *formasque* terram, fatum adnuit memores, stipulis
-virgine,
-ullo vires, potiere proles. Modo [nec Aesacon](http://gifctrl.com/) et
-vultum
-praeter fata gemitus panda. Factaque sibi repressit saltem, flammaeque
-ille per
-et opus flecti tellus inter: curru sidus. O iunxit ita erat, frondes,
-hac proles
-inritaturque?
+Manage your GraphQL backend from your terminal
 
-## Sed videt vestem vagatur
+## Features
 
-Palato rubentis enim, ora fontes lunaria, ventis iacebant pariter. Illa
-latet
-primae concedimus factis, animo ab nec vagantem praemia sustollit.
-Secunda
-detque ecce, sua vixque fontes *quantam* aede.
+* Instantly setup a production-ready GraphQL backend
+* **Edit your schema locally** and version control changes via [GraphQL SDL](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/)
+* Supports [multi-stage](https://www.graph.cool/docs/tutorials/cli-multi-staging-workflow-ex4wo4zaep/) environment workflows
 
-## Cuique in nullum futuri
+## Quickstart
 
-Amphitryoniaden sanguine et nefas lactentis iuvencae scit? Venis et dedi
-hoc
-thalamoque palmite fata, nec tot. Procorum super [patre aranea
-passis](http://reddit.com/r/thathappened) et regemque inque dedimus
-[haerent
-lumina ponunt](http://stoneship.org/), Rhodopeius lacertis! Conceperat
-tellus:
-hunc id nymphe en adest evolvere? Auro nescio extemplo triones et
-sceleratus
-queruntur inpavidus ab suos concutit, Ionio aut, de quo cinisque.
+Watch this [video tutorial](https://www.youtube.com/watch?v=sf0ZkyalSTg) 🎥 to get started with the CLI and follow the frontend [quickstart guide](https://www.graph.cool/docs/quickstart/).
+
+```bash
+# Create a new GraphQL backend
+graphcool init
+
+# Edit `project.graphcool` to change schema and push updates using...
+graphcool push
+```
+
+## Install
+
+Installs the global `graphcool` command via NPM (or Yarn).
+
+```bash
+npm install -g graphcool
+```
+
+## Usage
+
+```bash
+
+  Serverless GraphQL backend for frontend developers (https://www.graph.cool)
+
+  Usage: graphcool [command]
+
+  Commands:
+    init          Create a new project
+    push          Push project file changes
+    pull          Download the latest project file
+    export        Export project data
+    endpoints     Print GraphQL endpoints
+    console       Open Graphcool Console
+    playground    Open GraphQL Playground
+    projects      List projects
+    auth          Sign up or login
+    version       Print version
+
+  Run 'graphcool COMMAND --help' for more information on a command.
+
+  Examples:
+
+  - Initialize a new Graphcool project
+    $ graphcool init
+
+  - Local setup of an existing project
+    $ graphcool pull -p <project-id | alias>
+
+  - Update live project with local changes
+    $ graphcool push
+
+```
+
+## Resources
+
+* [Quickstart](https://www.graph.cool/docs/quickstart/): Using GraphQL with React, VueJS, Apollo, Relay & more
+* [Exploring Graphcool: The Serverless GraphQL Backend](https://www.graph.cool/docs/tutorials/graphcool-features-overview-ped6wohw0o/)
+* [Using the Graphcool CLI for a multi-stage development workflow](https://www.graph.cool/docs/tutorials/cli-multi-staging-workflow-ex4wo4zaep/)
+
+
+## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
+
+Join our [Slack community](http://slack.graph.cool/) if you run into issues or have questions. We love talking to you!
+
+![](http://i.imgur.com/5RHR6Ku.png)
 
 ```javascript
 import Typography from 'typography'
@@ -63,23 +106,3 @@ if (process.env.NODE_ENV !== 'production') {
 export default typography
 ```
 
-## Diu fas tractaque Tethyn vidi exigere
-
-Aenea inque est flexo armos et bovis! Naides alta vocisque videt fit
-cervum
-elusam Macareus vicisse illis unguibus. Multorumque tumulo
-**praetemptatque
-occidit** ingentique et summas Nili virgo vaticinata facinus positae
-vestes,
-*exstinguere iuvat* Lycaona postquam.
-
-- Multaque in coloque
-- Emicuit errandum
-- Mitior ego verbis interdum occupat feruntur
-- Parili Meleagros fluit et timorem
-
-Gemit petit, cingentia quis carens, duxere es sortem corpora quamvis?
-**Palmis
-visa**, nec deo fuit Amphissos, et sprevere Acmona illa habuissem
-**asper**. Et
-[nemus](http://reddit.com/r/thathappened) Iunone: et deae!
