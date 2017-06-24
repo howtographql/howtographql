@@ -88,13 +88,13 @@ For now, we're just going use the `Link` type to create our backend.
 
 The first thing you need to do is install the Graphcool CLI with npm. Open up a terminal window and type the following:
 
-```sh
+```bash
 npm install -g graphcool
 ```
 
 Now you can go and create the server. Type the following command into the terminal:
 
-```sh
+```bash
 graphcool init --schema https://graphqlbin.com/hn-starter.graphql --name Hackernews
 ```
 

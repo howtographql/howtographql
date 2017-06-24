@@ -17,7 +17,7 @@
     "postcss-simple-vars": "^4.0.0",
     "prep-cloud": "^0.0.8",
     "react": "15.5.4",
-    "react-jsx-parser": "git+https://github.com/timsuchanek/react-jsx-parser#components-object2",
+    "react-jsx-parser": "git+https://github.com/timsuchanek/react-jsx-parser#components-object3",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
     "ts-loader": "^2.2.0",

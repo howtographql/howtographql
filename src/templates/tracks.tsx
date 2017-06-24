@@ -65,15 +65,19 @@ class BlogPostTemplate extends React.Component<Props, null> {
           .fl {
             @p: .flex;
           }
+          .fl > div {
+            @p: .w50;
+          }
         `}</style>
-        <h1>{post.frontmatter.title}</h1>
         <div className="fl">
-          <JsxParser
-            jsx={`<div>${post.html}</div>`}
-            components={{ Hello }}
-            bindings={{}}
-            showWarnings={true}
-          />
+          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+          <div>
+            <JsxParser
+              jsx={`<div>${post.html}</div>`}
+              components={{ HELLO: Hello }}
+              showWarnings={true}
+            />
+          </div>
         </div>
       </div>
     )

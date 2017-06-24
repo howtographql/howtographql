@@ -6750,10 +6750,11 @@ react-hot-loader@^3.0.0-beta.6:
     redbox-react "^1.3.6"
     source-map "^0.4.4"
 
-"react-jsx-parser@git+https://github.com/timsuchanek/react-jsx-parser#components-object2":
+"react-jsx-parser@git+https://github.com/timsuchanek/react-jsx-parser#components-object3":
   version "0.0.12"
-  resolved "git+https://github.com/timsuchanek/react-jsx-parser#1d52b5b11eb8f8bc864a201becd12832f07f517f"
+  resolved "git+https://github.com/timsuchanek/react-jsx-parser#32b22ad8db0884aaf24d11f7682f09113c29fbde"
   dependencies:
+    prop-types "^15.5.10"
     react "^15.4.2"
 
 react-proxy@^3.0.0-alpha.0:
@@ -6790,7 +6791,7 @@ react-router@^4.1.1:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react@15.5.4, react@^15.4.2:
+react@15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:
@@ -6799,7 +6800,7 @@ react@15.5.4, react@^15.4.2:
     object-assign "^4.1.0"
     prop-types "^15.5.7"
 
-react@^15.6.0:
+react@^15.4.2, react@^15.6.0:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:
