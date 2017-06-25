@@ -26,6 +26,6 @@ const DottedListItem = ({ children }: Props) => {
       {children}
     </div>
   )
-};
+}
 
-export default DottedListItem;
+export default DottedListItem

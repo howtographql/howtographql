@@ -1,17 +1,25 @@
 import * as React from 'react'
-import Link from 'gatsby-link'
+import Header from '../components/Header'
+import Chooser from '../components/home/Chooser'
+import Intro from '../components/home/Intro'
+
+import '../styles/reset.css'
+import '../styles/main.css'
 
 export default () =>
-  <div className="index">
-    <style jsx={true}>{`
-      .index {
-        @p: .pa60;
+  <div>
+    <style jsx={true} global={true}>{`
+      h1 {
+        @p: .f38, .lhTitle;
       }
-      .index :global(a) {
-        display: block;
+      h2, h3, h4 {
+        @p: .fw6;
+      }
+      p {
+        @p: .f20, .darkBlue50, .lhCopy;
       }
     `}</style>
-    <Link to="/chooser">chooser</Link>
-    <Link to="/tracks/">Tracks Home</Link>
-    <Link to="/tracks/frontend/react-apollo">React Apollo Markdown</Link>
+    <Header />
+    <Intro />
+    <Chooser />
   </div>

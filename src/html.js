@@ -29,8 +29,8 @@ module.exports = class Html extends React.Component {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
         <title>How to GraphQL</title>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
         {this.props.headComponents}
         {css}
       </head>

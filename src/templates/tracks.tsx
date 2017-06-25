@@ -25,14 +25,11 @@ class BlogPostTemplate extends React.Component<Props, null> {
           .markdown {
             @p: .lhCopy, .pa60;
           }
-          h1 {
-            @p: .f38, .mb25;
-          }
           .markdown h1, .markdown h2, .markdown h3, .markdown h4 {
             @p: .lhTitle, .darkBlue, .fw6;
           }
           .markdown h1 {
-            @p: .f38;
+            @p: .f38, .mb25;
           }
           .markdown h2 {
             @p: .f25;
@@ -41,8 +38,7 @@ class BlogPostTemplate extends React.Component<Props, null> {
             @p: .f20;
           }
           .markdown h2 {
-            margin-top: 48px;
-            /* 2x mt38 due to vertical line */
+            margin-top: 48px; /* 2x mt38 due to vertical line */
           }
           .markdown h3 {
             margin-top: 30px;

@@ -24,6 +24,6 @@ const LeftColumn = ({ children, className }: Props) => {
       {children}
     </div>
   )
-};
+}
 
-export default LeftColumn;
+export default LeftColumn

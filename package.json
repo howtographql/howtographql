@@ -12,12 +12,13 @@
     "gatsby-remark-smartypants": "next",
     "gatsby-source-filesystem": "next",
     "gatsby-transformer-remark": "next",
-    "graphcool-styles": "^0.1.23",
+    "graphcool-styles": "^0.1.26",
     "postcss-cssnext": "^2.11.0",
     "postcss-inherit": "git+https://github.com/timsuchanek/postcss-inherit#build3",
     "postcss-simple-vars": "^4.0.0",
     "prep-cloud": "^0.0.8",
     "react": "15.5.4",
+    "react-inlinesvg": "^0.6.0",
     "react-jsx-parser": "git+https://github.com/timsuchanek/react-jsx-parser#components-object3",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
@@ -25,7 +26,8 @@
     "tslint-config-prettier": "^1.1.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.0.0",
-    "typescript": "2.2.1"
+    "typescript": "2.2.1",
+    "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start": "gatsby develop",
@@ -40,7 +42,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^8.0.1",
+    "@types/node": "^8.0.2",
     "@types/react-router": "^4.0.11",
     "lint-staged": "^4.0.0",
     "postcss-discard-comments": "^2.0.4",
