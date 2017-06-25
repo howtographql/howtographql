@@ -1,5 +1,8 @@
 # howtographql
 
+## Development Version
+The latest dev version is always available at [https://howtographql.netlify.com](https://howtographql.netlify.com)
+
 ## Markdown Files
 All tutorials are in [`src/pages/tutorials`](https://github.com/howtographql/howtographql/tree/master/src/pages/tutorials)
 
