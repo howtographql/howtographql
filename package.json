@@ -13,6 +13,7 @@
     "gatsby-source-filesystem": "next",
     "gatsby-transformer-remark": "next",
     "graphcool-styles": "^0.1.26",
+    "lodash": "^4.17.4",
     "postcss-cssnext": "^2.11.0",
     "postcss-inherit": "git+https://github.com/timsuchanek/postcss-inherit#build3",
     "postcss-simple-vars": "^4.0.0",

@@ -2,6 +2,7 @@
 const data = [
   {
     title: 'React + Apollo',
+    key: 'react-apollo',
     images: [
       require('../../assets/icons/react.svg'),
       require('../../assets/icons/apollo.svg'),
@@ -52,6 +53,7 @@ const data = [
   },
   {
     title: 'React + Relay',
+    key: 'react-relay',
     images: [
       require('../../assets/icons/react.svg'),
       require('../../assets/icons/graphcool.svg'),
@@ -82,6 +84,7 @@ const data = [
   },
   {
     title: 'React + Relay',
+    key: 'react-relay',
     images: [require('../../assets/icons/sangria.svg')],
     content: {
       title: 'React + Apollo Tutorial',

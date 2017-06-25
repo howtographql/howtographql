@@ -4,9 +4,9 @@ interface State {
   width: number
 }
 
-export default function withWidth() {
+export default function withWidth<T>() {
   return Component => {
-    class WithWidth extends React.Component<null, State> {
+    class WithWidth extends React.Component<T, State> {
       constructor(props) {
         super(props)
         const innerWidth = typeof window !== 'undefined'

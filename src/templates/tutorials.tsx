@@ -1,17 +1,11 @@
 import * as React from 'react'
 import '../styles/prism-ghcolors.css'
 import JsxParser from 'react-jsx-parser'
-
-interface IMarkdownRemark {
-  html: string
-  frontmatter: {
-    title: string
-  }
-}
+import { MarkdownRemark } from '../types'
 
 interface Props {
   data: {
-    markdownRemark: IMarkdownRemark
+    markdownRemark: MarkdownRemark
   }
 }
 
@@ -64,6 +58,7 @@ class Tutorials extends React.Component<Props, null> {
         `}</style>
         <div className="fl">
           <div>
+            <h1>{post.frontmatter.title}</h1>
             <JsxParser
               jsx={`<div>${post.html}</div>`}
               components={{ HELLO: Hello }}

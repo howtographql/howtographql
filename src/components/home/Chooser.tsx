@@ -5,12 +5,16 @@ import withWidth from './withWidth'
 import DottedListItem from './DottedListItem'
 import LeftColumn from './LeftColumn'
 import data from './List'
+import * as groupBy from 'lodash/groupBy'
+import * as sortBy from 'lodash/sortBy'
 
 import '../../styles/reset.css'
 import '../../styles/main.css'
+import { MarkdownRemark } from '../../types'
 
 interface Props {
-  width: number
+  width?: number
+  mds: MarkdownRemark[]
 }
 
 interface State {
@@ -26,14 +30,42 @@ class Chooser extends React.Component<Props, State> {
     this.setState({ selectedIndex: index })
   }
 
+  extractGroup(slug) {
+    return slug.split('/')[3]
+  }
+
   render() {
-    const { width } = this.props
+    const { width, mds } = this.props
     const { selectedIndex } = this.state
-    const selected = data[selectedIndex]
     const widthElement = 140 + 20
     const widthElementSelected = 140 + 80
     const translateX =
-      width / 2 - widthElement * selectedIndex - widthElementSelected / 2
+      (width || 1) / 2 - widthElement * selectedIndex - widthElementSelected / 2
+
+    const groupedChapters = groupBy(mds, md =>
+      this.extractGroup(md.fields.slug),
+    )
+
+    const tutorials = data.map(tutorial => {
+      let steps = tutorial.steps
+      if (groupedChapters[tutorial.key]) {
+        steps = groupedChapters[tutorial.key].map(chapter => ({
+          link: chapter.fields.slug,
+          title: chapter.frontmatter.title,
+        }))
+        // when step.link is  "/tutorials/frontend/react-apollo/7-filtering-searching-the-list-of-links/"
+        // sort by 7
+        steps = sortBy(steps, step =>
+          parseInt(step.link.split('/')[4].split('-')[0], 10),
+        )
+      }
+      return {
+        ...tutorial,
+        steps,
+      }
+    })
+    const selected = tutorials[selectedIndex]
+
     return (
       <div className="steps-container">
         <style jsx={true}>{`
@@ -132,7 +164,7 @@ class Chooser extends React.Component<Props, State> {
             className="stacks"
             style={{ transform: `translateX(${translateX}px)` }}
           >
-            {data.map((tuto, index) =>
+            {tutorials.map((tutorial, index) =>
               <div
                 className={classNames('stacks-item', {
                   active: selectedIndex === index,
@@ -141,9 +173,9 @@ class Chooser extends React.Component<Props, State> {
                 key={index}
               >
                 <div>
-                  <img src={tuto.images[0]} />
-                  {tuto.images[1] && <img src={tuto.images[1]} />}
-                  <p>{tuto.title}</p>
+                  <img src={tutorial.images[0]} />
+                  {tutorial.images[1] && <img src={tutorial.images[1]} />}
+                  <p>{tutorial.title}</p>
                 </div>
               </div>,
             )}
@@ -169,4 +201,4 @@ class Chooser extends React.Component<Props, State> {
   }
 }
 
-export default withWidth()(Chooser)
+export default withWidth<Props>()(Chooser)

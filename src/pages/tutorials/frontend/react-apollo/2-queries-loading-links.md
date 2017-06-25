@@ -1,5 +1,5 @@
 ---
-title: Queries: Loading Links
+title: "Queries: Loading Links"
 ---
 
 ### Preparing the React components
