@@ -9,22 +9,32 @@ export default function withWidth() {
     class WithWidth extends React.Component<null, State> {
       constructor(props) {
         super(props)
+        const innerWidth = typeof window !== 'undefined'
+          ? window.innerWidth
+          : 800
         this.state = {
-          width: window.innerWidth,
+          width: innerWidth,
         }
       }
 
       componentDidMount() {
         this.updateWindowDimensions()
-        window.addEventListener('resize', this.updateWindowDimensions)
+        if (typeof window !== 'undefined') {
+          window.addEventListener('resize', this.updateWindowDimensions)
+        }
       }
 
       componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions)
+        if (typeof window !== 'undefined') {
+          window.removeEventListener('resize', this.updateWindowDimensions)
+        }
       }
 
       updateWindowDimensions = () => {
-        this.setState({ width: window.innerWidth })
+        const innerWidth = typeof window !== 'undefined'
+          ? window.innerWidth
+          : 800
+        this.setState({ width: innerWidth })
       }
 
       render() {
