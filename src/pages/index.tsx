@@ -92,9 +92,11 @@ export default props => {
           margin: 0;
           padding: 0;
           border: 0;
-          font-size: 100%; /*font: inherit;*/
+          font-size: 100%;
+          font-family: 'Open Sans', sans-serif;
           vertical-align: baseline;
-        } /* HTML5 display-role reset for older browsers */
+        }
+        /* HTML5 display-role reset for older browsers */
         article,
         aside,
         details,
@@ -125,10 +127,13 @@ export default props => {
           border-collapse: collapse;
           border-spacing: 0;
         } /* main rules */
-        body {
+        body, input, select, option, textarea {
           font-family: 'Open Sans', sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
+        }
+        input, select, options, textarea {
+          outline: none;
         }
         h1 {
           @p: .f38, .lhTitle;
