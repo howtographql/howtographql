@@ -1,4 +1,5 @@
 import * as React from 'react'
+import IntroSteps from './IntroSteps'
 
 export default class Intro extends React.Component<null, null> {
   render() {
@@ -6,7 +7,7 @@ export default class Intro extends React.Component<null, null> {
       <div className="intro">
         <style jsx={true}>{`
           .intro {
-            @p: .mv96;
+            @p: .mt96;
           }
           h1 {
             @p: .tc;
@@ -54,7 +55,7 @@ export default class Intro extends React.Component<null, null> {
         <div className="center-container">
           <div className="btn">Start with Introduction</div>
         </div>
-
+        <IntroSteps />
       </div>
     )
   }
