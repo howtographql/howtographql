@@ -26,7 +26,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
   return new Promise((resolve, reject) => {
     const pages = []
-    const tracks = path.resolve('src/templates/tracks.tsx')
+    const tutorials = path.resolve('src/templates/tutorials.tsx')
     // Query for all markdown "nodes" and for the slug we previously created.
     resolve(
       graphql(
@@ -53,7 +53,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         result.data.allMarkdownRemark.edges.forEach(edge => {
           createPage({
             path: edge.node.fields.slug, // required
-            component: tracks,
+            component: tutorials,
             context: {
               slug: edge.node.fields.slug,
             },

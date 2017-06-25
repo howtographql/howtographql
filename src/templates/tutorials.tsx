@@ -15,7 +15,7 @@ interface Props {
   }
 }
 
-class BlogPostTemplate extends React.Component<Props, null> {
+class Tutorials extends React.Component<Props, null> {
   public render() {
     const post = this.props.data.markdownRemark
 
@@ -61,12 +61,8 @@ class BlogPostTemplate extends React.Component<Props, null> {
           .fl {
             @p: .flex;
           }
-          .fl > div {
-            @p: .w50;
-          }
         `}</style>
         <div className="fl">
-          <div dangerouslySetInnerHTML={{ __html: post.html }} />
           <div>
             <JsxParser
               jsx={`<div>${post.html}</div>`}
@@ -80,7 +76,8 @@ class BlogPostTemplate extends React.Component<Props, null> {
   }
 }
 
-export default BlogPostTemplate
+/*<div dangerouslySetInnerHTML={{ __html: post.html }} />*/
+export default Tutorials
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {

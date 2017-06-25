@@ -26,8 +26,7 @@
     "tslint-config-prettier": "^1.1.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.0.0",
-    "typescript": "2.2.1",
-    "webfontloader": "^1.6.28"
+    "typescript": "2.2.1"
   },
   "scripts": {
     "start": "gatsby develop",
