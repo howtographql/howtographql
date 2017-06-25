@@ -1,5 +1,7 @@
 import * as React from 'react'
 import Search from './Search'
+import Icon from 'graphcool-styles/dist/components/Icon/Icon'
+import { $v } from 'graphcool-styles'
 
 export default function Header() {
   return (
@@ -7,7 +9,7 @@ export default function Header() {
       <style jsx={true}>{`
         .header {
           font-family: 'Open Sans' !important;
-          @p: .flex, .bb, .bDarkBlue10, .pa16, .justifyBetween;
+          @p: .flex, .bb, .bDarkBlue10, .justifyBetween;
         }
         .logo {
           @p: .flex, .ttu, .fw6, .itemsCenter, .pink;
@@ -17,10 +19,29 @@ export default function Header() {
           @p: .mr10;
         }
         .left {
-          @p: .flex;
+          @p: .flex, .pa16;
         }
         .right {
           @p: .flex;
+        }
+        .element {
+          @p: .bl,
+            .bDarkBlue10,
+            .f14,
+            .ph25,
+            .darkBlue60,
+            .pointer,
+            .itemsCenter,
+            .flex;
+        }
+        .element:hover {
+          @p: .darkBlue;
+        }
+        .triangle {
+          @p: .f14, .ml6;
+        }
+        .element.github {
+          @p: .ph25, .flex, .itemsCenter, .pv0;
         }
       `}</style>
       <div className="left">
@@ -30,7 +51,31 @@ export default function Header() {
         </div>
         <Search />
       </div>
-      <div className="right" />
+      <div className="right">
+        <div className="element">
+          <span>GraphQL</span>
+          <span className="triangle">▾</span>
+        </div>
+        <div className="element">
+          <span>Frontend</span>
+          <span className="triangle">▾</span>
+        </div>
+        <div className="element">
+          <span>Backend</span>
+          <span className="triangle">▾</span>
+        </div>
+        <a
+          className="element github"
+          href="https://github.com/howtographql/howtographql"
+        >
+          <Icon
+            src={require('graphcool-styles/icons/fill/github.svg')}
+            color={$v.gray30}
+            width={32}
+            height={32}
+          />
+        </a>
+      </div>
     </div>
   )
 }
