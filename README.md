@@ -1,5 +1,8 @@
 # howtographql
 
+## Markdown Files
+All tutorials are in `src/pages/tutorials`
+
 ## Goals
 
 Read [this issue](https://github.com/howtographql/howtographql/issues/3).
