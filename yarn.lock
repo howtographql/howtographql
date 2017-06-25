@@ -9142,3 +9142,7 @@ yauzl@^2.2.1:
   dependencies:
     buffer-crc32 "~0.2.3"
     fd-slicer "~1.0.1"
+
+youtube-embed-video@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/youtube-embed-video/-/youtube-embed-video-1.0.2.tgz#398c8cdbe4efb13ca1d3474085cd2bb61012b4ea"

@@ -8,8 +8,17 @@ export default function Header() {
     <div className="header">
       <style jsx={true}>{`
         .header {
-          font-family: 'Open Sans' !important;
-          @p: .flex, .bb, .bDarkBlue10, .justifyBetween;
+          @p: .flex,
+            .bb,
+            .bDarkBlue10,
+            .justifyBetween,
+            .fixed,
+            .left0,
+            .right0,
+            .top0,
+            .z1,
+            .bgWhite;
+          transform: translate3d(0, 0, 0);
         }
         .logo {
           @p: .flex, .ttu, .fw6, .itemsCenter, .pink;

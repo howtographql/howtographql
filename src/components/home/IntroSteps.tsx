@@ -67,6 +67,7 @@ export default function IntroSteps() {
           )}
         </div>
       </div>
+
     </div>
   )
 }

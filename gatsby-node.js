@@ -26,7 +26,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
   return new Promise((resolve, reject) => {
     const pages = []
-    const tutorials = path.resolve('src/templates/tutorials.tsx')
+    const tutorials = path.resolve('src/templates/Tutorials.tsx')
     // Query for all markdown "nodes" and for the slug we previously created.
     resolve(
       graphql(

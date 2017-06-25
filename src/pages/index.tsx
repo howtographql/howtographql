@@ -1,11 +1,12 @@
 import * as React from 'react'
-import Header from '../components/Header'
 import Chooser from '../components/home/Chooser'
 import Intro from '../components/home/Intro'
+import App from '../components/App'
+import { extractSteps } from '../utils/graphql'
 
 export default props => {
   return (
-    <div>
+    <App>
       <style jsx={true} global={true}>{`
         /* reset.css */
         html,
@@ -145,14 +146,9 @@ export default props => {
           @p: .f20, .darkBlue50, .lhCopy;
         }
       `}</style>
-      <Header />
       <Intro />
-      <Chooser
-        mds={props.data.mds.edges
-          .map(edge => edge.node)
-          .filter(n => n.frontmatter.title.length > 0)}
-      />
-    </div>
+      <Chooser mds={extractSteps(props.data.mds)} />
+    </App>
   )
 }
 
@@ -170,4 +166,5 @@ export const pageQuery = graphql`
         }
       }
     }
-  }`
+  }
+`
