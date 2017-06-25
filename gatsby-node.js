@@ -81,6 +81,9 @@ exports.modifyWebpackConfig = function modifyWebpackConfig({config, stage}) {
       globals: {
         DOMParser: xmldom.DOMParser,
         NodeList: xmldom.NodeList,
+        atob: function atob(str) {
+          return new Buffer(str, 'base64').toString('binary');
+        },
       }
     })
   }
