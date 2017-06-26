@@ -140,14 +140,20 @@ export default function App({ children }: Props) {
         h1 {
           @p: .f38, .lhTitle;
         }
-        h2, h3, h4 {
-          @p: .fw6;
+        h2 {
+          font-size: 35px;
         }
         p {
           @p: .f20, .darkBlue50, .lhCopy;
         }
         a {
           @p: .noUnderline;
+        }
+        section {
+          @p: .pt96;
+        }
+        section h2 {
+          @p: .tc;
         }
       `}</style>
       <style jsx={true}>{`
