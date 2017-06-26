@@ -6,15 +6,12 @@ export default class Intro extends React.Component<null, null> {
     return (
       <section className="intro">
         <style jsx={true}>{`
-          .intro {
-            @p: .mt96;
-          }
           h1 {
             @p: .tc;
             font-size: 54px;
           }
           p {
-            @p: .mt25, .mb38, .center, .tc;
+            @p: .mt25, .mb10, .center, .tc;
             max-width: 800px;
           }
           .watch-overview {

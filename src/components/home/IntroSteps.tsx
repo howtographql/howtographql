@@ -15,8 +15,11 @@ export default function IntroSteps() {
         .steps-content {
           @p: .flex;
         }
-        .steps-content :global(.steps-description) {
-          margin-top: 48px;
+        .steps-content :global(.steps-description) h3 {
+          @p: .mt0;
+        }
+        .advanced-graphql {
+          margin-top: 76px;
         }
         .steps-list {
           @p: .w50;
@@ -41,14 +44,35 @@ export default function IntroSteps() {
         .time.first {
           top: -3px;
         }
+        .steps-content :global(.steps-description) .time {
+          @p: .justifyEnd, .pr38, .mt16;
+        }
       `}</style>
       <div className="steps-content">
         <LeftColumn className="steps-description" light={true}>
-          <h3>GraphQL Basics</h3>
-          <p>
-            In the first chapter, we’ll learn the core concepts of GraphQL. In
-            the first chapter we’ll learn the core concepts of GraphQL.{' '}
-          </p>
+          <div>
+            <h3>GraphQL Basics</h3>
+            <div className="time">
+              <img src={require('../../assets/icons/play.svg')} alt="" />
+              <span>12 MIN TOTAL</span>
+            </div>
+            <p>
+              In the first chapter, we’ll learn the core concepts of GraphQL. In
+              the first chapter we’ll learn the core concepts of GraphQL.{' '}
+            </p>
+          </div>
+          <div className="advanced-graphql">
+            <h3>Advanced GraphQL (optional)</h3>
+            <div className="time">
+              <img src={require('../../assets/icons/play.svg')} alt="" />
+              <span>19 MIN TOTAL</span>
+            </div>
+            <p>
+              This chapter is optional, but a good
+              foundation for a true understanding
+              of GraphQL
+            </p>
+          </div>
         </LeftColumn>
         <div className="steps-list fade-before">
           {steps.map((step, index) =>
