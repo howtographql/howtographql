@@ -34,7 +34,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
       <div className="optional-steps">
         <style jsx={true}>{`
           .optional-steps {
-            @p: .flex, .bl, .bw2, .bBlack20;
+            @p: .flex, .bl, .bw2, .bBlack20, .pb25;
           }
           p {
             @p: .black30;
