@@ -3,6 +3,7 @@ import LeftColumn from './LeftColumn'
 import DottedListItem from './DottedListItem'
 import Link from 'gatsby-link'
 import * as cn from 'classnames'
+import OptionalSteps from './OptionalSteps'
 
 export default function IntroSteps() {
   return (
@@ -51,7 +52,7 @@ export default function IntroSteps() {
         </LeftColumn>
         <div className="steps-list fade-before">
           {steps.map((step, index) =>
-            <DottedListItem key={index} light={true} first={index === 0}>
+            <DottedListItem key={step.title} light={true} first={index === 0}>
               <div className="list-item">
                 <Link to={step.link}>
                   {step.title}
@@ -65,9 +66,9 @@ export default function IntroSteps() {
               </div>
             </DottedListItem>,
           )}
+          <OptionalSteps steps={optionalSteps} />
         </div>
       </div>
-
     </div>
   )
 }
@@ -88,6 +89,9 @@ const steps = [
     time: 3,
     title: 'GraphQL concepts',
   },
+]
+
+const optionalSteps = [
   {
     link: '/',
     time: 3,
@@ -95,7 +99,22 @@ const steps = [
   },
   {
     link: '/',
-    time: 3,
-    title: 'Servers',
+    time: 4,
+    title: 'Server',
+  },
+  {
+    link: '/',
+    time: 20,
+    title: 'Tooling and Ecosystem',
+  },
+  {
+    link: '/',
+    time: 1,
+    title: 'More GraphQL Concepts',
+  },
+  {
+    link: '/',
+    time: 1,
+    title: 'Common Questions',
   },
 ]

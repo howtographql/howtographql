@@ -20,4 +20,5 @@ export interface MarkdownRemark {
 export interface Step {
   title: string
   link: string
+  time?: number
 }
