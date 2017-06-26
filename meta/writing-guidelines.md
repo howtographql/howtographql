@@ -19,53 +19,11 @@ You can use _three_ different kinds of code blocks inside yours tutorial, depend
 
 The first and second categories will be used most often, the third one will probably only occur in exceptional cases.
 
-For code that is not part of the project (**category 1**), simply use language indicator on the code block, e.g.:
-
-<pre lang="no-highlight"><code>```graphql
-query {
-  allMovies {
-    id
-    title
-  }
-}
-``` 
-</code></pre>
-
-For code that is part of the project and that the user needs to copy or type (**category 2**), use the filename as an additional annotation on the code block:
-
-<pre lang="no-highlight"><code>```js@CreateLink.js
-_createLink = async () => {
-  const { description, url } = this.state
-  await this.props.createLinkMutation({
-    variables: {
-      description,
-      url
-    }
-  })
-}
-```</code></pre>
-
-> This will allow the reader to clearly understand that they need to do something with this code block. There will likely be a _copy_-option included as well so that the user can just click a button to copy the code rather than selecting it and hitting CMD+C. An example for that looks like can be found in [Learn Apollo](https://www.learnapollo.com/tutorial-react/react-02).
-
-For code that is part of the project but that the user should not copy or type at this point (**category 3**), the filename should be prepended with the `sample` keyword and a dash:
-
-<pre lang="no-highlight"><code>```js@sample-CreateLink.js
-_createLink = async () => {
-  const { description, url } = this.state
-  await this.props.createLinkMutation({
-    variables: {
-      description,
-      url
-    }
-  })
-}
-```</code></pre>
-
-**NOTE**: The syntax for the code blocks might still change - more info will follow on **Tuesday, June 27**.
+We're currently in the process of designing the different code blocks, more info on the syntax will follow on **Tuesday, June 27**.
 
 ### Instruction Blocks
 
-Since you'll produce a detailled step-by-step tutorial, it's important to include _every_ single instruction for the reader to get from the start to the end product. Actual instructions will be visually highlighted in the design so that the reader who just wants to go through the tutorial as fast as possible can skip the parts that are not relevant to actually move forward with the project.
+Since you'll produce a detailled step-by-step tutorial, it's important to include _every_ single instruction for the reader to get from the start to the end product. Instructions will be visually highlighted in the design so that the reader who just wants to go through the tutorial as fast as possible can skip the parts that are not relevant to actually move forward with the project.
 
 **TBD**: You'll have to somehow mark these in instruction blocks in the markdown. We havent' figured out the syntaxt for that yet - more info will follow on **Tuesday, June 27**.
 
