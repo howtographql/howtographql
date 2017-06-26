@@ -36,6 +36,10 @@ export default function IntroSteps() {
         .duration {
           @p: .mt16, .mr38, .flex, .justifyEnd;
         }
+        :global(.first-duration-up) {
+          @p: .relative;
+          top: -3px;
+        }
       `}</style>
       <div className="steps-content">
         <LeftColumn className="steps-description" light={true}>
@@ -68,7 +72,10 @@ export default function IntroSteps() {
                 <Link to={step.link}>
                   {step.title}
                 </Link>
-                <Duration duration={step.time} />
+                <Duration
+                  duration={step.time}
+                  className={index === 0 ? 'first-duration-up' : ''}
+                />
               </div>
             </DottedListItem>,
           )}

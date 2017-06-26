@@ -5,11 +5,12 @@ interface Props {
   duration: number
   total?: boolean
   dark?: boolean
+  className?: string
 }
 
-export default function Duration({ duration, total, dark }: Props) {
+export default function Duration({ duration, total, dark, className }: Props) {
   return (
-    <div className={cn('time', { dark })}>
+    <div className={cn('time', className, { dark })}>
       <style jsx={true}>{`
         .time {
           @p: .ttu, .black30, .ml10, .itemsCenter, .flex, .fw6, .relative;
