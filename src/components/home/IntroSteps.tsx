@@ -18,6 +18,10 @@ export default function IntroSteps() {
         .steps-content :global(.steps-description) h3 {
           @p: .mt0;
         }
+        .basic-graphql {
+          @p: .relative;
+          top: -3px;
+        }
         .advanced-graphql {
           margin-top: 76px;
         }
@@ -43,7 +47,7 @@ export default function IntroSteps() {
       `}</style>
       <div className="steps-content">
         <LeftColumn className="steps-description" light={true}>
-          <div>
+          <div className="basic-graphql">
             <h3>GraphQL Basics</h3>
             <div className="duration">
               <Duration duration={12} total={true} />
