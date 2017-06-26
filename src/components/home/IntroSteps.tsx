@@ -2,8 +2,8 @@ import * as React from 'react'
 import LeftColumn from './LeftColumn'
 import DottedListItem from './DottedListItem'
 import Link from 'gatsby-link'
-import * as cn from 'classnames'
 import OptionalSteps from './OptionalSteps'
+import Duration from '../Duration'
 
 export default function IntroSteps() {
   return (
@@ -30,31 +30,19 @@ export default function IntroSteps() {
         .list-item {
           @p: .itemsCenter, .flex;
         }
-        .time {
-          @p: .ttu, .black30, .ml10, .itemsCenter, .flex, .fw6, .relative;
-          font-size: 15px;
-        }
-        .time img {
-          width: 15px;
-          height: 15px;
-        }
-        .time span {
-          @p: .ml6;
-        }
-        .time.first {
-          top: -3px;
-        }
         .steps-content :global(.steps-description) .time {
           @p: .justifyEnd, .pr38, .mt16;
+        }
+        .duration {
+          @p: .mt16, .mr38, .flex, .justifyEnd;
         }
       `}</style>
       <div className="steps-content">
         <LeftColumn className="steps-description" light={true}>
           <div>
             <h3>GraphQL Basics</h3>
-            <div className="time">
-              <img src={require('../../assets/icons/play.svg')} alt="" />
-              <span>12 MIN TOTAL</span>
+            <div className="duration">
+              <Duration duration={12} total={true} />
             </div>
             <p>
               In the first chapter, we’ll learn the core concepts of GraphQL. In
@@ -63,9 +51,8 @@ export default function IntroSteps() {
           </div>
           <div className="advanced-graphql">
             <h3>Advanced GraphQL (optional)</h3>
-            <div className="time">
-              <img src={require('../../assets/icons/play.svg')} alt="" />
-              <span>19 MIN TOTAL</span>
+            <div className="duration">
+              <Duration duration={19} total={true} />
             </div>
             <p>
               This chapter is optional, but a good
@@ -81,12 +68,7 @@ export default function IntroSteps() {
                 <Link to={step.link}>
                   {step.title}
                 </Link>
-                <div className={cn('time', { first: index === 0 })}>
-                  <img src={require('../../assets/icons/play.svg')} alt="" />
-                  <span>
-                    {step.time} MIN
-                  </span>
-                </div>
+                <Duration duration={step.time} />
               </div>
             </DottedListItem>,
           )}

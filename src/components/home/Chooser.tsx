@@ -9,6 +9,7 @@ import data from './List'
 import '../../styles/reset.css'
 import '../../styles/main.css'
 import { Step } from '../../types'
+import Duration from '../Duration'
 
 interface Props {
   width?: number
@@ -126,6 +127,12 @@ class Chooser extends React.Component<Props, State> {
           h3.first-h3 {
             @p: .mt60;
           }
+          .steps-container :global(.steps-description) p {
+            @p: .white30;
+          }
+          .duration {
+            @p: .mt16, .mr38;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
@@ -164,6 +171,9 @@ class Chooser extends React.Component<Props, State> {
         <div className="steps-content">
           <LeftColumn className="steps-description">
             <h3>{selected.content.title}</h3>
+            <div className="duration">
+              <Duration duration={87} total={true} dark={true} />
+            </div>
             <p>{selected.content.description}</p>
           </LeftColumn>
           <div className="steps-list fade-before">

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Step } from '../../types'
 import Link from 'gatsby-link'
-import * as cn from 'classnames'
 import OptionalDottedListItem from './OptionalDottedListItem'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
+import Duration from '../Duration'
 
 interface Props {
   steps: Step[]
@@ -117,12 +117,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
                 <Link to={step.link}>
                   {step.title}
                 </Link>
-                <div className={cn('time')}>
-                  <img src={require('../../assets/icons/play.svg')} alt="" />
-                  <span>
-                    {step.time} MIN
-                  </span>
-                </div>
+                <Duration duration={step.time || 0} />
               </div>
             </OptionalDottedListItem>,
           )}
