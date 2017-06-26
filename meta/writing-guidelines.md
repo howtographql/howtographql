@@ -74,7 +74,7 @@ Since you'll produce a detailled step-by-step tutorial, it's important to includ
 
 ### Include every step
 
-HTG contains detailled step-by-step tutorials where readers start from scratch and work towards the expected outcome.
+HTG contains detailled step-by-step tutorials where readers start from scratch and work towards the expected outcome. It's important the every single instruction is listed for the reader. You should aim to separate paragraphs with explanatory or illustrative content from those that actually contain instructions since instructions will be visually highlighted.
 
 ### Use You/Your/You'll & Command the reader
 
