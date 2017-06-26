@@ -15,19 +15,21 @@ export default function Markdown({ html }: { html: string }) {
           @p: .f38, .mb25;
         }
         .markdown h2 {
-          @p: .f25;
+          @p: .f25, .fw7;
         }
         .markdown h3 {
-          @p: .f20;
+          @p: .f20, .fw7;
+          margin-top: 30px;
         }
         .markdown h2 {
           margin-top: 48px; /* 2x mt38 due to vertical line */
         }
-        .markdown h3 {
-          margin-top: 30px;
-        }
         .markdown h4 {
+          @p: .fw7;
           margin-top: 20px;
+        }
+        .markdown p {
+          @p: .f16, .black;
         }
         .markdown p, .markdown ul {
           @p: .mt16;

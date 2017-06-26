@@ -5,6 +5,7 @@ import App from '../components/App'
 import Sidebar from '../components/Tutorials/Sidebar'
 import Markdown from '../components/Tutorials/Markdown'
 import { extractSteps } from '../utils/graphql'
+import Youtube from 'youtube-embed-video'
 
 interface Props {
   data: {
@@ -27,16 +28,30 @@ class Tutorials extends React.Component<Props, null> {
               @p: .flex;
             }
             .content {
-              @p: .pa38, .overflowAuto, .bbox;
+              @p: .pa38, .bbox;
+            }
+            .left {
+              @p: .overflowAuto, .bbox;
               max-height: calc(100vh - 72px);
+            }
+            .left :global(iframe) {
+              @p: .w100;
+              height: 60%;
             }
             h1 {
               @p: .f38;
             }
           `}</style>
-          <div className="content">
-            <h1>{post.frontmatter.title}</h1>
-            <Markdown html={post.html} />
+          <div className="left">
+            {post.frontmatter.videoId &&
+              <Youtube
+                videoId={post.frontmatter.videoId}
+                suggestions={false}
+              />}
+            <div className="content">
+              <h1>{post.frontmatter.title}</h1>
+              <Markdown html={post.html} />
+            </div>
           </div>
           <Sidebar steps={steps} tutorialName="react-apollo" />
         </div>
@@ -53,6 +68,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        videoId
       }
     }
     mds: allMarkdownRemark {

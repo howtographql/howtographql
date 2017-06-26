@@ -2,6 +2,7 @@ import * as React from 'react'
 import Search from './Search'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import { $v } from 'graphcool-styles'
+import Link from 'gatsby-link'
 
 export default function Header() {
   return (
@@ -54,10 +55,12 @@ export default function Header() {
         }
       `}</style>
       <div className="left">
-        <div className="logo">
-          <img src={require('../assets/icons/howtographql.svg')} alt="" />
-          <span>How to GraphQL</span>
-        </div>
+        <Link to="/">
+          <div className="logo">
+            <img src={require('../assets/icons/howtographql.svg')} alt="" />
+            <span>How to GraphQL</span>
+          </div>
+        </Link>
         <Search />
       </div>
       <div className="right">

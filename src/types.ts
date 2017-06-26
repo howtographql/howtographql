@@ -13,6 +13,7 @@ export interface MarkdownRemark {
   }
   frontmatter: {
     title: string
+    videoId?: string
   }
 }
 
