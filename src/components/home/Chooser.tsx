@@ -6,8 +6,6 @@ import DottedListItem from './DottedListItem'
 import LeftColumn from './LeftColumn'
 import data from './List'
 
-import '../../styles/reset.css'
-import '../../styles/main.css'
 import { Step } from '../../types'
 import Duration from '../Duration'
 
@@ -68,6 +66,7 @@ class Chooser extends React.Component<Props, State> {
           }
           .stacks-item {
             @p: .tc, .pointer, .mv0, .mh10;
+
             transition: all 0.1s ease-out;
             user-select: none;
             width: 140px;
