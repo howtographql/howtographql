@@ -17,7 +17,7 @@ export default function Header() {
             .left0,
             .right0,
             .top0,
-            .z1,
+            .z999,
             .bgWhite;
           transform: translate3d(0, 0, 0);
         }

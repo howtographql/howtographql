@@ -79,9 +79,8 @@ class Chooser extends React.Component<Props, State> {
             @p: .mt10, .o40, .f14;
           }
           .stacks-item.active {
-            @p: .ba, .bWhite20, .bw2, .pv16, .mv0, .mh38;
+            @p: .pv16, .mv0, .mh38;
             transform: scale(1.2);
-            border-radius: 6px;
           }
           .stacks-item.active img {
             @p: .o100;
@@ -124,13 +123,16 @@ class Chooser extends React.Component<Props, State> {
           p {
             @p: .white;
           }
+          h3.first-h3 {
+            @p: .mt60;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
-            <h3>Practical part</h3>
+            <h3 className="first-h3">Practical part</h3>
           </LeftColumn>
           <div className="steps-list">
-            <DottedListItem>
+            <DottedListItem first={true}>
               <Link to={''}>
                 Which tutorial should I pick next?
               </Link>

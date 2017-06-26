@@ -15,16 +15,16 @@ const DottedListItem = ({ children, light, first }: Props) => {
           @p: .bWhite20, .bgDarkBlue, .absolute, .ba, .bw2, .br100;
           content: '';
           left: -7px;
-          top: 20px;
+          margin-top: 3px;
           width: 8px;
           height: 8px;
         }
-        .dotted-list-item.first::after {
+        .dotted-list-item.first.light::after {
           @p: .db, .absolute;
           content: '';
           height: 30px;
           left: -2px;
-          top: 11px;
+          margin-top: -8px;
           background-image: linear-gradient(
             to top,
             rgba(225, 225, 225, 0.2),
@@ -34,9 +34,6 @@ const DottedListItem = ({ children, light, first }: Props) => {
         }
         .dotted-list-item.first {
           @p: .pt0;
-        }
-        .dotted-list-item.first::before {
-          top: 0;
         }
         .dotted-list-item {
           @p: .pv16, .f20, .pl38, .relative, .bl, .bWhite20, .bw2;
@@ -49,6 +46,10 @@ const DottedListItem = ({ children, light, first }: Props) => {
         }
         .dotted-list-item.light.first::before {
           border-color: $pink;
+          margin-top: 0;
+        }
+        .dotted-list-item:not(.light).first {
+          @p: .pt60;
         }
         .dotted-list-item.light :global(a) {
           @p: .darkBlue;
@@ -56,7 +57,7 @@ const DottedListItem = ({ children, light, first }: Props) => {
         .dotted-list-item :global(a) {
           @p: .white, .noUnderline;
         }
-        .dotted-list-item.first :global(a) {
+        .dotted-list-item.first.light :global(a) {
           @p: .relative, .pink;
           top: -3px;
         }

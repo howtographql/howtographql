@@ -143,7 +143,7 @@ export default function App({ children }: Props) {
         h2 {
           font-size: 35px;
         }
-        p {
+        section p {
           @p: .f20, .darkBlue50, .lhCopy;
         }
         a {
@@ -154,6 +154,14 @@ export default function App({ children }: Props) {
         }
         section h2 {
           @p: .tc;
+        } /* Reusable Components */
+        .btn {
+          @p: .bgPink, .white, .f25, .fw6, .mt38, .dib, .lhTitle;
+          padding: 17px 30px 19px;
+          border-radius: 6px;
+        }
+        .btn.small {
+          @p: .f20, .fw6, .pv16, .ph20;
         }
       `}</style>
       <style jsx={true}>{`

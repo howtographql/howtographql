@@ -1,6 +1,10 @@
 {
+  "resolutions": {
+    "graphql": "0.10.3"
+  },
   "dependencies": {
     "classnames": "^2.2.5",
+    "frontmatter": "^0.0.3",
     "gatsby": "next",
     "gatsby-link": "git+https://github.com/timsuchanek/gatsby-link",
     "gatsby-plugin-sharp": "next",
@@ -12,7 +16,9 @@
     "gatsby-remark-smartypants": "next",
     "gatsby-source-filesystem": "next",
     "gatsby-transformer-remark": "next",
+    "graphcool-graphiql": "^1.8.7",
     "graphcool-styles": "^0.1.28",
+    "graphql": "^0.10.3",
     "lodash": "^4.17.4",
     "postcss-cssnext": "^2.11.0",
     "postcss-inherit": "git+https://github.com/timsuchanek/postcss-inherit#build3",
@@ -21,6 +27,7 @@
     "react": "15.5.4",
     "react-inlinesvg": "^0.6.0",
     "react-jsx-parser": "git+https://github.com/timsuchanek/react-jsx-parser#components-object3",
+    "relay-compiler": "^1.1.0",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
     "ts-loader": "^2.2.0",
@@ -45,6 +52,7 @@
   "devDependencies": {
     "@types/node": "^8.0.2",
     "@types/react-router": "^4.0.11",
+    "flowtype-loader": "^0.2.2",
     "lint-staged": "^4.0.0",
     "postcss-discard-comments": "^2.0.4",
     "prettier": "^1.4.4",

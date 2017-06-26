@@ -4,13 +4,14 @@ import IntroSteps from './IntroSteps'
 export default class Intro extends React.Component<null, null> {
   render() {
     return (
-      <div className="intro">
+      <section className="intro">
         <style jsx={true}>{`
           .intro {
             @p: .mt96;
           }
           h1 {
             @p: .tc;
+            font-size: 54px;
           }
           p {
             @p: .mt25, .mb38, .center, .tc;
@@ -32,11 +33,6 @@ export default class Intro extends React.Component<null, null> {
           .center-container {
             @p: .flex, .justifyCenter;
           }
-          .btn {
-            @p: .bgPink, .white, .f25, .fw6, .mt38, .dib, .lhTitle;
-            padding: 17px 30px 19px;
-            border-radius: 6px;
-          }
         `}</style>
         <h1>The fullstack tutorial to learn GraphQL</h1>
         <p>
@@ -56,7 +52,7 @@ export default class Intro extends React.Component<null, null> {
           <div className="btn">Start with Introduction</div>
         </div>
         <IntroSteps />
-      </div>
+      </section>
     )
   }
 }

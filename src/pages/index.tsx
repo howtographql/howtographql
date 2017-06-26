@@ -4,7 +4,7 @@ import Intro from '../components/home/Intro'
 import App from '../components/App'
 import { extractSteps } from '../utils/graphql'
 import WhatWeBuild from '../components/home/WhatWeBuild'
-import LandingPlayground from '../components/home/LandingPlayground'
+// import LandingPlayground from '../components/home/LandingPlayground'
 import Team from '../components/home/Team'
 import ContentOverview from '../components/home/ContentOverview'
 import Footer from '../components/home/Footer'
@@ -15,7 +15,7 @@ export default props => {
       <Intro />
       <Chooser mds={extractSteps(props.data.mds)} />
       <WhatWeBuild />
-      <LandingPlayground />
+      {/*<LandingPlayground />*/}
       <Team />
       <ContentOverview />
       <Footer />
