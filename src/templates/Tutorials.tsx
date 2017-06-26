@@ -6,6 +6,7 @@ import Sidebar from '../components/Tutorials/Sidebar'
 import Markdown from '../components/Tutorials/Markdown'
 import { extractSteps } from '../utils/graphql'
 import Youtube from 'youtube-embed-video'
+import Footer from '../components/home/Footer'
 
 interface Props {
   data: {
@@ -52,6 +53,7 @@ class Tutorials extends React.Component<Props, null> {
               <h1>{post.frontmatter.title}</h1>
               <Markdown html={post.html} />
             </div>
+            <Footer />
           </div>
           <Sidebar steps={steps} tutorialName="react-apollo" />
         </div>
