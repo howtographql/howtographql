@@ -5,6 +5,7 @@ import Steps from '../Steps/Steps'
 import ChooseTutorialStep from '../Steps/ChooseTutorialStep'
 import Theory from '../Steps/Theory'
 import { extractGroup } from '../../utils/graphql'
+import TutorialTitleStep from '../Steps/TutorialTitleStep'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -47,12 +48,15 @@ export default function Sidebar({ steps, post, location }: Props) {
         />
         {['basics', 'advanced'].includes(group)
           ? <ChooseTutorialStep />
-          : <Steps
-              steps={selectedSteps}
-              small={true}
-              showDuration={false}
-              location={location}
-            />}
+          : <div>
+              <TutorialTitleStep title="React + Apollo" />
+              <Steps
+                steps={selectedSteps}
+                small={true}
+                showDuration={false}
+                location={location}
+              />
+            </div>}
       </div>
     </div>
   )

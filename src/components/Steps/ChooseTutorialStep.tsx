@@ -6,7 +6,7 @@ export default function ChooseTutorialStep() {
     <div className="choose-tutorial-step">
       <style jsx={true}>{`
         .choose-tutorial-step {
-          @p: .bw2, .bl, .bBlack20, .pb38, .pl25, .relative;
+          @p: .bl, .bBlack20, .pb38, .pl25, .relative, .bw2;
         }
         a {
           @p: .black80;
