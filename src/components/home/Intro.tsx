@@ -1,7 +1,13 @@
 import * as React from 'react'
 import IntroSteps from './IntroSteps'
+import { Step } from '../../types'
+import Link from 'gatsby-link'
 
-export default class Intro extends React.Component<null, null> {
+interface Props {
+  steps: { [key: string]: Step[] }
+}
+
+export default class Intro extends React.Component<Props, null> {
   render() {
     return (
       <section className="intro">
@@ -46,9 +52,11 @@ export default class Intro extends React.Component<null, null> {
           </div>
         </div>
         <div className="center-container">
-          <div className="btn">Start with Introduction</div>
+          <Link to="/tutorials/graphql/basics/0-introduction/">
+            <div className="btn">Start with Introduction</div>
+          </Link>
         </div>
-        <IntroSteps />
+        <IntroSteps steps={this.props.steps} />
       </section>
     )
   }
