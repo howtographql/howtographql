@@ -3,14 +3,21 @@ import { Step } from '../../types'
 import DottedListItem from './DottedListItem'
 import Duration from '../Duration'
 import Link from 'gatsby-link'
+import * as cn from 'classnames'
 
 interface Props {
   steps: Step[]
   small?: boolean
   showDuration?: boolean
+  location: any
 }
 
-export default function Steps({ steps, small, showDuration = true }: Props) {
+export default function Steps({
+  steps,
+  small,
+  showDuration = true,
+  location,
+}: Props) {
   return (
     <div>
       <style jsx={true}>{`
@@ -21,6 +28,9 @@ export default function Steps({ steps, small, showDuration = true }: Props) {
           @p: .relative;
           top: -3px;
         }
+        .active :global(a) {
+          @p: .pink;
+        }
       `}</style>
       {steps.map((step, index) =>
         <DottedListItem
@@ -28,8 +38,13 @@ export default function Steps({ steps, small, showDuration = true }: Props) {
           light={true}
           first={index === 0}
           small={small}
+          active={step.link === location.pathname}
         >
-          <div className="list-item">
+          <div
+            className={cn('list-item', {
+              active: step.link === location.pathname,
+            })}
+          >
             <Link to={step.link}>
               {step.title}
             </Link>

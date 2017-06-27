@@ -7,9 +7,10 @@ import { Step } from '../../types'
 
 interface Props {
   steps: { [key: string]: Step[] }
+  location: any
 }
 
-export default function IntroSteps({ steps }: Props) {
+export default function IntroSteps({ steps, location }: Props) {
   return (
     <div className="intro-steps">
       <style jsx={true}>{`
@@ -67,7 +68,7 @@ export default function IntroSteps({ steps }: Props) {
           </div>
         </LeftColumn>
         <div className="steps-list fade-before">
-          <Steps steps={steps.basics} />
+          <Steps steps={steps.basics} location={location} />
           <OptionalSteps steps={steps.advanced} />
         </div>
       </div>

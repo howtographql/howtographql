@@ -9,9 +9,10 @@ import { extractGroup } from '../../utils/graphql'
 interface Props {
   steps: { [key: string]: Step[] }
   post?: MarkdownRemark
+  location: any
 }
 
-export default function Sidebar({ steps, post }: Props) {
+export default function Sidebar({ steps, post, location }: Props) {
   const group = post ? extractGroup(post.fields.slug) : 'basics'
   const selectedSteps = steps[group]
 
@@ -27,10 +28,18 @@ export default function Sidebar({ steps, post }: Props) {
         .sidebar :global(.plus) {
           background-color: #f5f5f5;
         }
+        .sidebar :global(.dotted-list-item.first.light::after) {
+          @p: .dn;
+        }
       `}</style>
       <div className="steps-list fade-before">
         <Theory />
-        <Steps steps={steps.basics} small={true} showDuration={false} />
+        <Steps
+          steps={steps.basics}
+          small={true}
+          showDuration={false}
+          location={location}
+        />
         <OptionalSteps
           steps={steps.advanced}
           small={true}
@@ -38,7 +47,12 @@ export default function Sidebar({ steps, post }: Props) {
         />
         {['basics', 'advanced'].includes(group)
           ? <ChooseTutorialStep />
-          : <Steps steps={selectedSteps} small={true} showDuration={false} />}
+          : <Steps
+              steps={selectedSteps}
+              small={true}
+              showDuration={false}
+              location={location}
+            />}
       </div>
     </div>
   )

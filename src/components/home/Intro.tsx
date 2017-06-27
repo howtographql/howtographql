@@ -5,6 +5,7 @@ import Link from 'gatsby-link'
 
 interface Props {
   steps: { [key: string]: Step[] }
+  location: any
 }
 
 export default class Intro extends React.Component<Props, null> {
@@ -56,7 +57,7 @@ export default class Intro extends React.Component<Props, null> {
             <div className="btn">Start with Introduction</div>
           </Link>
         </div>
-        <IntroSteps steps={this.props.steps} />
+        <IntroSteps steps={this.props.steps} location={this.props.location} />
       </section>
     )
   }

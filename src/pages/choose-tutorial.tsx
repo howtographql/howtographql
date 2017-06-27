@@ -60,7 +60,7 @@ class Tutorials extends React.Component<Props, null> {
             </div>
             <Footer />
           </div>
-          <Sidebar steps={steps} />
+          <Sidebar steps={steps} location={this.props.location} />
         </div>
       </App>
     )
