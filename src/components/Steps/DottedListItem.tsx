@@ -32,8 +32,11 @@ const DottedListItem = ({ children, light, first, small, active }: Props) => {
         .dotted-list-item.light::before, .dotted-list-item.light {
           @p: .bBlack20;
         }
-        .dotted-list-item.light.first::before {
-          border-color: $pink;
+        .dotted-list-item.light.first:not(.small)::before,
+        .dotted-list-item.active::before {
+          border-color: $pink !important;
+        }
+        .dotted-list-item.light.first.small::before {
           margin-top: 0 !important;
         }
         .dotted-list-item.light.first.small::before {
@@ -71,8 +74,11 @@ const DottedListItem = ({ children, light, first, small, active }: Props) => {
           @p: .white, .noUnderline;
         }
         .dotted-list-item.first.light :global(a) {
-          @p: .relative, .pink;
+          @p: .relative;
           top: -3px;
+        }
+        .dotted-list-item.first.light:not(.small) :global(a) {
+          @p: .pink;
         }
       `}</style>
       {children}
