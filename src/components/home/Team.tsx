@@ -18,7 +18,7 @@ export default function Team() {
           @p: .tc, .mt38;
         }
         .bubbles {
-          @p: .mt38, .flex, .flexWrap;
+          @p: .mt60, .flex, .flexWrap;
         }
       `}</style>
       <div className="team">
