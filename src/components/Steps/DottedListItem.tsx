@@ -42,8 +42,7 @@ const DottedListItem = ({ children, light, first, small }: Props) => {
           @p: .pv16, .f20, .pl38, .relative, .bl, .bWhite20, .bw2;
         }
         .dotted-list-item.small {
-          @p: .f16, .pv12;
-          padding-left: 20px;
+          @p: .f16, .pv12, .pl25;
         }
         .dotted-list-item.small::before {
           margin-top: 2px;

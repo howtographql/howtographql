@@ -3,6 +3,7 @@ import { Step } from '../../types'
 import OptionalSteps from '../Steps/OptionalSteps'
 import Steps from '../Steps/Steps'
 import ChooseTutorialStep from '../Steps/ChooseTutorialStep'
+import Theory from '../Steps/Theory'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -15,7 +16,8 @@ export default function Sidebar({ steps, tutorialName }: Props) {
     <div className="sidebar">
       <style jsx={true}>{`
         .sidebar {
-          @p: .bgBlack04, .flexFixed, .pa16, .bbox, .overflowAuto;
+          @p: .bgBlack04, .flexFixed, .pt25, .bbox, .overflowAuto;
+          padding-left: 21px;
           max-height: calc(100vh - 72px);
           width: 300px;
         }
@@ -24,6 +26,7 @@ export default function Sidebar({ steps, tutorialName }: Props) {
         }
       `}</style>
       <div className="steps-list fade-before">
+        <Theory />
         <Steps steps={steps.basics} small={true} showDuration={false} />
         <OptionalSteps
           steps={steps.advanced}

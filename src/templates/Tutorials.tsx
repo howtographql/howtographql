@@ -5,7 +5,7 @@ import App from '../components/App'
 import Sidebar from '../components/Tutorials/Sidebar'
 import Markdown from '../components/Tutorials/Markdown'
 import { extractSteps } from '../utils/graphql'
-import Youtube from 'youtube-embed-video'
+// import Youtube from 'youtube-embed-video'
 import Footer from '../components/home/Footer'
 
 interface Props {
@@ -33,11 +33,12 @@ class Tutorials extends React.Component<Props, null> {
             }
             .left-container {
               @p: .overflowAuto, .bbox, .flexAuto;
-              max-height: calc(100vh - 72px);
+              height: calc(100vh - 72px);
             }
             .left {
               @p: .center;
               max-width: 960px;
+              min-height: calc(100vh - 72px - 220px);
             }
             h1 {
               @p: .f38;
@@ -54,13 +55,6 @@ class Tutorials extends React.Component<Props, null> {
           `}</style>
           <div className="left-container">
             <div className="left">
-              {post.frontmatter.videoId &&
-                <div className="video">
-                  <Youtube
-                    videoId={post.frontmatter.videoId}
-                    suggestions={false}
-                  />
-                </div>}
               <div className="content">
                 <h1>{post.frontmatter.title}</h1>
                 <Markdown html={post.html} />
@@ -74,6 +68,13 @@ class Tutorials extends React.Component<Props, null> {
     )
   }
 }
+// {post.frontmatter.videoId &&
+// <div className="video">
+//   <Youtube
+//     videoId={post.frontmatter.videoId}
+//     suggestions={false}
+//   />
+// </div>}
 
 export default Tutorials
 
