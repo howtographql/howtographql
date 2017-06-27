@@ -19,13 +19,22 @@ export function extractSteps(
     const steps = grouped[curr]
     return {
       ...acc,
-      [curr]: sortBy(steps, step =>
-        parseInt(step.link.split('/')[4].split('-')[0], 10),
-      ),
+      [curr]: sortBy(steps, step => {
+        const splittedLink = step.link.split('/')
+        let leadingNumber = '0'
+        if (splittedLink.length > 4) {
+          leadingNumber = splittedLink[4].split('-')[0]
+        }
+        return parseInt(leadingNumber, 10)
+      }),
     }
   }, {})
 }
 
 export function extractGroup(slug) {
-  return slug.split('/')[3]
+  const splittedSlug = slug.split('/')
+  if (splittedSlug.length > 3) {
+    return splittedSlug[3]
+  }
+  return ''
 }

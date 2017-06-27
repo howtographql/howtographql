@@ -1,11 +1,12 @@
 /* tslint:disable */
-const data = [
+import { Stack } from '../../../types'
+const data: Stack[] = [
   {
     title: 'React + Apollo',
     key: 'react-apollo',
     images: [
-      require('../../assets/icons/react.svg'),
-      require('../../assets/icons/apollo.svg'),
+      require('../../../assets/icons/react.svg'),
+      require('../../../assets/icons/apollo.svg'),
     ],
     content: {
       title: 'React + Apollo Tutorial',
@@ -55,8 +56,8 @@ const data = [
     title: 'React + Relay',
     key: 'react-relay',
     images: [
-      require('../../assets/icons/react.svg'),
-      require('../../assets/icons/graphcool.svg'),
+      require('../../../assets/icons/react.svg'),
+      require('../../../assets/icons/graphcool.svg'),
     ],
     content: {
       title: 'React + Relay',
@@ -85,7 +86,7 @@ const data = [
   {
     title: 'React + Relay',
     key: 'react-relay',
-    images: [require('../../assets/icons/sangria.svg')],
+    images: [require('../../../assets/icons/sangria.svg')],
     content: {
       title: 'React + Apollo Tutorial',
       description:

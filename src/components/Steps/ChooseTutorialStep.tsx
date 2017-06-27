@@ -27,7 +27,7 @@ export default function ChooseTutorialStep() {
           @p: .f14, .black30, .lhCopy, .mt25;
         }
       `}</style>
-      <Link to="/choose-tutorial">
+      <Link to="/tutorials/choose">
         <h3>Practical Tutorial</h3>
         <a href="">Choosing the right tutorial</a>
         <p>

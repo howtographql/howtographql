@@ -4,7 +4,8 @@ import * as cn from 'classnames'
 import withWidth from './withWidth'
 import DottedListItem from '../Steps/DottedListItem'
 import LeftColumn from './LeftColumn'
-import data from './List'
+import data from '../Steps/data/List'
+import StackChooser from '../StackChooser'
 
 import { Step } from '../../types'
 import Duration from '../Duration'
@@ -29,12 +30,8 @@ class Chooser extends React.Component<Props, State> {
   }
 
   render() {
-    const { width, mds, light } = this.props
+    const { mds, light } = this.props
     const { selectedIndex } = this.state
-    const widthElement = 140 + 20
-    const widthElementSelected = 140 + 80
-    const translateX =
-      (width || 1) / 2 - widthElement * selectedIndex - widthElementSelected / 2
 
     const tutorials = data.map(tutorial => {
       return {
@@ -49,45 +46,6 @@ class Chooser extends React.Component<Props, State> {
         <style jsx={true}>{`
           div.steps-container {
             @p: .white, .bgDarkBlue;
-          }
-          img {
-            @p: .mh6;
-            height: 40px;
-            width: auto;
-          }
-          .stacks-content {
-            @p: .overflowHidden, .flex;
-            height: 180px;
-            align-items: center;
-          }
-          .stacks {
-            @p: .flex;
-            transition: transform 0.2s ease-out;
-            align-items: center;
-          }
-          .stacks-item {
-            @p: .tc, .pointer, .mv0, .mh10;
-            transition: all 0.1s ease-out;
-            user-select: none;
-            width: 140px;
-          }
-          .stacks-item img {
-            @p: .o30;
-            filter: grayscale(100%);
-          }
-          .stacks-item p {
-            @p: .mt10, .o40, .f14;
-          }
-          .stacks-item.active {
-            @p: .pv16, .mv0, .mh38;
-            transform: scale(1.2);
-          }
-          .stacks-item.active img {
-            @p: .o100;
-            filter: grayscale(0%);
-          }
-          .stacks-item.active p {
-            @p: .o100;
           }
           .steps-content {
             @p: .flex;
@@ -145,28 +103,12 @@ class Chooser extends React.Component<Props, State> {
             </DottedListItem>
           </div>
         </div>
-        <div className="stacks-content">
-          <div
-            className="stacks"
-            style={{ transform: `translateX(${translateX}px)` }}
-          >
-            {tutorials.map((tutorial, index) =>
-              <div
-                className={cn('stacks-item', {
-                  active: selectedIndex === index,
-                })}
-                onClick={this.selectStack.bind(this, index)}
-                key={index}
-              >
-                <div>
-                  <img src={tutorial.images[0]} />
-                  {tutorial.images[1] && <img src={tutorial.images[1]} />}
-                  <p>{tutorial.title}</p>
-                </div>
-              </div>,
-            )}
-          </div>
-        </div>
+        <StackChooser
+          stacks={data}
+          selectedIndex={this.state.selectedIndex}
+          onChangeSelectedIndex={this.selectStack}
+          markdownFiles={mds}
+        />
         <div className="steps-content">
           <LeftColumn className="steps-description">
             <h3>{selected.content.title}</h3>

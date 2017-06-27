@@ -22,3 +22,14 @@ export interface Step {
   link: string
   time?: number
 }
+
+export interface Stack {
+  title: string
+  key: string
+  images: string[]
+  content: {
+    title: string
+    description: string
+  }
+  steps: Step[]
+}

@@ -7,6 +7,7 @@ import Markdown from '../components/Tutorials/Markdown'
 import { extractSteps } from '../utils/graphql'
 // import Youtube from 'youtube-embed-video'
 import Footer from '../components/home/Footer'
+import TutorialChooser from '../components/TutorialChooser'
 
 interface Props {
   data: {
@@ -21,6 +22,7 @@ class Tutorials extends React.Component<Props, null> {
     const post = this.props.data.markdownRemark
 
     const steps = extractSteps(this.props.data.mds)
+    const isTutorialChooser = this.props.location.pathname.includes('choose')
 
     return (
       <App>
@@ -59,6 +61,7 @@ class Tutorials extends React.Component<Props, null> {
               <div className="content">
                 <h1>{post.frontmatter.title}</h1>
                 <Markdown html={post.html} />
+                {isTutorialChooser && <TutorialChooser />}
               </div>
             </div>
             <Footer />
