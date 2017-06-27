@@ -439,3 +439,33 @@ Perfect! Before sending the mutation, you're now also retrieving the correspondi
 
 If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're crreating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
 
+### Configuring Apollo with the Auth Token
+
+Now that users are able to login and obtain a token that authenticates them against the Graphcool backend, you actually need to make sure that the token gets attached to all requests that are sent to the API.
+
+Since all the API request are actually created and sent by the `ApolloClient` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all request by using [middleware](http://dev.apollodata.com/react/auth.html#Header).
+
+Opem `index.js` and put the following code between the creation of the `networkInterface` and the instantation of the `ApolloClient`:
+
+```js
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {}
+    }
+    const token = localStorage.getItem(GC_AUTH_TOKEN)
+    req.options.headers.authorization = token ? `Bearer ${token}` : null
+    next()
+  }
+}])
+```
+
+Then directly import the key that you need to retrieve the token from `localStorage` on top of the same file:
+
+```js
+import { GC_AUTH_TOKEN } from './constants'
+```
+
+That's it - now all your API requests will be authenticated if a `token` is available.
+
+> Note: In a real application you would now configure the [authorization rules](https://www.graph.cool/docs/reference/auth/authorization-iegoo0heez/) (permissions) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform. 
