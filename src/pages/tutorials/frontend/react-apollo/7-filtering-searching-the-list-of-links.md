@@ -64,21 +64,49 @@ Now add the `Search` component as a new route to the app. Open `App.js` and upda
 ```js
 render() {
   return (
-    <Switch>
-      <Route exact path='/search' component={Search}/>
-      <Route exact path='/login' component={Login}/>
-      <Route exact path='/create' component={CreateLink}/>
-      <Route exact path='/' component={LinkList}/>
-    </Switch>
+    <div className='center w85'>
+      <Header />
+      <div className='ph3 pv1 background-gray'>
+        <Switch>
+          <Route exact path='/search' component={Search}/>
+          <Route exact path='/' component={LinkList}/>
+          <Route exact path='/create' component={CreateLink}/>
+          <Route exact path='/login' component={Login}/>
+        </Switch>
+      </div>
+    </div>
   )
 }
 ```  
 
-Also import the component on top of the file:
+Also import the `Search` component on top of the file:
 
 ```js
 import Search from './Search'
 ```
+
+For the user to be able to comfortably navigate to the search functionality, you should also add a new navigation item to the `Header`.
+
+Open `Header.js` and put a new `Link` between `new` and `submit`:
+
+```js
+<div className='flex flex-fixed black'>
+  <div className='fw7 mr1'>Hacker News</div>
+  <Link to='/' className='ml1 no-underline black'>new</Link>
+  <div className='ml1'>|</div>
+  <Link to='/search' className='ml1 no-underline black'>search</Link>
+  {userId &&
+  <div className='flex'>
+    <div className='ml1'>|</div>
+    <Link to='/create' className='ml1 no-underline black'>submit</Link>
+  </div>
+  }
+</div>
+```
+
+You can now navigate to the search functionality using the new button in the `Header`:
+
+![](http://imgur.com/XxPdUvo.png)
 
 Great, let's now go back to the `Search` component and see how we can implement the actual search.
 
@@ -115,13 +143,13 @@ const ALL_LINKS_SEARCH_QUERY = gql`
 `
 ```
 
-This query looks similar to the `allLinks` query that's used in `LinkList`. However, this time it takes in an argument called `searchTect` and specifies a `filter` object that will be used to specify conditions on the links that you want to retrieve.
+This query looks similar to the `allLinks` query that's used in `LinkList`. However, this time it takes in an argument called `searchText` and specifies a `filter` object that will be used to specify conditions on the links that you want to retrieve.
 
-In this case, you're specifying two filters that account for the following two conditions. A link is only returned if either its `url` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
+In this case, you're specifying two filters that account for the following two conditions: A link is only returned if either its `url` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
 
-Perfect, the query is defined! But this time we actually want to load the data every time the user hits the _OK_-button. 
+Perfect, the query is defined! But this time we actually want to load the data every time the user hits the _search_-button. 
 
-That's what you're using the `withApollo` function for. All it does is injecting a new prop into the `Search` component called `client`. This `client` is precisely the `ApolloClient` instance that you're creating in `index.js` and that's now directly available inside `Search`.
+That's what you're using the [`withApollo`](http://dev.apollodata.com/react/higher-order-components.html#withApollo) function for. All it does is injecting a new prop into the `Search` component called `client`. This `client` is precisely the `ApolloClient` instance that you're creating in `index.js` and that's now directly available inside `Search`.
 
 The `client` has a method called `query` that you can use to send a query manually instead of using the `graphql` HOC.
 
@@ -141,4 +169,4 @@ _executeSearch = async () => {
 
 The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually, retrieve the `links` from the response that's returned by the server to finally put them into the component's `state` from where they can be rendered.
 
-Go ahead and test the app by running `yarn start` in a Terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, click the _OK_-button and make sure the links that are returned fit the filter conditions.
+Go ahead and test the app by running `yarn start` in a Terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, click the _search_-button and verify the links that are returned fit the filter conditions.

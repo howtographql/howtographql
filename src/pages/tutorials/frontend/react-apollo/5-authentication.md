@@ -189,6 +189,28 @@ type SignInUserPayload {
 }
 ```
 
+Next, you have to make sure that the changes introduced by the authentication provider are reflected in your local project file. You can use the `graphcool pull` to update your local schema file with changes that happened remotely.
+
+Open a terminal window and navigate to the directory where `project.graphcool` is located. Then run the following command:
+
+```sh
+graphcool pull
+```
+
+> Note: Before the remote schema gets fetched, you will be asked to confirm that you want to override the current project file. You can confirm by typing `y`. 
+
+This will bump the schema `version` to `2` and update the `User` type to look also include the `email` and `password` fields:
+
+```graphql
+type User implements Node {
+  createdAt: DateTime!
+  email: String @isUnique
+  id: ID! @isUnique
+  password: String
+  updatedAt: DateTime!
+}
+```
+
 Next you need to make one more modification to the schema. Generally, when updating the schema of a Graphcool project, you've got two ways of doing so:
 
 1. Use the web-based [Graphcool Console](https://console.graph.cool) and change the schema directly
@@ -209,8 +231,10 @@ type Link implements Node {
 type User implements Node {
   createdAt: DateTime!
   id: ID! @isUnique
+  email: String @isUnique
   updatedAt: DateTime!
   name: String!
+  password: String
   links: [Link!]! @relation(name: "UsersLinks")
 }
 ```
