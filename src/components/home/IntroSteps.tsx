@@ -1,9 +1,8 @@
 import * as React from 'react'
 import LeftColumn from './LeftColumn'
-import DottedListItem from './DottedListItem'
-import Link from 'gatsby-link'
-import OptionalSteps from './OptionalSteps'
+import OptionalSteps from '../Steps/OptionalSteps'
 import Duration from '../Duration'
+import Steps from '../Steps/Steps'
 
 export default function IntroSteps() {
   return (
@@ -31,18 +30,11 @@ export default function IntroSteps() {
         p {
           @p: .black30;
         }
-        .list-item {
-          @p: .itemsCenter, .flex;
-        }
         .steps-content :global(.steps-description) .time {
           @p: .justifyEnd, .pr38, .mt16;
         }
         .duration {
           @p: .mt16, .mr38, .flex, .justifyEnd;
-        }
-        :global(.first-duration-up) {
-          @p: .relative;
-          top: -3px;
         }
       `}</style>
       <div className="steps-content">
@@ -70,20 +62,8 @@ export default function IntroSteps() {
           </div>
         </LeftColumn>
         <div className="steps-list fade-before">
-          {steps.map((step, index) =>
-            <DottedListItem key={step.title} light={true} first={index === 0}>
-              <div className="list-item">
-                <Link to={step.link}>
-                  {step.title}
-                </Link>
-                <Duration
-                  duration={step.time}
-                  className={index === 0 ? 'first-duration-up' : ''}
-                />
-              </div>
-            </DottedListItem>,
-          )}
-          <OptionalSteps steps={optionalSteps} />
+          <Steps steps={steps} />
+          <OptionalSteps steps={optionalSteps} small={false} />
         </div>
       </div>
     </div>

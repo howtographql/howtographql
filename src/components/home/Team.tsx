@@ -8,6 +8,7 @@ export default function Team() {
     <section>
       <style jsx={true}>{`
         section {
+          @p: .pb96;
           background-color: #fafafa;
         }
         .team {

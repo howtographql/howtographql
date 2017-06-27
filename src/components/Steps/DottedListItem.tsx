@@ -5,11 +5,14 @@ interface Props {
   children?: JSX.Element
   light?: boolean
   first?: boolean
+  small?: boolean
+  active?: boolean
+  done?: boolean
 }
 
-const DottedListItem = ({ children, light, first }: Props) => {
+const DottedListItem = ({ children, light, first, small }: Props) => {
   return (
-    <div className={cn('dotted-list-item', { light, first })}>
+    <div className={cn('dotted-list-item', { light, first, small })}>
       <style jsx={true}>{`
         .dotted-list-item::before {
           @p: .bWhite20, .bgDarkBlue, .absolute, .ba, .bw2, .br100;
@@ -33,10 +36,17 @@ const DottedListItem = ({ children, light, first }: Props) => {
           width: 2px;
         }
         .dotted-list-item.first {
-          @p: .pt0;
+          padding-top: 0 !important;
         }
         .dotted-list-item {
           @p: .pv16, .f20, .pl38, .relative, .bl, .bWhite20, .bw2;
+        }
+        .dotted-list-item.small {
+          @p: .f16, .pv12;
+          padding-left: 20px;
+        }
+        .dotted-list-item.small::before {
+          margin-top: 2px;
         }
         .dotted-list-item.light::before {
           @p: .bgWhite;
@@ -46,13 +56,16 @@ const DottedListItem = ({ children, light, first }: Props) => {
         }
         .dotted-list-item.light.first::before {
           border-color: $pink;
-          margin-top: 0;
+          margin-top: 0 !important;
+        }
+        .dotted-list-item.light.first.small::before {
+          margin-top: 14px;
         }
         .dotted-list-item:not(.light).first {
           @p: .pt60;
         }
         .dotted-list-item.light :global(a) {
-          @p: .darkBlue;
+          @p: .black80;
         }
         .dotted-list-item :global(a) {
           @p: .white, .noUnderline;

@@ -4,9 +4,12 @@ import Link from 'gatsby-link'
 import OptionalDottedListItem from './OptionalDottedListItem'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import Duration from '../Duration'
+import * as cn from 'classnames'
 
 interface Props {
   steps: Step[]
+  small?: boolean
+  showDuration?: boolean
 }
 
 interface State {
@@ -23,15 +26,19 @@ export default class OptionalSteps extends React.Component<Props, State> {
   }
 
   render() {
-    const { steps } = this.props
+    const { steps, small } = this.props
     const { collapsed } = this.state
 
     const visibleSteps = collapsed ? steps.slice(0, 2) : steps
     const count = visibleSteps.length === 2 ? 2 : visibleSteps.length - 1
     const n = count * 52
 
+    const showDuration = typeof this.props.showDuration !== 'undefined'
+      ? this.props.showDuration
+      : true
+
     return (
-      <div className="optional-steps">
+      <div className={cn('optional-steps', { small })}>
         <style jsx={true}>{`
           .optional-steps {
             @p: .flex, .bl, .bw2, .bBlack20, .pb25;
@@ -73,6 +80,10 @@ export default class OptionalSteps extends React.Component<Props, State> {
           .more span {
             @p: .f20, .black30, .ml4;
           }
+          .small .more span {
+            @p: .f16;
+            margin-left: -12px;
+          }
           .plus {
             @p: .bBlack20,
               .ba,
@@ -112,12 +123,12 @@ export default class OptionalSteps extends React.Component<Props, State> {
         </div>
         <div className="steps">
           {visibleSteps.map(step =>
-            <OptionalDottedListItem key={step.title}>
+            <OptionalDottedListItem key={step.title} small={this.props.small}>
               <div className="list-item">
                 <Link to={step.link}>
                   {step.title}
                 </Link>
-                <Duration duration={step.time || 0} />
+                {showDuration && <Duration duration={step.time || 0} />}
               </div>
             </OptionalDottedListItem>,
           )}

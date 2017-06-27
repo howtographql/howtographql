@@ -31,27 +31,40 @@ class Tutorials extends React.Component<Props, null> {
             .content {
               @p: .pa38, .bbox;
             }
-            .left {
-              @p: .overflowAuto, .bbox;
+            .left-container {
+              @p: .overflowAuto, .bbox, .flexAuto;
               max-height: calc(100vh - 72px);
             }
-            .left :global(iframe) {
-              @p: .w100;
-              height: 60%;
+            .left {
+              @p: .center;
+              max-width: 960px;
             }
             h1 {
               @p: .f38;
             }
+            .video {
+              @p: .relative;
+              height: 0;
+              padding-top: 25px;
+              padding-bottom: 56.25%;
+            }
+            .video :global(iframe) {
+              @p: .absolute, .top0, .left0, .right0, .bottom0, .w100, .h100;
+            }
           `}</style>
-          <div className="left">
-            {post.frontmatter.videoId &&
-              <Youtube
-                videoId={post.frontmatter.videoId}
-                suggestions={false}
-              />}
-            <div className="content">
-              <h1>{post.frontmatter.title}</h1>
-              <Markdown html={post.html} />
+          <div className="left-container">
+            <div className="left">
+              {post.frontmatter.videoId &&
+                <div className="video">
+                  <Youtube
+                    videoId={post.frontmatter.videoId}
+                    suggestions={false}
+                  />
+                </div>}
+              <div className="content">
+                <h1>{post.frontmatter.title}</h1>
+                <Markdown html={post.html} />
+              </div>
             </div>
             <Footer />
           </div>
