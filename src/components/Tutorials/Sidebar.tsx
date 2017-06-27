@@ -50,7 +50,7 @@ export default class Sidebar extends React.Component<Props, {}> {
             width: 100%;
           }
           .sidebar :global(.plus) {
-            background-color: #f5f5f5;
+            background-color: rgb(239, 239, 239);
           }
           .sidebar :global(.dotted-list-item.first.light::after) {
             @p: .dn;
