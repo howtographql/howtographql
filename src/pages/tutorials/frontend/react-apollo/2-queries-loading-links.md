@@ -4,9 +4,9 @@ title: "Queries: Loading Links"
 
 ### Preparing the React components
 
-The first piece of functionality that we want to implement in the app is loading and displaying a list of `Link` elements.
+The first piece of functionality that you'll implement in the app is loading and displaying a list of `Link` elements.
 
-We'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
+You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
 
 Create a new file called `Link.js` in the `components` directory and add the following code:
 
@@ -32,9 +32,9 @@ class Link extends Component {
 export default Link
 ```
 
-This is a simple React component that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie!
+This is a simple React component that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie! 🍰
 
-Next, you'll implement the component that renders a list of links.
+Next, you'll implement the component that renders a list of linksLink.
 
 Again, in the `components` directory, go ahead and create a new file called `LinkList.js` and add the following code:
 
@@ -48,7 +48,7 @@ class LinkList extends Component {
 
     const linksToRender = [{
       id: '1',
-      description: 'The Coolest GraphQL Backend',
+      description: 'The Coolest GraphQL Backend 😎',
       url: 'https://www.graph.cool'
     }, {
       id: '2',
@@ -72,7 +72,7 @@ export default LinkList
 
 Here, you're using mock data for now to make sure the component setup works. You'll soon replace this with some actual data loaded from the server - patience, young Padawan!
 
-To complete the setup, open `App.js` and replace the contents with the following:
+To complete the setup, open `App.js` and replace the current contents with the following:
 
 ```js
 import React, { Component } from 'react'
@@ -90,7 +90,7 @@ export default App
 
 Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
-![](http://imgur.com/NgR8gZC.png)
+![](http://imgur.com/FlMveso.png)
 
 
 ### Writing the GraphQL Query
@@ -110,7 +110,7 @@ query AllLinks {
 }
 ```
 
-You could now simply execute this query in a Playground. But how can you use inside your Javascript code?
+You could now simply execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use inside your Javascript code?
 
 
 ### Queries with Apollo Client
@@ -193,7 +193,6 @@ render() {
   if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
     return <div>Error</div>
   }
-
 
   // 3
   const linksToRender = this.props.allLinksQuery.allLinks

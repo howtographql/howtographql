@@ -29,14 +29,16 @@ class CreateLink extends Component {
 
     return (
       <div>
-        <div>
+        <div className='flex flex-column mt3'>
           <input
+            className='mb2'
             value={this.state.description}
             onChange={(e) => this.setState({ description: e.target.value })}
             type='text'
             placeholder='A description for the link'
           />
           <input
+            className='mb2'
             value={this.state.url}
             onChange={(e) => this.setState({ url: e.target.value })}
             type='text'
@@ -46,7 +48,7 @@ class CreateLink extends Component {
         <button
           onClick={() => this._createLink()}
         >
-          Create Link
+          submit
         </button>
       </div>
     )
@@ -62,8 +64,7 @@ class CreateLink extends Component {
 export default CreateLink
 ```
 
-This is a standard setup for a React component with two `input` fields where users can provide the `url` and description of the link they want to post. The data that's typed into these fields is stored in the data in will be used in `_createLink` when the mutation is sent.
-
+This is a standard setup for a React component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in the component's `state` and will be used in `_createLink` when the mutation is sent.
 
 ### Writing the Mutation
 
@@ -95,9 +96,9 @@ Let's take close look again to understand what's going on:
 
 1. You first create the Javascript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
 2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.  
-3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The `name` that's spefified refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
+3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The `name` that's specified refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
 
-Before moving on, you need to import the Apollo dependencies. Add the following to the top of `CreatLink.js`:
+Before moving on, you need to import the Apollo dependencies. Add the following to the top of `CreateLink.js`:
 
 ```js
 import { graphql, gql } from 'react-apollo'
@@ -139,14 +140,16 @@ import CreateLink from './CreateLink'
 
 Now, run `yarn start`, you'll see the following screen:
 
-![](http://imgur.com/JQ5PzEE.png) 
+![](http://imgur.com/AJNlEfj.png) 
+
+Two input fields and a _submit_-button - not very pretty but functional.
 
 Enter some data into the fields, e.g.:
 
 - **Description**: `The best learning resource for GraphQL`
 - **URL**: `www.howtographql.com`
 
-Then click the _Create Link_-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
+Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
 
 Type `graphcool playground` into a Terminal and send the following query:
 
