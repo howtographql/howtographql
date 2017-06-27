@@ -1,17 +1,20 @@
 import * as React from 'react'
-import { Step } from '../../types'
+import { MarkdownRemark, Step } from '../../types'
 import OptionalSteps from '../Steps/OptionalSteps'
 import Steps from '../Steps/Steps'
 import ChooseTutorialStep from '../Steps/ChooseTutorialStep'
 import Theory from '../Steps/Theory'
+import { extractGroup } from '../../utils/graphql'
 
 interface Props {
   steps: { [key: string]: Step[] }
-  tutorialName: string
+  post?: MarkdownRemark
 }
 
-export default function Sidebar({ steps, tutorialName }: Props) {
-  // const selectedSteps = steps[tutorialName]
+export default function Sidebar({ steps, post }: Props) {
+  const group = post ? extractGroup(post.fields.slug) : 'basics'
+  const selectedSteps = steps[group]
+
   return (
     <div className="sidebar">
       <style jsx={true}>{`
@@ -33,9 +36,10 @@ export default function Sidebar({ steps, tutorialName }: Props) {
           small={true}
           showDuration={false}
         />
-        <ChooseTutorialStep />
+        {['basics', 'advanced'].includes(group)
+          ? <ChooseTutorialStep />
+          : <Steps steps={selectedSteps} small={true} showDuration={false} />}
       </div>
     </div>
   )
 }
-// <Steps steps={selectedSteps} small={true} showDuration={false} />

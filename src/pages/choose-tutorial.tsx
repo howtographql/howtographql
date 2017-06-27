@@ -3,10 +3,10 @@ import '../styles/prism-ghcolors.css'
 import { MarkdownRemark, RelayConnection } from '../types'
 import App from '../components/App'
 import Sidebar from '../components/Tutorials/Sidebar'
-import Markdown from '../components/Tutorials/Markdown'
 import { extractSteps } from '../utils/graphql'
 // import Youtube from 'youtube-embed-video'
 import Footer from '../components/home/Footer'
+import Chooser from '../components/home/Chooser'
 
 interface Props {
   data: {
@@ -18,8 +18,6 @@ interface Props {
 
 class Tutorials extends React.Component<Props, null> {
   public render() {
-    const post = this.props.data.markdownRemark
-
     const steps = extractSteps(this.props.data.mds)
 
     return (
@@ -57,13 +55,12 @@ class Tutorials extends React.Component<Props, null> {
           <div className="left-container">
             <div className="left">
               <div className="content">
-                <h1>{post.frontmatter.title}</h1>
-                <Markdown html={post.html} />
+                <Chooser mds={steps} />
               </div>
             </div>
             <Footer />
           </div>
-          <Sidebar steps={steps} post={post} />
+          <Sidebar steps={steps} />
         </div>
       </App>
     )
@@ -80,17 +77,7 @@ class Tutorials extends React.Component<Props, null> {
 export default Tutorials
 
 export const pageQuery = graphql`
-  query ChapterBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug }}) {
-      html
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-        videoId
-      }
-    }
+  query chooseTutorialMarkdowns {
     mds: allMarkdownRemark {
       edges {
         node {

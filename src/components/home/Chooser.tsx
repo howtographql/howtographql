@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Link from 'gatsby-link'
-import * as classNames from 'classnames'
+import * as cn from 'classnames'
 import withWidth from './withWidth'
 import DottedListItem from '../Steps/DottedListItem'
 import LeftColumn from './LeftColumn'
@@ -12,6 +12,7 @@ import Duration from '../Duration'
 interface Props {
   width?: number
   mds: { [key: string]: Step[] }
+  light?: boolean
 }
 
 interface State {
@@ -28,7 +29,7 @@ class Chooser extends React.Component<Props, State> {
   }
 
   render() {
-    const { width, mds } = this.props
+    const { width, mds, light } = this.props
     const { selectedIndex } = this.state
     const widthElement = 140 + 20
     const widthElementSelected = 140 + 80
@@ -44,7 +45,7 @@ class Chooser extends React.Component<Props, State> {
     const selected = tutorials[selectedIndex]
 
     return (
-      <div className="steps-container">
+      <div className={cn('steps-container', { light })}>
         <style jsx={true}>{`
           div.steps-container {
             @p: .white, .bgDarkBlue;
@@ -151,7 +152,7 @@ class Chooser extends React.Component<Props, State> {
           >
             {tutorials.map((tutorial, index) =>
               <div
-                className={classNames('stacks-item', {
+                className={cn('stacks-item', {
                   active: selectedIndex === index,
                 })}
                 onClick={this.selectStack.bind(this, index)}

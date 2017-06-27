@@ -26,6 +26,6 @@ export function extractSteps(
   }, {})
 }
 
-function extractGroup(slug) {
+export function extractGroup(slug) {
   return slug.split('/')[3]
 }
