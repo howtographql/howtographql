@@ -3,8 +3,13 @@ import LeftColumn from './LeftColumn'
 import OptionalSteps from '../Steps/OptionalSteps'
 import Duration from '../Duration'
 import Steps from '../Steps/Steps'
+import { Step } from '../../types'
 
-export default function IntroSteps() {
+interface Props {
+  steps: { [key: string]: Step[] }
+}
+
+export default function IntroSteps({ steps }: Props) {
   return (
     <div className="intro-steps">
       <style jsx={true}>{`
@@ -62,56 +67,10 @@ export default function IntroSteps() {
           </div>
         </LeftColumn>
         <div className="steps-list fade-before">
-          <Steps steps={steps} />
-          <OptionalSteps steps={optionalSteps} small={false} />
+          <Steps steps={steps.basics} />
+          <OptionalSteps steps={steps.advanced} />
         </div>
       </div>
     </div>
   )
 }
-
-const steps = [
-  {
-    link: '/',
-    time: 1.5,
-    title: 'Introduction',
-  },
-  {
-    link: '/',
-    time: 3,
-    title: 'Big Picture (Architecture)',
-  },
-  {
-    link: '/',
-    time: 3,
-    title: 'GraphQL concepts',
-  },
-]
-
-const optionalSteps = [
-  {
-    link: '/',
-    time: 3,
-    title: 'Clients',
-  },
-  {
-    link: '/',
-    time: 4,
-    title: 'Server',
-  },
-  {
-    link: '/',
-    time: 20,
-    title: 'Tooling and Ecosystem',
-  },
-  {
-    link: '/',
-    time: 1,
-    title: 'More GraphQL Concepts',
-  },
-  {
-    link: '/',
-    time: 1,
-    title: 'Common Questions',
-  },
-]

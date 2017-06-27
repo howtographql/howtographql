@@ -10,10 +10,11 @@ import ContentOverview from '../components/home/ContentOverview'
 import Footer from '../components/home/Footer'
 
 export default props => {
+  const steps = extractSteps(props.data.mds)
   return (
     <App>
-      <Intro />
-      <Chooser mds={extractSteps(props.data.mds)} />
+      <Intro steps={steps} />
+      <Chooser mds={steps} />
       <WhatWeBuild />
       {/*<LandingPlayground />*/}
       <Team />
