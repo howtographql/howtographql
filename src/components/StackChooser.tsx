@@ -9,6 +9,8 @@ interface Props {
   onChangeSelectedIndex: (n: number) => void
   width?: number
   markdownFiles: { [key: string]: Step[] }
+  fixedWidth?: number
+  showSelectedBorder?: boolean
 }
 
 function StackChooser({
@@ -17,11 +19,17 @@ function StackChooser({
   onChangeSelectedIndex,
   width = 0,
   markdownFiles,
+  fixedWidth = 0,
+  showSelectedBorder = false,
 }: Props) {
   const widthElement = 140 + 20
   const widthElementSelected = 140 + 80
+
+  const translateWidth = fixedWidth > 0 ? fixedWidth : width
   const translateX =
-    (width || 1) / 2 - widthElement * selectedIndex - widthElementSelected / 2
+    (translateWidth || 1) / 2 -
+    widthElement * selectedIndex -
+    widthElementSelected / 2
 
   const tutorials = stacks.map(tutorial => {
     return {
@@ -59,11 +67,16 @@ function StackChooser({
           filter: grayscale(100%);
         }
         .stacks-item p {
-          @p: .mt10, .o40, .f14;
+          @p: .mt10, .o40, .f14, .fw6;
         }
         .stacks-item.active {
           @p: .pv16, .mv0, .mh38;
           transform: scale(1.2);
+        }
+        .stacks-item.active.showSelectedBorder {
+          @p: .ba, .bw2;
+          border-color: rgb(229, 229, 229);
+          border-radius: 6px;
         }
         .stacks-item.active img {
           @p: .o100;
@@ -82,6 +95,7 @@ function StackChooser({
             <div
               className={cn('stacks-item', {
                 active: selectedIndex === index,
+                showSelectedBorder,
               })}
               onClick={onChangeSelectedIndex.bind(null, index)}
               key={index}

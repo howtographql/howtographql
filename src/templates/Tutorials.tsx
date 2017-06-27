@@ -61,7 +61,7 @@ class Tutorials extends React.Component<Props, null> {
               <div className="content">
                 <h1>{post.frontmatter.title}</h1>
                 <Markdown html={post.html} />
-                {isTutorialChooser && <TutorialChooser />}
+                {isTutorialChooser && <TutorialChooser markdownFiles={steps} />}
               </div>
             </div>
             <Footer />
