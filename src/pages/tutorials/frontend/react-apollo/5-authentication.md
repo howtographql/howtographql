@@ -2,7 +2,7 @@
 title: Authentication
 ---
 
-In this section, you'll learn how you can implement authentication functionality with Apollo and Graphcool to provide log-in functionality to the user.
+In this section, you'll learn how you can implement authentication functionality with Apollo and Graphcool to provide login functionality to the user.
 
 ### Prepare the React components
 
@@ -77,17 +77,22 @@ class Login extends Component {
 export default Login
 ``` 
 
-Let's quickly understand the structure of this new component. The component can have two major states. One state for users that already have an account and only need to login, here the component will only render two `input` fields for the user provide `email` and `password`. Notice that `state.login` will be `true` in this case. The second state is for users that haven't created an account yet and that still need to sign up. Here, you also render a third `input` field where users can provide their `name`.
+Let's quickly understand the structure of this new component. The component can have two major states. 
+
+One state for users that already have an account and only need to login, here the component will only render two `input` fields for the user provide `email` and `password`. Notice that `state.login` will be `true` in this case. 
+
+The second state is for users that haven't created an account yet and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
 
 The method `_confirm`  will be used to implement the mutations that we need to send for the login functionality.
 
-Next you also need to provide the `constants.js` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`. In `src`, create a new file called `constants.js` and add the following two definitions:
+Next you also need to provide the `constants.js` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`. 
+
+contIn `src`, create a new file called `constants.js` and add the following two definitions:
 
 ```js
 export const GC_USER_ID = 'graphcool-user-id'
 export const GC_AUTH_TOKEN = 'graphcool-auth-token'
 ```
-
 
 With that component in place, you can go and add a new route to your `react-router` setup. Open `App.js` and update `render` to include the new route:
 
@@ -103,60 +108,64 @@ render() {
 }
 ```
 
-Finally, go ahead and add a second `button` to `LinkList` that allows the users to navigate to the `Login` page. You'll actually reuse the _New Link_-button and make it point to the `Login` component if a user is not logged in. 
+Also import the `Login` component on top of the same file: 
 
-Open `LinkList.js` and update `render` to look as follows:
+```js
+import Login from './Login'
+```
+
+Finally, go ahead and add `Link` to the `Header` that allows the users to navigate to the `Login` page. 
+
+Open `Header.js` and update `render` to look as follows:
 
 ```js
 render() {
-
-  if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
-    return <div>Loading</div>
-  }
-
-  if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
-    return <div>Error</div>
-  }
-
-  const linksToRender = this.props.allLinksQuery.allLinks
   const userId = localStorage.getItem(GC_USER_ID)
-
   return (
-    <div>
-      {!userId ?
-        <button onClick={() => {
-          this.props.history.push('/login')
-        }}>Login</button> :
-        <div>
-          <button onClick={() => {
-            this.props.history.push('/create')
-          }}>New Link</button>
-          <button onClick={() => {
+    <div className='flex pa1 justify-between nowrap orange'>
+      <div className='flex flex-fixed black'>
+        <div className='fw7 mr1'>Hacker News</div>
+        <Link to='/' className='ml1 no-underline black'>new</Link>
+        {userId &&
+        <div className='flex'>
+          <div className='ml1'>|</div>
+          <Link to='/create' className='ml1 no-underline black'>submit</Link>
+        </div>
+        }
+      </div>
+      <div className='flex flex-fixed'>
+        {userId ?
+          <div className='ml1 pointer black' onClick={() => {
             localStorage.removeItem(GC_USER_ID)
             localStorage.removeItem(GC_AUTH_TOKEN)
-            this.forceUpdate() // doesn't work as it should :(
-          }}>Logout</button>
-        </div>
-      }
-      {linksToRender.map(link => (
-        <Link key={link.id} link={link}/>
-      ))}
+            this.props.history.push(`/new/1`)
+          }}>logout</div>
+          :
+          <Link to='/login' className='ml1 no-underline black'>login</Link>
+        }
+      </div>
     </div>
   )
 }
 ```
 
-You first retrieve the `userId` from local storage. If that's not available, the button will navigate to the `Login` component. Otherwise, the user can go ahead and create new links and a _Logout_-button will be rendered as well.
+You first retrieve the `userId` from local storage. If the `userId` is not available, the _submit_-button won't be rendered any more. That way you make sure only authenticated users can create new links. 
 
-Lastly, import the key definitions from `constants.js`. Still in `LinkList.js`, add the following statement to the top of file:
+You're also adding a second button to the right of the `Header` that users can use to login and logout.
+
+Lastly, you need to import the key definitions from `constants.js`. Still in `LinkList.js`, add the following statement to the top of file:
 
 ```js
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 ```
  
+Here is what the ready component looks like:
+
+![](http://imgur.com/tBxMVtb.png)
+ 
 Before you can implement the authentication functionality in `Login.js`, you need to prepare the Graphcool project and enable authentication on the server-side.
 
-#### Enabling Email-and-Password Authentication & Updating the Schema
+### Enabling Email-and-Password Authentication & Updating the Schema
 
 <enable authentication provider>
 
@@ -164,7 +173,7 @@ Before you can implement the authentication functionality in `Login.js`, you nee
 
 ![](http://imgur.com/HNdmas3.png)
 
-Having the `Email-and-Password` auth provider enabled adds two new mutations to the project's schema:
+Having the `Email-and-Password` auth provider enabled adds two new mutations to the project's API:
 
 ```graphql
 # 1. Create new user
@@ -209,7 +218,7 @@ type User implements Node {
 You added two things to the schema:
 
 - A new field on the `User` type to store the `name` of the user.
-- A new relation between the `User` and the `Link` type that represents a one-to-many relationship and expressed that one `User` can be associated with multiple links. The relation manifests itself in the two fields `postedBy` and `links`.
+- A new relation between the `User` and the `Link` type that represents a one-to-many relationship and expresses that one `User` can be associated with multiple links. The relation manifests itself in the two fields `postedBy` and `links`.
 
 Save the file and execute the following command in the Terminal:
 
@@ -229,12 +238,9 @@ $ graphcool push
   | (+)  The relation `UsersLinks` is created. It connects the type `Link` with the type `User`.
 
 Your project file project.graphcool was updated. Reload it in your editor if needed.
-
-nburk@macbook-pro hackernews-react-apollo $ 
-
 ```
 
-> **Note**: You can also use the `graphcool status` after having made changes to the schema to see the potential changes that would be performed with `graphcool push`.
+> **Note**: You can also use the `graphcool status` command after having made changes to the schema to preview the potential changes that would be performed with `graphcool push`.
 
 Perfect, you're all set now to actually implement the authentication functionality inside your app.
 
@@ -243,7 +249,7 @@ Perfect, you're all set now to actually implement the authentication functionali
 
 `createUser` and `signinUser` are two regular GraphQL mutations that you can use in the same way as you did with the `createLink` mutation from before.
 
-Open `Login.js` and add the following two definitions to the bottom of the file:
+Open `Login.js` and add the following two definitions to the bottom of the file, also replacing the current `export Login` statement:
 
 ```js
 const CREATE_USER_MUTATION = gql`
@@ -294,7 +300,9 @@ export default compose(
 
 Note that you're using `compose` for the export statement this time since there is more than one mutation that you want to wrap the component with.
 
-Before we take a closer look at the two mutations, go ahead and add the required imports. Still in `Login.js`, add the following statement to the top of the file:
+Before we take a closer look at the two mutations, go ahead and add the required imports. 
+
+Still in `Login.js`, add the following statement to the top of the file:
 
 ```js
 import { gql, graphql, compose } from 'react-apollo'
@@ -302,9 +310,9 @@ import { gql, graphql, compose } from 'react-apollo'
 
 Now, let's understand what's going in the two mutations that you just added to the component.
 
-The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It simply takes the `email` and `password` as arguments and returns info about the `user` as well as a `token` that you can attach to subsequent requests to authenticate the user. 
+The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It simply takes the `email` and `password` as arguments and returns info about the `user` as well as a `token` that you can attach to subsequent requests to authenticate the user. You'll learn in a bit how to do so.
 
-The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always from to bottom. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows to sign up and login in a single request!
+The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always _from top to bottom_. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows to sign up and login in a single request!
 
 All right, all that's left to do is call the two mutations inside the code!
 
@@ -341,12 +349,15 @@ _confirm = async () => {
 
 The code is pretty straightforward. If the user wants to only login, you're calling the `signinUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `createUserMutation` where you also pass the user's `name`. After the mutation was performed, you're storing the `id` and `token` in `localStorage` and navigate back to the root route.
 
+You can now create an account by providing a `name`, `email` and `password`. Once you did that, the _submit_-button will be rendered again:
+
+![](http://imgur.com/WoWLmDJ.png) 
 
 ### Updating the `createLink`-mutation
 
 Since you're now able to authenticate users and also added a new relation between the `Link` and `User` type, you can also make sure that every new link that gets created in the app can store information about the user that posted it. That's what the `postedBy` field on `Link` will be used for.
 
-Open `CreateLink.js` and update the definition of `CREATE_LINK_MUTATION`    as follows:
+Open `CreateLink.js` and update the definition of `CREATE_LINK_MUTATION` as follows:
 
 ```js
 const CREATE_LINK_MUTATION = gql`
@@ -400,7 +411,7 @@ For this to work, you also need to import the `GC_USER_ID` key. Add the followin
 import { GC_USER_ID } from '../constants'
 ```
 
-Perfect! Before sending the mutation, you're now also retrieving the corresponding user id from `localStorage`. If that succeeds, you'll pass it to the call to `createLinkMutation` so that every new links will from now on store information about the user that created it.
+Perfect! Before sending the mutation, you're now also retrieving the corresponding user id from `localStorage`. If that succeeds, you'll pass it to the call to `createLinkMutation` so that every new `Link` will from now on store information about the `User` who created it.
 
-Go ahead and test the login functionality. run `yarn start` and open `http://localhost:3000/login`. Then click the _Need to create an account?_-button and provide some user data for the user you're crreating. Finally, click the _Create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
+If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're crreating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
 
