@@ -4,11 +4,12 @@ import * as cn from 'classnames'
 interface Props {
   children?: JSX.Element
   small?: boolean
+  active?: boolean
 }
 
-const OptionalDottedListItem = ({ children, small }: Props) => {
+const OptionalDottedListItem = ({ children, small, active }: Props) => {
   return (
-    <div className={cn('optional-dotted-list-item', { small })}>
+    <div className={cn('optional-dotted-list-item', { small, active })}>
       <style jsx={true}>{`
         .optional-dotted-list-item::before {
           @p: .bBlack20, .bgWhite, .absolute, .ba, .bw2, .br100;
@@ -17,6 +18,9 @@ const OptionalDottedListItem = ({ children, small }: Props) => {
           margin-top: 3px;
           width: 8px;
           height: 8px;
+        }
+        .optional-dotted-list-item.active::before {
+          border-color: $pink;
         }
         .optional-dotted-list-item {
           @p: .pv16, .f20, .pl38, .relative;
@@ -32,8 +36,11 @@ const OptionalDottedListItem = ({ children, small }: Props) => {
         .optional-dotted-list-item :global(a) {
           @p: .black80;
         }
+        div.optional-dotted-list-item.active :global(a) {
+          @p: .pink;
+        }
         .optional-dotted-list-item.small::before {
-          margin-top: 18px;
+          margin-top: 3px;
         }
       `}</style>
       {children}

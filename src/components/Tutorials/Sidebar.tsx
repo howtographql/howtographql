@@ -42,6 +42,7 @@ export default function Sidebar({ steps, post, location }: Props) {
           location={location}
         />
         <OptionalSteps
+          location={location}
           steps={steps.advanced}
           small={true}
           showDuration={false}

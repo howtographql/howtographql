@@ -10,6 +10,7 @@ interface Props {
   steps: Step[]
   small?: boolean
   showDuration?: boolean
+  location: any
 }
 
 interface State {
@@ -123,7 +124,11 @@ export default class OptionalSteps extends React.Component<Props, State> {
         </div>
         <div className="steps">
           {visibleSteps.map(step =>
-            <OptionalDottedListItem key={step.title} small={this.props.small}>
+            <OptionalDottedListItem
+              key={step.title}
+              small={this.props.small}
+              active={step.link === this.props.location.pathname}
+            >
               <div className="list-item">
                 <Link to={step.link}>
                   {step.title}
