@@ -6,7 +6,6 @@ import Sidebar from '../components/Tutorials/Sidebar'
 import Markdown from '../components/Tutorials/Markdown'
 import { extractSteps } from '../utils/graphql'
 // import Youtube from 'youtube-embed-video'
-import Footer from '../components/home/Footer'
 import TutorialChooser from '../components/TutorialChooser'
 
 interface Props {
@@ -64,7 +63,6 @@ class Tutorials extends React.Component<Props, null> {
                 {isTutorialChooser && <TutorialChooser markdownFiles={steps} />}
               </div>
             </div>
-            <Footer />
           </div>
           <Sidebar steps={steps} post={post} location={this.props.location} />
         </div>

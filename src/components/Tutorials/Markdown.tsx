@@ -117,7 +117,8 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt0, .pt6;
         }
         .markdown h2 {
-          margin-top: 76px; /* 2x mt38 due to vertical line */
+          margin-top: 76px;
+          /* 2x mt38 due to vertical line */
         }
         .markdown h3 {
           margin-top: 30px;
@@ -127,7 +128,8 @@ export default function Markdown({ html }: { html: string }) {
         }
         .markdown p {
           @p: .mt16;
-        } /* First child never has top padding */
+        }
+        /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,
@@ -142,13 +144,13 @@ export default function Markdown({ html }: { html: string }) {
           margin-bottom: 30px;
         }
         .gatsby-highlight-code-line {
-          background-color: #feb;
+          background-color: $darkBlue06;
           display: block;
-          margin-right: -1em;
-          margin-left: -1em;
-          padding-right: 1em;
-          padding-left: 0.75em;
-          border-left: 0.25em solid #f99;
+          margin-right: -16px;
+          margin-left: -16px;
+          padding-right: 16px;
+          padding-left: 13px;
+          border-left: 3px solid $darkBlue20;
         }
       `}</style>
       <JsxParser

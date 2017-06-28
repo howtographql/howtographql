@@ -15,7 +15,7 @@ export default function Pre({ children, path, className, ...rest }: Props) {
     <div className="pre-container">
       <style jsx={true}>{`
         .pre-container {
-          @p: .mt38;
+          @p: .mt38, .relative;
         }
         pre {
           @p: .bDarkBlue10, .ba, .br2, .pa16, .bgDarkBlue04, .overflowAuto;
