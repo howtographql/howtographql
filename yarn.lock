@@ -3628,17 +3628,7 @@ graphcool-graphiql@^1.8.7:
     svg-loader "^0.0.2"
     svgo-loader "^1.1.2"
 
-graphcool-styles@^0.1.28:
-  version "0.1.28"
-  resolved "https://registry.yarnpkg.com/graphcool-styles/-/graphcool-styles-0.1.28.tgz#058025c30e8fcc48a1401b070307cb71178009b0"
-  dependencies:
-    html-webpack-plugin "^2.24.1"
-    interactive "^0.1.9"
-    object-assign "^4.1.0"
-    react-dom "^15.3.2"
-    webpack-dev-server "^1.16.2"
-
-graphcool-styles@^0.1.29:
+graphcool-styles@^0.1.28, graphcool-styles@^0.1.29:
   version "0.1.29"
   resolved "https://registry.yarnpkg.com/graphcool-styles/-/graphcool-styles-0.1.29.tgz#93b576fc583ee49317285aab06ed44b5fce2fd6d"
   dependencies:
@@ -5924,6 +5914,10 @@ parse-latin@^3.1.0:
     nlcst-to-string "^2.0.0"
     unist-util-modify-children "^1.0.0"
     unist-util-visit-children "^1.0.0"
+
+parse-numeric-range@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/parse-numeric-range/-/parse-numeric-range-0.0.2.tgz#b4f09d413c7adbcd987f6e9233c7b4b210c938e4"
 
 parse-passwd@^1.0.0:
   version "1.0.0"
