@@ -6,19 +6,14 @@ module.exports = language => {
   }
   let path = null
 
-  console.log('language')
-  console.log(language)
-
   // removes the () part completly from the string, so the {} logic is untouched
   if (language.split(`(`).length > 1) {
     const i0 = language.indexOf('(')
     const i1 = language.lastIndexOf(')')
     const params = language.slice(i0 + 1, i1)
     language = language.slice(0, i0) + language.slice(i1 + 1, language.length)
-    console.log('sliced language', language)
 
     path = params.split('=')[1].replace(/"/g, '')
-    console.log('path', path)
   }
 
   if (language.split(`{`).length > 1) {
