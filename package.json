@@ -36,7 +36,9 @@
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.0.0",
     "typescript": "2.2.1",
-    "youtube-embed-video": "^1.0.2"
+    "youtube-embed-video": "^1.0.2",
+    "parse-numeric-range": "^0.0.2",
+    "unist-util-visit": "^1.1.1"
   },
   "scripts": {
     "start": "gatsby develop",
