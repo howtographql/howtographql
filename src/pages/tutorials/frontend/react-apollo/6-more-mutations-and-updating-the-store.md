@@ -175,7 +175,7 @@ graphcool push
 
 Here is what the Terminal output looks like:
 
-```
+```(nocopy)
 $ gc push
  ✔ Your schema was successfully updated. Here are the changes: 
 

@@ -68,7 +68,7 @@ Notice that the `links` field in the component state will hold all the links to 
 
 Now add the `Search` component as a new route to the app. Open `App.js` and update render to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
@@ -105,7 +105,7 @@ For the user to be able to comfortably navigate to the search functionality, you
 
 Open `Header.js` and put a new `Link` between `new` and `submit`:
 
-```js(path=".../hackernews-react-apollo/src/components/Header.js")
+```js{4,5}(path=".../hackernews-react-apollo/src/components/Header.js")
 <div className='flex flex-fixed black'>
   <div className='fw7 mr1'>Hacker News</div>
   <Link to='/' className='ml1 no-underline black'>new</Link>
