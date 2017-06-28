@@ -1871,6 +1871,12 @@ cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
+copy-to-clipboard@^3:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.0.6.tgz#13c09bfea0408a5dc5bb987fee3b3986518c9d69"
+  dependencies:
+    toggle-selection "^1.0.3"
+
 copyfiles@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/copyfiles/-/copyfiles-1.2.0.tgz#a8da3ac41aa2220ae29bd3c58b6984294f2c593c"
@@ -3212,14 +3218,6 @@ gatsby-remark-copy-linked-files@next:
     lodash "^4.17.4"
     unist-util-visit "^1.1.1"
 
-gatsby-remark-prismjs@next:
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-prismjs/-/gatsby-remark-prismjs-1.0.0-beta.2.tgz#2be09d8803f62411d46c438f914af39d9cb1d8c3"
-  dependencies:
-    parse-numeric-range "^0.0.2"
-    prismjs "^1.6.0"
-    unist-util-visit "^1.1.1"
-
 gatsby-remark-responsive-iframe@next:
   version "1.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/gatsby-remark-responsive-iframe/-/gatsby-remark-responsive-iframe-1.0.0-beta.1.tgz#da30bbe1975a1b73608330837338084a2d99a56e"
@@ -3633,6 +3631,16 @@ graphcool-graphiql@^1.8.7:
 graphcool-styles@^0.1.28:
   version "0.1.28"
   resolved "https://registry.yarnpkg.com/graphcool-styles/-/graphcool-styles-0.1.28.tgz#058025c30e8fcc48a1401b070307cb71178009b0"
+  dependencies:
+    html-webpack-plugin "^2.24.1"
+    interactive "^0.1.9"
+    object-assign "^4.1.0"
+    react-dom "^15.3.2"
+    webpack-dev-server "^1.16.2"
+
+graphcool-styles@^0.1.29:
+  version "0.1.29"
+  resolved "https://registry.yarnpkg.com/graphcool-styles/-/graphcool-styles-0.1.29.tgz#93b576fc583ee49317285aab06ed44b5fce2fd6d"
   dependencies:
     html-webpack-plugin "^2.24.1"
     interactive "^0.1.9"
@@ -5917,10 +5925,6 @@ parse-latin@^3.1.0:
     unist-util-modify-children "^1.0.0"
     unist-util-visit-children "^1.0.0"
 
-parse-numeric-range@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/parse-numeric-range/-/parse-numeric-range-0.0.2.tgz#b4f09d413c7adbcd987f6e9233c7b4b210c938e4"
-
 parse-passwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
@@ -6884,6 +6888,13 @@ react-addons-shallow-compare@^15.4.2:
   dependencies:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
+
+react-copy-to-clipboard@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.0.tgz#23ccdd7c4d9ec2cc763839e2a55b1220aeb4f33d"
+  dependencies:
+    copy-to-clipboard "^3"
+    prop-types "^15.5.8"
 
 react-deep-force-update@^2.0.1:
   version "2.0.1"
@@ -8416,6 +8427,10 @@ to-arraybuffer@^1.0.0:
 to-fast-properties@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
+
+toggle-selection@^1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/toggle-selection/-/toggle-selection-1.0.5.tgz#726c703de607193a73c32c7df49cd24950fc574f"
 
 toml@^2.3.2:
   version "2.3.2"

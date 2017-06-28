@@ -64,7 +64,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
           .time.first {
             top: -3px;
           }
-          .st0 {
+          .steps-svg-class {
             fill: none;
             stroke: #ccc;
             stroke-width: 2;
@@ -116,7 +116,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
             viewBox={`0 0 32 ${n + 196}`}
           >
             <path
-              className="st0"
+              className="steps-svg-class"
               d={`M1,${n +
                 195}c0-48.98,30-48.98,30-97c0-32.01,0-${n},0-${n}C31,49.98,1,49.98,1,1`}
             />

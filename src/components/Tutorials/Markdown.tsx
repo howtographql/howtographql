@@ -1,5 +1,7 @@
 import * as React from 'react'
 import JsxParser from 'react-jsx-parser'
+import Instruction from './Instruction'
+import Pre from './Pre'
 
 export default function Markdown({ html }: { html: string }) {
   return (
@@ -34,9 +36,6 @@ export default function Markdown({ html }: { html: string }) {
         .markdown p, .markdown ul {
           @p: .mt16;
         }
-        .markdown pre {
-          @p: .mt38, .bDarkBlue10, .ba, .br2, .pa16, .bgDarkBlue04, .overflowAuto;
-        }
         .markdown img {
           max-width: 600px;
         }
@@ -49,19 +48,15 @@ export default function Markdown({ html }: { html: string }) {
         }
         .markdown p a:hover, .markdown li a:hover {
           @p: .underline;
-        }
-
-        /* Lists */
+        } /* Lists */
         .markdown ul, .markdown ol {
           list-style-type: none;
           margin: 0;
-
           padding: 0;
         }
         .markdown ol {
           counter-reset: list;
         }
-
         .markdown ul li, .markdown ol li {
           @p: .relative, .mt10, .pl25;
         }
@@ -86,7 +81,7 @@ export default function Markdown({ html }: { html: string }) {
         .markdown h3 code,
         .markdown h4 code {
           @p: .br2, .dib, .purple, .lhSolid;
-          padding: 4px 4px 2px;
+          padding: 4px 4px 3px;
           background: $darkBlue06;
           vertical-align: text-bottom;
         }
@@ -122,8 +117,7 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt0, .pt6;
         }
         .markdown h2 {
-          margin-top: 76px;
-          /* 2x mt38 due to vertical line */
+          margin-top: 76px; /* 2x mt38 due to vertical line */
         }
         .markdown h3 {
           margin-top: 30px;
@@ -147,13 +141,23 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt16;
           margin-bottom: 30px;
         }
+        .gatsby-highlight-code-line {
+          background-color: #feb;
+          display: block;
+          margin-right: -1em;
+          margin-left: -1em;
+          padding-right: 1em;
+          padding-left: 0.75em;
+          border-left: 0.25em solid #f99;
+        }
       `}</style>
       <JsxParser
-        jsx={`<div>${html}</div>`}
-        components={{}}
+        jsx={html}
+        components={{ INSTRUCTION: Instruction, PRE: Pre }}
         showWarnings={true}
       />
     </div>
   )
 }
+
 /*<div dangerouslySetInnerHTML={{ __html: post.html }} />*/

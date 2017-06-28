@@ -9,7 +9,7 @@ The first piece of functionality that you'll implement in the app is loading and
 You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
 
 Create a new file called `Link.js` in the `components` directory and add the following code:
-
+<Instruction text="Hali Halo Hilli">
 ```js
 import React, { Component } from 'react'
 
@@ -31,6 +31,7 @@ class Link extends Component {
 
 export default Link
 ```
+</Instruction>
 
 This is a simple React component that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie! 🍰
 

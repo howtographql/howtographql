@@ -1,11 +1,8 @@
 {
   "name": "styled-jsx-plugin",
-  "version": "1.0.0-beta.1",
-  "description": "Adds TypeScript support for Gatsby layouts and pages.",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "contributors": [
-    "Noah Lange <noahrlange@gmail.com>"
-  ],
+  "version": "0.1",
+  "description": "Adds SSR support for styled-jsx",
+  "author": "Tim Suchanek <tim.suchanek@gmail.com>",
   "dependencies": {
     "transform-runtime": "^0.0.0",
     "ts-loader": "^2.0.3",
@@ -19,9 +16,5 @@
     "typescript"
   ],
   "license": "MIT",
-  "main": "index.js",
-  "scripts": {
-    "build": "babel src --out-dir .",
-    "watch": "babel -w src --out-dir ."
-  }
+  "main": "index.js"
 }

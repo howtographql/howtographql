@@ -24,10 +24,13 @@ export default class TutorialChooser extends React.Component<Props, State> {
   render() {
     const selected = data[this.state.selectedIndex]
     return (
-      <div>
+      <div className="tutorial-chooser">
         <style jsx={true}>{`
           .center-container {
             @p: .flex, .justifyCenter;
+          }
+          .tutorial-chooser :global(.stacks-item) :global(img) {
+            filter: grayscale(100%);
           }
         `}</style>
         <StackChooser
