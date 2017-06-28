@@ -31,23 +31,7 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 
 Often times, you'll want to combine a short instruction with a code block that the user has to copy into their project:
 
-```
-<Instruction>
-
-Now update the configuration code like so:
-
-```js(path=".../hackernews-react-apollo/src/index.js")
-const networkInterface = createNetworkInterface({
-  uri: 'https://api.graph.cool/simple/v1/<project-id>'
-})
-
-const client = new ApolloClient({
-  networkInterface: networkInterface
-})
- ```
-
-</Instruction>
-```
+![](.png)
 
 This is what a rendered instruction block (including code block) will look like: 
 
