@@ -31,7 +31,7 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 
 Often times, you'll want to combine a short instruction with a code block that the user has to copy into their project:
 
-```
+<pre><code>```
 <Instruction>
 
 Now update the configuration code like so:
@@ -48,6 +48,7 @@ const client = new ApolloClient({
 
 </Instruction>
 ```
+</code></pre>
 
 This is what a rendered instruction block (including code block) will look like: 
 
@@ -64,7 +65,7 @@ For code blocks, you should include special annotations that provide more contex
 
 This is the syntax for the different annotations:
 
-##### Adding a filename
+#### Adding a filename
 
 When adding a filename to indicate that this code can be found as such in a file in the example project, use the following syntax:
 
@@ -86,7 +87,7 @@ This information will be displayed on top of the code block and will link to the
 
 ![](http://imgur.com/VyyZk5v.png)
 
-##### Adding a directory path a terminal command
+#### Adding a directory path a terminal command
 
 <pre><code>```bash(path=".../hackernews-react-apollo")
 yarn add react-apollo
@@ -95,7 +96,7 @@ yarn add react-apollo
 
 ![](http://imgur.com/yeCfsk6.png)
 
-##### Adding / Hiding the "Copy"-button to a code block
+#### Adding / Hiding the "Copy"-button to a code block
 
 Most of the code blocks in your tutorial will have to be copied by the reader, so a "Copy"-button
  is displayed by default. However, that copy button also _communicates_ that the user should be doing something with this code block. Sometimes, when you don't want the user to do something with a code block because you only include it for illustration purposes, you should remove the "Copy"-button to make it very clear that this code does not belong into the project.
@@ -123,7 +124,7 @@ type Vote {
 </code></pre>
 
 
-##### Highlighting lines in the snippet
+#### Highlighting lines in the snippet
 
 You're also able to highlight individual lines inside of a code block to put emphasis on certain parts. Simply include the line numbers in curly braces right after the language statement:
 
