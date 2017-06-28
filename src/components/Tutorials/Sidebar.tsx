@@ -6,6 +6,7 @@ import ChooseTutorialStep from '../Steps/ChooseTutorialStep'
 import Theory from '../Steps/Theory'
 import { extractGroup } from '../../utils/graphql'
 import TutorialTitleStep from '../Steps/TutorialTitleStep'
+import data from '../Steps/data/stacks'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -24,6 +25,11 @@ export default class Sidebar extends React.Component<Props, {}> {
     const { post, steps, location } = this.props
     const group = post ? extractGroup(post.fields.slug) : 'basics'
     const selectedSteps = steps[group]
+    let tutorialTitle: string | null = null
+    const stack = data.find(s => s.key === group)
+    if (stack) {
+      tutorialTitle = stack.title
+    }
 
     return (
       <div className="sidebar-container">
@@ -84,7 +90,7 @@ export default class Sidebar extends React.Component<Props, {}> {
             {['basics', 'advanced'].includes(group)
               ? <ChooseTutorialStep />
               : <div>
-                  <TutorialTitleStep title="React + Apollo" />
+                  {tutorialTitle && <TutorialTitleStep title={tutorialTitle} />}
                   <Steps
                     steps={selectedSteps}
                     small={true}

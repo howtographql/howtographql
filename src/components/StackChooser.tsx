@@ -34,7 +34,7 @@ function StackChooser({
   const tutorials = stacks.map(tutorial => {
     return {
       ...tutorial,
-      steps: markdownFiles[tutorial.key] || tutorial.steps,
+      steps: markdownFiles[tutorial.key],
     }
   })
 
@@ -64,7 +64,7 @@ function StackChooser({
         }
         .stacks-item img {
           @p: .o30;
-          filter: grayscale(100%);
+          filter: grayscale(100%) brightness(200%);
         }
         .stacks-item p {
           @p: .mt10, .o40, .f14, .fw6;

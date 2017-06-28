@@ -31,5 +31,7 @@ export interface Stack {
     title: string
     description: string
   }
-  steps: Step[]
+  type: StackType
 }
+
+type StackType = 'frontend' | 'backend'

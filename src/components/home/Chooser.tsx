@@ -4,7 +4,7 @@ import * as cn from 'classnames'
 import withWidth from './withWidth'
 import DottedListItem from '../Steps/DottedListItem'
 import LeftColumn from './LeftColumn'
-import data from '../Steps/data/List'
+import data from '../Steps/data/stacks'
 import StackChooser from '../StackChooser'
 
 import { Step } from '../../types'
@@ -22,7 +22,7 @@ interface State {
 
 class Chooser extends React.Component<Props, State> {
   state = {
-    selectedIndex: 0,
+    selectedIndex: 2,
   }
 
   selectStack = index => {
@@ -36,7 +36,7 @@ class Chooser extends React.Component<Props, State> {
     const tutorials = data.map(tutorial => {
       return {
         ...tutorial,
-        steps: mds[tutorial.key] || tutorial.steps,
+        steps: mds[tutorial.key],
       }
     })
     const selected = tutorials[selectedIndex]

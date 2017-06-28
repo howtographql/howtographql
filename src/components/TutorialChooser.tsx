@@ -1,5 +1,5 @@
 import * as React from 'react'
-import data from './Steps/data/List'
+import data from './Steps/data/stacks'
 import StackChooser from './StackChooser'
 import { Step } from '../types'
 import Link from 'gatsby-link'
@@ -17,7 +17,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      selectedIndex: 0,
+      selectedIndex: 2,
     }
   }
 
