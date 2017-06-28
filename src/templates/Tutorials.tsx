@@ -61,13 +61,14 @@ class Tutorials extends React.Component<Props, null> {
               <div className="content">
                 <h1>{post.frontmatter.title}</h1>
                 <Markdown html={post.html} />
-                {isTutorialChooser && <TutorialChooser markdownFiles={steps} />}
-                <Quiz
-                  question={question}
-                  answers={answers}
-                  correctAnswerIndex={2}
-                  nextChapter={steps['react-apollo'][1]}
-                />
+                {isTutorialChooser
+                  ? <TutorialChooser markdownFiles={steps} />
+                  : <Quiz
+                      question={question}
+                      answers={answers}
+                      correctAnswerIndex={2}
+                      nextChapter={steps['react-apollo'][1]}
+                    />}
               </div>
             </div>
           </div>
