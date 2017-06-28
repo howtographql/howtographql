@@ -31,7 +31,7 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 
 Often times, you'll want to combine a short instruction with a code block that the user has to copy into their project:
 
-![](.png)
+![](http://imgur.com/4SrSHHu.png)
 
 This is what a rendered instruction block (including code block) will look like: 
 
