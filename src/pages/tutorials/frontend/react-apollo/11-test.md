@@ -2,6 +2,12 @@
 title: Test
 ---
 
+## Ordered List Test
+
+1. Point 1
+2. Point 2
+3. And number 3
+
 ## Setting up the Scripts
 
 Since this is a frontend track, we don't want to spend too much time setting up the backend. This is why we use [Graphcool](https://www.graph.cool/), a service that provides a production-ready GraphQL API out-of-the-box.

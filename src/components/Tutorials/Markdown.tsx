@@ -49,19 +49,22 @@ export default function Markdown({ html }: { html: string }) {
         .markdown p a:hover, .markdown li a:hover {
           @p: .underline;
         } /* Lists */
-        .markdown ul, .markdown ol {
+        .markdown ul {
           list-style-type: none;
           margin: 0;
           padding: 0;
         }
         .markdown ol {
+          @p: .mt25;
+          padding-left: 19px;
+          list-style-type: decimal;
           counter-reset: list;
         }
-        .markdown ul li, .markdown ol li {
+        .markdown ul li {
           @p: .relative, .mt10, .pl25;
         }
         div.markdown ol li {
-          padding-left: 32px;
+          @p: .relative, .mt10, .pl16;
         }
         .markdown ul li:before, .markdown ol li:before {
           @p: .absolute;
