@@ -24,8 +24,13 @@ export default class Quiz extends React.Component<Props, State> {
 
     this.state = {
       checkedAnswerIndeces: [],
-      showNextChapter: true,
+      showNextChapter: false,
     }
+  }
+
+  // reset the internal state when a site change occurs
+  componentWillReceiveProps(nextProps) {
+    this.setState(state => ({ ...state, showNextChapter: false }))
   }
 
   render() {
@@ -102,10 +107,13 @@ export default class Quiz extends React.Component<Props, State> {
   }
 
   private skip = () => {
-    this.setState(state => ({
-      ...state,
-      showNextChapter: true,
-    }))
+    this.setState(
+      state => ({
+        ...state,
+        showNextChapter: true,
+      }),
+      this.scrollDown,
+    )
   }
 
   private handleAnswerClick = i => {
@@ -114,7 +122,16 @@ export default class Quiz extends React.Component<Props, State> {
         checkedAnswerIndeces: uniq(state.checkedAnswerIndeces.concat(i)),
         showNextChapter: true,
       }
-    })
+    }, this.scrollDown)
+  }
+
+  private scrollDown = () => {
+    setTimeout(() => {
+      const container = document.getElementById('tutorials-left-container')
+      if (container) {
+        container.scrollTop = container.scrollHeight
+      }
+    }, 0)
   }
 }
 
