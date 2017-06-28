@@ -3,6 +3,8 @@ import { Step } from '../../types'
 import Checkmark from '../Checkmark'
 import * as uniq from 'lodash/uniq'
 import * as cn from 'classnames'
+import Unlocked from './Unlocked'
+import NextChapter from './NextChapter'
 
 interface Props {
   question: string
@@ -13,6 +15,7 @@ interface Props {
 
 interface State {
   checkedAnswerIndeces: number[]
+  showNextChapter: boolean
 }
 
 export default class Quiz extends React.Component<Props, State> {
@@ -21,6 +24,7 @@ export default class Quiz extends React.Component<Props, State> {
 
     this.state = {
       checkedAnswerIndeces: [],
+      showNextChapter: true,
     }
   }
 
@@ -53,6 +57,9 @@ export default class Quiz extends React.Component<Props, State> {
           .answer-row {
             @p: .flex, .mt25;
           }
+          .skip {
+            @p: .underline, .black30, .tc, .mt25, .pointer;
+          }
         `}</style>
         <div className="quiz-title">
           <div className="title">Unlock the next chapter</div>
@@ -83,16 +90,29 @@ export default class Quiz extends React.Component<Props, State> {
               checked={checkedAnswerIndeces.includes(3)}
             />
           </div>
+          <div className="skip" onClick={this.skip}>Skip</div>
         </div>
+        {this.state.showNextChapter &&
+          <div>
+            <Unlocked n={4} />
+            <NextChapter step={this.props.nextChapter} />
+          </div>}
       </div>
     )
+  }
+
+  private skip = () => {
+    this.setState(state => ({
+      ...state,
+      showNextChapter: true,
+    }))
   }
 
   private handleAnswerClick = i => {
     this.setState(state => {
       return {
-        ...state,
         checkedAnswerIndeces: uniq(state.checkedAnswerIndeces.concat(i)),
+        showNextChapter: true,
       }
     })
   }
