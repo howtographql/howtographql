@@ -29,28 +29,35 @@ export default class Sidebar extends React.Component<Props, {}> {
       <div className="sidebar-container">
         <style jsx={true}>{`
           .sidebar {
-            @p: .flexFixed, .pt38, .bbox, .overflowAuto, .relative;
-            background-color: rgb(239, 239, 239);
+            @p: .flexFixed,
+              .pt38,
+              .bbox,
+              .overflowAuto,
+              .relative,
+              .bl,
+              .bBlack10;
+            background-color: rgb(245, 245, 245);
             padding-left: 21px;
-            max-height: calc(100vh - 72px);
+            height: calc(100vh - 72px);
             width: 300px;
           }
           .sidebar-container {
             @p: .relative;
           }
           .sidebar-container::before {
-            @p: .absolute, .top0, .left0, .right0, .z2;
+            @p: .absolute, .top0, .right0, .z2;
+            left: 1px;
             content: "";
             background: linear-gradient(
               to bottom,
-              rgb(239, 239, 239) 30%,
-              rgba(239, 239, 239, 0)
+              rgb(245, 245, 245) 30%,
+              rgba(245, 245, 245, 0)
             );
             height: 38px;
             width: 100%;
           }
           .sidebar :global(.plus) {
-            background-color: rgb(239, 239, 239);
+            background-color: rgb(245, 245, 245);
           }
           .sidebar :global(.dotted-list-item.first.light::after) {
             @p: .dn;
