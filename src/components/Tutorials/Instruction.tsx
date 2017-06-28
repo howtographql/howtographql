@@ -29,7 +29,7 @@ export default function Instruction({ text, ...props }: InstructionProps) {
   ) {
     return (
       <div className="instruction-block">
-        <style jsx={true} global={true}>{`
+        <style jsx={true}>{`
           .instruction-block {
             @p: .mt38, .mb10;
           }
@@ -56,6 +56,9 @@ export default function Instruction({ text, ...props }: InstructionProps) {
     return (
       <div className="instruction-block">
         <style jsx={true}>{`
+          .instruction-block {
+            @p: .mt38, .mb10;
+          }
           .instruction-code {
             @p: .pl25, .pt25, .pb10;
           }
@@ -77,6 +80,11 @@ export default function Instruction({ text, ...props }: InstructionProps) {
   }
   return (
     <div className="instruction-block">
+      <style jsx={true}>{`
+        .instruction-block {
+          @p: .mt38, .mb10;
+        }
+      `}</style>
       {children}
     </div>
   )

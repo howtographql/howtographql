@@ -7,7 +7,7 @@ title: Test
 Since this is a frontend track, we don't want to spend too much time setting up the backend. This is why we use [Graphcool](https://www.graph.cool/), a service that provides a production-ready GraphQL API out-of-the-box.
 
 
-## Test + Code
+## Instruction + Code
 
 <Instruction>
 
