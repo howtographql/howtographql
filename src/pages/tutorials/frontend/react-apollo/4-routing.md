@@ -9,17 +9,24 @@ In this section, you'll learn how to use the [`react-router`](https://github.com
 
 First add the dependency to the app. Open a Terminal, navigate to your project directory and and type: 
 
-```sh
+<Instruction>
+
+```bash(path=".../hackernews-react-apollo")
 yarn add react-router-dom
 ```
+
+</Instruction>
+
 
 ### Create a Header
 
 Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate to between the different parts of your app.
 
+<Instruction>
+
 Create a new file in `src/components` and call it `Header.js`. Then paste the following code inside of it:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
@@ -44,15 +51,23 @@ class Header extends Component {
 export default withRouter(Header)
 ```
 
+</Instruction>
+
+
 This simply renders two `Link` components that users can use to navigate between the `LinkList` and the `CreateLink` components. 
 
 > Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows to navigate between routes inside of your application.
 
+
 ### Setup routes
 
-You'll configure the different routes for the app in the project's root component: `App`. Open the correspdonding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
+You'll configure the different routes for the app in the project's root component: `App`. 
 
-```js
+<Instruction>
+
+Open the correspdonding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
+
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <Switch>
@@ -63,24 +78,43 @@ render() {
 }
 ```
 
-For this code to work, you need to import the required dependencies of `react-router`. Add the following statement to the top of the file:
+</Instruction>
 
-```
+
+For this code to work, you need to import the required dependencies of `react-router-dom`. 
+
+
+<Instruction>
+
+Add the following statement to the top of the file:
+
+```(path=".../hackernews-react-apollo/src/components/App.js")
 import Header from './Header'
 import { Switch, Route } from 'react-router-dom'
 ```
 
+</Instruction>
+
+
 Now you need to wrap the `App` with with `BrowserRouter` so that all child components of `App` will get access to the routing functionality.
+
+
+<Instruction>
 
 Open `index.js` and add the following import statement to the top:
 
-```js
+```js(path=".../hackernews-react-apollo/src/index.js")
 import { BrowserRouter } from 'react-router-dom'
 ```
 
+</Instruction>
+
+
+<Instruction>
+
 Now update `ReactDOM.render` and wrap the whole app with the `BrowserRouter`:
 
-```js
+```js(path=".../hackernews-react-apollo/src/index.js")
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
@@ -91,6 +125,9 @@ ReactDOM.render(
 )
 ```
 
+</Instruction>
+
+
 That's it. If you run `yarn start`, you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
 
 ![](http://imgur.com/I16JzwW.png)
@@ -100,9 +137,11 @@ That's it. If you run `yarn start`, you can now access two URLs. `http://localho
 
 To wrap up this section, you need to implement an automatic redirect from the `CreateLink` to `LinkList` after a mutation was performed.
 
+<Instruction>
+
 Open `CreateLink.js` and update `_createLink` to look as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const { description, url } = this.state
   await this.props.createLinkMutation({
@@ -114,6 +153,9 @@ _createLink = async () => {
   this.props.history.push(`/`)
 }
 ```
+
+</Instruction>
+
 
 After the mutation was performed, `react-router-dom` will now navigate back to the `LinkList` component that's accessible on the root route: `/`.
 

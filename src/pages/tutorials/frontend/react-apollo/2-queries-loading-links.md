@@ -4,13 +4,13 @@ title: "Queries: Loading Links"
 
 ### Preparing the React components
 
-The first piece of functionality that you'll implement in the app is loading and displaying a list of `Link` elements.
+The first piece of functionality that you'll implement in the app is loading and displaying a list of `Link` elements. You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
 
-You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
+<Instruction>
 
 Create a new file called `Link.js` in the `components` directory and add the following code:
-<Instruction text="Hali Halo Hilli">
-```js
+
+```js(path=".../hackernews-react-apollo/src/components/Links.js")
 import React, { Component } from 'react'
 
 class Link extends Component {
@@ -37,9 +37,11 @@ This is a simple React component that expects a `link` in its `props` and render
 
 Next, you'll implement the component that renders a list of linksLink.
 
+<Instruction>
+
 Again, in the `components` directory, go ahead and create a new file called `LinkList.js` and add the following code:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Links.js")
 import React, { Component } from 'react'
 import Link from './Link'
 
@@ -71,11 +73,16 @@ class LinkList extends Component {
 export default LinkList
 ```
 
+</Instruction>
+
+
 Here, you're using mock data for now to make sure the component setup works. You'll soon replace this with some actual data loaded from the server - patience, young Padawan!
+
+<Instruction>
 
 To complete the setup, open `App.js` and replace the current contents with the following:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 import React, { Component } from 'react'
 
 class App extends Component {
@@ -88,6 +95,9 @@ class App extends Component {
 
 export default App
 ```
+
+</Instruction>
+
 
 Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
@@ -122,7 +132,7 @@ The first one is to use the [`query`](http://dev.apollodata.com/core/apollo-clie
 
 A practical example would look as follows:
 
-```js
+```js(nocopy)
 client.query({
   query: gql`
     query AllLinks {
@@ -144,9 +154,11 @@ In general, the process for you to add some data fetching logic will be very sim
 2. use the `graphql` container to wrap your component with the query
 3. access the query results in the component's `props`
 
+<Instruction>
+
 Open up `LinkList.js` and add the query to the bottom of the file, also replacing the current `export LinkList` statement:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 // 1
 const ALL_LINKS_QUERY = gql`
   # 2
@@ -164,25 +176,34 @@ const ALL_LINKS_QUERY = gql`
 export default graphql(ALL_LINKS_QUERY, { name: 'allLinksQuery' }) (LinkList)
 ```
 
+</Instruction>
+
 What's going on there?
 
 1. Here you create the Javascript constant called `ALL_LINKS_QUERY` that stores the query. The `gql` function is used to parse the plain GraphQL code.
 2. Now you define the plain GraphQL query. The name `AllLinksQuery` is the _operation name_ and will be used by Apollo to refer to this query in its internals.  (Notice we're using a GraphQL comment here.) 
 3. Finally, you're using the `graphql` container to combine the `LinkList` component with the `ALL_LINKS_QUERY`. Note that you're also passing an option to the function call where you specify a `name` to be `allLinksQuery`. This is the name of the `prop` that Apollo injects into the `LinkList`component. If you didn't specify it here, the injected prop would be called `data`.
 
+<Instruction>
+
 For this code to work, you also need to import the corresponding dependencies. Add the following line to the top of the file below the other import statements:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 import { graphql, gql } from 'react-apollo'
 ```
+
+</Instruction>
+
 
 Awesome, that's all your data fetching code, can you believe that?
 
 You can now finally remove the mock data and render actual links that are fetched from the server.
 
+<Instruction>
+
 Still in `LinkList.js`, update `render` as follows:
 
-```js
+```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
 
   // 1
@@ -207,6 +228,9 @@ render() {
   )
 }
 ```
+
+</Instruction>
+
 
 Let's walk through what's happening in this code. As expected, Apollo injected a new prop into the component called `allLinksQuery`. This prop itself has 3 fields that provide information about the _state_ of the network request:
 

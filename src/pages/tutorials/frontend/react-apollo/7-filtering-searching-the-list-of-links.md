@@ -12,9 +12,11 @@ In this section, you'll implement a search feature and learn about the filtering
 
 The search will be available under a new route and implemented in a new React component.
 
+<Instruction>
+
 Start by creating a new file called `Search.js` in `src/components` and add the following code:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Search.js")
 import React, { Component } from 'react'
 import { gql, withApollo } from 'react-apollo'
 import Link from './Link'
@@ -55,13 +57,18 @@ class Search extends Component {
 export default withApollo(Search)
 ```
 
+</Instruction>
+
+
 Again, this is a pretty standard setup. You're rendering an `input` field where the user can type a search string. 
 
 Notice that the `links` field in the component state will hold all the links to be rendered, so this time we're not accessing query results through the component props! We'll also talk about the `withApollo` function that you're using when exporting the component in a bit!
 
+<Instruction>
+
 Now add the `Search` component as a new route to the app. Open `App.js` and update render to look as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
@@ -79,17 +86,26 @@ render() {
 }
 ```  
 
+</Instruction>
+
+<Instruction>
+
 Also import the `Search` component on top of the file:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Search from './Search'
 ```
 
+</Instruction>
+
+
 For the user to be able to comfortably navigate to the search functionality, you should also add a new navigation item to the `Header`.
+
+<Instruction>
 
 Open `Header.js` and put a new `Link` between `new` and `submit`:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Header.js")
 <div className='flex flex-fixed black'>
   <div className='fw7 mr1'>Hacker News</div>
   <Link to='/' className='ml1 no-underline black'>new</Link>
@@ -104,6 +120,8 @@ Open `Header.js` and put a new `Link` between `new` and `submit`:
 </div>
 ```
 
+</Instruction>
+
 You can now navigate to the search functionality using the new button in the `Header`:
 
 ![](http://imgur.com/XxPdUvo.png)
@@ -112,9 +130,11 @@ Great, let's now go back to the `Search` component and see how we can implement 
 
 ### Filtering Links
 
+<Instruction>
+
 Open `Search.js` and add the following query definition on the bottom of the file:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Search.js")
 const ALL_LINKS_SEARCH_QUERY = gql`
   query AllLinksSearchQuery($searchText: String!) {
     allLinks(filter: {
@@ -143,6 +163,9 @@ const ALL_LINKS_SEARCH_QUERY = gql`
 `
 ```
 
+</Instruction>
+
+
 This query looks similar to the `allLinks` query that's used in `LinkList`. However, this time it takes in an argument called `searchText` and specifies a `filter` object that will be used to specify conditions on the links that you want to retrieve.
 
 In this case, you're specifying two filters that account for the following two conditions: A link is only returned if either its `url` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
@@ -153,9 +176,12 @@ That's what you're using the [`withApollo`](http://dev.apollodata.com/react/high
 
 The `client` has a method called `query` that you can use to send a query manually instead of using the `graphql` HOC.
 
+
+<Instruction>
+
 Here's what the code looks like. Open `Search.js` and implement `_executeSearch` as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Search.js")
 _executeSearch = async () => {
   const { searchText } = this.state
   const result = await this.props.client.query({
@@ -166,6 +192,8 @@ _executeSearch = async () => {
   this.setState({ links })
 }
 ```
+
+</Instruction>
 
 The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually, retrieve the `links` from the response that's returned by the server to finally put them into the component's `state` from where they can be rendered.
 

@@ -12,23 +12,36 @@ Subscriptions are a GraphQL feature that allows the server to send data to the c
 
 When using Apollo, you need to configure your `ApolloClient` with information about the subscriptions endpoint. This is done by using functionality from the `subscriptions-transport-ws` npm module.
 
-Go and add this dependency to your app first. Open a terminal and navigate to the project's root directory. Then execute the following command:
+Go and add this dependency to your app first. 
 
-```sh
+<Instruction>
+
+Open a terminal and navigate to the project's root directory. Then execute the following command:
+
+```bash(path=".../hackernews-react-apollo")
 yarn add subscriptions-transport-ws
 ```
 
+</Instruction>
+
+
 Next, make sure your `ApolloClient` instance knows about the subscription server.
+
+<Instruction>
 
 Open `index.js` and add the following import to the top of the file:
 
-```
+```js(path=".../hackernews-react-apollo/src/index.js")
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 ```
 
+</Instruction>
+
+<Instruction>
+
 Now update the configuration code like so:
 
-```js
+```js(path=".../hackernews-react-apollo/src/index.js")
 const networkInterface = createNetworkInterface({
   uri: 'https://api.graph.cool/simple/v1/<project-id>'
 })
@@ -61,11 +74,19 @@ const client = new ApolloClient({
 })
 ```
 
+</Instruction>
+
+
 You're instantiating a `SubscriptionClient` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`.
 
 Now you need to replace the placeholder `__SUBSCRIPTION_API_ENDPOINT__ ` with the endpoint for the subscriptions API.
 
+<Instruction>
+
 To get access to this endpoint, open up a terminal and navigate to the directory where `project.graphcool` is located. Then type the `graphcool endpoints` command. Now copy the endpoint for the `Subscriptions API` and replace the placeholder with it. 
+
+</Instruction>
+
 
 > Note: The endpoints for the Subscription API generally are of the form: `wss://subscriptions.graph.cool/v1/<project-id>`
 
@@ -80,9 +101,11 @@ For the app to update in realtime when new links are created, you need to subscr
 
 You'll implement the subscription in the `LinkList` component since that's where all the links are rendered.
 
-Open `LinkList.js` and add the following method inside the scope of the `LinkList` component:
+<Instruction>
 
-```js
+Open `LinkList.js` and add the following method inside the scope of the `LinkList` class:
+
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _subscribeToNewLinks = () => {
   this.props.allLinksQuery.subscribeToMore({
     document: gql`
@@ -116,6 +139,9 @@ _subscribeToNewLinks = () => {
 }
 ```
 
+</Instruction>
+
+
 Let's understand what's going on here! You're using the `allLinksQuery` that you have access to inside the component's props (because you wrapped it with the `graphql` container) to call [`subscribeToMore`](http://dev.apollodata.com/react/subscriptions.html#subscribe-to-more). This call opens up a websocket connection to the subscription server.
 
 You're passing two arguments to `subscribeToMore`:
@@ -127,9 +153,11 @@ Go ahead and implement `updateQuery` next. This function works slightly differen
 
 Let's see what this looks like in action!
 
+<Instruction>
+
 Still in `LinkList.js` implement `updateQuery` like so:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 updateQuery: (previous, { subscriptionData }) => {
   const newAllLinks = [
     subscriptionData.data.Link.node,
@@ -143,17 +171,25 @@ updateQuery: (previous, { subscriptionData }) => {
 }
 ```
 
+</Instruction>
+
+
 All you do here is retrieve the new link from the subscription data (` subscriptionData.data.Link.node`), merge it into the existing list of links and return the result of this operation.
 
 The last thing here is to make sure that the component actually subscribes to the events by calling `subscribeToMore`. 
 
+<Instruction>
+
 In `LinkList.js`, add a new method inside the scope of the `LinkList` component and implement it like so:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 componentDidMount() {
   this._subscribeToNewLinks()
 }
 ```
+
+</Instruction>
+
 > **Note**: `componentDidMount` is a so-called [_lifecycle_ method](https://facebook.github.io/react/docs/react-component.html#the-component-lifecycle) of React components that will be called once right after the component was initialized.
 
 Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application runnning on `http://localhost:3000/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
@@ -162,9 +198,11 @@ Awesome, that's it! You can test your implementation by opening two browser wind
 
 Next you'll subscribe to new votes that are emitted by other users as well so that the latest vote count is always visible in the app.
 
+<Instruction>
+
 Open `LinkList.js` and add the following method to the `LinkList` component:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _subscribeToNewVotes = () => {
   this.props.allLinksQuery.subscribeToMore({
     document: gql`
@@ -212,16 +250,22 @@ _subscribeToNewVotes = () => {
 }
 ```
 
+</Instruction>
+
 Similar as before, you're calling `subscribeToMore` on the `allLinksQuery`. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and and then updating its `votes` with the `Vote` element that was sent from the server.
+
+<Instruction>
 
 Finally, go ahead and call `_subscribeToNewVotes` inside `componentDidMount` as well:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 componentDidMount() {
   this._subscribeToNewLinks()
   this. _subscribeToNewVotes()
 }
 ```
+
+</Instruction>
 
 Fantastic! Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.
 

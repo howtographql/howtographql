@@ -8,9 +8,11 @@ The next piece of functionality that you'll implement is the voting feature! Aut
 
 Once more, the first step to implement this new feature is to make your React components ready for the expected functionality.
 
+</Instruction>
+
 Open `Link.js` and update `render` to look as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
 render() {
   const userId = localStorage.getItem(GC_USER_ID)
   return (
@@ -28,13 +30,20 @@ render() {
 }
 ```
 
+</Instruction>
+
+
 You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what your're using the `userId` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
 
 Notice that you're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user friendly, e.g. `"3 hours ago"`.
 
-Go ahead and implement the `timeDifferenceForDate` function next so you can import and use it in the `Link` component. Create a new file called `utils.js` in the `/src` directory and paste the following code into it:
+Go ahead and implement the `timeDifferenceForDate` function next so you can import and use it in the `Link` component. 
 
-```js
+<Instruction>
+
+Create a new file called `utils.js` in the `/src` directory and paste the following code into it:
+
+```js(path=".../hackernews-react-apollo/src/utils.js")
 function timeDifference(current, previous) {
 
   const milliSecondsPerMinute = 60 * 1000
@@ -81,22 +90,36 @@ export function timeDifferenceForDate(date) {
 }
 ```
 
+</Instruction>
+
+
+<Instruction>
+
 Back in `Link.js`, import `GC_USER_ID` and `timeDifferenceForDate`  on top the file:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
 import { GC_USER_ID } from '../constants'
 import { timeDifferenceForDate } from '../utils'
 ```
 
+</Instruction>
+
+
 Finally, each `Link` element will also render its position inside the list, so you have to pass down an `index` from the `LinkList` component. 
+
+
+<Instruction>
 
 Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also incude the link's position:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 {linksToRender.map((link, index) => (
   <Link key={link.id} index={index} link={link}/>
 ))}
 ```
+
+</Instruction>
+
 
 Notice that the app won't run at the moment since the `votes` are not yet included in the query. You'll fix that next!
 
@@ -104,38 +127,55 @@ Notice that the app won't run at the moment since the `votes` are not yet includ
 
 For this new feature, you also need to update the schema again since votes on links will be represented with a custom `Vote` type.
 
+<Instruction>
+
 Open `project.graphcool` and add the following type:
 
-```js
+```graphql(path=".../hackernews-react-apollo/project.graphcool")
 type Vote {
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
 }
 ```
 
+</Instruction>
+
 Each `Vote` will be associated with the `User` who created it as well as the `Link` that it belongs to. You also have to add the other end of the relation. 
+
+<Instruction>
 
 Still in `project.graphcool`, add the following field to the `User` type:
 
-```graphql
+```graphql(path=".../hackernews-react-apollo/project.graphcool")
 votes: [Vote!]! @relation(name: "UsersVotes")
 ```  
 
+</Instruction>
+
+<Instruction>
+
 Now add another field to the `Link` type:
 
-```graphql
+```graphql(path=".../hackernews-react-apollo/project.graphcool")
 votes: [Vote!]! @relation(name: "VotesOnLink")
 ```
 
+</Instruction>
+
+<Instruction>
+
 Next open up a terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
 
-```sh
+```bash(path=".../hackernews-react-apollo")
 graphcool push
 ```
 
+</Instruction>
+
+
 Here is what the Terminal output looks like:
 
-```sh
+```
 $ gc push
  ✔ Your schema was successfully updated. Here are the changes: 
 
@@ -150,9 +190,11 @@ Your project file project.graphcool was updated. Reload it in your editor if nee
 
 Awesome! Now that you updated the schema, you can fix the issue that currently prevents you from propery running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
 
+<Instruction>
+
 Open `LinkList.js` and update the definition of `ALL_LINKS_QUERY` to look as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const ALL_LINKS_QUERY = gql`
   query AllLinksQuery {
     allLinks {
@@ -175,6 +217,9 @@ const ALL_LINKS_QUERY = gql`
 `
 ```
 
+</Instruction>
+
+
 All you do here is to also include information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed. 
 
 ![](http://imgur.com/eHaPg3L.png)
@@ -183,9 +228,11 @@ Let's now move on and implement the upvote mutation!
 
 ### Calling the Mutation
 
+<Instruction>
+
 Open `Link.js` and add the following mutation definition to the bottom of the file. Once more, also replacing the current `export Link` statement:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
 const CREATE_VOTE_MUTATION = gql`
   mutation CreateVoteMutation($userId: ID!, $linkId: ID!) {
     createVote(userId: $userId, linkId: $linkId) {
@@ -210,17 +257,25 @@ export default graphql(CREATE_VOTE_MUTATION, {
 })(Link)
 ```
 
+</Instruction>
+
 This step should feel pretty familiar by now. You're adding the ability to call the `createVoteMutation` to the `Link` component by wrapping it with the `CREATE_VOTE_MUTATION`.
+
+<Instruction>
 
 As with the times before, you also need to import the `gql` and `graphql` functions on top of the `Link.js` file:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
 import { gql, graphql } from 'react-apollo'
 ```
 
+</Instruction>
+
+<Instruction>
+
 Finally, you need to implement `_voteForLink` as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
 _voteForLink = async () => {
   const userId = localStorage.getItem(GC_USER_ID)
   const voterIds = this.props.link.votes.map(vote => vote.user.id)
@@ -239,6 +294,9 @@ _voteForLink = async () => {
 }
 ```
 
+</Instruction>
+
+
 Notice that in the first part of the method, you're checking whether the current user already voted for that link. If that's the case, you return early from the method and not actually execute the mutation.
 
 You can now go and test the implementation! Run `yarn start` and click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page you'll see the added votes. 
@@ -253,9 +311,11 @@ One cool thing about Apollo is that you can manually control the contents of the
 
 You can implement this functionality by using Apollo's [imperative store API](https://dev-blog.apollodata.com/apollo-clients-new-imperative-store-api-6cb69318a1e3).
 
+<Instruction>
+
 Open `Link` and update the call to `createVoteMutation` inside the `_voteForLink` method as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
 const linkId = this.props.link.id
 await this.props.createVoteMutation({
   variables: {
@@ -268,15 +328,20 @@ await this.props.createVoteMutation({
 })
 ```
 
-The `update` function that we're adding as an argument to the mutation call will be called when the server returns the response. It receives the payload of the mutation (`data`) and the current cache (`store`) as arguments. You can then use this input to determine a new state of the cache. 
+</Instruction>
 
-Notice that we're already _desctructuring_ the server response and retrieving the `createVote` field from it. 
+
+The `update` function that you're adding as an argument to the mutation call will be called when the server returns the response. It receives the payload of the mutation (`data`) and the current cache (`store`) as arguments. You can then use this input to determine a new state of the cache. 
+
+Notice that you're already _desctructuring_ the server response and retrieving the `createVote` field from it. 
 
 All right, so now you know what this `update` function is, but the actual implementation will be done in the parent component of `Link`, which is `LinkList`. 
 
+<Instruction>
+
 Open `LinkList.js` and add the following method inside the scope of the `LinkList` component:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _updateCacheAfterVote = (store, createVote, linkId) => {
   // 1
   const data = store.readQuery({ query: ALL_LINKS_QUERY })
@@ -290,6 +355,8 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
 }
 ```
 
+</Instruction>
+
 What's going on here?
 
 1. You start by reading the current state of the cached data for the `ALL_LINKS_QUERY` from the `store`.
@@ -298,19 +365,25 @@ What's going on here?
 
 Next you need to pass this function down to the `Link` so it can be called from there. 
 
+<Instruction>
+
 Still in `LinkList.js`, update the way how the `Link` components are rendered in `render`:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 <Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote}  index={index} link={link}/>
 ```
+
+</Instruction>
 
 That's it! The `updater` function will now be executed and make sure that the store gets updated properly after a mutation was performed. The store update will trigger a rerender of the component and thus update the UI with the correct information!
 
 While we're at it, let's also implement `update` for adding new links!
 
+<Instruction>
+
 Open `CreateLink.js` and update the call to `createLinkMutation` inside `_createLink` like so:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 await this.props.createLinkMutation({
   variables: {
     description,
@@ -328,20 +401,33 @@ await this.props.createLinkMutation({
 })
 ```
 
+</Instruction>
+
+
 The `update` function works in a very similar way as before. You first read the current state of the results of the `ALL_LINKS_QUERY`. Then you insert the newest link to the top and write the query results back to the store.
 
-The last think you need to do for this to work is add import the `ALL_LINKS_QUERY` into that file:
+<Instruction>
 
-```js
+The last thing you need to do for this to work is add import the `ALL_LINKS_QUERY` into that file:
+
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { ALL_LINKS_QUERY } from './LinkList'
 ```
 
+</Instruction>
+
+
 Conversely, it also needs to be exported from where it is defined. 
+
+<Instruction>
 
 Open `LinkList.js` and adjust the definition of the `ALL_LINKS_QUERY` by adding the `export` keyword to it:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 export const ALL_LINKS_QUERY = ...
 ```
+
+</Instruction>
+
 
 Awesome, now the store also updates with the right information after new links are added. The app is getting into shape. 🤓

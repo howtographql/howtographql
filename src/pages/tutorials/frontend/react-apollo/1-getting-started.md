@@ -41,7 +41,7 @@ The first thing you need to do is install the Graphcool CLI with npm.
 
 Open up a terminal window and type the following:
 
-```sh
+```bash
 npm install -g graphcool
 ```
 
@@ -53,7 +53,7 @@ Now you can go and create the server.
 
 Type the following command into the terminal:
 
-```sh
+```bash
 graphcool init --schema https://graphqlbin.com/hn-starter.graphql --name Hackernews
 ```
 
@@ -127,7 +127,7 @@ Next, you are going to create the React project! As mentioned in the beginning, 
 
 If you haven't already, you need to install `create-react-app` using npm:
 
-```sh
+```bash
 npm install -g create-react-app
 ```
 
@@ -137,7 +137,7 @@ npm install -g create-react-app
 
 Next, you can use it to bootstrap your React application:
 
-```sh
+```bash
 create-react-app hackernews-react-apollo
 ```
 
@@ -150,7 +150,7 @@ This will create a new directory called `hackernews-react-apollo` that has all t
 
 Make sure everything works by navigating into the directory and starting the app:
 
-```sh
+```bash
 cd hackernews-react-apollo
 yarn start
 ```
@@ -175,7 +175,7 @@ Now clean up the existing files accordingly. Move `App.js` into `components` and
 
 Your project structure should now look as follows:
 
-```sh(nocopy)
+```bash(nocopy)
 .
 ├── README.md
 ├── node_modules
@@ -203,9 +203,9 @@ This tutorial is about the concepts of GraphQL and how you can use it from withi
 
 <Instruction>
 
-Open `index.html` and add a third `link` tag right below the two existing ones that pulls in Tachyons:
+Open `public/index.html` and add a third `link` tag right below the two existing ones that pulls in Tachyons:
 
-```html{3}(path="/public/index.html")
+```html{3}(path=".../hackernews-react-apollo/public/index.html")
 <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
@@ -219,7 +219,7 @@ Since we still want to have a bit more custom styling here and there, we also pr
 
 Open `index.css` and replace its content with the following:
 
-```css(path="/src/styles/index.css")
+```css(path=".../hackernews-react-apollo/src/styles/index.css")
 body {
   margin: 0;
   padding: 0;
@@ -275,7 +275,7 @@ input {
 
 Next, you need to pull in the functionality of Apollo Client which is all bundled in the `react-apollo` package:
 
-```sh(path=".../hackernews-react-apollo")
+```bash(path=".../hackernews-react-apollo")
 yarn add react-apollo
 ```
 
@@ -293,7 +293,7 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{6-7,9-12,14-20}(path="src/index.js")
+```js{6-7,9-12,14-17,19-25}(path="src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
@@ -342,7 +342,7 @@ There are two ways for you to get your endpoint. You can either open the [Graphc
 
 In the terminal, navigate into the directory where `project.graphcool` is located and use the following command:
 
-```sh(path=".../hackernews-react-apollo")
+```bash(path=".../hackernews-react-apollo")
 graphcool endpoints
 ```
 

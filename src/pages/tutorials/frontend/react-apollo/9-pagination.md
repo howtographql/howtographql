@@ -9,10 +9,12 @@ The last topic that we'll cover in this tutorial is pagination. You'll implement
 
 Once more, you first need to prepare the React components for this new functionality. In fact, we'll slightly adjust the current routing setup. Here's the idea: The `LinkList` component will be used for two different use cases (and routes). The first one is to display the 10 top voted links. And its second use case is to display a _new_ links in a list where the user can paginate.
 
+<Instruction>
+
 Open `App.js` and adjust the render method like so:
 
 
-```js
+```js{4,8,9}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <Switch>
@@ -27,15 +29,20 @@ render() {
 }
 ```
 
+</Instruction>
+
+
 You now added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkList`.
 
 The root route `/` now redirects to the first page of the route where new posts are displayed.
 
 We need to add quite some logic to the `LinkList` component to account for the two different responsibilities that it now has. 
 
+<Instruction>
+
 Open `LinkList.js` and add three arguments to the `AllLinksQuery` by replacing the `ALL_LINKS_QUERY` definition with the following:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 export const ALL_LINKS_QUERY = gql`
   query AllLinksQuery($first: Int, $skip: Int, $orderBy: LinkOrderBy) {
     allLinks(first: $first, skip: $skip, orderBy: $orderBy) {
@@ -61,13 +68,18 @@ export const ALL_LINKS_QUERY = gql`
 `
 ```  
 
+</Instruction>
+
+
 The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` to this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.   
 
  But how can we pass the variables when using the `graphql` container which is fetching the data under the hood? You need to provide the arguments right where you're wrapping your component with the query.
 
+<Instruction>
+
 Still in `LinkList.js`, replace the current `export` statement with the following:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 export default graphql(ALL_LINKS_QUERY, {
   name: 'allLinksQuery',
   options: (ownProps) => {
@@ -83,31 +95,44 @@ export default graphql(ALL_LINKS_QUERY, {
 }) (LinkList)
 ```
 
+</Instruction>
+
 You're now passing a function to `graphql` that takes in the props of the component (`ownProps`) before the query is executed. This allows you to retrieve the information about the current page from the router (`ownProps.match.params.page`) and use it to calculate the chunk of links that you retrieve with `first` and `skip`.
 
-Also note that we're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
+Also note that you're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
 
 You also need to define the `LINKS_PER_PAGE` constant and then import it into the `ListList` component.
 
+<Instruction>
+
 Open `src/constants.js` and add the following definition:
 
-```js
+```js(path=".../hackernews-react-apollo/src/constants.js")
 export const LINKS_PER_PAGE = 5
 ```
 
+</Instruction>
+
+
+<Instruction>
+
 Now adjust the import statement from `../constants` in `LinkList.js` to also include the new constant: 
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 import { GC_USER_ID, GC_AUTH_TOKEN, LINKS_PER_PAGE } from '../constants'
 ```
+
+</Instruction>
 
 ### Implementing Navigation
 
 Next, you need functionality for the user to switch between the pages. First add two `button` elements to the bottom of the `LinkList` component that can be used to navigate back and forth.
 
+<Instruction>
+
 Open `LinkList.js` and update `render` to look as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
 
   if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
@@ -156,11 +181,17 @@ render() {
 }
 ```
 
+</Instruction>
+
+
 Since the setup is slightly more complicated now, you are going to calculate the list of links to be rendered in a separate method.
+
+
+<Instruction>
 
 Still in `LinkList.js`, add the following method implementation:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _getLinksToRender = (isNewPage) => {
   if (isNewPage) {
     return this.props.allLinksQuery.allLinks
@@ -171,13 +202,18 @@ _getLinksToRender = (isNewPage) => {
 }
 ```
 
+</Instruction>
+
+
 For the `newPage`, you'll simply return all the links returned by the query. That's logical since here you don't have to make any manual modifications to the list that is to be rendered. If the user loaded the component from the `/top` route, you'll sort the list according to the number of votes and return the top 10 links.
 
 Next, you'll implement the functionality for the _Previous_- and _Next_-buttons.
 
+<Instruction>
+
 In `LinkList.js`, add the following two methods that will be called when the buttons are pressed:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _nextPage = () => {
   const page = parseInt(this.props.match.params.page, 10)
   if (page <= this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
@@ -195,6 +231,9 @@ _previousPage = () => {
 }
 ```
 
+</Instruction>
+
+
 The implementation of these is very simple. You're retrieving the current page from the url and implement a sanity check to make sure that it makes sense to paginate back or forth. Then you simply calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the url that will be used to calculate the right chunk of links to load. Run the app by typing `yarn start` in a Terminal and use the new buttons to paginate through your list of links!
 
 ### Final Adjustments
@@ -203,9 +242,11 @@ Through the changes that we made to the `ALL_LINKS_QUERY`, you'll notice that th
 
 > **Note**: `readyQuery` essentially works in the same way as the `query` method on the `ApolloClient` that you used to implement the search. However, instead of making a call to the server, it will simply resolve the query against the local store! If a query was fetched from the server with variables, `readQuery` also needs to know the variables to make sure it can deliver the right information from the cache.
 
+<Instruction>
+
 With that information, open `LinkList.js` and update the `_updateCacheAfterVote` method to look as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _updateCacheAfterVote = (store, createVote, linkId) => {
   const isNewPage = this.props.location.pathname.includes('new')
   const page = parseInt(this.props.match.params.page, 10)
@@ -219,14 +260,18 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
   store.writeQuery({ query: ALL_LINKS_QUERY, data })
 }
 ```
+
+</Instruction>
  
 All that's happening here is the computation of the variables depending on whether the user currently is on the `/top` or `/new` route.  
 
 Finally, you also need to adjust the implementation of `update` when new links are created. 
 
+<Instruction>
+
 Open `CreateLink.js` and replace the current contents of `_createLink` like so:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const postedById = localStorage.getItem(GC_USER_ID)
   if (!postedById) {
@@ -261,8 +306,14 @@ _createLink = async () => {
 }
 ``` 
 
-Since we don't have the `LINKS_PER_PAGE` constant available in this component yet, make sure to import it on top of the file:
+</Instruction>
 
-```js
+<Instruction>
+
+Since you don't have the `LINKS_PER_PAGE` constant available in this component yet, make sure to import it on top of the file:
+
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { GC_USER_ID, LINKS_PER_PAGE } from '../constants'
 ```
+
+</Instruction>

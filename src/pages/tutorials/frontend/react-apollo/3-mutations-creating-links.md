@@ -13,9 +13,11 @@ In this section, you'll learn how you can send mutations with Apollo. It's actua
 
 Like before, let's start by writing the React component where users will be able to add new links.
 
+<Instruction>
+
 Create a new file in the `src/components` directory and call it `CreateLink.js`. Then paste the following code into it:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import React, { Component } from 'react'
 
 class CreateLink extends Component {
@@ -64,15 +66,22 @@ class CreateLink extends Component {
 export default CreateLink
 ```
 
+</Instruction>
+
+
 This is a standard setup for a React component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in the component's `state` and will be used in `_createLink` when the mutation is sent.
 
 ### Writing the Mutation
 
 But how can you now actually send the mutation? Let's follow the three steps from before.
 
-First you need to define the mutation in your Javascript code and wrap your component with the `graphl` container. You'll do that in a similar way as with the query before. In `CreateLink.js`, add the following statement to the bottom of the file (also replacing the current `export default CreatLink` statement):
+First you need to define the mutation in your Javascript code and wrap your component with the `graphl` container. You'll do that in a similar way as with the query before. 
 
-```js
+<Instruction>
+
+In `CreateLink.js`, add the following statement to the bottom of the file (also replacing the current `export default CreatLink` statement):
+
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // 1
 const CREATE_LINK_MUTATION = gql`
   # 2
@@ -89,8 +98,12 @@ const CREATE_LINK_MUTATION = gql`
   }
 `
 
+// 3
 export default graphql(CREATE_LINK_MUTATION, { name: 'createLinkMutation' })(CreateLink)
 ```
+
+</Instruction>
+
 
 Let's take close look again to understand what's going on:
 
@@ -98,17 +111,25 @@ Let's take close look again to understand what's going on:
 2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.  
 3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The `name` that's specified refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
 
+<Instruction>
+
 Before moving on, you need to import the Apollo dependencies. Add the following to the top of `CreateLink.js`:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { graphql, gql } from 'react-apollo'
 ```
 
+</Instruction>
+
+
 Let's see the mutation in action!
+
+
+<Instruction>
 
 Still in `CreateLink.js`, implement the `_createLink` mutation as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const { description, url } = this.state
   await this.props.createLinkMutation({
@@ -120,11 +141,16 @@ _createLink = async () => {
 }
 ```
 
-As promised, all you need to do is call the function that Apollo injects into `CreateLink` and pass the variables that represent the user input. Easy as pie! 🍰
+</Instruction>
+
+
+As promised, all you need to do is call the function that Apollo injects into `CreateLink` and pass the variables that represent the user input. 
+
+<Instruction>
 
 Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change `render` to looks as follows:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <CreateLink />
@@ -132,11 +158,17 @@ render() {
 }
 ```  
 
+</Instruction>
+
+<Instruction>
+
 Next, import the `CreatLink` component by adding the following statement to the top of `App.js`:
 
-```js
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 import CreateLink from './CreateLink'
 ```
+
+</Instruction>
 
 Now, run `yarn start`, you'll see the following screen:
 
