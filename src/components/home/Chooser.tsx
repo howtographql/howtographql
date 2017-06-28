@@ -22,7 +22,7 @@ interface State {
 
 class Chooser extends React.Component<Props, State> {
   state = {
-    selectedIndex: 2,
+    selectedIndex: 0,
   }
 
   selectStack = index => {

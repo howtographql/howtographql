@@ -31,7 +31,7 @@ export default function Instruction({ text, ...props }: InstructionProps) {
       <div className="instruction-block">
         <style jsx={true}>{`
           .instruction-block {
-            @p: .mt38, .mb10;
+            @p: .mv38;
           }
         `}</style>
         <Bordered>
@@ -57,7 +57,7 @@ export default function Instruction({ text, ...props }: InstructionProps) {
       <div className="instruction-block">
         <style jsx={true}>{`
           .instruction-block {
-            @p: .mt38, .mb10;
+            @p: .mv38;
           }
           .instruction-code {
             @p: .pl25, .pt25, .pb10;
@@ -82,7 +82,7 @@ export default function Instruction({ text, ...props }: InstructionProps) {
     <div className="instruction-block">
       <style jsx={true}>{`
         .instruction-block {
-          @p: .mt38, .mb10;
+          @p: .mv38;
         }
       `}</style>
       {children}

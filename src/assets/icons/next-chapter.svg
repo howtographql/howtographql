@@ -1,0 +1,26 @@
+
+<svg width="12px" height="44px" viewBox="0 0 12 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="3.4594686%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#E00082" offset="0%"></stop>
+            <stop stop-color="#CCCCCC" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="V3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Next-Chapter-1-way" transform="translate(-103.000000, -792.000000)" stroke-width="2">
+            <g id="Group-10" transform="translate(103.000000, 787.000000)">
+                <g id="Group-13">
+                    <g id="Group-14" transform="translate(1.000000, 6.000000)">
+                        <g id="Group" stroke="#E00083" fill="#FFFFFF">
+                            <circle id="Oval" cx="5" cy="5" r="5"></circle>
+                        </g>
+                        <path d="M5,11.1041667 L5,31" id="Line" stroke="url(#linearGradient-1)" stroke-linecap="square"></path>
+                        <circle id="Oval" stroke="#C4C4C4" fill="#FFFFFF" transform="translate(5.000000, 37.000000) scale(-1, 1) translate(-5.000000, -37.000000) " cx="5" cy="37" r="5"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -17,7 +17,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      selectedIndex: 2,
+      selectedIndex: 0,
     }
   }
 
@@ -29,8 +29,8 @@ export default class TutorialChooser extends React.Component<Props, State> {
           .center-container {
             @p: .flex, .justifyCenter;
           }
-          .tutorial-chooser :global(.stacks-item) :global(img) {
-            filter: grayscale(100%);
+          .tutorial-chooser :global(.stacks-item:not(.active)) :global(img) {
+            filter: grayscale(100%) !important;
           }
         `}</style>
         <StackChooser
