@@ -68,9 +68,7 @@ This is the syntax for the different annotations:
 
 When adding a filename to indicate that this code can be found as such in a file in the example project, use the following syntax:
 
-<p><code>
-
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+<pre><code>```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const ALL_LINKS_QUERY = gql`
   query AllLinksQuery {
     allLinks {
@@ -82,8 +80,7 @@ const ALL_LINKS_QUERY = gql`
   }
 `
 ```
-
-</code></p>
+</code></pre>
 
 This information will be displayed on top of the code block and will link to the actual file on GitHub:
 
@@ -91,13 +88,10 @@ This information will be displayed on top of the code block and will link to the
 
 ##### Adding a directory path a terminal command
 
-<p><code>
-
-```bash(path=".../hackernews-react-apollo")
+<pre><code>```bash(path=".../hackernews-react-apollo")
 yarn add react-apollo
 ```
-
-</code></p>
+</code></pre>
 
 ![](http://imgur.com/yeCfsk6.png)
 
@@ -108,9 +102,7 @@ Most of the code blocks in your tutorial will have to be copied by the reader, s
 
 You can use the following syntax for that:
 
-<p><code>
-
-```graphql(nocopy)
+<pre><code>```graphql(nocopy)
 type User {
   name: String!
   links: [Link!]! @relation(name: "UsersLinks")
@@ -128,18 +120,14 @@ type Vote {
   link: Link! @relation(name: "VotesOnLink")
 }
 ```
-
-</code></p>
+</code></pre>
 
 
 ##### Highlighting lines in the snippet
 
 You're also able to highlight individual lines inside of a code block to put emphasis on certain parts. Simply include the line numbers in curly braces right after the language statement:
 
-<p><code>
-
-
-```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+<pre><code>```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
 
   // 1
@@ -164,8 +152,7 @@ render() {
   )
 }
 ```
-
-</code></p>
+</code></pre>
 
 
 ## Style
