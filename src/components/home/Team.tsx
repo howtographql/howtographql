@@ -27,6 +27,7 @@ export default function Team() {
         <p>
           How to GraphQL was created by Graphcool and many amazing contributors.
         </p>
+
         <div className="bubbles">
           <Bubble
             avatar={require('../../assets/graphics/contributors/brent.jpg')}

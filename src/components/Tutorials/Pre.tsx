@@ -2,7 +2,7 @@ import * as React from 'react'
 import CopyButton from '../CopyButton'
 import { $v } from 'graphcool-styles'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
-import { extractGroup } from '../../utils/graphql'
+// import { extractGroup } from '../../utils/graphql'
 
 interface Props {
   children?: JSX.Element
@@ -12,6 +12,8 @@ interface Props {
 
 export default function Pre({ children, path, className, ...rest }: Props) {
   const isBash = className ? className.includes('bash') : false
+  // const group = extractGroup(location.pathname)
+  // console.log('group')
   return (
     <div className="pre-container">
       <style jsx={true}>{`
