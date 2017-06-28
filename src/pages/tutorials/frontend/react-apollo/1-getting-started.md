@@ -4,13 +4,13 @@ title: Getting Started
 
 ### Backend
 
-Since this is a frontend track, we don't want to spend too much time setting up the backend. This is why we use [Graphcool](https://www.graph.cool/), a service that provides a production-ready GraphQL API out-of-the-box.
+Since this is a frontend track, you don't want to spend too much time setting up the backend. This is why you use [Graphcool](https://www.graph.cool/), a service that provides a production-ready GraphQL API out-of-the-box.
 
 #### The Data Model
 
-You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to generate the server based on the data model that we need for the app. Speaking of the data model, here is what the final version of it looks like written in the [GraphQL Schema Definition Language]() (SDL):
+You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to generate the server based on the data model that you need for the app. Speaking of the data model, here is what the final version of it looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
 
-```graphql
+```graphql(nocopy)
 type User {
   name: String!
   links: [Link!]! @relation(name: "UsersLinks")
@@ -31,21 +31,33 @@ type Vote {
 
 #### Creating the GraphQL Server
 
-For starting out, we're not going to use the full data model that you saw above. That's becasue we want to evolve the schema when it becomes necessary for the features that we implement.
+For starting out, you're not going to use the full data model that you saw above. That's becasue you will _evolve_ the schema when it becomes necessary for the features that we implement.
 
 For now, we're just going use the `Link` type to create our backend.
 
-The first thing you need to do is install the Graphcool CLI with npm. Open up a terminal window and type the following:
+The first thing you need to do is install the Graphcool CLI with npm.
+
+<Instruction>
+
+Open up a terminal window and type the following:
 
 ```sh
 npm install -g graphcool
 ```
 
-Now you can go and create the server. Type the following command into the terminal:
+</Instruction>
+
+Now you can go and create the server. 
+
+<Instruction>
+
+Type the following command into the terminal:
 
 ```sh
 graphcool init --schema https://graphqlbin.com/hn-starter.graphql --name Hackernews
 ```
+
+</Instruction>
 
 This will execute the `graphcool init` command with two arguments:
 
@@ -56,7 +68,7 @@ Note that this command will open up a browser window first and ask you to authen
 
 The schema that's stored at [https://graphqlbin.com/hn-starter.graphql](https://graphqlbin.com/hn-starter.graphql) only defines the `Link` type for now:
 
-```graphql
+```graphql(nocopy)
 type Link implements Node {
   description: String!
   url: String!
@@ -65,7 +77,7 @@ type Link implements Node {
 
 Once the project was created, you'll find the [Graphcool Project File](https://www.graph.cool/docs/reference/cli/project-files-ow2yei7mew/) (`project.graphcool`) in the directory where you executed the command. It should look similar to this:
 
-```graphql
+```graphql(nocopy)
 # project: cj400nwfthe5501857zl5zvi1
 # version: 1
 
@@ -105,12 +117,13 @@ Also notice that each type has three fields called `id`, `createdAt` and `update
 
 TBD for import command
 
-
 ### Frontend
 
 #### Creating the App
 
 Next, you are going to create the React project! As mentioned in the beginning, you'll use `create-react-app` for that.
+
+<Instruction>
 
 If you haven't already, you need to install `create-react-app` using npm:
 
@@ -118,13 +131,22 @@ If you haven't already, you need to install `create-react-app` using npm:
 npm install -g create-react-app
 ```
 
+</Instruction>
+
+<Instruction>
+
 Next, you can use it to bootstrap your React application:
 
 ```sh
 create-react-app hackernews-react-apollo
 ```
 
+</Instruction>
+
+
 This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup. 
+
+<Instruction>
 
 Make sure everything works by navigating into the directory and starting the app:
 
@@ -133,19 +155,27 @@ cd hackernews-react-apollo
 yarn start
 ```
 
+</Instruction>
+
 This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
 
 ![](http://imgur.com/Yujwwi6.png)
 
-Next you should move `project.graphcool` into the `hackernews-react-apollo` directory to manage everything in one place.
 
-To improve the project structure, you can now create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files.
+<Instruction>
+
+Next, go ahead move `project.graphcool` into the `hackernews-react-apollo` directory to manage everything in one place.
+
+To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
 Now clean up the existing files accordingly. Move `App.js` into `components` and `App.css` as well as `index.css` into `styles`.
 
+</Instruction>
+
+
 Your project structure should now look as follows:
 
-```sh
+```sh(nocopy)
 .
 ├── README.md
 ├── node_modules
@@ -171,19 +201,25 @@ Your project structure should now look as follows:
 
 This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
 
+<Instruction>
+
 Open `index.html` and add a third `link` tag right below the two existing ones that pulls in Tachyons:
 
-```html
+```html{3}(path="/public/index.html")
 <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
 ```
 
+</Instruction>
+
 Since we still want to have a bit more custom styling here and there, we also prepared some styles for you that you need to include in the project.
+
+<Instruction>
 
 Open `index.css` and replace its content with the following:
 
-```css
+```css(path="/src/styles/index.css")
 body {
   margin: 0;
   padding: 0;
@@ -229,14 +265,21 @@ input {
 }
 ```
 
+</Instruction>
+
+
 
 #### Installing Apollo
 
-Next, you need to pull in the functionality of Apollo Client that's all bundled in the `react-apollo` package:
+<Instruction>
 
-```sh
+Next, you need to pull in the functionality of Apollo Client which is all bundled in the `react-apollo` package:
+
+```sh(path=".../hackernews-react-apollo")
 yarn add react-apollo
 ```
+
+</Instruction>
 
 That's it, you're ready to write some code! 🚀
 
@@ -246,9 +289,11 @@ Apollo abstracts away all lower-lever networking logic and provides a nice inter
 
 The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the endpoint of your GraphQL API so it can deal with the network connections.
 
+<Instruction>
+
 Open `src/index.js` and replace the contents with the following:
 
-```js
+```js{6-7,9-12,14-20}(path="src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
@@ -277,9 +322,12 @@ ReactDOM.render(
 registerServiceWorker()
 ```
 
+</Instruction>
+
+
 > Note: The project that was generated by `create-react-app` uses semicolons and double quotes for strings. All the code that you're going to add will use **no semicolons** and **single quotes**.
 
-Let's try to understand what's going on in there:
+Let's try to understand what's going on in that code snippet:
 
 1. You're importing the required dependencies from the `react-apollo` package
 2. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
@@ -290,12 +338,21 @@ Next you need to replace the placeholder for the GraphQL endpoint with your actu
 
 There are two ways for you to get your endpoint. You can either open the [Graphcool Console](https://console.graph.cool) and click the _Endoints_-button in the bottom-left corner. The second option is to use the CLI.
 
+<Instruction>
+
 In the terminal, navigate into the directory where `project.graphcool` is located and use the following command:
 
-```
+```sh(path=".../hackernews-react-apollo")
 graphcool endpoints
 ```
 
-Copy the endpoint for the `Simple API` and paste it into `index.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
+</Instruction>
 
-That's it, you're all set to start for loading some data into your app!
+<Instruction>
+
+Copy the endpoint for the `Simple API` and paste it into `src/index.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
+
+</Instruction>
+
+
+That's it, you're all set to start for loading some data into your app! 😎
