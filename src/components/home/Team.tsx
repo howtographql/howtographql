@@ -117,11 +117,18 @@ export default function Team() {
               color="#2D477E"
             />
             <Bubble
+              avatar={require('../../assets/graphics/contributors/bojan.jpg')}
+              name="Bojan Tomić"
+              description="graphql-java"
+              x={0}
+              y={30}
+            />
+            <Bubble
               avatar={require('../../assets/graphics/contributors/johannes.jpg')}
               name="Johannes Schickling"
               description="Organization"
               x={0}
-              y={50}
+              y={-20}
               diameter={120}
             />
             <Bubble
@@ -129,7 +136,7 @@ export default function Team() {
               name="Tim Suchanek"
               description="Website implementation"
               x={0}
-              y={-40}
+              y={40}
               diameter={120}
             />
             <Bubble
@@ -137,7 +144,7 @@ export default function Team() {
               name="Julian Bauer"
               description="Design"
               x={0}
-              y={40}
+              y={-40}
               diameter={120}
             />
             <Bubble
@@ -148,15 +155,15 @@ export default function Team() {
               y={-30}
               diameter={120}
             />
-            <Bubble
-              avatar={require('../../assets/graphics/contributors/abhi.jpg')}
-              name="Abhi Aiyer"
-              description="Videos"
-              x={40}
-              y={-20}
-              diameter={120}
-            />
           </div>
+          <Bubble
+            avatar={require('../../assets/graphics/contributors/abhi.jpg')}
+            name="Abhi Aiyer"
+            description="Videos"
+            x={40}
+            y={-20}
+            diameter={120}
+          />
         </div>
       </div>
     </section>
