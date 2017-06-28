@@ -44,7 +44,7 @@ const networkInterface = createNetworkInterface({
 const client = new ApolloClient({
   networkInterface: networkInterface
 })
-```
+ ```
 
 </Instruction>
 ```
