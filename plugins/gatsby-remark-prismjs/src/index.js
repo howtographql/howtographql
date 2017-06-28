@@ -6,7 +6,7 @@ const highlightCode = require(`./highlight-code`)
 module.exports = ({ markdownAST }) => {
   visit(markdownAST, `code`, node => {
     let language = node.lang
-    let { splitLanguage, highlightLines, path } = parseLineNumberRange(language)
+    let { splitLanguage, highlightLines, path, nocopy } = parseLineNumberRange(language)
     language = splitLanguage
 
     // PrismJS's theme styles are targeting pre[class*="language-"]
@@ -24,9 +24,10 @@ module.exports = ({ markdownAST }) => {
     // Replace the node with the markup we need to make
     // 100% width highlighted code lines work
     const pathString = path ? ` path="${path}"` : ''
+    const copyString = ` nocopy="${nocopy}"`
     node.type = `html`
     node.value = `<div class="gatsby-highlight">
-      <pre class="language-${preCssClassLanguage}" ${pathString}><code>${highlightCode(
+      <pre class="language-${preCssClassLanguage}" ${pathString} ${copyString}><code>${highlightCode(
       language,
       node.value,
       highlightLines

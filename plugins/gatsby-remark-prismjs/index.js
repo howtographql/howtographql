@@ -14,7 +14,8 @@ module.exports = function (_ref) {
     var _parseLineNumberRange = parseLineNumberRange(language),
         splitLanguage = _parseLineNumberRange.splitLanguage,
         highlightLines = _parseLineNumberRange.highlightLines,
-        path = _parseLineNumberRange.path;
+        path = _parseLineNumberRange.path,
+        nocopy = _parseLineNumberRange.nocopy;
 
     language = splitLanguage;
 
@@ -33,7 +34,8 @@ module.exports = function (_ref) {
     // Replace the node with the markup we need to make
     // 100% width highlighted code lines work
     var pathString = path ? ' path="' + path + '"' : '';
+    var copyString = ' nocopy="' + nocopy + '"';
     node.type = 'html';
-    node.value = '<div class="gatsby-highlight">\n      <pre class="language-' + preCssClassLanguage + '" ' + pathString + '><code>' + highlightCode(language, node.value, highlightLines) + '</code></pre>\n      </div>';
+    node.value = '<div class="gatsby-highlight">\n      <pre class="language-' + preCssClassLanguage + '" ' + pathString + ' ' + copyString + '><code>' + highlightCode(language, node.value, highlightLines) + '</code></pre>\n      </div>';
   });
 };

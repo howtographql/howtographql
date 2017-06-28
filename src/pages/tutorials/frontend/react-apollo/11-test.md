@@ -6,6 +6,28 @@ title: Test
 
 Since this is a frontend track, we don't want to spend too much time setting up the backend. This is why we use [Graphcool](https://www.graph.cool/), a service that provides a production-ready GraphQL API out-of-the-box.
 
+## With Copy Button
+
+```js
+console.log('hi');
+class asd extend React.Component {
+    render() {
+        return <div></div>
+    }
+}
+```
+
+
+## Without Copy Button
+
+```js(nocopy)
+console.log('hi');
+class asd extend React.Component {
+    render() {
+        return <div></div>
+    }
+}
+```
 
 ## Instruction + Code
 
@@ -13,7 +35,7 @@ Since this is a frontend track, we don't want to spend too much time setting up 
 
 Hallo do this and that `and/put/it/here`
 
-```js{2-4}(path="./src/index.js")
+```js{2-4}(path="./src/index.js"&nocopy)
 console.log('hi');
 class asd extend React.Component {
     render() {
@@ -23,7 +45,6 @@ class asd extend React.Component {
 ```
 
 </Instruction>
-
 
 ## 1 Instruction
 

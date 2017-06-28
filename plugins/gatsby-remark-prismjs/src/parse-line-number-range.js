@@ -4,7 +4,11 @@ module.exports = language => {
   if (!language) {
     return ``
   }
-  let path = null
+
+  let obj = {
+    path: null,
+    nocopy: false,
+  }
 
   // removes the () part completly from the string, so the {} logic is untouched
   if (language.split(`(`).length > 1) {
@@ -13,7 +17,16 @@ module.exports = language => {
     const params = language.slice(i0 + 1, i1)
     language = language.slice(0, i0) + language.slice(i1 + 1, language.length)
 
-    path = params.split('=')[1].replace(/"/g, '')
+    const query = params.split('&').map(param => param.split('='))
+
+    query.forEach(q => {
+      if (q[0] === 'path') {
+        obj.path = q[1].replace(/"/g, '')
+      }
+      if (q[0] === 'nocopy') {
+        obj.nocopy = true
+      }
+    })
   }
 
   if (language.split(`{`).length > 1) {
@@ -22,11 +35,11 @@ module.exports = language => {
     return {
       splitLanguage,
       highlightLines: rangeParser.parse(rangeStr).filter(n => n > 0),
-      path,
+      ...obj,
     }
   }
 
-  return { splitLanguage: language, path }
+  return { splitLanguage: language, ...obj }
 }
 
-// ```js{1,2-10}(path="src/components/index.js")
+// ```js{1,2-10}(path="src/components/index.js"&nocopy)

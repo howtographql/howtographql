@@ -8,12 +8,20 @@ interface Props {
   children?: JSX.Element
   path?: string
   className?: string
+  nocopy?: string
 }
 
-export default function Pre({ children, path, className, ...rest }: Props) {
+export default function Pre({
+  children,
+  path,
+  className,
+  nocopy,
+  ...rest,
+}: Props) {
   const isBash = className ? className.includes('bash') : false
   // const group = extractGroup(location.pathname)
   // console.log('group')
+  const showCopy = nocopy ? !(nocopy === 'true') : true
   return (
     <div className="pre-container">
       <style jsx={true}>{`
@@ -74,9 +82,10 @@ export default function Pre({ children, path, className, ...rest }: Props) {
         </div>}
       <pre className={className} {...rest}>
         {children}
-        <span className="copy-button">
-          <CopyButton text={childrenToString(children)} />
-        </span>
+        {showCopy &&
+          <span className="copy-button">
+            <CopyButton text={childrenToString(children)} />
+          </span>}
       </pre>
     </div>
   )
