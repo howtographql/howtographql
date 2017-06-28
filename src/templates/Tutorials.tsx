@@ -7,6 +7,7 @@ import Markdown from '../components/Tutorials/Markdown'
 import { extractSteps } from '../utils/graphql'
 // import Youtube from 'youtube-embed-video'
 import TutorialChooser from '../components/TutorialChooser'
+import Quiz from '../components/Quiz/Quiz'
 
 interface Props {
   data: {
@@ -61,6 +62,12 @@ class Tutorials extends React.Component<Props, null> {
                 <h1>{post.frontmatter.title}</h1>
                 <Markdown html={post.html} />
                 {isTutorialChooser && <TutorialChooser markdownFiles={steps} />}
+                <Quiz
+                  question={question}
+                  answers={answers}
+                  correctAnswerIndex={2}
+                  nextChapter={steps['react-apollo'][1]}
+                />
               </div>
             </div>
           </div>
@@ -70,6 +77,15 @@ class Tutorials extends React.Component<Props, null> {
     )
   }
 }
+
+const question = 'How would you fetch multiple GraphQL Types?'
+const answers = [
+  'I would use one fragment for each type',
+  'I would have one request for each type',
+  'I would use one big interleaved request',
+  "It's not possible to fetch multiple types at the same time",
+]
+
 // {post.frontmatter.videoId &&
 // <div className="video">
 //   <Youtube
