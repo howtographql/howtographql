@@ -5,6 +5,7 @@ import * as uniq from 'lodash/uniq'
 import * as cn from 'classnames'
 import Unlocked from './Unlocked'
 import NextChapter from './NextChapter'
+import { smoothScrollTo } from '../../utils/smoothScroll'
 
 interface Props {
   question: string
@@ -129,7 +130,7 @@ export default class Quiz extends React.Component<Props, State> {
     setTimeout(() => {
       const container = document.getElementById('tutorials-left-container')
       if (container) {
-        container.scrollTop = container.scrollHeight
+        smoothScrollTo(container, container.scrollHeight, 300)
       }
     }, 0)
   }
