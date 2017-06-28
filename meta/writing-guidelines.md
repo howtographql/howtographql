@@ -1,6 +1,6 @@
 # Writing Guidelines for HowToGraphQL Tutorial Tracks
 
-This document describes a writing guidelines and best practices for the HTG tutorial tracks (frontend + backend).
+This document describes writing guidelines and best practices for the HTG tutorial tracks (frontend + backend).
 
 ## Writing Process & Feedback
 
@@ -8,24 +8,164 @@ Please use [Quip](https://www.quip.com) to write your tutorials. This allows oth
 
 Once there is a finalized version in quip, you can _export_ your document to Markdown. The exporter generally works well, but has a few flaws so that you'll probably have to do some finetuning on the Markdown here and there. 
 
+## Custom Formatting Rules
 
-## Formatting Code Blocks
+### Instruction Block
 
-You can use _three_ different kinds of code blocks inside yours tutorial, depending on the context where that code block shown:
+In your tutorials, you should always speak very directly to the reader. Particularly you have to make it very clear when the reader actually has to do something to move forward with the example project. That's what you're using the concept of an **Instruction Block** for.
 
-1. Code is not part of the project, only included to explain something (e.g. an alternative way of achieving something)
-1. Code is part of the project (i.e. can be found in some file) and the user is supposed to copy it into the project
-1. Code is part of the project (i.e. can be found in some file) but the user is _not_ supposed to copy (maybe you just want to repeat a previous code block for additional explanations) 
+Instruction blocks will be visually highlighted on the website. This has two advantages:
 
-The first and second categories will be used most often, the third one will probably only occur in exceptional cases.
+1. Fast readers who are only interested in moving forward with the code don't have to spend unnessessary time reading explanations since it's very clear when in the tutorial they're required to perform an action
+2. It's less likely that a reader will accidentally miss a part where they were required to do something
 
-We're currently in the process of designing the different code blocks, more info on the syntax will follow on **Tuesday, June 27**.
+You'll use the `<Instruction>` tag to mark a sentence or a paragraph as an instruction. Notice that the **opening and closing tags need to have one line break in between the content**. This is what a simple example looks like:
 
-### Instruction Blocks
+```
+<Instruction>
 
-Since you'll produce a detailled step-by-step tutorial, it's important to include _every_ single instruction for the reader to get from the start to the end product. Instructions will be visually highlighted in the design so that the reader who just wants to go through the tutorial as fast as possible can skip the parts that are not relevant to actually move forward with the project.
+To get access to this endpoint, open up a terminal and navigate to the directory where `project.graphcool` is located. Then type the `graphcool endpoints` command. Now copy the endpoint for the `Subscriptions API` and replace the placeholder with it. 
 
-**TBD**: You'll have to somehow mark these in instruction blocks in the markdown. We havent' figured out the syntaxt for that yet - more info will follow on **Tuesday, June 27**.
+</Instruction>
+```
+
+Often times, you'll want to combine a short instruction with a code block that the user has to copy into their project:
+
+```
+<Instruction>
+
+Now update the configuration code like so:
+
+```js(path=".../hackernews-react-apollo/src/index.js")
+const networkInterface = createNetworkInterface({
+  uri: 'https://api.graph.cool/simple/v1/<project-id>'
+})
+
+const client = new ApolloClient({
+  networkInterface: networkInterface
+})
+```
+
+</Instruction>
+```
+
+This is what a rendered instruction block (including code block) will look like: 
+
+![](http://imgur.com/pMeAkpB.png)
+
+
+### Code Blocks
+
+For code blocks, you should include special annotations that provide more context to the reader. This is a list of the possible annotations:
+
+1. adding the filename where that snippet is located (or the directory in the terminal where a command should be executed)
+2. adding a "copy"-button (**on by default**) so that the user can easily copy the snippet rather than having to select+copy it
+3. highlighting lines in the snippet
+
+This is the syntax for the different annotations:
+
+##### Adding a filename
+
+When adding a filename to indicate that this code can be found as such in a file in the example project, use the following syntax:
+
+<p><code>
+
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+const ALL_LINKS_QUERY = gql`
+  query AllLinksQuery {
+    allLinks {
+      id
+      createdAt
+      url
+      description
+    }
+  }
+`
+```
+
+</code></p>
+
+This information will be displayed on top of the code block and will link to the actual file on GitHub:
+
+![](http://imgur.com/VyyZk5v.png)
+
+##### Adding a directory path a terminal command
+
+<p><code>
+
+```bash(path=".../hackernews-react-apollo")
+yarn add react-apollo
+```
+
+</code></p>
+
+![](http://imgur.com/yeCfsk6.png)
+
+##### Adding / Hiding the "Copy"-button to a code block
+
+Most of the code blocks in your tutorial will have to be copied by the reader, so a "Copy"-button
+ is displayed by default. However, that copy button also _communicates_ that the user should be doing something with this code block. Sometimes, when you don't want the user to do something with a code block because you only include it for illustration purposes, you should remove the "Copy"-button to make it very clear that this code does not belong into the project.
+
+You can use the following syntax for that:
+
+<p><code>
+
+```graphql(nocopy)
+type User {
+  name: String!
+  links: [Link!]! @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "UsersVotes")
+}
+
+type Link { 
+  url: String!
+  postedBy: User! @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "VotesOnLink")
+}
+
+type Vote {
+  user: User! @relation(name: "UsersVotes")
+  link: Link! @relation(name: "VotesOnLink")
+}
+```
+
+</code></p>
+
+
+##### Highlighting lines in the snippet
+
+You're also able to highlight individual lines inside of a code block to put emphasis on certain parts. Simply include the line numbers in curly braces right after the language statement:
+
+<p><code>
+
+
+```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+render() {
+
+  // 1
+  if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
+    return <div>Loading</div>
+  }
+
+  // 2
+  if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
+    return <div>Error</div>
+  }
+
+  // 3
+  const linksToRender = this.props.allLinksQuery.allLinks
+
+  return (
+    <div>
+      {linksToRender.map(link => (
+        <Link key={link.id} link={link}/>
+      ))}
+    </div>
+  )
+}
+```
+
+</code></p>
 
 
 ## Style
