@@ -93,12 +93,12 @@ class Chooser extends React.Component<Props, State> {
         `}</style>
         <div className="steps-content">
           <LeftColumn>
-            <h3 className="first-h3">Practical part</h3>
+            <h3 className="first-h3">Hands-on tutorials</h3>
           </LeftColumn>
           <div className="steps-list">
             <DottedListItem first={true} path={'/tutorials/choose'}>
               <Link to={'/tutorials/choose'}>
-                Which tutorial should I pick next?
+                Choose your favorite technology?
               </Link>
             </DottedListItem>
           </div>
