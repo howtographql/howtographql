@@ -97,6 +97,7 @@ class Tutorials extends React.Component<Props, null> {
                         nextChapter={nextChapter}
                         n={n + 1}
                         showBonus={showBonus}
+                        path={location.pathname}
                       />}
               </div>
             </div>

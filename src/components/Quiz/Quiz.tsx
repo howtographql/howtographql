@@ -1,53 +1,48 @@
 import * as React from 'react'
 import { Step } from '../../types'
 import Checkmark from '../Checkmark'
-import * as uniq from 'lodash/uniq'
 import * as cn from 'classnames'
 import Unlocked from './Unlocked'
 import NextChapter from './NextChapter'
 import { smoothScrollTo } from '../../utils/smoothScroll'
 import RememberDecision from './RememberDecision'
+import { connect } from 'react-redux'
+import { defaultReaction, QuizState } from '../../reducers/quiz'
+import {
+  addAnswer,
+  answerCorrectly,
+  setRememberSkipped,
+  skip,
+} from '../../actions/quiz'
 
 interface Props {
   question?: string
   answers?: string[]
   correctAnswerIndex?: number
+  path: string
   nextChapter: Step
   n: number
   showBonus: boolean
+  setRememberSkipped: (value: boolean) => void
+  skip: (path: string) => void
+  addAnswer: (path: string, answer: number) => void
+  answerCorrectly: (path: string) => void
 }
 
-interface State {
-  checkedAnswerIndeces: number[]
-  showNextChapter: boolean
-  skipped: boolean
-  rememberSkip: boolean
-}
-
-export default class Quiz extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-
-    this.state = {
-      checkedAnswerIndeces: [],
-      rememberSkip: false,
-      showNextChapter: !props.question,
-      skipped: false,
-    }
-  }
-
-  // reset the internal state when a site change occurs
-  componentWillReceiveProps(nextProps) {
-    this.setState(state => ({ ...state, showNextChapter: false }))
-  }
-
+class Quiz extends React.Component<Props & QuizState, {}> {
   render() {
-    const { question, answers, n, showBonus } = this.props
-    const { checkedAnswerIndeces, skipped } = this.state
+    const { question, answers, n, showBonus, path } = this.props
+    const reaction = this.props.quizReactions[path] || defaultReaction
+    const { skipped, answeredCorrectly } = reaction
+    const answerIndeces = reaction.answerIndeces || []
+
     const bonusChapter: Step = {
       link: '/tutorials/graphql/advanced/0-clients/',
       title: 'Clients',
     }
+
+    const showNextChapter = skipped || answeredCorrectly
+
     return (
       <div className="quiz">
         <style jsx={true}>{`
@@ -63,7 +58,6 @@ export default class Quiz extends React.Component<Props, State> {
             @p: .absolute, .left0, .right0, .bb, .bBlack10, .bw2;
             content: "";
           }
-
           .quiz-title .title {
             @p: .pink, .bgWhite, .ph10, .f14, .fw6, .z2;
           }
@@ -96,31 +90,31 @@ export default class Quiz extends React.Component<Props, State> {
               <Answer
                 text={answers[0]}
                 onClick={this.handleAnswerClick.bind(this, 0)}
-                checked={checkedAnswerIndeces.includes(0)}
+                checked={answerIndeces.includes(0)}
               />
               <Answer
                 text={answers[1]}
                 onClick={this.handleAnswerClick.bind(this, 1)}
-                checked={checkedAnswerIndeces.includes(1)}
+                checked={answerIndeces.includes(1)}
               />
             </div>
             <div className="answer-row">
               <Answer
                 text={answers[2]}
                 onClick={this.handleAnswerClick.bind(this, 2)}
-                checked={checkedAnswerIndeces.includes(2)}
+                checked={answerIndeces.includes(2)}
               />
               <Answer
                 text={answers[3]}
                 onClick={this.handleAnswerClick.bind(this, 3)}
-                checked={checkedAnswerIndeces.includes(3)}
+                checked={answerIndeces.includes(3)}
               />
             </div>
             <div className="skip" onClick={this.skip}>Skip</div>
           </div>}
-        {this.state.showNextChapter &&
+        {showNextChapter &&
           <div>
-            {!skipped && <Unlocked n={n} />}
+            {!skipped && question && <Unlocked n={n} />}
             <div className="next-chapters">
               {showBonus &&
                 <NextChapter step={bonusChapter} isBonus={true} small={true} />}
@@ -129,7 +123,7 @@ export default class Quiz extends React.Component<Props, State> {
             {skipped &&
               <RememberDecision
                 onChangeRemember={this.toggleRememberSkip}
-                remember={this.state.rememberSkip}
+                remember={this.props.rememberSkipped}
               />}
           </div>}
       </div>
@@ -137,27 +131,21 @@ export default class Quiz extends React.Component<Props, State> {
   }
 
   private toggleRememberSkip = () => {
-    this.setState(state => ({ ...state, rememberSkip: !state.rememberSkip }))
+    this.props.setRememberSkipped(!this.props.rememberSkipped)
   }
 
   private skip = () => {
-    this.setState(
-      state => ({
-        ...state,
-        showNextChapter: true,
-        skipped: true,
-      }),
-      this.scrollDown,
-    )
+    this.props.skip(this.props.path)
+    this.scrollDown()
   }
 
   private handleAnswerClick = i => {
-    this.setState(state => {
-      return {
-        checkedAnswerIndeces: uniq(state.checkedAnswerIndeces.concat(i)),
-        showNextChapter: true,
-      }
-    }, this.scrollDown)
+    const { path } = this.props
+    this.props.addAnswer(path, i)
+    if (this.props.correctAnswerIndex === i) {
+      this.props.answerCorrectly(path)
+      this.scrollDown()
+    }
   }
 
   private scrollDown = () => {
@@ -195,3 +183,10 @@ function Answer({ text, onClick, checked }: AnswerProps) {
     </div>
   )
 }
+
+export default connect(state => state, {
+  addAnswer,
+  answerCorrectly,
+  setRememberSkipped,
+  skip,
+})(Quiz)

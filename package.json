@@ -32,6 +32,8 @@
     "react-jsx-parser": "git+https://github.com/timsuchanek/react-jsx-parser#components-object3",
     "react-redux": "^5.0.5",
     "redux": "^3.7.1",
+    "redux-localstorage": "rc",
+    "redux-logger": "^3.0.6",
     "relay-compiler": "^1.1.0",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
