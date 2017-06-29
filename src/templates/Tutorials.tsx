@@ -78,9 +78,6 @@ class Tutorials extends React.Component<Props, null> {
             .video :global(iframe) {
               @p: .absolute, .top0, .left0, .right0, .bottom0, .w100, .h100;
             }
-            .markdown-container {
-              min-height: calc(100vh - 610px);
-            }
           `}</style>
           <div
             className="left-container"
@@ -90,9 +87,7 @@ class Tutorials extends React.Component<Props, null> {
             <div className="left">
               <div className="content">
                 <h1>{post.frontmatter.title}</h1>
-                <div className="markdown-container">
-                  <Markdown html={post.html} />
-                </div>
+                <Markdown html={post.html} />
                 {isTutorialChooser
                   ? <TutorialChooser markdownFiles={steps} />
                   : nextChapter &&

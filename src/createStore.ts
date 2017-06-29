@@ -1,10 +1,10 @@
 import { createStore, compose, applyMiddleware } from 'redux'
-import quizReducer from './reducers/quiz'
+import quizReducer, { defaultQuizState } from './reducers/quiz'
 import persistState, { mergePersistedState } from 'redux-localstorage'
 import * as adapter from 'redux-localstorage/lib/adapters/localStorage'
 import logger from 'redux-logger'
 
-const reducer = compose(mergePersistedState())(quizReducer)
+const reducer = compose(mergePersistedState(defaultQuizState))(quizReducer)
 
 let localStorage: any = null
 
@@ -28,4 +28,4 @@ if (process.env.NODE_ENV !== 'production') {
   functions.push(applyMiddleware(logger))
 }
 
-export default () => createStore(reducer, compose.apply(null, [functions]))
+export default () => createStore(reducer, compose.apply(null, functions))

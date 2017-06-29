@@ -9,7 +9,7 @@ export interface QuizReaction {
   answeredCorrectly?: boolean
 }
 
-const defaultQuizState: QuizState = {
+export const defaultQuizState: QuizState = {
   quizReactions: {},
   rememberSkipped: false,
 }

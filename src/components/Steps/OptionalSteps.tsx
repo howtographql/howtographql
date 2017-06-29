@@ -5,6 +5,7 @@ import OptionalDottedListItem from './OptionalDottedListItem'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import Duration from '../Duration'
 import * as cn from 'classnames'
+import { extractGroup } from '../../utils/graphql'
 
 interface Props {
   steps: Step[]
@@ -28,10 +29,12 @@ export default class OptionalSteps extends React.Component<Props, State> {
   }
 
   render() {
-    const { steps, small, mainPink } = this.props
+    const { steps, small, mainPink, location } = this.props
     const { collapsed } = this.state
+    const group = extractGroup(location.pathname)
+    const reallyCollapsed = collapsed && group !== 'advanced'
 
-    const visibleSteps = collapsed ? steps.slice(0, 2) : steps
+    const visibleSteps = reallyCollapsed ? steps.slice(0, 2) : steps
     const count = visibleSteps.length === 2 ? 2 : visibleSteps.length - 1
     const n = count * 52
 
@@ -145,7 +148,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
               </div>
             </OptionalDottedListItem>,
           )}
-          {collapsed &&
+          {reallyCollapsed &&
             <div className="more" onClick={this.toggleCollapse}>
               <div className="plus">
                 <Icon
