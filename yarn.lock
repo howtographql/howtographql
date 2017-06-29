@@ -2602,6 +2602,12 @@ error-stack-parser@^1.3.6:
   dependencies:
     stackframe "^0.3.1"
 
+error-stack-parser@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/error-stack-parser/-/error-stack-parser-2.0.1.tgz#a3202b8fb03114aa9b40a0e3669e48b2b65a010a"
+  dependencies:
+    stackframe "^1.0.3"
+
 es-abstract@^1.6.1:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.7.0.tgz#dfade774e01bfcd97f96180298c449c8623fb94c"
@@ -2806,7 +2812,7 @@ expand-tilde@^2.0.2:
   dependencies:
     homedir-polyfill "^1.0.1"
 
-express-graphql@^0.6.1:
+express-graphql@^0.6.6:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/express-graphql/-/express-graphql-0.6.6.tgz#fdf5c7b5af600b8ef920e4095e03dfc784f9094d"
   dependencies:
@@ -3111,6 +3117,14 @@ fresh@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.0.tgz#f474ca5e6a9246d6fd8e0953cfa9b9c805afa78e"
 
+friendly-errors-webpack-plugin@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.6.1.tgz#e32781c4722f546a06a9b5d7a7cfa28520375d70"
+  dependencies:
+    chalk "^1.1.3"
+    error-stack-parser "^2.0.0"
+    string-length "^1.0.1"
+
 front-matter@^2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/front-matter/-/front-matter-2.1.2.tgz#f75983b9f2f413be658c93dfd7bd8ce4078f5cdb"
@@ -3273,9 +3287,9 @@ gatsby-transformer-remark@next:
     unist-util-select "^1.5.0"
     unist-util-visit "^1.1.1"
 
-gatsby@next:
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-1.0.0-beta.2.tgz#b1674f45567a6aea7299249f580eb357c6d74379"
+gatsby@1.0.0-beta.5-alpha.fb30fcd6:
+  version "1.0.0-beta.5-alpha.fb30fcd6"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-1.0.0-beta.5-alpha.fb30fcd6.tgz#397a94973cd704ae5a94aceaeafa785af2936d85"
   dependencies:
     async "^2.1.2"
     babel-core "^6.24.1"
@@ -3301,15 +3315,17 @@ gatsby@next:
     detect-port "^1.2.1"
     eventemitter2 "^4.1.0"
     express "^4.14.0"
-    express-graphql "^0.6.1"
+    express-graphql "^0.6.6"
     extract-text-webpack-plugin "^1.0.1"
     file-loader "^0.9.0"
     flat "^2.0.1"
+    friendly-errors-webpack-plugin "^1.6.1"
     front-matter "^2.1.0"
     fs-extra "^3.0.1"
     glob "^7.1.1"
+    graphql "^0.10.3"
     graphql-relay "^0.5.1"
-    graphql-skip-limit "^1.0.0-beta.1"
+    graphql-skip-limit "^1.0.0-beta.5-alpha.fb30fcd6"
     gray-matter "^2.1.0"
     hapi "^8.5.1"
     history "^4.6.2"
@@ -3319,6 +3335,7 @@ gatsby@next:
     is-relative-url "^2.0.0"
     joi "^9.1.1"
     json-loader "^0.5.2"
+    json-stringify-safe "^5.0.1"
     json5 "^0.5.0"
     loader-utils "^0.2.16"
     lodash "^4.17.4"
@@ -3353,7 +3370,7 @@ gatsby@next:
     react-router-dom "^4.1.1"
     react-router-scroll ytase/react-router-scroll#build
     redux "^3.6.0"
-    relay-compiler "^1.0.0-rc.3"
+    relay-compiler "^1.1.0"
     remote-redux-devtools "^0.5.7"
     sift "^3.2.6"
     slash "^1.0.0"
@@ -3370,7 +3387,6 @@ gatsby@next:
     webpack-dev-server "^1.16.1"
     webpack-hot-middleware "^2.13.2"
     webpack-md5-hash "0.0.5"
-    webpack-require "0.0.16"
     webpack-stats-plugin "^0.1.4"
     webpack-validator "^2.2.7"
     yaml-loader "^0.4.0"
@@ -3654,9 +3670,9 @@ graphql-relay@^0.5.1:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/graphql-relay/-/graphql-relay-0.5.2.tgz#40ff714efd60c2cd89e0bcc79e2afa6d87fa8673"
 
-graphql-skip-limit@^1.0.0-beta.1:
-  version "1.0.0-beta.2-alpha.a1195641"
-  resolved "https://registry.yarnpkg.com/graphql-skip-limit/-/graphql-skip-limit-1.0.0-beta.2-alpha.a1195641.tgz#2908122ba64733ac660a049cfed6802feb0dc588"
+graphql-skip-limit@^1.0.0-beta.5-alpha.fb30fcd6:
+  version "1.0.0-beta.5-alpha.fb30fcd6"
+  resolved "https://registry.yarnpkg.com/graphql-skip-limit/-/graphql-skip-limit-1.0.0-beta.5-alpha.fb30fcd6.tgz#ba0e537202aa7639cf36dbfae1e0cec4dce789ec"
 
 graphql-subscriptions@^0.4.3:
   version "0.4.3"
@@ -4152,7 +4168,7 @@ interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
 
-invariant@^2.0.0, invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
+invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -4610,7 +4626,7 @@ json-stable-stringify@^1.0.0, json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@~5.0.0, json-stringify-safe@~5.0.1:
+json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.0, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -6443,15 +6459,9 @@ postcss-minify-selectors@^2.0.4:
     postcss "^5.0.14"
     postcss-selector-parser "^2.0.0"
 
-postcss-modules-extract-imports@1.1.0:
+postcss-modules-extract-imports@1.1.0, postcss-modules-extract-imports@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/postcss-modules-extract-imports/-/postcss-modules-extract-imports-1.1.0.tgz#b614c9720be6816eaee35fb3a5faa1dba6a05ddb"
-  dependencies:
-    postcss "^6.0.1"
-
-postcss-modules-extract-imports@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/postcss-modules-extract-imports/-/postcss-modules-extract-imports-1.2.0.tgz#66140ecece38ef06bf0d3e355d69bf59d141ea85"
   dependencies:
     postcss "^6.0.1"
 
@@ -6979,7 +6989,7 @@ react-router-dom@^4.1.1:
     prop-types "^15.5.4"
     react-router "^4.1.1"
 
-react-router-scroll@ytase/react-router-scroll#build:
+"react-router-scroll@github:ytase/react-router-scroll#build":
   version "0.4.1"
   resolved "https://codeload.github.com/ytase/react-router-scroll/tar.gz/991ecddb08885e1fb80ec1e9dbf3a35844b7d4cd"
   dependencies:
@@ -7228,7 +7238,7 @@ relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
 
-relay-compiler@^1.0.0-rc.3, relay-compiler@^1.1.0:
+relay-compiler@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/relay-compiler/-/relay-compiler-1.1.0.tgz#39435607ff9d145a6bbfd5fe09aa2a44d1cf5aa3"
   dependencies:
@@ -7943,6 +7953,10 @@ stackframe@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-0.3.1.tgz#33aa84f1177a5548c8935533cbfeb3420975f5a4"
 
+stackframe@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-1.0.3.tgz#fe64ab20b170e4ce49044b126c119dfa0e5dc7cc"
+
 staged-git-files@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/staged-git-files/-/staged-git-files-0.0.4.tgz#d797e1b551ca7a639dec0237dc6eb4bb9be17d35"
@@ -8033,6 +8047,12 @@ string-hash@1.1.1:
 string-hash@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/string-hash/-/string-hash-1.1.3.tgz#e8aafc0ac1855b4666929ed7dd1275df5d6c811b"
+
+string-length@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/string-length/-/string-length-1.0.1.tgz#56970fb1c38558e9e70b728bf3de269ac45adfac"
+  dependencies:
+    strip-ansi "^3.0.0"
 
 string-similarity@^1.2.0:
   version "1.2.0"
@@ -9126,17 +9146,6 @@ webpack-md5-hash@0.0.5:
   dependencies:
     md5 "^2.0.0"
 
-webpack-require@0.0.16:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/webpack-require/-/webpack-require-0.0.16.tgz#df04a799bbd96e58e05abd66b4db77f16f75d184"
-  dependencies:
-    invariant "^2.1.0"
-    memory-fs "^0.2.0"
-    object-assign "^3.0.0"
-    path-is-absolute "^1.0.0"
-    source-map "^0.4.4"
-    webpack "^1.11.0"
-
 webpack-sources@^0.1.0:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.1.5.tgz#aa1f3abf0f0d74db7111c40e500b84f966640750"
@@ -9171,7 +9180,7 @@ webpack-validator@^2.2.7:
     shelljs "0.7.0"
     yargs "4.7.1"
 
-webpack@^1.11.0, webpack@^1.13.3:
+webpack@^1.13.3:
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-1.15.0.tgz#4ff31f53db03339e55164a9d468ee0324968fe98"
   dependencies:
