@@ -26,6 +26,7 @@ export default function Team() {
         <h2>For the community by the community</h2>
         <p>
           How to GraphQL was created by Graphcool and many amazing contributors.
+          It's open-source and free of charge.
         </p>
 
         <div className="bubbles">
