@@ -6,6 +6,7 @@ import * as cn from 'classnames'
 import Unlocked from './Unlocked'
 import NextChapter from './NextChapter'
 import { smoothScrollTo } from '../../utils/smoothScroll'
+import RememberDecision from './RememberDecision'
 
 interface Props {
   question: string
@@ -19,6 +20,8 @@ interface Props {
 interface State {
   checkedAnswerIndeces: number[]
   showNextChapter: boolean
+  skipped: boolean
+  rememberSkip: boolean
 }
 
 export default class Quiz extends React.Component<Props, State> {
@@ -27,7 +30,9 @@ export default class Quiz extends React.Component<Props, State> {
 
     this.state = {
       checkedAnswerIndeces: [],
+      rememberSkip: false,
       showNextChapter: false,
+      skipped: false,
     }
   }
 
@@ -38,7 +43,7 @@ export default class Quiz extends React.Component<Props, State> {
 
   render() {
     const { question, answers, n, showBonus } = this.props
-    const { checkedAnswerIndeces } = this.state
+    const { checkedAnswerIndeces, skipped } = this.state
     const bonusChapter: Step = {
       link: '/tutorials/graphql/advanced/0-clients/',
       title: 'Clients',
@@ -58,6 +63,7 @@ export default class Quiz extends React.Component<Props, State> {
             @p: .absolute, .left0, .right0, .bb, .bBlack10, .bw2;
             content: "";
           }
+
           .quiz-title .title {
             @p: .pink, .bgWhite, .ph10, .f14, .fw6, .z2;
           }
@@ -75,7 +81,7 @@ export default class Quiz extends React.Component<Props, State> {
             @p: .underline, .black30, .tc, .mt38, .pointer, .mb60;
           }
           .next-chapters {
-            @p: .flex, .justifyBetween;
+            @p: .flex, .justifyBetween, .bt, .bBlack10, .bw2;
           }
         `}</style>
         <div className="quiz-title">
@@ -111,15 +117,24 @@ export default class Quiz extends React.Component<Props, State> {
         </div>
         {this.state.showNextChapter &&
           <div>
-            <Unlocked n={n} />
+            {!skipped && <Unlocked n={n} />}
             <div className="next-chapters">
               {showBonus &&
                 <NextChapter step={bonusChapter} isBonus={true} small={true} />}
               <NextChapter step={this.props.nextChapter} small={showBonus} />
             </div>
+            {skipped &&
+              <RememberDecision
+                onChangeRemember={this.toggleRememberSkip}
+                remember={this.state.rememberSkip}
+              />}
           </div>}
       </div>
     )
+  }
+
+  private toggleRememberSkip = () => {
+    this.setState(state => ({ ...state, rememberSkip: !state.rememberSkip }))
   }
 
   private skip = () => {
@@ -127,6 +142,7 @@ export default class Quiz extends React.Component<Props, State> {
       state => ({
         ...state,
         showNextChapter: true,
+        skipped: true,
       }),
       this.scrollDown,
     )
