@@ -21,7 +21,7 @@ export default function ChooseTutorialStep({ active }: Props) {
             rgba(245, 245, 245, 0),
             rgba(245, 245, 245, 1)
           );
-          height: 80px;
+          height: 100px;
           width: 2px;
           left: -2px;
         }
