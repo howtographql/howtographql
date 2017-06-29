@@ -35,6 +35,8 @@ export default class Sidebar extends React.Component<Props, {}> {
       ['basics', 'advanced'].includes(group) ||
       location.pathname.includes('/choose')
 
+    const nonGraphqlTutorial = !['basics', 'advanced'].includes(group)
+
     return (
       <div className="sidebar-container">
         <style jsx={true}>{`
@@ -88,11 +90,18 @@ export default class Sidebar extends React.Component<Props, {}> {
               steps={steps.advanced}
               small={true}
               showDuration={false}
+              mainPink={nonGraphqlTutorial}
             />
             {showChoose
-              ? <ChooseTutorialStep />
+              ? <ChooseTutorialStep
+                  active={location.pathname.includes('choose')}
+                />
               : <div>
-                  {tutorialTitle && <TutorialTitleStep title={tutorialTitle} />}
+                  {tutorialTitle &&
+                    <TutorialTitleStep
+                      title={tutorialTitle}
+                      pinkLine={nonGraphqlTutorial}
+                    />}
                   <Steps
                     steps={selectedSteps}
                     small={true}

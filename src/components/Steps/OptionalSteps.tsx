@@ -11,6 +11,7 @@ interface Props {
   small?: boolean
   showDuration?: boolean
   location: any
+  mainPink?: boolean
 }
 
 interface State {
@@ -27,7 +28,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
   }
 
   render() {
-    const { steps, small } = this.props
+    const { steps, small, mainPink } = this.props
     const { collapsed } = this.state
 
     const visibleSteps = collapsed ? steps.slice(0, 2) : steps
@@ -39,10 +40,16 @@ export default class OptionalSteps extends React.Component<Props, State> {
       : true
 
     return (
-      <div className={cn('optional-steps', { small })}>
+      <div className={cn('optional-steps', { small, mainPink })}>
         <style jsx={true}>{`
           .optional-steps {
-            @p: .flex, .bl, .bw2, .bBlack20, .pb25;
+            @p: .flex, .bl, .bw2, .bBlack20, .pb25, .relative, .bbox;
+          }
+          .optional-steps.mainPink::before {
+            @p: .absolute, .top0, .bottom0, .bgPink, .z999;
+            content: "";
+            left: -2px;
+            width: 2px;
           }
           p {
             @p: .black30;

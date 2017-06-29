@@ -1,12 +1,32 @@
 import * as React from 'react'
 import Link from 'gatsby-link'
+import * as cn from 'classnames'
 
-export default function ChooseTutorialStep() {
+interface Props {
+  active: boolean
+}
+
+export default function ChooseTutorialStep({ active }: Props) {
   return (
-    <div className="choose-tutorial-step">
+    <div className={cn('choose-tutorial-step', { active })}>
       <style jsx={true}>{`
         .choose-tutorial-step {
           @p: .bl, .bBlack20, .pb38, .pl25, .relative, .bw2;
+        }
+        .choose-tutorial-step:after {
+          @p: .absolute, .bottom0;
+          content: "";
+          background: linear-gradient(
+            to bottom,
+            rgba(245, 245, 245, 0),
+            rgba(245, 245, 245, 1)
+          );
+          height: 80px;
+          width: 2px;
+          left: -2px;
+        }
+        .choose-tutorial-step.active, .choose-tutorial-step.active a:before {
+          border-color: $pink;
         }
         a {
           @p: .black80;
