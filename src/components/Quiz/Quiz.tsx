@@ -12,6 +12,8 @@ interface Props {
   answers: string[]
   correctAnswerIndex: number
   nextChapter: Step
+  n: number
+  showBonus: boolean
 }
 
 interface State {
@@ -35,13 +37,19 @@ export default class Quiz extends React.Component<Props, State> {
   }
 
   render() {
-    const { question, answers } = this.props
+    const { question, answers, n, showBonus } = this.props
     const { checkedAnswerIndeces } = this.state
+    const bonusChapter: Step = {
+      link: '/tutorials/graphql/advanced/0-clients/',
+      title: 'Clients',
+    }
     return (
       <div className="quiz">
         <style jsx={true}>{`
           .quiz {
-            @p: .mt60, .mb38;
+            @p: .mt60;
+            margin-left: -38px;
+            margin-right: -38px;
           }
           .quiz-title {
             @p: .relative, .flex, .itemsCenter, .justifyCenter;
@@ -58,13 +66,16 @@ export default class Quiz extends React.Component<Props, State> {
             font-size: 30px;
           }
           .answers {
-            @p: .mt60;
+            @p: .mt60, .ph96, .mh38;
           }
           .answer-row {
             @p: .flex, .mt25;
           }
           .skip {
-            @p: .underline, .black30, .tc, .mt25, .pointer;
+            @p: .underline, .black30, .tc, .mt38, .pointer, .mb60;
+          }
+          .next-chapters {
+            @p: .flex, .justifyBetween;
           }
         `}</style>
         <div className="quiz-title">
@@ -100,8 +111,12 @@ export default class Quiz extends React.Component<Props, State> {
         </div>
         {this.state.showNextChapter &&
           <div>
-            <Unlocked n={4} />
-            <NextChapter step={this.props.nextChapter} />
+            <Unlocked n={n} />
+            <div className="next-chapters">
+              {showBonus &&
+                <NextChapter step={bonusChapter} isBonus={true} small={true} />}
+              <NextChapter step={this.props.nextChapter} small={showBonus} />
+            </div>
           </div>}
       </div>
     )

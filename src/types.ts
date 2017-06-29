@@ -14,6 +14,9 @@ export interface MarkdownRemark {
   frontmatter: {
     title: string
     videoId?: string
+    question: string
+    answers: string[]
+    correctAnswer: number
   }
 }
 
@@ -21,6 +24,7 @@ export interface Step {
   title: string
   link: string
   time?: number
+  read?: boolean
 }
 
 export interface Stack {

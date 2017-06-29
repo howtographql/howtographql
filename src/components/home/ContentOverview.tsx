@@ -54,13 +54,13 @@ export default function ContentOverview({ location, steps }: Props) {
           @p: .flexAuto, .flex;
         }
         .advanced {
-          @p: .mt38;
+          @p: .mt38, .pt10;
         }
         .all-tutorials {
           @p: .ml38;
         }
         .all-tutorials :global(.stack) + :global(.stack) {
-          @p: .mt38;
+          @p: .mt38, .pt10;
           margin-left: 0 !important;
         }
       `}</style>
@@ -125,8 +125,6 @@ export default function ContentOverview({ location, steps }: Props) {
   )
 }
 
-// CONTINUE HERE
-
 interface StackProps {
   name: string
   steps: Step[]
@@ -145,7 +143,8 @@ function Stack({ name, steps, location, showLines = true }: StackProps) {
           @p: .ml38;
         }
         h3 {
-          @p: .f14, .fw6, .black30, .ttu, .tracked;
+          @p: .f14, .fw6, .black30, .ttu, .tracked, .nowrap, .relative;
+          left: -4px;
           margin-bottom: 32px;
         }
       `}</style>

@@ -1,0 +1,9 @@
+{
+  "schema": {
+    "request": {
+      "url" : "http://localhost:8000/___graphql",
+      "method" : "POST",
+      "postIntrospectionQuery" : true
+    }
+  }
+}

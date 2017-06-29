@@ -4,7 +4,7 @@ import Intro from '../components/home/Intro'
 import App from '../components/App'
 import { extractSteps } from '../utils/graphql'
 import WhatWeBuild from '../components/home/WhatWeBuild'
-// import LandingPlayground from '../components/home/LandingPlayground'
+import LandingPlayground from '../components/home/LandingPlayground'
 import Team from '../components/home/Team'
 import ContentOverview from '../components/home/ContentOverview'
 import Footer from '../components/home/Footer'
@@ -24,7 +24,7 @@ export default (props: Props) => {
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} />
       <WhatWeBuild />
-      {/*<LandingPlayground />*/}
+      <LandingPlayground />
       <Team />
       <ContentOverview location={props.location} steps={steps} />
       <Footer />
