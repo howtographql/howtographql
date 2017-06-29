@@ -8,6 +8,35 @@ Please use [Quip](https://www.quip.com) to write your tutorials. This allows oth
 
 Once there is a finalized version in quip, you can _export_ your document to Markdown. The exporter generally works well, but has a few flaws so that you'll probably have to do some finetuning on the Markdown here and there. 
 
+## Document Format
+
+Your tutortial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
+
+[Here](https://github.com/howtographql/howtographql/tree/master/src/pages/tutorials/frontend/react-apollo) is what the example structure for the React+Apollo tuturial looks like: 
+
+![](http://imgur.com/nGsYY1E.png)
+
+Also notice that each single chapter needs to have a **frontmatter** with the following information:
+
+- `title`
+- `question` 
+- `answers`
+- `correctAnswer`
+
+`question`, `answers` and `correctAnswer` define the multiple choice question that will be displayed to the reader at the end of each chapter.
+
+Here is an example for the frontmatter:
+
+```
+---
+title: "GraphQL is the Better REST"
+question: Can you choose the first answer this question?
+answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
+correctAnswer: 0
+---
+```
+
+
 ## Custom Formatting Rules
 
 ### Instruction Block
