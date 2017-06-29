@@ -1,25 +1,37 @@
 import * as React from 'react'
 import * as cn from 'classnames'
+import { defaultReaction, QuizReaction, QuizState } from '../../reducers/quiz'
+import { connect } from 'react-redux'
+import Checkmark from '../Checkmark'
 
 interface Props {
   children?: JSX.Element
   small?: boolean
   active?: boolean
+  path: string
 }
 
-const OptionalDottedListItem = ({ children, small, active }: Props) => {
+const OptionalDottedListItem = ({
+  children,
+  small,
+  active,
+  skipped,
+  answeredCorrectly,
+}: Props & QuizReaction) => {
+  const done = skipped || answeredCorrectly
   return (
-    <div className={cn('optional-dotted-list-item', { small, active })}>
+    <div className={cn('optional-dotted-list-item', { small, active, done })}>
       <style jsx={true}>{`
-        .optional-dotted-list-item::before {
+        .optional-dotted-list-item:not(.done)::before {
           @p: .bBlack20, .bgWhite, .absolute, .ba, .bw2, .br100;
           content: '';
           left: -9px;
           margin-top: 3px;
           width: 8px;
+
           height: 8px;
         }
-        .optional-dotted-list-item.active::before {
+        div.optional-dotted-list-item.active::before {
           border-color: $pink;
         }
         .optional-dotted-list-item {
@@ -42,10 +54,24 @@ const OptionalDottedListItem = ({ children, small, active }: Props) => {
         .optional-dotted-list-item.small::before {
           margin-top: 3px;
         }
+        .done:not(.active) :global(a) {
+          color: $pink40 !important;
+        }
+        .checkmark {
+          @p: .absolute, .z2;
+          left: -13px;
+          margin-top: -1px;
+        }
       `}</style>
+      {done &&
+        <div className="checkmark">
+          <Checkmark checked={true} />
+        </div>}
       {children}
     </div>
   )
 }
 
-export default OptionalDottedListItem
+export default connect((state: QuizState, props: Props) => {
+  return state.quizReactions[props.path] || defaultReaction
+})(OptionalDottedListItem)

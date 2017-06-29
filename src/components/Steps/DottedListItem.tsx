@@ -46,7 +46,7 @@ const DottedListItem = ({
       <style jsx={true}>{`
         /* ::before rules */
         .dotted-list-item:not(.done)::before {
-          @p: .bWhite20, .bgDarkBlue, .absolute, .ba, .bw2, .br100;
+          @p: .bWhite20, .bgDarkBlue, .absolute, .ba, .bw2, .br100, .z2;
           content: '';
           left: -7px;
           margin-top: 3px;
@@ -94,31 +94,31 @@ const DottedListItem = ({
           margin-top: -8px;
           background-image: linear-gradient(
             to top,
-            rgba(225, 225, 225, 0.2),
+            rgba(225, 225, 225, 0.0),
             $pink
           );
           width: 2px;
         }
-        .dotted-list-item:not(.first).done .before-glow {
+        .dotted-list-item:not(.first) .before-glow {
           @p: .db, .absolute;
-          height: 25px;
+          height: 30px;
           left: -2px;
           top: -7px;
           background-image: linear-gradient(
             to top,
             $pink,
-            rgba(225, 225, 225, 0.2)
+            rgba(225, 225, 225, 0.0)
           );
           width: 2px;
         }
-        .dotted-list-item:not(.first).done .after-glow {
+        .dotted-list-item:not(.first) .after-glow {
           @p: .db, .absolute;
-          height: 20px;
+          height: 30px;
           left: -2px;
           margin-top: -3px;
           background-image: linear-gradient(
             to top,
-            rgba(225, 225, 225, 0.2),
+            rgba(225, 225, 225, 0.0),
             $pink
           );
           width: 2px;
@@ -162,9 +162,9 @@ const DottedListItem = ({
         <div className="checkmark">
           <Checkmark checked={true} />
         </div>}
-      {done && <div className="before-glow" />}
+      {(done || active) && <div className="before-glow" />}
       {children}
-      {done && !last && <div className="after-glow" />}
+      {(done || active) && !last && <div className="after-glow" />}
     </div>
   )
 }

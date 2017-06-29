@@ -135,6 +135,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
               key={step.title}
               small={this.props.small}
               active={step.link === this.props.location.pathname}
+              path={step.link}
             >
               <div className="list-item">
                 <Link to={step.link}>
