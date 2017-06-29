@@ -133,8 +133,17 @@ class Quiz extends React.Component<Props & QuizState, {}> {
             {!skipped && question && showUnlock && <Unlocked n={n} />}
             <div className="next-chapters">
               {showBonus &&
-                <NextChapter step={bonusChapter} isBonus={true} small={true} />}
-              <NextChapter step={this.props.nextChapter} small={showBonus} />
+                <NextChapter
+                  step={bonusChapter}
+                  isBonus={true}
+                  small={true}
+                  onClick={this.autoSkip}
+                />}
+              <NextChapter
+                step={this.props.nextChapter}
+                small={showBonus}
+                onClick={this.autoSkip}
+              />
             </div>
           </div>}
         {(skipped || rememberSkipped) &&
@@ -148,6 +157,12 @@ class Quiz extends React.Component<Props & QuizState, {}> {
 
   private toggleRememberSkip = () => {
     this.props.setRememberSkipped(!this.props.rememberSkipped)
+  }
+
+  private autoSkip = () => {
+    if (this.props.rememberSkipped) {
+      this.props.skip(this.props.path)
+    }
   }
 
   private skip = () => {

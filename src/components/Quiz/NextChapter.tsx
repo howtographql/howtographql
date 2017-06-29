@@ -7,9 +7,10 @@ interface Props {
   step: Step
   isBonus?: boolean
   small?: boolean
+  onClick?: () => void
 }
 
-export default function NextChapter({ step, isBonus, small }: Props) {
+export default function NextChapter({ step, isBonus, small, onClick }: Props) {
   return (
     <div className={cn('next-chapter', { small })}>
       <style jsx={true}>{`
@@ -75,7 +76,7 @@ export default function NextChapter({ step, isBonus, small }: Props) {
           your favorite technology and get started right away.
         </p>
       </div>
-      <Link to={step.link}>
+      <Link to={step.link} onClick={onClick}>
         {isBonus
           ? <div className="btn small passive">
               Go to Bonus chapter
