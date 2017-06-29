@@ -31,7 +31,14 @@ interface Props {
 
 class Quiz extends React.Component<Props & QuizState, {}> {
   render() {
-    const { question, answers, n, showBonus, path } = this.props
+    const {
+      question,
+      answers,
+      n,
+      showBonus,
+      path,
+      correctAnswerIndex,
+    } = this.props
     const reaction = this.props.quizReactions[path] || defaultReaction
     const { skipped, answeredCorrectly } = reaction
     const answerIndeces = reaction.answerIndeces || []
@@ -91,11 +98,13 @@ class Quiz extends React.Component<Props & QuizState, {}> {
                 text={answers[0]}
                 onClick={this.handleAnswerClick.bind(this, 0)}
                 checked={answerIndeces.includes(0)}
+                correct={correctAnswerIndex === 0}
               />
               <Answer
                 text={answers[1]}
                 onClick={this.handleAnswerClick.bind(this, 1)}
                 checked={answerIndeces.includes(1)}
+                correct={correctAnswerIndex === 1}
               />
             </div>
             <div className="answer-row">
@@ -103,11 +112,13 @@ class Quiz extends React.Component<Props & QuizState, {}> {
                 text={answers[2]}
                 onClick={this.handleAnswerClick.bind(this, 2)}
                 checked={answerIndeces.includes(2)}
+                correct={correctAnswerIndex === 2}
               />
               <Answer
                 text={answers[3]}
                 onClick={this.handleAnswerClick.bind(this, 3)}
                 checked={answerIndeces.includes(3)}
+                correct={correctAnswerIndex === 3}
               />
             </div>
             <div className="skip" onClick={this.skip}>Skip</div>
@@ -152,7 +163,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
     setTimeout(() => {
       const container = document.getElementById('tutorials-left-container')
       if (container) {
-        smoothScrollTo(container, container.scrollHeight, 300)
+        smoothScrollTo(container, container.scrollHeight, 600)
       }
     }, 0)
   }
@@ -162,11 +173,12 @@ interface AnswerProps {
   text: string
   onClick: () => void
   checked: boolean
+  correct: boolean
 }
 
-function Answer({ text, onClick, checked }: AnswerProps) {
+function Answer({ text, onClick, checked, correct }: AnswerProps) {
   return (
-    <div className={cn('answer', { checked })} onClick={onClick}>
+    <div className={cn('answer', { checked, correct })} onClick={onClick}>
       <style jsx={true}>{`
         .answer {
           @p: .flex, .itemsCenter, .w50, .pointer;
@@ -174,11 +186,14 @@ function Answer({ text, onClick, checked }: AnswerProps) {
         span {
           @p: .ml16, .black50, .f16;
         }
-        .answer.checked span {
+        .answer.checked.correct span {
           @p: .pink;
         }
+        .answer.checked:not(.correct) span {
+          @p: .strike, .black20;
+        }
       `}</style>
-      <Checkmark checked={checked} />
+      <Checkmark checked={checked && correct} crossed={checked && !correct} />
       <span>{text}</span>
     </div>
   )

@@ -116,8 +116,7 @@ class Tutorials extends React.Component<Props, null> {
     // TODO scroll up and not down
     // scrolling down just for development
     if (this.ref) {
-      // this.ref.scrollTop = 0
-      this.ref.scrollTop = this.ref.scrollHeight
+      this.ref.scrollTop = 0
     }
   }
 }
