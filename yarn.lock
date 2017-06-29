@@ -6883,6 +6883,10 @@ react-addons-shallow-compare@^15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
+react-confetti@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-1.1.5.tgz#6118f6f1984bff7720778af5d6883259ed1b2b34"
+
 react-copy-to-clipboard@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.0.tgz#23ccdd7c4d9ec2cc763839e2a55b1220aeb4f33d"

@@ -62,7 +62,7 @@ class Tutorials extends React.Component<Props, null> {
             }
             .left {
               @p: .center;
-              max-width: 1120px;
+              max-width: 1200px;
               min-height: calc(100vh - 72px - 220px);
             }
             h1 {
