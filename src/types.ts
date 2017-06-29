@@ -17,6 +17,7 @@ export interface MarkdownRemark {
     question: string
     answers: string[]
     correctAnswer: number
+    description?: string
   }
 }
 
@@ -25,6 +26,7 @@ export interface Step {
   link: string
   time?: number
   read?: boolean
+  description?: string
 }
 
 export interface Stack {

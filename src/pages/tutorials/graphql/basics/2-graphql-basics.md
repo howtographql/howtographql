@@ -3,6 +3,7 @@ title: GraphQL Basics
 question: Can you choose the first answer this question?
 answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
 correctAnswer: 0
+description: "In this chapter we discuss the basics."
 ---
 
 ## GraphQL Basics

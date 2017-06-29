@@ -72,8 +72,8 @@ export default function NextChapter({ step, isBonus, small, onClick }: Props) {
           </div>
         </div>
         <p>
-          In this chapter, we’ll start to build our own app. Choose
-          your favorite technology and get started right away.
+          {step.description ||
+            "The next chapter doesn't have a description yet"}
         </p>
       </div>
       <Link to={step.link} onClick={onClick}>

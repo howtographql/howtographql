@@ -38,6 +38,7 @@ class Tutorials extends React.Component<Props, null> {
     let nextChapter = stack[n + 1]
     if (group === 'basics' && !nextChapter) {
       nextChapter = {
+        description: 'In this step we will choose the right tutorial together.',
         link: '/tutorials/choose',
         title: 'Choosing the right tutorial',
       }
@@ -145,6 +146,7 @@ export const pageQuery = graphql`
         question
         answers
         correctAnswer
+        description
       }
     }
     mds: allMarkdownRemark {
@@ -152,6 +154,7 @@ export const pageQuery = graphql`
         node {
           frontmatter {
             title
+            description
           }
           fields {
             slug
