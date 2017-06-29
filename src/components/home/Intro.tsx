@@ -38,11 +38,11 @@ export default class Intro extends React.Component<Props, null> {
             @p: .flex, .justifyCenter;
           }
         `}</style>
-        <h1>The fullstack tutorial to learn GraphQL</h1>
+        <h1>The Fullstack Tutorial for GraphQL</h1>
         <p>
-          All you need to know to use GraphQL, we explain the basics first, then
-          build a Hackernews clone either focused on the frontend-side or the
-          backend-side.
+          Learn everything you need to use GraphQL. Start with 
+          the basics, then build a Hackernews clone with Javascript 
+          or any other technology of your choice..
         </p>
         <div className="center-container">
           <div className="watch-overview">
