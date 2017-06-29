@@ -25,7 +25,7 @@ Also notice that each single chapter needs to have a **frontmatter** with the fo
 
 `question`, `answers` and `correctAnswer` define the multiple choice question that will be displayed to the reader at the end of each chapter.
 
-Here is an example for the frontmatter:
+[Here](https://github.com/howtographql/howtographql/edit/master/src/pages/tutorials/graphql/basics/1-graphql-is-the-better-rest.md) is an example for the frontmatter:
 
 ```
 ---
