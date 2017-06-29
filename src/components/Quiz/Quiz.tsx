@@ -9,9 +9,9 @@ import { smoothScrollTo } from '../../utils/smoothScroll'
 import RememberDecision from './RememberDecision'
 
 interface Props {
-  question: string
-  answers: string[]
-  correctAnswerIndex: number
+  question?: string
+  answers?: string[]
+  correctAnswerIndex?: number
   nextChapter: Step
   n: number
   showBonus: boolean
@@ -25,13 +25,13 @@ interface State {
 }
 
 export default class Quiz extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
       checkedAnswerIndeces: [],
       rememberSkip: false,
-      showNextChapter: false,
+      showNextChapter: !props.question,
       skipped: false,
     }
   }
@@ -84,37 +84,40 @@ export default class Quiz extends React.Component<Props, State> {
             @p: .flex, .justifyBetween, .bt, .bBlack10, .bw2;
           }
         `}</style>
-        <div className="quiz-title">
-          <div className="title">Unlock the next chapter</div>
-        </div>
-        <div className="question">{question}</div>
-        <div className="answers">
-          <div className="answer-row">
-            <Answer
-              text={answers[0]}
-              onClick={this.handleAnswerClick.bind(this, 0)}
-              checked={checkedAnswerIndeces.includes(0)}
-            />
-            <Answer
-              text={answers[1]}
-              onClick={this.handleAnswerClick.bind(this, 1)}
-              checked={checkedAnswerIndeces.includes(1)}
-            />
-          </div>
-          <div className="answer-row">
-            <Answer
-              text={answers[2]}
-              onClick={this.handleAnswerClick.bind(this, 2)}
-              checked={checkedAnswerIndeces.includes(2)}
-            />
-            <Answer
-              text={answers[3]}
-              onClick={this.handleAnswerClick.bind(this, 3)}
-              checked={checkedAnswerIndeces.includes(3)}
-            />
-          </div>
-          <div className="skip" onClick={this.skip}>Skip</div>
-        </div>
+        {question &&
+          <div className="quiz-title">
+            <div className="title">Unlock the next chapter</div>
+          </div>}
+        {question && <div className="question">{question}</div>}
+        {answers &&
+          answers.length === 4 &&
+          <div className="answers">
+            <div className="answer-row">
+              <Answer
+                text={answers[0]}
+                onClick={this.handleAnswerClick.bind(this, 0)}
+                checked={checkedAnswerIndeces.includes(0)}
+              />
+              <Answer
+                text={answers[1]}
+                onClick={this.handleAnswerClick.bind(this, 1)}
+                checked={checkedAnswerIndeces.includes(1)}
+              />
+            </div>
+            <div className="answer-row">
+              <Answer
+                text={answers[2]}
+                onClick={this.handleAnswerClick.bind(this, 2)}
+                checked={checkedAnswerIndeces.includes(2)}
+              />
+              <Answer
+                text={answers[3]}
+                onClick={this.handleAnswerClick.bind(this, 3)}
+                checked={checkedAnswerIndeces.includes(3)}
+              />
+            </div>
+            <div className="skip" onClick={this.skip}>Skip</div>
+          </div>}
         {this.state.showNextChapter &&
           <div>
             {!skipped && <Unlocked n={n} />}
