@@ -1,22 +1,16 @@
-// import React from 'react'
-const React = require('react')
-const {Provider} = require('react-redux')
-// import { Provider } from 'react-redux'
+import React from 'react'
+import { Provider } from 'react-redux'
 
-// import createStore from './src/createStore'
-const createStore = require('./src/createStore').default
+import createStore from './src/createStore'
 
 exports.replaceRenderer = ({ bodyComponent, replaceBodyHTMLString }) => {
 
   const store = createStore()
 
   const ConnectedBody = () => (
-    React.createElement(Provider, {store: store}, bodyComponent)
+    <Provider store={store}>
+      {bodyComponent}
+    </Provider>
   )
-
-  // replaceBodyHTMLString(<ConnectedBody/>)
-  replaceBodyHTMLString(React.createElement(ConnectedBody))
+  replaceBodyHTMLString(<ConnectedBody/>)
 }
-// /*<Provider store={store}>*/}
-//   {/*{bodyComponent}*/}
-// {/*</Provider>*/}
