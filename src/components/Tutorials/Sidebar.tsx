@@ -31,6 +31,10 @@ export default class Sidebar extends React.Component<Props, {}> {
       tutorialTitle = stack.title
     }
 
+    const showChoose =
+      ['basics', 'advanced'].includes(group) ||
+      location.pathname.includes('/choose')
+
     return (
       <div className="sidebar-container">
         <style jsx={true}>{`
@@ -87,7 +91,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               small={true}
               showDuration={false}
             />
-            {['basics', 'advanced'].includes(group)
+            {showChoose
               ? <ChooseTutorialStep />
               : <div>
                   {tutorialTitle && <TutorialTitleStep title={tutorialTitle} />}

@@ -31,6 +31,17 @@ const data: Stack[] = [
   },
 
   {
+    title: 'Graphcool',
+    type: 'backend',
+    key: 'graphcool',
+    images: [require('../../../assets/icons/graphcool.svg')],
+    content: {
+      title: 'Graphcool',
+      description:
+        'This chapter is optional, but a good foundation for a true understanding',
+    },
+  },
+  {
     title: 'graphql.js',
     type: 'backend',
     key: 'graphql-js',
