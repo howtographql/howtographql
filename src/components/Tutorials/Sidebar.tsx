@@ -17,8 +17,15 @@ interface Props {
 export default class Sidebar extends React.Component<Props, {}> {
   private ref: any
   componentDidUpdate() {
+    this.scrollDown()
+  }
+  scrollDown() {
     if (this.ref) {
-      this.ref.scrollTop = this.ref.scrollHeight
+      const { post } = this.props
+      const group = post ? extractGroup(post.fields.slug) : 'basics'
+      if (!['basics', 'advanced'].includes(group)) {
+        this.ref.scrollTop = this.ref.scrollHeight
+      }
     }
   }
   render() {
