@@ -111,31 +111,24 @@ type Vote {
 
 You're also able to highlight individual lines inside of a code block to put emphasis on certain parts. Simply include the line numbers in curly braces right after the language statement:
 
-<pre><code>```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-render() {
+<pre><code>```js{6-7,9-12,14-17}(path="src/index.js")
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import registerServiceWorker from './registerServiceWorker'
+import './index.css'
+// 1
+import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
 
-  // 1
-  if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
-    return <div>Loading</div>
-  }
+// 2
+const networkInterface = createNetworkInterface({
+  uri: '__SIMPLE_API_ENDPOINT__'
+})
 
-  // 2
-  if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
-    return <div>Error</div>
-  }
-
-  // 3
-  const linksToRender = this.props.allLinksQuery.allLinks
-
-  return (
-    <div>
-      {linksToRender.map(link => (
-        <Link key={link.id} link={link}/>
-      ))}
-    </div>
-  )
-}
-```
+// 3
+const client = new ApolloClient({
+  networkInterface
+})
 </code></pre>
 
 
@@ -174,4 +167,5 @@ When you need to explain two or more related concepts, prefer to write them in a
 ### Avoid passive voice
 
 Try to be clear _who_ or _what_ is performing a certain action. For example, write "The `QueryRenderer` composes the query at the root of the Relay container tree" instead of "The query is composed at the root of the Relay tree".
+
 
