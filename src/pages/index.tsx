@@ -26,7 +26,7 @@ export default (props: Props) => {
       <WhatWeBuild />
       {/*<LandingPlayground />*/}
       <Team />
-      <ContentOverview />
+      <ContentOverview location={props.location} steps={steps} />
       <Footer />
     </App>
   )

@@ -68,7 +68,11 @@ export default function IntroSteps({ steps, location }: Props) {
           </div>
         </LeftColumn>
         <div className="steps-list fade-before">
-          <Steps steps={steps.basics} location={location} />
+          <Steps
+            steps={steps.basics}
+            location={location}
+            highlightFirst={true}
+          />
           <OptionalSteps steps={steps.advanced} location={location} />
         </div>
       </div>

@@ -7,7 +7,7 @@ export default function Footer() {
     <div className="footer">
       <style jsx={true}>{`
         .footer {
-          @p: .bt, .bBlack10, .tc, .pt38, .pb60, .black40, .mt60;
+          @p: .tc, .pt38, .pb60, .black40;
           background-color: rgba(0, 0, 0, .03);
         }
         .love {

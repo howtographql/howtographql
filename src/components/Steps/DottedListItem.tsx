@@ -5,14 +5,36 @@ interface Props {
   children?: JSX.Element
   light?: boolean
   first?: boolean
+  last?: boolean
   small?: boolean
   active?: boolean
   done?: boolean
+  highlightFirst?: boolean
+  showLine?: boolean
 }
 
-const DottedListItem = ({ children, light, first, small, active }: Props) => {
+const DottedListItem = ({
+  children,
+  light,
+  first,
+  small,
+  active,
+  highlightFirst,
+  showLine = true,
+  last,
+}: Props) => {
   return (
-    <div className={cn('dotted-list-item', { light, first, small, active })}>
+    <div
+      className={cn('dotted-list-item', {
+        active,
+        first,
+        highlightFirst,
+        last,
+        light,
+        showLine,
+        small,
+      })}
+    >
       <style jsx={true}>{`
         /* ::before rules */
         .dotted-list-item::before {
@@ -42,7 +64,11 @@ const DottedListItem = ({ children, light, first, small, active }: Props) => {
         .dotted-list-item.light.first.small::before {
           margin-top: 14px;
         } /* end ::before rules */
-        .dotted-list-item.first.light::after {
+        .dotted-list-item.last::before {
+          margin-top: auto;
+          bottom: 0;
+        }
+        .dotted-list-item.first.light.highlightFirst::after {
           @p: .db, .absolute;
           content: '';
           height: 30px;
@@ -58,8 +84,14 @@ const DottedListItem = ({ children, light, first, small, active }: Props) => {
         .dotted-list-item.first {
           padding-top: 0 !important;
         }
+        .dotted-list-item.last {
+          padding-bottom: 0 !important;
+        }
         .dotted-list-item {
-          @p: .pv16, .f20, .pl38, .relative, .bl, .bWhite20, .bw2;
+          @p: .pv16, .f20, .pl38, .relative, .bWhite20;
+        }
+        .dotted-list-item.showLine {
+          @p: .bl, .bw2;
         }
         .dotted-list-item.small {
           @p: .f16, .pv12, .pl25;
