@@ -12,7 +12,7 @@ const data: Stack[] = [
     content: {
       title: 'React + Apollo',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Learn how to get started with React and Apollo Client on the frontend',
     },
   },
   {
@@ -26,7 +26,7 @@ const data: Stack[] = [
     content: {
       title: 'React + Relay',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Get started with React and Facebook\'s homegrown GraphQL client Relay on the frontend',
     },
   },
 
@@ -38,7 +38,7 @@ const data: Stack[] = [
     content: {
       title: 'Graphcool',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Learn everything you need to know to build your own GraphQL backend with Graphcool',
     },
   },
   {
@@ -49,7 +49,7 @@ const data: Stack[] = [
     content: {
       title: 'graphql.js',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Build your own GraphQL server with node.js and the express framework',
     },
   },
   {
@@ -60,7 +60,7 @@ const data: Stack[] = [
     content: {
       title: 'graphene (python)',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Learn how to build your own GraphQL server with Python and the Graphene framework',
     },
   },
   {
@@ -71,7 +71,7 @@ const data: Stack[] = [
     content: {
       title: 'graphql-elixir',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Get started with GraphQL and Elixir by building your own server in this tutorial',
     },
   },
   {
@@ -82,7 +82,7 @@ const data: Stack[] = [
     content: {
       title: 'graphql-java',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Build your own GraphQL server with the Java programming language',
     },
   },
   {
@@ -93,7 +93,7 @@ const data: Stack[] = [
     content: {
       title: 'graphql-ruby',
       description:
-        'This chapter is optional, but a good foundation for a true understanding',
+        'Learn how to build a GraphQL server with Ruby',
     },
   },
 ]
