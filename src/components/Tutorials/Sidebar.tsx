@@ -69,9 +69,6 @@ export default class Sidebar extends React.Component<Props, {}> {
           .sidebar :global(.plus) {
             background-color: rgb(245, 245, 245);
           }
-          .sidebar :global(.dotted-list-item.first.light::after) {
-            @p: .dn;
-          }
           .steps-list {
             @p: .pb96;
           }
@@ -84,6 +81,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               small={true}
               showDuration={false}
               location={location}
+              highlightFirst={false}
             />
             <OptionalSteps
               location={location}

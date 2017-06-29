@@ -96,8 +96,8 @@ class Chooser extends React.Component<Props, State> {
             <h3 className="first-h3">Practical part</h3>
           </LeftColumn>
           <div className="steps-list">
-            <DottedListItem first={true}>
-              <Link to={''}>
+            <DottedListItem first={true} path={'/tutorials/choose'}>
+              <Link to={'/tutorials/choose'}>
                 Which tutorial should I pick next?
               </Link>
             </DottedListItem>
@@ -119,7 +119,7 @@ class Chooser extends React.Component<Props, State> {
           </LeftColumn>
           <div className="steps-list fade-before">
             {selected.steps.map((step, index) =>
-              <DottedListItem key={index}>
+              <DottedListItem key={index} path={step.link}>
                 <Link to={step.link}>
                   {step.title}
                 </Link>

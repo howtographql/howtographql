@@ -38,6 +38,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
       showBonus,
       path,
       correctAnswerIndex,
+      rememberSkipped,
     } = this.props
     const reaction = this.props.quizReactions[path] || defaultReaction
     const { skipped, answeredCorrectly } = reaction
@@ -48,7 +49,9 @@ class Quiz extends React.Component<Props & QuizState, {}> {
       title: 'Clients',
     }
 
-    const showNextChapter = skipped || answeredCorrectly
+    const showNextChapter = skipped || answeredCorrectly || rememberSkipped
+    const showUnlock = !rememberSkipped
+    const showQuestion = !rememberSkipped && !skipped
 
     return (
       <div className="quiz">
@@ -86,12 +89,14 @@ class Quiz extends React.Component<Props & QuizState, {}> {
           }
         `}</style>
         {question &&
+          showQuestion &&
           <div className="quiz-title">
             <div className="title">Unlock the next chapter</div>
           </div>}
-        {question && <div className="question">{question}</div>}
+        {question && showQuestion && <div className="question">{question}</div>}
         {answers &&
           answers.length === 4 &&
+          showQuestion &&
           <div className="answers">
             <div className="answer-row">
               <Answer
@@ -125,18 +130,18 @@ class Quiz extends React.Component<Props & QuizState, {}> {
           </div>}
         {showNextChapter &&
           <div>
-            {!skipped && question && <Unlocked n={n} />}
+            {!skipped && question && showUnlock && <Unlocked n={n} />}
             <div className="next-chapters">
               {showBonus &&
                 <NextChapter step={bonusChapter} isBonus={true} small={true} />}
               <NextChapter step={this.props.nextChapter} small={showBonus} />
             </div>
-            {skipped &&
-              <RememberDecision
-                onChangeRemember={this.toggleRememberSkip}
-                remember={this.props.rememberSkipped}
-              />}
           </div>}
+        {(skipped || rememberSkipped) &&
+          <RememberDecision
+            onChangeRemember={this.toggleRememberSkip}
+            remember={this.props.rememberSkipped}
+          />}
       </div>
     )
   }

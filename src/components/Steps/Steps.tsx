@@ -34,6 +34,7 @@ export default function Steps({
           active={step.link === location.pathname}
           highlightFirst={highlightFirst}
           showLine={showLines}
+          path={step.link}
         >
           <style jsx={true}>{`
             .list-item {
