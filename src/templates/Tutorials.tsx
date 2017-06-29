@@ -36,11 +36,14 @@ class Tutorials extends React.Component<Props, null> {
       step => step.link === this.props.location.pathname,
     )
     let nextChapter = stack[n + 1]
-    if (group === 'basics' && !nextChapter) {
-      nextChapter = {
-        description: 'In this step we will choose the right tutorial together.',
-        link: '/tutorials/choose',
-        title: 'Choosing the right tutorial',
+    if (!nextChapter) {
+      if (group === 'basics' || group === 'advanced') {
+        nextChapter = {
+          description:
+            'In this step we will choose the right tutorial together.',
+          link: '/tutorials/choose',
+          title: 'Choosing the right tutorial',
+        }
       }
     }
     const showBonus = this.props.location.pathname.startsWith(

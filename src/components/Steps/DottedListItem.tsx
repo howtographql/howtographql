@@ -103,7 +103,7 @@ const DottedListItem = ({
           @p: .db, .absolute;
           height: 30px;
           left: -2px;
-          top: -7px;
+          top: -10px;
           background-image: linear-gradient(
             to top,
             $pink,
@@ -115,7 +115,7 @@ const DottedListItem = ({
           @p: .db, .absolute;
           height: 30px;
           left: -2px;
-          margin-top: -3px;
+          top: 22px;
           background-image: linear-gradient(
             to top,
             rgba(225, 225, 225, 0.0),

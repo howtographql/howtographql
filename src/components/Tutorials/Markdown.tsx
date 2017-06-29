@@ -6,6 +6,11 @@ import Pre from './Pre'
 export default function Markdown({ html }: { html: string }) {
   return (
     <div className="markdown">
+      <style jsx={true}>{`
+        .markdown {
+          @p: .pb38;
+        }
+      `}</style>
       <style jsx={true} global={true}>{`
         .markdown {
           @p: .lhCopy, .darkBlue70;
@@ -24,7 +29,8 @@ export default function Markdown({ html }: { html: string }) {
           margin-top: 30px;
         }
         .markdown h2 {
-          margin-top: 48px; /* 2x mt38 due to vertical line */
+          margin-top: 48px;
+          /* 2x mt38 due to vertical line */
         }
         .markdown h4 {
           @p: .fw7;
@@ -41,14 +47,14 @@ export default function Markdown({ html }: { html: string }) {
         }
         .fl {
           @p: .flex;
-        }
-        /* Text Links */
+        } /* Text Links */
         .markdown p a, .markdown li a {
           @p: .noUnderline, .blue;
         }
         .markdown p a:hover, .markdown li a:hover {
           @p: .underline;
-        } /* Lists */
+        }
+        /* Lists */
         .markdown ul {
           list-style-type: none;
           margin: 0;
@@ -77,7 +83,8 @@ export default function Markdown({ html }: { html: string }) {
           height: 6px;
           left: 8px;
           top: 10px;
-        } /* Inline Code Snippets */
+        }
+        /* Inline Code Snippets */
         .markdown p code,
         .markdown li code,
         .markdown h2 code,
@@ -109,8 +116,7 @@ export default function Markdown({ html }: { html: string }) {
         .markdown h4 code {
           font-size: 18px;
           padding: 6px 6px 4px;
-        }
-        /* Blockquotes */
+        } /* Blockquotes */
         .markdown blockquote {
           @p: .ma0, .pl16;
           padding-bottom: 2px;
