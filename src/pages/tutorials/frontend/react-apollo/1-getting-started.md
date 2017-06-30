@@ -17,19 +17,19 @@ You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overvie
 ```graphql(nocopy)
 type User {
   name: String!
-  links: [Link!]! @relation(name: "UsersLinks")
-  votes: [Vote!]! @relation(name: "UsersVotes")
+  links: [Link!] @relation(name: "UsersLinks")
+  votes: [Vote!] @relation(name: "UsersVotes")
 }
 
 type Link { 
   url: String!
-  postedBy: User! @relation(name: "UsersLinks")
-  votes: [Vote!]! @relation(name: "VotesOnLink")
+  postedBy: User @relation(name: "UsersLinks")
+  votes: [Vote!] @relation(name: "VotesOnLink")
 }
 
 type Vote {
-  user: User! @relation(name: "UsersVotes")
-  link: Link! @relation(name: "VotesOnLink")
+  user: User @relation(name: "UsersVotes")
+  link: Link @relation(name: "VotesOnLink")
 }
 ```
 
