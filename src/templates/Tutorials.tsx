@@ -71,7 +71,7 @@ class Tutorials extends React.Component<Props, null> {
             }
             .left {
               @p: .center;
-              max-width: 1200px;
+              max-width: 924px;
               min-height: calc(100vh - 72px - 220px);
             }
             h1 {
@@ -92,13 +92,10 @@ class Tutorials extends React.Component<Props, null> {
             id="tutorials-left-container"
             ref={this.setRef}
           >
+            {post.frontmatter.videoId &&
+              <Video videoId={post.frontmatter.videoId} author={videoAuthor} />}
+            <Author post={post} group={group} />
             <div className="left">
-              {post.frontmatter.videoId &&
-                <Video
-                  videoId={post.frontmatter.videoId}
-                  author={videoAuthor}
-                />}
-              <Author post={post} group={group} />
               <div className="content">
                 <h1>{post.frontmatter.title}</h1>
                 <Markdown html={post.html} />
