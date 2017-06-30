@@ -56,7 +56,7 @@ export default function Team() {
 
       `}</style>
       <div className="team">
-        <h2>For the community by the community</h2>
+        <h2>For the Community, by the Community</h2>
         <p>
           How to GraphQL was created by Graphcool and many amazing contributors.
           It's open-source and free of charge.
