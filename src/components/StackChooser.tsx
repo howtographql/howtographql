@@ -106,12 +106,12 @@ function StackChooser({
               <div className="logos">
                 <Icon
                   src={tutorial.images[0]}
-                  width={40}
-                  height={40}
+                  width={50}
+                  height={50}
                   color={tutorial.color || 'black'}
                 />
                 {tutorial.images[1] &&
-                  <Icon src={tutorial.images[1]} width={40} height={40} />}
+                  <Icon src={tutorial.images[1]} width={50} height={50} />}
               </div>
               <p>{tutorial.title}</p>
             </div>,
