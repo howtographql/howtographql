@@ -36,6 +36,12 @@ export default function Checkmark({ checked = true, crossed = false }: Props) {
         .cross {
           @p: .black20, .fw7, .f20;
         }
+
+        @media (max-width: 500px) {
+          div.checkmark {
+            @p: .flexFixed;
+          }
+        }
       `}</style>
       {checked && <img src={require('../assets/icons/check.svg')} alt="" />}
       {crossed &&

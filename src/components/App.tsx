@@ -141,13 +141,14 @@ export default function App({ children }: Props) {
           @p: .f38, .lhTitle;
         }
         h2 {
+          @p: .lhTitle;
           font-size: 35px;
         }
         section p {
           @p: .f20, .darkBlue50, .lhCopy;
         }
         a {
-          @p: .noUnderline;
+          @p: .noUnderline, .lhCopy;
         }
         section {
           @p: .pt96;
@@ -157,9 +158,12 @@ export default function App({ children }: Props) {
         } /* Reusable Components */
         .btn {
           @p: .bgPink, .white, .f25, .fw6, .mt38, .dib, .lhTitle;
+	        background-image: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
+	        border: solid 2px #e00083;
           padding: 17px 30px 19px;
           border-radius: 6px;
         }
+
         .btn.passive {
           @p: .bgWhite, .ba, .bw2, .pink;
           border-color: $pink30;
@@ -167,6 +171,22 @@ export default function App({ children }: Props) {
         .btn.small {
           @p: .f20, .fw6, .pv16, .ph20;
         }
+
+        @media (max-width: 500px) {
+          .btn {
+            padding: 10px 16px;
+          }
+
+          h2 {
+            font-size: 32px !important;
+            text-align: left !important;
+          }
+
+          section {
+            padding-top: 38px !important;
+          }
+        }
+
       `}</style>
       <style jsx={true}>{`
         .content {

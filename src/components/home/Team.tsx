@@ -10,6 +10,7 @@ export default function Team() {
         section {
           @p: .pb96;
           background-color: #fafafa;
+          border-top: 2px solid rgba(0,0,0,0.1);
         }
         .team {
           @p: .center;
@@ -21,6 +22,29 @@ export default function Team() {
         .bubbles {
           @p: .mt60, .flex, .flexWrap;
         }
+
+        @media (max-width: 500px) {
+
+          section {
+            padding-bottom: 0 !important;
+          }
+
+          div.bubbles {
+            overflow: auto;
+            padding-left: 30px;
+            padding-bottom: 38px;
+          }
+
+          h2, p {
+            padding-left: 30px;
+            padding-right: 30px;
+          }
+
+          p {
+            text-align: left!important;
+          }
+        }
+
       `}</style>
       <div className="team">
         <h2>For the community by the community</h2>

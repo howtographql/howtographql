@@ -90,6 +90,24 @@ class Chooser extends React.Component<Props, State> {
           .duration {
             @p: .mt16, .mr38;
           }
+
+          @media (max-width: 500px) {
+            h3.first-h3 {
+              display: none;
+            }
+
+            .steps-content {
+              padding: 0 30px;
+            }
+
+            .steps-content :global(.left-column) {
+              display: none;
+            }
+            div.steps-list {
+              @p: .w100;
+            }
+          }
+
         `}</style>
         <div className="steps-content">
           <LeftColumn>

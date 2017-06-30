@@ -63,6 +63,13 @@ export default function ContentOverview({ location, steps }: Props) {
           @p: .mt38, .pt10;
           margin-left: 0 !important;
         }
+
+        @media (max-width: 500px) {
+          section {
+            display: none;
+          }
+        }
+
       `}</style>
       <div className="content-overview">
         <h2>Content Overview</h2>

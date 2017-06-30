@@ -13,10 +13,12 @@ export default class Intro extends React.Component<Props, null> {
     return (
       <section className="intro">
         <style jsx={true}>{`
+
           h1 {
             @p: .tc;
             font-size: 54px;
           }
+
           p {
             @p: .mt25, .mb10, .center, .tc;
             max-width: 800px;
@@ -37,6 +39,32 @@ export default class Intro extends React.Component<Props, null> {
           .center-container {
             @p: .flex, .justifyCenter;
           }
+
+          @media (max-width: 500px) {
+
+            .intro {
+              padding: 30px 30px 0;
+            }
+
+            h1 {
+              font-size: 32px;
+              text-align: left !important;
+            }
+
+            p {
+              text-align: left !important;
+            }
+
+            .center-container {
+              justify-content: flex-start !important;
+            }
+
+            .btn {
+              font-size: 20px;
+            }
+          }
+
+
         `}</style>
         <h1>The Fullstack Tutorial for GraphQL</h1>
         <p>

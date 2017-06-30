@@ -13,7 +13,7 @@ export default function Duration({ duration, total, dark, className }: Props) {
     <div className={cn('time', className, { dark })}>
       <style jsx={true}>{`
         .time {
-          @p: .ttu, .black30, .ml10, .itemsCenter, .flex, .fw6, .relative;
+          @p: .ttu, .black30, .ml10, .itemsCenter, .flex, .fw6, .relative, .flexFixed;
           font-size: 15px;
         }
         .time.dark {
@@ -32,6 +32,13 @@ export default function Duration({ duration, total, dark, className }: Props) {
         .time.dark img {
           filter: invert(100%);
         }
+
+        @media (max-width: 500px) {
+          div.time {
+            display: none;
+          }
+        }
+
       `}</style>
       <img src={require('../assets/icons/play.svg')} alt="" />
       <span>{duration} MIN {total ? 'TOTAL' : ''}</span>
