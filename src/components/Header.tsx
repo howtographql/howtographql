@@ -28,6 +28,10 @@ export default function Header() {
         .logo img {
           @p: .mr10;
         }
+        .logo span {
+          @p: .flexFixed;
+        }
+
         img {
           width: 40px;
           height: 35px;
@@ -57,6 +61,13 @@ export default function Header() {
         .element.github {
           @p: .ph25, .flex, .itemsCenter, .pv0;
         }
+
+        @media (max-width: 500px) {
+          .right {
+            display: none;
+          }
+        }
+
       `}</style>
       <div className="left">
         <Link to="/">
@@ -67,6 +78,7 @@ export default function Header() {
         </Link>
         <Search />
       </div>
+
       <div className="right">
         <div className="element">
           <span>GraphQL</span>
