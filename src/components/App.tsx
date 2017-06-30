@@ -157,7 +157,7 @@ export default function App({ children }: Props) {
           @p: .tc;
         } /* Reusable Components */
         .btn {
-          @p: .bgPink, .white, .f25, .fw6, .mt38, .dib, .lhTitle;
+          @p: .white, .f25, .fw6, .mt38, .dib, .lhTitle;
 	        background-image: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
 	        border: solid 2px #e00083;
           padding: 17px 30px 19px;
