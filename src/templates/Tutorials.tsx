@@ -4,7 +4,7 @@ import { MarkdownRemark, RelayConnection } from '../types'
 import App from '../components/App'
 import Sidebar from '../components/Tutorials/Sidebar'
 import Chapter from '../components/Tutorials/Chapter'
-import Success from '../components/Tutorials/Success'
+import Success from '../components/Success/Success'
 import { extractSteps } from '../utils/graphql'
 
 interface Props {

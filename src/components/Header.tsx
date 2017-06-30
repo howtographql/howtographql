@@ -28,6 +28,10 @@ export default function Header() {
         .logo img {
           @p: .mr10;
         }
+        img {
+          width: 40px;
+          height: 35px;
+        }
         .left {
           @p: .flex, .pa16;
         }
