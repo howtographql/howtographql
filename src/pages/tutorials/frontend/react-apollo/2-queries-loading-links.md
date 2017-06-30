@@ -38,7 +38,7 @@ export default Link
 
 This is a simple React component that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie! 🍰
 
-Next, you'll implement the component that renders a list of linksLink.
+Next, you'll implement the component that renders a list of links.
 
 <Instruction>
 
@@ -87,6 +87,7 @@ To complete the setup, open `App.js` and replace the current contents with the f
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import React, { Component } from 'react'
+import LinkList from './LinkList'
 
 class App extends Component {
   render() {

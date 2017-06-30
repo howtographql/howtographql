@@ -34,11 +34,7 @@ type Vote {
 
 #### Creating the GraphQL Server
 
-For starting out, you're not going to use the full data model that you saw above. That's becasue you will _evolve_ the schema when it becomes necessary for the features that we implement.
-
-For now, we're just going use the `Link` type to create our backend.
-
-The first thing you need to do is install the Graphcool CLI with npm.
+The first thing you need to do to get your GraphQL server is install the Graphcool CLI with npm.
 
 <Instruction>
 
@@ -81,7 +77,7 @@ type Link implements Node {
 Once the project was created, you'll find the [Graphcool Project File](https://www.graph.cool/docs/reference/cli/project-files-ow2yei7mew/) (`project.graphcool`) in the directory where you executed the command. It should look similar to this:
 
 ```graphql(nocopy)
-# project: cj400nwfthe5501857zl5zvi1
+# project: cj4k7j28p7ujs014860czx89p
 # version: 1
 
 type File implements Node {
@@ -118,7 +114,90 @@ Also notice that each type has three fields called `id`, `createdAt` and `update
 
 #### Populate The Database & GraphQL Playgrounds
 
-TBD for import command
+Before you move on to setup the frontend, go ahead and create some initial data in the project so you've got something to see once you start rendering data in the app!
+
+You'll do this by using a GraphQL [Playground](https://www.graph.cool/docs/reference/console/playground-oe1ier4iej/) which is an interactive environment that allows you to send queries and mutations. It's a great way to explore the capabilities of an API.
+
+<Instruction>
+
+Open up a terminal and navigate to the directory where `project.graphcool` is located. Then execute the following command:
+
+```bash
+graphcool playground
+```
+
+</Instruction>
+
+This command will read the project ID from the project file and open up a GraphQL Playground in a browser.
+
+The left pane of the Playground is the _editor_ that you can use to write your queries and mutations (and even subscriptions). Once you click the play button in the middle, the response to the request will be displayed in the _results_ pane on the right.
+
+<Instruction>
+
+Copy the following two mutations into the _editor_ pane:
+
+```graphql
+mutation CreateGraphcoolLink {
+  createLink(
+    description: "The easiest way to start with GraphQL",
+    url: "https://graph.cool") {
+    id
+  }
+}
+
+mutation CreateRelayLink {
+  createLink(
+    description: "Highly perforant GraphQL cleint from Facebook",
+    url: "https://facebook.github.io/relay/") {
+    id
+  }
+}
+```
+
+</Instruction>
+
+Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreateGraphcoolLink` and `CreateRelayLink`.
+
+<Instruction>
+
+Click the _Play_-button in the middle of the two panes and select each mutation from the dropdown exactly once.
+
+</Instruction>
+
+![](http://imgur.com/ZBgeq22.png)
+
+This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already opem Playground:
+
+```graphql
+{
+  allLinks {
+    id
+    description
+    url
+  }
+}
+``` 
+
+If everything went well, the query will return the following data:
+
+```graphql(nocopy)
+{
+  "data": {
+    "allLinks": [
+      {
+        "id": "cj4jo6xxat8o901420m0yy60i",
+        "description": "The easiest way to start with GraphQL",
+        "url": "https://graph.cool"
+      },
+      {
+        "id": "cj4jo6z4it8on0142p7q015hc",
+        "description": "Highly perforant GraphQL cleint from Facebook",
+        "url": "https://facebook.github.io/relay/"
+      }
+    ]
+  }
+```
+
 
 ### Frontend
 
@@ -146,10 +225,7 @@ create-react-app hackernews-react-apollo
 
 </Instruction>
 
-
 This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup. 
-
-<Instruction>
 
 Make sure everything works by navigating into the directory and starting the app:
 
@@ -157,8 +233,6 @@ Make sure everything works by navigating into the directory and starting the app
 cd hackernews-react-apollo
 yarn start
 ```
-
-</Instruction>
 
 This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
 
@@ -182,6 +256,7 @@ Your project structure should now look as follows:
 .
 ├── README.md
 ├── node_modules
+├── project.graphcool
 ├── package.json
 ├── public
 │   ├── favicon.ico
