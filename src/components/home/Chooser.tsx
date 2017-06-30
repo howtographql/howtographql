@@ -4,7 +4,7 @@ import * as cn from 'classnames'
 import withWidth from './withWidth'
 import DottedListItem from '../Steps/DottedListItem'
 import LeftColumn from './LeftColumn'
-import data from '../Steps/data/stacks'
+import data from '../../data/stacks'
 import StackChooser from '../StackChooser'
 
 import { Step } from '../../types'

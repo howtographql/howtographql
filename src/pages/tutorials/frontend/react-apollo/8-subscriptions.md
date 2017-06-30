@@ -1,5 +1,6 @@
 ---
 title: Subscriptions
+videoId: QZWAAmp406s
 ---
 
 This section is all about bringing realtime functionality into the app by using GraphQL subscriptions.

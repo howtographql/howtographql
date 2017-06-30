@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Step } from '../../types'
 import Steps from '../Steps/Steps'
-import data from '../Steps/data/stacks'
+import data from '../../data/stacks'
 
 interface Props {
   location: any

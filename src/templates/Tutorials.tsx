@@ -5,9 +5,11 @@ import App from '../components/App'
 import Sidebar from '../components/Tutorials/Sidebar'
 import Markdown from '../components/Tutorials/Markdown'
 import { extractGroup, extractSteps } from '../utils/graphql'
-// import Youtube from 'youtube-embed-video'
 import TutorialChooser from '../components/TutorialChooser'
+import authors from '../data/authors'
 import Quiz from '../components/Quiz/Quiz'
+import Author from '../components/Tutorials/Author'
+import Video from '../components/Tutorials/Video'
 
 interface Props {
   data: {
@@ -30,6 +32,9 @@ class Tutorials extends React.Component<Props, null> {
     const steps = extractSteps(this.props.data.mds)
     const group = extractGroup(this.props.location.pathname)
     const isTutorialChooser = this.props.location.pathname.includes('choose')
+    const videoAuthor = post.frontmatter.videoAuthor
+      ? authors[post.frontmatter.videoAuthor]
+      : null
 
     const stack = steps[group]
     const n = stack.findIndex(
@@ -88,6 +93,12 @@ class Tutorials extends React.Component<Props, null> {
             ref={this.setRef}
           >
             <div className="left">
+              {post.frontmatter.videoId &&
+                <Video
+                  videoId={post.frontmatter.videoId}
+                  author={videoAuthor}
+                />}
+              <Author post={post} group={group} />
               <div className="content">
                 <h1>{post.frontmatter.title}</h1>
                 <Markdown html={post.html} />
@@ -125,14 +136,6 @@ class Tutorials extends React.Component<Props, null> {
   }
 }
 
-// {post.frontmatter.videoId &&
-// <div className="video">
-//   <Youtube
-//     videoId={post.frontmatter.videoId}
-//     suggestions={false}
-//   />
-// </div>}
-
 export default Tutorials
 
 export const pageQuery = graphql`
@@ -145,6 +148,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         videoId
+        videoAuthor
         parent
         question
         answers

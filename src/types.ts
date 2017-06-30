@@ -14,6 +14,7 @@ export interface MarkdownRemark {
   frontmatter: {
     title: string
     videoId?: string
+    videoAuthor?: string
     question: string
     answers: string[]
     correctAnswer: number
@@ -33,6 +34,7 @@ export interface Stack {
   title: string
   key: string
   images: string[]
+  authorName: string
   content: {
     title: string
     description: string

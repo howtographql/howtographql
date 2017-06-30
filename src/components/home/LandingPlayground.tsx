@@ -2,7 +2,7 @@ import * as React from 'react'
 // import 'graphiql/graphiql.css'
 import '../../styles/graphiql-dark.css'
 import MarkdownGraphiQL from '../MarkdownGraphiQL'
-import { simpleQuery } from './data/LandingPlayground'
+import { simpleQuery } from '../../data/LandingPlayground'
 import Link from 'gatsby-link'
 
 export default function LandingPlayground() {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import data from './Steps/data/stacks'
+import data from '../data/stacks'
 import StackChooser from './StackChooser'
 import { Step } from '../types'
 import Link from 'gatsby-link'
