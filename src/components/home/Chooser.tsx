@@ -54,7 +54,7 @@ class Chooser extends React.Component<Props, State> {
             margin-top: 48px;
           }
           .steps-list {
-            @p: .w50;
+            @p: .w50, .relative;
           }
           .steps-list.fade-before::before {
             @p: .db;
@@ -91,6 +91,10 @@ class Chooser extends React.Component<Props, State> {
             @p: .mt16, .mr38;
           }
 
+          .mobile-line-bend {
+            display: none;
+          }
+
           @media (max-width: 500px) {
             h3.first-h3 {
               display: none;
@@ -106,8 +110,45 @@ class Chooser extends React.Component<Props, State> {
             div.steps-list {
               @p: .w100;
             }
-          }
 
+            .steps-list::after {
+              content: '';
+              display: block;
+              height: 48px;
+              width: 48px;
+              background: none;
+              border-left: 2px solid rgba(225, 225, 225, 0.2);
+              border-bottom: 2px solid rgba(225, 225, 225, 0.2);
+              border-bottom-left-radius: 500px;
+            }
+            .steps-list::before {
+              content: '';
+              position: absolute;
+              width: calc(50% - 99px);
+              bottom: 0;
+              left: 50px;
+              height: 2px;
+              background: rgba(225, 225, 225, 0.2);
+            }
+            .mobile-line-bend {
+              @p: .db, .center, .relative;
+              height: 48px;
+              width: 48px;
+              border-right: 2px solid rgba(225, 225, 225, 0.2);
+              border-top: 2px solid rgba(225, 225, 225, 0.2);
+              border-top-right-radius: 500px;
+              left: -24px;
+              top: -2px;
+            }
+
+            .mobile-line-bend:after {
+              content: "";
+              @p: .absolute, .bottom0, .left0;
+              right: -2px;
+              height: 48px;
+              background: linear-gradient(to bottom, rgba(23, 42, 58, 0), rgba(23, 42, 58, 1));
+            }
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
@@ -121,6 +162,7 @@ class Chooser extends React.Component<Props, State> {
             </DottedListItem>
           </div>
         </div>
+        <div className="mobile-line-bend"></div>
         <StackChooser
           stacks={data}
           selectedIndex={this.state.selectedIndex}
