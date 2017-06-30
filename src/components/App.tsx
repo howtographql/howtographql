@@ -158,10 +158,16 @@ export default function App({ children }: Props) {
         } /* Reusable Components */
         .btn {
           @p: .white, .f25, .fw6, .mt38, .dib, .lhTitle;
-	        background-image: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
+	        background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
 	        border: solid 2px #e00083;
           padding: 17px 30px 19px;
           border-radius: 6px;
+          transition: background .2s ease, box-shadow .2s ease;
+        }
+
+        .btn:hover {
+          background-image: linear-gradient(104deg, rgba(224, 0, 130, 1), rgba(224, 0, 130, 1));
+          box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         }
 
         .btn.passive {
