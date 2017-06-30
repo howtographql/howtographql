@@ -22,6 +22,8 @@ export default class TutorialChooser extends React.Component<Props, State> {
   }
 
   render() {
+    const { markdownFiles } = this.props
+
     const selected = data[this.state.selectedIndex]
     return (
       <div className="tutorial-chooser">
@@ -42,7 +44,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
           showSelectedBorder={true}
         />
         <div className="center-container">
-          <Link to="/tutorials/frontend/react-apollo/0-introduction/">
+          <Link to={markdownFiles[selected.key][0].link}>
             <div className="btn small">
               Continue with the {selected.title} Tutorial
             </div>

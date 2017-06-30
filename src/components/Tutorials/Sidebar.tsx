@@ -17,8 +17,15 @@ interface Props {
 export default class Sidebar extends React.Component<Props, {}> {
   private ref: any
   componentDidUpdate() {
+    this.scrollDown()
+  }
+  scrollDown() {
     if (this.ref) {
-      this.ref.scrollTop = this.ref.scrollHeight
+      const { post } = this.props
+      const group = post ? extractGroup(post.fields.slug) : 'basics'
+      if (!['basics', 'advanced'].includes(group)) {
+        this.ref.scrollTop = this.ref.scrollHeight
+      }
     }
   }
   render() {
@@ -30,6 +37,12 @@ export default class Sidebar extends React.Component<Props, {}> {
     if (stack) {
       tutorialTitle = stack.title
     }
+
+    const showChoose =
+      ['basics', 'advanced'].includes(group) ||
+      location.pathname.includes('/choose')
+
+    const nonGraphqlTutorial = !['basics', 'advanced'].includes(group)
 
     return (
       <div className="sidebar-container">
@@ -65,9 +78,6 @@ export default class Sidebar extends React.Component<Props, {}> {
           .sidebar :global(.plus) {
             background-color: rgb(245, 245, 245);
           }
-          .sidebar :global(.dotted-list-item.first.light::after) {
-            @p: .dn;
-          }
           .steps-list {
             @p: .pb96;
           }
@@ -80,17 +90,25 @@ export default class Sidebar extends React.Component<Props, {}> {
               small={true}
               showDuration={false}
               location={location}
+              highlightFirst={false}
             />
             <OptionalSteps
               location={location}
               steps={steps.advanced}
               small={true}
               showDuration={false}
+              mainPink={nonGraphqlTutorial}
             />
-            {['basics', 'advanced'].includes(group)
-              ? <ChooseTutorialStep />
+            {showChoose
+              ? <ChooseTutorialStep
+                  active={location.pathname.includes('choose')}
+                />
               : <div>
-                  {tutorialTitle && <TutorialTitleStep title={tutorialTitle} />}
+                  {tutorialTitle &&
+                    <TutorialTitleStep
+                      title={tutorialTitle}
+                      pinkLine={nonGraphqlTutorial}
+                    />}
                   <Steps
                     steps={selectedSteps}
                     small={true}

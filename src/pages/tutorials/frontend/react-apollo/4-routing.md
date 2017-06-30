@@ -1,5 +1,8 @@
 ---
 title: Routing
+question: Can you choose the first answer to this question?
+answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
+correctAnswer: 0
 ---
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some nagivation functionality!

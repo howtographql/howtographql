@@ -3,6 +3,7 @@ import * as React from 'react'
 import '../../styles/graphiql-dark.css'
 import MarkdownGraphiQL from '../MarkdownGraphiQL'
 import { simpleQuery } from './data/LandingPlayground'
+import Link from 'gatsby-link'
 
 export default function LandingPlayground() {
   return (
@@ -48,7 +49,9 @@ export default function LandingPlayground() {
       <div className="center-container">
         <div>
           <h3>That was easy, wasn't it?</h3>
-          <div className="btn small">Learn how to use GraphQL</div>
+          <Link to="/tutorials/graphql/basics/0-introduction/">
+            <div className="btn small">Learn how to use GraphQL</div>
+          </Link>
         </div>
       </div>
     </section>

@@ -21,7 +21,7 @@ class Tutorials extends React.Component<Props, null> {
   private ref: any
   componentDidUpdate(oldProps: Props) {
     if (oldProps.location.key !== this.props.location.key) {
-      this.scrollDown()
+      this.scrollUp()
     }
   }
   public render() {
@@ -35,7 +35,20 @@ class Tutorials extends React.Component<Props, null> {
     const n = stack.findIndex(
       step => step.link === this.props.location.pathname,
     )
-    const nextChapter = stack[n + 1]
+    let nextChapter = stack[n + 1]
+    if (!nextChapter) {
+      if (group === 'basics' || group === 'advanced') {
+        nextChapter = {
+          description:
+            'In this step we will choose the right tutorial together.',
+          link: '/tutorials/choose',
+          title: 'Choosing the right tutorial',
+        }
+      }
+    }
+    const showBonus = this.props.location.pathname.startsWith(
+      '/tutorials/graphql/basics/3-big-picture',
+    )
 
     return (
       <App>
@@ -45,7 +58,7 @@ class Tutorials extends React.Component<Props, null> {
               @p: .flex;
             }
             .content {
-              @p: .pa38, .bbox;
+              @p: .ph38, .pt38, .bbox;
             }
             .left-container {
               @p: .overflowAuto, .bbox, .flexAuto;
@@ -53,7 +66,7 @@ class Tutorials extends React.Component<Props, null> {
             }
             .left {
               @p: .center;
-              max-width: 960px;
+              max-width: 1200px;
               min-height: calc(100vh - 72px - 220px);
             }
             h1 {
@@ -82,10 +95,13 @@ class Tutorials extends React.Component<Props, null> {
                   ? <TutorialChooser markdownFiles={steps} />
                   : nextChapter &&
                       <Quiz
-                        question={question}
-                        answers={answers}
-                        correctAnswerIndex={2}
+                        question={post.frontmatter.question}
+                        answers={post.frontmatter.answers}
+                        correctAnswerIndex={post.frontmatter.correctAnswer}
                         nextChapter={nextChapter}
+                        n={n + 1}
+                        showBonus={showBonus}
+                        path={this.props.location.pathname}
                       />}
               </div>
             </div>
@@ -100,20 +116,14 @@ class Tutorials extends React.Component<Props, null> {
     this.ref = ref
   }
 
-  private scrollDown = () => {
+  private scrollUp = () => {
+    // TODO scroll up and not down
+    // scrolling down just for development
     if (this.ref) {
       this.ref.scrollTop = 0
     }
   }
 }
-
-const question = 'How would you fetch multiple GraphQL Types?'
-const answers = [
-  'I would use one fragment for each type',
-  'I would have one request for each type',
-  'I would use one big interleaved request',
-  "It's not possible to fetch multiple types at the same time",
-]
 
 // {post.frontmatter.videoId &&
 // <div className="video">
@@ -135,6 +145,11 @@ export const pageQuery = graphql`
       frontmatter {
         title
         videoId
+        parent
+        question
+        answers
+        correctAnswer
+        description
       }
     }
     mds: allMarkdownRemark {
@@ -142,6 +157,7 @@ export const pageQuery = graphql`
         node {
           frontmatter {
             title
+            description
           }
           fields {
             slug

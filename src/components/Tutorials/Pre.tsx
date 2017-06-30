@@ -2,13 +2,29 @@ import * as React from 'react'
 import CopyButton from '../CopyButton'
 import { $v } from 'graphcool-styles'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
-// import { extractGroup } from '../../utils/graphql'
+import { extractGroup } from '../../utils/graphql'
 
 interface Props {
   children?: JSX.Element
   path?: string
   className?: string
   nocopy?: string
+}
+
+function getGithubLink(group: string, path?: string) {
+  if (!path) {
+    return ''
+  }
+
+  // remove all preceding dots and slashes
+  const trimmedPath = path.replace(/^[\.\/]*/g, '')
+
+  // we assume that the path always includes the directory of the app itself like follows:
+  // .../hackernews-react-apollo/src/styles/index.css
+  const firstSlash = trimmedPath.indexOf('/')
+  const normalizedPath = trimmedPath.slice(firstSlash + 1, trimmedPath.length)
+
+  return `https://github.com/howtographql/${group}/blob/master/${normalizedPath}`
 }
 
 export default function Pre({
@@ -19,9 +35,10 @@ export default function Pre({
   ...rest,
 }: Props) {
   const isBash = className ? className.includes('bash') : false
-  // const group = extractGroup(location.pathname)
+  const group = extractGroup(location.pathname)
   // console.log('group')
   const showCopy = nocopy ? !(nocopy === 'true') : true
+  const link = getGithubLink(group, path)
   return (
     <div className="pre-container">
       <style jsx={true}>{`
@@ -58,7 +75,7 @@ export default function Pre({
         }
       `}</style>
       {path &&
-        <div className="path">
+        <a className="path" href={link} target="_blank">
           {isBash
             ? <span className="path-sh">
                 <span>$</span>
@@ -79,7 +96,7 @@ export default function Pre({
                 height={14}
               />}
           <span>{path}</span>
-        </div>}
+        </a>}
       <pre className={className} {...rest}>
         {children}
         {showCopy &&
@@ -104,9 +121,8 @@ export function childrenToString(children): string {
     .map(el => {
       if (typeof el === 'string') {
         return el
-      } else if (el.type === 'img') {
-        return el.props.src
-      } else {
+      }
+      {
         return childrenToString(el.props.children)
       }
     })

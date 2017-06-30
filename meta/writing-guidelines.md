@@ -8,6 +8,35 @@ Please use [Quip](https://www.quip.com) to write your tutorials. This allows oth
 
 Once there is a finalized version in quip, you can _export_ your document to Markdown. The exporter generally works well, but has a few flaws so that you'll probably have to do some finetuning on the Markdown here and there. 
 
+## Document Format
+
+Your tutortial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
+
+[Here](https://github.com/howtographql/howtographql/tree/master/src/pages/tutorials/frontend/react-apollo) is what the example structure for the React+Apollo tuturial looks like: 
+
+![](http://imgur.com/nGsYY1E.png)
+
+Also notice that each single chapter needs to have a **frontmatter** with the following information:
+
+- `title`
+- `question` 
+- `answers`
+- `correctAnswer`
+
+`question`, `answers` and `correctAnswer` define the multiple choice question that will be displayed to the reader at the end of each chapter.
+
+[Here](https://github.com/howtographql/howtographql/edit/master/src/pages/tutorials/graphql/basics/1-graphql-is-the-better-rest.md) is an example for the frontmatter:
+
+```
+---
+title: "GraphQL is the Better REST"
+question: Can you choose the first answer this question?
+answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
+correctAnswer: 0
+---
+```
+
+
 ## Custom Formatting Rules
 
 ### Instruction Block
@@ -31,7 +60,7 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 
 Often times, you'll want to combine a short instruction with a code block that the user has to copy into their project:
 
-![](.png)
+![](http://imgur.com/4SrSHHu.png)
 
 This is what a rendered instruction block (including code block) will look like: 
 
@@ -111,31 +140,24 @@ type Vote {
 
 You're also able to highlight individual lines inside of a code block to put emphasis on certain parts. Simply include the line numbers in curly braces right after the language statement:
 
-<pre><code>```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-render() {
+<pre><code>```js{6-7,9-12,14-17}(path="src/index.js")
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import registerServiceWorker from './registerServiceWorker'
+import './index.css'
+// 1
+import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
 
-  // 1
-  if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
-    return <div>Loading</div>
-  }
+// 2
+const networkInterface = createNetworkInterface({
+  uri: '__SIMPLE_API_ENDPOINT__'
+})
 
-  // 2
-  if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
-    return <div>Error</div>
-  }
-
-  // 3
-  const linksToRender = this.props.allLinksQuery.allLinks
-
-  return (
-    <div>
-      {linksToRender.map(link => (
-        <Link key={link.id} link={link}/>
-      ))}
-    </div>
-  )
-}
-```
+// 3
+const client = new ApolloClient({
+  networkInterface
+})
 </code></pre>
 
 
@@ -174,4 +196,5 @@ When you need to explain two or more related concepts, prefer to write them in a
 ### Avoid passive voice
 
 Try to be clear _who_ or _what_ is performing a certain action. For example, write "The `QueryRenderer` composes the query at the root of the Relay container tree" instead of "The query is composed at the root of the Relay tree".
+
 

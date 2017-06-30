@@ -9,6 +9,7 @@ export function extractSteps(
     .map(edge => edge.node)
     .filter(n => n.frontmatter.title.length > 0)
     .map(chapter => ({
+      description: chapter.frontmatter.description,
       link: chapter.fields.slug,
       title: chapter.frontmatter.title,
     }))

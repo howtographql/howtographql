@@ -1,5 +1,8 @@
 ---
 title: "Mutations: Creating Links"
+question: Can you choose the first answer to this question?
+answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
+correctAnswer: 0
 ---
 
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with a minor (but logical) difference in step 3:

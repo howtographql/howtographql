@@ -27,10 +27,10 @@ export default function WhatWeBuild() {
             @p: .ml16;
           }
         `}</style>
-        <h2>What you'll build: A Hackernews clone</h2>
+        <h2>Learn by Building</h2>
         <p className="c">
-          No styling, no framework setup, we did that all for you. Just focus on
-          GraphQL.
+          Start from scratch and build a fully-featured Hackernews clone with one of the 
+          detailled step-by-step tutorials. Use the programming language and framework of your choice!
         </p>
         <div className="preview">
           <img
@@ -40,15 +40,15 @@ export default function WhatWeBuild() {
           <div className="points">
             <div className="point">
               <Checkmark />
-              <p>No Styling required</p>
+              <p>Learn about best practices</p>
             </div>
             <div className="point">
               <Checkmark />
-              <p>You’ll learn about the dev tools required</p>
+              <p>Detailled instructions &amp; explanations</p>
             </div>
             <div className="point">
               <Checkmark />
-              <p>Prepared code projects available</p>
+              <p>From scratch to production</p>
             </div>
           </div>
         </div>

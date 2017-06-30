@@ -93,12 +93,12 @@ class Chooser extends React.Component<Props, State> {
         `}</style>
         <div className="steps-content">
           <LeftColumn>
-            <h3 className="first-h3">Practical part</h3>
+            <h3 className="first-h3">Hands-on tutorials</h3>
           </LeftColumn>
           <div className="steps-list">
-            <DottedListItem first={true}>
-              <Link to={''}>
-                Which tutorial should I pick next?
+            <DottedListItem first={true} path={'/tutorials/choose'}>
+              <Link to={'/tutorials/choose'}>
+                Choose your favorite technology?
               </Link>
             </DottedListItem>
           </div>
@@ -119,7 +119,7 @@ class Chooser extends React.Component<Props, State> {
           </LeftColumn>
           <div className="steps-list fade-before">
             {selected.steps.map((step, index) =>
-              <DottedListItem key={index}>
+              <DottedListItem key={index} path={step.link}>
                 <Link to={step.link}>
                   {step.title}
                 </Link>

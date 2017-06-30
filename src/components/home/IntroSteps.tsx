@@ -51,8 +51,8 @@ export default function IntroSteps({ steps, location }: Props) {
               <Duration duration={12} total={true} />
             </div>
             <p>
-              In the first chapter, we’ll learn the core concepts of GraphQL. In
-              the first chapter we’ll learn the core concepts of GraphQL.{' '}
+             In the first chapter, you’ll learn about 
+             the core concepts of GraphQL. {' '}
             </p>
           </div>
           <div className="advanced-graphql">
@@ -61,14 +61,17 @@ export default function IntroSteps({ steps, location }: Props) {
               <Duration duration={19} total={true} />
             </div>
             <p>
-              This chapter is optional, but a good
-              foundation for a true understanding
-              of GraphQL
+              Read this chapter to get a broader 
+              understanding of the GraphQL ecosystem.
             </p>
           </div>
         </LeftColumn>
         <div className="steps-list fade-before">
-          <Steps steps={steps.basics} location={location} />
+          <Steps
+            steps={steps.basics}
+            location={location}
+            highlightFirst={true}
+          />
           <OptionalSteps steps={steps.advanced} location={location} />
         </div>
       </div>

@@ -33,18 +33,21 @@ export default function Instruction({ text, ...props }: InstructionProps) {
           .instruction-block {
             @p: .mv38;
           }
+          .instructions {
+            @p: .pl25, .blue;
+          }
         `}</style>
         <Bordered>
           <div style={{ height: 16 }} />
         </Bordered>
-        {filteredChildren.map(child =>
-          <div>
-            <DottedElement>{child}</DottedElement>
-            <Bordered>
-              <div style={{ height: 16 }} />
-            </Bordered>
-          </div>,
-        )}
+        <DottedElement>{filteredChildren[0]}</DottedElement>
+        <Bordered>
+          <div className="instructions">
+            {filteredChildren
+              .slice(1, filteredChildren.length)
+              .map(child => child)}
+          </div>
+        </Bordered>
       </div>
     )
   }
@@ -123,10 +126,11 @@ function DottedElement({ children }: DottedElementProps) {
     <div className="dotted-element">
       <style jsx={true}>{`
         .dotted-element {
-          @p: .relative, .flex, .itemsCenter;
+          @p: .relative, .flex, .itemsStart;
         }
         .dotted-element:before {
           @p: .absolute, .br100, .bgBlue, .left0;
+          top: 7px;
           width: 10px;
           height: 10px;
           content: "";

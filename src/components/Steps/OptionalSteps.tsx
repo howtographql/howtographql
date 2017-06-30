@@ -5,12 +5,14 @@ import OptionalDottedListItem from './OptionalDottedListItem'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import Duration from '../Duration'
 import * as cn from 'classnames'
+import { extractGroup } from '../../utils/graphql'
 
 interface Props {
   steps: Step[]
   small?: boolean
   showDuration?: boolean
   location: any
+  mainPink?: boolean
 }
 
 interface State {
@@ -27,10 +29,12 @@ export default class OptionalSteps extends React.Component<Props, State> {
   }
 
   render() {
-    const { steps, small } = this.props
+    const { steps, small, mainPink, location } = this.props
     const { collapsed } = this.state
+    const group = extractGroup(location.pathname)
+    const reallyCollapsed = collapsed && group !== 'advanced'
 
-    const visibleSteps = collapsed ? steps.slice(0, 2) : steps
+    const visibleSteps = reallyCollapsed ? steps.slice(0, 2) : steps
     const count = visibleSteps.length === 2 ? 2 : visibleSteps.length - 1
     const n = count * 52
 
@@ -39,10 +43,16 @@ export default class OptionalSteps extends React.Component<Props, State> {
       : true
 
     return (
-      <div className={cn('optional-steps', { small })}>
+      <div className={cn('optional-steps', { small, mainPink })}>
         <style jsx={true}>{`
           .optional-steps {
-            @p: .flex, .bl, .bw2, .bBlack20, .pb25;
+            @p: .flex, .bl, .bw2, .bBlack20, .pb25, .relative, .bbox;
+          }
+          .optional-steps.mainPink::before {
+            @p: .absolute, .top0, .bottom0, .bgPink, .z999;
+            content: "";
+            left: -2px;
+            width: 2px;
           }
           p {
             @p: .black30;
@@ -128,6 +138,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
               key={step.title}
               small={this.props.small}
               active={step.link === this.props.location.pathname}
+              path={step.link}
             >
               <div className="list-item">
                 <Link to={step.link}>
@@ -137,7 +148,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
               </div>
             </OptionalDottedListItem>,
           )}
-          {collapsed &&
+          {reallyCollapsed &&
             <div className="more" onClick={this.toggleCollapse}>
               <div className="plus">
                 <Icon

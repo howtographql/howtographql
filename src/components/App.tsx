@@ -160,6 +160,10 @@ export default function App({ children }: Props) {
           padding: 17px 30px 19px;
           border-radius: 6px;
         }
+        .btn.passive {
+          @p: .bgWhite, .ba, .bw2, .pink;
+          border-color: $pink30;
+        }
         .btn.small {
           @p: .f20, .fw6, .pv16, .ph20;
         }
