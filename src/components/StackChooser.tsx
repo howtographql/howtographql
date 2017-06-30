@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Stack, Step } from '../types'
 import withWidth from './home/withWidth'
 import * as cn from 'classnames'
+import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 
 interface Props {
   stacks: Stack[]
@@ -41,11 +42,6 @@ function StackChooser({
   return (
     <div>
       <style jsx={true}>{`
-        img {
-          @p: .mh6;
-          height: 40px;
-          width: auto;
-        }
         .stacks-content {
           @p: .overflowHidden, .flex;
           height: 180px;
@@ -62,7 +58,8 @@ function StackChooser({
           user-select: none;
           width: 140px;
         }
-        .stacks-item img {
+
+        .stacks-item :global(i) {
           @p: .o30;
           filter: grayscale(100%) brightness(200%);
         }
@@ -78,12 +75,18 @@ function StackChooser({
           border-color: rgb(229, 229, 229);
           border-radius: 6px;
         }
-        .stacks-item.active img {
+        .stacks-item.active :global(i) {
           @p: .o100;
           filter: grayscale(0%);
         }
         .stacks-item.active p {
           @p: .o100;
+        }
+        .logos {
+          @p: .flex, .justifyCenter;
+        }
+        .logos :global(i) + :global(i) {
+          @p: .ml10;
         }
       `}</style>
       <div className="stacks-content">
@@ -100,11 +103,17 @@ function StackChooser({
               onClick={onChangeSelectedIndex.bind(null, index)}
               key={index}
             >
-              <div>
-                <img src={tutorial.images[0]} />
-                {tutorial.images[1] && <img src={tutorial.images[1]} />}
-                <p>{tutorial.title}</p>
+              <div className="logos">
+                <Icon
+                  src={tutorial.images[0]}
+                  width={40}
+                  height={40}
+                  color={tutorial.color || 'black'}
+                />
+                {tutorial.images[1] &&
+                  <Icon src={tutorial.images[1]} width={40} height={40} />}
               </div>
+              <p>{tutorial.title}</p>
             </div>,
           )}
         </div>

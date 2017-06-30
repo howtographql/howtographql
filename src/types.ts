@@ -40,6 +40,7 @@ export interface Stack {
     description: string
   }
   type: StackType
+  color?: string
 }
 
 type StackType = 'frontend' | 'backend'

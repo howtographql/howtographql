@@ -60,25 +60,39 @@ const data: Stack[] = [
     title: 'Graphene',
     type: 'backend',
     key: 'graphene',
-    images: [require('../assets/icons/graphql.svg')],
+    images: [require('../assets/icons/graphene.svg')],
     content: {
       title: 'graphene (python)',
       description:
         'Learn how to build your own GraphQL server with Python and the Graphene framework',
     },
     authorName: 'Nikolas Burk',
+    color: '#db594c',
   },
   {
     title: 'graphql-elixir',
     type: 'backend',
     key: 'graphql-elixir',
-    images: [require('../assets/icons/graphql.svg')],
+    images: [require('../assets/icons/graphql-elixir.svg')],
     content: {
       title: 'graphql-elixir',
       description:
         'Get started with GraphQL and Elixir by building your own server in this tutorial',
     },
     authorName: 'Nikolas Burk',
+    color: '#4e2a8e',
+  },
+  {
+    title: 'graphql-ruby',
+    type: 'backend',
+    key: 'graphql-ruby',
+    images: [require('../assets/icons/graphql-ruby.svg')],
+    content: {
+      title: 'graphql-ruby',
+      description: 'Learn how to build a GraphQL server with Ruby',
+    },
+    authorName: 'Nikolas Burk',
+    color: '#a5152a',
   },
   {
     title: 'graphql-java',
@@ -89,17 +103,6 @@ const data: Stack[] = [
       title: 'graphql-java',
       description:
         'Build your own GraphQL server with the Java programming language',
-    },
-    authorName: 'Nikolas Burk',
-  },
-  {
-    title: 'graphql-ruby',
-    type: 'backend',
-    key: 'graphql-ruby',
-    images: [require('../assets/icons/graphql.svg')],
-    content: {
-      title: 'graphql-ruby',
-      description: 'Learn how to build a GraphQL server with Ruby',
     },
     authorName: 'Nikolas Burk',
   },
