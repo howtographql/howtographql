@@ -18,8 +18,9 @@ export default function Chapter({ post, location, steps }: Props) {
   const group = extractGroup(location.pathname)
   const stack = steps[group]
   const n = stack.findIndex(step => step.link === location.pathname)
-  const showAuthor = n < 2
   const isTutorialChooser = location.pathname.includes('/choose')
+  const showAuthor =
+    n < 2 && !isTutorialChooser && !['basics', 'advanced'].includes(group)
   const videoAuthor = showAuthor
     ? post.frontmatter.videoAuthor
       ? authors[post.frontmatter.videoAuthor]

@@ -3648,9 +3648,19 @@ graphcool-graphiql@^1.8.7:
     svg-loader "^0.0.2"
     svgo-loader "^1.1.2"
 
-graphcool-styles@^0.1.28, graphcool-styles@^0.1.29:
+graphcool-styles@^0.1.28:
   version "0.1.29"
   resolved "https://registry.yarnpkg.com/graphcool-styles/-/graphcool-styles-0.1.29.tgz#93b576fc583ee49317285aab06ed44b5fce2fd6d"
+  dependencies:
+    html-webpack-plugin "^2.24.1"
+    interactive "^0.1.9"
+    object-assign "^4.1.0"
+    react-dom "^15.3.2"
+    webpack-dev-server "^1.16.2"
+
+graphcool-styles@^0.1.31:
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/graphcool-styles/-/graphcool-styles-0.1.31.tgz#efb04329a0e5d2788023e45e43925a85664e83dd"
   dependencies:
     html-webpack-plugin "^2.24.1"
     interactive "^0.1.9"
@@ -6989,7 +6999,7 @@ react-router-dom@^4.1.1:
     prop-types "^15.5.4"
     react-router "^4.1.1"
 
-"react-router-scroll@github:ytase/react-router-scroll#build":
+react-router-scroll@ytase/react-router-scroll#build:
   version "0.4.1"
   resolved "https://codeload.github.com/ytase/react-router-scroll/tar.gz/991ecddb08885e1fb80ec1e9dbf3a35844b7d4cd"
   dependencies:
