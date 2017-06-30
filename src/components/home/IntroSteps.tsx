@@ -42,6 +42,18 @@ export default function IntroSteps({ steps, location }: Props) {
         .duration {
           @p: .mt16, .mr38, .flex, .justifyEnd;
         }
+
+        @media (max-width: 500px) {
+          .steps-content :global(.steps-description) {
+            display: none;
+          }
+
+          div.steps-list {
+            @p: .w100;
+          }
+
+        }
+
       `}</style>
       <div className="steps-content">
         <LeftColumn className="steps-description" light={true}>

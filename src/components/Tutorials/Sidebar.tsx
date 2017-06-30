@@ -6,7 +6,7 @@ import ChooseTutorialStep from '../Steps/ChooseTutorialStep'
 import Theory from '../Steps/Theory'
 import { extractGroup } from '../../utils/graphql'
 import TutorialTitleStep from '../Steps/TutorialTitleStep'
-import data from '../Steps/data/stacks'
+import data from '../../data/stacks'
 
 interface Props {
   steps: { [key: string]: Step[] }
