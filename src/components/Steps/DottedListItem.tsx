@@ -155,7 +155,7 @@ const DottedListItem = ({
           @p: .pink;
         }
         .done:not(.active) :global(a) {
-          color: $pink40 !important;
+          color: #EB7BBC !important;
         }
       `}</style>
       {done &&
