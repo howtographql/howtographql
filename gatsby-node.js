@@ -35,6 +35,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           allMarkdownRemark {
             edges {
               node {
+                frontmatter {
+                  path
+                }
                 fields {
                   slug
                 }
@@ -52,7 +55,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         // Create blog posts pages.
         result.data.allMarkdownRemark.edges.forEach(edge => {
           createPage({
-            path: edge.node.fields.slug, // required
+            path: edge.node.frontmatter.path || edge.node.fields.slug, // required
             component: tutorials,
             context: {
               slug: edge.node.fields.slug,
