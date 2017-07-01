@@ -12,7 +12,7 @@ _Fragments_ are a handy feature to help improving the structure and and reusabil
 
 Let's assume we have the following type:
 
-```graphql
+```graphql(nocopy)
 type User {
   name: String!
   age: Int!
@@ -25,7 +25,7 @@ type User {
 
 Here, we could represent all the information that relates to the user's physical address into a fragment:
 
-```graphql
+```graphql(nocopy)
 fragment addressDetails on User {
   name
   street
@@ -36,7 +36,7 @@ fragment addressDetails on User {
 
 Now, when writing a query to access the address information of a user, we can use the following syntax to refer to the fragment and save the work to actually spell out the four fields:
 
-```graphql
+```graphql(nocopy)
 {
   allUsers {
     ... addressDetails
@@ -46,7 +46,7 @@ Now, when writing a query to access the address information of a user, we can us
 
 This query is equivalent to writing:
 
-```graphql
+```graphql(nocopy)
 {
   allUsers {
     name
@@ -63,7 +63,7 @@ In GraphQL type definitions, each field can take zero or more of _arguments_. Si
 
 As an example, let's consider a part of the schema that we saw in the beginning:
 
-```graphql
+```graphql(nocopy)
 type Query {
   allUsers: [User!]!
 }
@@ -76,7 +76,7 @@ type User {
 
 We could now add an argument to the `allUsers` field that allows us to pass an argument to filter users and include only those above a certain age. We also specify a default value so that by default all users will be returned:
 
-```graphql
+```graphql(nocopy)
 type Query {
   allUsers(olderThan: Int = -1): [User!]!
 }
@@ -84,7 +84,7 @@ type Query {
 
 This `olderThan` argument can now be passed into the query using the following syntax:
 
-```graphql
+```graphql(nocopy)
 {
   allUsers(olderThan: 30) {
     name
@@ -97,7 +97,7 @@ This `olderThan` argument can now be passed into the query using the following s
 
 One of GraphQL's major strengths is that it let's you send multiple queries in a single request. However, since the response data is shaped after the structure of the fields being requested, you might run into naming issues when you're sending multiple queries asking for the same fields:
 
-```graphql
+```graphql(nocopy)
 {
   User(id: "1") {
     name
@@ -110,7 +110,7 @@ One of GraphQL's major strengths is that it let's you send multiple queries in a
 
 In fact, this will produce an error with a GraphQL server, since it's the same field but different arguments. The only way to send a query like that would be to use aliased, i.e. specifying names for the query results:
 
-```graphql
+```graphql(nocopy)
 {
   first: User(id: "1") {
     name
@@ -123,7 +123,7 @@ In fact, this will produce an error with a GraphQL server, since it's the same f
 
 In the result, the server would now name each `User` object according to the specified alias:
 
-```js
+```graphql(nocopy)
 {
   "first": {
     "name": "Alice"
@@ -151,7 +151,7 @@ In every GraphQL schema, you can define your own scalar and object types. An oft
 
 GraphQL allows you to define _enumerations_ types (short _enums_), a language feature to express the semantics of a type that has a fixed set of values. We could thus define a type called `Weekday` to represent all the days of a week:
 
-```graphql
+```graphql(nocopy)
 enum Weekday {
   MONDAY
   TUESDAY
@@ -169,7 +169,7 @@ Note that echnically enums are special kinds of scalar types.
 
 An _interface_ can be used to describe a type in an abstract way. It allows to specify a set of fields that any concrete type which _implements_ this interface needs to have. In many GraphQL schemas, every type is required to have an `id` field. Using interfaces, this requirement can be expressed by defining an interface with this field and then making sure that all custom types implement it:
 
-```graphql
+```graphql(nocopy)
 interface Node {
   id: ID!
 }
@@ -185,7 +185,7 @@ type User implements Node {
 
 _Union types_ can be used to express that a type should be _either_ of a collection of other types. They are best understood by means of an example. Let's consider the following types:
 
-```graphql
+```graphql(nocopy)
 type Adult {
   name: String!
   work: String!
@@ -199,7 +199,7 @@ type Child {
 
 Now, we could define a `Person` type to be the _union_ of `Adult` and `Child`:
 
-```graphql
+```graphql(nocopy)
 union Person = Adult | Child
 ```
 
@@ -207,7 +207,7 @@ This brings up a different problem: In a GraphQL query where we ask want to retr
 
 The answer to this is called _conditional fragments_:
 
-```graphql
+```graphql(nocopy)
 {
   allPersons {
     name # works for `Adult` and `Child`

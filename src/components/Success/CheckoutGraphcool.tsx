@@ -50,10 +50,10 @@ export default function CheckoutGraphcool() {
       </div>
       <div className="content">
         <div className="left">
-          <h1>Time to build something in production. Check it out.</h1>
+          <h1>Next step: Build something in production.</h1>
           <p>
-            Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget
-            libero posuere vulputate. Etiam elit elit, elementum sed varius.
+            Use your new knowledge and start building a production app. Graphcool
+            provides everything you need to build the backend for your next project.
           </p>
           <a
             className="btn green small"
@@ -71,19 +71,19 @@ export default function CheckoutGraphcool() {
         <div className="right">
           <h3>Graphcool Tutorials</h3>
           <Tutorial
-            title="Exploring Graphcool"
-            description="Get an Overview over Graphcool"
-            link="/"
+            title="Exploring Graphcool: The Serverless GraphQL Backend"
+            description="Get an overview over all major features of Graphcool"
+            link="https://www.graph.cool/docs/tutorials/graphcool-features-overview-ped6wohw0o/"
           />
           <Tutorial
-            title="The Graphcool permission system"
-            description="Get an Overview over Graphcool"
-            link="/"
+            title="Freecom Fullstack Tutorial"
+            description="Learn how to build an Intercom clone with Graphcool, React & Apollo"
+            link="https://www.graph.cool/docs/tutorials/freecom-overview-intercom-tutorial-e8a6ajt8ax/"
           />
           <Tutorial
-            title="Manipulating with the Request Pipeline"
-            description="Get an Overview over Graphcool"
-            link="/"
+            title="Quickstart"
+            description="Get started with Graphcool and your favorite frontend technology"
+            link="https://www.graph.cool/docs/quickstart/"
           />
         </div>
       </div>

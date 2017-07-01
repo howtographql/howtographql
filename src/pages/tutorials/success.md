@@ -1,7 +1,8 @@
 ---
-title: To sum it up
+title: It was great having you!
 ---
-In the previous sections, we defined the actions that represent the facts about "what happened" and the reducers that update
-the state according to those actions.
 
-The *Store* is awesome.
+We hope you enjoyed going through this tutorial and learning about GraphQL. We believe that GraphQL will fundamentally change the way how we build applications and want to create an active community around it and are happy to welcome you as a new member! 🙌
+
+If you want stay informed about everything that's going on in the GraphQL Ecosystem make sure to subscribe to [GraphQL Weekly](https://graphqlweekly.com) and checkout the [GraphQL Radio](https://graphqlradio.com) Podcast.
+

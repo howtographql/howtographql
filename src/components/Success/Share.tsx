@@ -43,7 +43,7 @@ export default function Share() {
       `}</style>
       <div className="block left">
         <h2>Star us on Github</h2>
-        <p>We'de be super thankful for some Github fame.</p>
+        <p>We're open-source and would love your support.</p>
         <a
           className="button gh"
           href="https://github.com/howtographql/howtographql"
@@ -59,7 +59,7 @@ export default function Share() {
       </div>
       <div className="block right">
         <h2>Share it on Twitter</h2>
-        <p>Share this tutorial with your friends, friend.</p>
+        <p>Share this tutorial with your friends.</p>
         <a
           className="button twitter"
           href="https://twitter.com/intent/tweet"
