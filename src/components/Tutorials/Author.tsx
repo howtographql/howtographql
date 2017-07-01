@@ -10,6 +10,10 @@ interface Props {
 export default function Author({ post, group }: Props) {
   const author = getAuthorByGroup(group)
 
+  if (!author) {
+    return <div />
+  }
+
   return (
     <div className="author-wrapper">
       <style jsx={true}>{`
