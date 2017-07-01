@@ -190,7 +190,8 @@ export default function App({ children }: Props) {
           box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         }
         .btn.passive {
-          @p: .bgWhite, .ba, .bw2, .pink;
+          @p: .ba, .bw2, .pink;
+          background: white;
           border-color: $pink30;
         }
         .btn.small {

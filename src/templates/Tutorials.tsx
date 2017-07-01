@@ -48,7 +48,7 @@ class Tutorials extends React.Component<Props, null> {
             ref={this.setRef}
           >
             {showSuccess
-              ? <Success post={post} />
+              ? <Success post={post} steps={steps} />
               : <Chapter
                   post={post}
                   location={this.props.location}

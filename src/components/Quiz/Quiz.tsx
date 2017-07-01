@@ -79,6 +79,10 @@ class Quiz extends React.Component<Props & QuizState, {}> {
           .answers {
             @p: .mt60, .ph96, .mh38;
           }
+          .center-container {
+            @p: .center;
+            max-width: 924px;
+          }
           .answer-row {
             @p: .flex, .mt25;
           }
@@ -86,7 +90,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
             @p: .underline, .black30, .tc, .mt38, .pointer, .mb60;
           }
           .next-chapters {
-            @p: .flex, .justifyBetween, .bt, .bBlack10, .bw2;
+            @p: .flex, .justifyBetween;
           }
         `}</style>
         {question &&
@@ -98,53 +102,58 @@ class Quiz extends React.Component<Props & QuizState, {}> {
         {answers &&
           answers.length === 4 &&
           showQuestion &&
-          <div className="answers">
-            <div className="answer-row">
-              <Answer
-                text={answers[0]}
-                onClick={this.handleAnswerClick.bind(this, 0)}
-                checked={answerIndeces.includes(0)}
-                correct={correctAnswerIndex === 0}
-              />
-              <Answer
-                text={answers[1]}
-                onClick={this.handleAnswerClick.bind(this, 1)}
-                checked={answerIndeces.includes(1)}
-                correct={correctAnswerIndex === 1}
-              />
+          <div className="center-container">
+            <div className="answers">
+              <div className="answer-row">
+                <Answer
+                  text={answers[0]}
+                  onClick={this.handleAnswerClick.bind(this, 0)}
+                  checked={answerIndeces.includes(0)}
+                  correct={correctAnswerIndex === 0}
+                />
+                <Answer
+                  text={answers[1]}
+                  onClick={this.handleAnswerClick.bind(this, 1)}
+                  checked={answerIndeces.includes(1)}
+                  correct={correctAnswerIndex === 1}
+                />
+              </div>
+              <div className="answer-row">
+                <Answer
+                  text={answers[2]}
+                  onClick={this.handleAnswerClick.bind(this, 2)}
+                  checked={answerIndeces.includes(2)}
+                  correct={correctAnswerIndex === 2}
+                />
+                <Answer
+                  text={answers[3]}
+                  onClick={this.handleAnswerClick.bind(this, 3)}
+                  checked={answerIndeces.includes(3)}
+                  correct={correctAnswerIndex === 3}
+                />
+              </div>
+              {!answeredCorrectly &&
+                <div className="skip" onClick={this.skip}>Skip</div>}
             </div>
-            <div className="answer-row">
-              <Answer
-                text={answers[2]}
-                onClick={this.handleAnswerClick.bind(this, 2)}
-                checked={answerIndeces.includes(2)}
-                correct={correctAnswerIndex === 2}
-              />
-              <Answer
-                text={answers[3]}
-                onClick={this.handleAnswerClick.bind(this, 3)}
-                checked={answerIndeces.includes(3)}
-                correct={correctAnswerIndex === 3}
-              />
-            </div>
-            <div className="skip" onClick={this.skip}>Skip</div>
           </div>}
         {showNextChapter &&
           <div>
             {!skipped && question && showUnlock && <Unlocked n={n} />}
-            <div className="next-chapters">
-              {showBonus &&
+            <div className="center-container">
+              <div className="next-chapters">
+                {showBonus &&
+                  <NextChapter
+                    step={bonusChapter}
+                    isBonus={true}
+                    small={true}
+                    onClick={this.autoSkip}
+                  />}
                 <NextChapter
-                  step={bonusChapter}
-                  isBonus={true}
-                  small={true}
+                  step={this.props.nextChapter}
+                  small={showBonus}
                   onClick={this.autoSkip}
-                />}
-              <NextChapter
-                step={this.props.nextChapter}
-                small={showBonus}
-                onClick={this.autoSkip}
-              />
+                />
+              </div>
             </div>
           </div>}
         {(skipped || rememberSkipped) &&
@@ -212,9 +221,15 @@ function Answer({ text, onClick, checked, correct }: AnswerProps) {
         }
         .answer.checked:not(.correct) span {
           @p: .strike, .black20;
+        } /* avoids jumping of content when toggled */
+        .checkmark {
+          width: 24px;
+          height: 24px;
         }
       `}</style>
-      <Checkmark checked={checked && correct} crossed={checked && !correct} />
+      <div className="checkmark">
+        <Checkmark checked={checked && correct} crossed={checked && !correct} />
+      </div>
       <span>{text}</span>
     </div>
   )
