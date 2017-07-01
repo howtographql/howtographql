@@ -27,11 +27,14 @@ export default function Unlocked({ n }: Props) {
         .well-done span {
           @p: .pink, .bgWhite, .ph10, .f14, .fw6, .z2, .ttu, .absolute;
         }
+        .well-done :global(canvas) {
+          top: -2px !important;
+        }
       `}</style>
       <span>
         Well done, you unlocked the next chapter!
       </span>
-      <Confetti height={'400%'} numberOfPieces={300} />
+      <Confetti height={'400%'} numberOfPieces={300} gravity={0.5} />
     </div>
   )
 }
