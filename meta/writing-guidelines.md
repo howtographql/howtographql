@@ -19,6 +19,7 @@ Your tutortial should be divided into shorter _chapters_. Each chapter needs to 
 Also notice that each single chapter needs to have a **frontmatter** with the following information:
 
 - `title`
+- `description`
 - `question` 
 - `answers`
 - `correctAnswer`
@@ -30,6 +31,7 @@ Also notice that each single chapter needs to have a **frontmatter** with the fo
 ```
 ---
 title: "GraphQL is the Better REST"
+description: "Learn in what ways GraphQL is a better alternative to RESTful APIs"
 question: Can you choose the first answer this question?
 answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
 correctAnswer: 0
