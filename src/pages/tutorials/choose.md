@@ -4,27 +4,11 @@ title: Get started with your favorite Technology
 
 Congratulations! 🎉 You made it through the first part of _How To GraphQL_ and learned all you need to know to build an actual app with GraphQL! 
 
-In the following, you can choose from one of the many hands-on tutorials we created for you. All tutorials will start from scratch and teach you how to build a fully-fledged [Hackernews](https://news.ycombinator.com) clone.
-
-Depending on what you want to learn, you can either choose a tutorial from the **frontend** or the **backend** tracks.
-
-Here's a selection of the features that you will implement in each tutorial:
-
-- Loading Data with GraphQL Queries 
-- Creating, Updating & Deleting Data with Mutations
-- Realtime Functionality with Subscriptions
-- Authentication
-- Pagination
-
-All features will be implemented using best practices and idiomatic approaches of the language and framework you choose!
+In the following, you can choose from one of the many hands-on tutorials we created for you. All tutorials will start from scratch and teach you how to build a fully-fledged [Hackernews](https://news.ycombinator.com) clone. Depending on what you want to learn, you can either choose a tutorial from the **frontend** or the **backend** tracks.
 
 ### Learn how to use GraphQL on the Frontend
 
-GraphQL is an amazing technology, especially for frontend developers! However, it's usually not that easy to get started with GraphQL on the frontend since a GraphQL server is required upfront.
-
-In all our frontend tutorials, you don't have to worry about the backend and will use a ready-to-go GraphQL server provided by [Graphcool](https://www.graph.cool/).
-
-Here's an overview of the tutorials we offer:
+Here's an overview of the frontend tutorials we offer:
 
 - **React & Apollo** (_Beginners Choice_): If you're new to GraphQL, this is the tutorial for you. [Apollo Client](http://dev.apollodata.com/) makes it super easy to get started with GraphQL on the frontend by providing a flexible, yet powerful and intuitive API that gives you everything you need when developing applications.
 - **React & Relay**: [Relay](https://facebook.github.io/relay/) is the GraphQL client that was developed by Facebook and is heavily optimized for performance. Using Relay requires an advanced understanding of GraphQL and React. Choose this tutorial to learn everything you need to know to get started with Facebook's data management framework.
@@ -32,8 +16,6 @@ Here's an overview of the tutorials we offer:
 - **VulcanJS** (_Coming Soon_): [VulcanJS](http://docs.vulcanjs.org/) is a fullstack Javascript framework that let's you build GraphQL app with React, [Apollo Client](http://dev.apollodata.com/) and [Meteor](http://meteor.com/). 
 
 ### Build your own GraphQL Server
-
-If you're looking to get started with GraphQL on the server-side and implement your own API, we've got you covered as well. We worked together with a set of amazing contributors to create the best tutorials for you.
 
 Choose you favorite programming language to get started:
 

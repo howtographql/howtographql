@@ -46,7 +46,7 @@ Next, you'll implement the component that renders a list of links.
 
 Again, in the `components` directory, go ahead and create a new file called `LinkList.js` and add the following code:
 
-```js(path=".../hackernews-react-apollo/src/components/Links.js")
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 import React, { Component } from 'react'
 import Link from './Link'
 
@@ -367,9 +367,7 @@ Failed to compile.
 Module not found: Can't resolve './__generated__/LinkListPageQuery.graphql' in '.../hackernews-react-relay/src/components'
 ```
 
-![](http://imgur.com/k4Zi4xQ.png)
-
-That's because we've skipped the compilation of the GraphQL code that makes for much of Relay's actual power! You already installed the `relay-compiler`, so now you'll actually use it.
+That's because we've skipped the _compilation_ of the GraphQL code that makes for much of Relay's actual power! You already installed the `relay-compiler`, so now you'll actually use it.
 
 The compiler can be invoked using the `relay-compiler` command in the terminal where you have to provide two arguments:
 
@@ -379,6 +377,26 @@ The compiler can be invoked using the `relay-compiler` command in the terminal w
 <Instruction>
 
 In a terminal, navigate to the project's root directory and invoke the Relay Compiler with the following command:
+
+```bash(path=".../hackernews-react-relay")
+relay-compiler --src ./src --schema ./schema.graphql
+```
+
+</Instruction>
+
+Now - when running the `relay-compiler` you'll actually see another error message. That's disappointing, but don't worry - it's not your fault this time. This happens because of a [bug in the Relay Compiler](https://github.com/facebook/relay/issues/1835) that breaks the compilation when there are non-nullable types on the connection types in the schema. You can work around the the issue by manually adjusting it, which is not something you should be doing under normal circumstances but for the purpose of this tutorial it will be fine. 
+
+<Instruction>
+
+In fact, we already did the fixes for you. So you now have to copy the contents from the modified schema stored at [https://graphqlbin.com/hn-relay-full.graphql](https://graphqlbin.com/hn-relay-full.graphql) into `hackernews-react-relay/schema.graphql`.
+
+</Instruction>
+
+Now you can run the Relay Compiler again!
+
+<Instruction>
+
+Once again, in a terminal, navigate to the project's root directory and invoke the Relay Compiler:
 
 ```bash(path=".../hackernews-react-relay")
 relay-compiler --src ./src --schema ./schema.graphql
@@ -421,8 +439,14 @@ You'll also notice that the `__generated__` directory was now created and contai
             └── Link_link.graphql.js
 ```
 
-That's you can now run the app and you'll see the same links that you initially added with the two mutations in the Playground rendered in the app!
+That's it, you can now run the app and you'll see the same links that you initially added with the two mutations in the Playground rendered in the app!
 
 By the way, if you're curios to see what the actual query looked like that the `QueryRenderer` composed for you and that was sent over to the server, you can inspect the _Networking_-tab of your browser's dev tools:
 
 ![](http://imgur.com/222Prig.png)
+
+Awesome! You can now move on to learn about mutations in Relay.
+
+
+
+

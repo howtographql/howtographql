@@ -10,56 +10,64 @@ Since this is a frontend track, we don't want to spend too much time setting up 
 
 You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to generate the server based on the data model that we need for the app. Speaking of the data model, here is what the final version of it looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
 
-```graphql
+```graphql(nocopy)
 type User {
   name: String!
-  links: [Link!]! @relation(name: "UsersLinks")
-  votes: [Vote!]! @relation(name: "UsersVotes")
+  links: [Link!] @relation(name: "UsersLinks")
+  votes: [Vote!] @relation(name: "UsersVotes")
 }
 
 type Link { 
   url: String!
-  postedBy: User! @relation(name: "UsersLinks")
-  votes: [Vote!]! @relation(name: "VotesOnLink")
+  postedBy: User @relation(name: "UsersLinks")
+  votes: [Vote!] @relation(name: "VotesOnLink")
 }
 
 type Vote {
-  user: User! @relation(name: "UsersVotes")
-  link: Link! @relation(name: "VotesOnLink")
+  user: User @relation(name: "UsersVotes")
+  link: Link @relation(name: "VotesOnLink")
 }
 ```
 
 #### Creating the GraphQL Server
 
-For starting out, we're not going to use the full data model that you saw above. That's becasue we want to evolve the schema when it becomes necessary for the features that we implement.
+The first thing you need to do is install the Graphcool CLI with npm. 
 
-For now, we're just going use the `Link` type to create our backend.
+<Instruction>
 
-The first thing you need to do is install the Graphcool CLI with npm. Open up a terminal window and type the following:
+Open up a terminal window and type the following:
 
-```sh
+```bash
 npm install -g graphcool
 ```
 
-Now you can go and create the server. Type the following command into the terminal:
+</Instruction>
 
-```sh
+Now you can go and create the server. 
+
+<Instruction>
+
+Type the following command into the terminal:
+
+```bash
 graphcool init --schema https://graphqlbin.com/hn-relay.graphql --name Hackernews
 ```
 
+</Instruction>
+
 This will execute the `graphcool init` command with two arguments:
 
-- `--schema`: This option accepts a `.graphql`-schema that's either stored _locally_ or at a _remote URL_. In your case, you're using the starter schema stored at [https://graphqlbin.com/hn-starter.graphql](https://graphqlbin.com/hn-starter.graphql), we'll take a look at it in a bit.
+- `--schema`: This option accepts a `.graphql`-schema that's either stored _locally_ or at a _remote URL_. In your case, you're using the schema stored at [https://graphqlbin.com/hn-relay.graphql](https://graphqlbin.com/hn-relay.graphql), we'll take a look at it in a bit.
 - `--name`: This is the name of the Graphcool project you're creating, here you're simply calling it `Hackernews`.
 
 Note that this command will open up a browser window first and ask you to authenticate on the Graphcool platform.
 
-The schema that's stored at [https://graphqlbin.com/hn-starter-relay.graphql](https://graphqlbin.com/hn-starter.graphql) is identical to the one that you just saw.
+The schema that's stored at [https://graphqlbin.com/hn-relay.graphql](https://graphqlbin.com/hn-relay.graphql) is identical to the one that you just saw.
 
 Once the project was created, you'll find the [Graphcool Project File](https://www.graph.cool/docs/reference/cli/project-files-ow2yei7mew/) (`project.graphcool`) in the directory where you executed the command. It should look similar to this:
 
 ```graphql(nocopy)
-# project: cj400nwfthe5501857zl5zvi1
+# project: cj4liutcbackk01648jagrepi
 # version: 1
 
 type File implements Node {
@@ -98,7 +106,6 @@ type Vote implements Node {
   updatedAt: DateTime!
   user: User @relation(name: "UsersVotes")
 }
-
 ```
 
 The top of the file contains some metadata about the project, namely the _project ID_ and the _version number of the schema_.
@@ -273,6 +280,8 @@ Your project structure should now look as follows:
 
 This tutorial is about the concepts of GraphQL and how you can use it from within a React application with Relay, so we want to spend the least time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
 
+<Instruction>
+
 Open `index.html` and add a third `link` tag right below the two existing ones that pulls in Tachyons:
 
 ```html{3}(path=".../hackernews-react-relay/public/index.html")
@@ -281,7 +290,12 @@ Open `index.html` and add a third `link` tag right below the two existing ones t
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
 ```
 
+</Instruction>
+
+
 Since we still want to have a bit more custom styling here and there, we also prepared some styles for you that you need to include in the project.
+
+<Instruction>
 
 Open `index.css` and replace its content with the following:
 
@@ -331,6 +345,8 @@ input {
 }
 ```
 
+</Instruction>
+
 
 #### Installing Relay Dependencies
 
@@ -356,7 +372,7 @@ yarn add react-relay
 
 <Instruction> 
 
-Next, go ahead and add the `relay-compiler` as a development dependency : 
+Next, go ahead and add the `relay-compiler` as a development dependency: 
 
 ```bash(path=".../hackernews-react-relay")
 yarn add relay-compiler --dev
@@ -369,7 +385,7 @@ yarn add relay-compiler --dev
 Finally, install the `babel-plugin-relay`, again only as a development dependency: 
 
 ```bash(path=".../hackernews-react-relay")
-yarn add babel-plugin-relay
+yarn add babel-plugin-relay --dev
 ```
 
 </Instruction>

@@ -17,23 +17,27 @@ You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overvie
 ```graphql(nocopy)
 type User {
   name: String!
-  links: [Link!] @relation(name: "UsersLinks")
-  votes: [Vote!] @relation(name: "UsersVotes")
+  links: [Link!]! @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
 type Link { 
   url: String!
-  postedBy: User @relation(name: "UsersLinks")
-  votes: [Vote!] @relation(name: "VotesOnLink")
+  postedBy: User! @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
 type Vote {
-  user: User @relation(name: "UsersVotes")
-  link: Link @relation(name: "VotesOnLink")
+  user: User! @relation(name: "UsersVotes")
+  link: Link! @relation(name: "VotesOnLink")
 }
 ```
 
 #### Creating the GraphQL Server
+
+For starting out, you're not going to use the full data model that you saw above. That's becasue we want to evolve the schema when it becomes necessary for the features that we implement.
+
+For now, you'll just use the `Link` type to create the backend.
 
 The first thing you need to do to get your GraphQL server is install the Graphcool CLI with npm.
 
@@ -140,16 +144,16 @@ Copy the following two mutations into the _editor_ pane:
 ```graphql
 mutation CreateGraphcoolLink {
   createLink(
-    description: "The easiest way to start with GraphQL",
+    description: "The coolest GraphQL backend 😎",
     url: "https://graph.cool") {
     id
   }
 }
 
-mutation CreateRelayLink {
+mutation CreateApolloLink {
   createLink(
-    description: "Highly perforant GraphQL cleint from Facebook",
-    url: "https://facebook.github.io/relay/") {
+    description: "The best GraphQL client",
+    url: "http://dev.apollodata.com/") {
     id
   }
 }
@@ -157,7 +161,7 @@ mutation CreateRelayLink {
 
 </Instruction>
 
-Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreateGraphcoolLink` and `CreateRelayLink`.
+Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreateGraphcoolLink` and `CreateApolloLink `.
 
 <Instruction>
 
@@ -187,13 +191,13 @@ If everything went well, the query will return the following data:
     "allLinks": [
       {
         "id": "cj4jo6xxat8o901420m0yy60i",
-        "description": "The easiest way to start with GraphQL",
+        "description": "The coolest GraphQL backend 😎",
         "url": "https://graph.cool"
       },
       {
         "id": "cj4jo6z4it8on0142p7q015hc",
-        "description": "Highly perforant GraphQL cleint from Facebook",
-        "url": "https://facebook.github.io/relay/"
+        "description": "The best GraphQL client",
+        "url": "http://dev.apollodata.com/"
       }
     ]
   }
