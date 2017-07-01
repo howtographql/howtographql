@@ -28,7 +28,6 @@ const OptionalDottedListItem = ({
           left: -9px;
           margin-top: 3px;
           width: 8px;
-
           height: 8px;
         }
         div.optional-dotted-list-item.active::before {
@@ -72,6 +71,6 @@ const OptionalDottedListItem = ({
   )
 }
 
-export default connect((state: QuizState, props: Props) => {
-  return state.quizReactions[props.path] || defaultReaction
+export default connect(({ quiz }: { quiz: QuizState }, props: Props) => {
+  return quiz.quizReactions[props.path] || defaultReaction
 })(OptionalDottedListItem)

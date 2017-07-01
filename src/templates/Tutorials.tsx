@@ -13,6 +13,7 @@ interface Props {
     mds: RelayConnection<MarkdownRemark>
   }
   location: any
+  history: any
 }
 
 class Tutorials extends React.Component<Props, null> {
@@ -31,7 +32,7 @@ class Tutorials extends React.Component<Props, null> {
     const steps = extractSteps(this.props.data.mds)
 
     return (
-      <App>
+      <App history={this.props.history}>
         <div className="tutorials">
           <style jsx={true}>{`
             .tutorials {

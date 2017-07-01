@@ -142,7 +142,7 @@ function Result({ steps, ...state }: Props & QuizState) {
   )
 }
 
-export default connect(state => state)(Result)
+export default connect(state => state.quiz)(Result)
 
 interface BarProps {
   items: ScoreStep[]

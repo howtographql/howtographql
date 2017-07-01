@@ -34,7 +34,7 @@ export default function Unlocked({ n }: Props) {
       <span>
         Well done, you unlocked the next chapter!
       </span>
-      <Confetti height={'400%'} numberOfPieces={300} gravity={0.5} />
+      <Confetti height={'400%'} numberOfPieces={300} gravity={0.2} />
     </div>
   )
 }

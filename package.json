@@ -3,6 +3,7 @@
     "graphql": "0.10.3"
   },
   "dependencies": {
+    "algoliasearch": "^3.24.0",
     "classnames": "^2.2.5",
     "frontmatter": "^0.0.3",
     "gatsby": "1.0.0-beta.5-alpha.fb30fcd6",
@@ -33,6 +34,7 @@
     "react-redux": "^5.0.5",
     "redux": "^3.7.1",
     "redux-localstorage": "rc",
+    "redux-localstorage-filter": "^0.1.1",
     "redux-logger": "^3.0.6",
     "relay-compiler": "^1.1.0",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
