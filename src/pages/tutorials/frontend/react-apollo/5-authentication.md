@@ -9,7 +9,6 @@ In this section, you'll learn how you can implement authentication functionality
 
 As in the sections before, you'll set the stage for the login functionality by preparing the React components that are needed for this feature. You'll start by implementing the `Login` component. 
 
-
 <Instruction>
 
 Create a new file in `src/components` and call it `Login.js`. Then paste the following code inside of it:
@@ -116,11 +115,16 @@ Open `App.js` and update `render` to include the new route:
 ```js{4}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
-    <Switch>
-      <Route exact path='/login' component={Login}/>
-      <Route exact path='/create' component={CreateLink}/>
-      <Route exact path='/' component={LinkList}/>
-    </Switch>
+    <div className='center w85'>
+      <Header />
+      <div className='ph3 pv1 background-gray'>
+        <Switch>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/create' component={CreateLink}/>
+          <Route exact path='/' component={LinkList}/>
+        </Switch>
+      </div>
+    </div>
   )
 }
 ```
