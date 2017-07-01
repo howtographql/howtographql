@@ -1,8 +1,9 @@
 ---
 title: More GraphQL Concepts
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+description: Learn about advanced concepts of the GraphQL language like fragments, query arguments and more SDL features 
+question: Which of these statements is false?
+answers: ["Aliases can be used to name the result objects for multiple queries", "Fragments are useful for the structure and reusability of your GraphQL code", "Every field in a GraphQL type can be associated with zero or more arguments", "GraphQL has a built-in Date type"]
+correctAnswer: 3
 ---
 
 
@@ -163,7 +164,7 @@ enum Weekday {
 }
 ```
 
-Note that echnically enums are special kinds of scalar types.
+Note that technically enums are special kinds of scalar types.
 
 #### Interface
 

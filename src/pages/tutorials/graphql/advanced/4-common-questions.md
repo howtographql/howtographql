@@ -1,8 +1,9 @@
 ---
 title: Common Questions
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+description: In this chapter, we answer common questions people have about GraphQL
+question: How does a GraphQL server deal with failures?
+answers: ["A GraphQL server never fails", "It uses HTTP status codes to indicate what went wrong", "It returns a dedicated errors object in the server response", "It starts crying and hides under the bed"]
+correctAnswer: 2
 ---
 
 

@@ -1,8 +1,9 @@
 ---
 title: Clients
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+description: In this chapter, you'll learn about the core concepts of GraphQL clients and the abstractions and functionalities they provide
+question: What does a GraphQL client usually do before caching the results of a query?
+answers: ["Validating the query results against the schema", "Normalizing the data", "Calling a resolver function", "Making the data available in the props of a React component"]
+correctAnswer: 1
 ---
 
 
