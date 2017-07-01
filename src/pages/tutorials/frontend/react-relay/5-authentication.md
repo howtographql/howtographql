@@ -30,8 +30,8 @@ class Login extends Component {
 
     return (
       <div>
-        <div>{this.state.login ? 'Login' : 'Sign Up'}</div>
-        <div>
+        <h4 className='mv3'>{this.state.login ? 'Login' : 'Sign Up'}</h4>
+        <div className='flex flex-column'>
           {!this.state.login &&
           <input
             value={this.state.name}
@@ -52,16 +52,20 @@ class Login extends Component {
             placeholder='Choose a safe password'
           />
         </div>
-        <button
-          onClick={() => this._confirm()}
-        >
-          {this.state.login ? 'Login' : 'Create Account' }
-        </button>
-        <button
-          onClick={() => this.setState({ login: !this.state.login })}
-        >
-          {this.state.login ? 'Need to create an account?' : 'Already have an account?'}
-        </button>
+        <div className='flex mt3'>
+          <div
+            className='pointer mr2 button'
+            onClick={() => this._confirm()}
+          >
+            {this.state.login ? 'login' : 'create Account' }
+          </div>
+          <div
+            className='pointer button'
+            onClick={() => this.setState({ login: !this.state.login })}
+          >
+            {this.state.login ? 'need to create an account?' : 'already have an account?'}
+          </div>
+        </div>
       </div>
     )
   }
@@ -114,11 +118,16 @@ Open `App.js` and update `render` to include the new route:
 ```js{4}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
-    <Switch>
-      <Route exact path='/login' component={Login}/>
-      <Route exact path='/create' component={CreateLink}/>
-      <Route exact path='/' component={LinkList}/>
-    </Switch>
+    <div className='center w85'>
+      <Header />
+      <div className='ph3 pv1 background-gray'>
+        <Switch>
+          <Route exact path='/' component={LinkListPage}/>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/create' component={CreateLink}/>
+        </Switch>
+      </div>
+    </div>
   )
 }
 ```
@@ -136,14 +145,13 @@ import Login from './Login'
 
 </Instruction>
 
-
 Finally, go ahead and add `Link` to the `Header` that allows the users to navigate to the `Login` page. 
 
 <Instruction>
 
 Open `Header.js` and update `render` to look as follows:
 
-```js{2,8,13,15-25}(path=".../hackernews-react-apollo/src/components/Header.js")
+```js{2,8,13,15-25}(path=".../hackernews-react-relay/src/components/Header.js")
 render() {
   const userId = localStorage.getItem(GC_USER_ID)
   return (
@@ -183,15 +191,14 @@ You're also adding a second button to the right of the `Header` that users can u
 
 <Instruction>
 
-Lastly, you need to import the key definitions from `constants.js` in `LinkList.js`. Add the following statement to the top of file:
+Lastly, you need to import the key definitions from `constants.js` in `Header.js`. Add the following statement to the top of file:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js(path=".../hackernews-react-relay/src/components/Header.js")
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 ```
 
 </Instruction>
 
- 
 Here is what the ready component looks like:
 
 ![](http://imgur.com/tBxMVtb.png)
@@ -200,12 +207,11 @@ Before you can implement the authentication functionality in `Login.js`, you nee
 
 ### Enabling Email-and-Password Authentication & Updating the Schema
 
-
 <Instruction>
 
 In the directory where `project.graphcool` is located, type the following into the terminal:
 
-```bash(path="../hackernews-react-apollo")
+```bash(path="../hackernews-react-relay")
 graphcool console
 ```
 
@@ -226,7 +232,7 @@ This will open the popup that allows you to enable the Graphcool's email-based a
 
 <Instruction>
 
-In the popup, simply click _enable_.
+In the popup, simply click _Enable_.
 
 </Instruction>
 
@@ -275,70 +281,6 @@ type User implements Node {
 }
 ```
 
-Next you need to make one more modification to the schema. Generally, when updating the schema of a Graphcool project, you've got two ways of doing so:
-
-1. Use the web-based [Graphcool Console](https://console.graph.cool) and change the schema directly
-2. Use the Graphcool project file and the CLI to update the schema from your local machine
-
-<Instruction>
-
-Open your project file `project.graphcool` and update the `User` and `Link` types as follows:
-
-```{7,17}graphql
-type Link implements Node {
-  createdAt: DateTime!
-  description: String!
-  id: ID! @isUnique
-  updatedAt: DateTime!
-  url: String!
-  postedBy: User @relation(name: "UsersLinks")
-}
-
-type User implements Node {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  email: String @isUnique
-  updatedAt: DateTime!
-  name: String!
-  password: String
-  links: [Link!]! @relation(name: "UsersLinks")
-}
-```
-
-</Instruction>
-
-You added two things to the schema:
-
-- A new field on the `User` type to store the `name` of the user.
-- A new relation between the `User` and the `Link` type that represents a one-to-many relationship and expresses that one `User` can be associated with multiple links. The relation manifests itself in the two fields `postedBy` and `links`.
-
-<Instruction>
-
-Save the file and execute the following command in the Terminal:
-
-```bash(path="../hackernews-react-apollo")
-graphcool push
-```
-
-</Instruction>
-
-
-Here is the Terminal output after you can the command:
-
-```sh(nocopy)
-$ graphcool push
- ✔ Your schema was successfully updated. Here are the changes: 
-
-  | (*)  The type `User` is updated.
-  ├── (+)  A new field with the name `name` and type `String!` is created.
-  |
-  | (+)  The relation `UsersLinks` is created. It connects the type `Link` with the type `User`.
-
-Your project file project.graphcool was updated. Reload it in your editor if needed.
-```
-
-> **Note**: You can also use the `graphcool status` command after having made changes to the schema to preview the potential changes that would be performed with `graphcool push`.
-
 Perfect, you're all set now to actually implement the authentication functionality inside your app.
 
 
@@ -346,119 +288,216 @@ Perfect, you're all set now to actually implement the authentication functionali
 
 `createUser` and `signinUser` are two regular GraphQL mutations that you can use in the same way as you did with the `createLink` mutation from before.
 
+You'll start with the `createUser` mutation.
+
 <Instruction>
 
-Open `Login.js` and add the following two definitions to the bottom of the file, also replacing the current `export Login` statement:
+Create a new file in `src/mutation` and call it `CreateUserMutation.js`. Then copy the following code into it:
 
-```js(path=".../hackernews-react-apollo/src/components/Login.js")
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUserMutation($name: String!, $email: String!, $password: String!) {
-    createUser(
-      name: $name,
+```js(path=".../hackernews-react-relay/src/mutations/CreateUserMutation.js")
+import {
+  commitMutation,
+  graphql
+} from 'react-relay'
+import environment from '../Environment'
+import { ConnectionHandler } from 'relay-runtime'
+
+const mutation = graphql`
+  mutation CreateUserMutation($createUserInput: SignupUserInput!, $signinUserInput: SigninUserInput!) {
+    createUser(input: $createUserInput) {
+      user {
+        id
+      }
+    }
+
+    signinUser(input: $signinUserInput) {
+      token
+      user {
+        id
+      }
+    }
+  }
+`
+```
+
+</Instruction>
+
+Let's quickly understand what's going in the code that you just added.
+
+You're again defining a `mutation` by using the `graphql` function. The template string that you're tagging with `graphql` actually contains _two_ mutations at once!
+
+The first mutation is used to _create_ a new `User`. It takes the `SignupUserInput` as an argument, which is essentially a wrapper object for the user's `name`, `email` and `password`.
+
+The second mutation is used to _log in_ the user and will return a `token` that you can attach to all subsequent requests and thus authentciate the user against the API.
+
+When these two mutations are sent to the server, it will execute them _synchronously_ from _top to bottom_. This means that the server will first _create_ the user and then directly _log them in_ so that you don't have to send an additional request to obtain the user's authentication token. Neat!
+
+To send the mutation, you need to use the `commitMutation` function again and pass it the `mutation`, the `environment` and the right user input. 
+
+<Instruction>
+
+Still in `CreateUserMutation.js`, add the following snippet below the code you just added before:
+
+```js(path=".../hackernews-react-relay/src/mutations/CreateUserMutation.js")
+export default (name, email, password, callback) => {
+  const variables = {
+    // 1 
+    createUserInput: {
+      name,
       authProvider: {
         email: {
-          email: $email,
-          password: $password
+          email,
+          password
         }
-      }
-    ) {
-      id
-    }
-
-    signinUser(email: {
-      email: $email,
-      password: $password
-    }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`
-
-const SIGNIN_USER_MUTATION = gql`
-  mutation SigninUserMutation($email: String!, $password: String!) {
-    signinUser(email: {
-      email: $email,
-      password: $password
-    }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`
-
-export default compose(
-  graphql(CREATE_USER_MUTATION, { name: 'createUserMutation' }),
-  graphql(SIGNIN_USER_MUTATION, { name: 'signinUserMutation' })
-)(Login)
-```
-
-</Instruction>
-
-
-Note that you're using `compose` for the export statement this time since there is more than one mutation that you want to wrap the component with.
-
-Before we take a closer look at the two mutations, go ahead and add the required imports. 
-
-<Instruction>
-
-Still in `Login.js`, add the following statement to the top of the file:
-
-```js(path=".../hackernews-react-apollo/src/components/Login.js")
-import { gql, graphql, compose } from 'react-apollo'
-```
-
-</Instruction>
-
-
-Now, let's understand what's going in the two mutations that you just added to the component.
-
-The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It simply takes the `email` and `password` as arguments and returns info about the `user` as well as a `token` that you can attach to subsequent requests to authenticate the user. You'll learn in a bit how to do so.
-
-The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always _from top to bottom_. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows to sign up and login in a single request!
-
-All right, all that's left to do is call the two mutations inside the code!
-
-<Instruction>
-
-Open `Login.js` and implement `_confirm` as follows:
-
-```js(path=".../hackernews-react-apollo/src/components/Login.js")
-_confirm = async () => {
-  const { name, email, password } = this.state
-  if (this.state.login) {
-    const result = await this.props.signinUserMutation({
-      variables: {
+      },
+      clientMutationId: ""
+    },
+    // 2
+    signinUserInput: {
+      email: {
         email,
         password
-      }
-    })
-    const id = result.data.signinUser.user.id
-    const token = result.data.signinUser.token
-    this._saveUserData(id, token)
-  } else {
-    const result = await this.props.createUserMutation({
-      variables: {
-        name,
-        email,
-        password
-      }
-    })
-    const id = result.data.signinUser.user.id
-    const token = result.data.signinUser.token
-    this._saveUserData(id, token)
+      },
+      clientMutationId: ""
+    }
   }
-  this.props.history.push(`/`)
+
+  // 3
+  commitMutation(
+    environment,
+    {
+      mutation,
+      variables,
+      // 4
+      onCompleted: (response) => {
+        const id = response.createUser.user.id
+        const token = response.signinUser.token
+        callback(id, token)
+      },
+      onError: err => console.error(err),
+    },
+  )
 }
 ```
 
 </Instruction>
 
-The code is pretty straightforward. If the user wants to only login, you're calling the `signinUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `createUserMutation` where you also pass the user's `name`. After the mutation was performed, you're storing the `id` and `token` in `localStorage` and navigate back to the root route.
+Let's quickly walk through what's going on here!
+
+1. Here you prepare the first input object that you're passing as an argument into the `createUser` mutation
+2. Then, directly after that you're creating the second input object for the `signinUser` mutation
+3. Once the arguments are ready and stored in `variables`, you're calling `commitMutation` and pass the required data
+4. Finally, you're implementing `onCompleted` again where you retrieve the `id` of the user and their authentication `token` and pass it into a callback
+
+Go ahead and add the single `signIn` mutation right away so that users can also login without having to create an account.
+
+ <Instruction>
+
+Create a new file in `src/mutations` and call it `SigninMutation.js`.
+
+```js(path=".../hackernews-react-relay/src/mutations/SigninMutation.js")
+import {
+  commitMutation,
+  graphql
+} from 'react-relay'
+import environment from '../Environment'
+import { ConnectionHandler } from 'relay-runtime'
+
+const mutation = graphql`
+  mutation SigninMutation($input: SigninUserInput!) {
+    signinUser(input: $input) {
+      token
+      user {
+        id
+      }
+    }
+  }
+`
+
+export default (email, password, callback) => {
+  const variables = {
+    input: {
+      email: {
+        email,
+        password
+      },
+      clientMutationId: ""
+    },
+  }
+
+  commitMutation(
+    environment,
+    {
+      mutation,
+      variables,
+      onCompleted: (response) => {
+        const id = response.signinUser.user.id
+        const token = response.signinUser.token
+        callback(id, token)
+      },
+      onError: err => console.error(err),
+    },
+  )
+}
+```
+
+</Instruction>
+
+This code is very similar to the mutation you just implemented, just a bit simpler. In fact, it's very much the same setup except that the `createUser` mutation is removed - so the sole purpose of this mutation will be to authenticate an existing `User` and get a `token` for them from the server.
+
+### Calling the Login Mutations
+
+Finally, you need to make sure that the two mutations can be called from within the `Login` component.
+
+<Instruction>
+
+Open `Login.js` and implement `_confirm` as follows:
+
+```js(path=".../hackernews-react-relay/src/components/Login.js")
+_confirm = () => {
+  const { name, email, password } = this.state
+  if (this.state.login) {
+    SigninMutation(email, password, (id, token) => {
+      this._saveUserData(id, token)
+      this.props.history.push(`/`)
+    })
+  } else {
+    CreateUserMutation(name, email, password, (id, token) => {
+      this._saveUserData(id, token)
+      this.props.history.push(`/`)
+    })
+  }
+}
+```
+
+</Instruction>
+
+The code is pretty straightforward. If the user wants to only login, you're calling the `SigninMutation ` and pass the provided `email` and `password` as arguments. Otherwise you're using the `CreateUserMutation` where you also pass the user's `name`. The last argument in both cases is the callback that receives the `id` and `token` which you're then storing in `localStorage` using the `_saveUserData` method and navigate back to the root route.
+
+Before you're running the app, you need to import the mutations and run the Relay Compiler again.
+
+<Instruction>
+
+Still in `Login.js`, add the following two imports to the top of the file:
+
+```js(path=".../hackernews-react-relay/src/components/Login.js")
+import SigninMutation from '../mutations/SigninMutation'
+import CreateUserMutation from '../mutations/CreateUserMutation'
+```
+
+</Instruction>
+
+Now invoke the Relay Compiler.
+
+<Instruction>
+
+In a terminal, navigate to the project's root directory and execute the following command:
+
+```bash(path=".../hackernews-react-relay")
+relay-compiler --src ./src --schema ./schema.graphql
+```
+
+</Instruction>
 
 You can now create an account by providing a `name`, `email` and `password`. Once you did that, the _submit_-button will be rendered again:
 
@@ -470,23 +509,46 @@ Since you're now able to authenticate users and also added a new relation betwee
 
 <Instruction>
 
-Open `CreateLink.js` and update the definition of `CREATE_LINK_MUTATION` as follows:
+Open `CreateLinkMutation.js` and update the exported function as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-const CREATE_LINK_MUTATION = gql`
-  mutation CreateLinkMutation($description: String!, $url: String!, $postedById: ID!) {
-    createLink(
-      description: $description,
-      url: $url,
-      postedById: $postedById
-    ) {
-      id
-      createdAt
-      url
-      description
-      postedBy {
+```js{1,4}(path=".../hackernews-react-relay/src/components/CreateLink.js")
+export default (postedById, description, url, callback) => {
+  const variables = {
+    input: {
+      postedById,
+      description,
+      url,
+      clientMutationId: ""
+    },
+  }
+
+  ...
+}
+```
+
+</Instruction>
+
+All you do is include a new argument that represents the `id` of the user who is posting the link.
+
+Secondly, you should also include the information about the user in the mutation's payload so Relay can put it into the cache.
+
+<Instruction>
+
+Sill in `CreateLinkMutation.js`, update the definition of `mutation` like so:
+
+```js{9-11}(path=".../hackernews-react-relay/src/components/CreateLink.js")
+const mutation = graphql`
+  mutation CreateLinkMutation($input: CreateLinkInput!) {
+    createLink(input: $input) {
+      link {
         id
-        name
+        createdAt
+        url
+        description
+        postedBy {
+          id
+          name
+        }
       }
     }
   }
@@ -495,31 +557,21 @@ const CREATE_LINK_MUTATION = gql`
 
 </Instruction>
 
-
-There are two major changes. You first added another argument to the mutation that represents the `id` of the user that is posting the link. Secondly, you also include the `postedBy` information in the _payload_ of the mutation.
-
 Now you need to make sure that the `id` of the posting user is included when you're calling the mutation in `_createLink`.
 
 <Instruction>
 
-Still in `CreateLink.js`, update the implementation of `_createLink` like so:
+Open in `CreateLink.js` and adjust the implementation of `_createLink` to also pass the user's id that you're retrieving from `localStorage`:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-_createLink = async () => {
+```js(path=".../hackernews-react-relay/src/components/CreateLink.js")
+_createLink = () => {
   const postedById = localStorage.getItem(GC_USER_ID)
   if (!postedById) {
     console.error('No user logged in')
     return
   }
   const { description, url } = this.state
-  await this.props.createLinkMutation({
-    variables: {
-      description,
-      url,
-      postedById
-    }
-  })
-  this.props.history.push(`/`)
+  CreateLinkMutation(postedById, description, url, () => this.props.history.push('/'))
 }
 ```
 
@@ -528,43 +580,38 @@ _createLink = async () => {
 
 For this to work, you also need to import the `GC_USER_ID` key. 
 
-
 <Instruction>
 
 Add the following import statement to the top of `CreateLink.js`.
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js(path=".../hackernews-react-relay/src/components/CreateLink.js")
 import { GC_USER_ID } from '../constants'
 ```
 
 </Instruction>
 
-
 Perfect! Before sending the mutation, you're now also retrieving the corresponding user id from `localStorage`. If that succeeds, you'll pass it to the call to `createLinkMutation` so that every new `Link` will from now on store information about the `User` who created it.
 
-If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're crreating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
+If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're creating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
 
-### Configuring Apollo with the Auth Token
+### Configuring Relay with the Auth Token
 
 Now that users are able to login and obtain a token that authenticates them against the Graphcool backend, you actually need to make sure that the token gets attached to all requests that are sent to the API.
 
-Since all the API request are actually created and sent by the `ApolloClient` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all request by using [middleware](http://dev.apollodata.com/react/auth.html#Header).
+Since all the API request are actually created and sent by Relay in your app, you need to make sure it knows about the user's token. 
+
+All you need to do for that is reconfigure the `fetchQuery` function that you're currently using to instantiate the Relay `Environment` and attach the token to a header.
 
 <Instruction>
 
-Open `index.js` and put the following code _between_ the creation of the `networkInterface` and the instantation of the `ApolloClient`:
+Open `Environment.js` and update the `headers` in `fetchQuery` to also include the token:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
-networkInterface.use([{
-  applyMiddleware(req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
-    const token = localStorage.getItem(GC_AUTH_TOKEN)
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
-    next()
-  }
-}])
+```js{4}(path=".../hackernews-react-relay/src/Environment.js")
+headers: {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`
+},
 ```
 
 </Instruction>
@@ -574,7 +621,7 @@ networkInterface.use([{
 
 Then directly import the key that you need to retrieve the token from `localStorage` on top of the same file:
 
-```js
+```js(path=".../hackernews-react-relay/src/Environment.js")
 import { GC_AUTH_TOKEN } from './constants'
 ```
 
