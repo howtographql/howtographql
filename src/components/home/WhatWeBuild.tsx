@@ -64,7 +64,7 @@ export default function WhatWeBuild() {
             }
           }
         `}</style>
-        <h2>Learn by Building</h2>
+        <h2>What you'll build: A Hackernews clone</h2>
         <p className="c">
           Start from scratch and build a fully-featured Hackernews clone with one of the 
           detailled step-by-step tutorials. Use the programming language and framework of your choice!

@@ -54,7 +54,7 @@ const data: Stack[] = [
       description:
         'Build your own GraphQL server with node.js and the express framework',
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Maira Bello',
   },
   {
     title: 'Graphene',
@@ -66,7 +66,7 @@ const data: Stack[] = [
       description:
         'Learn how to build your own GraphQL server with Python and the Graphene framework',
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Syrus Akbary',
     color: '#db594c',
   },
   {

@@ -6,18 +6,17 @@ correctAnswer: 0
 description: "In this chapter we discuss the Big Picture"
 ---
 
-
 GraphQL has been released only as a *specification*. This means that GraphQL is in fact not more than a [long document](https://facebook.github.io/graphql/) that describes in detail the behaviour of a *GraphQL server.*
 
-If you want to use GraphQL yourself, you'll have to go and build that GraphQL server yourself. You can do that in any programming language of your choice (e.g. by using one of the [available reference implementations](http://graphql.org/code/)) or by using a service like [Graphcool](http://www.graph.cool/).
+If you want to use GraphQL yourself, you'll have to go and build that GraphQL server yourself. You can do that in any programming language of your choice (e.g. based on one of the [available reference implementations](http://graphql.org/code/)) or by using a service like [Graphcool](http://www.graph.cool/) that provides a powerful GraphQL API out-of-the-box.
 
 ### Use Cases
 
 In this section, we'll walk you through 3 different kinds of architectures that include a GraphQL server:
 
-1. GraphQL server with a connected database
-2. GraphQL server that is a thin layer in front of a number of third party or legacy systems and integrates them through a single GraphQL API
-3. A hybrid approach of a connected database and third party or legacy systems that can all be accessed through the same GraphQL API 
+1. GraphQL server _with a connected database_
+2. GraphQL server that is a _thin layer in front of a number of third party or legacy systems_ and integrates them through a single GraphQL API
+3. A _hybrid approach of a connected database and third party or legacy systems_ that can all be accessed through the same GraphQL API 
 
 All three architectures represent major use cases of GraphQL and demonstrate the flexibility in terms of the context where it can be used.
 

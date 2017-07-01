@@ -6,16 +6,14 @@ correctAnswer: 0
 description: "In this chapter we discuss the basics."
 ---
 
-## GraphQL Basics
-
 ### The Schema Definition Language (SDL)
 
-GraphQL has its own type system that’s used to define the *schema* of an API. The syntax for writing schemas is called *Schema Definition Language* (SDL).
+GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL).
 
 Here is an example how we can use the SDL to define a simple type called `User`:
 
-```
-type User {
+```graphql(nocopy)
+type Person {
   name: String!
   age: Int!
 }
@@ -23,26 +21,26 @@ type User {
 
 This type has two *fields*, they’re called `name` and `age` and are both of type `String`. The `!` following the type means that this field is *required*.
 
-It’s also possible to express relationships between types. In the example of a *blogging* application, a `User` could be associated with a `Post`:
+It’s also possible to express relationships between types. In the example of a *blogging* application, a `Person` could be associated with a `Post`:
 
-```
+```graphql(nocopy)
 type Post {
   title: String!
-  author: User!
+  author: Person!
 }
 ```
 
-Conversely, the other end of the relationship needs to be placed on the `User` type:
+Conversely, the other end of the relationship needs to be placed on the `Person` type:
 
-```
-type User {
+```graphql(nocopy)
+type Person {
   name: String!
   age: Int!
   posts: [Post!]!
 }
 ```
 
-Note that we just created a *one-to-many*-relationship between `User` and `Post` since the `posts` field on `User` is actually an *array* of posts.
+Note that we just created a *one-to-many*-relationship between `Person` and `Post` since the `posts` field on `Person` is actually an *array* of posts.
 
 ### Fetching Data with Queries
 
@@ -56,9 +54,9 @@ That means that the client needs to send more *information* to the server to exp
 
 Let’s take a look at an example query that a client could send to a server:
 
-```
+```graphql(nocopy)
 {
-  allUsers {
+  allPersons {
     name
   }
 }
@@ -66,9 +64,9 @@ Let’s take a look at an example query that a client could send to a server:
 
 This query would return a list of all users currently stored in the database. Here’s an example response:
 
-```
+```graphql(nocopy)
 {
-  "allUsers": [
+  "allPersons": [
     { 
       "name": "John"
     },
@@ -84,20 +82,20 @@ Notice that each user only has the `name` in the response, but the `age` is not 
 
 If the client also needed the users' `age`, all it has to do is to slightly adjust the query and include the new field in the query’s payload:
 
-```
+```graphql(nocopy)
 {
-  allUsers {
+  allPersons {
     name
     age
   }
 }
 ```
 
-One of the major advantages of GraphQL is that it allows for naturally querying *nested* information. For example, if you wanted to load all the `posts` that a `User` has written, you could simply follow the structure of your types to request this information:
+One of the major advantages of GraphQL is that it allows for naturally querying *nested* information. For example, if you wanted to load all the `posts` that a `Person` has written, you could simply follow the structure of your types to request this information:
 
-```
+```graphql(nocopy)
 {
-  allUsers {
+  allPersons {
     name
     age
     posts {
@@ -109,11 +107,11 @@ One of the major advantages of GraphQL is that it allows for naturally querying 
 
 #### Queries with Arguments
 
-In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allUsers` could have a `limit` parameter to only return up to a specific number of users. Here's what a corresponding query would look like:
+In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` could have a `limit` parameter to only return up to a specific number of users. Here's what a corresponding query would look like:
 
-```
+```graphql(nocopy)
 {
-  allUsers(limit: 20) {
+  allPersons(limit: 20) {
     name
   }
 }
@@ -127,45 +125,45 @@ Next to requesting information from a server, the majority of applications also 
 * updating existing data
 * deleting existing data
 
-Mutations follow the same syntactical structure as queries, but they always need to start with the `mutation` keyword. Here’s an example for how we might create a new `User`:
+Mutations follow the same syntactical structure as queries, but they always need to start with the `mutation` keyword. Here’s an example for how we might create a new `Person`:
 
-```
+```graphql(nocopy)
 mutation {
-  createUser(name: "Alice", age: 36) {
+  createPerson(name: "Alice", age: 36) {
     name
     age
   }
 }
 ```
 
-Notice that similar to the query we wrote before, we’re able to specify a payload where we can ask for different properties of the new `User`. In our case, we’re asking for the `name` and the `age` - though admittedly that’s not super helpful in our example since we obviously already know them. However, being able to also query information when sending mutations can be a very powerful tool that allows to retrieve new information in a single roundtrip! 
+Notice that similar to the query we wrote before, we’re able to specify a payload where we can ask for different properties of the new `Person`. In our case, we’re asking for the `name` and the `age` - though admittedly that’s not super helpful in our example since we obviously already know them. However, being able to also query information when sending mutations can be a very powerful tool that allows to retrieve new information in a single roundtrip! 
 
 The server response for the above mutation would look as follows:
 
-```
+```graphql(nocopy)
 {
-  "createUser": {
+  "createPerson": {
     "name": "Alice",
     "age": 36
   }
 }
 ```
 
-One pattern you’ll often find is that GraphQL types have unique *IDs* that are generated by the server. Extending our `User` type from the before, we could add an `id` as follows:
+One pattern you’ll often find is that GraphQL types have unique *IDs* that are generated by the server. Extending our `Person` type from the before, we could add an `id` as follows:
 
-```
-type User {
+```graphql(nocopy)
+type Person {
   id: ID!
   name: String!
   age: Int!
 }
 ```
 
-Now, when a new `User` is created, you could directly ask for the `id` since that is information that wasn’t available on the client beforehand:
+Now, when a new `Person` is created, you could directly ask for the `id` since that is information that wasn’t available on the client beforehand:
 
-```
+```graphql(nocopy)
 mutation {
-  createUser(name: "Alice", age: 36) {
+  createPerson(name: "Alice", age: 36) {
     id
   }
 }
@@ -177,22 +175,22 @@ Another important requirement for many applications today is to have a *realtime
 
 When a client *subscribes* to an event, it will hold a steady connection to the server. Whenever that particular event then actually happens, the server pushes the corresponding data to the client. Unlike queries and mutations that follow a typical “*request-response*-cycle”, subscriptions represent a *stream* of data sent over to the client.
 
-Subscriptions are written using the same syntax as queries and mutations. Here’s an example where we subscribe on events happening on the `User` type:
+Subscriptions are written using the same syntax as queries and mutations. Here’s an example where we subscribe on events happening on the `Person` type:
 
-```
+```graphql(nocopy)
 subscription {
-  newUser {
+  newPerson {
     name
     age
   }
 }
 ```
 
-After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `User`, the server sends the information about this user over to the client:
+After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `Person`, the server sends the information about this user over to the client:
 
-```
+```graphql(nocopy)
 {
-  "newUser": {
+  "newPerson": {
     "name": "Jane",
     "age": 23
   }
@@ -207,42 +205,42 @@ The *schema* is one of the most important concepts when working with a GraphQL A
 
 Generally, a schema is simply a collection of GraphQL types. However, when writing the schema for an API, there are some special *root* types:
 
-```
+```graphql(nocopy)
 type Query { ... }
 type Mutation { ... }
 type Subscription { ... }
 ```
 
-The `Query`, `Mutation` and `Subscription` types are the *entry points* for the requests sent by the client. To enable the `allUsers`-query that we save before, the `Query` type would have to be written as follows:
+The `Query`, `Mutation` and `Subscription` types are the *entry points* for the requests sent by the client. To enable the `allPersons`-query that we save before, the `Query` type would have to be written as follows:
 
-```
+```graphql(nocopy)
 type Query {
-  allUsers: [User!]!
+  allPersons: [Person!]!
 }
 ```
 
-`allUsers` is called a *root field* of the API. Considering again the example where we added the `limit` argument to the `allUsers` field, we'd have to write the `Query` as follows:
+`allPersons` is called a *root field* of the API. Considering again the example where we added the `limit` argument to the `allPersons` field, we'd have to write the `Query` as follows:
 
-```
+```graphql(nocopy)
 type Query {
-  allUsers(limit: Int): [User!]!
+  allPersons(limit: Int): [Person!]!
 }
 ```
 
-Similarly, for the `createUser`-mutation, we’ll have to add a root field to the `Mutation` type:
+Similarly, for the `createPerson`-mutation, we’ll have to add a root field to the `Mutation` type:
 
-```
+```graphql(nocopy)
 type Mutation {
-  createUser(name: String!, age: String!): User!
+  createPerson(name: String!, age: String!): Person!
 }
 ```
 
-Notice that this root field takes two arguments as well, the `name` and the `age` of the new `User`.
+Notice that this root field takes two arguments as well, the `name` and the `age` of the new `Person`.
 
-Finally, for the subscriptions, we’d have to add the `newUser` root field:
+Finally, for the subscriptions, we’d have to add the `newPerson` root field:
 
-```
+```graphql(nocopy)
 type Subscription {
-  newUser: User!
+  newPerson: Person!
 }
 ```

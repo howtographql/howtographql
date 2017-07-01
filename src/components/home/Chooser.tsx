@@ -157,7 +157,7 @@ class Chooser extends React.Component<Props, State> {
           <div className="steps-list">
             <DottedListItem first={true} path={'/tutorials/choose'}>
               <Link to={'/tutorials/choose'}>
-                Choose your favorite technology?
+                Choose your favorite technology
               </Link>
             </DottedListItem>
           </div>
