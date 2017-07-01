@@ -10,14 +10,15 @@ An interesting note about Relay is that it actually started out as a routing fra
 
 Since we're in the early days of Relay Modern, there's not really much advise or conventions to build upon. The Facebook team delivers a [few suggestions](https://facebook.github.io/relay/docs/api-reference-relay-route.html) how this can be handled. But it will certainly take some time until best practices and appropriate tools around this topic evolve!
 
-So, to keep it simple in this tutorial, we'll use `react-router` which is a popular routing solution in the React ecosystem. 
+So, to keep it simple in this tutorial, we'll use [`react-router`](https://github.com/ReactTraining/react-router) which is a popular routing solution in the React ecosystem. 
+
 ### Install Dependencies
 
 The first thing you need to do is install the corresponding dependency.
 
 <Instruction>
 
-Open a Terminal, navigate to your project directory and and type: 
+Open a terminal, navigate to your project directory and and type: 
 
 ```bash(path=".../hackernews-react-relay")
 yarn add react-router-dom
@@ -63,70 +64,92 @@ This simply renders two `Link` components that users can use to navigate between
 
 ### Setup routes
 
-You'll configure the different routes for the app in the project's root component: `App`. Open the correspdonding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
+You'll configure the different routes for the app in the project's root component: `App`. 
 
-```js
+<Instruction>
+
+Open the correspdonding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
+
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
-    <Switch>
-      <Route exact path='/create' component={CreateLink}/>
-      <Route exact path='/' component={LinkList}/>
-    </Switch>
+    <div className='center w85'>
+      <Header />
+      <div className='ph3 pv1 background-gray'>
+        <Switch>
+          <Route exact path='/' component={LinkListPage}/>
+          <Route exact path='/create' component={CreateLink}/>
+         </Switch>
+      </div>
+    </div>
   )
 }
 ```
 
-For this code to work, you need to import the required dependencies of `react-router`. Add the following statement to the top of the file:
+</Instruction>
 
-```
+
+For this code to work, you need to import the required dependencies of `react-router`. 
+
+<Instruction>
+
+Add the following statement to the top of the file:
+
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Header from './Header'
 import { Switch, Route } from 'react-router-dom'
 ```
 
+</Instruction>
+
 Now you need to wrap the `App` with with `BrowserRouter` so that all child components of `App` will get access to the routing functionality.
+
+<Instruction>
 
 Open `index.js` and add the following import statement to the top:
 
-```js
+```js(path=".../hackernews-react-apollo/src/index.js")
 import { BrowserRouter } from 'react-router-dom'
 ```
 
-Now update `ReactDOM.render` and wrap the whole app with the `BrowserRouter`:
+</Instruction>
+
+<Instruction>
+
+Finally, still in `index.js` update `ReactDOM.render` and wrap the whole app with the `BrowserRouter`:
 
 ```js
 ReactDOM.render(
   <BrowserRouter>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </BrowserRouter>
-  , document.getElementById('root')
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
 )
 ```
 
-That's it. If you run `yarn start`, you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
+</Instruction>
+
+That's it. If you run `yarn start`, you can now access two URLs. `http://localhost:3000/` will render `LinkListPage` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
 
 ![](http://imgur.com/I16JzwW.png)
-
 
 ### Implement navigation
 
 To wrap up this section, you need to implement an automatic redirect from the `CreateLink` to `LinkList` after a mutation was performed.
 
+<Instruction>
+
 Open `CreateLink.js` and update `_createLink` to look as follows:
 
-```js
-_createLink = async () => {
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+_createLink = () => {
   const { description, url } = this.state
-  await this.props.createLinkMutation({
-    variables: {
-      description,
-      url
-    }
-  })
-  this.props.history.push(`/`)
+  CreateLinkMutation(description, url, () => this.props.history.push('/'))
 }
 ```
 
-After the mutation was performed, `react-router-dom` will now navigate back to the `LinkList` component that's accessible on the root route: `/`.
+<Instruction>
 
+All you do here is update the `callback` that's passed into `CreateLinkMutation` to navigate back to the app's root router after mutation was completed, replacing the logging statement that you used to print before.
+
+Awesome, you're all set to build authentication functionality for the app!
