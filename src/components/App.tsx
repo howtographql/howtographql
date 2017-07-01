@@ -148,14 +148,15 @@ export default function App({ children }: Props) {
           @p: .f20, .darkBlue50, .lhCopy;
         }
         a {
-          @p: .noUnderline, .lhCopy;
+          @p: .noUnderline;
         }
         section {
           @p: .pt96;
         }
         section h2 {
           @p: .tc;
-        } /* Reusable Components */
+        }
+        /* Reusable Components */
         .btn {
           @p: .white, .f25, .fw6, .mt38, .dib, .lhTitle;
           background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
