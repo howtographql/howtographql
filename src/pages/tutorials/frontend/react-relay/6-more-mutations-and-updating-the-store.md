@@ -1,5 +1,6 @@
 ---
 title: More Mutations and Updating the Store
+videoId: QZWAAmp406s
 ---
 
 The next piece of functionality that you'll implement is the voting feature! Authenticated users are allowed to submit a vote for a link. The most upvoted links will later be displayed on a separate route!
@@ -8,9 +9,11 @@ The next piece of functionality that you'll implement is the voting feature! Aut
 
 Once more, the first step to implement this new feature is to make your React components ready for the expected functionality.
 
+</Instruction>
+
 Open `Link.js` and update `render` to look as follows:
 
-```js
+```js(path=".../hackernews-react-relay/src/components/Link.js")
 render() {
   const userId = localStorage.getItem(GC_USER_ID)
   return (
@@ -21,20 +24,27 @@ render() {
       </div>
       <div className='ml1'>
         <div>{this.props.link.description} ({this.props.link.url})</div>
-        <div className='f6 lh-copy gray'>{this.props.link.votes.length} votes | by {this.props.link.postedBy ? this.props.link.postedBy.name : 'Unknown'} {timeDifferenceForDate(this.props.link.createdAt)}</div>
+        <div className='f6 lh-copy gray'>{this.props.link.votes.count} votes | by {this.props.link.postedBy ? this.props.link.postedBy.name : 'Unknown'} {timeDifferenceForDate(this.props.link.createdAt)}</div>
       </div>
     </div>
   )
 }
 ```
 
+</Instruction>
+
+
 You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what your're using the `userId` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
 
 Notice that you're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user friendly, e.g. `"3 hours ago"`.
 
-Go ahead and implement the `timeDifferenceForDate` function next so you can import and use it in the `Link` component. Create a new file called `utils.js` in the `/src` directory and paste the following code into it:
+Go ahead and implement the `timeDifferenceForDate` function next so you can import and use it in the `Link` component. 
 
-```js
+<Instruction>
+
+Create a new file called `utils.js` in the `/src` directory and paste the following code into it:
+
+```js(path=".../hackernews-react-relay/src/utils.js")
 function timeDifference(current, previous) {
 
   const milliSecondsPerMinute = 60 * 1000
@@ -81,91 +91,105 @@ export function timeDifferenceForDate(date) {
 }
 ```
 
+</Instruction>
+
+
+<Instruction>
+
 Back in `Link.js`, import `GC_USER_ID` and `timeDifferenceForDate`  on top the file:
 
-```js
+```js(path=".../hackernews-react-relay/src/components/Link.js")
 import { GC_USER_ID } from '../constants'
 import { timeDifferenceForDate } from '../utils'
 ```
 
+</Instruction>
+
+
 Finally, each `Link` element will also render its position inside the list, so you have to pass down an `index` from the `LinkList` component. 
+
+<Instruction>
 
 Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also incude the link's position:
 
-```js
-{linksToRender.map((link, index) => (
+```js(path=".../hackernews-react-relay/src/components/LinkList.js")
+{this.props.viewer.allLinks.edges.map(({node}, index) => (
   <Link key={link.id} index={index} link={link}/>
 ))}
 ```
 
+</Instruction>
+
 Notice that the app won't run at the moment since the `votes` are not yet included in the query. You'll fix that next!
 
-### Updating the Schema
+<Instruction>
 
-For this new feature, you also need to update the schema again since votes on links will be represented with a custom `Vote` type.
+Open `Link.js` and update the fragment that's passed into `createFragmentContainer` to look as follows:
 
-Open `project.graphcool` and add the following type:
-
-```js
-type Vote {
-  user: User! @relation(name: "UsersVotes")
-  link: Link! @relation(name: "VotesOnLink")
+```js(path=".../hackernews-react-relay/src/components/Link.js")
+fragment Link_link on Link {
+  id
+  description
+  url
+  createdAt
+  postedBy {
+    id
+    name
+  }
+  votes {
+    count
+  }
 }
 ```
 
-Each `Vote` will be associated with the `User` who created it as well as the `Link` that it belongs to. You also have to add the other end of the relation. 
+</Instruction>
 
-Still in `project.graphcool`, add the following field to the `User` type:
 
-```graphql
-votes: [Vote!]! @relation(name: "UsersVotes")
-```  
+All you do here is to also include information about the user who posted a link as well as information about the links' votes in the query's payload. 
 
-Now add another field to the `Link` type:
+Before you're running the app again, you'll have to invoke the Relay Compiler again since you made changes to code that was tagged with the `graphql` function.
 
-```graphql
-votes: [Vote!]! @relation(name: "VotesOnLink")
+<Instruction>
+
+Open a terminal and navigate to the project's root directory, then invoke the compiler like before:
+
+```bash(path=".../hackernews-react-relay")
+relay-compiler --src ./src --schema ./schema.graphql
 ```
 
-Next open up a terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
+</Instruction>
 
-```sh
-graphcool push
-```
+You can now run the app again and will see the links being rendered with the additional information that you just added!
 
-Here is what the Terminal output looks like:
+![](http://imgur.com/eHaPg3L.png)
 
-```sh
-$ gc push
- ✔ Your schema was successfully updated. Here are the changes: 
+Let's now move on and implement the upvote mutation!
 
-  | (+)  A new type with the name `Vote` is created.
-  |
-  | (+)  The relation `UsersVotes` is created. It connects the type `User` with the type `Vote`.
-  |
-  | (+)  The relation `VotesOnLink` is created. It connects the type `Link` with the type `Vote`.
+### Writing the Mutation & Updating the Cache
 
-Your project file project.graphcool was updated. Reload it in your editor if needed.
-```
+<Instruction>
 
-Awesome! Now that you updated the schema, you can fix the issue that currently prevents you from propery running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
+Create a new file called `CreateVoteMutation.js` and put it into the  `mutations` folder. Then paste this code into it:
 
-Open `LinkList.js` and update the definition of `ALL_LINKS_QUERY` to look as follows:
+```js(path=".../hackernews-react-relay/src/mutations/CreateVoteMutation.js")
+import {
+  commitMutation,
+  graphql
+} from 'react-relay'
+import environment from '../Environment'
+import { ConnectionHandler } from 'relay-runtime'
 
-```js
-const ALL_LINKS_QUERY = gql`
-  query AllLinksQuery {
-    allLinks {
-      id
-      createdAt
-      url
-      description
-      postedBy {
+const mutation = graphql`
+  mutation CreateVoteMutation($input: CreateVoteInput!) {
+    createVote(input: $input) {
+      vote {
         id
-        name
-      }
-      votes {
-        id
+        link {
+          id
+          votes {
+            count
+          }
+        }
         user {
           id
         }
@@ -173,175 +197,180 @@ const ALL_LINKS_QUERY = gql`
     }
   }
 `
+Cr
+export default (userId, linkId, viewerId) => {
+  const variables = {
+    input: {
+      userId,
+      linkId,
+      clientMutationId: ""
+    },
+  }
+
+  commitMutation(
+    environment,
+    {
+      mutation,
+      variables,
+      optimisticUpdater: proxyStore => {
+        // ... you'll implement this in a bit
+      },
+      updater: proxyStore => {
+        // ... this as well
+      },
+      onError: err => console.error(err),
+    },
+  )
+}
 ```
 
-All you do here is to also include information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed. 
+</Instruction>
 
-![](http://imgur.com/eHaPg3L.png)
+This mostly looks pretty familiar! After importing all dependencies, you're defining the `createVote` mutation and then export a function in which you're calling `commitMutation` with some `variables` and the `environment`.
 
-Let's now move on and implement the upvote mutation!
+However, the `optimisticUpdater` and `updater` callbacks are new. Let's quickly discuss them to understand their roles!
+
+The `proxyStore` that's being passed into them allows you to directly manipulate the cache with the changes you expect to happen through this mutation.
+
+`optimisticUpdater` is triggered right after the mutation is sent (before the server response comes back) - it allows you to implement the _success scenario_ of the mutation so that the user sees the effect of her mutation right away without having to wait for the server response.
+
+`updater` is triggered when the actual server response comes back. If `optimisticUpdater` is implemented, then any changes that were introduced through it will be rolled back before `updater` is executed.
+
+Go ahead and implement them!
+
+<Instruction>
+
+Still in `CreateVoteMutation.js`, implement the two functions like so:
+
+```js(path=".../hackernews-react-relay/src/mutations/CreateVoteMutation.js")
+optimisticUpdater: proxyStore => {
+  const link = proxyStore.get(linkId)
+  const currentVoteCount = link.getLinkedRecord('votes').getValue('count')
+  const newVoteCount = currentVoteCount + 1
+
+  link.getLinkedRecord('votes').setValue(newVoteCount, 'count')
+},
+updater: proxyStore => {
+  const createVoteField = proxyStore.getRootField('createVote')
+  const newVote = createVoteField.getLinkedRecord('vote')
+  const updatedLink = newVote.getLinkedRecord('link')
+  const newVotes = updatedLink.getLinkedRecord('votes')
+  const newVoteCount = newVotes.getValue('count')
+
+  const link = proxyStore.get(linkId)
+  link.getLinkedRecord('votes').setValue(newVoteCount, 'count')
+},
+```
+
+</Instruction>
+
+All right, what's going on here? Recall that the `optimisticUpdater` is called _before_ the server's response is received. This allows you to directly update the state of your app _optimistically_, i.e. with the _expected behaviour_. In your case, the expected behaviour is that the vote count for the link will be increased by one.
+
+You can implement this by first retrieving the link that's identified by `linkId` from the cache using `proxyStore.get(linkId)` and manually increment its number of votes by one.
+
+In the `updater` on the other hand, you can work with the _actual_ server response. After the mutation was performed, you can retrieve the data from its payload by calling `proxyStore.getRootField('createVote')`. Here, `createVote` is the _root field_ of the mutation that you just sent!
+
+From here, you can access the mutation payload by retrieving the _linked records_, i.e. traversing the payload of the mutation (by first accessing the `vote`, then the `link` and finally the `votes` field) from where you can retrieve the `count` value which is a _scalar_ value that can be accessed with `getValue`.
+
+Once you did that, you effectively have the new number of votes available that was returned by the server. Now, you can use the same approach as in the `optimisticUpdater` to make sure that the link that's identified by `linkId` receives a new value for its number of votes. 
+
+> Unfortunately, there is almost no reference documentation on the types that are used for the imperative store API. In case you want to learn more about their capabilities, check out the [type definitions](https://github.com/facebook/relay/blob/634fca46c036ec34301c627e7f766092b9c66daa/packages/relay-runtime/store/RelayStoreTypes.js) in the GitHub repo.
+
 
 ### Calling the Mutation
 
-Open `Link.js` and add the following mutation definition to the bottom of the file. Once more, also replacing the current `export Link` statement:
+Next, you'll enable the user to actually call the mutation from within the `Link` component.
 
-```js
-const CREATE_VOTE_MUTATION = gql`
-  mutation CreateVoteMutation($userId: ID!, $linkId: ID!) {
-    createVote(userId: $userId, linkId: $linkId) {
-      id
-      link {
-        votes {
-          id
-          user {
-            id
-          }
-        }
-      }
-      user {
-        id
-      }
-    }
-  }
-`
+<Instruction>
 
-export default graphql(CREATE_VOTE_MUTATION, {
-  name: 'createVoteMutation'
-})(Link)
-```
+Open `Link.js` and implement `_createVote` like so:
 
-This step should feel pretty familiar by now. You're adding the ability to call the `createVoteMutation` to the `Link` component by wrapping it with the `CREATE_VOTE_MUTATION`.
-
-As with the times before, you also need to import the `gql` and `graphql` functions on top of the `Link.js` file:
-
-```js
-import { gql, graphql } from 'react-apollo'
-```
-
-Finally, you need to implement `_voteForLink` as follows:
-
-```js
+```js(path=".../hackernews-react-relay/src/components/Link.js")
 _voteForLink = async () => {
   const userId = localStorage.getItem(GC_USER_ID)
-  const voterIds = this.props.link.votes.map(vote => vote.user.id)
-  if (voterIds.includes(userId)) {
-    console.log(`User (${userId}) already voted for this link.`)
+  if (!userId) {
+    console.log(`Can't vote without user ID`)
     return
   }
 
   const linkId = this.props.link.id
-  await this.props.createVoteMutation({
-    variables: {
-      userId,
-      linkId
+
+  const canUserVoteOnLink = await this._userCanVoteOnLink(userId, linkId)
+  if (canUserVoteOnLink) {
+    CreateVoteMutation(userId, linkId)
+  } else {
+    console.log(`Current already voted for that link`)
+  }
+}
+```
+
+</Instruction>
+
+You're first retrieving the user's ID from `localStorage` to make sure a user is logged in that can actually cast a vote.
+
+You're then calling a `_userCanVoteOnLink` method (that's not yet implemented) to determine whether the user had already voted on that link before. If that's the case, the function will return `false` and the corresponding message will be printed. Otherwise, you're calling the `CreateUserMutation` passing the IDs of the `User` and the `Link`.
+
+But how can you actually implement the `_userCanVoteOnLink` method? Here is what it looks like:
+
+<Instruction>
+
+Still in `Link.js`, paste the following method into the scope of the `Link` component:
+
+```js(path=".../hackernews-react-relay/src/components/Link.js")
+_userCanVoteOnLink = async (userId, linkId) => {
+  const checkVoteQueryText = `
+  query CheckVoteQuery($userId: ID!, $linkId: ID!) {
+    viewer {
+      allVotes(filter: {
+        user: { id: $userId },
+        link: { id: $linkId }
+      }) {
+        edges {
+          node {
+            id
+          }
+        }
+      }
     }
-  })
+  }`
+  const checkVoteQuery = { text: checkVoteQueryText }
+
+  const result = await this.props.relay.environment._network.fetch(checkVoteQuery, {userId, linkId})
+  return result.data.viewer.allVotes.edges.length === 0
 }
 ```
 
-Notice that in the first part of the method, you're checking whether the current user already voted for that link. If that's the case, you return early from the method and not actually execute the mutation.
+</Instruction>
 
-You can now go and test the implementation! Run `yarn start` and click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page you'll see the added votes. 
+That's new - what is going on? Basically what's happening is that you're sending a single query directly to the server without using the `QueryRenderer` abstraction. You can do so by simply writing the query in a string (which you store in `checkVoteQueryText`). You're then constructing an object that represents the query (`checkVoteQuery`) and finally use the `fetch` function that's exposed by the `Network` inside the Relay `Environment` which you can access through the `relay` prop that every component that's wrapped with `createFragmentContainer` has access to. Phew!
 
-There still is a flaw in the app though. Since the `votes` on a `Link` don't get updated right away, a `User` currently can submit an indefinite number of votes until the page is refreshed. Only then the protection mechanism will apply and instead of an upvote, the click on the voting button will simply result in the  following logging statement in the console: _User (cj42qfzwnugfo01955uasit8l) already voted for this link._
+The query that you send filters all the votes in the database for a vote that has been casted by the user with `userId` for the link with `linkId`. If such a vote is found, it means the user must not vote again on that link - otherwise it's ok.
 
-But at least you know that the mutation is working. In the next section, you'll fix the issue and make sure that the cache gets updated directly after each mutation!
+Finally you need to import the `CreateVoteMutation` and run the Relay Compiler again.
 
-### Updating the Cache
+<Instruction>
 
-One cool thing about Apollo is that you can manually control the contents of the cache. This is really handy, especially after a mutation was performed, since this allows to determine precisely how you want the cache to be updated. Here, you'll use it to make sure the UI displays the correct number of votes right after the `createVote` mutation was performed.
+Again in `Link.js`, add the following import to the top of the file:
 
-You can implement this functionality by using Apollo's [imperative store API](https://dev-blog.apollodata.com/apollo-clients-new-imperative-store-api-6cb69318a1e3).
-
-Open `Link` and update the call to `createVoteMutation` inside the `_voteForLink` method as follows:
-
-```js
-const linkId = this.props.link.id
-await this.props.createVoteMutation({
-  variables: {
-    userId,
-    linkId
-  },
-  update: (store, { data: { createVote } }) => {
-    this.props.updateStoreAfterVote(store, createVote, linkId)
-  }
-})
+```js(path=".../hackernews-react-relay/src/components/Link.js")
+import CreateVoteMutation from '../mutations/CreateVoteMutation'
 ```
 
-The `update` function that we're adding as an argument to the mutation call will be called when the server returns the response. It receives the payload of the mutation (`data`) and the current cache (`store`) as arguments. You can then use this input to determine a new state of the cache. 
+</Instruction>
 
-Notice that we're already _desctructuring_ the server response and retrieving the `createVote` field from it. 
 
-All right, so now you know what this `update` function is, but the actual implementation will be done in the parent component of `Link`, which is `LinkList`. 
+<Instruction>
 
-Open `LinkList.js` and add the following method inside the scope of the `LinkList` component:
+Then compile the `graphql` code. In a terminal, call the following command from the root directory of the project:
 
-```js
-_updateCacheAfterVote = (store, createVote, linkId) => {
-  // 1
-  const data = store.readQuery({ query: ALL_LINKS_QUERY })
-  
-  // 2
-  const votedLink = data.allLinks.find(link => link.id === linkId)
-  votedLink.votes = createVote.link.votes
-  
-  // 3
-  store.writeQuery({ query: ALL_LINKS_QUERY, data })
-}
+```bash(path=".../hackernews-react-relay")
+relay-compiler --src ./src --schema ./schema.graphql
 ```
 
-What's going on here?
+</Instruction>
 
-1. You start by reading the current state of the cached data for the `ALL_LINKS_QUERY` from the `store`.
-2. Now you're retrieving the link that the user just voted for from that list. You're also manipulating that link by resetting its `votes` to the `votes` that were just returned by the server.
-3. Finally, you take the modified data and write it back into the store.
+Fantastic! If you run the app you'll be able to vote on the different links that have been posted. 👏
 
-Next you need to pass this function down to the `Link` so it can be called from there. 
+![](http://imgur.com/RUBwP7H.png)
 
-Still in `LinkList.js`, update the way how the `Link` components are rendered in `render`:
-
-```js
-<Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote}  index={index} link={link}/>
-```
-
-That's it! The `updater` function will now be executed and make sure that the store gets updated properly after a mutation was performed. The store update will trigger a rerender of the component and thus update the UI with the correct information!
-
-While we're at it, let's also implement `update` for adding new links!
-
-Open `CreateLink.js` and update the call to `createLinkMutation` inside `_createLink` like so:
-
-```js
-await this.props.createLinkMutation({
-  variables: {
-    description,
-    url,
-    postedById
-  },
-  update: (store, { data: { createLink } }) => {
-    const data = store.readQuery({ query: ALL_LINKS_QUERY })
-    data.allLinks.splice(0,0,createLink)
-    store.writeQuery({
-      query: ALL_LINKS_QUERY,
-      data
-    })
-  }
-})
-```
-
-The `update` function works in a very similar way as before. You first read the current state of the results of the `ALL_LINKS_QUERY`. Then you insert the newest link to the top and write the query results back to the store.
-
-The last think you need to do for this to work is add import the `ALL_LINKS_QUERY` into that file:
-
-```js
-import { ALL_LINKS_QUERY } from './LinkList'
-```
-
-Conversely, it also needs to be exported from where it is defined. 
-
-Open `LinkList.js` and adjust the definition of the `ALL_LINKS_QUERY` by adding the `export` keyword to it:
-
-```js
-export const ALL_LINKS_QUERY = ...
-```
-
-Awesome, now the store also updates with the right information after new links are added. The app is getting into shape. 🤓
+The app is getting into shape!
