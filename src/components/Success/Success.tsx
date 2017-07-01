@@ -1,7 +1,5 @@
 import * as React from 'react'
-import { MarkdownRemark } from '../../types'
-import { QuizState } from '../../reducers/quiz'
-import { connect } from 'react-redux'
+import { MarkdownRemark, Step } from '../../types'
 import Markdown from '../Tutorials/Markdown'
 import Result from './Result'
 import Share from './Share'
@@ -9,9 +7,10 @@ import CheckoutGraphcool from './CheckoutGraphcool'
 
 interface Props {
   post: MarkdownRemark
+  steps: { [key: string]: Step[] }
 }
 
-function Success({ post }: Props & QuizState) {
+export default function Success({ post, steps }: Props) {
   return (
     <div>
       <style jsx={true}>{`
@@ -22,7 +21,7 @@ function Success({ post }: Props & QuizState) {
           @p: .pa60;
         }
       `}</style>
-      <Result />
+      <Result steps={steps} />
       <Share />
       <div className="content">
         <h1>{post.frontmatter.title}</h1>
@@ -32,5 +31,3 @@ function Success({ post }: Props & QuizState) {
     </div>
   )
 }
-
-export default connect(state => state)(Success)

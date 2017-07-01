@@ -35,6 +35,15 @@ export default function Chapter({ post, location, steps }: Props) {
         title: 'Choosing the right tutorial',
       }
     }
+
+    if (stack.length === n - 1) {
+      nextChapter = {
+        description:
+          "We're proud that you finished this tutorial! Let's celebrate your success",
+        link: '/tutorials/success',
+        title: 'You did it!',
+      }
+    }
   }
   const showBonus = location.pathname.startsWith(
     '/tutorials/graphql/basics/3-big-picture',
