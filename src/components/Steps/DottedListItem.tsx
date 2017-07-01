@@ -169,6 +169,6 @@ const DottedListItem = ({
   )
 }
 
-export default connect((state: QuizState, props: Props) => {
-  return state.quizReactions[props.path] || defaultReaction
+export default connect(({ quiz }: { quiz: QuizState }, props: Props) => {
+  return quiz.quizReactions[props.path] || defaultReaction
 })(DottedListItem)

@@ -15,12 +15,13 @@ interface Props {
     mds: RelayConnection<MarkdownRemark>
   }
   location: any
+  history: any
 }
 
 export default (props: Props) => {
   const steps = extractSteps(props.data.mds)
   return (
-    <App>
+    <App history={props.history}>
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} />
       <WhatWeBuild />

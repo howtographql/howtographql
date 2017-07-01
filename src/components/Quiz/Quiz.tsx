@@ -235,7 +235,7 @@ function Answer({ text, onClick, checked, correct }: AnswerProps) {
   )
 }
 
-export default connect(state => state, {
+export default connect(state => state.quiz, {
   addAnswer,
   answerCorrectly,
   setRememberSkipped,

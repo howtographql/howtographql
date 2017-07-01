@@ -1,11 +1,14 @@
 import * as React from 'react'
 import Header from './Header'
+import Overlay from './Overlay'
+import Search from './Search/Search'
 
 interface Props {
   children?: JSX.Element
+  history: any
 }
 
-export default function App({ children }: Props) {
+export default function App({ children, history }: Props) {
   return (
     <div>
       <style jsx={true} global={true}>{`
@@ -96,8 +99,7 @@ export default function App({ children }: Props) {
           border: 0;
           font-size: 100%;
           vertical-align: baseline;
-        }
-        /* HTML5 display-role reset for older browsers */
+        } /* HTML5 display-role reset for older browsers */
         article,
         aside,
         details,
@@ -216,6 +218,8 @@ export default function App({ children }: Props) {
           padding-top: 72px;
         }
       `}</style>
+      <Overlay />
+      <Search history={history} />
       <Header />
       <div className="content">
         {children}

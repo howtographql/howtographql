@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Search from './Search'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import { $v } from 'graphcool-styles'
 import Link from 'gatsby-link'
@@ -57,7 +56,6 @@ export default function Header() {
             <span>How to GraphQL</span>
           </div>
         </Link>
-        <Search />
       </div>
 
       <div className="right">
