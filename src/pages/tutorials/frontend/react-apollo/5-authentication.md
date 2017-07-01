@@ -189,9 +189,9 @@ You're also adding a second button to the right of the `Header` that users can u
 
 <Instruction>
 
-Lastly, you need to import the key definitions from `constants.js` in `LinkList.js`. Add the following statement to the top of file:
+Lastly, you need to import the key definitions from `constants.js` in `Header.js `. Add the following statement to the top of file:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 ```
 
