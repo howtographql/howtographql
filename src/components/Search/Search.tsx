@@ -69,6 +69,7 @@ class Search extends React.Component<Props, State> {
       selectedIndex: 0,
     }
   }
+
   render() {
     return (
       <div className="search">
@@ -80,8 +81,15 @@ class Search extends React.Component<Props, State> {
             z-index: 10010;
             width: calc(100% - 235px - 456px);
           }
+          @media (max-width: 1050px) {
+            div.search {
+              left: 0;
+              width: calc(100%);
+            }
+          }
         `}</style>
         <SearchInput
+          focused={this.state.focused}
           query={this.state.query}
           onChange={this.handleChange}
           onFocus={this.handleFocus}
@@ -117,6 +125,7 @@ class Search extends React.Component<Props, State> {
   }
 
   private handleBlur = e => {
+    this.setState(state => ({ ...state, focused: false }))
     // this.props.setOverlayVisible(false)
   }
 

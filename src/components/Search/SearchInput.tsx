@@ -2,22 +2,25 @@ import * as React from 'react'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import { $v } from 'graphcool-styles'
 import { EventHandler, SyntheticEvent } from 'react'
+import * as cn from 'classnames'
 
 interface Props {
   onChange: any
   onFocus: EventHandler<SyntheticEvent<any>>
   onBlur: EventHandler<SyntheticEvent<any>>
   query: string
+  focused?: boolean
 }
 
 export default class SearchInput extends React.Component<Props, {}> {
   render() {
-    const { onFocus, onBlur, query } = this.props
+    const { onFocus, onBlur, query, focused } = this.props
     return (
-      <div className="search-input">
+      <div className={cn('search-input', { focused })}>
         <style jsx={true}>{`
           .search-input {
             @p: .z2, .relative;
+            transition: transform ease-in-out 0.15s;
           }
           .input {
             @p: .relative, .flex, .itemsCenter;
@@ -41,6 +44,18 @@ export default class SearchInput extends React.Component<Props, {}> {
           .icon {
             @p: .absolute;
             left: 20px;
+          }
+          @media (max-width: 1050px) {
+            .search-input {
+              transform: translateX(calc(100vw - 44px));
+              background: white;
+            }
+            .search-input.focused {
+              transform: translateX(10px);
+            }
+            div.icon {
+              left: 10px;
+            }
           }
         `}</style>
         <div className="input">

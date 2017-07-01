@@ -43,8 +43,8 @@ export default function Header() {
         .element.github {
           @p: .ph25, .flex, .itemsCenter, .pv0;
         }
-        @media (max-width: 500px) {
-          .right {
+        @media (max-width: 1050px) {
+          div.right {
             display: none;
           }
         }
