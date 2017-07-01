@@ -99,7 +99,8 @@ export default function App({ children, history }: Props) {
           border: 0;
           font-size: 100%;
           vertical-align: baseline;
-        } /* HTML5 display-role reset for older browsers */
+        }
+        /* HTML5 display-role reset for older browsers */
         article,
         aside,
         details,
@@ -150,15 +151,14 @@ export default function App({ children, history }: Props) {
           @p: .f20, .darkBlue50, .lhCopy;
         }
         a {
-          @p: .noUnderline;
+          @p: .noUnderline, .lhCopy;
         }
         section {
           @p: .pt96;
         }
         section h2 {
           @p: .tc;
-        }
-        /* Reusable Components */
+        } /* Reusable Components */
         .btn {
           @p: .white, .f25, .fw6, .mt38, .dib, .lhTitle;
           background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
