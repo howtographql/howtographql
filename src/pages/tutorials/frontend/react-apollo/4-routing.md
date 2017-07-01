@@ -74,10 +74,15 @@ Open the correspdonding file `App.js` and update `render` to include the `Header
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
-    <Switch>
-      <Route exact path='/create' component={CreateLink}/>
-      <Route exact path='/' component={LinkList}/>
-    </Switch>
+    <div className='center w85'>
+      <Header />
+      <div className='ph3 pv1 background-gray'>
+        <Switch>
+          <Route exact path='/' component={LinkList}/>
+          <Route exact path='/create' component={CreateLink}/>
+         </Switch>
+      </div>
+    </div>
   )
 }
 ```
