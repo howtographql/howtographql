@@ -1,9 +1,9 @@
 ---
 title: GraphQL Basics
-question: Can you choose the first answer this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
+question: "What are GraphQL subscription used for?"
+answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allows to read and write data"]
 correctAnswer: 0
-description: "In this chapter we discuss the basics."
+description: "In this chapter, you learn about the basic GraphQL concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema"
 ---
 
 ### The Schema Definition Language (SDL)

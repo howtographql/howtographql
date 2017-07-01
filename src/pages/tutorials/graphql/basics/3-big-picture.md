@@ -1,9 +1,9 @@
 ---
 title: Big Picture (Architecture)
-question: Can you choose the first answer this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
-description: "In this chapter we discuss the Big Picture"
+question: What is a resolver function?
+answers: ["A function that a GraphQL client uses to resolve a query on the frontend", "A function that solves all your problems", "It's synonym for serverless function", "A function on a GraphQL server that's responsible to fetch the data for a single field"]
+correctAnswer: 3
+description: "Learn about different architectural use cases of GraphQL and the major components when using it on the backend and the frontend"
 ---
 
 GraphQL has been released only as a *specification*. This means that GraphQL is in fact not more than a [long document](https://facebook.github.io/graphql/) that describes in detail the behaviour of a *GraphQL server.*

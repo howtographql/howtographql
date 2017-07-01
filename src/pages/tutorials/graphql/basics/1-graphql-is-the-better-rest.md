@@ -1,15 +1,14 @@
 ---
 title: "GraphQL is the Better REST"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
-description: "In this chapter we discuss why GraphQL is the better REST"
+question: What is a benefit of the GraphQL schema and strong type system?
+answers: ["They work well with the Javascript type system", "Once the schema is defined, frontend and backend teams can work independently from another", "It solves the n+1 request problem", "Trick question: GraphQL doesn't have a type system"]
+correctAnswer: 1
+description: "Learn why GraphQL is a more efficient and fleible alternative to REST APIs"
 ---
 
 Over the past decade, [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) has become the standard (yet a fuzzy one) for designing web APIs. It offers some great ideas, such as *stateless servers* and *structured access to resources*. However, REST APIs have shown to be too inflexible to keep up with the rapidly changing requirements of the clients that access them.
 
 GraphQL was developed to cope with the need for more flexibility and efficiency! It solves many of the shortcomings and inefficiencies that developers experience when interacting with REST APIs.
-
 
 
 ### No more Over- and Underfetching
