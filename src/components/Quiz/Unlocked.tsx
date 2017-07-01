@@ -28,7 +28,7 @@ export default function Unlocked({ n }: Props) {
         }
       `}</style>
       <span>
-        Well done, you unlocked chapter {n}!
+        Well done, you unlocked the next chapter!
       </span>
       <Confetti height={'400%'} numberOfPieces={300} />
     </div>

@@ -34,14 +34,14 @@ export default function Chapter({ post, location, steps }: Props) {
         link: '/tutorials/choose',
         title: 'Choosing the right tutorial',
       }
-    }
-
-    if (stack.length === n - 1) {
-      nextChapter = {
-        description:
-          "We're proud that you finished this tutorial! Let's celebrate your success",
-        link: '/tutorials/success',
-        title: 'You did it!',
+    } else {
+      if (stack.length - 1 === n) {
+        nextChapter = {
+          description:
+            "We're proud that you finished this tutorial! Let's celebrate your success",
+          link: '/tutorials/success',
+          title: 'You did it!',
+        }
       }
     }
   }
