@@ -11,7 +11,7 @@ export default function Author({ post, group }: Props) {
   const author = getAuthorByGroup(group)
 
   if (!author) {
-    return null
+    return <div />
   }
 
   return (
