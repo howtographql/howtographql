@@ -9,16 +9,7 @@ export default function Header() {
     <div className="header">
       <style jsx={true}>{`
         .header {
-          @p: .flex,
-            .bb,
-            .bDarkBlue10,
-            .justifyBetween,
-            .fixed,
-            .left0,
-            .right0,
-            .top0,
-            .z999,
-            .bgWhite;
+          @p: .flex, .bb, .bDarkBlue10, .justifyBetween, .fixed, .left0, .right0, .top0, .z999, .bgWhite;
           transform: translate3d(0, 0, 0);
         }
         .logo {
@@ -31,26 +22,18 @@ export default function Header() {
         .logo span {
           @p: .flexFixed;
         }
-
         img {
           width: 40px;
           height: 35px;
         }
         .left {
-          @p: .flex, .pa16;
+          @p: .flex, .pa16, .itemsCenter;
         }
         .right {
           @p: .flex;
         }
         .element {
-          @p: .bl,
-            .bDarkBlue10,
-            .f14,
-            .ph25,
-            .darkBlue60,
-            .pointer,
-            .itemsCenter,
-            .flex;
+          @p: .bl, .bDarkBlue10, .f14, .ph25, .darkBlue60, .pointer, .itemsCenter, .flex;
         }
         .element:hover {
           @p: .darkBlue;
@@ -61,13 +44,11 @@ export default function Header() {
         .element.github {
           @p: .ph25, .flex, .itemsCenter, .pv0;
         }
-
         @media (max-width: 500px) {
           .right {
             display: none;
           }
         }
-
       `}</style>
       <div className="left">
         <Link to="/">
