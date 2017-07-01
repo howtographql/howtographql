@@ -132,8 +132,8 @@ export default function Team() {
                 y={90}
               />
               <Bubble
-                avatar={require('../../assets/graphics/contributors/maria.png')}
-                name="Maria Bello"
+                avatar={require('../../assets/graphics/contributors/maira.png')}
+                name="Maira Bello"
                 description="graphql.js"
                 x={0}
                 y={-30}
