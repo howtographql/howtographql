@@ -212,9 +212,15 @@ function Answer({ text, onClick, checked, correct }: AnswerProps) {
         }
         .answer.checked:not(.correct) span {
           @p: .strike, .black20;
+        } /* avoids jumping of content when toggled */
+        .checkmark {
+          width: 24px;
+          height: 24px;
         }
       `}</style>
-      <Checkmark checked={checked && correct} crossed={checked && !correct} />
+      <div className="checkmark">
+        <Checkmark checked={checked && correct} crossed={checked && !correct} />
+      </div>
       <span>{text}</span>
     </div>
   )
