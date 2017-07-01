@@ -70,20 +70,20 @@ export default function Chapter({ post, location, steps }: Props) {
         <div className="content">
           <h1>{post.frontmatter.title}</h1>
           <Markdown html={post.html} />
-          {isTutorialChooser
-            ? <TutorialChooser markdownFiles={steps} />
-            : nextChapter &&
-                <Quiz
-                  question={post.frontmatter.question}
-                  answers={post.frontmatter.answers}
-                  correctAnswerIndex={post.frontmatter.correctAnswer}
-                  nextChapter={nextChapter}
-                  n={n + 1}
-                  showBonus={showBonus}
-                  path={location.pathname}
-                />}
+          {isTutorialChooser && <TutorialChooser markdownFiles={steps} />}
         </div>
       </div>
+      {!isTutorialChooser &&
+        nextChapter &&
+        <Quiz
+          question={post.frontmatter.question}
+          answers={post.frontmatter.answers}
+          correctAnswerIndex={post.frontmatter.correctAnswer}
+          nextChapter={nextChapter}
+          n={n + 1}
+          showBonus={showBonus}
+          path={location.pathname}
+        />}
     </div>
   )
 }

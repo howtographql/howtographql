@@ -11,6 +11,7 @@ export default function Unlocked({ n }: Props) {
       <style jsx={true}>{`
         .well-done {
           @p: .bt,
+            .bb,
             .bBlack10,
             .bw2,
             .pa60,
