@@ -10,7 +10,7 @@ export default function Team() {
         section {
           @p: .pb96;
           background-color: #fafafa;
-          border-top: 2px solid rgba(0,0,0,0.1);
+          border-top: 2px solid rgba(0, 0, 0, 0.1);
         }
         .team {
           @p: .center;
@@ -19,15 +19,10 @@ export default function Team() {
         p {
           @p: .tc, .mt38;
         }
-
-
-
         .bubbles {
           @p: .mt60, .flex, .flexWrap;
         }
-
         @media (max-width: 500px) {
-
           section {
             padding-bottom: 0 !important;
           }
@@ -37,23 +32,19 @@ export default function Team() {
             padding-bottom: 38px;
             margin-bottom: -180px;
           }
-
           div.bubbles {
             min-width: 1020px;
             transform: scale(0.7);
             transform-origin: top left;
           }
-
           h2, p {
             padding-left: 30px;
             padding-right: 30px;
           }
-
           p {
-            text-align: left!important;
+            text-align: left !important;
           }
         }
-
       `}</style>
       <div className="team">
         <h2>For the Community, by the Community</h2>
@@ -106,9 +97,9 @@ export default function Team() {
 
             <div style={{ marginTop: '40px', display: 'flex' }}>
               <Bubble
-                avatar={require('../../assets/graphics/contributors/lee.jpg')}
-                name="Lee Byron"
-                description="Advisor"
+                avatar={require('../../assets/graphics/contributors/sashko.jpg')}
+                name="Sashko"
+                description="GraphQL Server & Tooling"
                 x={0}
                 y={0}
               />
@@ -147,8 +138,8 @@ export default function Team() {
 
             <div style={{ marginTop: '40px', display: 'flex', marginLeft: 60 }}>
               <Company
-                src={require('../../assets/icons/companies/facebook.svg')}
-                color="#2D477E"
+                src={require('graphcool-styles/icons/fill/apolloLogoCentered.svg')}
+                color="#22A699"
               />
               <Bubble
                 avatar={require('../../assets/graphics/contributors/bojan.jpg')}
