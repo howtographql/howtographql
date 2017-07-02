@@ -56,7 +56,7 @@ function StackChooser({
           align-items: center;
         }
         .stacks-item {
-          @p: .tc, .pointer, .mv0, .center;
+          @p: .tc, .pointer, .center, .mt38;
           transition: all 0.1s ease-out;
           user-select: none;
           width: 140px;
@@ -69,7 +69,7 @@ function StackChooser({
           @p: .mt10, .o40, .f14, .fw6;
         }
         .stacks-item.active {
-          @p: .pv16, .mv0;
+          @p: .pv16;
           transform: scale(1.2);
         }
         .stacks-item.active.showSelectedBorder {
@@ -114,6 +114,9 @@ function StackChooser({
           style={{
             overflow: 'visible',
             width: 190,
+          }}
+          slideStyle={{
+            height: 200,
           }}
           index={selectedIndex}
           onChangeIndex={onChangeSelectedIndex}

@@ -17,7 +17,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      selectedIndex: 0,
+      selectedIndex: 3,
     }
   }
 
@@ -28,11 +28,17 @@ export default class TutorialChooser extends React.Component<Props, State> {
     return (
       <div className="tutorial-chooser">
         <style jsx={true}>{`
+          .tutorial-chooser {
+            @p: .mb60;
+          }
           .center-container {
             @p: .flex, .justifyCenter;
           }
           .tutorial-chooser :global(.stacks-item:not(.active)) :global(i) {
             filter: grayscale(100%) !important;
+          }
+          h1 {
+            @p: .pv60, .fw6, .center;
           }
         `}</style>
         <StackChooser
@@ -44,11 +50,13 @@ export default class TutorialChooser extends React.Component<Props, State> {
           showSelectedBorder={true}
         />
         <div className="center-container">
-          <Link to={markdownFiles[selected.key][0].link}>
-            <div className="btn small">
-              Continue with the {selected.title} Tutorial
-            </div>
-          </Link>
+          {selected.comingSoon
+            ? <h1>This track is coming soon - stay tuned!</h1>
+            : <Link to={markdownFiles[selected.key][0].link}>
+                <div className="btn small">
+                  Continue with the {selected.title} Tutorial
+                </div>
+              </Link>}
         </div>
       </div>
     )

@@ -218,7 +218,7 @@ export default function App({ children, history, steps, location }: Props) {
       `}</style>
       <style jsx={true}>{`
         .content {
-          padding-top: 72px;
+          padding-top: 68px;
         }
       `}</style>
       <Overlay />
