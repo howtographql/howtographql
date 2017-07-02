@@ -43,7 +43,7 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt16;
         }
         .markdown img {
-          max-width: 924px;
+          max-width: 840px;
         }
         .fl {
           @p: .flex;
@@ -83,7 +83,8 @@ export default function Markdown({ html }: { html: string }) {
           height: 6px;
           left: 8px;
           top: 10px;
-        } /* Inline Code Snippets */
+        }
+        /* Inline Code Snippets */
         .markdown p code,
         .markdown li code,
         .markdown h2 code,
@@ -135,8 +136,7 @@ export default function Markdown({ html }: { html: string }) {
         }
         .markdown p {
           @p: .mt16;
-        }
-        /* First child never has top padding */
+        } /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,
