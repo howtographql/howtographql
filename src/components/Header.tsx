@@ -16,6 +16,7 @@ export default function Header({ steps, location }: Props) {
           @p: .flex,
             .bb,
             .bDarkBlue10,
+            .bw2,
             .justifyBetween,
             .fixed,
             .left0,
