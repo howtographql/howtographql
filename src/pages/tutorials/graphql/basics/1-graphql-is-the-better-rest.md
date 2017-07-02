@@ -10,12 +10,21 @@ Over the past decade, [REST](https://en.wikipedia.org/wiki/Representational_stat
 
 GraphQL was developed to cope with the need for more flexibility and efficiency! It solves many of the shortcomings and inefficiencies that developers experience when interacting with REST APIs.
 
+To illustrate the major differences between REST and GraphQL when it comes to fetching data from an API, let's consider a simple example scenario: In a blogging application, an app needs to display the titles of the posts of a specific user. The same screen also displays the names of the last 3 followers of that user. How would that situation be solved with REST and GraphQL?
+
+##### Data Fetching with REST
+
+With a REST API, you would typically gather the data by accessing multiple endpoints. In the example, these could be `/users/<id>` endpoint to fetch the initial user data. Secondly, there's likely to be a `/users/<id>/posts` endpoint that returns all the posts for a user. The third endpoint will then be the `/users/<id>/followers` that returns a list of followers per user.
+
+![](http://imgur.com/6zqyHJt.png)
+
+In GraphQL, you'd simply send a single query to the GraphQL server that includes the concrete data requirements. The server then responds with a JSON object where these requirements are fulfilled.
+
+![](http://imgur.com/VXnhObx.png)
 
 ### No more Over- and Underfetching
 
 One of the most common problems with REST is that of over- and underfetching. This happens because the only way for a client to downlad data is by hitting endpoints that return _fixed_ data structures. It's very difficult to design the API in a way that it's able to provide clients with their exact data needs.
-
-![](http://imgur.com/1CiLBA0.png)
 
 > "Think in graphs, not endpoints." [Lessons From 4 Years of GraphQL](http://www.graphql.com/articles/4-years-of-graphql-lee-byron) by [Lee Byron](https://twitter.com/leeb), GraphQL Co-Inventor.
 
