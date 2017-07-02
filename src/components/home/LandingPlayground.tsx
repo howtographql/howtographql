@@ -33,6 +33,11 @@ export default function LandingPlayground() {
           @p: .center, .flex, .justifyCenter;
           max-width: 960px;
         }
+        @media (max-width: 900px) {
+          .landing-playground {
+            @p: .dn;
+          }
+        }
       `}</style>
       <h1>Never tried GraphQL before?</h1>
       <p>Time to run your first query in the Playground…</p>
