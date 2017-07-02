@@ -4,7 +4,7 @@ const data: Stack[] = [
   {
     title: 'React + VulcanJS',
     type: 'frontend',
-    key: 'react-relay',
+    key: 'react-vulcanjs',
     images: [
       require('../assets/icons/react.svg'),
       require('../assets/icons/vulcan.svg'),
@@ -20,7 +20,7 @@ const data: Stack[] = [
   {
     title: 'Vue + Apollo',
     type: 'frontend',
-    key: 'react-relay',
+    key: 'vue-apollo',
     images: [
       require('../assets/icons/vue.svg'),
       require('../assets/icons/apollo.svg'),
@@ -31,6 +31,7 @@ const data: Stack[] = [
         "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
     },
     authorName: 'Nikolas Burk',
+    comingSoon: true,
   },
   {
     title: 'React + Relay',
@@ -122,6 +123,7 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
     color2: '#4e2a8e',
+    comingSoon: true,
   },
   {
     title: 'graphql-ruby',
@@ -137,6 +139,7 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
     color2: '#a5152a',
+    comingSoon: true,
   },
   {
     title: 'graphql-java',
@@ -152,6 +155,7 @@ const data: Stack[] = [
         'Build your own GraphQL server with the Java programming language',
     },
     authorName: 'Nikolas Burk',
+    comingSoon: true,
   },
 ]
 

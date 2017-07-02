@@ -150,6 +150,12 @@ class Chooser extends React.Component<Props, State> {
           .list-item {
             @p: .flex;
           }
+          .coming-soon {
+            @p: .pb96, .pt38;
+          }
+          .coming-soon h1 {
+            @p: .fw6, .tc, .center;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
@@ -175,26 +181,30 @@ class Chooser extends React.Component<Props, State> {
           onChangeSelectedIndex={this.selectStack}
           markdownFiles={mds}
         />
-        <div className="steps-content">
-          <LeftColumn className="steps-description">
-            <h3>{selected.content.title}</h3>
-            <div className="duration">
-              <Duration duration={87} total={true} dark={true} />
-            </div>
-            <p>{selected.content.description}</p>
-          </LeftColumn>
-          <div className="steps-list fade-before">
-            {selected.steps.map((step, index) =>
-              <DottedListItem key={index} path={step.link}>
-                <div className="list-item">
-                  <Link to={step.link}>
-                    {step.title}
-                  </Link>
+        {!selected.comingSoon
+          ? <div className="steps-content">
+              <LeftColumn className="steps-description">
+                <h3>{selected.content.title}</h3>
+                <div className="duration">
+                  <Duration duration={87} total={true} dark={true} />
                 </div>
-              </DottedListItem>,
-            )}
-          </div>
-        </div>
+                <p>{selected.content.description}</p>
+              </LeftColumn>
+              <div className="steps-list fade-before">
+                {selected.steps.map((step, index) =>
+                  <DottedListItem key={index} path={step.link}>
+                    <div className="list-item">
+                      <Link to={step.link}>
+                        {step.title}
+                      </Link>
+                    </div>
+                  </DottedListItem>,
+                )}
+              </div>
+            </div>
+          : <div className="coming-soon">
+              <h1>This track is coming soon - stay tuned!</h1>
+            </div>}
       </div>
     )
   }

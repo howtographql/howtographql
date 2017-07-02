@@ -100,6 +100,13 @@ function StackChooser({
           width: auto;
           height: 50px;
         }
+        .coming-soon {
+          @p: .ttu, .br2, .ba, .dib, .relative, .fw6, .mt10, .o70;
+          color: #459BF2;
+          border-color: #459BF2;
+          font-size: 10px;
+          padding: 3px 7px;
+        }
       `}</style>
       <div className="stacks-content">
         <SwipeableViews
@@ -139,6 +146,8 @@ function StackChooser({
                   />}
               </div>
               <p>{tutorial.title}</p>
+              {tutorial.comingSoon &&
+                <div className="coming-soon">Coming Soon</div>}
               {tutorial.beginnersChoice &&
                 <div className="beginners-choice">Beginners's Choice</div>}
             </div>,
