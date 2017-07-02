@@ -83,10 +83,6 @@ class Search extends React.Component<Props, State> {
             left: 235px;
             z-index: 10010;
             width: calc(100% - 235px - 456px);
-            pointer-events: none;
-          }
-          .search.visible {
-            pointer-events: all;
           }
           @media (max-width: 1050px) {
             div.search {
