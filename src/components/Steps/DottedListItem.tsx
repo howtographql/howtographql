@@ -61,6 +61,9 @@ const DottedListItem = ({
         .dotted-list-item.active::before {
           border-color: $pink !important;
         }
+        .dotted-list-item.light.first::before {
+          margin-top: 0 !important;
+        }
         .dotted-list-item.light.first.small::before {
           margin-top: 0 !important;
         }
@@ -69,6 +72,9 @@ const DottedListItem = ({
         }
         .dotted-list-item.first {
           padding-top: 0 !important;
+        }
+        .dotted-list-item.first.light:not(.small) :global(.list-item) {
+          top: -3px;
         }
         .dotted-list-item.first.light :global(a) {
           @p: .relative;
@@ -85,7 +91,7 @@ const DottedListItem = ({
           @p: .db, .absolute;
           content: '';
           height: 38px;
-          margin-top: -15px;
+          margin-top: -18px;
           left: -2px;
           background-image: linear-gradient(
             to top,
@@ -98,8 +104,7 @@ const DottedListItem = ({
         .dotted-list-item.first.done.small::after {
           height: 30px;
           margin-top: -9px;
-        }
-        /* last rules */
+        } /* last rules */
         .dotted-list-item.last::before {
           margin-top: auto;
           bottom: 0;

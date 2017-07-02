@@ -35,7 +35,7 @@ export default class MobileMenu extends React.Component<Props, State> {
           }
           .hamburger {
             @p: .bgWhite, .pointer;
-            padding: 17px;
+            padding: 16px;
             padding-top: 18px;
           }
           .menu-overlay {

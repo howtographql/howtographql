@@ -28,6 +28,7 @@ export default function Header({ steps, location }: Props) {
         }
         .logo {
           @p: .flex, .ttu, .fw6, .itemsCenter, .pink;
+          z-index: 10102;
           font-size: 17px;
         }
         .logo img {
