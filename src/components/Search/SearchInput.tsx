@@ -10,11 +10,12 @@ interface Props {
   onBlur: EventHandler<SyntheticEvent<any>>
   query: string
   focused?: boolean
+  onClose?: () => void
 }
 
 export default class SearchInput extends React.Component<Props, {}> {
   render() {
-    const { onFocus, onBlur, query, focused } = this.props
+    const { onFocus, onBlur, query, focused, onClose } = this.props
     return (
       <div className={cn('search-input', { focused })}>
         <style jsx={true}>{`
@@ -45,6 +46,9 @@ export default class SearchInput extends React.Component<Props, {}> {
             @p: .absolute;
             left: 20px;
           }
+          .close {
+            @p: .dn;
+          }
           @media (max-width: 1050px) {
             .search-input {
               transform: translateX(calc(100vw - 44px));
@@ -55,6 +59,11 @@ export default class SearchInput extends React.Component<Props, {}> {
             }
             div.icon {
               left: 10px;
+            }
+            div.close {
+              @p: .absolute, .db, .pa16, .z2;
+              right: 9px;
+              top: 2px;
             }
           }
         `}</style>
@@ -77,6 +86,16 @@ export default class SearchInput extends React.Component<Props, {}> {
             onChange={this.handleChange}
             onFocus={onFocus}
             onBlur={onBlur}
+          />
+        </div>
+        <div className="close" onClick={onClose}>
+          <Icon
+            src={require('graphcool-styles/icons/stroke/cross.svg')}
+            width={15}
+            height={15}
+            color={'#B2B2B2'}
+            stroke={true}
+            strokeWidth={4}
           />
         </div>
       </div>

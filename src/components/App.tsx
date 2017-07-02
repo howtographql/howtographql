@@ -2,13 +2,16 @@ import * as React from 'react'
 import Header from './Header'
 import Overlay from './Overlay'
 import Search from './Search/Search'
+import { Step } from '../types'
 
 interface Props {
   children?: JSX.Element
   history: any
+  steps: { [key: string]: Step[] }
+  location: any
 }
 
-export default function App({ children, history }: Props) {
+export default function App({ children, history, steps, location }: Props) {
   return (
     <div>
       <style jsx={true} global={true}>{`
@@ -220,7 +223,7 @@ export default function App({ children, history }: Props) {
       `}</style>
       <Overlay />
       <Search history={history} />
-      <Header />
+      <Header steps={steps} location={location} />
       <div className="content">
         {children}
       </div>

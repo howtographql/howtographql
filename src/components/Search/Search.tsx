@@ -6,11 +6,13 @@ import SearchInput from './SearchInput'
 import { connect } from 'react-redux'
 import { setOverlayVisible } from '../../actions/overlayVisible'
 import Results from './Results'
+import * as cn from 'classnames'
 
 interface Props {
   setOverlayVisible: (value: boolean) => void
   router: any
   history: any
+  visible: boolean
 }
 
 interface State {
@@ -71,8 +73,9 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
+    const { visible } = this.props
     return (
-      <div className="search">
+      <div className={cn('search', { visible })}>
         <style jsx={true}>{`
           .search {
             @p: .fixed;
@@ -80,6 +83,10 @@ class Search extends React.Component<Props, State> {
             left: 235px;
             z-index: 10010;
             width: calc(100% - 235px - 456px);
+            pointer-events: none;
+          }
+          .search.visible {
+            pointer-events: all;
           }
           @media (max-width: 1050px) {
             div.search {
@@ -94,6 +101,7 @@ class Search extends React.Component<Props, State> {
           onChange={this.handleChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          onClose={this.handleClose}
         />
         <Results
           results={results}
@@ -103,6 +111,10 @@ class Search extends React.Component<Props, State> {
         />
       </div>
     )
+  }
+
+  private handleClose = () => {
+    this.props.setOverlayVisible(false)
   }
 
   private handleSelectIndex = selectedIndex => {
@@ -126,7 +138,9 @@ class Search extends React.Component<Props, State> {
 
   private handleBlur = e => {
     this.setState(state => ({ ...state, focused: false }))
-    // this.props.setOverlayVisible(false)
+    if (window && window.innerWidth < 1050) {
+      this.props.setOverlayVisible(false)
+    }
   }
 
   private handleChange = value => {
@@ -167,4 +181,6 @@ const results: Result[] = [
   },
 ]
 
-export default connect(null, { setOverlayVisible })(Search)
+export default connect(state => ({ visible: state.overlayVisible }), {
+  setOverlayVisible,
+})(Search)
