@@ -34,10 +34,10 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
       <div className="container docs-graphiql">
         <style jsx={true}>{`
           .container {
-            @p: .pv38;
+            @p: .pb38;
           }
           .graphiql {
-            @p: .flex, .center, .justifyCenter;
+            @p: .flex, .center, .justifyCenter, .mt25;
             max-width: 840px;
             height: 500px;
           }
@@ -86,11 +86,45 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
         //     error: res.message,
         //   } as State)
         // } else {
-        this.setState(state => ({ ...state, loading: false }))
-        this.props.setEndpoint(
-          `https://api.graph.cool/simple/v1/${res.project.id}`,
-        )
+        const endpoint = `https://api.graph.cool/simple/v1/${res.project.id}`
+
+        this.prePopulateData(endpoint).then(data => {
+          this.setState(state => ({ ...state, loading: false }))
+          this.props.setEndpoint(endpoint)
+        })
       })
+  }
+
+  private prePopulateData = (endpoint: string) => {
+    const mutation = `mutation {
+      a: createPerson(
+        age: 23,
+      name: "Johnny",
+      posts: [
+        {title: "GraphQL is awesome"},
+        {title: "Relay is a powerful GraphQL Client"}
+      ]) {
+        id
+      }
+      b: createPerson(
+        age: 20,
+        name: "Sarah",
+        posts: [
+          {title: "How to get started with React & GraphQL"},
+      ]) {
+        id
+      }
+      c: createPerson(
+          age: 20,
+        name: "Alice") {
+          id
+        }
+    }`
+    return fetch(endpoint, {
+      body: JSON.stringify({ query: mutation }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'post',
+    }).then(res => res.json())
   }
 
   private fetcher = (graphQLParams: GraphQLParams) => {
