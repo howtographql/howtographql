@@ -22,7 +22,6 @@ export default function Header({ steps, location }: Props) {
             .left0,
             .right0,
             .top0,
-            .z999,
             .bgWhite;
           transform: translate3d(0, 0, 0);
         }
