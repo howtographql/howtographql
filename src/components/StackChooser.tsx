@@ -3,6 +3,7 @@ import { Stack, Step } from '../types'
 import withWidth from './home/withWidth'
 import * as cn from 'classnames'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
+import SwipeableViews from 'react-swipeable-views'
 
 interface Props {
   stacks: Stack[]
@@ -23,12 +24,12 @@ function StackChooser({
   fixedWidth = 0,
   showSelectedBorder = false,
 }: Props) {
-  const widthElement = 140 + 20
-  const widthElementSelected = 140 + 80
-
-  const translateWidth = (fixedWidth > 0 ? fixedWidth : width) || 1
-  const translateX =
-    translateWidth / 2 - widthElement * selectedIndex - widthElementSelected / 2
+  // const widthElement = 140 + 20
+  // const widthElementSelected = 140 + 80
+  //
+  // const translateWidth = (fixedWidth > 0 ? fixedWidth : width) || 1
+  // const translateX =
+  //   translateWidth / 2 - widthElement * selectedIndex - widthElementSelected / 2
 
   const tutorials = stacks.map(tutorial => {
     return {
@@ -38,25 +39,28 @@ function StackChooser({
   })
 
   return (
-    <div>
+    <div className="stack-chooser">
       <style jsx={true}>{`
+        .stack-chooser {
+          @p: .overflowHidden;
+        }
         .stacks-content {
-          @p: .overflowHidden, .flex;
+          @p: .flex, .center;
+          max-width: 200px;
           height: 180px;
           align-items: center;
         }
-        .stacks {
+        div :global(.stacks) {
           @p: .flex;
           transition: transform 0.2s ease-out;
           align-items: center;
         }
         .stacks-item {
-          @p: .tc, .pointer, .mv0, .mh10;
+          @p: .tc, .pointer, .mv0, .mh10, .dib;
           transition: all 0.1s ease-out;
           user-select: none;
           width: 140px;
         }
-
         .stacks-item :global(i), .stacks-item img {
           @p: .o30;
           filter: grayscale(100%) brightness(200%);
@@ -98,9 +102,14 @@ function StackChooser({
         }
       `}</style>
       <div className="stacks-content">
-        <div
-          className="stacks"
-          style={{ transform: `translateX(${translateX}px)` }}
+        <SwipeableViews
+          enableMouseEvents={true}
+          style={{
+            overflow: 'visible',
+            width: 190,
+          }}
+          index={selectedIndex}
+          onChangeIndex={onChangeSelectedIndex}
         >
           {tutorials.map((tutorial, index) =>
             <div
@@ -134,7 +143,7 @@ function StackChooser({
                 <div className="beginners-choice">Beginners's Choice</div>}
             </div>,
           )}
-        </div>
+        </SwipeableViews>
       </div>
     </div>
   )

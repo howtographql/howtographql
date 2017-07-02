@@ -64,7 +64,9 @@ export default class Nav extends React.Component<Props, {}> {
         </div>
         <div className="element">
           <span>Frontend</span>
-          <span className="triangle">▾</span>
+          <Link to="/swipe">
+            <span className="triangle">▾</span>
+          </Link>
           <Dropdown>
             <Stack
               name="All Frontend Tutorials"
