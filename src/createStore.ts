@@ -27,7 +27,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-const storage = compose(filter('quiz'))(adapter(localStorage))
+const storage = compose(filter(['quiz', 'playground']))(adapter(localStorage))
 
 const enhancer = compose(persistState(storage, 'howtographql-redux'))
 
