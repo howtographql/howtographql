@@ -249,7 +249,8 @@ class Chooser extends React.Component<Props, State> {
   }
 
   private selectStack = index => {
-    this.setState({ selectedIndex: index })
+    const selectedCategoryIndex = index > 3 ? 1 : 0
+    this.setState({ selectedIndex: index, selectedCategoryIndex })
   }
 
   private handleChangeSelectedCategoryIndex = index => {
