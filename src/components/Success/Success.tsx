@@ -25,7 +25,7 @@ export default function Success({ post, steps }: Props) {
       <Share />
       <div className="content">
         <h1>{post.frontmatter.title}</h1>
-        <Markdown html={post.html} />
+        <Markdown html={post.html} steps={steps} />
       </div>
       <CheckoutGraphcool />
     </div>

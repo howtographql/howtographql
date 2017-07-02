@@ -56,7 +56,7 @@ function StackChooser({
           align-items: center;
         }
         .stacks-item {
-          @p: .tc, .pointer, .center, .mt38;
+          @p: .tc, .pointer, .center, .mt25;
           transition: all 0.1s ease-out;
           user-select: none;
           width: 140px;
@@ -133,7 +133,11 @@ function StackChooser({
               <div className="logos">
                 {tutorial.images[0].endsWith('.png') ||
                   tutorial.images[0].endsWith('.svg')
-                  ? <img src={tutorial.images[0]} alt="" />
+                  ? <img
+                      src={tutorial.images[0]}
+                      alt=""
+                      className={cn({ darken: tutorial.darkenGreyLogo })}
+                    />
                   : <Icon
                       src={tutorial.images[0]}
                       width={50}

@@ -6,6 +6,9 @@ Congratulations! 🎉 You made it through the first part of _How To GraphQL_ and
 
 In the following, you can choose from one of the many hands-on tutorials we created for you. All tutorials will start from scratch and teach you how to build a fully-fledged [Hackernews](https://news.ycombinator.com) clone. Depending on what you want to learn, you can either choose a tutorial from the **frontend** or the **backend** tracks.
 
+<TutorialChooser></TutorialChooser>
+
+
 ### Learn how to use GraphQL on the Frontend
 
 Here's an overview of the frontend tutorials we offer:

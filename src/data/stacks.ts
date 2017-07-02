@@ -166,6 +166,7 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
     comingSoon: true,
+    darkenGreyLogo: true,
   },
 ]
 
