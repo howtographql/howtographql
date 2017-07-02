@@ -126,7 +126,7 @@ function Dropdown({ children }: DropdownProps) {
     <div className="dropdown">
       <style jsx={true}>{`
         .dropdown {
-          @p: .absolute, .o0;
+          @p: .absolute, .o0, .z999;
           transition: opacity ease-in-out 0.1s;
           pointer-events: none;
           right: 0;

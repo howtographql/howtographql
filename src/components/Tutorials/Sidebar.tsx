@@ -48,7 +48,7 @@ export default class Sidebar extends React.Component<Props, {}> {
       <div className="sidebar-container">
         <style jsx={true}>{`
           .sidebar-container {
-            @p: .relative;
+            @p: .relative, .z0;
           }
           .sidebar {
             @p: .flexFixed, .pt38, .bbox, .overflowAuto, .relative, .bl, .bBlack10;
