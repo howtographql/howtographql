@@ -1,12 +1,7 @@
-<svg width="37px" height="37px" viewBox="0 0 37 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="V3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.300000012">
-        <g id="Artboard-Copy-10" transform="translate(-538.000000, -369.000000)">
-            <g id="Group-39" transform="translate(539.000000, 370.000000)">
-                <g id="Group-38">
-                    <circle id="Oval-2" stroke="#000000" stroke-width="2" cx="17.5" cy="17.5" r="17.5"></circle>
-                    <polygon id="Triangle" fill="#000000" points="25.6666667 17.3333333 14 25.3333333 14 9.33333333"></polygon>
-                </g>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 36 37" style="enable-background:new 0 0 36 37;" xml:space="preserve">
+<path id="XMLID_3_" d="M0.02,2.23v32.54c0,1.47,1.52,2.42,2.81,1.76l32.08-16.27c1.43-0.73,1.43-2.8,0-3.53L2.83,0.47
+	C2.54,0.32,2.25,0.25,1.96,0.25C0.94,0.25,0.02,1.09,0.02,2.23z"/>
 </svg>
