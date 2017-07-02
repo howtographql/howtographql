@@ -40,7 +40,10 @@ export interface Stack {
     description: string
   }
   type: StackType
-  color?: string
+  color1?: string
+  color2?: string
+  beginnersChoice?: boolean
+  comingSoon?: boolean
 }
 
 type StackType = 'frontend' | 'backend'

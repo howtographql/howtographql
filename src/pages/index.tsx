@@ -21,7 +21,7 @@ interface Props {
 export default (props: Props) => {
   const steps = extractSteps(props.data.mds)
   return (
-    <App history={props.history}>
+    <App history={props.history} steps={steps} location={location}>
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} />
       <WhatWeBuild />

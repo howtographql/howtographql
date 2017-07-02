@@ -44,7 +44,6 @@ const DottedListItem = ({
       })}
     >
       <style jsx={true}>{`
-        /* ::before rules */
         .dotted-list-item:not(.done)::before {
           @p: .bWhite20, .bgDarkBlue, .absolute, .ba, .bw2, .br100, .z2;
           content: '';
@@ -58,18 +57,7 @@ const DottedListItem = ({
           left: -11px;
           margin-top: -1px;
         }
-        .first .checkmark {
-          margin-top: -5px;
-        }
-        .dotted-list-item.small::before {
-          margin-top: 2px;
-        }
-        .dotted-list-item.light::before {
-          @p: .bgWhite;
-        }
-        div.dotted-list-item.light::before, .dotted-list-item.light {
-          border-color: $gray20;
-        }
+        /* first rules */
         .dotted-list-item.light.first:not(.small)::before,
         .dotted-list-item.active::before {
           border-color: $pink !important;
@@ -80,18 +68,26 @@ const DottedListItem = ({
         .dotted-list-item.light.first.small::before {
           margin-top: 14px;
         }
-        /* end ::before rules */
-        .dotted-list-item.last::before {
-          margin-top: auto;
-          bottom: 0;
+        .dotted-list-item.first {
+          padding-top: 0 !important;
+        }
+        .dotted-list-item.first.light :global(a) {
+          @p: .relative;
+          top: -6px;
+        }
+        .dotted-list-item.first.light:not(.small) :global(a) {
+          @p: .pink;
+        }
+        .first .checkmark {
+          margin-top: -5px;
         }
         .dotted-list-item.first.light.highlightFirst::after,
         .dotted-list-item.first.light.done::after {
           @p: .db, .absolute;
           content: '';
-          height: 30px;
+          height: 38px;
+          margin-top: -15px;
           left: -2px;
-          margin-top: -8px;
           background-image: linear-gradient(
             to top,
             rgba(225, 225, 225, 0.0),
@@ -99,35 +95,28 @@ const DottedListItem = ({
           );
           width: 2px;
         }
-        .dotted-list-item:not(.first) .before-glow {
-          @p: .db, .absolute;
+        .dotted-list-item.first.highlightFirst.small::after,
+        .dotted-list-item.first.done.small::after {
           height: 30px;
-          left: -2px;
-          top: -10px;
-          background-image: linear-gradient(
-            to top,
-            $pink,
-            rgba(225, 225, 225, 0.0)
-          );
-          width: 2px;
+          margin-top: -9px;
         }
-        .dotted-list-item:not(.first) .after-glow {
-          @p: .db, .absolute;
-          height: 30px;
-          left: -2px;
-          top: 22px;
-          background-image: linear-gradient(
-            to top,
-            rgba(225, 225, 225, 0.0),
-            $pink
-          );
-          width: 2px;
-        }
-        .dotted-list-item.first {
-          padding-top: 0 !important;
+        /* last rules */
+        .dotted-list-item.last::before {
+          margin-top: auto;
+          bottom: 0;
         }
         .dotted-list-item.last {
           padding-bottom: 0 !important;
+        }
+        /* middle rules */
+        .dotted-list-item.small::before {
+          margin-top: 2px;
+        }
+        .dotted-list-item.light::before {
+          @p: .bgWhite;
+        }
+        div.dotted-list-item.light::before, .dotted-list-item.light {
+          border-color: $gray20;
         }
         .dotted-list-item {
           @p: .pv16, .f20, .pl38, .relative, .bWhite20;
@@ -142,20 +131,54 @@ const DottedListItem = ({
           padding-top: 60px !important;
         }
         .dotted-list-item.light :global(a) {
-          @p: .black80;
+          @p: .black80, .relative;
+        }
+        .dotted-list-item :global(.list-item) {
+          @p: .relative;
+        }
+        .dotted-list-item.small :global(.list-item) {
+          top: -4px;
+        }
+        .dotted-list-item:not(.small) :global(.list-item) {
+          top: -5px;
         }
         .dotted-list-item :global(a) {
           @p: .white, .noUnderline;
         }
-        .dotted-list-item.first.light :global(a) {
-          @p: .relative;
-          top: -3px;
-        }
-        .dotted-list-item.first.light:not(.small) :global(a) {
-          @p: .pink;
-        }
         .done:not(.active) :global(a) {
           color: #EB7BBC !important;
+        }
+        .dotted-list-item:not(.first) .before-glow {
+          @p: .db, .absolute;
+          height: 42px;
+          top: -23px;
+          left: -2px;
+          background-image: linear-gradient(
+            to top,
+            $pink 20%,
+            rgba(225, 225, 225, 0.0)
+          );
+          width: 2px;
+        }
+        .dotted-list-item:not(.first).small .before-glow {
+          height: 30px;
+          top: -10px;
+        }
+        .dotted-list-item:not(.first) .after-glow {
+          @p: .db, .absolute;
+          height: 30px;
+          left: -2px;
+          top: 33px;
+          background-image: linear-gradient(
+            to top,
+            rgba(225, 225, 225, 0.0),
+            $pink 80%
+          );
+          width: 2px;
+        }
+        .dotted-list-item:not(.first).small .after-glow {
+          height: 38px;
+          top: 22px;
         }
       `}</style>
       {done &&

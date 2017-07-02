@@ -1,7 +1,10 @@
 import * as React from 'react'
 import { Step } from '../../types'
-import Steps from '../Steps/Steps'
-import data from '../../data/stacks'
+import {
+  getBackendTutorials,
+  getFrontendTutorials,
+} from '../../utils/tutorials'
+import Stack from '../Steps/Stack'
 
 interface Props {
   location: any
@@ -9,22 +12,8 @@ interface Props {
 }
 
 export default function ContentOverview({ location, steps }: Props) {
-  const frontendTutorials = data
-    .filter(t => t.type === 'frontend')
-    .map(stack => {
-      const tutorialSteps = steps[stack.key]
-      return {
-        ...tutorialSteps[0],
-        title: stack.title,
-      }
-    })
-  const backendTutorials = data.filter(t => t.type === 'backend').map(stack => {
-    const tutorialSteps = steps[stack.key]
-    return {
-      ...tutorialSteps[0],
-      title: stack.title,
-    }
-  })
+  const frontendTutorials = getFrontendTutorials(steps)
+  const backendTutorials = getBackendTutorials(steps)
   return (
     <section>
       <style jsx={true}>{`
@@ -63,13 +52,11 @@ export default function ContentOverview({ location, steps }: Props) {
           @p: .mt38, .pt10;
           margin-left: 0 !important;
         }
-
         @media (max-width: 500px) {
           section {
             display: none;
           }
         }
-
       `}</style>
       <div className="content-overview">
         <h2>Content Overview</h2>
@@ -129,40 +116,5 @@ export default function ContentOverview({ location, steps }: Props) {
         </div>
       </div>
     </section>
-  )
-}
-
-interface StackProps {
-  name: string
-  steps: Step[]
-  location: any
-  showLines?: boolean
-}
-
-function Stack({ name, steps, location, showLines = true }: StackProps) {
-  return (
-    <div className="stack">
-      <style jsx={true}>{`
-        .stack {
-          max-width: 200px;
-        }
-        .stack + .stack {
-          @p: .ml38;
-        }
-        h3 {
-          @p: .f14, .fw6, .black30, .ttu, .tracked, .nowrap, .relative;
-          left: -4px;
-          margin-bottom: 32px;
-        }
-      `}</style>
-      <h3>{name}</h3>
-      <Steps
-        steps={steps}
-        small={true}
-        location={location}
-        showDuration={false}
-        showLines={showLines}
-      />
-    </div>
   )
 }

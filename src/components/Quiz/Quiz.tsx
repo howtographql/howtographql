@@ -73,11 +73,12 @@ class Quiz extends React.Component<Props & QuizState, {}> {
             @p: .pink, .bgWhite, .ph10, .f14, .fw6, .z2;
           }
           .question {
-            @p: .tc, .fw6, .mt38;
+            @p: .tc, .fw6, .mt38, .lhTitle, .center;
+            max-width: 800px;
             font-size: 30px;
           }
           .answers {
-            @p: .mt60, .ph96, .mh38;
+            @p: .mt60, .mh96;
           }
           .center-container {
             @p: .center;
@@ -211,7 +212,10 @@ function Answer({ text, onClick, checked, correct }: AnswerProps) {
     <div className={cn('answer', { checked, correct })} onClick={onClick}>
       <style jsx={true}>{`
         .answer {
-          @p: .flex, .itemsCenter, .w50, .pointer;
+          @p: .flex, .itemsCenter, .w50, .pointer, .lhCopy;
+        }
+        .answer + .answer {
+          @p: .ml25;
         }
         span {
           @p: .ml16, .black50, .f16;

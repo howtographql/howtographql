@@ -91,6 +91,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               showDuration={false}
               location={location}
               highlightFirst={false}
+              showLast={false}
             />
             <OptionalSteps
               location={location}

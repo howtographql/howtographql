@@ -43,7 +43,7 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt16;
         }
         .markdown img {
-          max-width: 600px;
+          max-width: 840px;
         }
         .fl {
           @p: .flex;
@@ -126,8 +126,7 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt0, .pt6;
         }
         .markdown h2 {
-          margin-top: 76px;
-          /* 2x mt38 due to vertical line */
+          margin-top: 76px; /* 2x mt38 due to vertical line */
         }
         .markdown h3 {
           margin-top: 30px;
@@ -137,8 +136,7 @@ export default function Markdown({ html }: { html: string }) {
         }
         .markdown p {
           @p: .mt16;
-        }
-        /* First child never has top padding */
+        } /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,

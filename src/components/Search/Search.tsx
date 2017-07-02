@@ -6,6 +6,7 @@ import SearchInput from './SearchInput'
 import { connect } from 'react-redux'
 import { setOverlayVisible } from '../../actions/overlayVisible'
 import Results from './Results'
+import * as cn from 'classnames'
 
 interface Props {
   setOverlayVisible: (value: boolean) => void
@@ -72,7 +73,7 @@ class Search extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="search">
+      <div className={cn('search')}>
         <style jsx={true}>{`
           .search {
             @p: .fixed;
@@ -94,6 +95,7 @@ class Search extends React.Component<Props, State> {
           onChange={this.handleChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          onClose={this.handleClose}
         />
         <Results
           results={results}
@@ -103,6 +105,10 @@ class Search extends React.Component<Props, State> {
         />
       </div>
     )
+  }
+
+  private handleClose = () => {
+    this.props.setOverlayVisible(false)
   }
 
   private handleSelectIndex = selectedIndex => {
@@ -126,7 +132,9 @@ class Search extends React.Component<Props, State> {
 
   private handleBlur = e => {
     this.setState(state => ({ ...state, focused: false }))
-    // this.props.setOverlayVisible(false)
+    if (window && window.innerWidth < 1050) {
+      this.props.setOverlayVisible(false)
+    }
   }
 
   private handleChange = value => {
@@ -167,4 +175,6 @@ const results: Result[] = [
   },
 ]
 
-export default connect(null, { setOverlayVisible })(Search)
+export default connect(null, {
+  setOverlayVisible,
+})(Search)

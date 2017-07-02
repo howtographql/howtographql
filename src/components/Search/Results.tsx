@@ -29,8 +29,8 @@ class Results extends React.Component<Props, {}> {
       <div className={cn('search-results', { visible })}>
         <style jsx={true}>{`
           .search-results {
-            @p: .relative, .o0;
-            top: -60px;
+            @p: .absolute, .o0;
+            margin-top: -60px;
             padding-top: 67px;
             padding-bottom: 10px;
             box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .07),
@@ -56,7 +56,7 @@ class Results extends React.Component<Props, {}> {
           .result.selected :global(i) {
             @p: .absolute;
             left: 20px;
-            margin-top: 4px;
+            margin-top: 6px;
           }
           .result :global(a) {
             display: inline-block;

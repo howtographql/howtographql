@@ -36,7 +36,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
 
     const visibleSteps = reallyCollapsed ? steps.slice(0, 2) : steps
     const count = visibleSteps.length === 2 ? 2 : visibleSteps.length - 1
-    const n = count * 52
+    const n = count * 52 + 16
 
     const showDuration = typeof this.props.showDuration !== 'undefined'
       ? this.props.showDuration

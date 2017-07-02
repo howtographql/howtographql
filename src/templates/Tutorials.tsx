@@ -32,7 +32,7 @@ class Tutorials extends React.Component<Props, null> {
     const steps = extractSteps(this.props.data.mds)
 
     return (
-      <App history={this.props.history}>
+      <App history={this.props.history} steps={steps} location={location}>
         <div className="tutorials">
           <style jsx={true}>{`
             .tutorials {
