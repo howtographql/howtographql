@@ -56,7 +56,7 @@ class Results extends React.Component<Props, {}> {
           .result.selected :global(i) {
             @p: .absolute;
             left: 20px;
-            margin-top: 4px;
+            margin-top: 6px;
           }
           .result :global(a) {
             display: inline-block;

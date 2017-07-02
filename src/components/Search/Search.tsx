@@ -12,7 +12,6 @@ interface Props {
   setOverlayVisible: (value: boolean) => void
   router: any
   history: any
-  visible: boolean
 }
 
 interface State {
@@ -73,9 +72,8 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
-    const { visible } = this.props
     return (
-      <div className={cn('search', { visible })}>
+      <div className={cn('search')}>
         <style jsx={true}>{`
           .search {
             @p: .fixed;
@@ -177,6 +175,6 @@ const results: Result[] = [
   },
 ]
 
-export default connect(state => ({ visible: state.overlayVisible }), {
+export default connect(null, {
   setOverlayVisible,
 })(Search)
