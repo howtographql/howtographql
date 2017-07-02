@@ -147,6 +147,9 @@ class Chooser extends React.Component<Props, State> {
               );
             }
           }
+          .list-item {
+            @p: .flex;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
@@ -155,7 +158,12 @@ class Chooser extends React.Component<Props, State> {
           <div className="steps-list">
             <DottedListItem first={true} path={'/tutorials/choose'}>
               <Link to={'/tutorials/choose'}>
-                Choose your favorite technology
+                <div className="list-item">
+                  <span>
+                    Choose your favorite technology
+                  </span>
+                  <Duration duration={2} total={false} dark={true} />
+                </div>
               </Link>
             </DottedListItem>
           </div>
