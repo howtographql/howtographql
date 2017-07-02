@@ -59,8 +59,6 @@ class Quiz extends React.Component<Props & QuizState, {}> {
         <style jsx={true}>{`
           .quiz {
             @p: .mt60;
-            margin-left: -38px;
-            margin-right: -38px;
           }
           .quiz-title {
             @p: .relative, .flex, .itemsCenter, .justifyCenter;
