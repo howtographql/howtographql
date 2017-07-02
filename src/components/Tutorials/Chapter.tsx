@@ -59,7 +59,7 @@ export default function Chapter({ post, location, steps }: Props) {
           min-height: calc(100vh - 72px - 220px);
         }
         h1 {
-          @p: .f38;
+          @p: .f38, .fw6, .mb38;
         }
       `}</style>
       {post.frontmatter.videoId &&
