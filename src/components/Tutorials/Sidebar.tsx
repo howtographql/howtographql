@@ -47,21 +47,15 @@ export default class Sidebar extends React.Component<Props, {}> {
     return (
       <div className="sidebar-container">
         <style jsx={true}>{`
+          .sidebar-container {
+            @p: .relative;
+          }
           .sidebar {
-            @p: .flexFixed,
-              .pt38,
-              .bbox,
-              .overflowAuto,
-              .relative,
-              .bl,
-              .bBlack10;
+            @p: .flexFixed, .pt38, .bbox, .overflowAuto, .relative, .bl, .bBlack10;
             background-color: rgb(245, 245, 245);
             padding-left: 21px;
             height: calc(100vh - 72px);
             width: 300px;
-          }
-          .sidebar-container {
-            @p: .relative;
           }
           .sidebar-container::before {
             @p: .absolute, .top0, .right0, .z2;
@@ -80,6 +74,11 @@ export default class Sidebar extends React.Component<Props, {}> {
           }
           .steps-list {
             @p: .pb96;
+          }
+          @media (max-width: 1050px) {
+            .sidebar-container {
+              @p: .dn;
+            }
           }
         `}</style>
         <div className="sidebar" ref={this.setRef}>
