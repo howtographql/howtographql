@@ -5,9 +5,11 @@ import * as adapter from 'redux-localstorage/lib/adapters/localStorage'
 import logger from 'redux-logger'
 import overlayVisibleReducer from './reducers/overlayVisible'
 import filter from 'redux-localstorage-filter'
+import playgroundReducer from './reducers/playground'
 
 const combinedReducers = combineReducers({
   overlayVisible: overlayVisibleReducer,
+  playground: playgroundReducer,
   quiz: quizReducer,
 })
 

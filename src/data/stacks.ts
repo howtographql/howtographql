@@ -123,7 +123,6 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
     color2: '#4e2a8e',
-    comingSoon: true,
   },
   {
     title: 'graphql-ruby',
@@ -139,7 +138,6 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
     color2: '#a5152a',
-    comingSoon: true,
   },
   {
     title: 'graphql-java',
@@ -155,7 +153,6 @@ const data: Stack[] = [
         'Build your own GraphQL server with the Java programming language',
     },
     authorName: 'Nikolas Burk',
-    comingSoon: true,
   },
 ]
 

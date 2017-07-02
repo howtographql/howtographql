@@ -102,8 +102,7 @@ export default function App({ children, history, steps, location }: Props) {
           border: 0;
           font-size: 100%;
           vertical-align: baseline;
-        }
-        /* HTML5 display-role reset for older browsers */
+        } /* HTML5 display-role reset for older browsers */
         article,
         aside,
         details,
@@ -163,7 +162,7 @@ export default function App({ children, history, steps, location }: Props) {
           @p: .tc;
         } /* Reusable Components */
         .btn {
-          @p: .white, .f25, .fw6, .mt38, .dib, .lhTitle;
+          @p: .white, .f25, .fw6, .mt38, .dib, .lhTitle, .pointer;
           background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
           border: solid 2px #e00083;
           padding: 17px 30px 19px;

@@ -12,6 +12,7 @@ GraphQL has its own type system that’s used to define the _schema_ of an API. 
 
 Here is an example how we can use the SDL to define a simple type called `User`:
 
+
 ```graphql(nocopy)
 type Person {
   name: String!
@@ -54,6 +55,8 @@ That means that the client needs to send more *information* to the server to exp
 
 Let’s take a look at an example query that a client could send to a server:
 
+<Playground>
+
 ```graphql(nocopy)
 {
   allPersons {
@@ -61,6 +64,8 @@ Let’s take a look at an example query that a client could send to a server:
   }
 }
 ```
+
+</Playground>
 
 This query would return a list of all users currently stored in the database. Here’s an example response:
 

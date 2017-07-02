@@ -161,7 +161,6 @@ export default class MarkdownGraphiQL extends React.Component<Props, State> {
           onChangeEndpoint={this.props.onChangeEndpoint}
           fetcher={graphQLFetcher}
           query={this.state.query}
-          responses={[{ date: this.state.response }]}
           variables={this.state.variables}
           onEditQuery={this.handleEditQuery}
           showQueryTitle={!playground}

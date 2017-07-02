@@ -1,4 +1,4 @@
-.graphiql-light .graphiql-container {
+.docs-graphiql .graphiql-container {
     color: #141823;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -25,9 +25,10 @@
     margin: 0;
     overflow: visible;
     width: 100%;
+    min-width: unset !important;
 }
 
-.graphiql-light .graphiql-container .editorWrap {
+.docs-graphiql .graphiql-container .editorWrap {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -40,16 +41,16 @@
     flex: 1;
 }
 
-.graphiql-light .graphiql-container .title {
+.docs-graphiql .graphiql-container .title {
     font-size: 18px;
 }
 
-.graphiql-light .graphiql-container .title em {
+.docs-graphiql .graphiql-container .title em {
     font-family: georgia;
     font-size: 19px;
 }
 
-.graphiql-light .graphiql-container .topBarWrap {
+.docs-graphiql .graphiql-container .topBarWrap {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -59,7 +60,7 @@
     flex-direction: row;
 }
 
-.graphiql-light .graphiql-container .topBar {
+.docs-graphiql .graphiql-container .topBar {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -85,11 +86,11 @@
     user-select: none;
 }
 
-.graphiql-light .graphiql-container .toolbar {
+.docs-graphiql .graphiql-container .toolbar {
     overflow-x: auto;
 }
 
-.graphiql-light .graphiql-container .docExplorerShow {
+.docs-graphiql .graphiql-container .docExplorerShow {
     background: -webkit-linear-gradient(#f7f7f7, #e2e2e2);
     background: linear-gradient(#f7f7f7, #e2e2e2);
     border-bottom: 1px solid #d0d0d0;
@@ -104,7 +105,7 @@
     padding: 2px 20px 0 18px;
 }
 
-.graphiql-light .graphiql-container .docExplorerShow:before {
+.docs-graphiql .graphiql-container .docExplorerShow:before {
     border-left: 2px solid #3B5998;
     border-top: 2px solid #3B5998;
     content: '';
@@ -117,7 +118,7 @@
     width: 9px;
 }
 
-.graphiql-light .graphiql-container .editorBar {
+.docs-graphiql .graphiql-container .editorBar {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -130,7 +131,7 @@
     flex: 1;
 }
 
-.graphiql-light .graphiql-container .queryWrap {
+.docs-graphiql .graphiql-container .queryWrap {
     border: none;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -147,7 +148,7 @@
     border-top-left-radius: 3px;
 }
 
-.graphiql-light .graphiql-container .resultWrap {
+.docs-graphiql .graphiql-container .resultWrap {
     border-left: none;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -161,15 +162,17 @@
     flex: 1;
     position: relative;
     border-left: 4px solid rgb(233,233,233);
+    background: #fafafa !important;
+    padding-top: 42px;
 }
 
-.graphiql-light .graphiql-container .docExplorerWrap {
+.docs-graphiql .graphiql-container .docExplorerWrap {
     background: white;
     position: relative;
     z-index: 3;
 }
 
-.graphiql-light .graphiql-container .docExplorerResizer {
+.docs-graphiql .graphiql-container .docExplorerResizer {
     cursor: col-resize;
     height: 100%;
     left: -5px;
@@ -179,38 +182,38 @@
     z-index: 10;
 }
 
-.graphiql-light .graphiql-container .docExplorerHide {
+.docs-graphiql .graphiql-container .docExplorerHide {
     cursor: pointer;
     font-size: 18px;
     margin: -7px -8px -6px 0;
     padding: 18px 16px 15px 12px;
 }
 
-.graphiql-light .graphiql-container .query-editor {
+.docs-graphiql .graphiql-container .query-editor {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
     position: relative;
 }
 
-.graphiql-light .graphiql-container .query-editor .CodeMirror-gutters {
+.docs-graphiql .graphiql-container .query-editor .CodeMirror-gutters {
     border-right: none;
     background-color: transparent;
 }
 
-.graphiql-light .graphiql-container .query-editor .CodeMirror {
+.docs-graphiql .graphiql-container .query-editor .CodeMirror {
     /*padding-top: 117px;*/
     background-color: rgba(0,0,0,.02) !important;
 }
 
 
-.graphiql-light .graphiql-container .query-header {
+.docs-graphiql .graphiql-container .query-header {
     background-color: rgba(0,0,0,.02) !important;
     padding: 0 !important;
     border-top-left-radius: 2px;
 }
 
-.graphiql-light .graphiql-container .variable-editor {
+.docs-graphiql .graphiql-container .variable-editor {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -222,17 +225,17 @@
     position: relative;
 }
 
-.graphiql-light .graphiql-container .variable-editor .CodeMirror {
+.docs-graphiql .graphiql-container .variable-editor .CodeMirror {
     background: rgba(0,0,0,.05) !important;
 }
 
-.graphiql-light .graphiql-container .variable-editor .CodeMirror-gutters {
+.docs-graphiql .graphiql-container .variable-editor .CodeMirror-gutters {
     background: transparent;
     border: none;
 }
 
 
-.graphiql-light .graphiql-container .variable-editor-title, .graphiql-container .editor-title {
+.docs-graphiql .graphiql-container .variable-editor-title, .graphiql-container .editor-title {
     border: none;
     color: rgba(0,0,0,.2);
     text-transform: uppercase;
@@ -246,24 +249,24 @@
     user-select: none;
 }
 
-.graphiql-light .variable-editor {
+.docs-graphiql .variable-editor {
     height: 44px;
 }
 
-.graphiql-light .graphiql-container .variable-editor-title {
+.docs-graphiql .graphiql-container .variable-editor-title {
     padding: 12px 15px 13px;
     line-height: 19px;
     background: rgba(0,0,0,.05);
     color: rgba(0,0,0,.3);
 }
 
-.graphiql-light .variable-editor .cm-variable,
-.graphiql-light .variable-editor .cm-punctuation,
-.graphiql-light .variable-editor .cm-string {
+.docs-graphiql .variable-editor .cm-variable,
+.docs-graphiql .variable-editor .cm-punctuation,
+.docs-graphiql .variable-editor .cm-string {
     color: rgb(28,191,50);
 }
 
-.graphiql-light .graphiql-container .codemirrorWrap {
+.docs-graphiql .graphiql-container .codemirrorWrap {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -271,7 +274,7 @@
     position: relative;
 }
 
-.graphiql-light .graphiql-container .result-window {
+.docs-graphiql .graphiql-container .result-window {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -282,15 +285,15 @@
     background: none !important;
 }
 
-.graphiql-light .resultWrap .intro {
-    display: none;
+.docs-graphiql .resultWrap .intro {
+    color: rgba(0,0,0,.4);
 }
 
 .result-header.subscription:after {
     display: none !important;
 }
 
-.graphiql-light .graphiql-container .footer {
+.docs-graphiql .graphiql-container .footer {
     background: #f6f7f8;
     border-left: 1px solid #e0e0e0;
     border-top: 1px solid #e0e0e0;
@@ -298,7 +301,7 @@
     position: relative;
 }
 
-.graphiql-light .graphiql-container .footer:before {
+.docs-graphiql .graphiql-container .footer:before {
     background: #eeeeee;
     bottom: 0;
     content: " ";
@@ -308,45 +311,48 @@
     width: 12px;
 }
 
-.graphiql-light .graphiql-container .result-window .CodeMirror {
-    background: rgba(0,0,0,.02) !important;
+.docs-graphiql .graphiql-container .result-window .CodeMirror {
+    background: #fafafa;
 }
 
-.graphiql-light .graphiql-container .result-window .CodeMirror-gutters {
+.docs-graphiql .graphiql-container .result-window .CodeMirror-gutters {
     background-color: transparent;
     border-right: none;
     cursor: col-resize;
     top: 4px;
 }
 
-.graphiql-light .resultWrap .execute-button-wrap {
+.docs-graphiql .resultWrap .execute-button-wrap {
     background: #fafafa;
-    height: 45px;
-    left: -50px;
+    height: 60px;
+    left: -60px !important;
     top: 0px;
-    padding-top: 4px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
-.graphiql-light .resultWrap .graphcool-execute-button {
+.docs-graphiql .resultWrap .graphcool-execute-button {
     border: none;
     width: 41px;
     height: 41px;
-    background-color: rgba(28,191,50,.3);
+    top: auto !important;
+    left: auto !important;
+    background-color: #B5EAC0;
 }
 
-.graphiql-light .resultWrap .graphcool-execute-button svg {
-    fill: rgb(39,174,96);
+.docs-graphiql .resultWrap .graphcool-execute-button svg {
+    fill: rgb(39,174,96) !important;
     width: 32px;
     height: 32px;
     margin-top: 1px;
 }
 
-.graphiql-light .docs-button {
+.docs-graphiql .docs-button {
     top: 25px !important;
     box-shadow: -1px -3px 5px rgba(0,0,0,.05);
 }
 
-.graphiql-light .docs-button.inactive {
+.docs-graphiql .docs-button.inactive {
     z-index: 2 !important;
     left: -42px;
     background: white;
@@ -354,24 +360,27 @@
     box-shadow: -1px 0 3px rgba(0,0,0,.15);
 }
 
-.graphiql-light .result-header {
+.docs-graphiql .result-header {
     padding: 0 !important;
     padding-left: 16px !important;
-    background-color: rgba(0,0,0,.02) !important;
+    background-color: #fafafa !important;
     border-top-right-radius: 2px;
 }
 
-.graphiql-light .result-header .editor-title {
+.docs-graphiql .result-header .editor-title {
     margin-left: 3px;
+}
+.docs-graphiql .editor-title {
+    background: none !important;
 }
 
 .graphiql-container .result-window .CodeMirror-foldgutter,
 .graphiql-container .result-window .CodeMirror-foldgutter-open:after,
-.graphiql-light .graphiql-container .result-window .CodeMirror-foldgutter-folded:after {
+.docs-graphiql .graphiql-container .result-window .CodeMirror-foldgutter-folded:after {
     padding-left: 3px;
 }
 
-.graphiql-light .graphiql-container .toolbar-button {
+.docs-graphiql .graphiql-container .toolbar-button {
     background: #fdfdfd;
     background: -webkit-linear-gradient(#fbfbfb, #f8f8f8);
     background: linear-gradient(#fbfbfb, #f8f8f8);
@@ -388,7 +397,7 @@
     text-decoration: none;
 }
 
-.graphiql-light .graphiql-container .toolbar-button:active {
+.docs-graphiql .graphiql-container .toolbar-button:active {
     background: -webkit-linear-gradient(#ececec, #d8d8d8);
     background: linear-gradient(#ececec, #d8d8d8);
     border-color: #cacaca #c9c9c9 #b0b0b0;
@@ -398,17 +407,17 @@
             inset 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 
-.graphiql-light .graphiql-container .toolbar-button.error {
+.docs-graphiql .graphiql-container .toolbar-button.error {
     background: -webkit-linear-gradient(#fdf3f3, #e6d6d7);
     background: linear-gradient(#fdf3f3, #e6d6d7);
     color: #b00;
 }
 
-.graphiql-light .graphiql-container .execute-button-wrap {
+.docs-graphiql .graphiql-container .execute-button-wrap {
     margin: 0 14px 0 28px;
 }
 
-.graphiql-light .graphiql-container .execute-button {
+.docs-graphiql .graphiql-container .execute-button {
     background: -webkit-linear-gradient(#fdfdfd, #d2d3d6);
     background: linear-gradient(#fdfdfd, #d2d3d6);
     border-radius: 17px;
@@ -422,11 +431,11 @@
     width: 34px;
 }
 
-.graphiql-light .graphiql-container .execute-button svg {
+.docs-graphiql .graphiql-container .execute-button svg {
     pointer-events: none;
 }
 
-.graphiql-light .graphiql-container .execute-button:active {
+.docs-graphiql .graphiql-container .execute-button:active {
     background: -webkit-linear-gradient(#e6e6e6, #c0c0c0);
     background: linear-gradient(#e6e6e6, #c0c0c0);
     box-shadow:
@@ -435,11 +444,11 @@
             inset 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
-.graphiql-light .graphiql-container .execute-button:focus {
+.docs-graphiql .graphiql-container .execute-button:focus {
     outline: 0;
 }
 
-.graphiql-light .graphiql-container .execute-options {
+.docs-graphiql .graphiql-container .execute-options {
     background: #fff;
     box-shadow:
             0 0 0 1px rgba(0,0,0,0.1),
@@ -452,23 +461,23 @@
     z-index: 100;
 }
 
-.graphiql-light .graphiql-container .execute-options li {
+.docs-graphiql .graphiql-container .execute-options li {
     cursor: pointer;
     list-style: none;
     min-width: 100px;
     padding: 2px 30px 4px 10px;
 }
 
-.graphiql-light .graphiql-container .execute-options li.selected {
+.docs-graphiql .graphiql-container .execute-options li.selected {
     background: #e10098;
     color: white;
 }
 
-.graphiql-light .graphiql-container .CodeMirror-scroll {
+.docs-graphiql .graphiql-container .CodeMirror-scroll {
     overflow-scrolling: touch;
 }
 
-.graphiql-light .graphiql-container .CodeMirror {
+.docs-graphiql .graphiql-container .CodeMirror {
     color: rgba(255,255,255,.3);
     font-family:
             'Source Code Pro',
@@ -485,11 +494,11 @@
     width: 100%;
 }
 
-.graphiql-light .graphiql-container .CodeMirror-lines {
+.docs-graphiql .graphiql-container .CodeMirror-lines {
     padding: 0;
 }
 
-.graphiql-light .CodeMirror-hint-information .content {
+.docs-graphiql .CodeMirror-hint-information .content {
     box-orient: vertical;
     color: #141823;
     display: -webkit-box;
@@ -504,22 +513,22 @@
     text-overflow: -o-ellipsis-lastline;
 }
 
-.graphiql-light .CodeMirror-hint-information .content p:first-child {
+.docs-graphiql .CodeMirror-hint-information .content p:first-child {
     margin-top: 0;
 }
 
-.graphiql-light .CodeMirror-hint-information .content p:last-child {
+.docs-graphiql .CodeMirror-hint-information .content p:last-child {
     margin-bottom: 0;
 }
 
-.graphiql-light .CodeMirror-hint-information .infoType {
+.docs-graphiql .CodeMirror-hint-information .infoType {
     color: #30a;
     cursor: pointer;
     display: inline;
     margin-right: 0.5em;
 }
 
-.graphiql-light .autoInsertedLeaf.cm-property {
+.docs-graphiql .autoInsertedLeaf.cm-property {
     -webkit-animation-duration: 6s;
     animation-duration: 6s;
     -webkit-animation-name: insertionFade;
@@ -531,30 +540,30 @@
 }
 
 @-webkit-keyframes insertionFade {
-.graphiql-light from, to {
+.docs-graphiql from, to {
     background: rgba(255, 255, 255, 0);
     border-color: rgba(255, 255, 255, 0);
 }
 
-.graphiql-light 15%, 85% {
+.docs-graphiql 15%, 85% {
     background: #fbffc9;
     border-color: #f0f3c0;
 }
 }
 
 @keyframes insertionFade {
-.graphiql-light from, to {
+.docs-graphiql from, to {
     background: rgba(255, 255, 255, 0);
     border-color: rgba(255, 255, 255, 0);
 }
 
-.graphiql-light 15%, 85% {
+.docs-graphiql 15%, 85% {
     background: #fbffc9;
     border-color: #f0f3c0;
 }
 }
 
-.graphiql-light div.CodeMirror-lint-tooltip {
+.docs-graphiql div.CodeMirror-lint-tooltip {
     background-color: white;
     border-radius: 2px;
     border: 0;
@@ -581,13 +590,13 @@
     transition: opacity 0.15s;
 }
 
-.graphiql-light div.CodeMirror-lint-message-error, div.CodeMirror-lint-message-warning {
+.docs-graphiql div.CodeMirror-lint-message-error, div.CodeMirror-lint-message-warning {
     padding-left: 23px;
 }
 
 /* COLORS */
 
-.graphiql-light .graphiql-container .CodeMirror-foldmarker {
+.docs-graphiql .graphiql-container .CodeMirror-foldmarker {
     border-radius: 4px;
     background: #08f;
     background: -webkit-linear-gradient(#43A8FF, #0F83E8);
@@ -604,98 +613,98 @@
     text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
 }
 
-.graphiql-light .graphiql-container div.CodeMirror span.CodeMirror-matchingbracket {
+.docs-graphiql .graphiql-container div.CodeMirror span.CodeMirror-matchingbracket {
     color: rgba(255,255,255,.4);
     text-decoration: underline;
 }
 
-.graphiql-light .graphiql-container div.CodeMirror span.CodeMirror-nonmatchingbracket {
+.docs-graphiql .graphiql-container div.CodeMirror span.CodeMirror-nonmatchingbracket {
     color: rgb(242,92,84);
 }
 
-.graphiql-light .cm-ws {
+.docs-graphiql .cm-ws {
     color: rgba(12,198,65,.5);
 }
 
 /* Comment */
-.graphiql-light .cm-comment {
+.docs-graphiql .cm-comment {
     color: rgba(255,255,255,.3);
 }
 
 /* Punctuation */
-.graphiql-light .cm-punctuation {
+.docs-graphiql .cm-punctuation {
     color: rgba(12,198,65,.5);
 }
 
 /* Keyword */
-.graphiql-light .cm-keyword {
+.docs-graphiql .cm-keyword {
     color: rgb(42,126,211);
 }
 
 /* OperationName, FragmentName */
-.graphiql-light .cm-def {
+.docs-graphiql .cm-def {
     color: rgb(56,189,193);
 }
 
 /* FieldName */
-.graphiql-light .cm-property {
+.docs-graphiql .cm-property {
     color: rgb(95,179,179);
 }
 
 /* FieldAlias */
-.graphiql-light .cm-qualifier {
+.docs-graphiql .cm-qualifier {
     color: #1C92A9;
 }
 
 /* ArgumentName and ObjectFieldName */
-.graphiql-light .cm-attribute {
+.docs-graphiql .cm-attribute {
     color: rgb(252,163,105);
 }
 
 /* Number */
-.graphiql-light .cm-number {
+.docs-graphiql .cm-number {
     color: #2882F9;
 }
 
 /* String */
-.graphiql-light .cm-string {
+.docs-graphiql .cm-string {
     color: #D64292;
 }
 
 /* Boolean */
-.graphiql-light .cm-builtin {
+.docs-graphiql .cm-builtin {
     color: #D47509;
 }
 
 /* EnumValue */
-.graphiql-light .cm-string-2 {
+.docs-graphiql .cm-string-2 {
     color: #0B7FC7;
 }
 
 /* Variable */
-.graphiql-light .cm-variable {
+.docs-graphiql .cm-variable {
     color: rgb(236,95,103);
 }
 
 /* Directive */
-.graphiql-light .cm-meta {
+.docs-graphiql .cm-meta {
     color: #B33086;
 }
 
 /* Type */
-.graphiql-light .cm-atom {
+.docs-graphiql .cm-atom {
     color: rgb(249,198,87);
 }
 
-.graphiql-light .result-window .cm-property,
-.graphiql-light .result-window .cm-def,
-.graphiql-light .result-window .cm-punctuation,
-.graphiql-light .result-window .cm-string {
+.docs-graphiql .result-window .cm-property,
+.docs-graphiql .result-window .cm-def,
+.docs-graphiql .result-window .cm-punctuation,
+.docs-graphiql .result-window .cm-string {
     color: rgb(95,179,179);
 }
 /* BASICS */
 
-.graphiql-light .CodeMirror {
+.docs-graphiql .CodeMirror {
     /* Set height, width, borders, and global font properties here */
     color: black;
     font-family: monospace;
@@ -704,26 +713,26 @@
 
 /* PADDING */
 
-.graphiql-light .CodeMirror-lines {
+.docs-graphiql .CodeMirror-lines {
     padding: 4px 0; /* Vertical padding around content */
 }
-.graphiql-light .CodeMirror pre {
+.docs-graphiql .CodeMirror pre {
     padding: 0 4px; /* Horizontal padding of content */
 }
 
-.graphiql-light .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+.docs-graphiql .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
     background-color: white; /* The little square between H and V scrollbars */
 }
 
 /* GUTTER */
 
-.graphiql-light .CodeMirror-gutters {
+.docs-graphiql .CodeMirror-gutters {
     border-right: 1px solid #ddd;
     background-color: #f7f7f7;
     white-space: nowrap;
 }
-.graphiql-light .CodeMirror-linenumbers {}
-.graphiql-light .CodeMirror-linenumber {
+.docs-graphiql .CodeMirror-linenumbers {}
+.docs-graphiql .CodeMirror-linenumber {
     font-family: Open Sans,sans-serif;
     font-weight: 600;
     font-size: 12px;
@@ -734,105 +743,105 @@
     white-space: nowrap;
 }
 
-.graphiql-light .CodeMirror-guttermarker { color: black; }
-.graphiql-light .CodeMirror-guttermarker-subtle { color: #999; }
+.docs-graphiql .CodeMirror-guttermarker { color: black; }
+.docs-graphiql .CodeMirror-guttermarker-subtle { color: #999; }
 
 /* CURSOR */
 
-.graphiql-light .CodeMirror div.CodeMirror-cursor {
+.docs-graphiql .CodeMirror div.CodeMirror-cursor {
     border-left: 1px solid rgba(0,0,0,.4);
 }
 /* Shown when moving in bi-directional text */
-.graphiql-light .CodeMirror div.CodeMirror-secondarycursor {
+.docs-graphiql .CodeMirror div.CodeMirror-secondarycursor {
     border-left: 1px solid silver;
 }
-.graphiql-light .CodeMirror.cm-fat-cursor div.CodeMirror-cursor {
+.docs-graphiql .CodeMirror.cm-fat-cursor div.CodeMirror-cursor {
     background: #7e7;
     border: 0;
     width: auto;
 }
-.graphiql-light .CodeMirror.cm-fat-cursor div.CodeMirror-cursors {
+.docs-graphiql .CodeMirror.cm-fat-cursor div.CodeMirror-cursors {
     z-index: 1;
 }
 
-.graphiql-light .cm-animate-fat-cursor {
+.docs-graphiql .cm-animate-fat-cursor {
     -webkit-animation: blink 1.06s steps(1) infinite;
     animation: blink 1.06s steps(1) infinite;
     border: 0;
     width: auto;
 }
 @-webkit-keyframes blink {
-.graphiql-light 0% { background: #7e7; }
-.graphiql-light 50% { background: none; }
-.graphiql-light 100% { background: #7e7; }
+.docs-graphiql 0% { background: #7e7; }
+.docs-graphiql 50% { background: none; }
+.docs-graphiql 100% { background: #7e7; }
 }
 @keyframes blink {
-.graphiql-light 0% { background: #7e7; }
-.graphiql-light 50% { background: none; }
-.graphiql-light 100% { background: #7e7; }
+.docs-graphiql 0% { background: #7e7; }
+.docs-graphiql 50% { background: none; }
+.docs-graphiql 100% { background: #7e7; }
 }
 
 /* Can style cursor different in overwrite (non-insert) mode */
-.graphiql-light div.CodeMirror-overwrite div.CodeMirror-cursor {}
+.docs-graphiql div.CodeMirror-overwrite div.CodeMirror-cursor {}
 
-.graphiql-light .cm-tab { display: inline-block; text-decoration: inherit; }
+.docs-graphiql .cm-tab { display: inline-block; text-decoration: inherit; }
 
-.graphiql-light .CodeMirror-ruler {
+.docs-graphiql .CodeMirror-ruler {
     border-left: 1px solid #ccc;
     position: absolute;
 }
 
 /* DEFAULT THEME */
 
-.graphiql-light .cm-s-default .cm-keyword {color: #708;}
-.graphiql-light .cm-s-default .cm-atom {color: #219;}
-.graphiql-light .cm-s-default .cm-number {color: #164;}
-.graphiql-light .cm-s-default .cm-def {color: #00f;}
+.docs-graphiql .cm-s-default .cm-keyword {color: #708;}
+.docs-graphiql .cm-s-default .cm-atom {color: #219;}
+.docs-graphiql .cm-s-default .cm-number {color: #164;}
+.docs-graphiql .cm-s-default .cm-def {color: #00f;}
 .cm-s-default .cm-variable,
 .cm-s-default .cm-punctuation,
 .cm-s-default .cm-property,
-.graphiql-light .cm-s-default .cm-operator {}
-.graphiql-light .cm-s-default .cm-variable-2 {color: #05a;}
-.graphiql-light .cm-s-default .cm-variable-3 {color: #085;}
-.graphiql-light .cm-s-default .cm-comment {color: #a50;}
-.graphiql-light .cm-s-default .cm-string {color: #a11;}
-.graphiql-light .cm-s-default .cm-string-2 {color: #f50;}
-.graphiql-light .cm-s-default .cm-meta {color: #555;}
-.graphiql-light .cm-s-default .cm-qualifier {color: #555;}
-.graphiql-light .cm-s-default .cm-builtin {color: #30a;}
-.graphiql-light .cm-s-default .cm-bracket {color: #997;}
-.graphiql-light .cm-s-default .cm-tag {color: #170;}
-.graphiql-light .cm-s-default .cm-attribute {color: #00c;}
-.graphiql-light .cm-s-default .cm-header {color: blue;}
-.graphiql-light .cm-s-default .cm-quote {color: #090;}
-.graphiql-light .cm-s-default .cm-hr {color: #999;}
-.graphiql-light .cm-s-default .cm-link {color: #00c;}
+.docs-graphiql .cm-s-default .cm-operator {}
+.docs-graphiql .cm-s-default .cm-variable-2 {color: #05a;}
+.docs-graphiql .cm-s-default .cm-variable-3 {color: #085;}
+.docs-graphiql .cm-s-default .cm-comment {color: #a50;}
+.docs-graphiql .cm-s-default .cm-string {color: #a11;}
+.docs-graphiql .cm-s-default .cm-string-2 {color: #f50;}
+.docs-graphiql .cm-s-default .cm-meta {color: #555;}
+.docs-graphiql .cm-s-default .cm-qualifier {color: #555;}
+.docs-graphiql .cm-s-default .cm-builtin {color: #30a;}
+.docs-graphiql .cm-s-default .cm-bracket {color: #997;}
+.docs-graphiql .cm-s-default .cm-tag {color: #170;}
+.docs-graphiql .cm-s-default .cm-attribute {color: #00c;}
+.docs-graphiql .cm-s-default .cm-header {color: blue;}
+.docs-graphiql .cm-s-default .cm-quote {color: #090;}
+.docs-graphiql .cm-s-default .cm-hr {color: #999;}
+.docs-graphiql .cm-s-default .cm-link {color: #00c;}
 
-.graphiql-light .cm-negative {color: #d44;}
-.graphiql-light .cm-positive {color: #292;}
-.graphiql-light .cm-header, .cm-strong {font-weight: bold;}
-.graphiql-light .cm-em {font-style: italic;}
-.graphiql-light .cm-link {text-decoration: underline;}
-.graphiql-light .cm-strikethrough {text-decoration: line-through;}
+.docs-graphiql .cm-negative {color: #d44;}
+.docs-graphiql .cm-positive {color: #292;}
+.docs-graphiql .cm-header, .cm-strong {font-weight: bold;}
+.docs-graphiql .cm-em {font-style: italic;}
+.docs-graphiql .cm-link {text-decoration: underline;}
+.docs-graphiql .cm-strikethrough {text-decoration: line-through;}
 
-.graphiql-light .cm-s-default .cm-error {color: #f00;}
-.graphiql-light .cm-invalidchar {color: #f00;}
+.docs-graphiql .cm-s-default .cm-error {color: #f00;}
+.docs-graphiql .cm-invalidchar {color: #f00;}
 
-.graphiql-light .CodeMirror-composing { border-bottom: 2px solid; }
+.docs-graphiql .CodeMirror-composing { border-bottom: 2px solid; }
 
 /* Default styles for common addons */
 
-.graphiql-light div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0 !important;}
-.graphiql-light div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
-.graphiql-light .CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
-.graphiql-light .CodeMirror-activeline-background {background: #e8f2ff;}
+.docs-graphiql div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0 !important;}
+.docs-graphiql div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
+.docs-graphiql .CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
+.docs-graphiql .CodeMirror-activeline-background {background: #e8f2ff;}
 
 /* STOP */
 
 /* The rest of this file contains styles related to the mechanics of
    the editor. You probably shouldn't touch them. */
 
-.graphiql-light .CodeMirror {
+.docs-graphiql .CodeMirror {
     background: white;
     overflow: hidden;
     position: relative;
@@ -840,7 +849,7 @@
 }
 
 
-.graphiql-light .CodeMirror-scroll {
+.docs-graphiql .CodeMirror-scroll {
     height: 100%;
     /* 30px is the magic margin used to hide the element's real scrollbars */
     /* See overflow: hidden in .CodeMirror */
@@ -850,7 +859,7 @@
     padding-bottom: 30px;
     position: relative;
 }
-.graphiql-light .CodeMirror-sizer {
+.docs-graphiql .CodeMirror-sizer {
     border-right: 30px solid transparent;
     position: relative;
 }
@@ -858,34 +867,34 @@
 /* The fake, visible scrollbars. Used to force redraw during scrolling
    before actual scrolling happens, thus preventing shaking and
    flickering artifacts. */
-.graphiql-light .CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+.docs-graphiql .CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
     display: none;
     position: absolute;
     z-index: 6;
 }
-.graphiql-light .CodeMirror-vscrollbar {
+.docs-graphiql .CodeMirror-vscrollbar {
     overflow-x: hidden;
     overflow-y: scroll;
     right: 0; top: 0;
 }
-.graphiql-light .CodeMirror-hscrollbar {
+.docs-graphiql .CodeMirror-hscrollbar {
     bottom: 0; left: 0;
     overflow-x: scroll;
     overflow-y: hidden;
 }
-.graphiql-light .CodeMirror-scrollbar-filler {
+.docs-graphiql .CodeMirror-scrollbar-filler {
     right: 0; bottom: 0;
 }
-.graphiql-light .CodeMirror-gutter-filler {
+.docs-graphiql .CodeMirror-gutter-filler {
     left: 0; bottom: 0;
 }
 
-.graphiql-light .CodeMirror-gutters {
+.docs-graphiql .CodeMirror-gutters {
     min-height: 100%;
     position: absolute; left: 0; top: 0;
     z-index: 3;
 }
-.graphiql-light .CodeMirror-gutter {
+.docs-graphiql .CodeMirror-gutter {
     display: inline-block;
     height: 100%;
     margin-bottom: -30px;
@@ -895,34 +904,34 @@
     *zoom:1;
     *display:inline;
 }
-.graphiql-light .CodeMirror-gutter-wrapper {
+.docs-graphiql .CodeMirror-gutter-wrapper {
     background: none !important;
     border: none !important;
     position: absolute;
     z-index: 4;
 }
-.graphiql-light .CodeMirror-gutter-background {
+.docs-graphiql .CodeMirror-gutter-background {
     position: absolute;
     top: 0; bottom: 0;
     z-index: 4;
 }
-.graphiql-light .CodeMirror-gutter-elt {
+.docs-graphiql .CodeMirror-gutter-elt {
     cursor: default;
     position: absolute;
     z-index: 4;
 }
-.graphiql-light .CodeMirror-gutter-wrapper {
+.docs-graphiql .CodeMirror-gutter-wrapper {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-.graphiql-light .CodeMirror-lines {
+.docs-graphiql .CodeMirror-lines {
     cursor: text;
     min-height: 1px; /* prevents collapsing before first draw */
 }
-.graphiql-light .CodeMirror pre {
+.docs-graphiql .CodeMirror pre {
     -webkit-tap-highlight-color: transparent;
     /* Reset some styles that the rest of the page might have set */
     background: transparent;
@@ -941,27 +950,27 @@
     word-wrap: normal;
     z-index: 2;
 }
-.graphiql-light .CodeMirror-wrap pre {
+.docs-graphiql .CodeMirror-wrap pre {
     word-wrap: break-word;
     white-space: pre-wrap;
     word-break: normal;
 }
 
-.graphiql-light .CodeMirror-linebackground {
+.docs-graphiql .CodeMirror-linebackground {
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
     z-index: 0;
 }
 
-.graphiql-light .CodeMirror-linewidget {
+.docs-graphiql .CodeMirror-linewidget {
     overflow: auto;
     position: relative;
     z-index: 2;
 }
 
-.graphiql-light .CodeMirror-widget {}
+.docs-graphiql .CodeMirror-widget {}
 
-.graphiql-light .CodeMirror-code {
+.docs-graphiql .CodeMirror-code {
     outline: none;
 }
 
@@ -970,11 +979,11 @@
 .CodeMirror-sizer,
 .CodeMirror-gutter,
 .CodeMirror-gutters,
-.graphiql-light .CodeMirror-linenumber {
+.docs-graphiql .CodeMirror-linenumber {
     box-sizing: content-box;
 }
 
-.graphiql-light .CodeMirror-measure {
+.docs-graphiql .CodeMirror-measure {
     height: 0;
     overflow: hidden;
     position: absolute;
@@ -982,54 +991,54 @@
     width: 100%;
 }
 
-.graphiql-light .CodeMirror-cursor { position: absolute; }
-.graphiql-light .CodeMirror-measure pre { position: static; }
+.docs-graphiql .CodeMirror-cursor { position: absolute; }
+.docs-graphiql .CodeMirror-measure pre { position: static; }
 
-.graphiql-light div.CodeMirror-cursors {
+.docs-graphiql div.CodeMirror-cursors {
     position: relative;
     visibility: hidden;
     z-index: 3;
 }
-.graphiql-light div.CodeMirror-dragcursors {
+.docs-graphiql div.CodeMirror-dragcursors {
     visibility: visible;
 }
 
-.graphiql-light .CodeMirror-focused div.CodeMirror-cursors {
+.docs-graphiql .CodeMirror-focused div.CodeMirror-cursors {
     visibility: visible;
 }
 
-.graphiql-light .CodeMirror-selected { background: #d9d9d9; }
-.graphiql-light .CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
-.graphiql-light .CodeMirror-crosshair { cursor: crosshair; }
-.graphiql-light .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
-.graphiql-light .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
-.graphiql-light .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+.docs-graphiql .CodeMirror-selected { background: #d9d9d9; }
+.docs-graphiql .CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+.docs-graphiql .CodeMirror-crosshair { cursor: crosshair; }
+.docs-graphiql .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+.docs-graphiql .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
+.docs-graphiql .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
 
-.graphiql-light .cm-searching {
+.docs-graphiql .cm-searching {
     background: #ffa;
     background: rgba(255, 255, 0, .4);
 }
 
 /* IE7 hack to prevent it from returning funny offsetTops on the spans */
-.graphiql-light .CodeMirror span { *vertical-align: text-bottom; }
+.docs-graphiql .CodeMirror span { *vertical-align: text-bottom; }
 
 /* Used to force a border model for a node */
-.graphiql-light .cm-force-border { padding-right: .1px; }
+.docs-graphiql .cm-force-border { padding-right: .1px; }
 
-.graphiql-light @media print {
+.docs-graphiql @media print {
     /* Hide the cursor when printing */
-    .graphiql-light .CodeMirror div.CodeMirror-cursors {
+    .docs-graphiql .CodeMirror div.CodeMirror-cursors {
         visibility: hidden;
     }
 }
 
 /* See issue #2901 */
-.graphiql-light .cm-tab-wrap-hack:after { content: ''; }
+.docs-graphiql .cm-tab-wrap-hack:after { content: ''; }
 
 /* Help users use markselection to safely style text background */
-.graphiql-light span.CodeMirror-selectedtext { background: none; }
+.docs-graphiql span.CodeMirror-selectedtext { background: none; }
 
-.graphiql-light .CodeMirror-dialog {
+.docs-graphiql .CodeMirror-dialog {
     background: inherit;
     color: inherit;
     left: 0; right: 0;
@@ -1039,17 +1048,17 @@
     z-index: 15;
 }
 
-.graphiql-light .CodeMirror-dialog-top {
+.docs-graphiql .CodeMirror-dialog-top {
     border-bottom: 1px solid #eee;
     top: 0;
 }
 
-.graphiql-light .CodeMirror-dialog-bottom {
+.docs-graphiql .CodeMirror-dialog-bottom {
     border-top: 1px solid #eee;
     bottom: 0;
 }
 
-.graphiql-light .CodeMirror-dialog input {
+.docs-graphiql .CodeMirror-dialog input {
     background: transparent;
     border: 1px solid #d3d6db;
     color: inherit;
@@ -1058,14 +1067,14 @@
     width: 20em;
 }
 
-.graphiql-light .CodeMirror-dialog button {
+.docs-graphiql .CodeMirror-dialog button {
     font-size: 70%;
 }
-.graphiql-light .graphiql-container .doc-explorer {
+.docs-graphiql .graphiql-container .doc-explorer {
     background: white;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-title-bar {
+.docs-graphiql .graphiql-container .doc-explorer-title-bar {
     cursor: default;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1080,7 +1089,7 @@
     user-select: none;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-title {
+.docs-graphiql .graphiql-container .doc-explorer-title {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -1092,7 +1101,7 @@
     white-space: nowrap;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-back {
+.docs-graphiql .graphiql-container .doc-explorer-back {
     color: #3B5998;
     cursor: pointer;
     margin: -7px 0 -6px -8px;
@@ -1102,11 +1111,11 @@
     white-space: nowrap;
 }
 
-.graphiql-light .doc-explorer-narrow .doc-explorer-back {
+.docs-graphiql .doc-explorer-narrow .doc-explorer-back {
     width: 0;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-back:before {
+.docs-graphiql .graphiql-container .doc-explorer-back:before {
     border-left: 2px solid #3B5998;
     border-top: 2px solid #3B5998;
     content: '';
@@ -1119,11 +1128,11 @@
     width: 9px;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-rhs {
+.docs-graphiql .graphiql-container .doc-explorer-rhs {
     position: relative;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-contents {
+.docs-graphiql .graphiql-container .doc-explorer-contents {
     right: -4px;
     top: -4px;
     bottom: -4px;
@@ -1136,47 +1145,47 @@
     border-top: none;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-contents .header {
+.docs-graphiql .graphiql-container .doc-explorer-contents .header {
     border-top-right-radius: 2px;
 }
 
-.graphiql-light .graphiql-container .doc-type-description {
+.docs-graphiql .graphiql-container .doc-type-description {
     padding: 0 25px 38px 25px;
     background-color: rgba(0,0,0,.02);
     color: rgba(0,0,0,.5);
     font-size: 16px;
 }
 
-.graphiql-light .graphiql-container .show-title .doc-type-description {
+.docs-graphiql .graphiql-container .show-title .doc-type-description {
     padding-top: 20px;
 }
 
 .graphiql-container .doc-type-description p:first-child ,
-.graphiql-light .graphiql-container .doc-type-description blockquote:first-child {
+.docs-graphiql .graphiql-container .doc-type-description blockquote:first-child {
     margin-top: 0;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-contents a {
+.docs-graphiql .graphiql-container .doc-explorer-contents a {
     cursor: pointer;
     text-decoration: none;
 }
 
-.graphiql-light .graphiql-container .doc-explorer-contents a:hover {
+.docs-graphiql .graphiql-container .doc-explorer-contents a:hover {
     text-decoration: underline;
 }
 
-.graphiql-light .graphiql-container .doc-value-description {
+.docs-graphiql .graphiql-container .doc-value-description {
     padding: 4px 0 8px 12px;
 }
 
-.graphiql-light .graphiql-container .doc-category {
+.docs-graphiql .graphiql-container .doc-category {
     margin-top: 0;
     margin-bottom: 20px;
     margin-left: 25px;
     margin-right: 25px;
 }
 
-.graphiql-light .graphiql-container .doc-category-title {
+.docs-graphiql .graphiql-container .doc-category-title {
     border-top: 1px solid #e0e0e0;
     color: rgba(0,0,0,.3);
     cursor: default;
@@ -1194,46 +1203,46 @@
     border-bottom: none;
 }
 
-.graphiql-light .graphiql-container .doc-category-item {
+.docs-graphiql .graphiql-container .doc-category-item {
     margin: 12px 0;
     color: #555;
 }
 
-.graphiql-light .graphiql-container .keyword {
+.docs-graphiql .graphiql-container .keyword {
     color: rgb(242,92,84);
 }
 
-.graphiql-light .graphiql-container .type-name {
+.docs-graphiql .graphiql-container .type-name {
     color: rgb(245,160,0);
 }
 
-.graphiql-light .graphiql-container .field-name {
+.docs-graphiql .graphiql-container .field-name {
     color: #1F61A0;
 }
 
-.graphiql-light .graphiql-container .value-name {
+.docs-graphiql .graphiql-container .value-name {
     color: #0B7FC7;
 }
 
-.graphiql-light .graphiql-container .arg-name {
+.docs-graphiql .graphiql-container .arg-name {
     color: #8B2BB9;
 }
 
-.graphiql-light .graphiql-container .arg:after {
+.docs-graphiql .graphiql-container .arg:after {
     content: ', ';
 }
 
-.graphiql-light .graphiql-container .arg:last-child:after {
+.docs-graphiql .graphiql-container .arg:last-child:after {
     content: '';
 }
 
-.graphiql-light .graphiql-container .doc-alert-text {
+.docs-graphiql .graphiql-container .doc-alert-text {
     color: #F00F00;
     font-family: 'Consolas', 'Inconsolata', 'Droid Sans Mono', 'Monaco', monospace;
     font-size: 13px;
 }
 
-.graphiql-light .graphiql-container .search-box-outer {
+.docs-graphiql .graphiql-container .search-box-outer {
     border: 1px solid #d3d6db;
     box-sizing: border-box;
     display: inline-block;
@@ -1245,7 +1254,7 @@
     width: 100%;
 }
 
-.graphiql-light .graphiql-container .search-box-input {
+.docs-graphiql .graphiql-container .search-box-input {
     border: 0;
     font-size: 12px;
     margin: 0;
@@ -1254,7 +1263,7 @@
     width: 100%;
 }
 
-.graphiql-light .graphiql-container .error-container {
+.docs-graphiql .graphiql-container .error-container {
     font-weight: bold;
     left: 0;
     letter-spacing: 1px;
@@ -1267,32 +1276,32 @@
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);
 }
-.graphiql-light .CodeMirror-foldmarker {
+.docs-graphiql .CodeMirror-foldmarker {
     color: blue;
     cursor: pointer;
     font-family: arial;
     line-height: .3;
     text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
 }
-.graphiql-light .CodeMirror-foldgutter {
+.docs-graphiql .CodeMirror-foldgutter {
     width: .7em;
 }
 .CodeMirror-foldgutter-open,
-.graphiql-light .CodeMirror-foldgutter-folded {
+.docs-graphiql .CodeMirror-foldgutter-folded {
     cursor: pointer;
 }
-.graphiql-light .CodeMirror-foldgutter-open:after {
+.docs-graphiql .CodeMirror-foldgutter-open:after {
     content: "\25BE";
 }
-.graphiql-light .CodeMirror-foldgutter-folded:after {
+.docs-graphiql .CodeMirror-foldgutter-folded:after {
     content: "\25B8";
 }
 /* The lint marker gutter */
-.graphiql-light .CodeMirror-lint-markers {
+.docs-graphiql .CodeMirror-lint-markers {
     width: 16px;
 }
 
-.graphiql-light .CodeMirror-lint-tooltip {
+.docs-graphiql .CodeMirror-lint-tooltip {
     background-color: infobackground;
     border-radius: 4px 4px 4px 4px;
     border: 1px solid black;
@@ -1311,22 +1320,22 @@
     z-index: 100;
 }
 
-.graphiql-light .CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning {
+.docs-graphiql .CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning {
     background-position: left bottom;
     background-repeat: repeat-x;
 }
 
-.graphiql-light .CodeMirror-lint-mark-error {
+.docs-graphiql .CodeMirror-lint-mark-error {
     background-image:
             url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==")
 ;
 }
 
-.graphiql-light .CodeMirror-lint-mark-warning {
+.docs-graphiql .CodeMirror-lint-mark-warning {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJFhQXEbhTg7YAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAMklEQVQI12NkgIIvJ3QXMjAwdDN+OaEbysDA4MPAwNDNwMCwiOHLCd1zX07o6kBVGQEAKBANtobskNMAAAAASUVORK5CYII=");
 }
 
-.graphiql-light .CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning {
+.docs-graphiql .CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning {
     background-position: center center;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -1337,27 +1346,27 @@
     width: 16px;
 }
 
-.graphiql-light .CodeMirror-lint-message-error, .CodeMirror-lint-message-warning {
+.docs-graphiql .CodeMirror-lint-message-error, .CodeMirror-lint-message-warning {
     background-position: top left;
     background-repeat: no-repeat;
     padding-left: 18px;
 }
 
-.graphiql-light .CodeMirror-lint-marker-error, .CodeMirror-lint-message-error {
+.docs-graphiql .CodeMirror-lint-marker-error, .CodeMirror-lint-message-error {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII=");
 }
 
-.graphiql-light .CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning {
+.docs-graphiql .CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII=");
 }
 
-.graphiql-light .CodeMirror-lint-marker-multiple {
+.docs-graphiql .CodeMirror-lint-marker-multiple {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC");
     background-position: right bottom;
     background-repeat: no-repeat;
     width: 100%; height: 100%;
 }
-.graphiql-light .graphiql-container .spinner-container {
+.docs-graphiql .graphiql-container .spinner-container {
     height: 36px;
     left: 50%;
     position: absolute;
@@ -1368,7 +1377,7 @@
     z-index: 10;
 }
 
-.graphiql-light .graphiql-container .spinner {
+.docs-graphiql .graphiql-container .spinner {
     -webkit-animation: rotation .6s infinite linear;
     animation: rotation .6s infinite linear;
     border-bottom: 6px solid rgba(150, 150, 150, .15);
@@ -1384,15 +1393,15 @@
 }
 
 @-webkit-keyframes rotation {
-.graphiql-light from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
-.graphiql-light to { -webkit-transform: rotate(359deg); transform: rotate(359deg); }
+.docs-graphiql from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+.docs-graphiql to { -webkit-transform: rotate(359deg); transform: rotate(359deg); }
 }
 
 @keyframes rotation {
-.graphiql-light from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
-.graphiql-light to { -webkit-transform: rotate(359deg); transform: rotate(359deg); }
+.docs-graphiql from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+.docs-graphiql to { -webkit-transform: rotate(359deg); transform: rotate(359deg); }
 }
-.graphiql-light .CodeMirror-hints {
+.docs-graphiql .CodeMirror-hints {
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
     font-family: 'Consolas', 'Inconsolata', 'Droid Sans Mono', 'Monaco', monospace;
@@ -1408,7 +1417,7 @@
     z-index: 10;
 }
 
-.graphiql-light .CodeMirror-hints-wrapper {
+.docs-graphiql .CodeMirror-hints-wrapper {
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
     margin-left: -6px;
@@ -1416,14 +1425,14 @@
     z-index: 10;
 }
 
-.graphiql-light .CodeMirror-hints-wrapper .CodeMirror-hints {
+.docs-graphiql .CodeMirror-hints-wrapper .CodeMirror-hints {
     box-shadow: none;
     margin-left: 0;
     position: relative;
     z-index: 0;
 }
 
-.graphiql-light .CodeMirror-hint {
+.docs-graphiql .CodeMirror-hint {
     border-top: solid 1px #f7f7f7;
     color: #141823;
     cursor: pointer;
@@ -1434,13 +1443,13 @@
     white-space: pre;
 }
 
-.graphiql-light li.CodeMirror-hint-active {
+.docs-graphiql li.CodeMirror-hint-active {
     background-color: #08f;
     border-top-color: white;
     color: white;
 }
 
-.graphiql-light .CodeMirror-hint-information {
+.docs-graphiql .CodeMirror-hint-information {
     border-top: solid 1px #c0c0c0;
     max-width: 300px;
     padding: 4px 6px;
@@ -1448,14 +1457,14 @@
     z-index: 1;
 }
 
-.graphiql-light .CodeMirror-hint-information:first-child {
+.docs-graphiql .CodeMirror-hint-information:first-child {
     border-bottom: solid 1px #c0c0c0;
     border-top: none;
     margin-bottom: -1px;
 }
 
 
-.graphiql-light .graphiql-button, body .graphiql-light .download-button {
+.docs-graphiql .graphiql-button, body .docs-graphiql .download-button {
     margin-top: 5px;
     background: rgb(242,242,242) !important;
     color: rgb(168,168,168) !important;
