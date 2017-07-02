@@ -34,9 +34,8 @@ export default class Nav extends React.Component<Props, {}> {
           .element:hover {
             @p: .darkBlue;
           }
-          .element:hover :global(.dropdown) {
+          .element:hover:not(:active) :global(.dropdown) {
             @p: .o100;
-
             pointer-events: all;
           }
           .triangle {
