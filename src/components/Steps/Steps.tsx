@@ -12,6 +12,7 @@ interface Props {
   location: any
   highlightFirst?: boolean
   showLines?: boolean
+  showLast?: boolean
 }
 
 export default function Steps({
@@ -21,6 +22,7 @@ export default function Steps({
   location,
   highlightFirst = false,
   showLines = true,
+  showLast = true,
 }: Props) {
   return (
     <div>
@@ -29,7 +31,7 @@ export default function Steps({
           key={step.title}
           light={true}
           first={index === 0}
-          last={index === steps.length - 1}
+          last={showLast ? index === steps.length - 1 : false}
           small={small}
           active={step.link === location.pathname}
           highlightFirst={highlightFirst}

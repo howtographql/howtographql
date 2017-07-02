@@ -90,27 +90,22 @@ class Chooser extends React.Component<Props, State> {
           .duration {
             @p: .mt16, .mr38;
           }
-
           .mobile-line-bend {
             display: none;
           }
-
           @media (max-width: 500px) {
             h3.first-h3 {
               display: none;
             }
-
             .steps-content {
               padding: 0 30px;
             }
-
             .steps-content :global(.left-column) {
               display: none;
             }
             div.steps-list {
               @p: .w100;
             }
-
             .steps-list::after {
               content: '';
               display: block;
@@ -140,13 +135,16 @@ class Chooser extends React.Component<Props, State> {
               left: -24px;
               top: -2px;
             }
-
             .mobile-line-bend:after {
               content: "";
               @p: .absolute, .bottom0, .left0;
               right: -2px;
               height: 48px;
-              background: linear-gradient(to bottom, rgba(23, 42, 58, 0), rgba(23, 42, 58, 1));
+              background: linear-gradient(
+                to bottom,
+                rgba(23, 42, 58, 0),
+                rgba(23, 42, 58, 1)
+              );
             }
           }
         `}</style>
@@ -162,7 +160,7 @@ class Chooser extends React.Component<Props, State> {
             </DottedListItem>
           </div>
         </div>
-        <div className="mobile-line-bend"></div>
+        <div className="mobile-line-bend" />
         <StackChooser
           stacks={data}
           selectedIndex={this.state.selectedIndex}
@@ -180,9 +178,11 @@ class Chooser extends React.Component<Props, State> {
           <div className="steps-list fade-before">
             {selected.steps.map((step, index) =>
               <DottedListItem key={index} path={step.link}>
-                <Link to={step.link}>
-                  {step.title}
-                </Link>
+                <div className="list-item">
+                  <Link to={step.link}>
+                    {step.title}
+                  </Link>
+                </div>
               </DottedListItem>,
             )}
           </div>

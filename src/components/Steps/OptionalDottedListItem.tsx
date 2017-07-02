@@ -26,7 +26,7 @@ const OptionalDottedListItem = ({
           @p: .bBlack20, .bgWhite, .absolute, .ba, .bw2, .br100;
           content: '';
           left: -9px;
-          margin-top: 3px;
+          margin-top: 9px;
           width: 8px;
           height: 8px;
         }
@@ -50,7 +50,7 @@ const OptionalDottedListItem = ({
         div.optional-dotted-list-item.active :global(a) {
           @p: .pink;
         }
-        .optional-dotted-list-item.small::before {
+        div.optional-dotted-list-item.small::before {
           margin-top: 3px;
         }
         .done:not(.active) :global(a) {

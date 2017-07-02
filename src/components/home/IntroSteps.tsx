@@ -42,18 +42,14 @@ export default function IntroSteps({ steps, location }: Props) {
         .duration {
           @p: .mt16, .mr38, .flex, .justifyEnd;
         }
-
         @media (max-width: 500px) {
           .steps-content :global(.steps-description) {
             display: none;
           }
-
           div.steps-list {
             @p: .w100;
           }
-
         }
-
       `}</style>
       <div className="steps-content">
         <LeftColumn className="steps-description" light={true}>
@@ -63,8 +59,8 @@ export default function IntroSteps({ steps, location }: Props) {
               <Duration duration={12} total={true} />
             </div>
             <p>
-             In the first chapter, you’ll learn about 
-             the core concepts of GraphQL. {' '}
+              In the first chapter, you’ll learn about
+              the core concepts of GraphQL. {' '}
             </p>
           </div>
           <div className="advanced-graphql">
@@ -73,7 +69,7 @@ export default function IntroSteps({ steps, location }: Props) {
               <Duration duration={19} total={true} />
             </div>
             <p>
-              Read this chapter to get a broader 
+              Read this chapter to get a broader
               understanding of the GraphQL ecosystem.
             </p>
           </div>
@@ -83,6 +79,7 @@ export default function IntroSteps({ steps, location }: Props) {
             steps={steps.basics}
             location={location}
             highlightFirst={true}
+            showLast={false}
           />
           <OptionalSteps steps={steps.advanced} location={location} />
         </div>
