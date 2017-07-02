@@ -43,7 +43,7 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt16;
         }
         .markdown img {
-          max-width: 600px;
+          max-width: 924px;
         }
         .fl {
           @p: .flex;
@@ -83,8 +83,7 @@ export default function Markdown({ html }: { html: string }) {
           height: 6px;
           left: 8px;
           top: 10px;
-        }
-        /* Inline Code Snippets */
+        } /* Inline Code Snippets */
         .markdown p code,
         .markdown li code,
         .markdown h2 code,
@@ -126,8 +125,7 @@ export default function Markdown({ html }: { html: string }) {
           @p: .mt0, .pt6;
         }
         .markdown h2 {
-          margin-top: 76px;
-          /* 2x mt38 due to vertical line */
+          margin-top: 76px; /* 2x mt38 due to vertical line */
         }
         .markdown h3 {
           margin-top: 30px;
