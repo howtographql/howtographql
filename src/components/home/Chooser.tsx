@@ -95,7 +95,7 @@ class Chooser extends React.Component<Props, State> {
           .duration {
             @p: .mt16, .mr38;
           }
-          .mobile-line-bend {
+          .mobile-line-bend, .mobile-line-bend-bottom {
             display: none;
           }
           @media (max-width: 500px) {
@@ -110,6 +110,10 @@ class Chooser extends React.Component<Props, State> {
             }
             div.steps-list {
               @p: .w100;
+            }
+            .bottom-chooser {
+              @p: .relative;
+              padding-top: 48px;
             }
             .steps-list::after {
               content: '';
@@ -130,6 +134,28 @@ class Chooser extends React.Component<Props, State> {
               height: 2px;
               background: rgba(225, 225, 225, 0.2);
             }
+            .bottom-chooser::after {
+              content: '';
+              top: -2px;
+              left: 30px;
+              position: absolute;
+              display: block;
+              height: 48px;
+              width: 48px;
+              background: none;
+              border-top: 2px solid rgba(225, 225, 225, 0.2);
+              border-left: 2px solid rgba(225, 225, 225, 0.2);
+              border-top-left-radius: 500px;
+            }
+            .bottom-chooser::before {
+              content: '';
+              position: absolute;
+              width: calc(50% - 128px);
+              top: -2px;
+              left: 80px;
+              height: 2px;
+              background: rgba(225, 225, 225, 0.2);
+            }
             .mobile-line-bend {
               @p: .db, .center, .relative;
               height: 48px;
@@ -147,6 +173,27 @@ class Chooser extends React.Component<Props, State> {
               height: 48px;
               background: linear-gradient(
                 to bottom,
+                rgba(23, 42, 58, 0),
+                rgba(23, 42, 58, 1)
+              );
+            }
+            .mobile-line-bend-bottom {
+              @p: .db, .center, .relative;
+              height: 48px;
+              width: 48px;
+              border-right: 2px solid rgba(225, 225, 225, 0.2);
+              border-bottom: 2px solid rgba(225, 225, 225, 0.2);
+              border-bottom-right-radius: 500px;
+              left: -23px;
+              top: 0px;
+            }
+            .mobile-line-bend-bottom:after {
+              content: "";
+              @p: .absolute, .bottom0, .left0;
+              right: -2px;
+              height: 48px;
+              background: linear-gradient(
+                to top,
                 rgba(23, 42, 58, 0),
                 rgba(23, 42, 58, 1)
               );
@@ -220,25 +267,28 @@ class Chooser extends React.Component<Props, State> {
           onChangeSelectedIndex={this.selectStack}
           markdownFiles={mds}
         />
+        <div className="mobile-line-bend-bottom" />
         {!selected.comingSoon
-          ? <div className="steps-content">
-              <LeftColumn className="steps-description">
-                <h3>{selected.content.title}</h3>
-                <div className="duration">
-                  <Duration duration={87} total={true} dark={true} />
+          ? <div className="bottom-chooser">
+              <div className="steps-content">
+                <LeftColumn className="steps-description">
+                  <h3>{selected.content.title}</h3>
+                  <div className="duration">
+                    <Duration duration={87} total={true} dark={true} />
+                  </div>
+                  <p>{selected.content.description}</p>
+                </LeftColumn>
+                <div className="steps-list fade-before">
+                  {selected.steps.map((step, index) =>
+                    <DottedListItem key={index} path={step.link}>
+                      <div className="list-item">
+                        <Link to={step.link}>
+                          {step.title}
+                        </Link>
+                      </div>
+                    </DottedListItem>,
+                  )}
                 </div>
-                <p>{selected.content.description}</p>
-              </LeftColumn>
-              <div className="steps-list fade-before">
-                {selected.steps.map((step, index) =>
-                  <DottedListItem key={index} path={step.link}>
-                    <div className="list-item">
-                      <Link to={step.link}>
-                        {step.title}
-                      </Link>
-                    </div>
-                  </DottedListItem>,
-                )}
               </div>
             </div>
           : <div className="coming-soon">

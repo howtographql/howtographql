@@ -3,8 +3,19 @@ import JsxParser from 'react-jsx-parser'
 import Instruction from './Instruction'
 import Pre from './Pre'
 import Playground from './Playground'
+import { Step } from '../../types'
+import TutorialChooser from './TutorialChooser'
 
-export default function Markdown({ html }: { html: string }) {
+interface Props {
+  steps: { [key: string]: Step[] }
+  html: string
+}
+
+function getTutorialChooser(steps: { [key: string]: Step[] }) {
+  return () => <TutorialChooser markdownFiles={steps} />
+}
+
+export default function Markdown({ steps, html }: Props) {
   return (
     <div className="markdown">
       <style jsx={true}>{`
@@ -20,20 +31,24 @@ export default function Markdown({ html }: { html: string }) {
           @p: .lhTitle, .darkBlue, .fw6;
         }
         .markdown h1 {
-          @p: .f38, .mb25;
+          @p: .f38, .mb25, .fw6;
         }
         .markdown h2 {
-          @p: .f25, .fw7;
+          @p: .f25, .fw6;
         }
         .markdown h3 {
-          @p: .f20, .fw7;
+          @p: .f20, .fw6;
           margin-top: 30px;
         }
         .markdown h2 {
           margin-top: 48px; /* 2x mt38 due to vertical line */
         }
         .markdown h4 {
-          @p: .fw7;
+          @p: .fw6;
+          margin-top: 20px;
+        }
+        .markdown h5 {
+          @p: .fw6;
           margin-top: 20px;
         }
         .markdown p {
@@ -54,7 +69,8 @@ export default function Markdown({ html }: { html: string }) {
         }
         .markdown p a:hover, .markdown li a:hover {
           @p: .underline;
-        } /* Lists */
+        }
+        /* Lists */
         .markdown ul {
           list-style-type: none;
           margin: 0;
@@ -136,7 +152,8 @@ export default function Markdown({ html }: { html: string }) {
         }
         .markdown p {
           @p: .mt16;
-        } /* First child never has top padding */
+        }
+        /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,
@@ -166,6 +183,7 @@ export default function Markdown({ html }: { html: string }) {
           INSTRUCTION: Instruction,
           PLAYGROUND: Playground,
           PRE: Pre,
+          TUTORIALCHOOSER: getTutorialChooser(steps),
         }}
         showWarnings={true}
       />

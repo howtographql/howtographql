@@ -128,7 +128,7 @@ export default class Video extends React.Component<Props, State> {
             className="preview"
           />
           <Icon
-            src={require('graphcool-styles/icons/fill/triangle.svg')}
+            src={require('../../assets/icons/video.svg')}
             width={62}
             height={62}
             color={'white'}

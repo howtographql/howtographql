@@ -19,6 +19,7 @@ export default function Stack({
     <div className="stack">
       <style jsx={true}>{`
         .stack {
+          min-width: 180px;
           max-width: 200px;
         }
         .stack + .stack {

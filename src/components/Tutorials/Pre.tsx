@@ -43,7 +43,7 @@ export default function Pre({
     <div className="pre-container">
       <style jsx={true}>{`
         .pre-container {
-          @p: .mt38, .relative;
+          @p: .mt16, .relative, .mb38;
         }
         pre {
           @p: .bDarkBlue10, .ba, .br2, .pa16, .bgDarkBlue04, .overflowAuto;

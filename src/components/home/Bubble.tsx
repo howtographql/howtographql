@@ -38,7 +38,7 @@ export default function Bubble({
           @p: .tc, .nowrap;
         }
         div {
-          @p: .mt10, .tc;
+          @p: .mt10, .tc, .lhCopy;
         }
       `}</style>
       <Info customTip={<img src={avatar} />}>

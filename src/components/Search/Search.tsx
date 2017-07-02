@@ -12,6 +12,7 @@ interface Props {
   setOverlayVisible: (value: boolean) => void
   router: any
   history: any
+  location: any
 }
 
 interface State {
@@ -96,6 +97,7 @@ class Search extends React.Component<Props, State> {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onClose={this.handleClose}
+          location={this.props.location}
         />
         <Results
           results={results}
@@ -132,7 +134,7 @@ class Search extends React.Component<Props, State> {
 
   private handleBlur = e => {
     this.setState(state => ({ ...state, focused: false }))
-    if (window && window.innerWidth < 1050) {
+    if (window && window.innerWidth < 1050 && this.state.query.length === 0) {
       this.props.setOverlayVisible(false)
     }
   }

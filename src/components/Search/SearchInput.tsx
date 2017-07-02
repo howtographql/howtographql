@@ -11,13 +11,15 @@ interface Props {
   query: string
   focused?: boolean
   onClose?: () => void
+  location: any
 }
 
 export default class SearchInput extends React.Component<Props, {}> {
   render() {
-    const { onFocus, onBlur, query, focused, onClose } = this.props
+    const { onFocus, onBlur, query, focused, onClose, location } = this.props
+    const tutorial = location.pathname !== '/'
     return (
-      <div className={cn('search-input', { focused })}>
+      <div className={cn('search-input', { focused, tutorial })}>
         <style jsx={true}>{`
           .search-input {
             @p: .z2, .relative;
@@ -54,6 +56,9 @@ export default class SearchInput extends React.Component<Props, {}> {
               transform: translateX(calc(100vw - 44px));
               background: white;
             }
+            .search-input.tutorial {
+              transform: translateX(calc(100vw - 74px));
+            }
             .search-input.focused {
               transform: translateX(10px);
             }
@@ -73,8 +78,8 @@ export default class SearchInput extends React.Component<Props, {}> {
               src={require('graphcool-styles/icons/stroke/search.svg')}
               stroke={true}
               strokeWidth={4}
-              width={14}
-              height={14}
+              width={20}
+              height={20}
               color={$v.gray30}
             />
           </div>
@@ -95,7 +100,7 @@ export default class SearchInput extends React.Component<Props, {}> {
             height={15}
             color={'#B2B2B2'}
             stroke={true}
-            strokeWidth={4}
+            strokeWidth={6}
           />
         </div>
       </div>

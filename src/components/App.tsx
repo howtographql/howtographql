@@ -3,6 +3,7 @@ import Header from './Header'
 import Overlay from './Overlay'
 import Search from './Search/Search'
 import { Step } from '../types'
+import MobileMenu from './MobileMenu'
 
 interface Props {
   children?: JSX.Element
@@ -102,7 +103,8 @@ export default function App({ children, history, steps, location }: Props) {
           border: 0;
           font-size: 100%;
           vertical-align: baseline;
-        } /* HTML5 display-role reset for older browsers */
+        }
+        /* HTML5 display-role reset for older browsers */
         article,
         aside,
         details,
@@ -221,7 +223,8 @@ export default function App({ children, history, steps, location }: Props) {
         }
       `}</style>
       <Overlay />
-      <Search history={history} />
+      <Search history={history} location={location} />
+      <MobileMenu steps={steps} location={location} />
       <Header steps={steps} location={location} />
       <div className="content">
         {children}

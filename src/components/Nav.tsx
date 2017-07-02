@@ -3,7 +3,7 @@ import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import Link from 'gatsby-link'
 import { $v } from 'graphcool-styles'
 import { Step } from '../types'
-import { getFrontendTutorials } from '../utils/tutorials'
+import { getBackendTutorials, getFrontendTutorials } from '../utils/tutorials'
 import Stack from './Steps/Stack'
 
 interface Props {
@@ -21,7 +21,7 @@ export default class Nav extends React.Component<Props, {}> {
   render() {
     const { steps, location } = this.props
     const frontendTutorials = getFrontendTutorials(steps)
-    // const backendTutorials = getBackendTutorials(steps)
+    const backendTutorials = getBackendTutorials(steps)
     return (
       <div className="right">
         <style jsx={true}>{`
@@ -29,12 +29,12 @@ export default class Nav extends React.Component<Props, {}> {
             @p: .flex;
           }
           .element {
-            @p: .bl, .bDarkBlue10, .f14, .ph25, .darkBlue60, .pointer, .itemsCenter, .flex, .relative;
+            @p: .f14, .ph25, .darkBlue60, .pointer, .itemsCenter, .flex, .relative;
           }
           .element:hover {
             @p: .darkBlue;
           }
-          .element:hover :global(.dropdown) {
+          .element:hover:not(:active) :global(.dropdown) {
             @p: .o100;
             pointer-events: all;
           }
@@ -49,17 +49,26 @@ export default class Nav extends React.Component<Props, {}> {
               display: none;
             }
           }
+          .graphql {
+            @p: .flex;
+          }
         `}</style>
         <div className="element">
           <span>GraphQL</span>
           <span className="triangle">▾</span>
           <Dropdown>
-            <Stack
-              name="GraphQL Tutorials"
-              steps={frontendTutorials}
-              location={location}
-              showLines={false}
-            />
+            <div className="graphql">
+              <Stack
+                name="GraphQL Theory"
+                steps={steps.basics}
+                location={location}
+              />
+              <Stack
+                name="Advanced GraphQL"
+                steps={steps.advanced}
+                location={location}
+              />
+            </div>
           </Dropdown>
         </div>
         <div className="element">
@@ -85,7 +94,7 @@ export default class Nav extends React.Component<Props, {}> {
           <Dropdown>
             <Stack
               name="All Backend Tutorials"
-              steps={frontendTutorials}
+              steps={backendTutorials}
               location={location}
               showLines={false}
             />
@@ -116,7 +125,7 @@ function Dropdown({ children }: DropdownProps) {
     <div className="dropdown">
       <style jsx={true}>{`
         .dropdown {
-          @p: .absolute, .o0;
+          @p: .absolute, .o0, .z999;
           transition: opacity ease-in-out 0.1s;
           pointer-events: none;
           right: 0;

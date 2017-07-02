@@ -154,6 +154,20 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
   },
+  {
+    title: 'Sangria',
+    type: 'backend',
+    key: 'sangria',
+    images: [require('../assets/icons/sangria.svg')],
+    content: {
+      title: 'Sangria',
+      description:
+        'Build your own GraphQL server with the Scala programming language',
+    },
+    authorName: 'Nikolas Burk',
+    comingSoon: true,
+    darkenGreyLogo: true,
+  },
 ]
 
 export default data

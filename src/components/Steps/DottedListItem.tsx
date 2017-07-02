@@ -56,11 +56,13 @@ const DottedListItem = ({
           @p: .absolute, .z2;
           left: -11px;
           margin-top: -1px;
-        }
-        /* first rules */
+        } /* first rules */
         .dotted-list-item.light.first:not(.small)::before,
         .dotted-list-item.active::before {
           border-color: $pink !important;
+        }
+        .dotted-list-item.light.first::before {
+          margin-top: 0 !important;
         }
         .dotted-list-item.light.first.small::before {
           margin-top: 0 !important;
@@ -70,6 +72,9 @@ const DottedListItem = ({
         }
         .dotted-list-item.first {
           padding-top: 0 !important;
+        }
+        .dotted-list-item.first.light:not(.small) :global(.list-item) {
+          top: -3px;
         }
         .dotted-list-item.first.light :global(a) {
           @p: .relative;
@@ -86,7 +91,7 @@ const DottedListItem = ({
           @p: .db, .absolute;
           content: '';
           height: 38px;
-          margin-top: -15px;
+          margin-top: -18px;
           left: -2px;
           background-image: linear-gradient(
             to top,
@@ -99,16 +104,14 @@ const DottedListItem = ({
         .dotted-list-item.first.done.small::after {
           height: 30px;
           margin-top: -9px;
-        }
-        /* last rules */
+        } /* last rules */
         .dotted-list-item.last::before {
           margin-top: auto;
           bottom: 0;
         }
         .dotted-list-item.last {
           padding-bottom: 0 !important;
-        }
-        /* middle rules */
+        } /* middle rules */
         .dotted-list-item.small::before {
           margin-top: 2px;
         }
@@ -127,6 +130,9 @@ const DottedListItem = ({
         .dotted-list-item.small {
           @p: .f16, .pv12, .pl25;
         }
+        .dotted-list-item.small.last {
+          padding-top: 0;
+        }
         .dotted-list-item:not(.light).first {
           padding-top: 60px !important;
         }
@@ -138,6 +144,12 @@ const DottedListItem = ({
         }
         .dotted-list-item.small :global(.list-item) {
           top: -4px;
+        }
+        .dotted-list-item.small.first :global(.list-item) {
+          top: 0px;
+        }
+        .dotted-list-item.small.last :global(.list-item) {
+          top: 5px;
         }
         .dotted-list-item:not(.small) :global(.list-item) {
           top: -5px;

@@ -29,13 +29,17 @@ export default class TutorialChooser extends React.Component<Props, State> {
       <div className="tutorial-chooser">
         <style jsx={true}>{`
           .tutorial-chooser {
-            @p: .mb60;
+            @p: .mb60, .mt38;
           }
           .center-container {
             @p: .flex, .justifyCenter;
           }
-          .tutorial-chooser :global(.stacks-item:not(.active)) :global(i) {
+          .tutorial-chooser :global(.stacks-item:not(.active)) :global(i),
+          .tutorial-chooser :global(.stacks-item:not(.active)) :global(img) {
             filter: grayscale(100%) !important;
+          }
+          .tutorial-chooser :global(.stacks-item:not(.active)) :global(img.darken) {
+            filter: grayscale(100%) brightness(50%) !important;
           }
           h1 {
             @p: .pv60, .fw6, .center;

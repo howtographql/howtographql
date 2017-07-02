@@ -4,7 +4,6 @@ import Video from './Video'
 import { extractGroup } from '../../utils/graphql'
 import authors from '../../data/authors'
 import Markdown from './Markdown'
-import TutorialChooser from './TutorialChooser'
 import Author from './Author'
 import Quiz from '../Quiz/Quiz'
 
@@ -60,7 +59,7 @@ export default function Chapter({ post, location, steps }: Props) {
           min-height: calc(100vh - 72px - 220px);
         }
         h1 {
-          @p: .f38;
+          @p: .f38, .fw6, .mb38;
         }
       `}</style>
       {post.frontmatter.videoId &&
@@ -69,8 +68,7 @@ export default function Chapter({ post, location, steps }: Props) {
       <div className="left">
         <div className="content">
           <h1>{post.frontmatter.title}</h1>
-          <Markdown html={post.html} />
-          {isTutorialChooser && <TutorialChooser markdownFiles={steps} />}
+          <Markdown html={post.html} steps={steps} />
         </div>
       </div>
       {!isTutorialChooser &&
