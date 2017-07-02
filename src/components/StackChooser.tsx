@@ -26,11 +26,9 @@ function StackChooser({
   const widthElement = 140 + 20
   const widthElementSelected = 140 + 80
 
-  const translateWidth = fixedWidth > 0 ? fixedWidth : width
+  const translateWidth = (fixedWidth > 0 ? fixedWidth : width) || 1
   const translateX =
-    (translateWidth || 1) / 2 -
-    widthElement * selectedIndex -
-    widthElementSelected / 2
+    translateWidth / 2 - widthElement * selectedIndex - widthElementSelected / 2
 
   const tutorials = stacks.map(tutorial => {
     return {
@@ -59,7 +57,7 @@ function StackChooser({
           width: 140px;
         }
 
-        .stacks-item :global(i) {
+        .stacks-item :global(i), .stacks-item img {
           @p: .o30;
           filter: grayscale(100%) brightness(200%);
         }
@@ -75,7 +73,7 @@ function StackChooser({
           border-color: rgb(229, 229, 229);
           border-radius: 6px;
         }
-        .stacks-item.active :global(i) {
+        .stacks-item.active :global(i), .stacks-item.active img {
           @p: .o100;
           filter: grayscale(0%);
         }
@@ -85,8 +83,18 @@ function StackChooser({
         .logos {
           @p: .flex, .justifyCenter;
         }
-        .logos :global(i) + :global(i) {
+        .logos :global(i) + :global(i),
+        .logos :global(i) + :global(img),
+        .logos :global(img) + :global(i) {
           @p: .ml10;
+        }
+        .beginners-choice {
+          @p: .f10, .fw6, .ttu, .tc, .mt10, .tracked;
+          color: #459BF2;
+        }
+        img {
+          width: auto;
+          height: 50px;
         }
       `}</style>
       <div className="stacks-content">
@@ -104,16 +112,26 @@ function StackChooser({
               key={index}
             >
               <div className="logos">
-                <Icon
-                  src={tutorial.images[0]}
-                  width={50}
-                  height={50}
-                  color={tutorial.color || 'black'}
-                />
+                {tutorial.images[0].endsWith('.png') ||
+                  tutorial.images[0].endsWith('.svg')
+                  ? <img src={tutorial.images[0]} alt="" />
+                  : <Icon
+                      src={tutorial.images[0]}
+                      width={50}
+                      height={50}
+                      color={tutorial.color1 || 'black'}
+                    />}
                 {tutorial.images[1] &&
-                  <Icon src={tutorial.images[1]} width={50} height={50} />}
+                  <Icon
+                    src={tutorial.images[1]}
+                    width={50}
+                    height={50}
+                    color={tutorial.color2 || 'black'}
+                  />}
               </div>
               <p>{tutorial.title}</p>
+              {tutorial.beginnersChoice &&
+                <div className="beginners-choice">Beginners's Choice</div>}
             </div>,
           )}
         </div>

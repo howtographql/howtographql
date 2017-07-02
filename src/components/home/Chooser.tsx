@@ -22,7 +22,7 @@ interface State {
 
 class Chooser extends React.Component<Props, State> {
   state = {
-    selectedIndex: 0,
+    selectedIndex: 3,
   }
 
   selectStack = index => {
@@ -81,7 +81,7 @@ class Chooser extends React.Component<Props, State> {
           p {
             @p: .white;
           }
-          h3.first-h3 {
+          div h3.first-h3 {
             @p: .mt60;
           }
           .steps-container :global(.steps-description) p {

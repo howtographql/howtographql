@@ -2,17 +2,33 @@
 import { Stack } from '../types'
 const data: Stack[] = [
   {
-    title: 'React + Apollo',
+    title: 'React + VulcanJS',
     type: 'frontend',
-    key: 'react-apollo',
+    key: 'react-relay',
     images: [
       require('../assets/icons/react.svg'),
+      require('../assets/icons/vulcan.svg'),
+    ],
+    content: {
+      title: 'React + Relay',
+      description:
+        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+    },
+    authorName: 'Nikolas Burk',
+    comingSoon: true,
+  },
+  {
+    title: 'Vue + Apollo',
+    type: 'frontend',
+    key: 'react-relay',
+    images: [
+      require('../assets/icons/vue.svg'),
       require('../assets/icons/apollo.svg'),
     ],
     content: {
-      title: 'React + Apollo',
+      title: 'React + Relay',
       description:
-        'Learn how to get started with React and Apollo Client on the frontend',
+        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
     },
     authorName: 'Nikolas Burk',
   },
@@ -31,6 +47,22 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
   },
+  {
+    title: 'React + Apollo',
+    type: 'frontend',
+    key: 'react-apollo',
+    images: [
+      require('../assets/icons/react.svg'),
+      require('../assets/icons/apollo.svg'),
+    ],
+    content: {
+      title: 'React + Apollo',
+      description:
+        'Learn how to get started with React and Apollo Client on the frontend',
+    },
+    authorName: 'Nikolas Burk',
+    beginnersChoice: true,
+  },
 
   {
     title: 'Graphcool',
@@ -48,7 +80,10 @@ const data: Stack[] = [
     title: 'graphql.js',
     type: 'backend',
     key: 'graphql-js',
-    images: [require('../assets/icons/graphql.svg')],
+    images: [
+      require('../assets/icons/nodejs.svg'),
+      require('../assets/icons/graphql.svg'),
+    ],
     content: {
       title: 'graphql.js',
       description:
@@ -60,45 +95,57 @@ const data: Stack[] = [
     title: 'Graphene',
     type: 'backend',
     key: 'graphene',
-    images: [require('../assets/icons/graphene.svg')],
+    images: [
+      require('../assets/icons/python.svg'),
+      require('../assets/icons/graphene.svg'),
+    ],
     content: {
       title: 'graphene (python)',
       description:
         'Learn how to build your own GraphQL server with Python and the Graphene framework',
     },
     authorName: 'Syrus Akbary',
-    color: '#db594c',
+    color2: '#db594c',
   },
   {
     title: 'graphql-elixir',
     type: 'backend',
     key: 'graphql-elixir',
-    images: [require('../assets/icons/graphql-elixir.svg')],
+    images: [
+      require('../assets/icons/elixir.png'),
+      require('../assets/icons/graphql-elixir.svg'),
+    ],
     content: {
       title: 'graphql-elixir',
       description:
         'Get started with GraphQL and Elixir by building your own server in this tutorial',
     },
     authorName: 'Nikolas Burk',
-    color: '#4e2a8e',
+    color2: '#4e2a8e',
   },
   {
     title: 'graphql-ruby',
     type: 'backend',
     key: 'graphql-ruby',
-    images: [require('../assets/icons/graphql-ruby.svg')],
+    images: [
+      require('../assets/icons/ruby.svg'),
+      require('../assets/icons/graphql-ruby.svg'),
+    ],
     content: {
       title: 'graphql-ruby',
       description: 'Learn how to build a GraphQL server with Ruby',
     },
     authorName: 'Nikolas Burk',
-    color: '#a5152a',
+    color2: '#a5152a',
   },
   {
     title: 'graphql-java',
     type: 'backend',
     key: 'graphql-java',
-    images: [require('../assets/icons/graphql.svg')],
+    images: [
+      require('../assets/icons/java.svg'),
+      require('../assets/icons/graphql.svg'),
+    ],
     content: {
       title: 'graphql-java',
       description:
