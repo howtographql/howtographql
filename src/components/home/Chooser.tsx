@@ -6,6 +6,7 @@ import DottedListItem from '../Steps/DottedListItem'
 import LeftColumn from './LeftColumn'
 import data from '../../data/stacks'
 import StackChooser from '../StackChooser'
+import SwipeableViews from 'react-swipeable-views'
 
 import { Step } from '../../types'
 import Duration from '../Duration'
@@ -18,20 +19,18 @@ interface Props {
 
 interface State {
   selectedIndex: number
+  selectedCategoryIndex: number
 }
 
 class Chooser extends React.Component<Props, State> {
   state = {
+    selectedCategoryIndex: 0,
     selectedIndex: 3,
-  }
-
-  selectStack = index => {
-    this.setState({ selectedIndex: index })
   }
 
   render() {
     const { mds, light } = this.props
-    const { selectedIndex } = this.state
+    const { selectedIndex, selectedCategoryIndex } = this.state
 
     const tutorials = data.map(tutorial => {
       return {
@@ -40,6 +39,12 @@ class Chooser extends React.Component<Props, State> {
       }
     })
     const selected = tutorials[selectedIndex]
+    // const widthElement = 140 + 20
+    // const widthElementSelected = 140 + 80
+    //
+    // const translateWidth = (fixedWidth > 0 ? fixedWidth : width) || 1
+    // const translateX =
+    //   translateWidth / 2 - widthElement * selectedIndex - widthElementSelected / 2
 
     return (
       <div className={cn('steps-container', { light })}>
@@ -156,6 +161,15 @@ class Chooser extends React.Component<Props, State> {
           .coming-soon h1 {
             @p: .fw6, .tc, .center;
           }
+          .category-chooser {
+            @p: .flex, .justifyCenter, .mt16;
+          }
+          .category {
+            @p: .f14, .fw6, .white30, .ttu, .pointer, .tc;
+          }
+          .category.active {
+            @p: .white70;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
@@ -175,6 +189,31 @@ class Chooser extends React.Component<Props, State> {
           </div>
         </div>
         <div className="mobile-line-bend" />
+        <div className="category-chooser">
+          <SwipeableViews
+            enableMouseEvents={true}
+            style={{
+              overflow: 'visible',
+              width: 90,
+            }}
+            index={selectedCategoryIndex}
+            onChangeIndex={this.handleChangeSelectedCategoryIndex}
+          >
+            {['Frontend', 'Backend'].map((cat, index) =>
+              <div
+                className={cn('category', {
+                  active: index === selectedCategoryIndex,
+                })}
+                onClick={this.handleChangeSelectedCategoryIndex.bind(
+                  this,
+                  index,
+                )}
+              >
+                {cat}
+              </div>,
+            )}
+          </SwipeableViews>
+        </div>
         <StackChooser
           stacks={data}
           selectedIndex={this.state.selectedIndex}
@@ -207,6 +246,23 @@ class Chooser extends React.Component<Props, State> {
             </div>}
       </div>
     )
+  }
+
+  private selectStack = index => {
+    this.setState({ selectedIndex: index })
+  }
+
+  private handleChangeSelectedCategoryIndex = index => {
+    this.setState(state => {
+      let selectedIndex = 0
+      if (index === 0) {
+        selectedIndex = 3
+      }
+      if (index === 1) {
+        selectedIndex = 4
+      }
+      return { ...state, selectedCategoryIndex: index, selectedIndex }
+    })
   }
 }
 
