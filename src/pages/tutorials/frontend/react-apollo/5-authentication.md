@@ -236,7 +236,7 @@ This will open the popup that allows you to enable the Graphcool's email-based a
 
 <Instruction>
 
-In the popup, simply click _enable_.
+In the popup, simply click _Enable_.
 
 </Instruction>
 
@@ -273,7 +273,7 @@ graphcool pull
 
 > Note: Before the remote schema gets fetched, you will be asked to confirm that you want to override the current project file. You can confirm by typing `y`. 
 
-This will bump the schema `version` to `2` and update the `User` type to look also include the `email` and `password` fields:
+This will bump the schema `version` to `2` and update the `User` type to now also include the `email` and `password` fields:
 
 ```{3,5}graphql(nocopy)
 type User implements Node {
