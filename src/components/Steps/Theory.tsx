@@ -5,8 +5,7 @@ export default function Theory() {
     <div className="theory">
       <style jsx={true}>{`
         .theory {
-          @p: .pl16, .mb38;
-          margin-left: 4px;
+          @p: .pl16, .mb38, .ml10;
         }
         span {
           @p: .black30, .f14, .ttu, .fw6;
