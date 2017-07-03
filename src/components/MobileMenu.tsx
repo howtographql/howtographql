@@ -26,6 +26,10 @@ export default class MobileMenu extends React.Component<Props, State> {
     const { menuOpen } = this.state
     const { steps, location } = this.props
 
+    if (location.pathname === '/') {
+      return null
+    }
+
     return (
       <div className="mobile-menu">
         <style jsx={true}>{`
