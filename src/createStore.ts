@@ -3,16 +3,16 @@ import quizReducer from './reducers/quiz'
 import persistState, { mergePersistedState } from 'redux-localstorage'
 import * as adapter from 'redux-localstorage/lib/adapters/localStorage'
 import logger from 'redux-logger'
-import overlayVisibleReducer from './reducers/overlayVisible'
 import filter from 'redux-localstorage-filter'
 import playgroundReducer from './reducers/playground'
 import dataReducer from './reducers/data'
+import uiReducer from './reducers/ui'
 
 const combinedReducers = combineReducers({
   data: dataReducer,
-  overlayVisible: overlayVisibleReducer,
   playground: playgroundReducer,
   quiz: quizReducer,
+  ui: uiReducer,
 })
 
 const reducer = compose(mergePersistedState())(combinedReducers)

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import * as cn from 'classnames'
-import { setOverlayVisible } from '../actions/overlayVisible'
+import { hideOverlay } from '../actions/ui'
 
 interface Props {
   visible: boolean
-  setOverlayVisible: (value: boolean) => void
+  hideOverlay: () => void
 }
 
 class Overlay extends React.Component<Props, {}> {
@@ -40,10 +40,10 @@ class Overlay extends React.Component<Props, {}> {
   }
 
   private handleClick = () => {
-    this.props.setOverlayVisible(false)
+    this.props.hideOverlay()
   }
 }
 
-export default connect(state => ({ visible: state.overlayVisible }), {
-  setOverlayVisible,
+export default connect(state => ({ visible: state.ui.overlayVisible }), {
+  hideOverlay,
 })(Overlay)

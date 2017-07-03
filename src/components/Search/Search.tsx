@@ -4,12 +4,12 @@ import * as uniqBy from 'lodash/uniqBy'
 import * as algolia from 'algoliasearch'
 import SearchInput from './SearchInput'
 import { connect } from 'react-redux'
-import { setOverlayVisible } from '../../actions/overlayVisible'
+import { setSearchVisible } from '../../actions/ui'
 import Results from './Results'
 import * as cn from 'classnames'
 
 interface Props {
-  setOverlayVisible: (value: boolean) => void
+  setSearchVisible: (value: boolean) => void
   router: any
   history: any
   location: any
@@ -110,7 +110,7 @@ class Search extends React.Component<Props, State> {
   }
 
   private handleClose = () => {
-    this.props.setOverlayVisible(false)
+    this.props.setSearchVisible(false)
   }
 
   private handleSelectIndex = selectedIndex => {
@@ -128,23 +128,23 @@ class Search extends React.Component<Props, State> {
   private handleFocus = e => {
     this.setState(state => ({ ...state, focused: true }))
     if (this.state.query.length > 0) {
-      this.props.setOverlayVisible(true)
+      this.props.setSearchVisible(true)
     }
   }
 
   private handleBlur = e => {
     this.setState(state => ({ ...state, focused: false }))
     if (window && window.innerWidth < 1050 && this.state.query.length === 0) {
-      this.props.setOverlayVisible(false)
+      this.props.setSearchVisible(false)
     }
   }
 
   private handleChange = value => {
     this.setState(state => ({ ...state, query: value }))
     if (value.length > 0) {
-      this.props.setOverlayVisible(true)
+      this.props.setSearchVisible(true)
     } else {
-      this.props.setOverlayVisible(false)
+      this.props.setSearchVisible(false)
     }
     this.search(value)
   }
@@ -178,5 +178,5 @@ const results: Result[] = [
 ]
 
 export default connect(null, {
-  setOverlayVisible,
+  setSearchVisible,
 })(Search)
