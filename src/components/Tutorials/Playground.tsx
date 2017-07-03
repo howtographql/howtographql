@@ -8,6 +8,8 @@ import { childrenToString } from './Pre'
 import Loader from './Loader'
 import * as cn from 'classnames'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
+import DataTables from './DataTables'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 interface Props {
   setEndpoint: (endpoint: string) => void
@@ -23,6 +25,9 @@ interface State {
   heightAddition: number
   queryExecuted: boolean
   query: string
+  selectedTab: number
+  personData: Array<{ [key: string]: any }>
+  postData: Array<{ [key: string]: any }>
 }
 
 class Playground extends React.Component<Props & PlaygroundState, State> {
@@ -32,8 +37,17 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
     this.state = {
       heightAddition: 0,
       loading: false,
+      personData: [],
+      postData: [],
       query: childrenToString(props.children).trim(),
       queryExecuted: false,
+      selectedTab: 0,
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.endpoint) {
+      this.fetchData()
     }
   }
 
@@ -47,13 +61,12 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
       <div className="container docs-graphiql">
         <style jsx={true}>{`
           .container {
-            @p: .pb38;
+            @p: .pb38, .mt25;
           }
           .graphiql {
             @p: .flex,
               .center,
               .justifyCenter,
-              .mt25,
               .overflowHidden,
               .br2,
               .ba,
@@ -90,45 +103,111 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
           .btn-inner span {
             @p: .ml10;
           }
+          .tabs {
+            @p: .relative, .z2;
+            margin-left: 3px;
+            bottom: -1px;
+          }
+          .tab {
+            @p: .pv10, .ph16, .darkBlue60, .f14, .fw6, .dib, .bbox, .pointer;
+            background: #F6F7F7;
+            border: 1px solid $darkBlue10;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+          }
+          .tab.active {
+            @p: .darkBlue80;
+            border-bottom-color: #F6F7F7;
+          }
+          .tab + .tab {
+            @p: .ml10;
+          }
+        `}</style>
+        <style jsx={true} global={true}>{`
+          .tabs-enter {
+            opacity: 0.01;
+          }
+          .tabs-enter.tabs-enter-active {
+            opacity: 1;
+            transition: opacity 500ms ease-in;
+          }
+          .tabs-leave {
+            opacity: 1;
+          }
+          .tabs-leave.tabs-leave-active {
+            opacity: 0.01;
+            transition: opacity 300ms ease-in;
+          }
         `}</style>
 
-        <div className={cn('graphiql', { active })} style={{ height }}>
-          <CustomGraphiQL
-            showEndpoints={false}
-            fetcher={this.fetcher}
-            query={query}
-            showQueryTitle={true}
-            showResponseTitle={true}
-            disableAutofocus={true}
-            rerenderQuery={false}
-            hideLineNumbers={true}
-            hideGutters={true}
-            readOnly={true}
-            disableQueryHeader={true}
-            showDocs={false}
-          />
-          {!active &&
-            <div className="run">
-              <div
-                className={cn('btn small', { loading })}
-                onClick={this.createEndpoint}
-              >
-                {loading
-                  ? <div className="btn-inner"><Loader /></div>
-                  : <div className="btn-inner">
-                      <Icon
-                        src={require('../../assets/icons/video.svg')}
-                        color={'white'}
-                        width={14}
-                        height={14}
-                      />
-                      <span>Run in Sandbox</span>
-                    </div>}
-              </div>
+        <CSSTransitionGroup
+          transitionName="playground"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}
+        >
+          {this.props.endpoint &&
+            <div className="tabs">
+              {['Playground', 'Data'].map((tab, index) =>
+                <div
+                  className={cn('tab', {
+                    active: index === this.state.selectedTab,
+                  })}
+                  key={tab}
+                  onClick={this.selectTab.bind(this, index)}
+                >
+                  {tab}
+                </div>,
+              )}
             </div>}
-        </div>
+        </CSSTransitionGroup>
+        {(this.state.selectedTab === 0 || !this.props.endpoint) &&
+          <div className={cn('graphiql', { active })} style={{ height }}>
+            <CustomGraphiQL
+              showEndpoints={false}
+              fetcher={this.fetcher}
+              query={query}
+              showQueryTitle={true}
+              showResponseTitle={true}
+              disableAutofocus={true}
+              rerenderQuery={false}
+              hideLineNumbers={true}
+              hideGutters={true}
+              readOnly={true}
+              disableQueryHeader={true}
+              showDocs={false}
+            />
+            {!active &&
+              <div className="run">
+                <div
+                  className={cn('btn small', { loading })}
+                  onClick={this.createEndpoint}
+                >
+                  {loading
+                    ? <div className="btn-inner"><Loader /></div>
+                    : <div className="btn-inner">
+                        <Icon
+                          src={require('../../assets/icons/video.svg')}
+                          color={'white'}
+                          width={14}
+                          height={14}
+                        />
+                        <span>Run in Sandbox</span>
+                      </div>}
+                </div>
+              </div>}
+          </div>}
+        {this.props.endpoint &&
+          this.state.selectedTab === 1 &&
+          <DataTables
+            personData={this.state.personData}
+            postData={this.state.postData}
+          />}
       </div>
     )
+  }
+
+  private selectTab = i => {
+    this.setState(state => ({ ...state, selectedTab: i }))
   }
 
   private createEndpoint = () => {
@@ -186,7 +265,30 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
       body: JSON.stringify({ query: mutation }),
       headers: { 'Content-Type': 'application/json' },
       method: 'post',
-    }).then(res => res.json())
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.fetchData(endpoint)
+        return res
+      })
+  }
+
+  private fetchData = (endpoint?: string) => {
+    const apiEndpoint = endpoint || this.props.endpoint!
+    return fetch(apiEndpoint, {
+      body: JSON.stringify({ query: dataQuery }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'post',
+    })
+      .then(res => res.json())
+      .then((res: any) => {
+        const { data } = res
+        this.setState(state => ({
+          ...state,
+          personData: data.allPersons,
+          postData: data.allPosts,
+        }))
+      })
   }
 
   private fetcher = (graphQLParams: GraphQLParams) => {
@@ -221,6 +323,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             heightAddition: additionalLines * 24,
             queryExecuted: true,
           }))
+          this.fetchData()
         }
         return res
       })
@@ -236,6 +339,19 @@ type Person {
   name: String!
   age: Int!
   posts: [Post!]! @relation(name: "UserPosts")
+}`
+
+const dataQuery = `{
+  allPersons {
+    id
+    name
+    age
+  }
+  
+  allPosts {
+    id
+    title
+  }
 }`
 
 export default connect(state => state.playground, { setEndpoint })(Playground)
