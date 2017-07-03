@@ -4,6 +4,7 @@ question: What is a benefit of the GraphQL schema and strong type system?
 answers: ["They work well with the Javascript type system", "Once the schema is defined, frontend and backend teams can work independently from another", "It solves the n+1 request problem", "Trick question: GraphQL doesn't have a type system"]
 correctAnswer: 1
 description: "Learn why GraphQL is a more efficient and fleible alternative to REST APIs"
+videoId: eYzJ6hzlkN0
 ---
 
 Over the past decade, [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) has become the standard (yet a fuzzy one) for designing web APIs. It offers some great ideas, such as *stateless servers* and *structured access to resources*. However, REST APIs have shown to be too inflexible to keep up with the rapidly changing requirements of the clients that access them.
