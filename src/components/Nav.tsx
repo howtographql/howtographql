@@ -29,13 +29,17 @@ export default class Nav extends React.Component<Props, {}> {
           }
           .element {
             @p: .f14, .ph25, .darkBlue60, .pointer, .itemsCenter, .flex, .relative;
+            transition: opacity ease-in-out 0.25s;
           }
           .element:hover {
             @p: .darkBlue;
           }
-          .element:hover:not(:active) :global(.dropdown) {
+          .element:hover :global(.dropdown) {
             @p: .o100;
             pointer-events: all;
+          }
+          .element:hover:active :global(.dropdown) {
+            @p: .o0;
           }
           .triangle {
             @p: .f14, .ml6;

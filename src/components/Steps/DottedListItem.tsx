@@ -86,6 +86,9 @@ const DottedListItem = ({
         .first .checkmark {
           margin-top: -5px;
         }
+        .last .checkmark {
+          bottom: 0;
+        }
         .dotted-list-item.first.light.highlightFirst::after,
         .dotted-list-item.first.light.done::after {
           @p: .db, .absolute;
@@ -151,6 +154,9 @@ const DottedListItem = ({
         .dotted-list-item.small.last :global(.list-item) {
           top: 5px;
         }
+        .dotted-list-item.small.last.done :global(.list-item) {
+          top: 2px;
+        }
         .dotted-list-item:not(.small) :global(.list-item) {
           top: -5px;
         }
@@ -162,7 +168,7 @@ const DottedListItem = ({
         }
         .dotted-list-item:not(.first) .before-glow {
           @p: .db, .absolute;
-          height: 42px;
+          height: 100%;
           top: -23px;
           left: -2px;
           background-image: linear-gradient(
@@ -173,12 +179,16 @@ const DottedListItem = ({
           width: 2px;
         }
         .dotted-list-item:not(.first).small .before-glow {
-          height: 30px;
-          top: -10px;
+          height: 100%;
+          top: -21px;
+        }
+        .dotted-list-item.last.small .before-glow {
+          height: 100%;
+          top: -12px;
         }
         .dotted-list-item:not(.first) .after-glow {
           @p: .db, .absolute;
-          height: 30px;
+          height: 100%;
           left: -2px;
           top: 33px;
           background-image: linear-gradient(
@@ -189,7 +199,7 @@ const DottedListItem = ({
           width: 2px;
         }
         .dotted-list-item:not(.first).small .after-glow {
-          height: 38px;
+          height: calc(100% - 10px);
           top: 22px;
         }
       `}</style>
@@ -197,9 +207,9 @@ const DottedListItem = ({
         <div className="checkmark">
           <Checkmark checked={true} />
         </div>}
-      {(done || active) && <div className="before-glow" />}
+      {showLine && (done || active) && <div className="before-glow" />}
       {children}
-      {(done || active) && !last && <div className="after-glow" />}
+      {showLine && (done || active) && !last && <div className="after-glow" />}
     </div>
   )
 }

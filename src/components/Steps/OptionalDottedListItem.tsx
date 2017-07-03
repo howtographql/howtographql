@@ -44,6 +44,10 @@ const OptionalDottedListItem = ({
         .optional-dotted-list-item.small :global(a) {
           @p: .black80, .f16;
         }
+        .optional-dotted-list-item.small :global(.list-item) {
+          @p: .relative;
+          top: -3px;
+        }
         .optional-dotted-list-item :global(a) {
           @p: .black80;
         }
