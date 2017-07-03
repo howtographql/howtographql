@@ -4,6 +4,7 @@ import Overlay from './Overlay'
 import Search from './Search/Search'
 import { Step } from '../types'
 import MobileMenu from './MobileMenu'
+import OverviewVideoModal from './OverviewVideoModal'
 
 interface Props {
   children?: JSX.Element
@@ -164,7 +165,7 @@ export default function App({ children, history, steps, location }: Props) {
           @p: .tc;
         } /* Reusable Components */
         .btn {
-          @p: .white, .f25, .fw6, .mt38, .dib, .lhTitle, .pointer;
+          @p: .white, .f25, .fw6, .dib, .lhTitle, .pointer;
           background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
           border: solid 2px #e00083;
           padding: 17px 30px 19px;
@@ -223,6 +224,7 @@ export default function App({ children, history, steps, location }: Props) {
         }
       `}</style>
       <Overlay />
+      <OverviewVideoModal />
       <Search history={history} location={location} />
       <MobileMenu steps={steps} location={location} />
       <Header steps={steps} location={location} />

@@ -37,7 +37,7 @@ export default class Video extends React.Component<Props, State> {
           .video {
             @p: .relative;
             height: 0;
-            padding-top: 25px;
+            padding-top: 0;
             padding-bottom: 56.25%;
           }
           .video :global(iframe) {

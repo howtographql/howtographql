@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as cn from 'classnames'
 import { connect } from 'react-redux'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
-import { setOverlayVisible } from '../../actions/overlayVisible'
+import { setSearchVisible } from '../../actions/ui'
 import Link from 'gatsby-link'
 import GroupBadge from './GroupBadge'
 import { extractGroup } from '../../utils/graphql'
@@ -12,7 +12,7 @@ interface Props {
   selectedIndex: number
   onSelectIndex: (index: number) => void
   visible: boolean
-  setOverlayVisible: (value: boolean) => void
+  setSearchVisible: (value: boolean) => void
   gotoSelectedItem: () => void
 }
 
@@ -43,6 +43,7 @@ class Results extends React.Component<Props, {}> {
           }
           .search-results.visible {
             @p: .o100;
+
             pointer-events: all;
           }
           .result {
@@ -125,10 +126,10 @@ class Results extends React.Component<Props, {}> {
   }
 
   private handleLinkClick = () => {
-    this.props.setOverlayVisible(false)
+    this.props.setSearchVisible(false)
   }
 }
 
-export default connect(state => ({ visible: state.overlayVisible }), {
-  setOverlayVisible,
+export default connect(state => ({ visible: state.ui.searchVisible }), {
+  setSearchVisible,
 })(Results)
