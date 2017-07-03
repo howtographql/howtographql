@@ -35,7 +35,6 @@ module.exports = class Html extends React.Component {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#e00083" />
-        <link rel="shortcut icon" href="/favicon.ico">
         <title>How to GraphQL</title>
         {this.props.headComponents}
         {css}
