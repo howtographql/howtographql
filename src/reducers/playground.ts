@@ -1,9 +1,11 @@
 export interface PlaygroundState {
   endpoint: string | null
+  executionCount: number
 }
 
 const defaultState = {
   endpoint: null,
+  executionCount: 0,
 }
 
 export default function playgroundReducer(
@@ -15,6 +17,11 @@ export default function playgroundReducer(
       return {
         ...state,
         endpoint: action.payload,
+      }
+    case 'increase execution count':
+      return {
+        ...state,
+        executionCount: state.executionCount + 1,
       }
   }
 

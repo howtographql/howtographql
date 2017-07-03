@@ -1,0 +1,19 @@
+{
+  "name": "How to GraphQL",
+  "short_name": "How to GraphQL",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff",
+  "theme_color": "#e00083",
+  "icons": [{
+    "src": "/android-chrome-192x192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  },
+    {
+      "src": "/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }]
+}
