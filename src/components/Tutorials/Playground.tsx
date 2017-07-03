@@ -10,10 +10,15 @@ import * as cn from 'classnames'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import DataTables from './DataTables'
 import { CSSTransitionGroup } from 'react-transition-group'
+import { setPersonData, setPostData } from '../../actions/data'
 
 interface Props {
   setEndpoint: (endpoint: string) => void
   height?: number
+  setPersonData: (personData: Array<{ [key: string]: any }>) => void
+  setPostData: (postData: Array<{ [key: string]: any }>) => void
+  personData: Array<{ [key: string]: any }>
+  postData: Array<{ [key: string]: any }>
 }
 interface GraphQLParams {
   query: string
@@ -26,8 +31,6 @@ interface State {
   queryExecuted: boolean
   query: string
   selectedTab: number
-  personData: Array<{ [key: string]: any }>
-  postData: Array<{ [key: string]: any }>
 }
 
 class Playground extends React.Component<Props & PlaygroundState, State> {
@@ -37,8 +40,6 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
     this.state = {
       heightAddition: 0,
       loading: false,
-      personData: [],
-      postData: [],
       query: childrenToString(props.children).trim(),
       queryExecuted: false,
       selectedTab: 0,
@@ -64,8 +65,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             @p: .pb38, .mt25;
           }
           .graphiql {
-            @p: .flex,
-              .center,
+            @p: .center,
               .justifyCenter,
               .overflowHidden,
               .br2,
@@ -74,6 +74,12 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
               .relative;
             max-width: 840px;
             transition: height linear .15s;
+          }
+          .graphiql, .datatables {
+            @p: .dn;
+          }
+          .graphiql.visible, .datatables.visible {
+            @p: .flex;
           }
           .graphiql :global(.resultWrap) {
             @p: .o0;
@@ -160,48 +166,57 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
               )}
             </div>}
         </CSSTransitionGroup>
-        {(this.state.selectedTab === 0 || !this.props.endpoint) &&
-          <div className={cn('graphiql', { active })} style={{ height }}>
-            <CustomGraphiQL
-              showEndpoints={false}
-              fetcher={this.fetcher}
-              query={query}
-              showQueryTitle={true}
-              showResponseTitle={true}
-              disableAutofocus={true}
-              rerenderQuery={false}
-              hideLineNumbers={true}
-              hideGutters={true}
-              readOnly={true}
-              disableQueryHeader={true}
-              showDocs={false}
-            />
-            {!active &&
-              <div className="run">
-                <div
-                  className={cn('btn small', { loading })}
-                  onClick={this.createEndpoint}
-                >
-                  {loading
-                    ? <div className="btn-inner"><Loader /></div>
-                    : <div className="btn-inner">
-                        <Icon
-                          src={require('../../assets/icons/video.svg')}
-                          color={'white'}
-                          width={14}
-                          height={14}
-                        />
-                        <span>Run in Sandbox</span>
-                      </div>}
-                </div>
-              </div>}
-          </div>}
-        {this.props.endpoint &&
-          this.state.selectedTab === 1 &&
+        <div
+          className={cn('graphiql', {
+            active,
+            visible: this.state.selectedTab === 0 || !this.props.endpoint,
+          })}
+          style={{ height }}
+        >
+          <CustomGraphiQL
+            showEndpoints={false}
+            fetcher={this.fetcher}
+            query={query}
+            showQueryTitle={true}
+            showResponseTitle={true}
+            disableAutofocus={true}
+            rerenderQuery={false}
+            hideLineNumbers={true}
+            hideGutters={true}
+            readOnly={true}
+            disableQueryHeader={true}
+            showDocs={false}
+          />
+          {!active &&
+            <div className="run">
+              <div
+                className={cn('btn small', { loading })}
+                onClick={this.createEndpoint}
+              >
+                {loading
+                  ? <div className="btn-inner"><Loader /></div>
+                  : <div className="btn-inner">
+                      <Icon
+                        src={require('../../assets/icons/video.svg')}
+                        color={'white'}
+                        width={14}
+                        height={14}
+                      />
+                      <span>Run in Sandbox</span>
+                    </div>}
+              </div>
+            </div>}
+        </div>
+        <div
+          className={cn('datatables', {
+            visible: this.props.endpoint && this.state.selectedTab === 1,
+          })}
+        >
           <DataTables
-            personData={this.state.personData}
-            postData={this.state.postData}
-          />}
+            personData={this.props.personData}
+            postData={this.props.postData}
+          />
+        </div>
       </div>
     )
   }
@@ -283,11 +298,8 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
       .then(res => res.json())
       .then((res: any) => {
         const { data } = res
-        this.setState(state => ({
-          ...state,
-          personData: data.allPersons,
-          postData: data.allPosts,
-        }))
+        this.props.setPersonData(data.allPersons)
+        this.props.setPostData(data.allPosts)
       })
   }
 
@@ -354,4 +366,11 @@ const dataQuery = `{
   }
 }`
 
-export default connect(state => state.playground, { setEndpoint })(Playground)
+export default connect(
+  state => ({
+    endpoint: state.playground.endpoint,
+    personData: state.data.personData,
+    postData: state.data.postData,
+  }),
+  { setEndpoint, setPersonData, setPostData },
+)(Playground)

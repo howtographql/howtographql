@@ -336,7 +336,7 @@
 
 .docs-graphiql .resultWrap .execute-button-wrap {
     height: 60px;
-    left: -61px !important;
+    left: -60px !important;
     top: 0px;
     padding-top: 0px;
     padding-bottom: 6px;
@@ -633,17 +633,14 @@
     color: rgb(242,92,84);
 }
 
-.docs-graphiql .cm-ws {
-    color: rgba(12,198,65,.5);
-}
-
 /* Comment */
 .docs-graphiql .cm-comment {
     color: rgba(255,255,255,.3);
 }
 
 /* Punctuation */
-.docs-graphiql .cm-punctuation {
+.docs-graphiql .cm-punctuation,
+.docs-graphiql .cm-ws {
     color: rgba(23, 42, 58, 0.8);
 }
 

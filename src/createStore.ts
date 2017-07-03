@@ -6,8 +6,10 @@ import logger from 'redux-logger'
 import overlayVisibleReducer from './reducers/overlayVisible'
 import filter from 'redux-localstorage-filter'
 import playgroundReducer from './reducers/playground'
+import dataReducer from './reducers/data'
 
 const combinedReducers = combineReducers({
+  data: dataReducer,
   overlayVisible: overlayVisibleReducer,
   playground: playgroundReducer,
   quiz: quizReducer,
@@ -27,7 +29,9 @@ if (typeof window !== 'undefined') {
   }
 }
 
-const storage = compose(filter(['quiz', 'playground']))(adapter(localStorage))
+const storage = compose(filter(['quiz', 'playground', 'data']))(
+  adapter(localStorage),
+)
 
 const enhancer = compose(persistState(storage, 'howtographql-redux'))
 
