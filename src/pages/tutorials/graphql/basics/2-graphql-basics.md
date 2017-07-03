@@ -236,11 +236,11 @@ type Query {
 }
 ```
 
-`allPersons` is called a *root field* of the API. Considering again the example where we added the `limit` argument to the `allPersons` field, we'd have to write the `Query` as follows:
+`allPersons` is called a *root field* of the API. Considering again the example where we added the `last` argument to the `allPersons` field, we'd have to write the `Query` as follows:
 
 ```graphql(nocopy)
 type Query {
-  allPersons(limit: Int): [Person!]!
+  allPersons(last: Int): [Person!]!
 }
 ```
 
@@ -259,5 +259,32 @@ Finally, for the subscriptions, we’d have to add the `newPerson` root field:
 ```graphql(nocopy)
 type Subscription {
   newPerson: Person!
+}
+```
+
+Putting it all together, this is the _full_ schema for all the queries and mutation that you have seen in this chapter:
+
+```graphql(nocopy)
+type Query {
+  allPersons(last: Int): [Person!]!
+}
+
+type Mutation {
+  createPerson(name: String!, age: String!): Person!
+}
+
+type Subscription {
+  newPerson: Person!
+}
+
+type Person {
+  name: String!
+  age: Int!
+  posts: [Post!]!
+}
+
+type Post {
+  title: String!
+  author: Person!
 }
 ```
