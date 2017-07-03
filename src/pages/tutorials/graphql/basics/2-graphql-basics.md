@@ -118,7 +118,7 @@ One of the major advantages of GraphQL is that it allows for naturally querying 
 
 #### Queries with Arguments
 
-In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` could have a `last` parameter to only return up to a specific number of persons. Here's what a corresponding query would look like:
+In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` field could have a `last` parameter to only return up to a specific number of persons. Here's what a corresponding query would look like:
 
 <Playground>
 
