@@ -29,10 +29,10 @@ interface GraphQLParams {
 
 interface State {
   loading: boolean
-  heightAddition: number
   queryExecuted: boolean
   query: string
   selectedTab: number
+  resultLineCount: number
 }
 
 class Playground extends React.Component<Props & PlaygroundState, State> {
@@ -40,10 +40,10 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
     super(props)
 
     this.state = {
-      heightAddition: 0,
       loading: false,
       query: childrenToString(props.children).trim(),
       queryExecuted: false,
+      resultLineCount: 0,
       selectedTab: 0,
     }
   }
@@ -54,11 +54,17 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
     }
   }
 
+  getHeight() {
+    const queryLinesCount = this.state.query.split('\n').length
+    const { resultLineCount } = this.state
+    const numLines = Math.max(queryLinesCount, resultLineCount)
+    return Math.min(numLines * 24 + 32, 600)
+  }
+
   render() {
     const { loading, query } = this.state
-    const numLines = query.split('\n').length
-    // const height = parseInt(String(this.props.height), 10) || 160 + this.state.heightAddition
-    const height = Math.min(numLines * 24 + 32 + this.state.heightAddition, 600)
+
+    const height = this.getHeight()
     const active = Boolean(this.props.endpoint)
     const showResponseHint = this.props.executionCount < 2
     const showFullPlayground = this.props.executionCount >= 2
@@ -78,7 +84,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
               .bDarkBlue10,
               .relative;
             max-width: 840px;
-            transition: height linear .15s;
+            transition: height linear .1s;
           }
           .graphiql :global(.intro) {
             @p: .dn;
@@ -125,7 +131,6 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             margin-left: 3px;
             bottom: -1px;
           }
-
           .tab {
             @p: .pv10, .ph16, .darkBlue60, .f14, .fw6, .dib, .bbox, .pointer;
             background: #F6F7F7;
@@ -374,15 +379,12 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
       .then(res => res.json())
       .then(res => {
         if (!graphQLParams.query.includes('IntrospectionQuery')) {
-          const queryLinesCount = this.state.query.split('\n').length
           const resultLineCount = JSON.stringify(res, null, 2).split('\n')
             .length
-          let additionalLines = resultLineCount - queryLinesCount
-          additionalLines = additionalLines > 0 ? additionalLines : 0
           this.setState(state => ({
             ...state,
-            heightAddition: additionalLines * 24,
             queryExecuted: true,
+            resultLineCount,
           }))
           this.fetchData()
           this.props.increaseExecutionCount()
