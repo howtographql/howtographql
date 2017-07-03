@@ -57,9 +57,6 @@ export default function Markdown({ steps, html }: Props) {
         .markdown p, .markdown ul {
           @p: .mt16;
         }
-        .markdown img {
-          max-width: 840px;
-        }
         .fl {
           @p: .flex;
         } /* Text Links */
@@ -68,8 +65,7 @@ export default function Markdown({ steps, html }: Props) {
         }
         .markdown p a:hover, .markdown li a:hover {
           @p: .underline;
-        }
-        /* Lists */
+        } /* Lists */
         .markdown ul {
           list-style-type: none;
           margin: 0;
@@ -98,8 +94,7 @@ export default function Markdown({ steps, html }: Props) {
           height: 6px;
           left: 8px;
           top: 10px;
-        }
-        /* Inline Code Snippets */
+        } /* Inline Code Snippets */
         .markdown p code,
         .markdown li code,
         .markdown h2 code,
@@ -142,8 +137,7 @@ export default function Markdown({ steps, html }: Props) {
           @p: .mt0, .pt6;
         }
         .markdown h2 {
-          margin-top: 76px;
-          /* 2x mt38 due to vertical line */
+          margin-top: 76px; /* 2x mt38 due to vertical line */
         }
         .markdown h3 {
           margin-top: 30px;
@@ -153,7 +147,8 @@ export default function Markdown({ steps, html }: Props) {
         }
         .markdown p {
           @p: .mt16;
-        } /* First child never has top padding */
+        }
+        /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,
@@ -177,14 +172,16 @@ export default function Markdown({ steps, html }: Props) {
           border-left: 3px solid $darkBlue20;
         } /* center captions */
         .markdown img {
+          max-width: calc(100vw - 76px - 300px);
           @p: .mt25, .mb38;
         }
         .markdown img + em, .markdown img + span + em {
           @p: .db, .tc, .relative;
           top: -30px;
         }
-        @media (max-width: 580px) {
+        @media (max-width: 1050px) {
           div.markdown img {
+            max-width: 100vw;
             margin-left: -38px;
             width: calc(100% + 76px);
           }

@@ -5,7 +5,7 @@ export default function Img(props) {
     <div className="image-wrapper">
       <style jsx={true}>{`
         .image-wrapper {
-          max-width: 90vw;
+          @p: .w100;
         }
       `}</style>
       <img {...props} />
