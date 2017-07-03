@@ -6,13 +6,13 @@ correctAnswer: 0
 description: "In this chapter, you learn about the basic GraphQL concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema"
 ---
 
-In this chapter, you'll learn the basic concepts of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared your own sandbox environment, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use directly on the website to try out what you learn.  
+In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for your, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use to experiment with that you learn.  
 
 ### The Schema Definition Language (SDL)
 
 GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL).
 
-Here is an example how we can use the SDL to define a simple type called `User`:
+Here is an example how we can use the SDL to define a simple type called `Person`:
 
 ```graphql(nocopy)
 type Person {
