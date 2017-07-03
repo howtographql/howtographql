@@ -216,7 +216,7 @@ After a client sent this subscription to a server, a connection is opened betwee
 
 ### Defining a Schema
 
-Now that you have a basic understanding of what queries, mutations and subscriptions look like, let’s put it all together with how you can write a schema that would allow to execute the examples you’ve seen so far.
+Now that you have a basic understanding of what queries, mutations and subscriptions look like, let’s put it all together and learn how you can write a schema that would allow to execute the examples you’ve seen so far.
 
 The *schema* is one of the most important concepts when working with a GraphQL API. It specifies the capabilities of the API and defines how clients can request the data. It is often seen as a *contract* between the server and client.
 
