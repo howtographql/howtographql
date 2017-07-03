@@ -45,7 +45,8 @@ function StackChooser({
           @p: .overflowHidden;
         }
         .stacks-content {
-          @p: .flex, .center;
+          @p: .flex, .center, .relative;
+          left: 4px;
           max-width: 200px;
           height: 180px;
           align-items: center;
@@ -61,9 +62,16 @@ function StackChooser({
           user-select: none;
           width: 140px;
         }
+        .stacks-item:not(.active) {
+          margin-top: 36px;
+        }
         .stacks-item :global(i), .stacks-item img {
           @p: .o30;
           filter: grayscale(100%) brightness(200%);
+        }
+        .stacks-item img {
+          @p: .mv0;
+          max-width: 128px;
         }
         .stacks-item p {
           @p: .mt10, .o40, .f14, .fw6;
@@ -90,7 +98,7 @@ function StackChooser({
         .logos :global(i) + :global(i),
         .logos :global(i) + :global(img),
         .logos :global(img) + :global(i) {
-          @p: .ml10;
+          @p: .ml10, .mv0;
         }
         .beginners-choice {
           @p: .f10, .fw6, .ttu, .tc, .mt10, .tracked;

@@ -17,7 +17,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      selectedIndex: 3,
+      selectedIndex: 4,
     }
   }
 
@@ -30,6 +30,8 @@ export default class TutorialChooser extends React.Component<Props, State> {
         <style jsx={true}>{`
           .tutorial-chooser {
             @p: .mb60, .mt38;
+            margin-left: -38px;
+            margin-right: -38px;
           }
           .center-container {
             @p: .flex, .justifyCenter;

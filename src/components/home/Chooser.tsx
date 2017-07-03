@@ -25,7 +25,7 @@ interface State {
 class Chooser extends React.Component<Props, State> {
   state = {
     selectedCategoryIndex: 0,
-    selectedIndex: 3,
+    selectedIndex: 4,
   }
 
   render() {

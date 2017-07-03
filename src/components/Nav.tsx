@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
-import Link from 'gatsby-link'
 import { $v } from 'graphcool-styles'
 import { Step } from '../types'
 import { getBackendTutorials, getFrontendTutorials } from '../utils/tutorials'
@@ -73,9 +72,7 @@ export default class Nav extends React.Component<Props, {}> {
         </div>
         <div className="element">
           <span>Frontend</span>
-          <Link to="/swipe">
-            <span className="triangle">▾</span>
-          </Link>
+          <span className="triangle">▾</span>
           <Dropdown>
             <Stack
               name="All Frontend Tutorials"
@@ -88,9 +85,7 @@ export default class Nav extends React.Component<Props, {}> {
 
         <div className="element">
           <span>Backend</span>
-          <Link to="/tutorials/success">
-            <span className="triangle">▾</span>
-          </Link>
+          <span className="triangle">▾</span>
           <Dropdown>
             <Stack
               name="All Backend Tutorials"
@@ -141,6 +136,7 @@ function Dropdown({ children }: DropdownProps) {
           border-width: 0 13px 16px 13px;
           border-color: transparent transparent #E5E5E5 transparent;
         }
+
         .small-triangle {
           @p: .absolute;
           right: 51px;

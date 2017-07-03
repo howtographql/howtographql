@@ -34,6 +34,22 @@ const data: Stack[] = [
     comingSoon: true,
   },
   {
+    title: 'Expo + Apollo',
+    type: 'frontend',
+    key: 'expo-apollo',
+    images: [
+      require('../assets/icons/expo.svg'),
+      require('../assets/icons/apollo.svg'),
+    ],
+    content: {
+      title: 'Expo + Apollo',
+      description:
+        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+    },
+    authorName: 'Nikolas Burk',
+    comingSoon: true,
+  },
+  {
     title: 'React + Relay',
     type: 'frontend',
     key: 'react-relay',
