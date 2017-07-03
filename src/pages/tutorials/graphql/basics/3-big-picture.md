@@ -28,7 +28,7 @@ It's important to note that GraphQL is actually *transport-layer agnostic*. This
 
 GraphQL also doesn't care about the database or the format that is used to store the data. You could use a SQL database like AWS Aurora or a NoSQL database like MongoDB. 
 
-![](http://imgur.com/JGfy58b.png)
+![](http://imgur.com/kC0cFk7.png)
 
 #### 2. GraphQL layer that integrates existing systems
 
@@ -38,7 +38,7 @@ In that context, GraphQL can be used to *unify* these existing systems and hide 
 
 Just like in previous architecture where the GraphQL server didn't care about the database being used, this time it doesn't care about the data sources that it needs to access to fetch the data that's needed to *resolve* a query.
 
-![](http://imgur.com/w1ZmNB3.png)
+![](http://imgur.com/168FvP4.png)
 
 #### 3. Hybrid approach with connected database and integration of existing system
 
@@ -46,7 +46,7 @@ Finally, it's possible to combine the two approaches and build a GraphQL server 
 
 When a query is received by the server, it will resolve it and either retrieve the required data from the connected database or some of the integrated APIs.
 
-![](http://imgur.com/X6bjRNc.png)
+![](http://imgur.com/oOVYriG.png)
 
 ### Resolver Functions
 
@@ -56,7 +56,7 @@ As you learned in the previous chapter, the payload of a GraphQL query (or mutat
 
 When the server receives a query, it will call all the functions for the fields that are specified in the query's payload. It thus *resolves* the query and is able to retrieve the correct data for each field. Once all resolvers returned, the server will package data up in the format that was described by the query and send it back to the client.
 
-![](http://imgur.com/DZVls7h.png)
+![](http://imgur.com/cP2i8Da.png)
 
 ###  GraphQL Client Libraries
 

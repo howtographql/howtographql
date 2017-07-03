@@ -12,15 +12,17 @@ GraphQL was developed to cope with the need for more flexibility and efficiency!
 
 To illustrate the major differences between REST and GraphQL when it comes to fetching data from an API, let's consider a simple example scenario: In a blogging application, an app needs to display the titles of the posts of a specific user. The same screen also displays the names of the last 3 followers of that user. How would that situation be solved with REST and GraphQL?
 
-##### Data Fetching with REST
+### Data Fetching with REST vs GraphQL
 
 With a REST API, you would typically gather the data by accessing multiple endpoints. In the example, these could be `/users/<id>` endpoint to fetch the initial user data. Secondly, there's likely to be a `/users/<id>/posts` endpoint that returns all the posts for a user. The third endpoint will then be the `/users/<id>/followers` that returns a list of followers per user.
 
-![](http://imgur.com/6zqyHJt.png)
+![](http://imgur.com/VIWd5I5.png)
+*With REST, you have to make three requests to different endpoints to fetch the required data. You're also _overfetching_ since the endpoints return additional information that's not needed.*
 
-In GraphQL, you'd simply send a single query to the GraphQL server that includes the concrete data requirements. The server then responds with a JSON object where these requirements are fulfilled.
+In GraphQL on the other hand, you'd simply send a single query to the GraphQL server that includes the concrete data requirements. The server then responds with a JSON object where these requirements are fulfilled.
 
-![](http://imgur.com/VXnhObx.png)
+![](http://imgur.com/uY50GHz.png)
+*Using GraphQL, the client can specify exactly the data it needs in a _query_. Notice that the _structure_ of the server's response follows precisely the nested structure defined in the query.*
 
 ### No more Over- and Underfetching
 
