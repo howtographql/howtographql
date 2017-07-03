@@ -336,15 +336,15 @@
 
 .docs-graphiql .resultWrap .execute-button-wrap {
     height: 60px;
-    left: -64px !important;
+    left: -61px !important;
     top: 0px;
     padding-top: 0px;
     padding-bottom: 6px;
 }
 
 .docs-graphiql .resultWrap .graphcool-execute-button {
-    width: 41px;
-    height: 41px;
+    width: 52px !important;
+    height: 52px !important;
     top: auto !important;
     left: auto !important;
     background-color: #F8D4E7;
@@ -353,8 +353,8 @@
 
 .docs-graphiql .resultWrap .graphcool-execute-button svg {
     fill: rgba(224, 0, 130, 1) !important;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     margin-top: 1px;
 }
 
