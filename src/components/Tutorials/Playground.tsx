@@ -2,7 +2,7 @@ import * as React from 'react'
 import { CustomGraphiQL } from 'graphcool-graphiql'
 import '../../styles/graphiql-light.css'
 import { connect } from 'react-redux'
-import { setEndpoint } from '../../actions/playground'
+import { increaseExecutionCount, setEndpoint } from '../../actions/playground'
 import { PlaygroundState } from '../../reducers/playground'
 import { childrenToString } from './Pre'
 import Loader from './Loader'
@@ -17,8 +17,10 @@ interface Props {
   height?: number
   setPersonData: (personData: Array<{ [key: string]: any }>) => void
   setPostData: (postData: Array<{ [key: string]: any }>) => void
+  increaseExecutionCount: () => void
   personData: Array<{ [key: string]: any }>
   postData: Array<{ [key: string]: any }>
+  executionCount: number
 }
 interface GraphQLParams {
   query: string
@@ -58,6 +60,9 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
     // const height = parseInt(String(this.props.height), 10) || 160 + this.state.heightAddition
     const height = Math.min(numLines * 24 + 32 + this.state.heightAddition, 600)
     const active = Boolean(this.props.endpoint)
+    const showResponseHint = this.props.executionCount < 2
+    const showFullPlayground = this.props.executionCount >= 2
+
     return (
       <div className="container docs-graphiql">
         <style jsx={true}>{`
@@ -74,6 +79,12 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
               .relative;
             max-width: 840px;
             transition: height linear .15s;
+          }
+          .graphiql :global(.intro) {
+            @p: .dn;
+          }
+          .graphiql.hint :global(.intro) {
+            @p: .db;
           }
           .graphiql, .datatables {
             @p: .dn;
@@ -103,7 +114,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             transform: translateY(6px);
           }
           .btn-inner {
-            @p: .flex, .itemsCenter;
+            @p: .flex, .itemsCenter, .justifyCenter;
             height: 26px;
           }
           .btn-inner span {
@@ -114,6 +125,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             margin-left: 3px;
             bottom: -1px;
           }
+
           .tab {
             @p: .pv10, .ph16, .darkBlue60, .f14, .fw6, .dib, .bbox, .pointer;
             background: #F6F7F7;
@@ -127,6 +139,23 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
           }
           .tab + .tab {
             @p: .ml10;
+          }
+          .real-playground {
+            @p: .absolute,
+              .bottom0,
+              .right0,
+              .ma10,
+              .ttu,
+              .fw6,
+              .darkBlue40,
+              .bgDarkBlue04,
+              .pointer,
+              .f12;
+            @p: .tracked, .br2;
+            padding: 5px 9px 6px 9px;
+          }
+          .real-playground:hover {
+            @p: .bgDarkBlue10, .darkBlue80;
           }
         `}</style>
         <style jsx={true} global={true}>{`
@@ -169,6 +198,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
         <div
           className={cn('graphiql', {
             active,
+            hint: showResponseHint,
             visible: this.state.selectedTab === 0 || !this.props.endpoint,
           })}
           style={{ height }}
@@ -181,6 +211,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             showResponseTitle={true}
             disableAutofocus={true}
             rerenderQuery={false}
+            onEditQuery={this.handleUpdateQuery}
             hideLineNumbers={true}
             hideGutters={true}
             readOnly={true}
@@ -206,6 +237,15 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
                     </div>}
               </div>
             </div>}
+          {active &&
+            showFullPlayground &&
+            <a
+              className="real-playground"
+              href={this.getFullPlaygroundUrl()}
+              target="_blank"
+            >
+              Full Playground
+            </a>}
         </div>
         <div
           className={cn('datatables', {
@@ -219,6 +259,11 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
         </div>
       </div>
     )
+  }
+
+  private getFullPlaygroundUrl() {
+    const { query } = this.state
+    return `${this.props.endpoint}/?query=${encodeURIComponent(query)}`
   }
 
   private selectTab = i => {
@@ -249,6 +294,10 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
           this.props.setEndpoint(endpoint)
         })
       })
+  }
+
+  private handleUpdateQuery = query => {
+    this.setState(state => ({ ...state, query }))
   }
 
   private prePopulateData = (endpoint: string) => {
@@ -336,6 +385,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             queryExecuted: true,
           }))
           this.fetchData()
+          this.props.increaseExecutionCount()
         }
         return res
       })
@@ -354,13 +404,13 @@ type Person {
 }`
 
 const dataQuery = `{
-  allPersons {
+  allPersons(first: 20) {
     id
     name
     age
   }
   
-  allPosts {
+  allPosts(first: 20) {
     id
     title
   }
@@ -369,8 +419,9 @@ const dataQuery = `{
 export default connect(
   state => ({
     endpoint: state.playground.endpoint,
+    executionCount: state.playground.executionCount,
     personData: state.data.personData,
     postData: state.data.postData,
   }),
-  { setEndpoint, setPersonData, setPostData },
+  { setEndpoint, setPersonData, setPostData, increaseExecutionCount },
 )(Playground)
