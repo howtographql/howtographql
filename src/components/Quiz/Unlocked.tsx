@@ -25,7 +25,7 @@ export default function Unlocked({ n }: Props) {
           background-color: #fafafa;
         }
         .well-done span {
-          @p: .pink, .bgWhite, .ph10, .f14, .fw6, .z2, .ttu, .absolute;
+          @p: .pink, .ph10, .f14, .fw6, .z2, .ttu, .absolute;
         }
         .well-done :global(canvas) {
           top: -2px !important;

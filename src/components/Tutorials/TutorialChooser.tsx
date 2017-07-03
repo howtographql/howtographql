@@ -49,6 +49,11 @@ export default class TutorialChooser extends React.Component<Props, State> {
           .btn {
             @p: .mt38;
           }
+          @media (max-width: 580px) {
+            div.center-container {
+              @p: .mh25;
+            }
+          }
         `}</style>
         <StackChooser
           selectedIndex={this.state.selectedIndex}

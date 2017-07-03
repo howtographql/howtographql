@@ -98,15 +98,17 @@ function StackChooser({
         .logos :global(i) + :global(i),
         .logos :global(i) + :global(img),
         .logos :global(img) + :global(i) {
-          @p: .ml10, .mv0;
+          @p: .mv0;
+          margin-left: 10px !important;
         }
         .beginners-choice {
           @p: .f10, .fw6, .ttu, .tc, .mt10, .tracked;
           color: #459BF2;
         }
         img {
-          width: auto;
+          width: auto !important;
           height: 50px;
+          margin-left: 0 !important;
         }
         .coming-soon {
           @p: .ttu, .br2, .ba, .dib, .relative, .fw6, .mt10;

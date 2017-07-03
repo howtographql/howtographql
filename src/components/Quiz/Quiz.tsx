@@ -71,7 +71,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
             content: "";
           }
           .quiz-title .title {
-            @p: .pink, .bgWhite, .ph10, .f14, .fw6, .z2;
+            @p: .pink, .bgWhite, .ph10, .f14, .fw6, .z2, .ttu, .tracked;
           }
           .question {
             @p: .tc, .fw6, .mt38, .lhTitle, .center;
@@ -93,6 +93,27 @@ class Quiz extends React.Component<Props & QuizState, {}> {
           }
           .next-chapters {
             @p: .flex, .justifyBetween;
+            flex-direction: row-reverse;
+          }
+          @media (max-width: 580px) {
+            div.answer-row {
+              @p: .db, .mt0;
+            }
+            div.quiz-title {
+              @p: .justifyStart;
+            }
+            div.quiz-title .title {
+              margin-left: 21px;
+            }
+            div.question {
+              @p: .ph25, .f20, .tl;
+            }
+            div.answers {
+              @p: .mh25, .mt38;
+            }
+            div.next-chapters {
+              @p: .db;
+            }
           }
         `}</style>
         {question &&
@@ -143,6 +164,11 @@ class Quiz extends React.Component<Props & QuizState, {}> {
             {!skipped && question && showUnlock && <Unlocked n={n} />}
             <div className="center-container">
               <div className="next-chapters">
+                <NextChapter
+                  step={this.props.nextChapter}
+                  small={showBonus}
+                  onClick={this.autoSkip}
+                />
                 {showBonus &&
                   <NextChapter
                     step={bonusChapter}
@@ -150,11 +176,6 @@ class Quiz extends React.Component<Props & QuizState, {}> {
                     small={true}
                     onClick={this.autoSkip}
                   />}
-                <NextChapter
-                  step={this.props.nextChapter}
-                  small={showBonus}
-                  onClick={this.autoSkip}
-                />
               </div>
             </div>
           </div>}
@@ -213,7 +234,7 @@ function Answer({ text, onClick, checked, correct }: AnswerProps) {
     <div className={cn('answer', { checked, correct })} onClick={onClick}>
       <style jsx={true}>{`
         .answer {
-          @p: .flex, .itemsCenter, .w50, .pointer, .lhCopy;
+          @p: .flex, .itemsStart, .w50, .pointer, .lhCopy;
         }
         .answer + .answer {
           @p: .ml25;
@@ -228,8 +249,21 @@ function Answer({ text, onClick, checked, correct }: AnswerProps) {
           @p: .strike, .black20;
         } /* avoids jumping of content when toggled */
         .checkmark {
+          @p: .relative;
+          top: 2px;
           width: 24px;
           height: 24px;
+        }
+        @media (max-width: 580px) {
+          div.answer {
+            @p: .mt25, .w100;
+          }
+          div.answer span {
+            @p: .ml10;
+          }
+          div.answer + div.answer {
+            @p: .ml0;
+          }
         }
       `}</style>
       <div className="checkmark">

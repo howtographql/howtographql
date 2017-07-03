@@ -163,8 +163,7 @@ export default function App({ children, history, steps, location }: Props) {
         }
         section h2 {
           @p: .tc;
-        }
-        /* Reusable Components */
+        } /* Reusable Components */
         .btn {
           @p: .white, .f25, .fw6, .dib, .lhTitle, .pointer;
           background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
@@ -207,8 +206,8 @@ export default function App({ children, history, steps, location }: Props) {
           @p: .f20, .fw6, .pv16, .ph20;
         }
         @media (max-width: 500px) {
-          .btn {
-            padding: 10px 16px;
+          div div.btn {
+            padding: 10px 16px !important;
           }
           h2 {
             font-size: 32px !important;

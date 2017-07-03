@@ -50,6 +50,21 @@ export default function NextChapter({ step, isBonus, small, onClick }: Props) {
         .btn {
           @p: .mt0;
         }
+        @media (max-width: 580px) {
+          div.next-chapter, div.next-chapter.small {
+            @p: .pa25, .db, .bbox;
+          }
+          div h2 {
+            font-size: 20px !important;
+          }
+          div.btn {
+            @p: .mt25;
+          }
+          div.next-chapter.small + div.next-chapter.small {
+            @p: .bt, .bBlack10, .bw2;
+            border-left: none;
+          }
+        }
       `}</style>
       <div className="left">
         <div className="top">
