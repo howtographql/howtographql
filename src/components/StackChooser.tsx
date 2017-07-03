@@ -144,7 +144,10 @@ function StackChooser({
                   ? <img
                       src={tutorial.images[0]}
                       alt=""
-                      className={cn({ darken: tutorial.darkenGreyLogo })}
+                      className={cn({
+                        darken: tutorial.darkenGreyLogo,
+                        lighten: tutorial.lightenLogo,
+                      })}
                     />
                   : <Icon
                       src={tutorial.images[0]}
@@ -158,6 +161,7 @@ function StackChooser({
                     width={50}
                     height={50}
                     color={tutorial.color2 || 'black'}
+                    className={cn({ lighten: tutorial.lightenLogo })}
                   />}
               </div>
               <p>{tutorial.title}</p>

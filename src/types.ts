@@ -45,6 +45,7 @@ export interface Stack {
   beginnersChoice?: boolean
   comingSoon?: boolean
   darkenGreyLogo?: boolean
+  lightenLogo?: boolean
 }
 
 type StackType = 'frontend' | 'backend'

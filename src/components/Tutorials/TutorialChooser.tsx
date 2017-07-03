@@ -29,7 +29,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
       <div className="tutorial-chooser">
         <style jsx={true}>{`
           .tutorial-chooser {
-            @p: .mb60, .mt38;
+            @p: .mb96, .mt60;
             margin-left: -38px;
             margin-right: -38px;
           }
@@ -45,6 +45,9 @@ export default class TutorialChooser extends React.Component<Props, State> {
           }
           h1 {
             @p: .pv60, .fw6, .center;
+          }
+          .btn {
+            @p: .mt38;
           }
         `}</style>
         <StackChooser

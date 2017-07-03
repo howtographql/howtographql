@@ -108,6 +108,9 @@ class Chooser extends React.Component<Props, State> {
             .steps-content :global(.left-column) {
               display: none;
             }
+            div.steps-list.fade-before::before {
+              @p: .dn;
+            }
             div.steps-list {
               @p: .w100;
             }
@@ -115,7 +118,7 @@ class Chooser extends React.Component<Props, State> {
               @p: .relative;
               padding-top: 48px;
             }
-            .steps-list::after {
+            .steps-list-top::after {
               content: '';
               display: block;
               height: 48px;
@@ -125,7 +128,7 @@ class Chooser extends React.Component<Props, State> {
               border-bottom: 2px solid rgba(225, 225, 225, 0.2);
               border-bottom-left-radius: 500px;
             }
-            .steps-list::before {
+            .steps-list-top::before {
               content: '';
               position: absolute;
               width: calc(50% - 99px);
@@ -217,12 +220,18 @@ class Chooser extends React.Component<Props, State> {
           .category.active {
             @p: .white70;
           }
+          .steps-container :global(.stacks-item:not(.active)) :global(img.lighten) {
+            filter: grayscale(100%) brightness(1300%) !important;
+          }
+          .steps-container :global(.stacks-item.active) :global(img.lighten) {
+            filter: brightness(400%) !important;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
             <h3 className="first-h3">Hands-on tutorials</h3>
           </LeftColumn>
-          <div className="steps-list">
+          <div className="steps-list steps-list-top">
             <DottedListItem first={true} path={'/tutorials/choose'}>
               <Link to={'/tutorials/choose'}>
                 <div className="list-item">
@@ -299,7 +308,7 @@ class Chooser extends React.Component<Props, State> {
   }
 
   private selectStack = index => {
-    const selectedCategoryIndex = index > 3 ? 1 : 0
+    const selectedCategoryIndex = index > 4 ? 1 : 0
     this.setState({ selectedIndex: index, selectedCategoryIndex })
   }
 
@@ -307,10 +316,10 @@ class Chooser extends React.Component<Props, State> {
     this.setState(state => {
       let selectedIndex = 0
       if (index === 0) {
-        selectedIndex = 3
+        selectedIndex = 4
       }
       if (index === 1) {
-        selectedIndex = 4
+        selectedIndex = 5
       }
       return { ...state, selectedCategoryIndex: index, selectedIndex }
     })
