@@ -58,7 +58,7 @@ That means that the client needs to send more *information* to the server to exp
 
 Let’s take a look at an example query that a client could send to a server:
 
-<Playground>
+<Playground height="200">
 
 ```graphql(nocopy)
 {

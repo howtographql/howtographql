@@ -289,6 +289,12 @@
     padding-top: 0;
 }
 
+.docs-graphiql .result-window > div,
+.docs-graphiql .result-window > div > .result-codemirror,
+.docs-graphiql .result-window > div > .result-codemirror .CodeMirror {
+    height: 100%;
+}
+
 .docs-graphiql .resultWrap .intro {
     color: rgba(0,0,0,.4);
 }
@@ -857,7 +863,7 @@
 
 
 .docs-graphiql .CodeMirror-scroll {
-    height: 420px;
+    height: 100%;
     /* 30px is the magic margin used to hide the element's real scrollbars */
     /* See overflow: hidden in .CodeMirror */
     margin-bottom: -30px; margin-right: -30px;

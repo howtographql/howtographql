@@ -22,6 +22,7 @@ interface State {
   loading: boolean
   heightAddition: number
   queryExecuted: boolean
+  query: string
 }
 
 class Playground extends React.Component<Props & PlaygroundState, State> {
@@ -31,16 +32,17 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
     this.state = {
       heightAddition: 0,
       loading: false,
+      query: childrenToString(props.children).trim(),
       queryExecuted: false,
     }
   }
 
   render() {
-    const query = childrenToString(this.props.children).trim()
-    const height =
-      parseInt(String(this.props.height), 10) || 160 + this.state.heightAddition
+    const { loading, query } = this.state
+    const numLines = query.split('\n').length
+    // const height = parseInt(String(this.props.height), 10) || 160 + this.state.heightAddition
+    const height = Math.min(numLines * 24 + 32 + this.state.heightAddition, 600)
     const active = Boolean(this.props.endpoint)
-    const { loading } = this.state
     return (
       <div className="container docs-graphiql">
         <style jsx={true}>{`
@@ -195,13 +197,6 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
           variables: JSON.stringify(graphQLParams.variables),
         } as any,
       )
-      if (!this.state.queryExecuted) {
-        this.setState(state => ({
-          ...state,
-          heightAddition: 240,
-          queryExecuted: true,
-        }))
-      }
     }
 
     return fetch(
@@ -212,7 +207,23 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
         headers: { 'Content-Type': 'application/json' },
         method: 'post',
       },
-    ).then(res => res.json())
+    )
+      .then(res => res.json())
+      .then(res => {
+        if (!graphQLParams.query.includes('IntrospectionQuery')) {
+          const queryLinesCount = this.state.query.split('\n').length
+          const resultLineCount = JSON.stringify(res, null, 2).split('\n')
+            .length
+          let additionalLines = resultLineCount - queryLinesCount
+          additionalLines = additionalLines > 0 ? additionalLines : 0
+          this.setState(state => ({
+            ...state,
+            heightAddition: additionalLines * 24,
+            queryExecuted: true,
+          }))
+        }
+        return res
+      })
   }
 }
 
