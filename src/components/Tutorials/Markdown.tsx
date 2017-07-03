@@ -94,7 +94,8 @@ export default function Markdown({ steps, html }: Props) {
           height: 6px;
           left: 8px;
           top: 10px;
-        } /* Inline Code Snippets */
+        }
+        /* Inline Code Snippets */
         .markdown p code,
         .markdown li code,
         .markdown h2 code,
@@ -137,7 +138,8 @@ export default function Markdown({ steps, html }: Props) {
           @p: .mt0, .pt6;
         }
         .markdown h2 {
-          margin-top: 76px; /* 2x mt38 due to vertical line */
+          margin-top: 76px;
+          /* 2x mt38 due to vertical line */
         }
         .markdown h3 {
           margin-top: 30px;
@@ -147,8 +149,7 @@ export default function Markdown({ steps, html }: Props) {
         }
         .markdown p {
           @p: .mt16;
-        }
-        /* First child never has top padding */
+        } /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,
@@ -176,7 +177,8 @@ export default function Markdown({ steps, html }: Props) {
           @p: .mt25, .mb38;
         }
         .markdown img + em, .markdown img + span + em {
-          @p: .db, .tc, .relative;
+          @p: .db, .tc, .relative, .center;
+          max-width: 620px;
           top: -30px;
         }
         @media (max-width: 1050px) {

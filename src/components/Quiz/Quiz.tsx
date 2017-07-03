@@ -49,7 +49,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
       title: 'Clients',
     }
 
-    const hasQuestion = Boolean(question)
+    const hasQuestion = Boolean(question) && !skipped
     const showNextChapter =
       skipped || answeredCorrectly || rememberSkipped || !hasQuestion
     const showUnlock = !rememberSkipped
