@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { MarkdownRemark } from '../../types'
 import { getAuthorByGroup } from '../../utils/getAuthorByGroup'
+import authors from '../../data/authors'
 
 interface Props {
   post: MarkdownRemark
@@ -9,6 +10,9 @@ interface Props {
 
 export default function Author({ post, group }: Props) {
   const author = getAuthorByGroup(group)
+  const videoAuthor = post.frontmatter.videoAuthor
+    ? authors[post.frontmatter.videoAuthor]
+    : null
 
   if (!author) {
     return <div />
@@ -54,6 +58,33 @@ export default function Author({ post, group }: Props) {
         .name {
           @p: .f25, .fw6, .mt10, .black, .dib;
         }
+        .screencast-by {
+          @p: .dn;
+        }
+        @media (max-width: 580px) {
+          a.img {
+            width: 73px;
+            height: 73px;
+          }
+          div.author {
+            @p: .db;
+          }
+          a.name {
+            @p: .f20, .mt4;
+          }
+          div.job {
+            @p: .f12, .mt4;
+          }
+          div p {
+            @p: .dn;
+          }
+          div.screencast-by {
+            @p: .db, .mt25, .f14, .black80;
+          }
+          .screencast-by-name {
+            @p: .fw6;
+          }
+        }
       `}</style>
       <div className="author">
         <div className="left">
@@ -71,6 +102,11 @@ export default function Author({ post, group }: Props) {
         <p>
           {author.bio}
         </p>
+        {videoAuthor &&
+          <div className="screencast-by">
+            <span>Screencast by </span>
+            <span className="screencast-by-name">{videoAuthor.name}</span>
+          </div>}
       </div>
     </div>
   )

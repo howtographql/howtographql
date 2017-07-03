@@ -44,16 +44,7 @@ export default class Video extends React.Component<Props, State> {
             @p: .absolute, .top0, .left0, .right0, .bottom0, .w100, .h100;
           }
           .overlay {
-            @p: .absolute,
-              .top0,
-              .left0,
-              .right0,
-              .bottom0,
-              .pointer,
-              .flex,
-              .itemsCenter,
-              .justifyCenter,
-              .bgBlack;
+            @p: .absolute, .top0, .left0, .right0, .bottom0, .pointer, .flex, .itemsCenter, .justifyCenter, .bgBlack;
             @p: .o0;
             pointer-events: none;
             transition: $duration opacity;
@@ -94,6 +85,11 @@ export default class Video extends React.Component<Props, State> {
           }
           .author-name {
             @p: .f16, .white80, .fw6, .mt6;
+          }
+          @media (max-width: 580px) {
+            div.author {
+              @p: .dn;
+            }
           }
         `}</style>
 

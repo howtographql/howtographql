@@ -62,6 +62,22 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
   }
 
   render() {
+    if (
+      typeof window !== 'undefined' &&
+      window.innerWidth &&
+      window.innerWidth < 580
+    ) {
+      return (
+        <div className="container">
+          <style jsx={true}>{`
+            .container {
+              @p: .mt25;
+            }
+          `}</style>
+          {this.props.children}
+        </div>
+      )
+    }
     const { loading, query } = this.state
 
     const height = this.getHeight()
