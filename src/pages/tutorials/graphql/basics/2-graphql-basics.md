@@ -6,12 +6,13 @@ correctAnswer: 0
 description: "In this chapter, you learn about the basic GraphQL concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema"
 ---
 
+In this chapter, you'll learn the basic concepts of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared your own sandbox environment, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use directly on the website to try out what you learn.  
+
 ### The Schema Definition Language (SDL)
 
 GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL).
 
 Here is an example how we can use the SDL to define a simple type called `User`:
-
 
 ```graphql(nocopy)
 type Person {
@@ -51,6 +52,8 @@ The approach that’s taken in GraphQL is radically different. Instead of having
 
 That means that the client needs to send more *information* to the server to express its data needs - this information is called a *query*.
 
+> If you want to try out the following queries and mutations, click one of the **Get your GraphQL Endpoint**-buttons and the server will be generated for you. Its functionality is exposed through a [GraphQL Playground](https://www.graph.cool/docs/faq/tips-and-tricks-graphql-playground-ook6luephu/) that allows you to explore the API in an interactive manner.
+
 #### Basic Queries
 
 Let’s take a look at an example query that a client could send to a server:
@@ -69,16 +72,12 @@ Let’s take a look at an example query that a client could send to a server:
 
 This query would return a list of all users currently stored in the database. Here’s an example response:
 
-```graphql(nocopy)
+```js(nocopy)
 {
   "allPersons": [
-    { 
-      "name": "John"
-    },
-    {
-      "name": "Sarah"
-    },
-    ...
+    { "name": "Johnny" },
+    { "name": "Sarah" },
+    { "name": "Alice" }
   ]
 }
 ```
@@ -87,7 +86,9 @@ Notice that each user only has the `name` in the response, but the `age` is not 
 
 If the client also needed the users' `age`, all it has to do is to slightly adjust the query and include the new field in the query’s payload:
 
-```graphql(nocopy)
+<Playground>
+
+```graphql
 {
   allPersons {
     name
@@ -96,9 +97,13 @@ If the client also needed the users' `age`, all it has to do is to slightly adju
 }
 ```
 
+</Playground>
+
 One of the major advantages of GraphQL is that it allows for naturally querying *nested* information. For example, if you wanted to load all the `posts` that a `Person` has written, you could simply follow the structure of your types to request this information:
 
-```graphql(nocopy)
+<Playground>
+
+```graphql
 {
   allPersons {
     name
@@ -110,17 +115,24 @@ One of the major advantages of GraphQL is that it allows for naturally querying 
 }
 ```
 
+</Playground>
+
+
 #### Queries with Arguments
 
-In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` could have a `limit` parameter to only return up to a specific number of users. Here's what a corresponding query would look like:
+In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` could have a `last` parameter to only return up to a specific number of users. Here's what a corresponding query would look like:
+
+<Playground>
 
 ```graphql(nocopy)
 {
-  allPersons(limit: 20) {
+  allPersons(last: 2) {
     name
   }
 }
 ```
+
+</Playground>
 
 ### Writing Data with Mutations
 
@@ -132,20 +144,24 @@ Next to requesting information from a server, the majority of applications also 
 
 Mutations follow the same syntactical structure as queries, but they always need to start with the `mutation` keyword. Here’s an example for how we might create a new `Person`:
 
+
+<Playground>
+
 ```graphql(nocopy)
 mutation {
-  createPerson(name: "Alice", age: 36) {
-    name
-    age
+  createPerson(name: "Bob", age: 36) {
+    id
   }
 }
 ```
+
+</Playground>
 
 Notice that similar to the query we wrote before, we’re able to specify a payload where we can ask for different properties of the new `Person`. In our case, we’re asking for the `name` and the `age` - though admittedly that’s not super helpful in our example since we obviously already know them. However, being able to also query information when sending mutations can be a very powerful tool that allows to retrieve new information in a single roundtrip! 
 
 The server response for the above mutation would look as follows:
 
-```graphql(nocopy)
+```js(nocopy)
 {
   "createPerson": {
     "name": "Alice",
