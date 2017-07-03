@@ -160,11 +160,8 @@ Notice that similar to the query we wrote before, we’re able to specify a payl
 The server response for the above mutation would look as follows:
 
 ```js(nocopy)
-{
-  "createPerson": {
-    "name": "Alice",
-    "age": 36
-  }
+"createPerson": {
+  "id": "cj4omsemcn8ko0194lirwcui9"
 }
 ```
 
