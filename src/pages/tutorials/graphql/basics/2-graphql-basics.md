@@ -46,7 +46,7 @@ Note that we just created a *one-to-many*-relationship between `Person` and `Pos
 
 ### Fetching Data with Queries
 
-When working with REST APIs, data is loaded from specific endpoints. Each endpoint has a clearly defined structure of the information that it returns.
+When working with REST APIs, data is loaded from specific endpoints. Each endpoint has a clearly defined structure of the information that it returns. This means that the data requirements of a client are effectively _encoded_ in the URL that it connects to.
 
 The approach that’s taken in GraphQL is radically different. Instead of having multiple endpoints that return fix data structures, GraphQL APIs typically only expose *a single endpoint*. This works because the structure of the data that’s returned is not fixed. Instead, it’s completely flexible and let’s the client decide what data is actually needed. 
 
