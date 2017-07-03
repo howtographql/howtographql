@@ -25,21 +25,27 @@ type Link {
 
 It's time to start creating your project. For this, follow these steps:
 
+<Instruction>
+
 1. First, you'll need is to have Node.js installed on your machine. If you don't yet, make sure to do it [now](https://nodejs.org/en/). Note that the code samples here assume the latest versions of Node.js, with ES6 support, so it's best if that's what you have as well.
 2. Setup your **package.json** by typing `npm init -y` in the terminal, inside the folder of your choice.
 3. Install dependencies: 
 
-```
-npm i —save express body-parser graphql-server-express graphql-tools graphql
+```bash(path=".../hackernews-graphql-js")
+npm install —save express body-parser graphql-server-express graphql-tools graphql
 ```
 
-Don't worry if you're unfamiliar with some of these, we'll explain what each of them are as we use them.
+</Instruction>
+
+Don't worry if you're unfamiliar with some of these packages, we'll explain what each of them are as we use them.
 
 ### Setup Server
 
+<Instruction>
+
 Start by creating a file at `src/schema/index.js` for your schema definition, like this:
 
-```
+```js(path=".../hackernews-graphql-js/src/schema/index.js")
 const {makeExecutableSchema} = require('graphql-tools');
 
 // Define your types here.
@@ -55,11 +61,15 @@ const typeDefs = `
 module.exports = makeExecutableSchema({typeDefs});
 ```
 
+</Instruction>
+
 The [graphql-tools](http://npmjs.com/package/graphql-tools) package, as the name indicates, provides several tools that help build GraphQL servers. The one you're using here is `makeExecutableSchema,` which takes a string in the schema definition language and returns a complete `GraphQLSchema` object to be used by your server.
+
+<Instruction>
 
 Now create the main server file at `src/index.js`, with the following content:
 
-```
+```js(path=".../hackernews-graphql-js/src/index.js")
 const express = require('express');
 
 // This package automatically parses JSON requests.
@@ -80,10 +90,16 @@ app.listen(PORT, () => {
 });
 ```
 
+</Instruction>
+
+<Instruction>
+
 You can try running the server now with:
 
-```
+```bash(path=".../hackernews-graphql-js")
 node ./src/index.js
 ```
+
+</Instruction>
 
 If you do this, you'll actually get an error saying: `Must provide schema definition with query type or a type named Query`. That's because you've defined a type in your schema, but no queries yet. 

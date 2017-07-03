@@ -4,9 +4,11 @@ title: Filtering
 
 Another important Hackernews feature is searching the links, so you're going to be adding support for that now. You already know that it's possible to pass input data to mutations, via arguments. Now you're going to use this same concept to apply optional filters to the existing `allLinks` query.
 
+<Instruction>
+
 So start by adding a new argument in the schema definition for this query:
 
-```
+```graphql(path=".../hackernews-graphql-js/src/schema/index.js")
 type Query {
   allLinks(filter: LinkFilter): [Link!]!
 }
@@ -18,9 +20,15 @@ input LinkFilter {
 }
 ```
 
-Again, you can use any format you want for your filters. Here, you'll again follow the same schema that's used in the frontend tutorials. It will allow searching links by their `description` and `url`. Go back to the resolver for `allLinks` now and have it use MongoDB queries to support this filtering feature, like this:
+</Instruction>
 
-```
+Again, you can use any format you want for your filters. Here, you'll again follow the same schema that's used in the frontend tutorials. It will allow searching links by their `description` and `url`.
+
+<Instruction>
+
+Go back to the resolver for `allLinks` now and have it use MongoDB queries to support this filtering feature, like this:
+
+```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 // ...
 
 function buildFilters({OR = [], description_contains, url_contains}) {
@@ -46,10 +54,16 @@ module.exports = {
       return await Links.find(query).toArray();
     },
   },
-  
+
   //...
 };
 ```
 
+</Instruction>
+
+<Instruction>
+
 Restart the server and try your new filter out now.
-[Image: https://vtex.quip.com/-/blob/MYYAAAFJyue/GT3ykWdKlSr29Ptw4PQtCg]
+![](https://vtex.quip.com/-/blob/MYYAAAFJyue/GT3ykWdKlSr29Ptw4PQtCg)
+
+</Instruction>

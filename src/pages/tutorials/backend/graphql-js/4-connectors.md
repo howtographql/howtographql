@@ -9,17 +9,24 @@ You surely can't keep using an array to store the data forever. For a more long-
 
 > These pieces of code that access some service inside GraphQL requests are commonly referred to as **[Connectors](https://github.com/apollographql/graphql-tools/blob/master/designs/connectors.md#what-is-a-connector)**.
 
+<Instruction>
 
 First you'll need to get MongoDB up and running. For that you'll need to:
 
 1. Install and run MongoDB, if you haven't already. You can find instructions on how to do this [here](https://docs.mongodb.com/master/administration/install-community/).
 2. Install MongoDB's driver for NodeJS, via the command `npm i --save mongodb`.
 
+</Instruction>
+
 ### Connecting MongoDB
 
-Now you can actually connect to MongoDB in the code and start using it. Create a file at `src/mongo-connector.js` like this:
+Now you can actually connect to MongoDB in the code and start using it.
 
-```
+<Instruction>
+
+Create a file at `src/mongo-connector.js` like this:
+
+```js(path=".../hackernews-graphql-js/src/mongo-connector.js")
 const {MongoClient} = require('mongodb');
 
 // 1
@@ -32,14 +39,20 @@ module.exports = async () => {
 }
 ```
 
+</Instruction>
+
 This piece of code is doing the following things:
 
 1. First, specify the url for connecting to the desired MongoDB instance. This is the default url usually available, but feel free to replace it with your own if different.
 2. Then, export a function that connects to the db and returns the collections your resolvers will use (just `Links` for now). Since connecting is an asynchronous operation, the function needs to be annotated with the `async` keyword.
 
-With the connector ready, you need to pass it down to your resolvers somehow. Go back to the main `src/index.js` file and change it to be like this:
+With the connector ready, you need to pass it down to your resolvers somehow.
 
-```
+<Instruction>
+
+Go back to the main `src/index.js` file and change it to be like this:
+
+```js{6-30}(path=".../hackernews-graphql-js/src/index.js")
 const express = require('express');
 const bodyParser = require('body-parser');
 const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
@@ -71,6 +84,8 @@ const start = async () => {
 start();
 ```
 
+</Instruction>
+
 Let's go over the changes here, step by step:
 
 1. Import the function you've just created.
@@ -79,28 +94,32 @@ Let's go over the changes here, step by step:
 4. Put the MongoDB collections into the `context` object. This is a special GraphQ object that gets passed to all resolvers, so it's the perfect place to share code (such as connectors like this) between them.
 5. Run the `start` function
 
+<Instruction>
+
 All that's left now is to replace that array logic in the resolvers with calls to MongoDB:
 
-```
+```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 module.exports = {
   Query: {
     allLinks: async (root, data, {mongo: {Links}}) => { // 1
       return await Links.find({}).toArray(); // 2
     },
   },
- 
+
   Mutation: {
     createLink: async (root, data, {mongo: {Links}}) => {
       const response = await Links.insert(data); // 3
       return Object.assign({id: response.insertedIds[0]}, data); // 4
     },
   },
- 
+
   Link: {
     id: root => root._id || root.id, // 5
   },
 };
 ```
+
+</Instruction>
 
 Going step by step once more:
 
