@@ -13,6 +13,7 @@ interface Props {
   router: any
   history: any
   location: any
+  visible: boolean
 }
 
 interface State {
@@ -73,8 +74,9 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
+    const { focused } = this.state
     return (
-      <div className={cn('search')}>
+      <div className={cn('search', { visible: focused })}>
         <style jsx={true}>{`
           .search {
             @p: .fixed;
@@ -82,6 +84,9 @@ class Search extends React.Component<Props, State> {
             left: 235px;
             z-index: 10010;
             width: calc(100% - 235px - 456px);
+          }
+          .search.visible {
+            z-index: 10180;
           }
           @media (max-width: 1050px) {
             div.search {

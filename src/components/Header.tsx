@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Link from 'gatsby-link'
 import Nav from './Nav'
 import { Step } from '../types'
+import Logo from './Logo'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -13,47 +13,21 @@ export default function Header({ steps, location }: Props) {
     <div className="header">
       <style jsx={true}>{`
         .header {
-          @p: .flex,
-            .bb,
-            .bDarkBlue10,
-            .bw2,
-            .justifyBetween,
-            .fixed,
-            .left0,
-            .right0,
-            .top0,
-            .z999,
-            .bgWhite;
+          @p: .flex, .bb, .bDarkBlue10, .bw2, .justifyBetween, .fixed, .left0, .right0, .top0, .z999, .bgWhite;
           transform: translate3d(0, 0, 0);
         }
-        .logo {
-          @p: .flex, .ttu, .fw6, .itemsCenter, .pink;
-          z-index: 10102;
-          font-size: 17px;
+        .header-logo {
+          @p: .o0;
         }
-        .logo img {
-          @p: .mr10;
-        }
-        .logo span {
-          @p: .flexFixed;
-        }
-        img {
-          width: 40px;
-          height: 35px;
-        }
-        .left {
-          @p: .flex, .pa16, .itemsCenter;
+        @media (min-width: 1051px) {
+          div.header-logo {
+            @p: .o100;
+          }
         }
       `}</style>
-      <div className="left">
-        <Link to="/">
-          <div className="logo">
-            <img src={require('../assets/icons/howtographql.svg')} alt="" />
-            <span>How to GraphQL</span>
-          </div>
-        </Link>
+      <div className="header-logo">
+        <Logo />
       </div>
-
       <Nav steps={steps} location={location} />
     </div>
   )

@@ -49,15 +49,18 @@ class Quiz extends React.Component<Props & QuizState, {}> {
       title: 'Clients',
     }
 
+    const hasQuestion = Boolean(question)
     const showNextChapter =
-      skipped || answeredCorrectly || rememberSkipped || !question
+      skipped || answeredCorrectly || rememberSkipped || !hasQuestion
     const showUnlock = !rememberSkipped
     const showQuestion = !rememberSkipped && !skipped
 
     return (
-      <div className="quiz">
+      <div className={cn('quiz', { hasQuestion })}>
         <style jsx={true}>{`
           .quiz {
+          }
+          .quiz.hasQuestion {
             @p: .mt60;
           }
           .quiz-title {

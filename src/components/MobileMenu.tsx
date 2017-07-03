@@ -35,7 +35,7 @@ export default class MobileMenu extends React.Component<Props, State> {
         <style jsx={true}>{`
           .mobile-menu {
             @p: .fixed, .right0, .top0;
-            z-index: 10011;
+            z-index: 10200;
           }
           .hamburger {
             @p: .bgWhite, .pointer;

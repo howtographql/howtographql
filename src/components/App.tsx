@@ -4,7 +4,8 @@ import Overlay from './Overlay'
 import Search from './Search/Search'
 import { Step } from '../types'
 import MobileMenu from './MobileMenu'
-import OverviewVideoModal from './OverviewVideoModal'
+// import OverviewVideoModal from './OverviewVideoModal'
+import Logo from './Logo'
 
 interface Props {
   children?: JSX.Element
@@ -135,8 +136,7 @@ export default function App({ children, history, steps, location }: Props) {
         table {
           border-collapse: collapse;
           border-spacing: 0;
-        }
-        /* main rules */
+        } /* main rules */
         body, input, select, option, textarea {
           font-family: 'Open Sans', sans-serif;
           -webkit-font-smoothing: antialiased;
@@ -163,7 +163,8 @@ export default function App({ children, history, steps, location }: Props) {
         }
         section h2 {
           @p: .tc;
-        } /* Reusable Components */
+        }
+        /* Reusable Components */
         .btn {
           @p: .white, .f25, .fw6, .dib, .lhTitle, .pointer;
           background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
@@ -222,12 +223,24 @@ export default function App({ children, history, steps, location }: Props) {
         .content {
           padding-top: 68px;
         }
+        .mobile-logo {
+          @p: .fixed, .top0, .left0, .dn;
+          z-index: 10150;
+        }
+        @media (max-width: 1050px) {
+          div.mobile-logo {
+            @p: .db;
+          }
+        }
       `}</style>
       <Overlay />
-      <OverviewVideoModal />
+      {/*<OverviewVideoModal />*/}
       <Search history={history} location={location} />
       <MobileMenu steps={steps} location={location} />
       <Header steps={steps} location={location} />
+      <div className="mobile-logo">
+        <Logo />
+      </div>
       <div className="content">
         {children}
       </div>

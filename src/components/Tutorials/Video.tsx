@@ -1,5 +1,5 @@
 import * as React from 'react'
-import YoutubeEmbedVideo from 'youtube-embed-video'
+// import YoutubeEmbedVideo from 'youtube-embed-video'
 import { Author } from '../../data/authors'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import * as cn from 'classnames'
@@ -99,12 +99,14 @@ export default class Video extends React.Component<Props, State> {
 
         <div className="video-wrap">
           <div className="video">
+            {/*
             <YoutubeEmbedVideo
               videoId={videoId}
               suggestions={false}
               autoplay={showVideo}
               controls={false}
             />
+             */}
             {!showVideo &&
               author &&
               <div className="author">
