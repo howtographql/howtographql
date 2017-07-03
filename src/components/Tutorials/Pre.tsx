@@ -48,6 +48,11 @@ export default function Pre({
         pre {
           @p: .bDarkBlue10, .ba, .br2, .pa16, .bgDarkBlue04, .overflowAuto;
         }
+        pre :global(code) {
+          @p: .mono;
+          font-size: 13px;
+          font-weight: 500;
+        }
         .copy-button {
           @p: .absolute, .right0, .bottom0, .pa10, .z999, .pointer;
         }

@@ -5,9 +5,8 @@ export default function Loader() {
     <div className="loader" title="0">
       <style jsx={true}>{`
         .loader {
-          @p: .relative;
           height: 26px;
-          top: -7px;
+          transform: translateY(-7px);
           text-align: center;
         }
         svg path, svg rect {

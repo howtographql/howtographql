@@ -30,6 +30,7 @@ module.exports = class Html extends React.Component {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+        <link rel="shortcut icon" href="/favicon.ico">
         <title>How to GraphQL</title>
         {this.props.headComponents}
         {css}

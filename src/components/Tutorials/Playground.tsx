@@ -6,9 +6,12 @@ import { setEndpoint } from '../../actions/playground'
 import { PlaygroundState } from '../../reducers/playground'
 import { childrenToString } from './Pre'
 import Loader from './Loader'
+import * as cn from 'classnames'
+import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 
 interface Props {
   setEndpoint: (endpoint: string) => void
+  height?: number
 }
 interface GraphQLParams {
   query: string
@@ -17,6 +20,8 @@ interface GraphQLParams {
 
 interface State {
   loading: boolean
+  heightAddition: number
+  queryExecuted: boolean
 }
 
 class Playground extends React.Component<Props & PlaygroundState, State> {
@@ -24,12 +29,18 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
     super(props)
 
     this.state = {
+      heightAddition: 0,
       loading: false,
+      queryExecuted: false,
     }
   }
 
   render() {
     const query = childrenToString(this.props.children).trim()
+    const height =
+      parseInt(String(this.props.height), 10) || 160 + this.state.heightAddition
+    const active = Boolean(this.props.endpoint)
+    const { loading } = this.state
     return (
       <div className="container docs-graphiql">
         <style jsx={true}>{`
@@ -37,34 +48,83 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
             @p: .pb38;
           }
           .graphiql {
-            @p: .flex, .center, .justifyCenter, .mt25;
+            @p: .flex,
+              .center,
+              .justifyCenter,
+              .mt25,
+              .overflowHidden,
+              .br2,
+              .ba,
+              .bDarkBlue10,
+              .relative;
             max-width: 840px;
-            height: 500px;
+            transition: height linear .15s;
           }
-          .btn {
-            @p: .mt25;
-            width: 312px;
+          .graphiql :global(.resultWrap) {
+            @p: .o0;
+            pointer-events: none;
+            transition: opacity ease-in-out .25s;
+          }
+          .graphiql.active :global(.resultWrap) {
+            @p: .o100;
+            pointer-events: all;
+            transition: opacity ease-in-out .25s;
+          }
+          .run {
+            @p: .absolute, .bottom0, .right0, .mb16, .mr16;
+          }
+          div div.btn {
+            @p: .bbox;
+            padding: 12px 16px;
+            width: 211px;
+          }
+          div div.btn.loading {
+            transform: translateY(6px);
+          }
+          .btn-inner {
+            @p: .flex, .itemsCenter;
+            height: 26px;
+          }
+          .btn-inner span {
+            @p: .ml10;
           }
         `}</style>
 
-        {this.props.endpoint
-          ? <div className="graphiql">
-              <CustomGraphiQL
-                showEndpoints={false}
-                fetcher={this.fetcher}
-                query={query}
-                showQueryTitle={true}
-                showResponseTitle={true}
-                disableAutofocus={true}
-                rerenderQuery={false}
-              />
-            </div>
-          : <div>
-              {this.props.children}
-              <div className="btn small" onClick={this.createEndpoint}>
-                {this.state.loading ? <Loader /> : 'Get your GraphQL endpoint'}
+        <div className={cn('graphiql', { active })} style={{ height }}>
+          <CustomGraphiQL
+            showEndpoints={false}
+            fetcher={this.fetcher}
+            query={query}
+            showQueryTitle={true}
+            showResponseTitle={true}
+            disableAutofocus={true}
+            rerenderQuery={false}
+            hideLineNumbers={true}
+            hideGutters={true}
+            readOnly={true}
+            disableQueryHeader={true}
+            showDocs={false}
+          />
+          {!active &&
+            <div className="run">
+              <div
+                className={cn('btn small', { loading })}
+                onClick={this.createEndpoint}
+              >
+                {loading
+                  ? <div className="btn-inner"><Loader /></div>
+                  : <div className="btn-inner">
+                      <Icon
+                        src={require('../../assets/icons/video.svg')}
+                        color={'white'}
+                        width={14}
+                        height={14}
+                      />
+                      <span>Run in Sandbox</span>
+                    </div>}
               </div>
             </div>}
+        </div>
       </div>
     )
   }
@@ -135,13 +195,24 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
           variables: JSON.stringify(graphQLParams.variables),
         } as any,
       )
+      if (!this.state.queryExecuted) {
+        this.setState(state => ({
+          ...state,
+          heightAddition: 240,
+          queryExecuted: true,
+        }))
+      }
     }
 
-    return fetch(this.props.endpoint!, {
-      body: JSON.stringify(graphQLParams),
-      headers: { 'Content-Type': 'application/json' },
-      method: 'post',
-    }).then(res => res.json())
+    return fetch(
+      this.props.endpoint ||
+        'https://api.graph.cool/simple/v1/cj4o1v4x42p910149bcfaq44d',
+      {
+        body: JSON.stringify(graphQLParams),
+        headers: { 'Content-Type': 'application/json' },
+        method: 'post',
+      },
+    ).then(res => res.json())
   }
 }
 

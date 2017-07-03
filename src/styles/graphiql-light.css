@@ -20,6 +20,7 @@
             'Lucida Grande',
             arial,
             sans-serif;
+    font-weight: 500;
     font-size: 14px;
     height: 100%;
     margin: 0;
@@ -39,6 +40,7 @@
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    background-color: #F6F7F7 !important;
 }
 
 .docs-graphiql .graphiql-container .title {
@@ -161,15 +163,14 @@
     -ms-flex: 1;
     flex: 1;
     position: relative;
-    border-left: 4px solid rgb(233,233,233);
-    background: #fafafa !important;
-    padding-top: 42px;
+    background: rgba(23, 42, 58, .02) !important;
 }
 
 .docs-graphiql .graphiql-container .docExplorerWrap {
     background: white;
     position: relative;
     z-index: 3;
+    display: none;
 }
 
 .docs-graphiql .graphiql-container .docExplorerResizer {
@@ -203,12 +204,13 @@
 
 .docs-graphiql .graphiql-container .query-editor .CodeMirror {
     /*padding-top: 117px;*/
-    background-color: rgba(0,0,0,.02) !important;
+    padding-top: 16px;
+    background: none;
 }
 
 
 .docs-graphiql .graphiql-container .query-header {
-    background-color: rgba(0,0,0,.02) !important;
+    background-color: #F6F7F7 !important;
     padding: 0 !important;
     border-top-left-radius: 2px;
 }
@@ -223,6 +225,7 @@
     flex-direction: column;
     height: 43px;
     position: relative;
+    display: none;
 }
 
 .docs-graphiql .graphiql-container .variable-editor .CodeMirror {
@@ -280,9 +283,10 @@
     flex: 1;
     height: 100%;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     border-bottom-right-radius: 2px;
     background: none !important;
+    padding-top: 0;
 }
 
 .docs-graphiql .resultWrap .intro {
@@ -312,7 +316,9 @@
 }
 
 .docs-graphiql .graphiql-container .result-window .CodeMirror {
-    background: #fafafa;
+    background: none;
+    padding-left: 30px;
+    padding-top: 16px;
 }
 
 .docs-graphiql .graphiql-container .result-window .CodeMirror-gutters {
@@ -323,25 +329,24 @@
 }
 
 .docs-graphiql .resultWrap .execute-button-wrap {
-    background: #fafafa;
     height: 60px;
-    left: -60px !important;
+    left: -64px !important;
     top: 0px;
-    padding-top: 6px;
+    padding-top: 0px;
     padding-bottom: 6px;
 }
 
 .docs-graphiql .resultWrap .graphcool-execute-button {
-    border: none;
     width: 41px;
     height: 41px;
     top: auto !important;
     left: auto !important;
-    background-color: #B5EAC0;
+    background-color: #F8D4E7;
+    border: 6px solid #F6F7F7 !important;
 }
 
 .docs-graphiql .resultWrap .graphcool-execute-button svg {
-    fill: rgb(39,174,96) !important;
+    fill: rgba(224, 0, 130, 1) !important;
     width: 32px;
     height: 32px;
     margin-top: 1px;
@@ -363,7 +368,7 @@
 .docs-graphiql .result-header {
     padding: 0 !important;
     padding-left: 16px !important;
-    background-color: #fafafa !important;
+    background-color: #F6F7F7 !important;
     border-top-right-radius: 2px;
 }
 
@@ -633,12 +638,12 @@
 
 /* Punctuation */
 .docs-graphiql .cm-punctuation {
-    color: rgba(12,198,65,.5);
+    color: rgba(23, 42, 58, 0.8);
 }
 
 /* Keyword */
 .docs-graphiql .cm-keyword {
-    color: rgb(42,126,211);
+    color: #366b6b;
 }
 
 /* OperationName, FragmentName */
@@ -648,7 +653,7 @@
 
 /* FieldName */
 .docs-graphiql .cm-property {
-    color: rgb(95,179,179);
+    color: #328c8c;
 }
 
 /* FieldAlias */
@@ -658,12 +663,12 @@
 
 /* ArgumentName and ObjectFieldName */
 .docs-graphiql .cm-attribute {
-    color: rgb(252,163,105);
+    color: #b56531;
 }
 
 /* Number */
 .docs-graphiql .cm-number {
-    color: #2882F9;
+    color: #1f6ed6;
 }
 
 /* String */
@@ -698,9 +703,11 @@
 
 .docs-graphiql .result-window .cm-property,
 .docs-graphiql .result-window .cm-def,
-.docs-graphiql .result-window .cm-punctuation,
+.docs-graphiql .result-window .cm-punctuation {
+    color: rgba(23, 42, 58, .8)
+}
 .docs-graphiql .result-window .cm-string {
-    color: rgb(95,179,179);
+    color: #D64292;
 }
 /* BASICS */
 
@@ -708,7 +715,7 @@
     /* Set height, width, borders, and global font properties here */
     color: black;
     font-family: monospace;
-    height: 300px;
+    height: auto;
 }
 
 /* PADDING */
@@ -831,7 +838,7 @@
 
 /* Default styles for common addons */
 
-.docs-graphiql div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0 !important;}
+.docs-graphiql div.CodeMirror span.CodeMirror-matchingbracket {color: rgba(23, 42, 58, 0.8) !important;}
 .docs-graphiql div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
 .docs-graphiql .CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
 .docs-graphiql .CodeMirror-activeline-background {background: #e8f2ff;}
@@ -1007,12 +1014,12 @@
     visibility: visible;
 }
 
-.docs-graphiql .CodeMirror-selected { background: #d9d9d9; }
-.docs-graphiql .CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+.docs-graphiql .CodeMirror-selected { background: #d1e9fd; }
+.docs-graphiql .CodeMirror-focused .CodeMirror-selected { background: #d1e9fd; }
 .docs-graphiql .CodeMirror-crosshair { cursor: crosshair; }
-.docs-graphiql .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
-.docs-graphiql .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
-.docs-graphiql .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+.docs-graphiql .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d1e9fd; }
+.docs-graphiql .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d1e9fd; }
+.docs-graphiql .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d1e9fd; }
 
 .docs-graphiql .cm-searching {
     background: #ffa;

@@ -109,9 +109,9 @@ function StackChooser({
           height: 50px;
         }
         .coming-soon {
-          @p: .ttu, .br2, .ba, .dib, .relative, .fw6, .mt10, .o70;
-          color: #459BF2;
-          border-color: #459BF2;
+          @p: .ttu, .br2, .ba, .dib, .relative, .fw6, .mt10;
+          color: $pink;
+          border-color: $pink;
           font-size: 10px;
           padding: 3px 7px;
         }
