@@ -93,7 +93,6 @@ class Quiz extends React.Component<Props & QuizState, {}> {
           }
           .next-chapters {
             @p: .flex, .justifyBetween;
-            flex-direction: row-reverse;
           }
           @media (max-width: 580px) {
             div.answer-row {

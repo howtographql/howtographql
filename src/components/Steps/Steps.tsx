@@ -13,6 +13,7 @@ interface Props {
   highlightFirst?: boolean
   showLines?: boolean
   showLast?: boolean
+  onClickLink?: () => void
 }
 
 export default function Steps({
@@ -23,6 +24,7 @@ export default function Steps({
   highlightFirst = false,
   showLines = true,
   showLast = true,
+  onClickLink,
 }: Props) {
   return (
     <div>
@@ -55,7 +57,7 @@ export default function Steps({
               active: step.link === location.pathname,
             })}
           >
-            <Link to={step.link}>
+            <Link to={step.link} onClick={onClickLink}>
               {step.title}
             </Link>
             {showDuration &&

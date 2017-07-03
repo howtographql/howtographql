@@ -12,6 +12,7 @@ interface Props {
   steps: { [key: string]: Step[] }
   post?: MarkdownRemark
   location: any
+  onClickLink?: () => void
 }
 
 export default class Sidebar extends React.Component<Props, {}> {
@@ -91,6 +92,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               location={location}
               highlightFirst={false}
               showLast={false}
+              onClickLink={this.props.onClickLink}
             />
             <OptionalSteps
               location={location}
@@ -98,6 +100,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               small={true}
               showDuration={false}
               mainPink={nonGraphqlTutorial}
+              onClickLink={this.props.onClickLink}
             />
             {showChoose
               ? <ChooseTutorialStep
@@ -114,6 +117,7 @@ export default class Sidebar extends React.Component<Props, {}> {
                     small={true}
                     showDuration={false}
                     location={location}
+                    onClickLink={this.props.onClickLink}
                   />
                 </div>}
           </div>

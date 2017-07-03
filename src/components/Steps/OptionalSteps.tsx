@@ -13,6 +13,7 @@ interface Props {
   showDuration?: boolean
   location: any
   mainPink?: boolean
+  onClickLink?: () => void
 }
 
 interface State {
@@ -29,7 +30,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
   }
 
   render() {
-    const { steps, small, mainPink, location } = this.props
+    const { steps, small, mainPink, location, onClickLink } = this.props
     const { collapsed } = this.state
     const group = extractGroup(location.pathname)
     const reallyCollapsed = collapsed && group !== 'advanced'
@@ -141,7 +142,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
               path={step.link}
             >
               <div className="list-item">
-                <Link to={step.link}>
+                <Link to={step.link} onClick={onClickLink}>
                   {step.title}
                 </Link>
                 {showDuration && <Duration duration={step.time || 0} />}

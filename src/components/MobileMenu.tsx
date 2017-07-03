@@ -72,6 +72,11 @@ export default class MobileMenu extends React.Component<Props, State> {
               @p: .dn;
             }
           }
+          .mobile-menu :global(.sidebar) {
+            height: 100vh;
+            width: 100vw;
+            padding-right: 25px;
+          }
         `}</style>
         <div className="hamburger" onClick={this.toggleMenu}>
           <Icon
@@ -81,7 +86,11 @@ export default class MobileMenu extends React.Component<Props, State> {
           />
         </div>
         <div className={cn('menu-overlay', { visible: menuOpen })}>
-          <Sidebar steps={steps} location={location} />
+          <Sidebar
+            steps={steps}
+            location={location}
+            onClickLink={this.toggleMenu}
+          />
           <div className="oval" onClick={this.toggleMenu} />
           <div className="close" onClick={this.toggleMenu}>
             <Icon
