@@ -52,8 +52,6 @@ The approach that’s taken in GraphQL is radically different. Instead of having
 
 That means that the client needs to send more *information* to the server to express its data needs - this information is called a *query*.
 
-> If you want to try out the following queries and mutations, click one of the **Get your GraphQL Endpoint**-buttons and the server will be generated for you. Its functionality is exposed through a [GraphQL Playground](https://www.graph.cool/docs/faq/tips-and-tricks-graphql-playground-ook6luephu/) that allows you to explore the API in an interactive manner.
-
 #### Basic Queries
 
 Let’s take a look at an example query that a client could send to a server:
