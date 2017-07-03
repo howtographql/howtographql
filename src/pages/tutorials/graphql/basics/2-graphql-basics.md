@@ -68,7 +68,7 @@ Let’s take a look at an example query that a client could send to a server:
 
 </Playground>
 
-This query would return a list of all users currently stored in the database. Here’s an example response:
+This query would return a list of all persons currently stored in the database. Here’s an example response:
 
 ```js(nocopy)
 {
@@ -80,9 +80,9 @@ This query would return a list of all users currently stored in the database. He
 }
 ```
 
-Notice that each user only has the `name` in the response, but the `age` is not returned by the server. That’s because the `name` was the only field that was specified in the query.
+Notice that each person only has the `name` in the response, but the `age` is not returned by the server. That’s because the `name` was the only field that was specified in the query.
 
-If the client also needed the users' `age`, all it has to do is to slightly adjust the query and include the new field in the query’s payload:
+If the client also needed the persons' `age`, all it has to do is to slightly adjust the query and include the new field in the query’s payload:
 
 <Playground>
 
@@ -118,7 +118,7 @@ One of the major advantages of GraphQL is that it allows for naturally querying 
 
 #### Queries with Arguments
 
-In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` could have a `last` parameter to only return up to a specific number of users. Here's what a corresponding query would look like:
+In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` could have a `last` parameter to only return up to a specific number of persons. Here's what a corresponding query would look like:
 
 <Playground>
 
@@ -205,7 +205,7 @@ subscription {
 }
 ```
 
-After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `Person`, the server sends the information about this user over to the client:
+After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `Person`, the server sends the information about this person over to the client:
 
 ```graphql(nocopy)
 {
