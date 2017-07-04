@@ -1,4 +1,4 @@
-if (!Element.prototype.scrollIntoViewIfNeeded) {
+if (typeof Element !== 'undefined' && !Element.prototype.scrollIntoViewIfNeeded) {
   Element.prototype.scrollIntoViewIfNeeded = function (centerIfNeeded) {
     centerIfNeeded = arguments.length === 0 ? true : !!centerIfNeeded;
 
