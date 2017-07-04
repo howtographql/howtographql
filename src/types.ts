@@ -8,6 +8,7 @@ interface RelayEdge<T> {
 
 export interface MarkdownRemark {
   html: string
+  excerpt: string
   fields: {
     slug: string
   }
