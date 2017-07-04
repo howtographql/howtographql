@@ -5,6 +5,7 @@ import Pre from './Pre'
 import Playground from './Playground'
 import { Step } from '../../types'
 import TutorialChooser from './TutorialChooser'
+import Img from './Img'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -138,8 +139,7 @@ export default function Markdown({ steps, html }: Props) {
           @p: .mt0, .pt6;
         }
         .markdown h2 {
-          margin-top: 76px;
-          /* 2x mt38 due to vertical line */
+          margin-top: 76px; /* 2x mt38 due to vertical line */
         }
         .markdown h3 {
           margin-top: 30px;
@@ -149,7 +149,8 @@ export default function Markdown({ steps, html }: Props) {
         }
         .markdown p {
           @p: .mt16;
-        } /* First child never has top padding */
+        }
+        /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,
@@ -172,26 +173,16 @@ export default function Markdown({ steps, html }: Props) {
           padding-left: 13px;
           border-left: 3px solid $darkBlue20;
         } /* center captions */
-        .markdown img {
-          max-width: calc(100vw - 76px - 300px);
-          @p: .mt25, .mb38;
-        }
-        .markdown img + em, .markdown img + span + em {
+        .markdown .image-wrapper + em, .markdown .image-wrapper + span + em {
           @p: .db, .tc, .relative, .center;
           max-width: 620px;
           top: -30px;
-        }
-        @media (max-width: 1050px) {
-          div.markdown img {
-            max-width: 100vw;
-            margin-left: -38px;
-            width: calc(100% + 76px);
-          }
         }
       `}</style>
       <JsxParser
         jsx={html}
         components={{
+          IMG: Img,
           INSTRUCTION: Instruction,
           PLAYGROUND: Playground,
           PRE: Pre,
