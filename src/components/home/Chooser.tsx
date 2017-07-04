@@ -7,6 +7,7 @@ import LeftColumn from './LeftColumn'
 import data from '../../data/stacks'
 import StackChooser from '../StackChooser'
 import SwipeableViews from 'react-swipeable-views'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 import { Step } from '../../types'
 import Duration from '../Duration'
@@ -63,17 +64,6 @@ class Chooser extends React.Component<Props, State> {
           }
           .steps-list {
             @p: .w50, .relative;
-          }
-          .steps-list.fade-before::before {
-            @p: .db;
-            content: '';
-            height: 48px;
-            background-image: linear-gradient(
-              to top,
-              rgba(225, 225, 225, 0.2),
-              #172a3a
-            );
-            width: 2px;
           }
           .steps-list::after {
             content: '';
@@ -235,6 +225,33 @@ class Chooser extends React.Component<Props, State> {
           .link {
             @p: .flex, .itemsCenter;
           }
+          .fade-before-element {
+            @p: .db;
+            content: '';
+            height: 48px;
+            background-image: linear-gradient(
+              to top,
+              rgba(225, 225, 225, 0.2),
+              #172a3a
+            );
+            width: 2px;
+          }
+        `}</style>
+        <style jsx={true} global={true}>{`
+          .chooser-enter {
+            opacity: 0.01;
+          }
+          .chooser-enter.chooser-enter-active {
+            opacity: 1;
+            transition: opacity 500ms ease-in;
+          }
+          .chooser-leave {
+            opacity: 1;
+          }
+          .chooser-leave.chooser-leave-active {
+            opacity: 0.01;
+            transition: opacity 300ms ease-in;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
@@ -290,7 +307,11 @@ class Chooser extends React.Component<Props, State> {
           onChangeSelectedIndex={this.selectStack}
           markdownFiles={mds}
         />
-        {!selected.comingSoon && <div className="mobile-line-bend-bottom" />}
+        {!selected.comingSoon &&
+          <div
+            className="mobile-line-bend-bottom"
+            key={selected.key + 'bend2'}
+          />}
         {!selected.comingSoon
           ? <div className="bottom-chooser">
               <div className="steps-content">
@@ -306,27 +327,38 @@ class Chooser extends React.Component<Props, State> {
                     </div>}
                   <p>{selected.content.description}</p>
                 </LeftColumn>
-                <div className="steps-list fade-before">
-                  {selected.steps.map((step, index) =>
-                    <DottedListItem key={index} path={step.link}>
-                      <div className="list-item">
-                        <div className="link">
-                          <Link to={step.link}>
-                            <span>
-                              {step.title}
-                            </span>
-                          </Link>
-                          {step.duration &&
-                            <Duration
-                              duration={step.duration}
-                              total={false}
-                              dark={true}
-                              link={step.link}
-                            />}
+                <div className="steps-list">
+                  <CSSTransitionGroup
+                    transitionName="chooser"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                  >
+                    {selected &&
+                      <div
+                        className="fade-before-element"
+                        key={selected.key}
+                      />}
+                    {selected.steps.map((step, index) =>
+                      <DottedListItem key={step.link} path={step.link}>
+                        <div className="list-item">
+                          <div className="link">
+                            <Link to={step.link}>
+                              <span>
+                                {step.title}
+                              </span>
+                            </Link>
+                            {step.duration &&
+                              <Duration
+                                duration={step.duration}
+                                total={false}
+                                dark={true}
+                                link={step.link}
+                              />}
+                          </div>
                         </div>
-                      </div>
-                    </DottedListItem>,
-                  )}
+                      </DottedListItem>,
+                    )}
+                  </CSSTransitionGroup>
                 </div>
               </div>
             </div>
