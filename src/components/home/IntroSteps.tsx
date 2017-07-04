@@ -4,6 +4,7 @@ import OptionalSteps from '../Steps/OptionalSteps'
 import Duration from '../Duration'
 import Steps from '../Steps/Steps'
 import { Step } from '../../types'
+import { getTotalDuration } from '../../utils/getTotalDuration'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export default function IntroSteps({ steps, location }: Props) {
+  const basicsDuration = getTotalDuration(steps.basics)
+  const advancedDuration = getTotalDuration(steps.advanced)
   return (
     <div className="intro-steps">
       <style jsx={true}>{`
@@ -56,7 +59,7 @@ export default function IntroSteps({ steps, location }: Props) {
           <div className="basic-graphql">
             <h3>GraphQL Basics</h3>
             <div className="duration">
-              <Duration duration={12} total={true} />
+              <Duration duration={basicsDuration} total={true} />
             </div>
             <p>
               In the first chapter, you’ll learn about
@@ -66,7 +69,7 @@ export default function IntroSteps({ steps, location }: Props) {
           <div className="advanced-graphql">
             <h3>Advanced GraphQL (optional)</h3>
             <div className="duration">
-              <Duration duration={19} total={true} />
+              <Duration duration={advancedDuration} total={true} />
             </div>
             <p>
               Read this chapter to get a broader

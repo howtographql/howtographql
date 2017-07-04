@@ -11,6 +11,7 @@ import SwipeableViews from 'react-swipeable-views'
 import { Step } from '../../types'
 import Duration from '../Duration'
 import NewsletterSignup from '../NewsletterSignup'
+import { getTotalDuration } from '../../utils/getTotalDuration'
 
 interface Props {
   width?: number
@@ -46,6 +47,7 @@ class Chooser extends React.Component<Props, State> {
     // const translateWidth = (fixedWidth > 0 ? fixedWidth : width) || 1
     // const translateX =
     //   translateWidth / 2 - widthElement * selectedIndex - widthElementSelected / 2
+    const selectedDuration = getTotalDuration(selected.steps)
 
     return (
       <div className={cn('steps-container', { light })}>
@@ -294,16 +296,14 @@ class Chooser extends React.Component<Props, State> {
               <div className="steps-content">
                 <LeftColumn className="steps-description">
                   <h3>{selected.content.title}</h3>
-                  <div className="duration">
-                    <Duration
-                      duration={selected.steps.reduce(
-                        (acc, curr) => acc + (curr.duration || 0),
-                        0,
-                      )}
-                      total={true}
-                      dark={true}
-                    />
-                  </div>
+                  {selectedDuration > 0 &&
+                    <div className="duration">
+                      <Duration
+                        duration={selectedDuration}
+                        total={true}
+                        dark={true}
+                      />
+                    </div>}
                   <p>{selected.content.description}</p>
                 </LeftColumn>
                 <div className="steps-list fade-before">
