@@ -71,12 +71,7 @@ const Info = (props: Props) => {
       {props.customTip}
       <div className="tooltip">
         <div className="tooltip-content">
-          <div
-            className="before"
-            style={{
-              transform: `translateX(40%) rotate(45deg)`,
-            }}
-          />
+          <div className="before" />
           {props.children}
         </div>
       </div>
