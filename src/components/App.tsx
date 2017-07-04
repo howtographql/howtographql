@@ -4,7 +4,7 @@ import Overlay from './Overlay'
 import Search from './Search/Search'
 import { Step } from '../types'
 import MobileMenu from './MobileMenu'
-// import OverviewVideoModal from './OverviewVideoModal'
+import OverviewVideoModal from './OverviewVideoModal'
 import Logo from './Logo'
 import '../utils/polyfill'
 
@@ -106,8 +106,7 @@ export default function App({ children, history, steps, location }: Props) {
           border: 0;
           font-size: 100%;
           vertical-align: baseline;
-        }
-        /* HTML5 display-role reset for older browsers */
+        } /* HTML5 display-role reset for older browsers */
         article,
         aside,
         details,
@@ -137,8 +136,7 @@ export default function App({ children, history, steps, location }: Props) {
         table {
           border-collapse: collapse;
           border-spacing: 0;
-        }
-        /* main rules */
+        } /* main rules */
         body, input, select, option, textarea {
           font-family: 'Open Sans', sans-serif;
           -webkit-font-smoothing: antialiased;
@@ -235,7 +233,7 @@ export default function App({ children, history, steps, location }: Props) {
         }
       `}</style>
       <Overlay />
-      {/*<OverviewVideoModal />*/}
+      <OverviewVideoModal />
       <Search history={history} location={location} />
       <MobileMenu steps={steps} location={location} />
       <Header steps={steps} location={location} />
