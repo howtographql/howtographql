@@ -40,6 +40,8 @@ export const pageQuery = graphql`
         node {
           frontmatter {
             title
+            duration
+            videoId
           }
           fields {
             slug

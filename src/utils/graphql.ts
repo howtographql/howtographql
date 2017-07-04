@@ -10,6 +10,7 @@ export function extractSteps(
     .filter(n => n.frontmatter.title.length > 0)
     .map(chapter => ({
       description: chapter.frontmatter.description,
+      duration: chapter.frontmatter.duration,
       link: chapter.fields.slug,
       title: chapter.frontmatter.title,
     }))

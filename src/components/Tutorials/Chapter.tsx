@@ -16,7 +16,7 @@ interface Props {
 
 export default function Chapter({ post, location, steps }: Props) {
   const group = extractGroup(location.pathname)
-  const stack = steps[group]
+  const stack = steps[group] || []
   const n = stack.findIndex(step => step.link === location.pathname)
   const isTutorialChooser = location.pathname.includes('/choose')
   const showAuthor =
@@ -26,6 +26,7 @@ export default function Chapter({ post, location, steps }: Props) {
       ? authors[post.frontmatter.videoAuthor]
       : null
     : null
+  const autoplay = location.search.includes('autoplay')
   let nextChapter = stack[n + 1]
   if (!nextChapter) {
     if (group === 'basics' || group === 'advanced') {
@@ -64,7 +65,11 @@ export default function Chapter({ post, location, steps }: Props) {
         }
       `}</style>
       {post.frontmatter.videoId &&
-        <Video videoId={post.frontmatter.videoId} author={videoAuthor} />}
+        <Video
+          videoId={post.frontmatter.videoId}
+          author={videoAuthor}
+          autoplay={autoplay}
+        />}
       {showAuthor && <Author post={post} group={group} />}
       <div className="left">
         <div className="content">

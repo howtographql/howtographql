@@ -4,6 +4,7 @@ videoId: QZWAAmp406s
 question: Can you choose the first answer to this question?
 answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
 correctAnswer: 0
+duration: 4
 ---
 
 ### Backend

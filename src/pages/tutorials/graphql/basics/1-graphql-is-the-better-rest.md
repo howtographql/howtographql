@@ -5,6 +5,7 @@ answers: ["They work well with the Javascript type system", "Once the schema is 
 correctAnswer: 1
 description: "Learn why GraphQL is a more efficient and fleible alternative to REST APIs"
 videoId: eYzJ6hzlkN0
+duration: 4
 ---
 
 Over the past decade, [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) has become the standard (yet a fuzzy one) for designing web APIs. It offers some great ideas, such as *stateless servers* and *structured access to resources*. However, REST APIs have shown to be too inflexible to keep up with the rapidly changing requirements of the clients that access them.

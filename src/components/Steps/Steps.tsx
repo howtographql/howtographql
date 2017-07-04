@@ -61,9 +61,11 @@ export default function Steps({
               {step.title}
             </Link>
             {showDuration &&
+              step.duration &&
               <Duration
-                duration={step.time || 0}
+                duration={step.duration || 0}
                 className={index === 0 ? 'first-duration-up' : ''}
+                link={step.link}
               />}
           </div>
         </DottedListItem>,

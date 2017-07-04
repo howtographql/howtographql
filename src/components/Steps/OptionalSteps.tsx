@@ -145,7 +145,9 @@ export default class OptionalSteps extends React.Component<Props, State> {
                 <Link to={step.link} onClick={onClickLink}>
                   {step.title}
                 </Link>
-                {showDuration && <Duration duration={step.time || 0} />}
+                {showDuration &&
+                  step.duration &&
+                  <Duration duration={step.duration} />}
               </div>
             </OptionalDottedListItem>,
           )}

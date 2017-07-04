@@ -1,5 +1,5 @@
 import * as React from 'react'
-// import YoutubeEmbedVideo from 'youtube-embed-video'
+import YoutubeEmbedVideo from 'youtube-embed-video'
 import { Author } from '../../data/authors'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import * as cn from 'classnames'
@@ -7,6 +7,7 @@ import * as cn from 'classnames'
 interface Props {
   videoId: string
   author: Author | null
+  autoplay?: boolean
 }
 
 interface State {
@@ -18,12 +19,12 @@ export default class Video extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      showVideo: false,
+      showVideo: props.autoplay,
     }
   }
   render() {
     const { author, videoId } = this.props
-    const { showVideo } = this.state
+    const showVideo = this.state.showVideo || this.props.autoplay
     return (
       <div className="video-wrapper">
         <style jsx={true}>{`
@@ -95,14 +96,12 @@ export default class Video extends React.Component<Props, State> {
 
         <div className="video-wrap">
           <div className="video">
-            {/*
             <YoutubeEmbedVideo
               videoId={videoId}
               suggestions={false}
               autoplay={showVideo}
               controls={false}
             />
-             */}
             {!showVideo &&
               author &&
               <div className="author">

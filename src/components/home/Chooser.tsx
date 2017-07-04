@@ -204,7 +204,7 @@ class Chooser extends React.Component<Props, State> {
             }
           }
           .list-item {
-            @p: .flex;
+            @p: .flex, .itemsCenter;
           }
           .coming-soon {
             @p: .pb96, .pt38;
@@ -230,6 +230,9 @@ class Chooser extends React.Component<Props, State> {
           .center-container {
             @p: .flex, .justifyCenter;
           }
+          .link {
+            @p: .flex, .itemsCenter;
+          }
         `}</style>
         <div className="steps-content">
           <LeftColumn>
@@ -237,14 +240,19 @@ class Chooser extends React.Component<Props, State> {
           </LeftColumn>
           <div className="steps-list steps-list-top">
             <DottedListItem first={true} path={'/tutorials/choose'}>
-              <Link to={'/tutorials/choose'}>
-                <div className="list-item">
+              <div className="list-item">
+                <Link to={'/tutorials/choose'}>
                   <span>
                     Choose your favorite technology
                   </span>
-                  <Duration duration={2} total={false} dark={true} />
-                </div>
-              </Link>
+                </Link>
+                <Duration
+                  duration={2}
+                  total={false}
+                  dark={true}
+                  link={`/tutorials/choose`}
+                />
+              </div>
             </DottedListItem>
           </div>
         </div>
@@ -287,7 +295,14 @@ class Chooser extends React.Component<Props, State> {
                 <LeftColumn className="steps-description">
                   <h3>{selected.content.title}</h3>
                   <div className="duration">
-                    <Duration duration={87} total={true} dark={true} />
+                    <Duration
+                      duration={selected.steps.reduce(
+                        (acc, curr) => acc + (curr.duration || 0),
+                        0,
+                      )}
+                      total={true}
+                      dark={true}
+                    />
                   </div>
                   <p>{selected.content.description}</p>
                 </LeftColumn>
@@ -295,9 +310,20 @@ class Chooser extends React.Component<Props, State> {
                   {selected.steps.map((step, index) =>
                     <DottedListItem key={index} path={step.link}>
                       <div className="list-item">
-                        <Link to={step.link}>
-                          {step.title}
-                        </Link>
+                        <div className="link">
+                          <Link to={step.link}>
+                            <span>
+                              {step.title}
+                            </span>
+                          </Link>
+                          {step.duration &&
+                            <Duration
+                              duration={step.duration}
+                              total={false}
+                              dark={true}
+                              link={step.link}
+                            />}
+                        </div>
                       </div>
                     </DottedListItem>,
                   )}
