@@ -3701,6 +3701,12 @@ graphql-relay@^0.5.1:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/graphql-relay/-/graphql-relay-0.5.2.tgz#40ff714efd60c2cd89e0bcc79e2afa6d87fa8673"
 
+graphql-request@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.2.0.tgz#9be0945b2399342f1d495be96939b2421b0823a2"
+  dependencies:
+    isomorphic-fetch "^2.2.1"
+
 graphql-skip-limit@^1.0.0-beta.5-alpha.fb30fcd6:
   version "1.0.0-beta.5-alpha.fb30fcd6"
   resolved "https://registry.yarnpkg.com/graphql-skip-limit/-/graphql-skip-limit-1.0.0-beta.5-alpha.fb30fcd6.tgz#ba0e537202aa7639cf36dbfae1e0cec4dce789ec"
@@ -5541,7 +5547,7 @@ node-cjsx@^2.0.0:
     coffee-react-transform "^4.0.0"
     coffee-script "^1.9.1"
 
-node-fetch@^1.0.1, node-fetch@^1.6.3:
+node-fetch@^1.0.1, node-fetch@^1.6.3, node-fetch@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.1.tgz#899cb3d0a3c92f952c47f1b876f4c8aeabd400d5"
   dependencies:

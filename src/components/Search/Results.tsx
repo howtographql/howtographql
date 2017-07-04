@@ -6,6 +6,7 @@ import { setSearchVisible } from '../../actions/ui'
 import Link from 'gatsby-link'
 import GroupBadge from './GroupBadge'
 import { extractGroup } from '../../utils/graphql'
+import { $v } from 'graphcool-styles'
 
 interface Props {
   results: any[]
@@ -17,6 +18,7 @@ interface Props {
 }
 
 class Results extends React.Component<Props, {}> {
+  private resultRefs: { [key: number]: any } = {}
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown)
   }
@@ -38,12 +40,16 @@ class Results extends React.Component<Props, {}> {
             background: white;
             transition: opacity .25s ease-in-out;
             pointer-events: none;
+
             border-bottom-left-radius: 2px;
             border-bottom-right-radius: 2px;
           }
+          .results {
+            @p: .overflowAuto;
+            max-height: calc(100vh - 92px);
+          }
           .search-results.visible {
             @p: .o100;
-
             pointer-events: all;
           }
           .result {
@@ -52,7 +58,7 @@ class Results extends React.Component<Props, {}> {
             margin-bottom: 10px;
           }
           .result.selected {
-            background-color: #ecfaff;
+            background-color: rgba(224, 0, 130, .04);
           }
           .result.selected :global(i) {
             @p: .absolute;
@@ -62,7 +68,7 @@ class Results extends React.Component<Props, {}> {
           .result :global(a) {
             display: inline-block;
             font-weight: 500;
-            color: #0099e5;
+            color: $pink;
             font-size: 15px;
             margin-right: 5px;
             margin-bottom: 5px;
@@ -79,26 +85,30 @@ class Results extends React.Component<Props, {}> {
             margin: 0;
             max-height: 40px;
           }
+          .result :global(em) {
+            @p: .fw7;
+            color: rgb(195, 10, 118);
+            font-style: normal;
+          }
         `}</style>
         <div className="results">
           {results.map((result, index) =>
             <div
               className={cn('result', { selected: index === selectedIndex })}
               onClick={onSelectIndex.bind(null, index)}
+              ref={this.setRef.bind(this, index)}
             >
               {index === selectedIndex &&
                 <Icon
                   src={require('graphcool-styles/icons/stroke/arrowRight.svg')}
-                  color="#0099e5"
+                  color={$v.pink}
                   stroke={true}
                   strokeWidth={4}
                   width={10}
                   height={10}
                 />}
-              <Link to="/" onClick={this.handleLinkClick}>
-                <span>
-                  {result.title}
-                </span>
+              <Link to={result.link} onClick={this.handleLinkClick}>
+                <span dangerouslySetInnerHTML={{ __html: result.title }} />
                 <GroupBadge group={extractGroup(result.link)} />
               </Link>
               <p>{result.description}</p>
@@ -107,6 +117,12 @@ class Results extends React.Component<Props, {}> {
         </div>
       </div>
     )
+  }
+
+  private setRef = (index, ref) => {
+    if (ref) {
+      this.resultRefs[index] = ref
+    }
   }
 
   private handleKeyDown = e => {
@@ -118,10 +134,26 @@ class Results extends React.Component<Props, {}> {
       this.props.gotoSelectedItem()
     }
     if (e.keyCode === 38) {
-      this.props.onSelectIndex(this.props.selectedIndex - 1)
+      const selectedIndex = this.props.selectedIndex - 1
+      if (selectedIndex < 0) {
+        return
+      }
+      this.props.onSelectIndex(selectedIndex)
+      this.scrollToIndex(selectedIndex)
     }
     if (e.keyCode === 40) {
-      this.props.onSelectIndex(this.props.selectedIndex + 1)
+      const selectedIndex = this.props.selectedIndex + 1
+      if (selectedIndex > this.props.results.length - 1) {
+        return
+      }
+      this.props.onSelectIndex(selectedIndex)
+      this.scrollToIndex(selectedIndex)
+    }
+  }
+
+  private scrollToIndex(i: number) {
+    if (this.resultRefs[i]) {
+      this.resultRefs[i].scrollIntoViewIfNeeded(false)
     }
   }
 

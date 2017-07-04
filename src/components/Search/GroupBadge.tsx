@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { getStackName } from '../../utils/getStackName'
+import { $v } from 'graphcool-styles'
 
 interface Props {
   group: string
@@ -8,6 +9,7 @@ interface Props {
 const colors = {
   advanced: 'rgba(0,0,0,.7)',
   basics: '#EB1796',
+  graphcool: $v.green,
   graphene: '#db594c',
   'graphql-elixir': '#4e2a8e',
   'graphql-ruby': '#a5152a',

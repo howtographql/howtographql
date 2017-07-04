@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as throttle from 'lodash/throttle'
-import * as uniqBy from 'lodash/uniqBy'
 import * as algolia from 'algoliasearch'
 import SearchInput from './SearchInput'
 import { connect } from 'react-redux'
@@ -18,12 +17,12 @@ interface Props {
 
 interface State {
   query: string
-  results: any[]
+  results: Result[]
   focused: boolean
   selectedIndex: number
 }
 
-interface Result {
+export interface Result {
   title: string
   description: string
   link: string
@@ -45,10 +44,11 @@ class Search extends React.Component<Props, State> {
             // handle error
           } else {
             this.setState({
-              results: uniqBy(data.hits, (result: any) => result.alias).slice(
-                0,
-                10,
-              ),
+              results: data.hits.map(hit => ({
+                description: hit.body,
+                link: hit.objectID,
+                title: hit._highlightResult.title.value,
+              })),
             })
           }
         },
@@ -62,8 +62,8 @@ class Search extends React.Component<Props, State> {
   )
   constructor(props) {
     super(props)
-    this.client = algolia('MU1EXDJ8LW', '4ac8dd3789c402e98dd0816518e1e842')
-    this.index = this.client.initIndex('Simple Search')
+    this.client = algolia('EGOD51Z7AV', '8cfa9fa05850587f0624c13b4df797b1')
+    this.index = this.client.initIndex('howtographql')
 
     this.state = {
       focused: false,
@@ -103,9 +103,10 @@ class Search extends React.Component<Props, State> {
           onBlur={this.handleBlur}
           onClose={this.handleClose}
           location={this.props.location}
+          numResults={this.state.results.length}
         />
         <Results
-          results={results}
+          results={this.state.results}
           selectedIndex={this.state.selectedIndex}
           onSelectIndex={this.handleSelectIndex}
           gotoSelectedItem={this.handleGotoSelectedItem}
@@ -120,14 +121,16 @@ class Search extends React.Component<Props, State> {
 
   private handleSelectIndex = selectedIndex => {
     // TODO put the real length in here
-    if (selectedIndex < 0 || selectedIndex > 3 - 1) {
+    if (selectedIndex < 0 || selectedIndex > this.state.results.length - 1) {
       return
     }
     this.setState(state => ({ ...state, selectedIndex }))
   }
 
   private handleGotoSelectedItem = () => {
-    this.props.history.push('/route')
+    const { selectedIndex, results } = this.state
+    this.props.history.push(results[selectedIndex].link)
+    this.props.setSearchVisible(false)
   }
 
   private handleFocus = e => {
@@ -154,33 +157,6 @@ class Search extends React.Component<Props, State> {
     this.search(value)
   }
 }
-
-const results: Result[] = [
-  {
-    description:
-      'Over the past decade, REST has become the standard (yet a fuzzy one) for designing web APIs. It offers some great ideas, such as stateless servers and structured access to resources. However, REST APIs have shown to be too inflexible to keep up with the rapidly changing requirements of the clients that access them.',
-    link: '/tutorials/graphql/basics/1-graphql-is-the-better-rest/',
-    title: 'GraphQL is the Better REST',
-  },
-  {
-    description:
-      'Working with a GraphQL API on the frontend is a great opportunity to develop new abstractions and help implement common functionality on the client-side. Let’s consider some “infrastructure” features that you probably want to have in your app:',
-    link: '/tutorials/graphql/advanced/0-clients/',
-    title: 'Client',
-  },
-  {
-    description:
-      'In the previous chapter, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!',
-    link: '/tutorials/frontend/react-apollo/0-introduction/',
-    title: 'Introduction',
-  },
-  {
-    description:
-      'GraphQL has its own type system that’s used to define the schema of an API. The syntax for writing schemas is called Schema Definition Language (SDL).',
-    link: '/tutorials/backend/graphql-ruby/3-mutations/',
-    title: 'Mutations',
-  },
-]
 
 export default connect(null, {
   setSearchVisible,

@@ -6,6 +6,7 @@ import { Step } from '../types'
 import MobileMenu from './MobileMenu'
 // import OverviewVideoModal from './OverviewVideoModal'
 import Logo from './Logo'
+import '../utils/polyfill'
 
 interface Props {
   children?: JSX.Element
@@ -136,7 +137,8 @@ export default function App({ children, history, steps, location }: Props) {
         table {
           border-collapse: collapse;
           border-spacing: 0;
-        } /* main rules */
+        }
+        /* main rules */
         body, input, select, option, textarea {
           font-family: 'Open Sans', sans-serif;
           -webkit-font-smoothing: antialiased;

@@ -12,11 +12,20 @@ interface Props {
   focused?: boolean
   onClose?: () => void
   location: any
+  numResults: number
 }
 
 export default class SearchInput extends React.Component<Props, {}> {
   render() {
-    const { onFocus, onBlur, query, focused, onClose, location } = this.props
+    const {
+      onFocus,
+      onBlur,
+      query,
+      focused,
+      onClose,
+      location,
+      numResults,
+    } = this.props
     const tutorial = location.pathname !== '/'
     return (
       <div className={cn('search-input', { focused, tutorial })}>
@@ -27,6 +36,18 @@ export default class SearchInput extends React.Component<Props, {}> {
           }
           .input {
             @p: .relative, .flex, .itemsCenter;
+          }
+          .search-after {
+            @p: .left0, .absolute;
+            top: 18px;
+          }
+          .search-text {
+            @p: .f14, .dib, .pl38;
+            visibility: hidden;
+          }
+          .no-results {
+            @p: .black30, .ml16, .dib, .f14;
+            pointer-events: none;
           }
           input {
             @p: .f14, .black80, .ml6, .pl38, .pv16, .pr25, .relative, .z1;
@@ -46,7 +67,8 @@ export default class SearchInput extends React.Component<Props, {}> {
           }
           .icon {
             @p: .absolute;
-            left: 20px;
+            left: 16px;
+            top: 17px;
           }
           .close {
             @p: .dn;
@@ -92,6 +114,12 @@ export default class SearchInput extends React.Component<Props, {}> {
             onFocus={onFocus}
             onBlur={onBlur}
           />
+          {query.length > 0 &&
+            numResults === 0 &&
+            <div className="search-after">
+              <span className="search-text">{query}</span>
+              <span className="no-results">— No Results</span>
+            </div>}
         </div>
         <div className="close" onClick={onClose}>
           <Icon

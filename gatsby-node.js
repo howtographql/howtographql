@@ -1,6 +1,10 @@
 const path = require('path')
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
 const xmldom = require('xmldom')
+const {syncToAlgolia} = require('./algoliasync')
+
+console.log('node env')
+console.log(process.env.NODE_ENV)
 
 exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators
@@ -30,14 +34,17 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     // Query for all markdown "nodes" and for the slug we previously created.
     resolve(
       graphql(
-        `
-        {
+        `{
           allMarkdownRemark {
             edges {
               node {
+                frontmatter {
+                  title
+                }
                 fields {
                   slug
                 }
+                excerpt(pruneLength: 1000)
               }
             }
           }
@@ -59,6 +66,10 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             },
           })
         })
+
+        if (process.env.NODE_ENV === 'production') {
+          syncToAlgolia(result.data)
+        }
 
         return
       })
