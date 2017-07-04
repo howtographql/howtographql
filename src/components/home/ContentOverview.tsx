@@ -18,6 +18,7 @@ export default function ContentOverview({ location, steps }: Props) {
     <section>
       <style jsx={true}>{`
         section {
+          @p: .pt0;
           background-color: #fafafa;
         }
         .content-overview {
