@@ -36,9 +36,9 @@ GraphQL also doesn't care about the database or the format that is used to store
 
 Another major use case for GraphQL is the integration of multiple existing systems behind a single, coherent GraphQL API. This is particularly compelling for companies with legacy infrastructures and many different APIs that have grown over years and now impose a high maintenance burden. One major problem with these kinds of legacy systems is that they make it practically impossible to build innovative products that need access to multiple systems.
 
-In that context, GraphQL can be used to *unify* these existing systems and hide their complexity behind a nice GraphQL API. This way, new client applications can be developed that simply talk to the GraphQL server to fetch the data they need. The server is then responsible to make sure it fetches the data from the existing system and packages it up in GraphQL's response format.  
+In that context, GraphQL can be used to *unify* these existing systems and hide their complexity behind a nice GraphQL API. This way, new client applications can be developed that simply talk to the GraphQL server to fetch the data they need. The server is then responsible to make sure it fetches the data from the existing system and packages it up in the GraphQL response format.  
 
-Just like in previous architecture where the GraphQL server didn't care about the database being used, this time it doesn't care about the data sources that it needs to access to fetch the data that's needed to *resolve* a query.
+Just like in the previous architecture where the GraphQL server didn't care about the database being used, this time it doesn't care about the data sources that it needs to access to fetch the data that's needed to *resolve* a query.
 
 ![](http://imgur.com/168FvP4.png)
 *GraphQL allows to hide the complexity of existing system, such as microservices, legacy infrastructures or third-party APIs behind a single GraphQL interface.*
