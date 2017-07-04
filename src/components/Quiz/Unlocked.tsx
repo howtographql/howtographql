@@ -25,7 +25,7 @@ export default function Unlocked({ n }: Props) {
           background-color: #fafafa;
         }
         .well-done span {
-          @p: .pink, .ph10, .f14, .fw6, .z2, .ttu, .absolute;
+          @p: .pink, .ph10, .f20, .fw6, .z2, .absolute;
         }
         .well-done :global(canvas) {
           top: -2px !important;
@@ -34,17 +34,7 @@ export default function Unlocked({ n }: Props) {
       <span>
         Well done, you unlocked the next chapter!
       </span>
-      <Confetti height={'400%'} numberOfPieces={300} gravity={0.2} />
+      <Confetti height={'400%'} numberOfPieces={200} />
     </div>
   )
 }
-// colors={[
-//   'rgba(0,0,0,.05)',
-//   'rgba(0,0,0,.15)',
-//   'rgba(0,0,0,.25)',
-//   'rgba(0,0,0,.35)',
-//   'rgba(0,0,0,.10)',
-//   'rgba(0,0,0,.20)',
-//   'rgba(0,0,0,.30)',
-//   'rgba(0,0,0,.40)',
-// ]}

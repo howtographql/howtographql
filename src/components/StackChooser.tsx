@@ -166,9 +166,8 @@ class StackChooser extends React.Component<Props, {}> {
                     ? <img
                         src={tutorial.images[0]}
                         alt=""
-                        className={cn({
+                        className={cn(`${tutorial.key}-1`, {
                           darken: tutorial.darkenGreyLogo,
-                          lighten: tutorial.lightenLogo,
                         })}
                       />
                     : <Icon
@@ -176,6 +175,9 @@ class StackChooser extends React.Component<Props, {}> {
                         width={50}
                         height={50}
                         color={tutorial.color1 || 'black'}
+                        className={cn(`${tutorial.key}-1`, {
+                          lighten: tutorial.lightenLogo,
+                        })}
                       />}
                   {tutorial.images[1] &&
                     <Icon
@@ -183,7 +185,9 @@ class StackChooser extends React.Component<Props, {}> {
                       width={50}
                       height={50}
                       color={tutorial.color2 || 'black'}
-                      className={cn({ lighten: tutorial.lightenLogo })}
+                      className={cn(`${tutorial.key}-2`, {
+                        lighten: tutorial.lightenLogo,
+                      })}
                     />}
                 </div>
                 <p>{tutorial.title}</p>

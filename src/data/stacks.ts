@@ -139,7 +139,6 @@ const data: Stack[] = [
     },
     authorName: 'Nikolas Burk',
     color2: '#4e2a8e',
-    lightenLogo: true,
   },
   {
     title: 'graphql-ruby',

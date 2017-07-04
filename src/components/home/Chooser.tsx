@@ -213,11 +213,19 @@ class Chooser extends React.Component<Props, State> {
           .category.active {
             @p: .white70;
           }
-          .steps-container :global(.stacks-item:not(.active)) :global(img.lighten) {
-            filter: grayscale(100%) brightness(1300%) !important;
+          .steps-container :global(.stacks-item:not(.active)) :global(.graphql-elixir-1) {
+            filter: grayscale(100%) brightness(1500%) !important;
           }
-          .steps-container :global(.stacks-item.active) :global(img.lighten) {
-            filter: brightness(400%) !important;
+          .steps-container :global(.stacks-item.active) :global(.graphql-elixir-1) {
+            filter: brightness(450%) !important;
+          }
+          .steps-container :global(.stacks-item:not(.active)) :global(.graphql-elixir-2),
+          .steps-container :global(.stacks-item:not(.active)) :global(.graphql-ruby-2) {
+            filter: grayscale(100%) brightness(1000%) !important;
+          }
+          .steps-container :global(.stacks-item.active) :global(.graphql-elixir-2),
+          .steps-container :global(.stacks-item.active) :global(.graphql-ruby-2) {
+            filter: brightness(180%) !important;
           }
           .center-container {
             @p: .flex, .justifyCenter;
