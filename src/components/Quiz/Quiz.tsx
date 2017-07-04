@@ -64,7 +64,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
             @p: .mt60;
           }
           .quiz:not(.hasQuestion) :global(.next-chapter) {
-            @p: .pt60;
+            @p: .pt38;
           }
           .quiz-title {
             @p: .relative, .flex, .itemsCenter, .justifyCenter;

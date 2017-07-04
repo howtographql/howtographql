@@ -40,7 +40,7 @@ class Tutorials extends React.Component<Props, null> {
             }
             .left-container {
               @p: .overflowAuto, .bbox, .flexAuto;
-              height: calc(100vh - 72px);
+              height: calc(100vh - 68px);
             }
           `}</style>
           <div

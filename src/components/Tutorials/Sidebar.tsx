@@ -55,7 +55,7 @@ export default class Sidebar extends React.Component<Props, {}> {
             @p: .flexFixed, .pt38, .bbox, .overflowAuto, .relative, .bl, .bBlack10;
             background-color: rgb(245, 245, 245);
             padding-left: 21px;
-            height: calc(100vh - 72px);
+            height: calc(100vh - 68px);
             width: 300px;
           }
           .sidebar-container::before {
