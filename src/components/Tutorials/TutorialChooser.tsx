@@ -3,6 +3,7 @@ import data from '../../data/stacks'
 import StackChooser from '../StackChooser'
 import { Step } from '../../types'
 import Link from 'gatsby-link'
+import NewsletterSignup from '../NewsletterSignup'
 
 interface Props {
   markdownFiles: { [key: string]: Step[] }
@@ -65,7 +66,9 @@ export default class TutorialChooser extends React.Component<Props, State> {
         />
         <div className="center-container">
           {selected.comingSoon
-            ? <h1>This track is coming soon - stay tuned!</h1>
+            ? <div>
+                <NewsletterSignup light={true} tutorial={selected.key} />
+              </div>
             : <Link to={markdownFiles[selected.key][0].link}>
                 <div className="btn small">
                   Continue with the {selected.title} Tutorial

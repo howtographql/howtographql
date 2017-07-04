@@ -77,7 +77,7 @@ export default class NewsletterSignup extends React.Component<Props, State> {
               @p: .white, .tc;
             }
             p.light {
-              @p: .white;
+              @p: .darkBlue80;
             }
           `}</style>
           Signing up...
@@ -98,10 +98,10 @@ export default class NewsletterSignup extends React.Component<Props, State> {
             background: none;
           }
           .newsletter-signup.light {
-            @p: .bgWhite10;
+            @p: .bgDarkBlue10;
           }
           .newsletter-signup.light input {
-            @p: .white80;
+            @p: .darkBlue80;
           }
           p {
             @p: .tc, .mb16, .white80, .lhCopy;

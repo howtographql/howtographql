@@ -340,6 +340,9 @@ class Chooser extends React.Component<Props, State> {
   }
 
   private selectStack = index => {
+    if (index < 0 || index > Object.keys(this.props.mds).length) {
+      return
+    }
     const selectedCategoryIndex = index > 4 ? 1 : 0
     this.setState({ selectedIndex: index, selectedCategoryIndex })
   }

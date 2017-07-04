@@ -97,6 +97,10 @@ exports.modifyWebpackConfig = function modifyWebpackConfig({config, stage}) {
         },
         location: {
           pathname: ''
+        },
+        document: {
+          addEventListener: () => null,
+          removeEventListener: () => null
         }
       }
     })
