@@ -18,7 +18,7 @@ export default function EditOnGithub({ post }: Props) {
         .footer {
           @p: .tc, .pv38, .black40, .flex, .justifyCenter;
           background-color: rgba(0, 0, 0, .03);
-          border-top: 2px solid rgba(0, 0, 0, 0.1);
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
           padding-left: 30px;
           padding-right: 30px;
           line-height: 1.5;
