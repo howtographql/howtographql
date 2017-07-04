@@ -6,6 +6,7 @@ import authors from '../../data/authors'
 import Markdown from './Markdown'
 import Author from './Author'
 import Quiz from '../Quiz/Quiz'
+import EditOnGithub from '../EditOnGithub'
 
 interface Props {
   post: MarkdownRemark
@@ -82,6 +83,7 @@ export default function Chapter({ post, location, steps }: Props) {
           showBonus={showBonus}
           path={location.pathname}
         />}
+      <EditOnGithub post={post} />
     </div>
   )
 }

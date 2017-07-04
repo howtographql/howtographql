@@ -39,6 +39,20 @@ export default function CheckoutGraphcool() {
         }
         .right {
         }
+        @media (max-width: 580px) {
+          a.btn {
+            @p: .mv16, .f16;
+          }
+          div.checkout-graphcool {
+            @p: .pa25;
+          }
+          div.content {
+            @p: .db;
+          }
+          div.right {
+            @p: .mt25;
+          }
+        }
       `}</style>
       <div className="rocket">
         <Icon
@@ -52,8 +66,10 @@ export default function CheckoutGraphcool() {
         <div className="left">
           <h1>Next step: Build something in production.</h1>
           <p>
-            Use your new knowledge and start building a production app. Graphcool
-            provides everything you need to build the backend for your next project.
+            Use your new knowledge and start building a production app.
+            Graphcool
+            provides everything you need to build the backend for your next
+            project.
           </p>
           <a
             className="btn green small"
@@ -118,6 +134,11 @@ function Tutorial({ title, description, link }: TutorialProps) {
         }
         p {
           @p: .f16, .black50, .mt4;
+        }
+        @media (max-width: 580px) {
+          a.tutorial {
+            @p: .ml25;
+          }
         }
       `}</style>
       <div className="title">

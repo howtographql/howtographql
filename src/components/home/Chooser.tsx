@@ -10,6 +10,7 @@ import SwipeableViews from 'react-swipeable-views'
 
 import { Step } from '../../types'
 import Duration from '../Duration'
+import NewsletterSignup from '../NewsletterSignup'
 
 interface Props {
   width?: number
@@ -208,8 +209,8 @@ class Chooser extends React.Component<Props, State> {
           .coming-soon {
             @p: .pb96, .pt38;
           }
-          .coming-soon h1 {
-            @p: .fw6, .tc, .center;
+          .coming-soon p {
+            @p: .white70, .mb16;
           }
           .category-chooser {
             @p: .flex, .justifyCenter, .mt16;
@@ -225,6 +226,9 @@ class Chooser extends React.Component<Props, State> {
           }
           .steps-container :global(.stacks-item.active) :global(img.lighten) {
             filter: brightness(400%) !important;
+          }
+          .center-container {
+            @p: .flex, .justifyCenter;
           }
         `}</style>
         <div className="steps-content">
@@ -276,7 +280,7 @@ class Chooser extends React.Component<Props, State> {
           onChangeSelectedIndex={this.selectStack}
           markdownFiles={mds}
         />
-        <div className="mobile-line-bend-bottom" />
+        {!selected.comingSoon && <div className="mobile-line-bend-bottom" />}
         {!selected.comingSoon
           ? <div className="bottom-chooser">
               <div className="steps-content">
@@ -300,8 +304,10 @@ class Chooser extends React.Component<Props, State> {
                 </div>
               </div>
             </div>
-          : <div className="coming-soon">
-              <h1>This track is coming soon - stay tuned!</h1>
+          : <div className="center-container">
+              <div className="coming-soon">
+                <NewsletterSignup tutorial={selected.key} />
+              </div>
             </div>}
       </div>
     )

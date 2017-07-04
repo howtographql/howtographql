@@ -40,6 +40,18 @@ export default function Share() {
           color: rgb(29, 161, 242);
           border-color: rgba(29, 161, 242, 0.3);
         }
+        @media (max-width: 580px) {
+          div.share {
+            @p: .db;
+          }
+          div.block {
+            @p: .w100, .bbox, .pa25;
+          }
+          div.block + div.block {
+            @p: .bt, .bw2, .bBlack10;
+            border-left: none;
+          }
+        }
       `}</style>
       <div className="block left">
         <h2>Star us on Github</h2>

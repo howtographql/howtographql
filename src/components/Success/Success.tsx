@@ -20,6 +20,11 @@ export default function Success({ post, steps }: Props) {
         .content {
           @p: .pa60;
         }
+        @media (max-width: 580px) {
+          div.content {
+            @p: .pa25;
+          }
+        }
       `}</style>
       <Result steps={steps} />
       <Share />

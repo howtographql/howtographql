@@ -37,5 +37,8 @@ export function extractGroup(slug) {
   if (splittedSlug.length > 3) {
     return splittedSlug[3]
   }
+  if (slug.includes('/choose')) {
+    return 'choose'
+  }
   return ''
 }

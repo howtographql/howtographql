@@ -107,7 +107,15 @@ function Result({ steps, ...state }: Props & QuizState) {
           max-width: 514px;
         }
         .bars {
-          @p: .mt60, .flex;
+          @p: .mt60, .flex, .flexWrap;
+        }
+        @media (max-width: 580px) {
+          div.result {
+            @p: .pa25;
+          }
+          div.bars {
+            @p: .flexWrap;
+          }
         }
       `}</style>
       <div className="medal">
@@ -158,8 +166,8 @@ function Bar({ items, title }: BarProps) {
   return (
     <div className="bar">
       <style jsx={true}>{`
-        .bar + .bar {
-          @p: .ml25;
+        .bar {
+          @p: .mr25;
         }
         .cells {
           @p: .flex;
@@ -190,6 +198,11 @@ function Bar({ items, title }: BarProps) {
         }
         .l-4 {
           @p: .bgPink;
+        }
+        @media (max-width: 580px) {
+          div.bar + div.bar {
+            @p: .mt25;
+          }
         }
       `}</style>
       <div className="cells">
