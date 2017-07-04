@@ -3,9 +3,9 @@ title: Introduction
 question: Which of these statements is true?
 answers: ["GraphQL is a database technology", "GraphQL can only be used together with SQL", "GraphQL was invented by Facebook", "GraphQL was developed by Netflix and Coursera"]
 correctAnswer: 2
-description: "In this chapter, we provide some overall perspective on GraphQL and its."
+description: "In this chapter, we provide some overall perspective on GraphQL"
 videoId: oCT4HOJsUZQ
-duration: 3
+duration: 5
 ---
 
 [GraphQL](http://www.graphql.org/) is a new API standard that provides a more efficient, powerful and flexible alternative to REST. It was developed and [open-sourced by Facebook](https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html) and is now maintained by a large community of companies and individuals from all over the world.
