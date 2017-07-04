@@ -86,6 +86,8 @@ function Result({ steps, ...state }: Props & QuizState) {
   // console.log(steps)
   // Object.keys(steps).filter(group => reactions[group])
 
+  const score = Math.round(achievedScore / totalScore * 100) || 0
+
   return (
     <div className="result">
       <style jsx={true}>{`
@@ -127,7 +129,7 @@ function Result({ steps, ...state }: Props & QuizState) {
         />
       </div>
       <h1>
-        You achieved a score of {Math.round(achievedScore / totalScore * 100)}%
+        You achieved a score of {score}%
         — Congrats
       </h1>
       <p>
