@@ -6,6 +6,7 @@ import Playground from './Playground'
 import { Step } from '../../types'
 import TutorialChooser from './TutorialChooser'
 import Img from './Img'
+import A from './A'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -66,7 +67,8 @@ export default function Markdown({ steps, html }: Props) {
         }
         .markdown p a:hover, .markdown li a:hover {
           @p: .underline;
-        } /* Lists */
+        }
+        /* Lists */
         .markdown ul {
           list-style-type: none;
           margin: 0;
@@ -128,8 +130,7 @@ export default function Markdown({ steps, html }: Props) {
         .markdown h4 code {
           font-size: 18px;
           padding: 6px 6px 4px;
-        }
-        /* Blockquotes */
+        } /* Blockquotes */
         .markdown blockquote {
           @p: .ma0, .pl16;
           padding-bottom: 2px;
@@ -149,8 +150,7 @@ export default function Markdown({ steps, html }: Props) {
         }
         .markdown p {
           @p: .mt16;
-        }
-        /* First child never has top padding */
+        } /* First child never has top padding */
         .container:first-of-type .markdown:first-child .heading-link:first-child h2,
         .container:first-of-type .markdown:first-child .heading-link:first-child h3,
         .container:first-of-type .markdown:first-child .heading-link:first-child h4,
@@ -182,6 +182,7 @@ export default function Markdown({ steps, html }: Props) {
       <JsxParser
         jsx={html}
         components={{
+          A,
           IMG: Img,
           INSTRUCTION: Instruction,
           PLAYGROUND: Playground,
