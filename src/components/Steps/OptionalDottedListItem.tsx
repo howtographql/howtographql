@@ -65,6 +65,9 @@ const OptionalDottedListItem = ({
           left: -13px;
           margin-top: -1px;
         }
+        .optional-dotted-list-item:not(.small) .checkmark {
+          margin-top: 4px;
+        }
       `}</style>
       {done &&
         <div className="checkmark">
