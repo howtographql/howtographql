@@ -91,18 +91,30 @@ class Chooser extends React.Component<Props, State> {
           .mobile-line-bend, .mobile-line-bend-bottom {
             display: none;
           }
+          .fade-before-element {
+            @p: .db;
+            content: '';
+            height: 48px;
+            background-image: linear-gradient(
+              to top,
+              rgba(225, 225, 225, 0.2),
+              #172a3a
+            );
+            width: 2px;
+          }
           @media (max-width: 500px) {
+            div.fade-before-element {
+              @p: .dn;
+            }
             h3.first-h3 {
               display: none;
             }
             .steps-content {
               padding: 0 30px;
             }
+
             .steps-content :global(.left-column) {
               display: none;
-            }
-            div.steps-list.fade-before::before {
-              @p: .dn;
             }
             div.steps-list {
               @p: .w100;
@@ -233,17 +245,6 @@ class Chooser extends React.Component<Props, State> {
           .link {
             @p: .flex, .itemsCenter;
           }
-          .fade-before-element {
-            @p: .db;
-            content: '';
-            height: 48px;
-            background-image: linear-gradient(
-              to top,
-              rgba(225, 225, 225, 0.2),
-              #172a3a
-            );
-            width: 2px;
-          }
         `}</style>
         <style jsx={true} global={true}>{`
           .chooser-enter {
@@ -251,14 +252,14 @@ class Chooser extends React.Component<Props, State> {
           }
           .chooser-enter.chooser-enter-active {
             opacity: 1;
-            transition: opacity 500ms ease-in;
+            transition: opacity 250ms ease-in;
           }
           .chooser-leave {
             opacity: 1;
           }
           .chooser-leave.chooser-leave-active {
             opacity: 0.01;
-            transition: opacity 300ms ease-in;
+            transition: opacity 200ms ease-in;
           }
         `}</style>
         <div className="steps-content">
@@ -315,32 +316,32 @@ class Chooser extends React.Component<Props, State> {
           onChangeSelectedIndex={this.selectStack}
           markdownFiles={mds}
         />
-        {!selected.comingSoon &&
-          <div
-            className="mobile-line-bend-bottom"
-            key={selected.key + 'bend2'}
-          />}
-        {!selected.comingSoon
-          ? <div className="bottom-chooser">
-              <div className="steps-content">
-                <LeftColumn className="steps-description">
-                  <h3>{selected.content.title}</h3>
-                  {selectedDuration > 0 &&
-                    <div className="duration">
-                      <Duration
-                        duration={selectedDuration}
-                        total={true}
-                        dark={true}
-                      />
-                    </div>}
-                  <p>{selected.content.description}</p>
-                </LeftColumn>
-                <div className="steps-list">
-                  <CSSTransitionGroup
-                    transitionName="chooser"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={300}
-                  >
+        <CSSTransitionGroup
+          transitionName="chooser"
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={200}
+        >
+          {!selected.comingSoon &&
+            <div
+              className="mobile-line-bend-bottom"
+              key={selected.key + 'bend2'}
+            />}
+          {!selected.comingSoon
+            ? <div className="bottom-chooser" key={'crazy-' + selected.key}>
+                <div className="steps-content">
+                  <LeftColumn className="steps-description">
+                    <h3>{selected.content.title}</h3>
+                    {selectedDuration > 0 &&
+                      <div className="duration">
+                        <Duration
+                          duration={selectedDuration}
+                          total={true}
+                          dark={true}
+                        />
+                      </div>}
+                    <p>{selected.content.description}</p>
+                  </LeftColumn>
+                  <div className="steps-list">
                     {selected &&
                       <div
                         className="fade-before-element"
@@ -366,15 +367,15 @@ class Chooser extends React.Component<Props, State> {
                         </div>
                       </DottedListItem>,
                     )}
-                  </CSSTransitionGroup>
+                  </div>
                 </div>
               </div>
-            </div>
-          : <div className="center-container">
-              <div className="coming-soon">
-                <NewsletterSignup tutorial={selected.key} />
-              </div>
-            </div>}
+            : <div className="center-container">
+                <div className="coming-soon">
+                  <NewsletterSignup tutorial={selected.key} />
+                </div>
+              </div>}
+        </CSSTransitionGroup>
       </div>
     )
   }
