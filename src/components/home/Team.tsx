@@ -8,7 +8,7 @@ export default function Team() {
     <section>
       <style jsx={true}>{`
         section {
-          @p: .pb96;
+          @p: .pb96, .relative, .z0;
           background-color: #fafafa;
           border-top: 2px solid rgba(0, 0, 0, 0.1);
         }
