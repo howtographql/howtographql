@@ -34,12 +34,14 @@ module.exports = {
         body: node.excerpt
       }))
 
-    index.saveObjects(objects, (err, content) => {
-      if (!err) {
-        console.log(`Successfully synced ${objects.length} items to Algolia`)
-      } else {
-        console.error(`Error while syncing to Algolia`, err)
-      }
+    index.clearIndex((clearErr, clearContent) => {
+      index.saveObjects(objects, (err, content) => {
+        if (!err) {
+          console.log(`Successfully synced ${objects.length} items to Algolia`)
+        } else {
+          console.error(`Error while syncing to Algolia`, err)
+        }
+      })
     })
   }
 }
