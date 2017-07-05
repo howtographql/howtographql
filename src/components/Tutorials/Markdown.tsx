@@ -97,8 +97,7 @@ export default function Markdown({ steps, html }: Props) {
           height: 6px;
           left: 8px;
           top: 10px;
-        }
-        /* Inline Code Snippets */
+        } /* Inline Code Snippets */
         .markdown p code,
         .markdown li code,
         .markdown h2 code,
@@ -110,7 +109,7 @@ export default function Markdown({ steps, html }: Props) {
           vertical-align: text-bottom;
         }
         .markdown p code {
-          @p: .f16;
+          @p: .f14;
         }
         .container.smallFont .markdown p code {
           @p: .f14;

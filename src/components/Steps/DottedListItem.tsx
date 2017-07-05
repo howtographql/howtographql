@@ -45,18 +45,27 @@ const DottedListItem = ({
     >
       <style jsx={true}>{`
         .dotted-list-item:not(.done)::before {
-          @p: .bWhite20, .bgDarkBlue, .absolute, .ba, .bw2, .br100, .z2;
+          @p: .bWhite20, .absolute, .ba, .bw2, .br100, .z2;
+          background: rgba(224, 0, 130, 0);
           content: '';
           left: -7px;
           margin-top: 3px;
           width: 8px;
-          height: 8px;
+          height: 8px; /* TODO: talk to Julian about hover state
+            transition: background-color .25s ease-in-out, border-color .25s ease-in-out;
+          */
+        } /*
+        .dotted-list-item:not(.done):hover::before {
+          @p: .bgPink;
+          border-color: $pink;
         }
+        */
         .checkmark {
           @p: .absolute, .z2;
           left: -11px;
           margin-top: -1px;
-        } /* first rules */
+        }
+        /* first rules */
         .dotted-list-item.light.first:not(.small)::before,
         .dotted-list-item.active::before {
           border-color: $pink !important;
