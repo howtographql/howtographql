@@ -102,6 +102,7 @@ export default class Nav extends React.Component<Props, {}> {
         <a
           className="element github"
           href="https://github.com/howtographql/howtographql"
+          target="_blank"
         >
           <Icon
             src={require('graphcool-styles/icons/fill/github.svg')}
