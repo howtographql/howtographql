@@ -114,7 +114,7 @@ Open `LinkList.js` and update the rendering of the `Link` components inside `ren
 
 ```js(path=".../hackernews-react-relay/src/components/LinkList.js")
 {this.props.viewer.allLinks.edges.map(({node}, index) => (
-  <Link key={link.id} index={index} link={link}/>
+  <Link key={node.id} index={index} link={node}/>
 ))}
 ```
 
@@ -198,7 +198,7 @@ const mutation = graphql`
   }
 `
 Cr
-export default (userId, linkId, viewerId) => {
+export default (userId, linkId) => {
   const variables = {
     input: {
       userId,
