@@ -252,14 +252,14 @@ class Chooser extends React.Component<Props, State> {
           }
           .chooser-enter.chooser-enter-active {
             opacity: 1;
-            transition: opacity 250ms ease-in;
+            transition: opacity 500ms ease-in;
           }
           .chooser-leave {
             opacity: 1;
           }
           .chooser-leave.chooser-leave-active {
             opacity: 0.01;
-            transition: opacity 200ms ease-in;
+            transition: opacity 300ms ease-in;
           }
         `}</style>
         <div className="steps-content">
@@ -318,8 +318,8 @@ class Chooser extends React.Component<Props, State> {
         />
         <CSSTransitionGroup
           transitionName="chooser"
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={200}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}
         >
           {!selected.comingSoon &&
             <div

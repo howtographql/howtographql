@@ -71,6 +71,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
           }
           .quiz-title::before {
             @p: .absolute, .left0, .right0, .bb, .bBlack10, .bw2;
+            top: 6px;
             content: "";
           }
           .quiz-title .title {

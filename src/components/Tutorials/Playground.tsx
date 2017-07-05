@@ -168,6 +168,7 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
               .ma10,
               .ttu,
               .fw6,
+              .z2,
               .darkBlue40,
               .bgDarkBlue04,
               .pointer,

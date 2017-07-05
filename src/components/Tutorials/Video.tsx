@@ -55,8 +55,17 @@ export default class Video extends React.Component<Props, State> {
             @p: .o100;
             pointer-events: all;
           }
+          .overlay :global(i) :global(svg) {
+            transition: .25s ease-in-out fill;
+          }
+          .overlay:hover :global(i) :global(svg) {
+            fill: #EB7BBC;
+          }
           .overlay :global(i) {
             @p: .absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) !important;
           }
           .overlay :global(polygon) {
             fill: white !important;

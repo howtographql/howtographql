@@ -155,6 +155,15 @@ export default class MarkdownGraphiQL extends React.Component<Props, State> {
           playground,
         })}
       >
+        <style jsx={true}>{`
+          .container {
+            @p: .flex, .flexColumn;
+            flex: 1 1 auto;
+          }
+          .container :global(.graphiql-container) {
+            flex: 1 1 auto;
+          }
+        `}</style>
         <CustomGraphiQL
           selectedEndpoint={this.props.selectedEndpoint || 'SIMPLE'}
           showEndpoints={true}

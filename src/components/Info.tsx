@@ -13,8 +13,8 @@ const Info = (props: Props) => {
         .question-mark {
           @p: .bgBlack10,
             .flex,
-            .itemsCenter,
             .justifyCenter,
+            .itemsCenter,
             .black40,
             .f12,
             .fw6,
@@ -30,8 +30,11 @@ const Info = (props: Props) => {
         .tooltip {
           @p: .dn, .absolute;
           z-index: 999;
+          left: 50%;
+          transform: translateX(-50%);
           width: auto;
-          padding-top: 5px;
+          min-width: 140px;
+          padding-top: 9px;
           margin-top: 100%;
         }
         .tooltip-content {
