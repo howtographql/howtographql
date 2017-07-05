@@ -11,7 +11,6 @@ In the previous chapter, you learned about major concepts and benefits of GraphQ
 You're going to build a simple clone of [Hackernews](https://news.ycombinator.com/). Here's a list of the features the app will have:
 
 - Display a list of links
-- Search the list of links
 - Users can authenticate
 - Authenticated users can create new links
 - Authenticated users can upvote links (one vote per link and user)
