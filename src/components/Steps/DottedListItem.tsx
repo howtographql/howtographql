@@ -186,7 +186,7 @@ const DottedListItem = ({
           height: 100%;
           top: -12px;
         }
-        .dotted-list-item:not(.first) .after-glow {
+        .dotted-list-item .after-glow {
           @p: .db, .absolute;
           height: 100%;
           left: -2px;
@@ -198,9 +198,13 @@ const DottedListItem = ({
           );
           width: 2px;
         }
-        .dotted-list-item:not(.first).small .after-glow {
+        .dotted-list-item.small.first .after-glow {
           height: calc(100% - 10px);
-          top: 22px;
+          top: 12px;
+        }
+        .dotted-list-item.small .after-glow {
+          height: calc(100% - 10px);
+          top: 50%;
         }
       `}</style>
       {done &&

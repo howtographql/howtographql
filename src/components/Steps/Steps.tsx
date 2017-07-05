@@ -14,6 +14,7 @@ interface Props {
   showLines?: boolean
   showLast?: boolean
   onClickLink?: () => void
+  stepsActive?: boolean
 }
 
 export default function Steps({
@@ -24,6 +25,7 @@ export default function Steps({
   highlightFirst = false,
   showLines = true,
   showLast = true,
+  stepsActive = false,
   onClickLink,
 }: Props) {
   return (
@@ -35,7 +37,7 @@ export default function Steps({
           first={index === 0}
           last={showLast ? index === steps.length - 1 : false}
           small={small}
-          active={step.link === location.pathname}
+          active={step.link === location.pathname || stepsActive}
           highlightFirst={highlightFirst}
           showLine={showLines}
           path={step.link}
