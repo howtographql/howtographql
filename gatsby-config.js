@@ -31,7 +31,9 @@ module.exports = {
     },
     `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-jsx`,
+    // `gatsby-plugin-sitemap`,
     `gatsby-plugin-typescript`,
-    `styled-jsx-plugin`
+    `styled-jsx-plugin`,
+    `gatsby-plugin-offline`
   ],
 }

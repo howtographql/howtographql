@@ -3,9 +3,6 @@ const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin'
 const xmldom = require('xmldom')
 const {syncToAlgolia} = require('./algoliasync')
 
-console.log('node env')
-console.log(process.env.NODE_ENV)
-
 exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators
   let slug
