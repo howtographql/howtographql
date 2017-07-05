@@ -27,9 +27,17 @@ export default function Footer() {
           height: 28px;
           width: auto;
         }
+        a {
+          @p: .black40;
+        }
+        a:hover {
+          @p: .underline;
+        }
       `}</style>
       <span>
-        Made with <span className="love"> ♥ </span> by Graphcool and the amazing
+        Made with <span className="love"> ♥ </span> by{' '}
+        <a href="https://www.graph.cool" target="_blank">Graphcool</a> and the
+        amazing
         GraphQL community
       </span>
       <div className="logos">
