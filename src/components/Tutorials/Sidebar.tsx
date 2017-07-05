@@ -48,8 +48,6 @@ export default class Sidebar extends React.Component<Props, {}> {
     const isChooseTutorial = location.pathname.includes('/choose')
     const showChoose = isGraphQLChapter || isChooseTutorial
 
-    const activateBasicSteps = !isGraphQLChapter || isChooseTutorial
-
     return (
       <div className="sidebar-container">
         <style jsx={true}>{`
@@ -98,7 +96,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               highlightFirst={false}
               showLast={false}
               onClickLink={this.props.onClickLink}
-              stepsActive={activateBasicSteps}
+              pinkBorder={!isGraphQLChapter}
             />
             <OptionalSteps
               location={location}
@@ -109,9 +107,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               onClickLink={this.props.onClickLink}
             />
             {showChoose
-              ? <ChooseTutorialStep
-                  active={location.pathname.includes('choose')}
-                />
+              ? <ChooseTutorialStep active={isChooseTutorial} />
               : <div>
                   {tutorialTitle &&
                     <TutorialTitleStep

@@ -51,7 +51,8 @@ const DottedListItem = ({
           left: -7px;
           margin-top: 3px;
           width: 8px;
-          height: 8px; /* TODO: talk to Julian about hover state
+          height: 8px;
+          /* TODO: talk to Julian about hover state
             transition: background-color .25s ease-in-out, border-color .25s ease-in-out;
           */
         } /*
@@ -84,10 +85,6 @@ const DottedListItem = ({
         .dotted-list-item.first.light:not(.small) :global(.list-item) {
           top: -3px;
         }
-        .dotted-list-item.first.light :global(a) {
-          @p: .relative;
-          top: -6px;
-        }
         .dotted-list-item.first.light:not(.small) :global(a) {
           @p: .pink;
         }
@@ -115,7 +112,8 @@ const DottedListItem = ({
         .dotted-list-item.first.done.small::after {
           height: 30px;
           margin-top: -9px;
-        } /* last rules */
+        }
+        /* last rules */
         .dotted-list-item.last::before {
           margin-top: auto;
           bottom: 0;

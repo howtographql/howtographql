@@ -34,7 +34,7 @@ export default function Chapter({ post, location, steps }: Props) {
     if (group === 'basics' || group === 'advanced') {
       nextChapter = {
         description: 'In this step we will choose the right tutorial together.',
-        link: '/tutorials/choose',
+        link: '/choose/',
         title: 'Choosing the right tutorial',
       }
     } else {
@@ -42,15 +42,13 @@ export default function Chapter({ post, location, steps }: Props) {
         nextChapter = {
           description:
             "We're proud that you finished this tutorial! Let's celebrate your success",
-          link: '/tutorials/success/',
+          link: '/success/',
           title: 'You did it!',
         }
       }
     }
   }
-  const showBonus = location.pathname.startsWith(
-    '/tutorials/graphql/basics/3-big-picture',
-  )
+  const showBonus = location.pathname.startsWith('/basics/3-big-picture/')
   const title = getTitle(group, post)
   const description = post.excerpt
 

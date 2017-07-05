@@ -2,6 +2,8 @@ import * as React from 'react'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import { $v } from 'graphcool-styles'
 import { MarkdownRemark } from '../types'
+import { extractGroup } from '../utils/graphql'
+import data from '../data/stacks'
 
 interface Props {
   post: MarkdownRemark
@@ -9,7 +11,13 @@ interface Props {
 
 export default function EditOnGithub({ post }: Props) {
   const slug = removeTrailingSlash(post.fields.slug)
-  const link = `https://github.com/howtographql/howtographql/tree/master/src/pages/${removeTrailingSlash(
+  const group = extractGroup(post.fields.slug)
+  const stack = data.find(s => s.key === group)
+  const stackType = stack ? stack.type : 'graphql'
+  const stackTypeString = slug.includes('choose') || slug.includes('success')
+    ? ''
+    : `/${stackType}`
+  const link = `https://github.com/howtographql/howtographql/tree/master/content${stackTypeString}${removeTrailingSlash(
     slug,
   )}.md`
   return (

@@ -24,8 +24,8 @@ export function extractSteps(
       [curr]: sortBy(steps, step => {
         const splittedLink = step.link.split('/')
         let leadingNumber = '0'
-        if (splittedLink.length > 4) {
-          leadingNumber = splittedLink[4].split('-')[0]
+        if (splittedLink.length > 2) {
+          leadingNumber = splittedLink[2].split('-')[0]
         }
         return parseInt(leadingNumber, 10)
       }),

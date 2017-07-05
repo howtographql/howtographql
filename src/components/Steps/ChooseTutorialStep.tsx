@@ -9,9 +9,23 @@ interface Props {
 export default function ChooseTutorialStep({ active }: Props) {
   return (
     <div className={cn('choose-tutorial-step', { active })}>
+      <div className="before-fade" />
       <style jsx={true}>{`
         .choose-tutorial-step {
           @p: .bl, .bBlack20, .pb38, .pl25, .relative, .bw2;
+        }
+        .choose-tutorial-step .before-fade {
+          @p: .absolute, .bottom0;
+          content: "";
+          background: linear-gradient(
+            to bottom,
+            rgba(196, 196, 196, 1),
+            rgba(224, 0, 130, 1)
+          );
+          height: 100px;
+          width: 2px;
+          left: -2px;
+          top: -50px;
         }
         .choose-tutorial-step:after {
           @p: .absolute, .bottom0;
@@ -25,18 +39,18 @@ export default function ChooseTutorialStep({ active }: Props) {
           width: 2px;
           left: -2px;
         }
-        .choose-tutorial-step.active, .choose-tutorial-step.active a:before {
+        .choose-tutorial-step.active, .choose-tutorial-step.active span:before {
           border-color: $pink;
         }
-        a {
+        span {
           @p: .black80;
         }
-        a:before {
+        span:before {
           @p: .bBlack20, .absolute, .ba, .bw2, .br100;
           background: #f5f5f5;
           content: '';
           left: -7px;
-          margin-top: 3px;
+          margin-top: 7px;
           width: 8px;
           height: 8px;
         }
@@ -49,7 +63,7 @@ export default function ChooseTutorialStep({ active }: Props) {
       `}</style>
       <Link to="/choose/">
         <h3>Practical Tutorial</h3>
-        <a href="">Choosing the right tutorial</a>
+        <span>Choosing the right tutorial</span>
         <p>
           We got 10 Tutorials prepared,
           covering all major frontend and

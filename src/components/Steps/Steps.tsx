@@ -15,6 +15,7 @@ interface Props {
   showLast?: boolean
   onClickLink?: () => void
   stepsActive?: boolean
+  pinkBorder?: boolean
 }
 
 export default function Steps({
@@ -27,46 +28,53 @@ export default function Steps({
   showLast = true,
   stepsActive = false,
   onClickLink,
+  pinkBorder = false,
 }: Props) {
   return (
-    <div>
+    <div className={cn('steps', { pinkBorder })}>
+      <style jsx={true}>{`
+        .steps.pinkBorder :global(.dotted-list-item) {
+          border-left-color: $pink;
+        }
+        .list-item {
+          @p: .itemsCenter, .flex;
+        }
+        :global(.first-duration-up) {
+          @p: .relative;
+          top: -3px;
+        }
+        div :global(a) {
+          @p: .black80, .db, .relative, .z2;
+        }
+        .active :global(a) {
+          color: $pink !important;
+        }
+      `}</style>
       {steps.map((step, index) =>
-        <DottedListItem
-          key={step.title}
-          light={true}
-          first={index === 0 && steps.length > 1}
-          last={showLast ? index === steps.length - 1 : false}
-          small={small}
-          active={step.link === location.pathname || stepsActive}
-          highlightFirst={highlightFirst}
-          showLine={showLines}
-          path={step.link}
-        >
-          <style jsx={true}>{`
-            .list-item {
-              @p: .itemsCenter, .flex;
-            }
-            :global(.first-duration-up) {
-              @p: .relative;
-              top: -3px;
-            }
-            .active :global(a) {
-              color: $pink !important;
-            }
-          `}</style>
-          <div
-            className={cn('list-item', {
-              active: step.link === location.pathname,
-            })}
+        <Link to={step.link} onClick={onClickLink}>
+          <DottedListItem
+            key={step.title}
+            light={true}
+            first={index === 0 && steps.length > 1}
+            last={showLast ? index === steps.length - 1 : false}
+            small={small}
+            active={step.link === location.pathname || stepsActive}
+            highlightFirst={highlightFirst}
+            showLine={showLines}
+            path={step.link}
           >
-            <Link to={step.link} onClick={onClickLink}>
+            <div
+              className={cn('list-item', {
+                active: step.link === location.pathname,
+              })}
+            >
               {step.title}
-            </Link>
-            {showDuration &&
-              step.duration &&
-              <Duration duration={step.duration || 0} link={step.link} />}
-          </div>
-        </DottedListItem>,
+              {showDuration &&
+                step.duration &&
+                <Duration duration={step.duration || 0} link={step.link} />}
+            </div>
+          </DottedListItem>
+        </Link>,
       )}
     </div>
   )
