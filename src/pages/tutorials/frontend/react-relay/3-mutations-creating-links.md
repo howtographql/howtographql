@@ -135,7 +135,7 @@ export default (description, url, callback) => {
 }
 ```
 
-<Instruction>
+</Instruction>
 
 
 Let's quickly walk through the different things that happen here:
@@ -160,7 +160,7 @@ Open `CreatLink.js` and implement `_createLink` like so:
 _createLink = () => {
   const { description, url } = this.state
   CreateLinkMutation(description, url, () => console.log(`Mutation completed`))
-  }
+}
 ```
 
 </Instruction>
