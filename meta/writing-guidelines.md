@@ -10,9 +10,9 @@ Once there is a finalized version in quip, you can _export_ your document to Mar
 
 ## Document Format
 
-Your tutortial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
+Your tutorial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
 
-[Here](https://github.com/howtographql/howtographql/tree/master/src/pages/tutorials/frontend/react-apollo) is what the example structure for the React+Apollo tuturial looks like: 
+[Here](https://github.com/howtographql/howtographql/tree/master/content/frontend/react-apollo) is what the example structure for the React+Apollo tuturial looks like: 
 
 ![](http://imgur.com/nGsYY1E.png)
 
@@ -26,7 +26,7 @@ Also notice that each single chapter needs to have a **frontmatter** with the fo
 
 `question`, `answers` and `correctAnswer` define the multiple choice question that will be displayed to the reader at the end of each chapter.
 
-[Here](https://github.com/howtographql/howtographql/edit/master/src/pages/tutorials/graphql/basics/1-graphql-is-the-better-rest.md) is an example for the frontmatter:
+[Here](https://github.com/howtographql/howtographql/blob/master/content/graphql/basics/1-graphql-is-the-better-rest.md) is an example for the frontmatter:
 
 ```
 ---
