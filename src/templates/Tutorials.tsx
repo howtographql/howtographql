@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Helmet } from 'react-helmet'
 import '../styles/prism-ghcolors.css'
 import { MarkdownRemark, RelayConnection } from '../types'
 import App from '../components/App'
@@ -31,9 +30,6 @@ class Tutorials extends React.Component<Props, null> {
 
     const showSuccess = this.props.location.pathname.includes('/success')
     const steps = extractSteps(this.props.data.mds)
-    const title = post.frontmatter.title
-    const description = post.excerpt
-    const image = '/social.png'
 
     return (
       <App
@@ -41,20 +37,6 @@ class Tutorials extends React.Component<Props, null> {
         steps={steps}
         location={this.props.location}
       >
-        <Helmet
-          title={title}
-          meta={[
-            { name: 'description', content: title },
-            { property: 'og:type', content: 'article' },
-            { property: 'og:title', content: title },
-            { property: 'og:description', content: description },
-            { property: 'og:image', content: image },
-            { name: 'twitter:card', content: 'summary_large_image' },
-            { name: 'twitter:title', content: title },
-            { name: 'twitter:description', content: description },
-            { name: 'twitter:image', content: image },
-          ]}
-        />
         <div className="tutorials">
           <style jsx={true}>{`
             .tutorials {

@@ -7,6 +7,8 @@ import Markdown from './Markdown'
 import Author from './Author'
 import Quiz from '../Quiz/Quiz'
 import EditOnGithub from '../EditOnGithub'
+import { getStackName } from '../../utils/getStackName'
+import { Helmet } from 'react-helmet'
 
 interface Props {
   post: MarkdownRemark
@@ -49,8 +51,26 @@ export default function Chapter({ post, location, steps }: Props) {
   const showBonus = location.pathname.startsWith(
     '/tutorials/graphql/basics/3-big-picture',
   )
+  const title = getTitle(group, post)
+  const description = post.excerpt
+  const image = '/social.png'
+
   return (
     <div>
+      <Helmet
+        title={title}
+        meta={[
+          { name: 'description', content: title },
+          { property: 'og:type', content: 'article' },
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: description },
+          { property: 'og:image', content: image },
+          { name: 'twitter:card', content: 'summary_large_image' },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: description },
+          { name: 'twitter:image', content: image },
+        ]}
+      />
       <style jsx={true}>{`
         .content {
           @p: .ph38, .pt38, .bbox;
@@ -91,4 +111,10 @@ export default function Chapter({ post, location, steps }: Props) {
       <EditOnGithub post={post} />
     </div>
   )
+}
+
+function getTitle(group: string, post: MarkdownRemark) {
+  const stackName = getStackName(group)
+  const stackPrefix = stackName ? `${stackName} - ` : ''
+  return stackPrefix + post.frontmatter.title
 }
