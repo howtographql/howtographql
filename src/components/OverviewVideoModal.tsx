@@ -7,17 +7,30 @@ interface Props {
   visible: boolean
 }
 
-class OverviewVideoModal extends React.Component<Props, {}> {
+interface State {
+  transition: boolean
+}
+
+class OverviewVideoModal extends React.Component<Props, State> {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      transition: false,
+    }
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ transition: true })
+    }, 1000)
   }
 
   render() {
     const { visible } = this.props
+    const { transition } = this.state
     return (
-      <div className={cn('overview-video-modal', { visible })}>
+      <div className={cn('overview-video-modal', { visible, transition })}>
         <style jsx={true}>{`
           .overview-video-modal {
             @p: .fixed, .bgWhite, .o0;
@@ -28,6 +41,8 @@ class OverviewVideoModal extends React.Component<Props, {}> {
             max-width: 100vw;
             z-index: 10011;
             pointer-events: none;
+          }
+          .overview-video-modal.transition {
             transition: opacity ease-in-out 0.25s;
             transition-delay: 0.3s;
           }
