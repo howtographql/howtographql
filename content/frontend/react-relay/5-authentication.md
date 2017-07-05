@@ -300,7 +300,6 @@ import {
   graphql
 } from 'react-relay'
 import environment from '../Environment'
-import { ConnectionHandler } from 'relay-runtime'
 
 const mutation = graphql`
   mutation CreateUserMutation($createUserInput: SignupUserInput!, $signinUserInput: SigninUserInput!) {
@@ -401,7 +400,6 @@ import {
   graphql
 } from 'react-relay'
 import environment from '../Environment'
-import { ConnectionHandler } from 'relay-runtime'
 
 const mutation = graphql`
   mutation SigninMutation($input: SigninUserInput!) {
