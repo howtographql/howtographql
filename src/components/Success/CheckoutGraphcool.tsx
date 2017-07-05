@@ -24,7 +24,7 @@ export default function CheckoutGraphcool() {
           left: -90px;
         }
         .btn {
-          @p: .inlineFlex, .itemsCenter;
+          @p: .inlineFlex, .itemsCenter, .mt38;
         }
         .btn span {
           @p: .ml10;
@@ -127,10 +127,15 @@ function Tutorial({ title, description, link }: TutorialProps) {
         }
         .title::before {
           @p: .ba, .bGreen, .br100, .bw2, .absolute;
+          background: $green0;
           left: -30px;
           content: '';
           width: 10px;
           height: 10px;
+          transition: background-color .25s ease-in-out;
+        }
+        .title:hover::before {
+          @p: .bgGreen;
         }
         p {
           @p: .f16, .black50, .mt4;

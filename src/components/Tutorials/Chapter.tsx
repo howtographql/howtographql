@@ -8,7 +8,7 @@ import Author from './Author'
 import Quiz from '../Quiz/Quiz'
 import EditOnGithub from '../EditOnGithub'
 import { getStackName } from '../../utils/getStackName'
-import { Helmet } from 'react-helmet'
+import CustomHelmet from '../CustomHelmet'
 
 interface Props {
   post: MarkdownRemark
@@ -42,7 +42,7 @@ export default function Chapter({ post, location, steps }: Props) {
         nextChapter = {
           description:
             "We're proud that you finished this tutorial! Let's celebrate your success",
-          link: '/tutorials/success',
+          link: '/tutorials/success/',
           title: 'You did it!',
         }
       }
@@ -53,24 +53,10 @@ export default function Chapter({ post, location, steps }: Props) {
   )
   const title = getTitle(group, post)
   const description = post.excerpt
-  const image = '/social.png'
 
   return (
     <div>
-      <Helmet
-        title={title}
-        meta={[
-          { name: 'description', content: title },
-          { property: 'og:type', content: 'article' },
-          { property: 'og:title', content: title },
-          { property: 'og:description', content: description },
-          { property: 'og:image', content: image },
-          { name: 'twitter:card', content: 'summary_large_image' },
-          { name: 'twitter:title', content: title },
-          { name: 'twitter:description', content: description },
-          { name: 'twitter:image', content: image },
-        ]}
-      />
+      <CustomHelmet title={title} description={description} />
       <style jsx={true}>{`
         .content {
           @p: .ph38, .pt38, .bbox;

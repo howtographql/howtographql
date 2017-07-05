@@ -34,7 +34,7 @@ export default function Steps({
         <DottedListItem
           key={step.title}
           light={true}
-          first={index === 0}
+          first={index === 0 && steps.length > 1}
           last={showLast ? index === steps.length - 1 : false}
           small={small}
           active={step.link === location.pathname || stepsActive}

@@ -32,11 +32,16 @@ export default class Sidebar extends React.Component<Props, {}> {
   render() {
     const { post, steps, location } = this.props
     const group = post ? extractGroup(post.fields.slug) : 'basics'
-    const selectedSteps = steps[group]
+    let selectedSteps = steps[group]
     let tutorialTitle: string | null = null
     const stack = data.find(s => s.key === group)
     if (stack) {
       tutorialTitle = stack.title
+    }
+    if (group === '') {
+      selectedSteps = selectedSteps.filter(
+        step => step.link === location.pathname,
+      )
     }
 
     const isGraphQLChapter = ['basics', 'advanced'].includes(group)
