@@ -198,6 +198,9 @@ const DottedListItem = ({
           );
           width: 2px;
         }
+        div.dotted-list-item:not(.small).first .after-glow {
+          @p: .dn;
+        }
         .dotted-list-item.small.first .after-glow {
           height: calc(100% - 10px);
           top: 12px;
