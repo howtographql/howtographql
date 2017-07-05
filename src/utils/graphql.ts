@@ -35,8 +35,8 @@ export function extractSteps(
 
 export function extractGroup(slug) {
   const splittedSlug = slug.split('/')
-  if (splittedSlug.length > 3) {
-    return splittedSlug[3]
+  if (splittedSlug.length > 1) {
+    return splittedSlug[1]
   }
   if (slug.includes('/choose')) {
     return 'choose'

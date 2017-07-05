@@ -64,7 +64,7 @@ export default function Chapter({ post, location, steps }: Props) {
         .left {
           @p: .center;
           max-width: 924px;
-          min-height: calc(100vh - 72px - 220px);
+          min-height: calc(100vh - 800px);
         }
         h1 {
           @p: .f38, .fw6, .mb38, .mt16;

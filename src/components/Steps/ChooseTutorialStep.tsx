@@ -47,7 +47,7 @@ export default function ChooseTutorialStep({ active }: Props) {
           @p: .f14, .black30, .lhCopy, .mt25;
         }
       `}</style>
-      <Link to="/tutorials/choose">
+      <Link to="/choose/">
         <h3>Practical Tutorial</h3>
         <a href="">Choosing the right tutorial</a>
         <p>

@@ -25,7 +25,7 @@ export default (props: Props) => {
   const description =
     'The free and open-source tutorial for you to learn about GraphQL from zero to production. After a basic introduction, you’ll build a Hackernews clone with Javascript or any other technology of your choice.'
   return (
-    <App history={props.history} steps={steps} location={location}>
+    <App history={props.history} steps={steps} location={props.location}>
       <CustomHelmet title={title} description={description} />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} />
