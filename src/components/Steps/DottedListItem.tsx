@@ -45,13 +45,14 @@ const DottedListItem = ({
     >
       <style jsx={true}>{`
         .dotted-list-item:not(.done)::before {
-          @p: .bWhite20, .absolute, .ba, .bw2, .br100, .z2;
+          @p: .bWhite20, .absolute, .bgDarkBlue .ba, .bw2, .br100, .z2;
           background: rgba(224, 0, 130, 0);
           content: '';
           left: -7px;
           margin-top: 3px;
           width: 8px;
-          height: 8px; /* TODO: talk to Julian about hover state
+          height: 8px;
+          /* TODO: talk to Julian about hover state
             transition: background-color .25s ease-in-out, border-color .25s ease-in-out;
           */
         } /*
