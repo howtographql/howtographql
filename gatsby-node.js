@@ -9,7 +9,6 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   if (node.internal.type === `MarkdownRemark`) {
     const fileNode = getNode(node.parent)
     const parsedFilePath = path.parse(fileNode.relativePath)
-    console.log(parsedFilePath)
     const splittedDir = parsedFilePath.dir.split('/')
     // remove /backend /frontend /graphql
     if (splittedDir.length === 2) {
@@ -21,9 +20,6 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
     } else {
       slug = `/${parsedFilePath.dir}/`
     }
-
-    console.log(slug)
-    console.log('\n')
 
     // Add slug as a field on the node.
     createNodeField({ node, fieldName: `slug`, fieldValue: slug })
