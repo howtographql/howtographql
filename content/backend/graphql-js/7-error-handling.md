@@ -1,5 +1,0 @@
----
-title: Error Handling
----
-
-- Errors
