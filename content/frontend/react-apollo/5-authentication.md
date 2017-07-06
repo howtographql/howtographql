@@ -1,6 +1,8 @@
 ---
 title: Authentication
-videoId: QZWAAmp406s
+videoId: MiNDIWK7Q1I
+duration: 12
+videoAuthor: "Abhi Aiyer"
 ---
 
 In this section, you'll learn how you can implement authentication functionality with Apollo and Graphcool to provide a login to the user.

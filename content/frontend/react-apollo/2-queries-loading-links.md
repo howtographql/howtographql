@@ -1,6 +1,7 @@
 ---
 title: "Queries: Loading Links"
-videoId: QZWAAmp406s
+videoId: YW7F_scpE4w
+duration: 6
 videoAuthor: "Abhi Aiyer"
 question: Can you choose the first answer to this question?
 answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
