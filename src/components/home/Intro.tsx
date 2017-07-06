@@ -74,7 +74,7 @@ class Intro extends React.Component<Props, null> {
           </div>
         </div>
         <div className="center-container btn-container">
-          <Link to="/tutorials/graphql/basics/0-introduction/">
+          <Link to="/basics/0-introduction/">
             <div className="btn">Start with Introduction</div>
           </Link>
         </div>
