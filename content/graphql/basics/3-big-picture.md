@@ -1,7 +1,7 @@
 ---
 title: Big Picture (Architecture)
 question: What is a resolver function?
-answers: ["A function that a GraphQL client uses to resolve a query on the frontend", "A function that solves all your problems", "It's a synonym for serverless function", "A function on a GraphQL server that's responsible to fetch the data for a single field"]
+answers: ["A function that a GraphQL client uses to resolve a query on the frontend", "A function that solves all your problems", "It's a synonym for serverless functions", "A function on a GraphQL server that's responsible to fetch the data for a single field"]
 correctAnswer: 3
 description: "Learn about different architectural use cases of GraphQL and the major components when using it on the backend and the frontend"
 videoId: b7tMHnxzK34
