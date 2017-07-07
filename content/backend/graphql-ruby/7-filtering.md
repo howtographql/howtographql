@@ -107,7 +107,7 @@ Try your new filter out now:
 
 You can even do more complicated searches:
 
-![](http://i.imgur.com/undefined.png)
+![](http://i.imgur.com/Rjf0FyM.png)
 
 <Instruction>
 
