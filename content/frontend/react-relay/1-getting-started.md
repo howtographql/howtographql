@@ -1,5 +1,7 @@
 ---
 title: Getting Started
+videoId: YBUjOTOAIDg
+duration: 4
 ---
 
 ### Backend
