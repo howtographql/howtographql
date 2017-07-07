@@ -12,8 +12,8 @@ const authors: Author[] = [
   {
     avatar: require('../assets/graphics/contributors/nikolas.jpg'),
     bio:
-      "Nikolas is Head of Tutorials at Graphcool. He's known for Freecom, LearnApollo and his many talks about ReactNative, ReactJS and Relay.",
-    job: 'Dev @ Graphcool',
+      "Nikolas is a developer and head of content at Graphcool. He is excited about GraphQL as a new API technology and has a passion for learning and sharing knowledge.",
+    job: 'Developer @ Graphcool',
     link: 'https://twitter.com/nikolasburk',
     name: 'Nikolas Burk',
   },
