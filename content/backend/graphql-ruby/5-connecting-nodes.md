@@ -73,7 +73,7 @@ end
 
 Done! Now you can vote on links:
 
-![](http://i.imgur.com/undefined.png)
+![](http://i.imgur.com/gHIj7ZW.png)
 
 ### Relating links with their votes
 
