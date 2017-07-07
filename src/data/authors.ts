@@ -25,6 +25,14 @@ const authors: Author[] = [
     link: 'https://twitter.com/AbhiAiyer',
     name: 'Abhi Aiyer',
   },
+  {
+    avatar: require('../assets/graphics/contributors/radoslav.jpg'),
+    bio:
+      'Radoslav is a developer for more than a decade and the organizer of React.Sofia meetup. He believes that frontend and backend are equally important and GraphQL is the best way to connect them. ',
+    job: 'Developer @ Product Hunt',
+    link: 'https://twitter.com/rstankov',
+    name: 'Radoslav Stankov',
+  },
 ]
 
 export default keyBy(authors, 'name')
