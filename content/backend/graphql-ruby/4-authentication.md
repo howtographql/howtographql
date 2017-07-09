@@ -23,7 +23,7 @@ rails db:migrate
 
 This generates a `user.rb` file in `app/models`, update its contents to:
 
-```ruby(path="app/models/user.rb")
+```ruby(path=".../graphql-ruby/app/models/user.rb")
 class User < ApplicationRecord
   has_secure_password
 
@@ -38,7 +38,7 @@ end
 
 We would need [bcrypt](https://rubygems.org/gems/bcrypt) gem, for handling passwords securely. So add `Gemfile` the following line:
 
-```ruby(path="Gemfile")
+```ruby(path=".../graphql-ruby/Gemfile")
 gem 'bcrypt', '~> 3.1.7'
 ```
 

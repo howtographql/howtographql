@@ -22,7 +22,7 @@ Luckily, all you need to do is to detect the problem and throw the error.
 
 First add validations to the `Link` model:
 
-```ruby(path="app/model/link.rb")
+```ruby(path=".../graphql-ruby/app/models/link.rb")
 class Link < ApplicationRecord
   belongs_to :user
 
@@ -39,7 +39,7 @@ end
 
 Then, try to add this to the `createLink` resolver:
 
-```ruby(path="app/graphql/resolvers/create_link.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_link.rb")
 class Resolvers::CreateLink < GraphQL::Function
   argument :description, !types.String
   argument :url, !types.String

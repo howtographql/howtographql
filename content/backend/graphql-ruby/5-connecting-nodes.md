@@ -21,7 +21,7 @@ rails db:migrate
 
 Then add the `VoteType`:
 
-```ruby(path="app/graphql/types/vote_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/vote_type.rb")
 Types::VoteType = GraphQL::ObjectType.define do
   name 'Vote'
 
@@ -37,7 +37,7 @@ end
 
 Define the `CreateVote` resolver:
 
-```ruby(path="app/graphql/resolver/create_vote.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_vote.rb")
 class Resolvers::CreateVote < GraphQL::Function
   argument :linkId, types.ID
 
@@ -58,7 +58,7 @@ end
 
 Add `CreateVote` to the mutations list:
 
-```ruby(path="app/graphql/types/mutation_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
 Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
@@ -123,7 +123,7 @@ Following these same steps, you could also add a new field to make it easier to 
 
 Start with the `User` model:
 
-```ruby(path="app/model/user.rb")
+```ruby(path=".../graphql-ruby/app/model/user.rb")
 class User < ApplicationRecord
   has_secure_password
 
@@ -141,7 +141,7 @@ end
 
 Then add "votes" to the `UserType`:
 
-```ruby(path="app/graphql/types/user_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/user_type.rb")
 Types::UserType = GraphQL::ObjectType.define do
   name 'User'
 

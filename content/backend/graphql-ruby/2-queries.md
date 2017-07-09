@@ -21,7 +21,7 @@ rails db:migrate
 
 This generates a `link.rb` file in `app/models` that will look as follows:
 
-```ruby(path="app/models/link.rb")
+```ruby(path=".../graphql-ruby/app/models/link.rb")
 class Link < ApplicationRecord
 end
 ```
@@ -51,7 +51,7 @@ Now, go ahead and define your [GraphQL Type](http://graphql.org/graphql-js/type/
 
 Create a new file `app/graphql/types/link_type.rb` and add the following code to it *(you can skip the comments starting with #)*:
 
-```ruby(path="app/graphql/types/link_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/link_type.rb")
 # defines a new GraphQL type
 Types::LinkType = GraphQL::ObjectType.define do
   # this type is named `Link`
@@ -78,7 +78,7 @@ When you previously ran `rails generate graphql:install`, it created the root qu
 
 Now update its content to:
 
-```ruby(path="app/graphql/types/query_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
 Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
