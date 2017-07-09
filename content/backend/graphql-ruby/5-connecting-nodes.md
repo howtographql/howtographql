@@ -21,7 +21,7 @@ rails db:migrate
 
 Then add the `VoteType`:
 
-```ruby(path="app/graphql/types/vote_type.rb"
+```ruby(path="app/graphql/types/vote_type.rb")
 Types::VoteType = GraphQL::ObjectType.define do
   name 'Vote'
 
