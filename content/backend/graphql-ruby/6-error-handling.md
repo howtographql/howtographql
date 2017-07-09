@@ -35,6 +35,8 @@ end
 
 </Instruction>
 
+Now every link, requires to have a `url` and `description` attributes.
+
 <Instruction>
 
 Then, try to add this to the `createLink` resolver:

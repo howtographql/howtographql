@@ -19,9 +19,11 @@ rails db:migrate
 
 </Instruction>
 
+This generates a `user.rb` file in `app/models`.
+
 <Instruction>
 
-This generates a `user.rb` file in `app/models`, update its contents to:
+Update the user model contents to:
 
 ```ruby(path=".../graphql-ruby/app/models/user.rb")
 class User < ApplicationRecord
@@ -34,9 +36,13 @@ end
 
 </Instruction>
 
+Now we have users, which are required to have `name` and `email`.
+
+They also have a [secure password](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password). But in order for [has_secure_password](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password), [bcrypt](https://rubygems.org/gems/bcrypt) gem. It used encrypting and verifying user passwords.
+
 <Instruction>
 
-We would need [bcrypt](https://rubygems.org/gems/bcrypt) gem, for handling passwords securely. So add `Gemfile` the following line:
+Add `Gemfile` the following line:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
 gem 'bcrypt', '~> 3.1.7'
@@ -58,7 +64,7 @@ bundle update
 
 Now, lets create GraphQL type for representing an user:
 
-```ruby(path="app/graphql/types/user_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/user_type.rb")
 Types::UserType = GraphQL::ObjectType.define do
   name 'User'
 
@@ -70,11 +76,13 @@ end
 
 </Instruction>
 
+Now when we have our user model and its GraphQL type. We need a way to create users. Users would be created by `name`, `email` and `password`.
+
 <Instruction>
 
 Create a type for the authentication provider [input type](http://graphql.org/graphql-js/mutations-and-input-types/):
 
-```ruby(path="app/graphql/types/auth_provider_email_input.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/auth_provider_email_input.rb")
 Types::AuthProviderEmailInput = GraphQL::InputObjectType.define do
   name 'AUTH_PROVIDER_EMAIL'
 
@@ -89,7 +97,7 @@ end
 
 Then create an mutation for creating an user:
 
-```ruby(path="app/graphql/resolvers/create_user.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_user.rb")
 class Resolvers::CreateUser < GraphQL::Function
   AuthProviderInput = GraphQL::InputObjectType.define do
     name 'AuthProviderSignupData'
@@ -118,7 +126,7 @@ end
 
 And add it to mutations list:
 
-```ruby(path="app/graphql/types/mutation_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
 Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
@@ -137,7 +145,7 @@ Now, you can create a new user using [GraphiQL](https://github.com/graphql/graph
 
 Here is how the unit test for your mutation is going to look like:
 
-```ruby(path="test/graphql/resolvers/create_user_test.rb")
+```ruby(path=".../graphql-ruby/test/graphql/resolvers/create_user_test.rb")
 require 'test_helper'
 
 class Resolvers::CreateUserTest < ActiveSupport::TestCase
@@ -180,7 +188,7 @@ Again, the workflow for adding this mutation will be very similar to the ones we
 
 Create a resolver for the mutation:
 
-```ruby(path="app/graphql/resolvers/sign_in_user.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/sign_in_user.rb")
 class Resolvers::SignInUser < GraphQL::Function
   argument :email, !Types::AuthProviderEmailInput
 
@@ -222,7 +230,7 @@ end
 
 Add the resolver for the mutation to the mutations list:
 
-```ruby(path="app/graphql/types/mutation_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
 Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
@@ -242,7 +250,7 @@ Now, you can get the token by using [GraphiQL](https://github.com/graphql/graphi
 
 Here is how the unit test for your mutation is going to look like:
 
-```ruby(path="test/graphql/resolvers/sign_in_user_test.rb")
+```ruby(path=".../graphql-ruby/test/graphql/resolvers/sign_in_user_test.rb")
 require 'test_helper'
 
 class Resolvers::SignInUserTest < ActiveSupport::TestCase
@@ -294,7 +302,7 @@ You'll need that object to be different in every request now though, since each 
 
 Thankfully, the [graphql gem](https://rubygems.org/gems/graphql) allows that you'll just have to change the auto-generated `graphql_controller.rb` to accomplish this:
 
-```ruby(path="app/controllers/graphql_controller.rb")
+```ruby(path=".../graphql-ruby/app/controllers/graphql_controller.rb")
 class GraphqlController < ApplicationController
   def execute
     variables = ensure_hash(params[:variables])
@@ -338,7 +346,7 @@ end
 
 We also need to update our `signinUser` resolver, so it also stores the `token` in `session`:
 
-```ruby(path="app/graphql/resolvers/sign_in_user.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/sign_in_user.rb")
 class Resolvers::SignInUser < GraphQL::Function
   # ...code
 
@@ -388,7 +396,7 @@ end
 
 This connects the  `users` and `links` tables in the database. Then you need to update the `Link` model:
 
-```ruby(path="app/model/link.rb")
+```ruby(path=".../graphql-ruby/app/models/link.rb")
 class Link < ApplicationRecord
   belongs_to :user
 end
@@ -400,7 +408,7 @@ end
 
 Also you have to update the `LinkType`:
 
-```ruby(path="app/graphql/types/link_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/link_type.rb")
 Types::LinkType = GraphQL::ObjectType.define do
   name 'Link'
 
@@ -420,7 +428,7 @@ end
 
 And update `CreateLink` resolver:
 
-```ruby(path="app/graphql/resolvers/create_link.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_link.rb")
 class Resolvers::CreateLink < GraphQL::Function
   argument :description, !types.String
   argument :url, !types.String

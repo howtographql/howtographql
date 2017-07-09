@@ -22,6 +22,8 @@ end
 
 </Instruction>
 
+This type is a placeholder for all GraphQL mutations.
+
 <Instruction>
 
 Then expose this type as the mutation type by adding it to `app/graphql/graphql_tutorial_schema.rb`:

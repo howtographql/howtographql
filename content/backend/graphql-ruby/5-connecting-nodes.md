@@ -17,9 +17,21 @@ rails db:migrate
 
 </Instruction>
 
+
+This would create our vote model, which is used to represent an user vote.
+
+```ruby(path=".../graphql-ruby/app/models/vote.rb")
+class Vote < ActiveRecord::Base
+  belongs_to :user, validate: true
+  belongs_to :link, validate: true
+end
+```
+
+Votes would be created by a mutation and represented by a GraphQL type.
+
 <Instruction>
 
-Then add the `VoteType`:
+Add the `VoteType` first:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/vote_type.rb")
 Types::VoteType = GraphQL::ObjectType.define do
@@ -35,7 +47,7 @@ end
 
 <Instruction>
 
-Define the `CreateVote` resolver:
+Then define the `CreateVote` resolver:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_vote.rb")
 class Resolvers::CreateVote < GraphQL::Function
@@ -79,11 +91,29 @@ Done! Now you can vote on links:
 
 You can already create votes, but there's currently no way to fetch them yet! A typical use case would be to get votes for each link using the existing `allLinks` query.
 
-<Instruction>
-
 For that to work, you just have to change the `LinkType` to have references to its votes.
 
-```ruby(path="app/graphql/types/link_type.rb")
+<Instruction>
+
+First, you need to add votes relationship to `Link` model:
+
+```ruby(path=".../graphql-ruby/app/models/link.rb")
+class Link < ApplicationRecord
+  belongs_to :user
+
+  has_many :votes
+end
+```
+
+</Instruction>
+
+Now every link, have access to its votes. But GraphQL still doesn't know about those votes.
+
+<Instruction>
+
+For that you have to expose votes from `LinkType`:
+
+```ruby(path=".../graphql-ruby/app/graphql/types/link_type.rb")
 Types::LinkType = GraphQL::ObjectType.define do
   name 'Link'
 
@@ -97,25 +127,11 @@ end
 
 </Instruction>
 
-<Instruction>
-
-You need to add votes relationship to `Link` model:
-
-```ruby(path="app/model/link.rb")
-class Link < ApplicationRecord
-  belongs_to :user
-
-  has_many :votes
-end
-```
-
-</Instruction>
-
 Now you can see all votes for links:
 
 ![](http://i.imgur.com/ZqezkWV.png)
 
-### Relating Users with their votes
+### Relating users with their votes
 
 Following these same steps, you could also add a new field to make it easier to find all the votes made by the same user.
 
@@ -154,3 +170,4 @@ end
 
 </Instruction>
 
+Now you can see all votes for users:

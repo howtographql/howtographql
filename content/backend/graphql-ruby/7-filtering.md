@@ -33,9 +33,11 @@ And restart the server.
 
 </Instruction>
 
+This would install [SearchObject](https://github.com/rstankov/SearchObjectGraphQL) and you can use it.
+
 <Instruction>
 
-Having [SearchObject](https://github.com/rstankov/SearchObjectGraphQL) now, we can create a search resolver:
+Create a search resolver:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
 require 'search_object/plugin/graphql'
@@ -87,9 +89,13 @@ end
 
 </Instruction>
 
+This resolver contains all logic related to find links. Over time you can more rules.
+
+[SearchObject](https://github.com/rstankov/SearchObjectGraphQL) can be used as a [GraphQL::Function](http://graphql-ruby.org/fields/function.html).
+
 <Instruction>
 
-Then use it as [GraphQL::Function](http://graphql-ruby.org/fields/function.html):
+Use `LinksSearch` for finding links:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
 Types::QueryType = GraphQL::ObjectType.define do

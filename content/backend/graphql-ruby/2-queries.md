@@ -17,8 +17,6 @@ rails db:migrate
 
 </Instruction>
 
-<Instruction>
-
 This generates a `link.rb` file in `app/models` that will look as follows:
 
 ```ruby(path=".../graphql-ruby/app/models/link.rb")
@@ -26,7 +24,7 @@ class Link < ApplicationRecord
 end
 ```
 
-</Instruction>
+This is our `link` model.
 
 <Instruction>
 
