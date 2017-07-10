@@ -14,11 +14,6 @@ Here's the list of features the backend will expose:
 - Authenticated users can vote on links
 - Realtime functionality with GraphQL Subscriptions
 
-In addition to that, we'll cover the following topics as a bonus:
-
-- Setting up an [Algolia](http://algolia.com/) search
-- Serverless functions
-
 
 ### What is Graphcool?
 
