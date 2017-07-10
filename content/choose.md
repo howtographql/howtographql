@@ -17,7 +17,7 @@ Here's an overview of the frontend tutorials we offer:
 - **React & Relay**: [Relay](https://facebook.github.io/relay/) is the GraphQL client that was developed by Facebook and is heavily optimized for performance. Using Relay requires an advanced understanding of GraphQL and React. Choose this tutorial to learn everything you need to know to get started with Facebook's data management framework.
 - **Expo & Apollo** (_Coming Soon_): [Expo](https://expo.io/) is a  React Native toolchain to build native apps with Javascript and React. In this tutorial, you'll learn how you can build a mobile app with GraphQL, based on Expo and [Apollo Client](http://dev.apollodata.com/).
 - **Vue & Apollo** (_Coming Soon_): [Vue](https://vuejs.org/) is a progressive Javascript framework for building user interfaces. 
-- **VulcanJS** (_Coming Soon_): [VulcanJS](http://docs.vulcanjs.org/) is a fullstack Javascript framework that let's you build GraphQL app with React, [Apollo Client](http://dev.apollodata.com/) and [Meteor](http://meteor.com/). 
+- **VulcanJS** (_Coming Soon_): [VulcanJS](http://docs.vulcanjs.org/) is a fullstack Javascript framework that let's you build GraphQL apps with React, [Apollo Client](http://dev.apollodata.com/) and [Meteor](http://meteor.com/). 
 
 ### Build your own GraphQL Server
 
