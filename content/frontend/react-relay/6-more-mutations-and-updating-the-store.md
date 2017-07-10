@@ -1,6 +1,7 @@
 ---
 title: More Mutations and Updating the Store
-videoId: QZWAAmp406s
+videoId: yfercdQVFFk
+duration: 14
 ---
 
 The next piece of functionality that you'll implement is the voting feature! Authenticated users are allowed to submit a vote for a link. The most upvoted links will later be displayed on a separate route!
