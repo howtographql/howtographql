@@ -62,7 +62,7 @@ export default class Nav extends React.Component<Props, {}> {
           <Dropdown>
             <div className="graphql">
               <Stack
-                name="GraphQL Theory"
+                name="GraphQL Fundamentals"
                 steps={steps.basics}
                 location={location}
               />
