@@ -180,6 +180,14 @@ export default function Team() {
                 y={-30}
                 diameter={120}
               />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/nilan.jpg')}
+                name="Nilan Marktanner"
+                description="Reviews & Feedback"
+                x={-200}
+                y={80}
+                diameter={120}
+              />
             </div>
             <Bubble
               avatar={require('../../assets/graphics/contributors/abhi.jpg')}
