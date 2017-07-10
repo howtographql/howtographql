@@ -1,5 +1,8 @@
 ---
 title: Mutations
+question: Which of these is false about GraphQL field arguments?
+answers: ["They are how clients pass data to the server", "They must be included in the field schema definition", "They can be accessed inside resolvers", "Only mutation fields can have them"]
+correctAnswer: 3
 description: Learn to implement mutations by using resolvers again, but this time with arguments
 ---
 

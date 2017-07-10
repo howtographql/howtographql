@@ -1,5 +1,8 @@
 ---
 title: Filtering
+question: How can you implement filters in GraphQL servers?
+answers: ["You need to define a special Filter root type", "You can simply use field arguments for that", "You need to use a special function from `graphql-tools`", "That's not possible yet"]
+correctAnswer: 1
 description: Learn how to use arguments to add filtering to your GraphQL queries.
 ---
 
