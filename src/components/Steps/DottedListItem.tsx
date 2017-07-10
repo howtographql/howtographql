@@ -83,7 +83,7 @@ const DottedListItem = ({
           padding-top: 0 !important;
         }
         .dotted-list-item.first.light:not(.small) :global(.list-item) {
-          top: -3px;
+          top: -8px;
         }
         .dotted-list-item.first.light:not(.small) :global(a) {
           @p: .pink;
@@ -155,7 +155,7 @@ const DottedListItem = ({
           top: -4px;
         }
         .dotted-list-item.small.first :global(.list-item) {
-          top: 0px;
+          top: -6px;
         }
         .dotted-list-item.small.last :global(.list-item) {
           top: 5px;

@@ -9,7 +9,9 @@ interface Props {
 export default function ChooseTutorialStep({ active }: Props) {
   return (
     <div className={cn('choose-tutorial-step', { active })}>
-      <div className="before-fade" />
+      {active && (
+        <div className="before-fade" />
+      )}
       <style jsx={true}>{`
         .choose-tutorial-step {
           @p: .bl, .bBlack20, .pb38, .pl25, .relative, .bw2;
