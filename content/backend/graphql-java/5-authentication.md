@@ -192,11 +192,11 @@ public class Mutation implements GraphQLRootResolver {
 
 <Instruction>
 
-And finally, you'll need to instantiate a `UserRepository` and update the schema building logic in `GraphQLEndpoint`
+And finally, you'll need to instantiate a `UserRepository` and update the schema-building logic in `GraphQLEndpoint`
     
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
     private static final LinkRepository linkRepository;
-    private static final UserRepository userRepository;
+    private static final UserRepository userRepository; //the new field
     
     static {
             MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
@@ -411,168 +411,172 @@ With this in place, it's possible to track who posted a link.
 
 ### Extending the link model
 
-<Instruction>
+1. Start off by modifying the link model to track the user that created it
 
-- Start off by modifying the link model to track the user that created it
+	<Instruction>
+	
+	```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
+	type Link {
+	    id: ID!
+	    url: String!
+	    description: String
+	    postedBy: User
+	}
+	```
+	
+	</Instruction>
 
-```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
-type Link {
-    id: ID!
-    url: String!
-    description: String
-    postedBy: User
-}
-```
+2. The `Link` class needs a similar face-lift.
 
-</Instruction>
+	<Instruction>
+	
+	Add `userId` to `Link`
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Link.java")
+	public class Link {
+	    
+	    private final String id;
+	    private final String url;
+	    private final String description;
+	    private final String userId;
+	
+	    public Link(String url, String description, String userId) {
+	        this(null, url, description, userId);
+	    }
+	
+	    public Link(String id, String url, String description, String userId) {
+	        this.id = id;
+	        this.url = url;
+	        this.description = description;
+	        this.userId = userId;
+	    }
+	
+	    public String getId() {
+	        return id;
+	    }
+	
+	    public String getUrl() {
+	        return url;
+	    }
+	
+	    public String getDescription() {
+	        return description;
+	    }
+	
+	    public String getUserId() {
+	        return userId;
+	    }
+	}
+	```
+	
+	</Instruction>
 
-The `Link` class needs a similar face-lift.
+3. As a non-scalar relationship has been added to `Link`, it now needs a companion `LinkResolver` class
 
-<Instruction>
+	<Instruction>
+	
+	Create `LinkResolver` to contain the link manipulation logic (`Link` simply holds data)
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkResolver.java")
+	public class LinkResolver implements GraphQLResolver<Link> {
+	    
+	    private final UserRepository userRepository;
+	
+	    public LinkResolver(UserRepository userRepository) {
+	        this.userRepository = userRepository;
+	    }
+	
+	    public User postedBy(Link link) {
+	        if (link.getUserId() == null) {
+	            return null;
+	        }
+	        return userRepository.findById(link.getUserId());
+	    }
+	}
+	```    
+	
+	</Instruction>
 
-- Add `userId` to `Link`
+4. Register the new resolver with the `SchemaParser`.
 
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Link.java")
-public class Link {
-    
-    private final String id;
-    private final String url;
-    private final String description;
-    private final String userId;
+	<Instruction>
+	
+	Update `GraphQLEndpoint#buildSchema`
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
+	private static GraphQLSchema buildSchema() {
+	        return SchemaParser.newParser()
+	                .file("schema.graphqls")
+	                .resolvers(
+	                        new Query(linkRepository),
+	                        new Mutation(linkRepository, userRepository),
+	                        new SigninResolver(),
+	                        new LinkResolver(userRepository))
+	                .build()
+	                .makeExecutableSchema();
+	}
+	```
+	
+	</Instruction>
 
-    public Link(String url, String description, String userId) {
-        this(null, url, description, userId);
-    }
+5. You also need to update the logic for loading and saving the links to take care of the new field
 
-    public Link(String id, String url, String description, String userId) {
-        this.id = id;
-        this.url = url;
-        this.description = description;
-        this.userId = userId;
-    }
+	<Instruction>
+	
+	Load and save `userId`
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
+	public class LinkRepository {
+	    
+	    private final MongoCollection<Document> links;
+	
+	    public LinkRepository(MongoCollection<Document> links) {
+	        this.links = links;
+	    }
+	
+	    public List<Link> getAllLinks() {
+	        List<Link> allLinks = new ArrayList<>();
+	        for (Document doc : links.find()) {
+	            Link link = new Link(
+	                    doc.get("_id").toString(),
+	                    doc.getString("url"),
+	                    doc.getString("description"),
+	                    doc.getString("postedBy")
+	            );
+	            allLinks.add(link);
+	        }
+	        return allLinks;
+	    }
+	    
+	    public void saveLink(Link link) {
+	        Document doc = new Document();
+	        doc.append("url", link.getUrl());
+	        doc.append("description", link.getDescription());
+	        doc.append("postedBy", link.getUserId());
+	        links.insertOne(doc);
+	    }
+	}
+	```
+	
+	</Instruction>
 
-    public String getId() {
-        return id;
-    }
+6. Finally, treat the currently logged-in user as the creator
 
-    public String getUrl() {
-        return url;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-}
-```
-
-</Instruction>
-
-As a non-scalar relationship has been added to `Link`, it now needs a companion `LinkResolver` class
-
-<Instruction>
-
-- Create `LinkResolver` to contain the link manipulation logic (`Link` simply holds data)
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkResolver.java")
-public class LinkResolver implements GraphQLResolver<Link> {
-    
-    private final UserRepository userRepository;
-
-    public LinkResolver(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public User postedBy(Link link) {
-        if (link.getUserId() == null) {
-            return null;
-        }
-        return userRepository.findById(link.getUserId());
-    }
-}
-```    
-
-</Instruction>
-
-Register the new resolver with the `SchemaParser`.
-
-<Instruction>
-
-- Update `GraphQLEndpoint#buildSchema`
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
-private static GraphQLSchema buildSchema() {
-        return SchemaParser.newParser()
-                .file("schema.graphqls")
-                .resolvers(
-                        new Query(linkRepository),
-                        new Mutation(linkRepository, userRepository),
-                        new SigninResolver(),
-                        new LinkResolver(userRepository))
-                .build()
-                .makeExecutableSchema();
-}
-```
-
-</Instruction>
-
-<Instruction>
-
-- You also need to update the logic for loading and saving the links to take care of the new field
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
-public class LinkRepository {
-    
-    private final MongoCollection<Document> links;
-
-    public LinkRepository(MongoCollection<Document> links) {
-        this.links = links;
-    }
-
-    public List<Link> getAllLinks() {
-        List<Link> allLinks = new ArrayList<>();
-        for (Document doc : links.find()) {
-            Link link = new Link(
-                    doc.get("_id").toString(),
-                    doc.getString("url"),
-                    doc.getString("description"),
-                    doc.getString("postedBy")
-            );
-            allLinks.add(link);
-        }
-        return allLinks;
-    }
-    
-    public void saveLink(Link link) {
-        Document doc = new Document();
-        doc.append("url", link.getUrl());
-        doc.append("description", link.getDescription());
-        doc.append("postedBy", link.getUserId());
-        links.insertOne(doc);
-    }
-}
-```
-
-</Instruction>
-
-<Instruction>
-
-- Finally, you must change the `createLink` resolver method to insert the currently logged-in user as the creator
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Mutation.java")
- //The way to inject the context is via DataFetchingEnvironment
- public Link createLink(String url, String description, DataFetchingEnvironment env) {
-     AuthContext context = env.getContext();
-     Link newLink = new Link(url, description, context.getUser().getId());
-     linkRepository.saveLink(newLink);
-     return newLink;
- }
-```
-
-</Instruction>
+	<Instruction>
+	
+	Change the `createLink` resolver method to insert `userId`
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Mutation.java")
+	 //The way to inject the context is via DataFetchingEnvironment
+	 public Link createLink(String url, String description, DataFetchingEnvironment env) {
+	     AuthContext context = env.getContext();
+	     Link newLink = new Link(url, description, context.getUser().getId());
+	     linkRepository.saveLink(newLink);
+	     return newLink;
+	 }
+	```
+	
+	</Instruction>
 
 Time to test it! Restart the server and create the link as usual, no changes here.
 

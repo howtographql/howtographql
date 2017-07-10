@@ -9,106 +9,114 @@ As you have seen in earlier chapters, queries and mutations can take input via a
 
 You'll now apply this idea to add filtering to the already defined `allLinks` query.
 
-<Instruction>
+1. Start by add a new argument to its schema definition
 
-- Start by add a new argument to its schema definition:
-
-```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
-type Query {
-  allLinks(filter: LinkFilter): [Link]
-}
-
-input LinkFilter {
-  description_contains: String
-  url_contains: String
-}
-```
-
-</Instruction>
+	<Instruction>
+	
+	Introduce the `LinkFilter` argument to `allLinks`
+	
+	```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
+	type Query {
+	  allLinks(filter: LinkFilter): [Link]
+	}
+	
+	input LinkFilter {
+	  description_contains: String
+	  url_contains: String
+	}
+	```
+	
+	</Instruction>
 
 Remember that this exact approach is just an example. You might as well implement filtering using any other format.
 
-<Instruction>
+2. Create the corresponding data-class
 
-- The corresponding POJO should look something like the following:
+	<Instruction>
+	
+	The `LinkFilter` POJO should look something like the following:
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkFilter.java")
+	import com.fasterxml.jackson.annotation.JsonProperty;
+	
+	public class LinkFilter {
+	
+	    private String descriptionContains;
+	    private String urlContains;
+	
+	    @JsonProperty("description_contains") //the name must match the schema
+	    public String getDescriptionContains() {
+	        return descriptionContains;
+	    }
+	
+	    public void setDescriptionContains(String descriptionContains) {
+	        this.descriptionContains = descriptionContains;
+	    }
+	
+	    @JsonProperty("url_contains")
+	    public String getUrlContains() {
+	        return urlContains;
+	    }
+	
+	    public void setUrlContains(String urlContains) {
+	        this.urlContains = urlContains;
+	    }
+	}
+	```
+	
+	</Instruction>
 
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkFilter.java")
-import com.fasterxml.jackson.annotation.JsonProperty;
+3. The logic needs to allow filtering
 
-public class LinkFilter {
+	<Instruction>
+	
+	Update `LinkRespository#getAllLinks` to accept an optional filter:
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRespository.java")
+	public List<Link> getAllLinks(LinkFilter filter) {
+	    Optional<Bson> mongoFilter = Optional.ofNullable(filter).map(this::buildFilter);
+	    
+	    List<Link> allLinks = new ArrayList<>();
+	    for (Document doc : mongoFilter.map(links::find).orElseGet(links::find)) {
+	        allLinks.add(link(doc));
+	    }
+	    return allLinks;
+	}
+	
+	//builds a Bson from a LinkFilter
+	private Bson buildFilter(LinkFilter filter) {
+	    String descriptionPattern = filter.getDescriptionContains();
+	    String urlPattern = filter.getUrlContains();
+	    Bson descriptionCondition = null;
+	    Bson urlCondition = null;
+	    if (descriptionPattern != null && !descriptionPattern.isEmpty()) {
+	        descriptionCondition = regex("description", ".*" + descriptionPattern + ".*", "i");
+	    }
+	    if (urlPattern != null && !urlPattern.isEmpty()) {
+	        urlCondition = regex("url", ".*" + urlPattern + ".*", "i");
+	    }
+	    if (descriptionCondition != null && urlCondition != null) {
+	        return and(descriptionCondition, urlCondition);
+	    }
+	    return descriptionCondition != null ? descriptionCondition : urlCondition;
+	}
+	```
+	
+	</Instruction>
 
-    private String descriptionContains;
-    private String urlContains;
+4. Finally, update `Query` to add the new argument to the top-level method:
 
-    @JsonProperty("description_contains") //the name must match the schema
-    public String getDescriptionContains() {
-        return descriptionContains;
-    }
-
-    public void setDescriptionContains(String descriptionContains) {
-        this.descriptionContains = descriptionContains;
-    }
-
-    @JsonProperty("url_contains")
-    public String getUrlContains() {
-        return urlContains;
-    }
-
-    public void setUrlContains(String urlContains) {
-        this.urlContains = urlContains;
-    }
-}
-```
-
-</Instruction>
-
-<Instruction>
-
-- Now, update `LinkRespository#getAllLinks` to accept an optional filter:
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRespository.java")
-public List<Link> getAllLinks(LinkFilter filter) {
-    Optional<Bson> mongoFilter = Optional.ofNullable(filter).map(this::buildFilter);
-    
-    List<Link> allLinks = new ArrayList<>();
-    for (Document doc : mongoFilter.map(links::find).orElseGet(links::find)) {
-        allLinks.add(link(doc));
-    }
-    return allLinks;
-}
-
-//builds a Bson from a LinkFilter
-private Bson buildFilter(LinkFilter filter) {
-    String descriptionPattern = filter.getDescriptionContains();
-    String urlPattern = filter.getUrlContains();
-    Bson descriptionCondition = null;
-    Bson urlCondition = null;
-    if (descriptionPattern != null && !descriptionPattern.isEmpty()) {
-        descriptionCondition = regex("description", ".*" + descriptionPattern + ".*", "i");
-    }
-    if (urlPattern != null && !urlPattern.isEmpty()) {
-        urlCondition = regex("url", ".*" + urlPattern + ".*", "i");
-    }
-    if (descriptionCondition != null && urlCondition != null) {
-        return and(descriptionCondition, urlCondition);
-    }
-    return descriptionCondition != null ? descriptionCondition : urlCondition;
-}
-```
-
-</Instruction>
-
-<Instruction>
-
-- Finally, update `Query` to add the new argument to the top-level method:
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Query.java")
-public List<Link> allLinks(LinkFilter filter) {
-    return linkRepository.getAllLinks(filter);
-}
-```
-
-</Instruction>
+	<Instruction>
+	
+	Add the `filter` parameter to `Query#allLinks`:
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Query.java")
+	public List<Link> allLinks(LinkFilter filter) {
+	    return linkRepository.getAllLinks(filter);
+	}
+	```
+	
+	</Instruction>
 
 Cool! Check it out in Graph*i*QL!
 

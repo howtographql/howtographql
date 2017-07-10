@@ -35,7 +35,7 @@ Analogously, refactor the `Link` class to add the new field:
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Link.java")
 public class Link {
     
-    private final String id;
+    private final String id; //the new field
     private final String url;
     private final String description;
 
@@ -69,107 +69,112 @@ public class Link {
 
 For this project, you'll use MongoDB as the persistent storage, but by following the exact same approach you can integrate any other third-party system as the underlying provider for your resolvers.
 
-<Instruction>
+1. First off, install MongoDB on your computer
 
-- First off, install MongoDB on your computer by following [the installation instructions](https://docs.mongodb.com/manual/administration/install-community/) for your platform, and start it up.
+	<Instruction>
+	
+	Following [the installation instructions](https://docs.mongodb.com/manual/administration/install-community/) for your platform, and start it up.
+	
+	</Instruction>
 
-</Instruction>
+2. Having that done, add MongoDB Java driver
 
-<Instruction>
+	<Instruction>
+	
+	Declare a dependency to MongoDB Java driver to `pom.xml`:
+	
+	```xml(path=".../hackernews-graphql-java/pom.xml")
+	<dependency>
+	    <groupId>org.mongodb</groupId>
+	    <artifactId>mongodb-driver</artifactId>
+	    <version>3.4.2</version>
+	</dependency>
+	```
+	
+	</Instruction>
 
-- Having that done, declare a dependency to the MongoDB Java driver to `pom.xml`:
+3. Thanks to the decision to extract the logic for saving and loading links into the `LinkRepository` class, introduction of MongoDB now has a very localized impact.
 
+	<Instruction>
+	
+	Refactor `LinkRepository` so that it persists and loads links from MongoDB and not from an in-memory list.
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
+	public class LinkRepository {
+	    
+	    private final MongoCollection<Document> links;
+	
+	    public LinkRepository(MongoCollection<Document> links) {
+	        this.links = links;
+	    }
+	
+	    public Link findById(String id) {
+	        Document doc = links.find(eq("_id", new ObjectId(id))).first();
+	        return link(doc);
+	    }
+	    
+	    public List<Link> getAllLinks() {
+	        List<Link> allLinks = new ArrayList<>();
+	        for (Document doc : links.find()) {
+	            allLinks.add(link(doc));
+	        }
+	        return allLinks;
+	    }
+	    
+	    public void saveLink(Link link) {
+	        Document doc = new Document();
+	        doc.append("url", link.getUrl());
+	        doc.append("description", link.getDescription());
+	        doc.append("postedBy", link.getUserId());
+	        links.insertOne(doc);
+	    }
+	    
+	    private Link link(Document doc) {
+	        return new Link(
+	                doc.get("_id").toString(),
+	                doc.getString("url"),
+	                doc.getString("description"),
+	                doc.getString("postedBy"));
+	    }
+	}
+	```
+	
+	</Instruction>
 
-```xml(path=".../hackernews-graphql-java/pom.xml")
-<dependency>
-    <groupId>org.mongodb</groupId>
-    <artifactId>mongodb-driver</artifactId>
-    <version>3.4.2</version>
-</dependency>
-```
+4. You'll also have to update `GraphQLEndpoint` to connect to MongoDB.
 
-</Instruction>
-
-Thanks to the decision to extract the logic for saving and loading links into the `LinkRepository` class, introduction of MongoDB now has a very localized impact.
-
-<Instruction>
-
-- Refactor `LinkRepository` so that it persists and loads links from MongoDB and not from an in-memory list.
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
-public class LinkRepository {
-    
-    private final MongoCollection<Document> links;
-
-    public LinkRepository(MongoCollection<Document> links) {
-        this.links = links;
-    }
-
-    public Link findById(String id) {
-        Document doc = links.find(eq("_id", new ObjectId(id))).first();
-        return link(doc);
-    }
-    
-    public List<Link> getAllLinks() {
-        List<Link> allLinks = new ArrayList<>();
-        for (Document doc : links.find()) {
-            allLinks.add(link(doc));
-        }
-        return allLinks;
-    }
-    
-    public void saveLink(Link link) {
-        Document doc = new Document();
-        doc.append("url", link.getUrl());
-        doc.append("description", link.getDescription());
-        doc.append("postedBy", link.getUserId());
-        links.insertOne(doc);
-    }
-    
-    private Link link(Document doc) {
-        return new Link(
-                doc.get("_id").toString(),
-                doc.getString("url"),
-                doc.getString("description"),
-                doc.getString("postedBy"));
-    }
-}
-```
-
-</Instruction>
-
-<Instruction>
-
-- You'll also have to update `GraphQLEndpoint` to initialize the connection to MongoDB and provide it to `LinkRepository`.
-
-```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
-@WebServlet(urlPatterns = "/graphql")
-public class GraphQLEndpoint extends SimpleGraphQLServlet {
-
-    private static final LinkRepository linkRepository;
-
-    static {
-        //Change to `new MongoClient("mongodb://<host>:<port>/hackernews")`
-        //if you don't have Mongo running locally on port 27017
-        MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
-        linkRepository = new LinkRepository(mongo.getCollection("links"));
-    }
-    
-    public GraphQLEndpoint() {
-        super(buildSchema());
-    }
-
-    private static GraphQLSchema buildSchema() {
-        return SchemaParser.newParser()
-                .file("schema.graphqls")
-                .resolvers(new Query(linkRepository), new Mutation(linkRepository))
-                .build()
-                .makeExecutableSchema();
-    }
-}
-```
-
-</Instruction>
+	<Instruction>
+	
+	Get the `links` collection from MongoDB and provide it to `LinkRepository`.
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
+	@WebServlet(urlPatterns = "/graphql")
+	public class GraphQLEndpoint extends SimpleGraphQLServlet {
+	
+	    private static final LinkRepository linkRepository;
+	
+	    static {
+	        //Change to `new MongoClient("mongodb://<host>:<port>/hackernews")`
+	        //if you don't have Mongo running locally on port 27017
+	        MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
+	        linkRepository = new LinkRepository(mongo.getCollection("links"));
+	    }
+	    
+	    public GraphQLEndpoint() {
+	        super(buildSchema());
+	    }
+	
+	    private static GraphQLSchema buildSchema() {
+	        return SchemaParser.newParser()
+	                .file("schema.graphqls")
+	                .resolvers(new Query(linkRepository), new Mutation(linkRepository))
+	                .build()
+	                .makeExecutableSchema();
+	    }
+	}
+	```
+	
+	</Instruction>
 
 That's all! Restart Jetty, fire up Graph*i*QL and give it a spin! Just make sure you create some links before querying them. Everything should still work the same except you won't lose the saved links if the power goes out.
 
