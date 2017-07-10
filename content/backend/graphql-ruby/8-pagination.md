@@ -21,7 +21,7 @@ type Query {
 
 So, lets add `skip` and `first` to `LinksSearch`:
 
-```ruby(path="app/graphql/resolvers/links_search.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
 require 'search_object/plugin/graphql'
 
 class Resolvers::LinksSearch

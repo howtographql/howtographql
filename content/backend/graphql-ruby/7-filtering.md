@@ -10,7 +10,7 @@ For this part of the tutorial, we are going to use [SearchObject::Plugin::GraphQ
 
 Add the following lines to your `Gemfile`:
 
-```ruby(path="Gemfile")
+```ruby(path=".../graphql-ruby/Gemfile")
 gem 'search_object'
 gem 'search_object_graphql'
 ```
@@ -33,11 +33,13 @@ And restart the server.
 
 </Instruction>
 
+This would install [SearchObject](https://github.com/rstankov/SearchObjectGraphQL) and you can use it.
+
 <Instruction>
 
-Having [SearchObject](https://github.com/rstankov/SearchObjectGraphQL) now, we can create a search resolver:
+Create a search resolver:
 
-```ruby(path="app/graphql/resolvers/links_search.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
 require 'search_object/plugin/graphql'
 
 class Resolvers::LinksSearch
@@ -87,11 +89,15 @@ end
 
 </Instruction>
 
+This resolver contains all logic related to find links. Over time you can more rules.
+
+[SearchObject](https://github.com/rstankov/SearchObjectGraphQL) can be used as a [GraphQL::Function](http://graphql-ruby.org/fields/function.html).
+
 <Instruction>
 
-Then use it as [GraphQL::Function](http://graphql-ruby.org/fields/function.html):
+Use `LinksSearch` for finding links:
 
-```ruby(path="app/graphql/resolvers/links_search.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
 Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
@@ -113,7 +119,7 @@ You can even do more complicated searches:
 
 Here is the unit test for `LinksSearch`:
 
-```ruby(path="test/graphql/resolvers/links_search_test.rb")
+```ruby(path=".../graphql-ruby/test/graphql/resolvers/links_search_test.rb")
 require 'test_helper'
 
 class Resolvers::LinksSearchTest < ActiveSupport::TestCase

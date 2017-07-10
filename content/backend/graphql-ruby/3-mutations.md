@@ -14,7 +14,7 @@ This type is **not** auto generated. You'll need to generate it using `rails gen
 
 Create a file named `app/graphql/types/mutation_type.rb`:
 
-```ruby(path="app/graphql/types/mutation_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
 Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 end
@@ -22,11 +22,13 @@ end
 
 </Instruction>
 
+This type is a placeholder for all GraphQL mutations.
+
 <Instruction>
 
 Then expose this type as the mutation type by adding it to `app/graphql/graphql_tutorial_schema.rb`:
 
-```ruby(path="app/graphql/types/graphql_tutorial_schema.rb")
+```ruby(path=".../graphql-ruby/app/graphql/graphql_tutorial_schema.rb")
 GraphqlTutorialSchema = GraphQL::Schema.define do
   query(Types::QueryType)
   mutation(Types::MutationType)
@@ -46,7 +48,7 @@ For this purpose, you'll use [GraphQL::Function](http://graphql-ruby.org/fields/
 
 Create a new file - `app/graphql/resolvers/create_link.rb`:
 
-```ruby(path="app/graphql/resolvers/create_link.rb")
+```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_link.rb")
 class Resolvers::CreateLink < GraphQL::Function
   # arguments passed as "args"
   argument :description, !types.String
@@ -74,7 +76,7 @@ end
 
 Then expose this mutation in `app/graphql/types/mutation_type.rb`:
 
-```ruby(path="app/graphql/types/mutation_type.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
 Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
@@ -96,7 +98,7 @@ It's a good practice in Ruby to unit test your resolver objects.
 
 Here is an example of `Resolvers::CreateLink` test:
 
-```ruby(path="test/graphql/resolvers/create_link_test.rb")
+```ruby(path=".../graphql-ruby/test/graphql/resolvers/create_link_test.rb")
 require 'test_helper'
 
 class Resolvers::CreateLinkTest < ActiveSupport::TestCase

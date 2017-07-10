@@ -45,7 +45,7 @@ Now, let's add GraphQL to the server. First, stop the server.
 
 Open `Gemfile` and add the following dependency to it:
 
-```ruby(path="Gemfile")
+```ruby(path=".../graphql-ruby/Gemfile")
 gem 'graphql'
 ```
 
