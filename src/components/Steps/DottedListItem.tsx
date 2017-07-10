@@ -82,7 +82,7 @@ const DottedListItem = ({
         .dotted-list-item.first {
           padding-top: 0 !important;
         }
-        .dotted-list-item.first.light:not(.small) :global(a) {
+        .dotted-list-item.first.light:not(.small) :global(.list-item) {
           @p: .pink;
         }
         .first .checkmark {
@@ -172,7 +172,7 @@ const DottedListItem = ({
         .dotted-list-item :global(a) {
           @p: .white, .noUnderline;
         }
-        .done:not(.active) :global(a) {
+        .done:not(.active) :global(.title) {
           color: #EB7BBC !important;
         }
         .dotted-list-item:not(.first) .before-glow {

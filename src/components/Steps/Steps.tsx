@@ -46,7 +46,7 @@ export default function Steps({
         div :global(a) {
           @p: .black80, .db, .relative, .z2;
         }
-        .active :global(a) {
+        .active :global(.title) {
           color: $pink !important;
         }
       `}</style>
@@ -68,7 +68,9 @@ export default function Steps({
                 active: step.link === location.pathname,
               })}
             >
-              {step.title}
+              <span className="title">
+                {step.title}
+              </span>
               {showDuration &&
                 step.duration &&
                 <Duration duration={step.duration || 0} link={step.link} />}

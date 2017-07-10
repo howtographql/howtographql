@@ -173,9 +173,10 @@ export default function Markdown({ steps, html }: Props) {
           border-left: 3px solid $darkBlue20;
         } /* center captions */
         .markdown .image-wrapper + em, .markdown .image-wrapper + span + em {
-          @p: .db, .tc, .relative, .center;
+          @p: .db, .tc, .relative, .center, .darkBlue60, .f14;
+          font-style: normal;
           max-width: 620px;
-          top: -30px;
+          top: -25px;
         }
       `}</style>
       <JsxParser
