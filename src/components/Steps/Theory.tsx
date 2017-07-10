@@ -12,7 +12,7 @@ export default function Theory() {
         }
       `}</style>
       <span>
-        GraphQL Theory
+        GraphQL Fundamentals
       </span>
     </div>
   )
