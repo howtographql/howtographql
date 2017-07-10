@@ -41,6 +41,14 @@ const authors: Author[] = [
     link: 'https://twitter.com/kaqqao',
     name: 'Bojan Tomic',
   },
+  {
+    avatar: require('../assets/graphics/contributors/maira.png'),
+    bio:
+      "Maira is a software engineer at VTEX, currently working with GraphQL every day. She loves web development and learning new technologies that make it even more enjoyable.",
+    job: 'Developer @ VTEX',
+    link: 'https://github.com/mairatma',
+    name: 'Maira Bello',
+  },
 ]
 
 export default keyBy(authors, 'name')
