@@ -1,6 +1,7 @@
 ---
 title: Authentication
-videoId: QZWAAmp406s
+videoId: f0Mf2YyGdqc
+duration: 18
 ---
 
 In this section, you'll learn how you can implement authentication functionality with Relay and Graphcool to provide a login to the user.
