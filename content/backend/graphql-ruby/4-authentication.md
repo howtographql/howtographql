@@ -1,5 +1,6 @@
 ---
 title: Authentication
+description: Authenticate your users with GraphQL
 ---
 
 ### Creating Users
