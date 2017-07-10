@@ -9,12 +9,17 @@ You surely can't keep using an array to store the data forever. For a more long-
 
 > These pieces of code that access some service inside GraphQL requests are commonly referred to as **[Connectors](https://github.com/apollographql/graphql-tools/blob/master/designs/connectors.md#what-is-a-connector)**.
 
+First you'll need to get MongoDB up and running.
+
 <Instruction>
 
-First you'll need to get MongoDB up and running. For that you'll need to:
+**Step 1**: Install and run MongoDB, if you haven't already. You can find instructions on how to do this [here](https://docs.mongodb.com/master/administration/install-community/).
 
-1. Install and run MongoDB, if you haven't already. You can find instructions on how to do this [here](https://docs.mongodb.com/master/administration/install-community/).
-2. Install MongoDB's driver for NodeJS, via the command `npm i --save mongodb`.
+</Instruction>
+
+<Instruction>
+
+**Step 2**: Install MongoDB's driver for NodeJS, via the command `npm i --save mongodb`.
 
 </Instruction>
 

@@ -23,13 +23,24 @@ type Link {
 
 ### Install Dependencies
 
-It's time to start creating your project. For this, follow these steps:
+It's time to start creating your project.
+
 
 <Instruction>
 
-1. First, you'll need is to have Node.js installed on your machine. If you don't yet, make sure to do it [now](https://nodejs.org/en/). Note that the code samples here assume the latest versions of Node.js, with ES6 support, so it's best if that's what you have as well.
-2. Setup your **package.json** by typing `npm init -y` in the terminal, inside the folder of your choice.
-3. Install dependencies: 
+**Step 1**: First, you'll need is to have Node.js installed on your machine. If you don't yet, make sure to do it [now](https://nodejs.org/en/). Note that the code samples here assume the latest versions of Node.js, with ES6 support, so it's best if that's what you have as well.
+
+</Instruction>
+
+<Instruction>
+
+**Step 2**: Setup your **package.json** by typing `npm init -y` in the terminal, inside the folder of your choice.
+
+</Instruction>
+
+<Instruction>
+
+**Step 3**: Install the following dependencies:
 
 ```bash(path=".../hackernews-graphql-js")
 npm install —save express body-parser graphql-server-express graphql-tools graphql
