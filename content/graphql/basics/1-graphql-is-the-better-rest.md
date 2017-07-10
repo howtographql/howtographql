@@ -48,8 +48,6 @@ A common pattern with REST APIs is to structure the endpoints according to the v
 
 The major drawback of this approach is that it doesn’t allow for rapid iterations on the frontend. With every change that is made to the UI, there is a high risk that now there is more (or less) data required than before. Consequently, the backend needs to be adjusted as well to account for the new data needs. This kills productivity and notably slows down the ability to incorporate user feedback into a product. 
 
-![](http://imgur.com/il96v1N.png)
-
 With GraphQL, this problem is solved. Thanks to the flexible nature of GraphQL, changes on the client-side can be made without any extra work on the server. Since clients can specify their exact data requirements, no backend engineer needs to make adjustments when the design and data needs on the frontend change.
 
 ### Insightful Analytics on the Backend
