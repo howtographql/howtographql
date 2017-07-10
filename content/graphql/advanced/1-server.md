@@ -1,9 +1,9 @@
 ---
 title: Server
 description: "An introduction to the core concepts that are required when using GraphQL on the server-side"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+question: Which statement about GraphQL servers is correct?
+answers: ["A single record is never fetched more than once for a given query", "Query fields are resolved depth-first", "Resolvers can be defined on a field granularity", "A GraphQL server that doesn't use DataLoader isn't a GraphQL Server"]
+correctAnswer: 2
 ---
 
 GraphQL is often explained as a frontend-focused API technology, because it enables clients to get data in a much nicer way than before. But the API itself is, of course, implemented on the server side. There are a lot of benefits to be had on the server as well, because GraphQL enables the server developer to focus on describing the data available rather than implementing and optimizing specific endpoints.
