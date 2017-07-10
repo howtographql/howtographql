@@ -18,7 +18,7 @@ export default function IntroSteps({ steps, location }: Props) {
     <div className="intro-steps">
       <style jsx={true}>{`
         .intro-steps {
-          @p: .mt38;
+          @p: .mt38, .pt10;
         }
         .steps-content {
           @p: .flex;
