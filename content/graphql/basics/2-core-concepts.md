@@ -4,7 +4,7 @@ question: "What are GraphQL subscription used for?"
 answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allows to read and write data"]
 correctAnswer: 0
 description: "In this chapter, you learn about the basic GraphQL concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema"
-videoId: 4W_1c_eNw1Y
+videoId: czIj2X784Cg
 duration: 16
 ---
 
