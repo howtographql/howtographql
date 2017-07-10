@@ -13,7 +13,6 @@ interface Props {
 
 export default function IntroSteps({ steps, location }: Props) {
   const basicsDuration = getTotalDuration(steps.basics)
-  const advancedDuration = getTotalDuration(steps.advanced)
   return (
     <div className="intro-steps">
       <style jsx={true}>{`
@@ -31,7 +30,7 @@ export default function IntroSteps({ steps, location }: Props) {
           top: -3px;
         }
         .advanced-graphql {
-          margin-top: 76px;
+          margin-top: 196px;
         }
         .steps-list {
           @p: .w50;
@@ -44,6 +43,9 @@ export default function IntroSteps({ steps, location }: Props) {
         }
         .duration {
           @p: .mt16, .mr38, .flex, .justifyEnd;
+        }
+        h3 {
+          @p: .fw6;
         }
         @media (max-width: 500px) {
           .steps-content :global(.steps-description) {
@@ -68,9 +70,6 @@ export default function IntroSteps({ steps, location }: Props) {
           </div>
           <div className="advanced-graphql">
             <h3>Advanced GraphQL (optional)</h3>
-            <div className="duration">
-              <Duration duration={advancedDuration} total={true} />
-            </div>
             <p>
               Read this chapter to get a broader
               understanding of the GraphQL ecosystem.

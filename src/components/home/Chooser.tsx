@@ -79,6 +79,9 @@ class Chooser extends React.Component<Props, State> {
           p {
             @p: .white;
           }
+          h3 {
+            @p: .fw6;
+          }
           div h3.first-h3 {
             @p: .mt60;
           }
