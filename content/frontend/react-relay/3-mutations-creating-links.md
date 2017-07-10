@@ -1,10 +1,10 @@
 ---
 title: "Mutations: Creating Links"
-videoId: QZWAAmp406s
-videoAuthor: "Abhi Aiyer"
 question: Can you choose the first answer to this question?
 answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
 correctAnswer: 0
+videoId: x9xtQdWcKMc
+duration: 10
 ---
 
 In this section, you'll learn how you can send mutations with Relay. 
