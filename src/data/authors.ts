@@ -33,6 +33,14 @@ const authors: Author[] = [
     link: 'https://twitter.com/rstankov',
     name: 'Radoslav Stankov',
   },
+  {
+    avatar: require('../assets/graphics/contributors/bojan.jpg'),
+    bio:
+      "Bojan is an experienced Java developer (and an Elixir newbie) with a healthy interest in new takes on old problems, from programming paradigms (like functional-reactive), to innovative approaches to API design (like GraphQL).",
+    job: 'Senior Engineer @ ServiceNow',
+    link: 'https://twitter.com/kaqqao',
+    name: 'Bojan Tomic',
+  },
 ]
 
 export default keyBy(authors, 'name')
