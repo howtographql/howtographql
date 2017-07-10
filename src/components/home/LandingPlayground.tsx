@@ -23,7 +23,7 @@ export default class LandingPlayground extends React.Component<{}, State> {
       <section className="landing-playground">
         <style jsx={true}>{`
           .landing-playground {
-            @p: .pv96, .bgDarkerBlue;
+            @p: .pt96, .bgDarkerBlue, .pb38;
           }
           .graphiql {
             @p: .flex, .center, .justifyCenter, .mv96;
@@ -32,6 +32,13 @@ export default class LandingPlayground extends React.Component<{}, State> {
           }
           .graphiql :global(.variable-editor) {
             @p: .dn;
+          }
+          .graphiql :global(.docExplorerWrap) {
+            @p: .dn;
+          }
+          .graphiql :global(.graphcool-execute-button) :global(svg) {
+            top: -1px;
+            left: 3px;
           }
           h1 {
             @p: .tc, .white;
@@ -43,7 +50,7 @@ export default class LandingPlayground extends React.Component<{}, State> {
             @p: .white, .tc, .f20, .fw6, .mb25;
           }
           .center-container {
-            @p: .center, .flex, .justifyCenter;
+            @p: .center, .flex, .justifyCenter, .pb60;
             max-width: 960px;
           }
           @media (max-width: 900px) {

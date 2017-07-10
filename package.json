@@ -18,7 +18,7 @@
     "gatsby-remark-smartypants": "next",
     "gatsby-source-filesystem": "next",
     "gatsby-transformer-remark": "next",
-    "graphcool-graphiql": "^1.8.12",
+    "graphcool-graphiql": "^1.8.13",
     "graphcool-styles": "^0.1.31",
     "graphql": "^0.10.3",
     "graphql-request": "^1.2.0",
