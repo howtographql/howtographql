@@ -14,7 +14,7 @@ export default function Team() {
         }
         .team {
           @p: .center;
-          max-width: 1020px;
+          max-width: 1100px;
         }
         p {
           @p: .tc, .mt38;
@@ -22,7 +22,7 @@ export default function Team() {
         .bubbles {
           @p: .mt60, .flex, .flexWrap;
         }
-        @media (max-width: 500px) {
+        @media (max-width: 1100px) {
           section {
             padding-bottom: 0 !important;
           }
@@ -54,46 +54,56 @@ export default function Team() {
         </p>
         <div className="bubbles-container">
           <div className="bubbles">
-            <Bubble
-              avatar={require('../../assets/graphics/contributors/brent.jpg')}
-              name="Brent Vatne"
-              description="Expo"
-              x={0}
-              y={0}
-            />
-            <Company
-              src={require('../../assets/icons/companies/graphcool.svg')}
-              color={$v.green}
-              y={90}
-            />
-            <Bubble
-              avatar={require('../../assets/graphics/contributors/radoslav.jpg')}
-              name="Radoslav Stankov"
-              description="graphql-ruby"
-              x={0}
-              y={-30}
-            />
-            <Bubble
-              avatar={require('../../assets/graphics/contributors/ben.jpg')}
-              name="Ben Wilson"
-              description="graphql-elixir"
-              x={0}
-              y={60}
-            />
-            <Bubble
-              avatar={require('../../assets/graphics/contributors/oleg.jpg')}
-              name="Oleg Ilyenko"
-              description="sangria"
-              x={0}
-              y={-30}
-            />
-            <Bubble
-              avatar={require('../../assets/graphics/contributors/syrus.jpg')}
-              name="Syrus Akbary "
-              description="graphene"
-              x={0}
-              y={20}
-            />
+            <div className='flex'>
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/brent.jpg')}
+                name="Brent Vatne"
+                description="Expo"
+                x={0}
+                y={0}
+              />
+              <Company
+                src={require('../../assets/icons/companies/graphcool.svg')}
+                color={$v.green}
+                y={90}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/radoslav.jpg')}
+                name="Radoslav Stankov"
+                description="graphql-ruby"
+                x={0}
+                y={-30}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/ben.jpg')}
+                name="Ben Wilson"
+                description="graphql-elixir"
+                x={0}
+                y={60}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/oleg.jpg')}
+                name="Oleg Ilyenko"
+                description="sangria"
+                x={0}
+                y={-30}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/syrus.jpg')}
+                name="Syrus Akbary "
+                description="graphene"
+                x={0}
+                y={20}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/abhi.jpg')}
+                name="Abhi Aiyer"
+                description="Videos"
+                x={-20}
+                y={140}
+                diameter={120}
+              />
+            </div>
 
             <div style={{ marginTop: '40px', display: 'flex' }}>
               <Bubble
@@ -133,6 +143,14 @@ export default function Team() {
                 src={require('../../assets/icons/companies/producthunt.svg')}
                 color="#DA552F"
                 y={30}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/nilan.jpg')}
+                name="Nilan Marktanner"
+                description="Reviews & Feedback"
+                x={0}
+                y={100}
+                diameter={120}
               />
             </div>
 
@@ -180,23 +198,7 @@ export default function Team() {
                 y={-30}
                 diameter={120}
               />
-              <Bubble
-                avatar={require('../../assets/graphics/contributors/nilan.jpg')}
-                name="Nilan Marktanner"
-                description="Reviews & Feedback"
-                x={-200}
-                y={80}
-                diameter={120}
-              />
             </div>
-            <Bubble
-              avatar={require('../../assets/graphics/contributors/abhi.jpg')}
-              name="Abhi Aiyer"
-              description="Videos"
-              x={40}
-              y={-20}
-              diameter={120}
-            />
           </div>
         </div>
       </div>
