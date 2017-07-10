@@ -303,7 +303,7 @@ headers: {
 ```
 
 
-What this means for you, as the server developer, is that you need to check the value of the `Authorization` header on every request that need authentication and/or authorization.
+What this means for you, as the server developer, is that you need to check the value of the `Authorization` header on every request that needs authentication and/or authorization.
 
 In GraphQL, the way to obtain this type of data, that isn't coming from the query or mutation itself, is via the context object. This is a value that gets passed to all the resolvers triggered during the operation execution. The `SimpleGraphQLServlet` class that your `GraphQLEndpoint` extends already provides such an object, and it stores the HTTP request and response objects inside. While this is already usable, it's better to extend it to support your use-case more directly.
 
