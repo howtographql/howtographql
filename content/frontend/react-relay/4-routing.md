@@ -1,5 +1,7 @@
 ---
 title: Routing
+videoId: xmaDSTXeN54
+duration: 5
 ---
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Relay to implement some nagivation functionality!
