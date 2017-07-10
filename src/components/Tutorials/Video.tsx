@@ -109,7 +109,7 @@ export default class Video extends React.Component<Props, State> {
               videoId={videoId}
               suggestions={false}
               autoplay={showVideo}
-              controls={false}
+              controls={true}
             />
             {!showVideo &&
               author &&
