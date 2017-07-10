@@ -1,5 +1,6 @@
 ---
 title: Mutations
+description: Learn to implement mutations by using resolvers again, but this time with arguments
 ---
 
 ### Mutation for creating links

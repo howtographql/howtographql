@@ -1,5 +1,6 @@
 ---
 title: Authentication
+description: Learn how to implement authentication checks in a GraphQL server.
 ---
 
 ### Creating Users

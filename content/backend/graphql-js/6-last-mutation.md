@@ -1,5 +1,6 @@
 ---
 title: More Mutations
+description: Add the remaining mutation needed for your Hackernews app
 ---
 
 ### Voting for links

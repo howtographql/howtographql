@@ -1,5 +1,6 @@
 ---
 title: Error Handling
+description: Learn how GraphQL handles errors, and how to customize them to fit your app's needs.
 ---
 
 ### Schema Validation errors

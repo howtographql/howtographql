@@ -1,5 +1,6 @@
 ---
 title: Filtering
+description: Learn how to use arguments to add filtering to your GraphQL queries.
 ---
 
 Another important Hackernews feature is searching the links, so you're going to be adding support for that now. You already know that it's possible to pass input data to mutations, via arguments. Now you're going to use this same concept to apply optional filters to the existing `allLinks` query.

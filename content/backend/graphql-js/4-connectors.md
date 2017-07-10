@@ -1,5 +1,6 @@
 ---
 title: Connectors
+description: Learn to connect your resolvers with MongoDB
 ---
 
 ### Set up MongoDB

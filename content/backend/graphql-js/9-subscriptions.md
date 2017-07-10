@@ -1,5 +1,6 @@
 ---
 title: Subscriptions
+description: Learn how to add real time support to your GraphQL server by using subscriptions.
 ---
 
 ### Motivation
