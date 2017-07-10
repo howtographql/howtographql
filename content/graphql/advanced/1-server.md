@@ -70,7 +70,7 @@ One thing to note is that most GraphQL server implementations will provide "defa
 
 Read more in depth about GraphQL execution in the ["GraphQL Explained" post](https://dev-blog.apollodata.com/graphql-explained-5844742f195e) on the Apollo blog.
 
-## Batching and caching
+## Batched Resolving
 
 One thing you might notice about the execution strategy above is that it's somewhat naive. For example, if you have a resolver that fetches from a backend API or database, that backend might get called many times during the execution of one query. Let's imagine we wanted to get the authors of several posts, like so:
 
