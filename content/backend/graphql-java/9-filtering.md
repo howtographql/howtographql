@@ -7,9 +7,13 @@ description: Use query arguments to filter which links are returned
 
 As you have seen in earlier chapters, queries and mutations can take input via arguments. Since arguments have no inherent semantics attached, and mean whatever you define them to mean, you can easily implement common features like filtering by simply designating arguments to be used for this purpose.
 
-You'll now apply this idea to add filtering to the already defined `allLinks` query. Start by add a new argument to its schema definition:
+You'll now apply this idea to add filtering to the already defined `allLinks` query.
 
-```graphql
+<Instruction>
+
+- Start by add a new argument to its schema definition:
+
+```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
 type Query {
   allLinks(filter: LinkFilter): [Link]
 }
@@ -20,11 +24,15 @@ input LinkFilter {
 }
 ```
 
+</Instruction>
+
 Remember that this exact approach is just an example. You might as well implement filtering using any other format.
 
-The corresponding POJO should look something like the following:
+<Instruction>
 
-```java
+- The corresponding POJO should look something like the following:
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkFilter.java")
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LinkFilter {
@@ -52,9 +60,13 @@ public class LinkFilter {
 }
 ```
 
-Now, update `LinkRespository#getAllLinks` to accept an optional filter:
+</Instruction>
 
-```java
+<Instruction>
+
+- Now, update `LinkRespository#getAllLinks` to accept an optional filter:
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRespository.java")
 public List<Link> getAllLinks(LinkFilter filter) {
     Optional<Bson> mongoFilter = Optional.ofNullable(filter).map(this::buildFilter);
     
@@ -84,13 +96,19 @@ private Bson buildFilter(LinkFilter filter) {
 }
 ```
 
-Finally, update `Query` to add the new argument to the top-level method:
+</Instruction>
 
-```java
+<Instruction>
+
+- Finally, update `Query` to add the new argument to the top-level method:
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Query.java")
 public List<Link> allLinks(LinkFilter filter) {
     return linkRepository.getAllLinks(filter);
 }
 ```
+
+</Instruction>
 
 Cool! Check it out in Graph*i*QL!
 

@@ -5,7 +5,7 @@ description: Learn about an alternative approach to developing schemas with grap
 
 The way you've been developing so far is known as schema-first, as you always start by defining the schema. This style has important benefits, discussed at the beginning of this tutorial, and it works well for new projects, where no legacy code exists. Still, you may have noticed that in strongly and statically typed languages, like Java, it leads to a lot of duplication. For example, revisit the way you developed the `Link` type.
 
-You defined in the schema:
+You defined it in the schema:
 
 ```graphql(nocopy)
 type Link {
@@ -39,9 +39,11 @@ The Java/GraphQL ecosystem spawned a few libraries that facilitate this style of
 
 ### Setting up graphql—spqr
 
+<Instruction>
+
 To experiment with `graphql-spqr`, you should first declare a dependency to it in `pom.xml`:
 
-```xml
+```xml(path=".../hackernews-graphql-java/pom.xml")
 <dependency>
     <groupId>io.leangen.graphql</groupId>
     <artifactId>spqr</artifactId>
@@ -49,9 +51,15 @@ To experiment with `graphql-spqr`, you should first declare a dependency to it i
 </dependency>
 ```
 
-Additionally, it will be much more comfortable to work if the [method parameter names are preserved](https://docs.oracle.com/javase/tutorial/reflect/member/methodparameterreflection.html) (you'll understand why in a second), so enable the `-paramaters` javac option by configuring the `maven-compiler-plugin` as follows:
+</Instruction>
 
-```xml
+Additionally, it will be much more comfortable to work if the [method parameter names are preserved](https://docs.oracle.com/javase/tutorial/reflect/member/methodparameterreflection.html) (you'll understand why in a second).
+
+<Instruction>
+
+So enable the `-paramaters` javac option by configuring the `maven-compiler-plugin` as follows:
+
+```xml(path=".../hackernews-graphql-java/pom.xml")
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
@@ -64,15 +72,21 @@ Additionally, it will be much more comfortable to work if the [method parameter 
 </plugin>
 ```
 
+</Instruction>
+
 Make sure you **rebuild the project** now (e.g. run `mvn clean package`) for the new option to take effect. Then, restart Jetty.
 
 ### Generating the schema using graphql—spqr
 
 In order to generate a schema similar to the one you've been working on so far, but this time using the code-first style you'd (unsurprisingly) start from the business logic. It is fortunate that you already have some business logic ready, in `Query`, `Mutation` and `*Resolver` classes, as it simulates introducing GraphQL into an existing project.
 
-The easiest way to demonstrate `graphql-spqr` is by using annotations, but note that they're entirely optional. Start off by decorating the methods you want exposed over GraphQL.
+The easiest way to demonstrate `graphql-spqr` is by using annotations, but note that they're entirely optional.
 
-```java
+<Instruction>
+
+Start off by decorating the methods you want exposed over GraphQL.
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Query.java")
 public class Query { //1
 
     private final LinkRepository linkRepository;
@@ -89,15 +103,19 @@ public class Query { //1
     }
 ```
 
-A few thing to note about this code:
+</Instruction>
+
+A few things to note about this code:
 
 1. Implementing `GraphQLRootResolver` is no longer needed (nor is the dependency to `graphql-java-tools`). In fact, `graphql-spqr` goes to great lengths to ensure the code needs no special classes, interfaces or any modifications in order to be exposed over GraphQL
 2. As noted, the annotations are entirely optional, but the default configuration will expect them at the top-level
 3. By default, the name of the method parameter will be used in the schema (this is why you want `-parameters` javac option enabled when compiling). Using `@GraphQLArgument` is a way to change the name and set the default value. All of this is doable without annotations as well.
 
+<Instruction>
+
 Decorate the interesting bits in `LinkResolver` too:
 
-```java
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkResolver.java")
 public class LinkResolver { //1
     
     private final UserRepository userRepository;
@@ -116,14 +134,18 @@ public class LinkResolver { //1
 }
 ```
 
+</Instruction>
+
 The point of interest in this block:
 
 1. No more `implements GraphQLResolver<Link>`
 2. `@GraphQLContext` is used to wire external methods into types. This mapping is semantically the same as if the `Link` class contained a method `public User postedBy() {...}`. In this manner, it is possible to keep the logic separate from data, yet still produce deeply nested structures.
 
+<Instruction>
+
 Expose the `createLink` mutation is a similar fashion:
 
-```java
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Mutation.java")
 @GraphQLMutation //1
 public Link createLink(String url, String description, @GraphQLRootContext AuthContext context) { //2
     Link newLink = new Link(url, description, context.getUser().getId());
@@ -132,15 +154,18 @@ public Link createLink(String url, String description, @GraphQLRootContext AuthC
 }
 ```
 
+</Instruction>
+
 Things to note:
 
 1. You expose mutations via `@GraphQLMutation`
 2. You can inject the `AuthContext` directly via `@GraphQLRootContext`. No more need for `DataFetchingEnvironment`. This nicely removes the dependency to `graphql-java` specific code in the logic layer.
 
+<Instruction>
 
 Finally, to generate the schema from the classes, update `GraphQLEndoint#buildSchema` to look as follows:
 
-```java
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndoint.java")
 private static GraphQLSchema buildSchema() {
     Query query = new Query(linkRepository); //create or inject the service beans
     LinkResolver linkResolver = new LinkResolver(userRepository);
@@ -151,6 +176,8 @@ private static GraphQLSchema buildSchema() {
             .generate(); //done :)
 }
 ```
+
+</Instruction>
 
 If you now fire up Graph*i*QL, you'd get the exact same result as before:
 

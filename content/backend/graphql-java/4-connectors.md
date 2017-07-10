@@ -14,58 +14,73 @@ Since resolvers are responsible for fetching the value of a single field, it is 
 
 ### Refactor the link type
 
-1. Take this opportunity to add the `id` field to the `Link` type as you'll need it for the features coming later.
+<Instruction>
 
-	```graphql
-	type Link {
-	    id: ID!
-	    url: String!
-	    description: String
-	}
-	```
-	
-2. Analogously, refactor the `Link` class to add the new field:
+Take this opportunity to add the `id` field to the `Link` type as you'll need it for the features coming later.
 
-	```java
-	public class Link {
-	    
-	    private final String id;
-	    private final String url;
-	    private final String description;
-	
-	    public Link(String url, String description) {
-	        this(null, url, description);
-	    }
-	
-	    public Link(String id, String url, String description) {
-	        this.id = id;
-	        this.url = url;
-	        this.description = description;
-	    }
-	
-	    public String getId() {
-	        return id;
-	    }
-	
-	    public String getUrl() {
-	        return url;
-	    }
-	
-	    public String getDescription() {
-	        return description;
-	    }
-	}
-	```
+```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
+type Link {
+    id: ID!
+    url: String!
+    description: String
+}
+```
+
+</Instruction>
+
+<Instruction>
+
+Analogously, refactor the `Link` class to add the new field:
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Link.java")
+public class Link {
+    
+    private final String id;
+    private final String url;
+    private final String description;
+
+    public Link(String url, String description) {
+        this(null, url, description);
+    }
+
+    public Link(String id, String url, String description) {
+        this.id = id;
+        this.url = url;
+        this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+```
+
+</Instruction>
 
 ### Connecting Mongo DB
 
 For this project, you'll use MongoDB as the persistent storage, but by following the exact same approach you can integrate any other third-party system as the underlying provider for your resolvers.
 
-First off, install MongoDB on your computer by following [the installation instructions](https://docs.mongodb.com/manual/administration/install-community/) for your platform, and start it up.
-Having that done, add the dependency to the MongoDB Java driver to `pom.xml`:
+<Instruction>
+
+- First off, install MongoDB on your computer by following [the installation instructions](https://docs.mongodb.com/manual/administration/install-community/) for your platform, and start it up.
+
+</Instruction>
+
+<Instruction>
+
+- Having that done, declare a dependency to the MongoDB Java driver to `pom.xml`:
 
 
-```xml
+```xml(path=".../hackernews-graphql-java/pom.xml")
 <dependency>
     <groupId>org.mongodb</groupId>
     <artifactId>mongodb-driver</artifactId>
@@ -73,11 +88,15 @@ Having that done, add the dependency to the MongoDB Java driver to `pom.xml`:
 </dependency>
 ```
 
+</Instruction>
 
-Thanks to the decision to extract the logic for saving and loading links into the `LinkRepository` class, introduction of MongoDB now has a very localized impact. Refactor `LinkRepository` so that it persists and loads links from MongoDB and not from an in-memory list.
+Thanks to the decision to extract the logic for saving and loading links into the `LinkRepository` class, introduction of MongoDB now has a very localized impact.
 
+<Instruction>
 
-```java
+- Refactor `LinkRepository` so that it persists and loads links from MongoDB and not from an in-memory list.
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
 public class LinkRepository {
     
     private final MongoCollection<Document> links;
@@ -117,10 +136,13 @@ public class LinkRepository {
 }
 ```
 
-You'll also have to update `GraphQLEndpoint` to initialize the connection to MongoDB and provide it to `LinkRepository`.
+</Instruction>
 
+<Instruction>
 
-```java
+- You'll also have to update `GraphQLEndpoint` to initialize the connection to MongoDB and provide it to `LinkRepository`.
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
 @WebServlet(urlPatterns = "/graphql")
 public class GraphQLEndpoint extends SimpleGraphQLServlet {
 
@@ -147,6 +169,8 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
 }
 ```
 
+</Instruction>
+
 That's all! Restart Jetty, fire up Graph*i*QL and give it a spin! Just make sure you create some links before querying them. Everything should still work the same except you won't lose the saved links if the power goes out.
 
 ### Performance
@@ -163,7 +187,7 @@ query links {
 
 the resolver for the `description` field (invoked once for each link in the result)  would query that other database as many times are there were links. This a classic example of the N+1 problem. The solution for this is to batch multiple requests and resolve them in one go. In case of a SQL database, the desired resolver would look like:
 
-```sql
+```sql(nocopy)
 SELECT * FROM Descriptions WHERE link_id IN (1,2,3) // fetch descriptions for 3 links at once
 ```
 
