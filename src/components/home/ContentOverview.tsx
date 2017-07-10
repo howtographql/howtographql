@@ -62,7 +62,7 @@ export default function ContentOverview({ location, steps }: Props) {
       <div className="content-overview">
         <h2>Content Overview</h2>
         <p>
-          All tutorials are structured to make it as accessible as possible.{' '}
+          Here is an overview of all the tutorials and their contents that you find on this site. {' '}
         </p>
       </div>
       <div className="bordered">
