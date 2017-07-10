@@ -57,7 +57,7 @@ export default function IntroSteps({ steps, location }: Props) {
       <div className="steps-content">
         <LeftColumn className="steps-description" light={true}>
           <div className="basic-graphql">
-            <h3>GraphQL Basics</h3>
+            <h3>GraphQL Fundamentals</h3>
             <div className="duration">
               <Duration duration={basicsDuration} total={true} />
             </div>
