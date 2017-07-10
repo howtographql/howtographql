@@ -4,7 +4,7 @@ question: What is a benefit of the GraphQL schema and strong type system?
 answers: ["They work well with the Javascript type system", "Once the schema is defined, frontend and backend teams can work independently from another", "It solves the n+1 request problem", "Trick question: GraphQL doesn't have a type system"]
 correctAnswer: 1
 description: "Learn why GraphQL is a more efficient and fleible alternative to REST APIs"
-videoId: eYzJ6hzlkN0
+videoId: T571423fC68
 duration: 12
 ---
 
