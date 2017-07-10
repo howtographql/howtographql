@@ -16,24 +16,12 @@ interface Props {
 }
 
 class StackChooser extends React.Component<Props, {}> {
+  mouseMoved: boolean
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeydown)
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown)
-  }
-  handleKeydown = e => {
-    if (
-      typeof HTMLInputElement !== 'undefined' &&
-      e.target instanceof HTMLInputElement
-    ) {
-      return
-    }
-    if (e.keyCode === 37) {
-      this.props.onChangeSelectedIndex(this.props.selectedIndex - 1)
-    } else if (e.keyCode === 39) {
-      this.props.onChangeSelectedIndex(this.props.selectedIndex + 1)
-    }
   }
   render() {
     const {
@@ -157,7 +145,9 @@ class StackChooser extends React.Component<Props, {}> {
                   active: selectedIndex === index,
                   showSelectedBorder,
                 })}
-                onClick={onChangeSelectedIndex.bind(null, index)}
+                onMouseDown={this.handleMouseDown}
+                onMouseMove={this.handleMouseMove}
+                onMouseUp={this.handleMouseUp.bind(this, index)}
                 key={index}
               >
                 <div className="logos">
@@ -201,6 +191,31 @@ class StackChooser extends React.Component<Props, {}> {
         </div>
       </div>
     )
+  }
+  private handleMouseDown = () => {
+    this.mouseMoved = false
+  }
+  private handleMouseMove = () => {
+    this.mouseMoved = true
+  }
+  private handleMouseUp = i => {
+    if (!this.mouseMoved) {
+      this.props.onChangeSelectedIndex(i)
+    }
+    this.mouseMoved = false
+  }
+  private handleKeydown = e => {
+    if (
+      typeof HTMLInputElement !== 'undefined' &&
+      e.target instanceof HTMLInputElement
+    ) {
+      return
+    }
+    if (e.keyCode === 37) {
+      this.props.onChangeSelectedIndex(this.props.selectedIndex - 1)
+    } else if (e.keyCode === 39) {
+      this.props.onChangeSelectedIndex(this.props.selectedIndex + 1)
+    }
   }
 }
 
