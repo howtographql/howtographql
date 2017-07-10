@@ -110,6 +110,7 @@ class Search extends React.Component<Props, State> {
           selectedIndex={this.state.selectedIndex}
           onSelectIndex={this.handleSelectIndex}
           gotoSelectedItem={this.handleGotoSelectedItem}
+          onClose={this.handleClose}
         />
       </div>
     )

@@ -15,6 +15,7 @@ interface Props {
   visible: boolean
   setSearchVisible: (value: boolean) => void
   gotoSelectedItem: () => void
+  onClose: () => void
 }
 
 class Results extends React.Component<Props, {}> {
@@ -130,8 +131,12 @@ class Results extends React.Component<Props, {}> {
       return
     }
 
+    if (e.keyCode === 27) {
+      this.props.onClose()
+    }
     if (e.keyCode === 13 && !e.metaKey) {
       this.props.gotoSelectedItem()
+      return
     }
     if (e.keyCode === 38) {
       const selectedIndex = this.props.selectedIndex - 1
@@ -140,6 +145,7 @@ class Results extends React.Component<Props, {}> {
       }
       this.props.onSelectIndex(selectedIndex)
       this.scrollToIndex(selectedIndex)
+      return
     }
     if (e.keyCode === 40) {
       const selectedIndex = this.props.selectedIndex + 1
@@ -148,6 +154,7 @@ class Results extends React.Component<Props, {}> {
       }
       this.props.onSelectIndex(selectedIndex)
       this.scrollToIndex(selectedIndex)
+      return
     }
   }
 
