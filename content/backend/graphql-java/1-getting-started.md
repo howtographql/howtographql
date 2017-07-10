@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+description: Learn how to setup a graphql-java project and define the GraphQL schema
 ---
 
 ### Initialize the project
@@ -7,7 +8,11 @@ title: Getting Started
 Since you'll be using [Maven](https://maven.apache.org/) (still the most widely used build tool for Java) in this tutorial, make sure you have a reasonably fresh version installed.
 
 To bootstrap a simple web application project execute
-`mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=com.howtographql.sample -DartifactId=hackernews -Dversion=1.0-SNAPSHOT`
+
+```sh
+mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=com.howtographql.sample -DartifactId=hackernews -Dversion=1.0-SNAPSHOT
+```
+
 in a directory of choice and confirm with `Y` when prompted.
 
 
@@ -24,7 +29,7 @@ Both approaches have merit, and come down to a matter of preference. The former 
 
 The SDL definition for a simple type representing a link might look like this:
 
-```
+```graphql
 type Link {
   url: String!
   description: String!
@@ -33,7 +38,7 @@ type Link {
 
 And a query to fetch all links could be defined as:
 
-```
+```graphql
 type Query {
   allLinks: [Link]
 }
@@ -41,7 +46,7 @@ type Query {
 
 Finally, the schema containing this query would be defined as:
 
-```
+```graphql
 schema {
   query: Query
 }
@@ -57,7 +62,7 @@ To build a GraphQL-enabled application, only `graphql-java` (the GraphQL impleme
 Add all the dependencies to your `pom.xml`:
 
 
-```
+```xml
 <dependency>
     <groupId>com.graphql-java</groupId>
     <artifactId>graphql-java</artifactId>
@@ -87,7 +92,7 @@ The versions listed above were the latest at the time of writing, but they chang
 
 Any servlet container will do here, and the simplest way to use one during development is via a Maven plugin. For Jetty, add the plugin to the `build` section as follows:
 
-```
+```xml
 <build>
     <finalName>hackernews</finalName>
     <plugins>
@@ -102,7 +107,7 @@ Any servlet container will do here, and the simplest way to use one during devel
 
 This also a good opportunity to configure some basics. Add the following plugin configuration (just below the Jetty plugin) to set Java version to 8 and servlet spec version to 3.1:
 
-```
+```xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
@@ -129,7 +134,7 @@ But opening it at this moment won't bring you much joy, as the server still isn'
 To remedy this, start by creating a class called `GraphQLEndpoint`, this will be the servlet exposing the API. The contents should look as follows:
 
 
-```
+```java
 import com.coxautodev.graphql.tools.SchemaParser;
 import javax.servlet.annotation.WebServlet;
 import graphql.servlet.SimpleGraphQLServlet;

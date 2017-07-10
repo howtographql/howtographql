@@ -1,5 +1,6 @@
 ---
 title: Summary
+description: Wrapping up the tutorial
 ---
 
 GraphQL promises a clear and concise way to:

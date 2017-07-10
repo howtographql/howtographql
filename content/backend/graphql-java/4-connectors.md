@@ -1,5 +1,6 @@
 ---
 title: Connectors
+description: Connect your GraphQL API to a MongoDB
 ---
 
 As fun as it may be, your GraphQL API is unlikely to be of much use if it doesn't connect to other systems, be it databases, third-party APIs or alike.
@@ -15,7 +16,7 @@ Since resolvers are responsible for fetching the value of a single field, it is 
 
 1. Take this opportunity to add the `id` field to the `Link` type as you'll need it for the features coming later.
 
-	```
+	```graphql
 	type Link {
 	    id: ID!
 	    url: String!
@@ -64,7 +65,7 @@ First off, install MongoDB on your computer by following [the installation instr
 Having that done, add the dependency to the MongoDB Java driver to `pom.xml`:
 
 
-```
+```xml
 <dependency>
     <groupId>org.mongodb</groupId>
     <artifactId>mongodb-driver</artifactId>
@@ -76,7 +77,7 @@ Having that done, add the dependency to the MongoDB Java driver to `pom.xml`:
 Thanks to the decision to extract the logic for saving and loading links into the `LinkRepository` class, introduction of MongoDB now has a very localized impact. Refactor `LinkRepository` so that it persists and loads links from MongoDB and not from an in-memory list.
 
 
-```
+```java
 public class LinkRepository {
     
     private final MongoCollection<Document> links;
@@ -119,7 +120,7 @@ public class LinkRepository {
 You'll also have to update `GraphQLEndpoint` to initialize the connection to MongoDB and provide it to `LinkRepository`.
 
 
-```
+```java
 @WebServlet(urlPatterns = "/graphql")
 public class GraphQLEndpoint extends SimpleGraphQLServlet {
 
@@ -152,7 +153,7 @@ That's all! Restart Jetty, fire up Graph*i*QL and give it a spin! Just make sure
 
 You may have noticed that the execution strategy seen so far is somewhat naive. Imagine the link descriptions are stored in a different database. That would mean for a query like this
 
-```
+```graphql(nocopy)
 query links {
   allLinks {
     description
@@ -162,7 +163,9 @@ query links {
 
 the resolver for the `description` field (invoked once for each link in the result)  would query that other database as many times are there were links. This a classic example of the N+1 problem. The solution for this is to batch multiple requests and resolve them in one go. In case of a SQL database, the desired resolver would look like:
 
-`SELECT * FROM Descriptions WHERE link_id IN (1,2,3) //fetch descriptions for 3 links at once` 
+```sql
+SELECT * FROM Descriptions WHERE link_id IN (1,2,3) // fetch descriptions for 3 links at once
+```
 
 **DataLoader**
 

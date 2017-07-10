@@ -1,5 +1,6 @@
 ---
 title: Introduction
+description: This chapter provides a motivation for building a server with GraphQL and graphql-java
 ---
 
 ### Motivation
