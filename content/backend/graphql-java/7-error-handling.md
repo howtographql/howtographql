@@ -27,9 +27,11 @@ To allow the user to properly sanitize outgoing messages, while keeping them rel
 
 One good use-case is enriching the messages with extra information useful to the client.
 
+<Instruction>
+
 To forward the data-fetching exception messages, while still hiding the corresponding stack traces, you should start by creating a simple wrapper class:
 
-```java
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/SanitizedError.java")
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import graphql.ExceptionWhileDataFetching;
 
@@ -47,11 +49,15 @@ public class SanitizedError extends ExceptionWhileDataFetching {
 }
 ```
 
+</Instruction>
+
 This wrapper doesn't do much - it just instructs [Jackson](https://github.com/FasterXML/jackson) (the JSON (de)serialization library) to ignore the linked exception during serialization. This way, the stack trace won't reach the client.
+
+<Instruction>
 
 Then, wrap all data-fetching exceptions by overriding `filterGraphQLErrors` in `GraphQLEndpoint`:
 
-```java
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
 @Override
 protected List<GraphQLError> filterGraphQLErrors(List<GraphQLError> errors) {
     return errors.stream()
@@ -60,6 +66,8 @@ protected List<GraphQLError> filterGraphQLErrors(List<GraphQLError> errors) {
             .collect(Collectors.toList());
 }
 ```
+
+</Instruction>
 
 This way, in addition to the syntactical and validation errors, data-fetching errors will have precise messages sent to the client, but without the gritty details. All other error types will still be hidden behind a generic message.
 
