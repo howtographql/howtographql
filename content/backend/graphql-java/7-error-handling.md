@@ -1,5 +1,6 @@
 ---
 title: Error Handling
+description: Get to know different kinds of errors and how they are typically handled with GraphQL
 ---
 
 At this point, it is likely you've already seen an error showing up Graph*i*QL, so you probably have some intuition as to what happens when something goes wrong on the server. In the simplest case, if you just mistype a query you'll see an error popping up in the dedicated `errors` field in the response.
@@ -16,14 +17,19 @@ At the highest level, `graphql-java-servlet` exposes a method (called `isClientE
 
 Check out the default behavior in Graph*i*QL by first asking for an non-existent `address` field of a link:
 
-[Image: https://quip.com/-/blob/MFcAAALibcr/mSyY4ESvT8PFt6tZ4RVS4A]Then check out the behavior for application-specific errors by, for example, providing a wrong password to `signinUser`:
-[Image: https://quip.com/-/blob/MFcAAALibcr/_hTvRowdJXbsrQnxTMwfSg]To allow the user to properly sanitize outgoing messages, while keeping them relevant and specific, `graphql-java-servlet` exposes another extension point: the `GraphQLServlet#filterGraphQLErrors` method. By overriding this method it is possible to sanitize, filter, wrap or otherwise transform the collected errors before they're sent to the client.
+![](http://i.imgur.com/ov6c4eQ.png)
+
+Then check out the behavior for application-specific errors by, for example, providing a wrong password to `signinUser`:
+
+![](http://i.imgur.com/fskuAah.png)
+
+To allow the user to properly sanitize outgoing messages, while keeping them relevant and specific, `graphql-java-servlet` exposes another extension point: the `GraphQLServlet#filterGraphQLErrors` method. By overriding this method it is possible to sanitize, filter, wrap or otherwise transform the collected errors before they're sent to the client.
 
 One good use-case is enriching the messages with extra information useful to the client.
 
 To forward the data-fetching exception messages, while still hiding the corresponding stack traces, you should start by creating a simple wrapper class:
 
-```
+```java
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import graphql.ExceptionWhileDataFetching;
 
@@ -45,7 +51,7 @@ This wrapper doesn't do much - it just instructs [Jackson](https://github.com/Fa
 
 Then, wrap all data-fetching exceptions by overriding `filterGraphQLErrors` in `GraphQLEndpoint`:
 
-```
+```java
 @Override
 protected List<GraphQLError> filterGraphQLErrors(List<GraphQLError> errors) {
     return errors.stream()
@@ -59,13 +65,13 @@ This way, in addition to the syntactical and validation errors, data-fetching er
 
 As always, verify your work in Graph*i*QL:
 
-[Image: https://quip.com/-/blob/MFcAAALibcr/KC8rz6QdRnlM5tiH-v-N3w]
+![](http://i.imgur.com/aiH4DcK.png)
 
 For even lower-level control, it is possible to customize the execution strategy (the way the operations are executed, modeled by the `ExecutionStrategy` interface), and  override `ExecutionStrategy#handleDataFetchingException` method which translates Java exceptions into GraphQL errors.
 
 To use a custom execution strategy, change `GraphQLEndpoint`'s constructor to some like:
 
-```
+```java(nocopy)
 public GraphQLEndpoint() {
     super(buildSchema(), new CustomExecutionStrategy());
 } 

@@ -1,12 +1,13 @@
 ---
 title: Alternative approaches to schema development
+description: Learn about an alternative approach to developing schemas with graphl-java
 ---
 
-The way you've been developing so far is known as schema-first, as you always start by defining the schema. This style  has important benefits, discussed at the beginning of this tutorial, and it works well for new projects, where no legacy code exists. Still, you may have noticed that in strongly and statically typed languages, like Java, it leads to a lot of duplication. For example, revisit the way you developed the `Link` type.
+The way you've been developing so far is known as schema-first, as you always start by defining the schema. This style has important benefits, discussed at the beginning of this tutorial, and it works well for new projects, where no legacy code exists. Still, you may have noticed that in strongly and statically typed languages, like Java, it leads to a lot of duplication. For example, revisit the way you developed the `Link` type.
 
 You defined in the schema:
 
-```
+```graphql(nocopy)
 type Link {
     id: ID!
     url: String!
@@ -16,7 +17,7 @@ type Link {
 
 and then you created a corresponding POJO:
 
-```
+```java(nocopy)
 public class Link {
     
     private final String id;
@@ -32,7 +33,6 @@ Both of these blocks contain the exact same information. Worse yet, changing one
 
 ### Code—first style
 
-
 A common alternative to the schema-first style, known as code-first, is generating the schema from the existing model. This keeps the schema and the model in sync, easing refactoring. It also works well in projects where GraphQL is introduced on top of an existing codebase. The downside of this approach is that the schema doesn't exist until the some server code is written, introducing a dependency between the client-side and server-side work. One workaround would be using stubs on the server to generate the schema quickly, then developing the real server code in parallel with the client.
 
 The Java/GraphQL ecosystem spawned a few libraries that facilitate this style of development. You can find them listed [here](https://github.com/graphql-java/awesome-graphql-java#code-first). An example using [`graphql-spqr`](https://github.com/leangen/graphql-spqr), written by yours truly, follows below.
@@ -41,7 +41,7 @@ The Java/GraphQL ecosystem spawned a few libraries that facilitate this style of
 
 To experiment with `graphql-spqr`, you should first declare a dependency to it in `pom.xml`:
 
-```
+```xml
 <dependency>
     <groupId>io.leangen.graphql</groupId>
     <artifactId>spqr</artifactId>
@@ -51,7 +51,7 @@ To experiment with `graphql-spqr`, you should first declare a dependency to it i
 
 Additionally, it will be much more comfortable to work if the [method parameter names are preserved](https://docs.oracle.com/javase/tutorial/reflect/member/methodparameterreflection.html) (you'll understand why in a second), so enable the `-paramaters` javac option by configuring the `maven-compiler-plugin` as follows:
 
-```
+```xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
@@ -66,15 +66,13 @@ Additionally, it will be much more comfortable to work if the [method parameter 
 
 Make sure you **rebuild the project** now (e.g. run `mvn clean package`) for the new option to take effect. Then, restart Jetty.
 
-
 ### Generating the schema using graphql—spqr
-
 
 In order to generate a schema similar to the one you've been working on so far, but this time using the code-first style you'd (unsurprisingly) start from the business logic. It is fortunate that you already have some business logic ready, in `Query`, `Mutation` and `*Resolver` classes, as it simulates introducing GraphQL into an existing project.
 
 The easiest way to demonstrate `graphql-spqr` is by using annotations, but note that they're entirely optional. Start off by decorating the methods you want exposed over GraphQL.
 
-```
+```java
 public class Query { //1
 
     private final LinkRepository linkRepository;
@@ -93,14 +91,13 @@ public class Query { //1
 
 A few thing to note about this code:
 
-
 1. Implementing `GraphQLRootResolver` is no longer needed (nor is the dependency to `graphql-java-tools`). In fact, `graphql-spqr` goes to great lengths to ensure the code needs no special classes, interfaces or any modifications in order to be exposed over GraphQL
 2. As noted, the annotations are entirely optional, but the default configuration will expect them at the top-level
 3. By default, the name of the method parameter will be used in the schema (this is why you want `-parameters` javac option enabled when compiling). Using `@GraphQLArgument` is a way to change the name and set the default value. All of this is doable without annotations as well.
 
 Decorate the interesting bits in `LinkResolver` too:
 
-```
+```java
 public class LinkResolver { //1
     
     private final UserRepository userRepository;
@@ -126,7 +123,7 @@ The point of interest in this block:
 
 Expose the `createLink` mutation is a similar fashion:
 
-```
+```java
 @GraphQLMutation //1
 public Link createLink(String url, String description, @GraphQLRootContext AuthContext context) { //2
     Link newLink = new Link(url, description, context.getUser().getId());
@@ -143,7 +140,7 @@ Things to note:
 
 Finally, to generate the schema from the classes, update `GraphQLEndoint#buildSchema` to look as follows:
 
-```
+```java
 private static GraphQLSchema buildSchema() {
     Query query = new Query(linkRepository); //create or inject the service beans
     LinkResolver linkResolver = new LinkResolver(userRepository);
@@ -156,11 +153,14 @@ private static GraphQLSchema buildSchema() {
 ```
 
 If you now fire up Graph*i*QL, you'd get the exact same result as before:
-[Image: https://quip.com/-/blob/MFcAAALibcr/dm0pBInNxj9qfF5Tf8Rmeg][Image: https://quip.com/-/blob/MFcAAALibcr/S77BoYMhIxyNNniovHUkhA]
+
+![](http://i.imgur.com/RQufTw6.png)
+![](http://i.imgur.com/NBQFPJ9.png)
+
 The important points to note:
 
 * You never defined the schema explicitly (meaning you won't have to update it when the code changes either).
 * You don't have to separate the logic for manipulating `Link`s into the top level queries (`allLinks` inside `Query`), embedded ones (`postedBy` inside `LinkResolver`) and mutations (`createLink` inside `Mutation`). All the queries and mutations operating on links could have been placed into a single class (e.g. `LinkService`), yet having them separate was not a hurdle either. This implies that your legacy code and best practices can stay untouched. 
 
-This is just a glance at the alternative style of development. There are many more possibilities to explore, so take a look at what [the ecosystem](https://github.com/graphql-java/awesome-graphql-java) has to offer. For more info on graphql-spqr check out [the project page](https://github.com/leangen/graphql-spqr), and for a full example see [here](https://github.com/leangen/graphql-spqr-samples).
+This is just a glance at the alternative style of development. There are many more possibilities to explore, so take a look at what [the ecosystem](https://github.com/graphql-java/awesome-graphql-java) has to offer. For more info on `graphql-spqr` check out [the project page](https://github.com/leangen/graphql-spqr), and for a full example see [here](https://github.com/leangen/graphql-spqr-samples).
 

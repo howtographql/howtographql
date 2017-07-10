@@ -1,5 +1,6 @@
 ---
 title: Authentication
+description: Add simple authentication to your GraphQL API
 ---
 
 So far so good, but not a lot of interaction is possible without keeping track of who the current user is. To be a cool Hackernews clone, your app needs to be able to let users sign up and login.
@@ -8,9 +9,8 @@ So far so good, but not a lot of interaction is possible without keeping track o
 
 The steps for creating users are similar to those for creating links.
 
-
 1. Start off by defining the new mutation and related types in the schema:
-	``` 
+	```graphql
 	    type Mutation {
 	      #The new mutation
 	      createUser(name: String!, authProvider: AuthData!): User
@@ -187,8 +187,10 @@ The steps for creating users are similar to those for creating links.
 	```
 
 With all this behind, all that's left is to test it out in Graph*i*QL:
-[Image: https://quip.com/-/blob/MFcAAALibcr/ntFJxH74tm6e5t3caXZ9uA]Great, now BoJack's in the game 😎 You're one step closer to awesomeness.
 
+![](http://i.imgur.com/W3XsMKY.png)
+
+Great, now BoJack's in the game 😎 You're one step closer to awesomeness.
 
 ### Signing in
 
@@ -197,7 +199,7 @@ For signing in, you'll need another mutation (as it is a side-effect producing a
 
 1. As always, start off by defining the new mutation and related types in the schema:
 
-	```
+	```graphql
     type Mutation {
       #other mutations stay the same
       signinUser(auth: AuthData): SigninPayload
@@ -264,11 +266,11 @@ For signing in, you'll need another mutation (as it is a side-effect producing a
 	    .makeExecutableSchema();
 	```
 
-
 Restart Jetty and enjoy the fruit of your labor in Graph*i*QL:
-[Image: https://quip.com/-/blob/MFcAAALibcr/iKz98PN1Ec4rWlpzZHYqPg]
-The token in this example is just the user id. In reality, it should be a [JWT](https://jwt.io/) or similar.
 
+![](http://i.imgur.com/5m3uc2I.png)
+
+The token in this example is just the user id. In reality, it should be a [JWT](https://jwt.io/) or similar.
 
 ### Authenticating requests
 
@@ -277,13 +279,11 @@ A common way of doing this is expecting the client (usually the browser) to retu
 
 Sadly, there's no good way to make Graph*i*QL send this header, so you'll just have to hard-code it for testing.
 
-
 ### Configuring GraphiQL for authentication
-
 
 Open `index.html` and find the lines setting the headers:
 
-```
+```html(nocopy)
 method: 'post',
 headers: {
     'Accept': 'application/json',
@@ -293,7 +293,7 @@ headers: {
 
 and add the `Authorization` header to the list, with the value obtained by executing `signinUser` mutation as above:
 
-```
+```html
 method: 'post',
 headers: {
     'Accept': 'application/json',
@@ -302,14 +302,13 @@ headers: {
 }
 ```
 
-
 What this means for you, as the server developer, is that you need to check the value of the `Authorization` header on every request that needs authentication and/or authorization.
 
 In GraphQL, the way to obtain this type of data, that isn't coming from the query or mutation itself, is via the context object. This is a value that gets passed to all the resolvers triggered during the operation execution. The `SimpleGraphQLServlet` class that your `GraphQLEndpoint` extends already provides such an object, and it stores the HTTP request and response objects inside. While this is already usable, it's better to extend it to support your use-case more directly.
 
 Create a class called `AuthContext` extending `GraphQLContext` as such:
 
-```
+```java
 public class AuthContext extends GraphQLContext {
     
     private final User user;
@@ -327,7 +326,7 @@ public class AuthContext extends GraphQLContext {
 
 Then, override `createContext` method in `GraphQLEndpoint` to create this context object instead of the original:
 
-```
+```java
 @Override
 protected GraphQLContext createContext(Optional<HttpServletRequest> request, Optional<HttpServletResponse> response) {
     User user = request
@@ -347,7 +346,7 @@ With this in place, it's possible to track who posted a link.
 ### Extending the link model
 
 1. Start off by modifying the link model to track the user that created it
-	```
+	```graphql
 	type Link {
 	    id: ID!
 	    url: String!
@@ -355,6 +354,7 @@ With this in place, it's possible to track who posted a link.
 	    postedBy: User
 	}
 	```
+
 2. The `Link` class needs a similar face-lift
 ```java
 public class Link {
@@ -474,6 +474,8 @@ public class Link {
 
 Time to test it! Restart the server and create the link as usual, no changes here.
 
-[Image: https://quip.com/-/blob/MFcAAALibcr/8Re7mu4J9AAl3-MIwFiYJA]The good part comes when fetching all links. Try getting the user details via the new `postedBy` field:
-[Image: https://quip.com/-/blob/MFcAAALibcr/qF2jFQdAbcJV__VTJQZeqw]
+![](http://i.imgur.com/GDVlEfY.png)
 
+The good part comes when fetching all links. Try getting the user details via the new `postedBy` field:
+
+![](http://i.imgur.com/9PlICQM.png)

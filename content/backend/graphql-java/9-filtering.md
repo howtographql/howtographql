@@ -1,5 +1,6 @@
 ---
 title: Filtering
+description: Use query arguments to filter which links are returned
 ---
 
 ## Filtering
@@ -8,7 +9,7 @@ As you have seen in earlier chapters, queries and mutations can take input via a
 
 You'll now apply this idea to add filtering to the already defined `allLinks` query. Start by add a new argument to its schema definition:
 
-```
+```graphql
 type Query {
   allLinks(filter: LinkFilter): [Link]
 }
@@ -23,7 +24,7 @@ Remember that this exact approach is just an example. You might as well implemen
 
 The corresponding POJO should look something like the following:
 
-```
+```java
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LinkFilter {
@@ -53,7 +54,7 @@ public class LinkFilter {
 
 Now, update `LinkRespository#getAllLinks` to accept an optional filter:
 
-```
+```java
 public List<Link> getAllLinks(LinkFilter filter) {
     Optional<Bson> mongoFilter = Optional.ofNullable(filter).map(this::buildFilter);
     
@@ -85,12 +86,12 @@ private Bson buildFilter(LinkFilter filter) {
 
 Finally, update `Query` to add the new argument to the top-level method:
 
-```
+```java
 public List<Link> allLinks(LinkFilter filter) {
     return linkRepository.getAllLinks(filter);
 }
 ```
 
 Cool! Check it out in Graph*i*QL!
-[Image: https://quip.com/-/blob/MFcAAALibcr/wda9Z36zj7yYgZzHotbI7Q]
 
+![](http://i.imgur.com/tL8owju.png)

@@ -1,5 +1,6 @@
 ---
 title: Queries
+description: Define Query resolvers and learn how to use GraphiQL to test your queries
 ---
 
 ### Query resolvers
@@ -8,7 +9,7 @@ To maintain strong typing and intuitive design, it is common to represent GraphQ
 
 The schema so far looks like this:
 
-```
+```graphql(nocopy)
 type Link {
   url: String!
   description: String!
@@ -25,7 +26,7 @@ schema {
 
 To model it, two classes are needed: `Link` and `Query`. `Link` is a POJO (containing no behavior), so create it as follows:
 
-```
+```java
 public class Link {
     
     private final String url;
@@ -49,7 +50,7 @@ public class Link {
 You should also create a `LinkRepository` class that will neatly isolate the concern of saving and loading links from the storage. This also makes future extensions and refactoring a lot easier. For now, the links will only be kept in memory.
 
 
-```
+```java
 public class LinkRepository {
     
     private final List<Link> links;
@@ -78,7 +79,7 @@ public class LinkRepository {
 Unlike the `Link` POJO, `Query` models behavior, as it contains the resolver for the `allLinks` query.
 
 
-```
+```java
 public class Query implements GraphQLRootResolver {
     
     private final LinkRepository linkRepository;
@@ -96,7 +97,7 @@ public class Query implements GraphQLRootResolver {
 
 Finally, you can update `GraphQLEndpoint` to register the resolver properly when generating the schema:
 
-```
+```java
 @WebServlet(urlPatterns = "/graphql")
 public class GraphQLEndpoint extends SimpleGraphQLServlet {
 
@@ -126,20 +127,25 @@ It is now appropriate to feel good about yourself 😎
 
 [Graph*i*QL](https://github.com/graphql/graphiql) is an in-browser IDE allowing you to explore the schema, fire queries/mutations and see the results. To add it, copy [the example `index.html` from Graph*i*QL's GitHub repo](https://github.com/graphql/graphiql/blob/master/example/index.html) and replace the paths to `graphiql.css` and `graphiql.js` from
 
-```
+```html
 <link rel="stylesheet" href="./node_modules/graphiql/graphiql.css" />
 <script src="./node_modules/graphiql/graphiql.js"></script>
 ```
 
 to
 
-```
+```html
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/graphiql@0.11.2/graphiql.css" />
 <script src="//cdn.jsdelivr.net/npm/graphiql@0.11.2/graphiql.js"></script>
 ```
 
 Save the file to `src/main/webapp/index.html` (you may as well delete `index.jsp` that Maven generated), start Jetty and open http://localhost:8080/, and you should be greeted by a cool looking environment where you can test what you've build so far.
 
-[Image: https://quip.com/-/blob/MFcAAALibcr/KGkirzr9TDAx74BdDuQq7g]If you type the same query from above [{allLinks{url}}](http://localhost:8080/graphql?query={allLinks{url}}) into the left panel (notice the auto-completion!), you should get the same result but nicely formatted this time:
-[Image: https://quip.com/-/blob/MFcAAALibcr/6ZMH1GYYp4MNJf96MiBkwQ]Keep using Graph*i*QL to test out queries and mutation as you follow the tutorial.
+![](http://i.imgur.com/KlnKaZe.png)
+
+If you type the same query from above into the left panel (notice the auto-completion!), you should get the same result but nicely formatted this time. You can also click [this link](http://localhost:8080/graphql?query={allLinks{url}}).
+
+![](http://i.imgur.com/jMO6hB9.png)
+
+Keep using Graph*i*QL to test out queries and mutation as you follow the tutorial.
 

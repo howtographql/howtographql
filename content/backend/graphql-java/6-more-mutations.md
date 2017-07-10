@@ -1,5 +1,6 @@
 ---
 title: More Mutations
+description: Add a more complex mutation for upvoting links
 ---
 
 ## Voting for links
@@ -9,9 +10,9 @@ The user is supposed to be able to vote for the links they like, so that later t
 
 This one will require quite a few steps, so buckle up!
 
-
 1. Schema needs changes first. (Surprised? ... I didn't expect so)
-   ```
+
+   ```graphql
     type Mutation {
       #the others stay the same
       createVote(linkId: ID, userId: ID): Vote
@@ -26,7 +27,6 @@ This one will require quite a few steps, so buckle up!
     
     scalar DateTime
     ```
-    
 2. Create the analogous data and resolver classes
 
 	```java
@@ -86,7 +86,6 @@ This one will require quite a few steps, so buckle up!
 3. Create `VoteRepository` to handle the boring database stuff, as usual
 
 	```java
-	
 	public class VoteRepository {
 	    
         private final MongoCollection<Document> votes;
@@ -133,11 +132,8 @@ This one will require quite a few steps, so buckle up!
             );
         }
     }
-	
 	```
-    
-4. This is an interesting step. You need to create a new scalar type to represent an instant in time.
-   For this, you need an instance of `GraphQLScalarType`. For reference on how to create these, you can check out the build-in types in [`graphql-java`](https://github.com/graphql-java/graphql-java/blob/master/src/main/java/graphql/Scalars.java#L34). 
+4. This is an interesting step. You need to create a new scalar type to represent an instant in time. For this, you need an instance of `GraphQLScalarType`. For reference on how to create these, you can check out the build-in types in [`graphql-java`](https://github.com/graphql-java/graphql-java/blob/master/src/main/java/graphql/Scalars.java#L34).
 
 	```java
     public class Scalars {
@@ -148,12 +144,12 @@ This one will require quite a few steps, so buckle up!
                 //serialize the ZonedDateTime into string on the way out
                 return ((ZonedDateTime)input).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
             }
-    
+
             @Override
             public Object parseValue(Object input) {
                 return serialize(input);
             }
-    
+
             @Override
             public ZonedDateTime parseLiteral(Object input) {
                 //parse the string values coming in
@@ -166,8 +162,8 @@ This one will require quite a few steps, so buckle up!
         });
     }
 	```
-
 5. `GraphQLEndpoint` needs to be aware of the new repository, resolver and scalar
+
 	```java
     private static final VoteRepository voteRepository;
     
@@ -190,8 +186,8 @@ This one will require quite a few steps, so buckle up!
 	        .makeExecutableSchema();
     }
 	```
-
 6. And finally, the new mutation resolver
+
 	```java
     public Vote createVote(String linkId, String userId) {
         ZonedDateTime now = Instant.now().atZone(ZoneOffset.UTC);
@@ -200,5 +196,6 @@ This one will require quite a few steps, so buckle up!
 	```
 
 Phew! That was a handful! 😩 Jump back into Graph*i*QL to see what has changed.
-[Image: https://quip.com/-/blob/MFcAAALibcr/Yw1dl2Gto73_MWNt3E8LaQ]
+
+![](http://i.imgur.com/yOGAMop.png)
 
