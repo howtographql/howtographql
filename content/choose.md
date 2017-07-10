@@ -20,7 +20,7 @@ Here's an overview of the frontend tutorials we offer:
 
 ### Build your own GraphQL Server
 
-Choose you favorite programming language to get started:
+Choose your favorite programming language to get started:
 
 - **Javascript**: This tutorial uses the [graphql-js](https://github.com/graphql/graphql-js) reference implementation that's developed by Facebook. You'll build a web server using [Node.js](https://nodejs.org/en/), the [Express](https://expressjs.com/) framework as well as the [graphql-tools](https://github.com/apollographql/graphql-tools) library.
 - **Ruby**: Learn how to build GraphQL server in Ruby with this tutorial based on the [graphql-ruby](https://github.com/rmosolgo/graphql-ruby) library.
