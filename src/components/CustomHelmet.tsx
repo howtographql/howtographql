@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function CustomHelmet({ title, description }: Props) {
-  const image = '/social.png'
+  const image = 'https://www.howtographql.com/social.png'
   return (
     <Helmet
       title={title}
