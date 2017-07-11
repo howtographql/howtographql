@@ -1,6 +1,8 @@
 import * as React from 'react'
 
 export default function Img(props) {
+  const {src, ...rest} = props
+  const replacedSrc = src.replace('http://', 'https://')
   return (
     <div className="image-wrapper">
       <style jsx={true}>{`
@@ -19,7 +21,7 @@ export default function Img(props) {
           }
         }
       `}</style>
-      <img {...props} />
+      <img src={replacedSrc} {...rest} />
     </div>
   )
 }

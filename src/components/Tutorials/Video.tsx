@@ -134,7 +134,7 @@ export default class Video extends React.Component<Props, State> {
           onClick={this.showVideo}
         >
           <img
-            src={`http://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt=""
             className="preview"
           />

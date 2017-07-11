@@ -8,7 +8,7 @@ interface Props {
 
 export default function A({ href, children, ...rest }: Props) {
   // use gatsby link for internal links
-  if (href && typeof href.startsWith === 'function' && href.startsWith('/')) {
+  if (href && typeof href.startsWith === 'function' && !href.startsWith('http')) {
     return <Link to={href} {...rest}>{children}</Link>
   }
 
