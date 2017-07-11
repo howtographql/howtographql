@@ -118,7 +118,7 @@ With that component in place, you can go and add a new route to your `react-rout
 
 Open `App.js` and update `render` to include the new route:
 
-```js{4}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
