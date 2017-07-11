@@ -4,7 +4,7 @@ title: Queries
 
 ### Defining the Schema
 
-Let's get to work on our schema. The GraphQL API is how we're going to expose our data to the web, so we're going to place the code for the schema in the web context of our application. Let's get that started by placing the following code in `lib/community/web/schema.ex`
+You're going to start by building out an empty Schema. The GraphQL API is how you're going to expose your data to the web, so you're going to place the code for the schema in the web context of your application. Get started by placing the following code in `lib/community/web/schema.ex`
 
 ```elixir(path=".../graphql-elixir/lib/community/web/schema.ex")
 defmodule Community.Web.Schema do
@@ -18,11 +18,11 @@ defmodule Community.Web.Schema do
 end
 ```
 
-This is a bare bones skeleton of a GraphQL schema with Absinthe. We're defining a module, using the Absinthe.Schema module to give us some macros for schema building, and then setting out an empty root query object. Let's see it all at work by building out the ability to get all links.
+This is a bare bones skeleton of a GraphQL schema with Absinthe. You're defining a module, using the Absinthe.Schema module to provide some macros for schema building, and then setting out an empty root query object. The first feature you're going to tackle is giving a client the ability to get all links.
 
 ### Query for returning links
 
-The first simple thing to handle is getting all the available links. We'll add `:link` object to the schema, and an `:all_links` field to the root query object. No need to add arguments right now, we'll do that once we start handling filtering and pagination.
+The first simple thing to handle is getting all the available links. Add a `:link` object to the schema, and an `:all_links` field to the root query object. There is no need to add arguments right now, you'll do that once you start handling filtering and pagination.
 
 ```elixir(path=".../graphql-elixir/lib/community/web/schema.ex")
 defmodule Community.Web.Schema do
@@ -56,8 +56,7 @@ field :all_links, non_null(list_of(non_null(:link))) do
 end
 ```
 
-
-If you aren't super familiar with Elixir `&Web.NewsResolver.all_links/3`  is just a reference to the 3 arity function `all_links` found in the `Community.Web.NewsResolver` module. Neither this function nor this module exist yet though so let's get that fixed by putting this code in `lib/community/web/resolvers/news_resolver.ex`.
+If you aren't super familiar with Elixir, `&Web.NewsResolver.all_links/3` is just a reference to the 3 arity function `all_links` found in the `Community.Web.NewsResolver` module. Neither this function nor this module exist yet though so go ahead and fix that by putting this code in `lib/community/web/resolvers/news_resolver.ex`.
 
 ```elixir(path=".../graphql-elixir/lib/community/web/resolvers/news_resolver.ex")
 defmodule Community.Web.NewsResolver do
@@ -70,11 +69,11 @@ defmodule Community.Web.NewsResolver do
 end
 ```
 
-That's it! We have a working schema. All we need to do now is setup our HTTP server with GraphiQL.
+That's it! You now have a schema that can do something. All you need to do now is setup our HTTP server with GraphiQL.
 
 ### Testing with playground
 
-It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), which we'll need to route to from within the router generated for us by Phoenix. Replace the contents of `lib/community/web/router.ex` with:
+It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), which you'll need to route to from within the router generated for us by Phoenix. Replace the contents of `lib/community/web/router.ex` with:
 
 ```elixir(path=".../graphql-elixir/lib/community/web/router.ex")
 defmodule Community.Web.Router do
@@ -96,7 +95,7 @@ defmodule Community.Web.Router do
 end
 ```
 
-That's it! Let's start our server with `iex -S mix phx.server` and open your browser at [localhost:4000/graphiql](http://localhost:3000/graphiql).
+Start your server with `iex -S mix phx.server` and then open your browser to [localhost:4000/graphiql](http://localhost:3000/graphiql).
 
 ![](http://i.imgur.com/EZIVYxP.png)
 

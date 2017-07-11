@@ -57,7 +57,7 @@ These are the basic features all GraphQL servers have, but of course they can do
 
 The secret sauce of a GraphQL server is its schema. The schema gives you a unified type system for your specific domain, and the tools to hook up code to those types to make things happen when people mutate or request them.
 
-Sensibly then, the experience of building a GraphQL server starts with working on its schema. You'll see in this chapter that the main steps we'll follow will be something like this:
+Sensibly then, the experience of building a GraphQL server starts with working on its schema. You'll see in this chapter that the main steps you'll follow will be something like this:
 
 1. Define your types and the appropriate queries and mutations for them.
 2. Implement functions called **resolvers** to handle these types and their fields.
