@@ -1,5 +1,5 @@
 ---
-title: Get started with your favorite Technology
+title: Get started with your favorite technology
 ---
 
 Congratulations! 🎉 You made it through the first part of _How To GraphQL_ and learned all you need to know to build an actual app with GraphQL!
