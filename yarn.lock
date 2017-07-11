@@ -14,6 +14,16 @@
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.2.tgz#8ab9456efb87d57f11d04f313d3da1041948fb4d"
 
+"@types/node@^7.0.8":
+  version "7.0.34"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.34.tgz#eed5c95291a9dddff6b9f5a72ca342b1e72f0ba2"
+
+"@types/react-dom@^0.14.23":
+  version "0.14.23"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-0.14.23.tgz#cecfcfad754b4c2765fe5d29b81b301889ad6c2e"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-router@^4.0.11":
   version "4.0.11"
   resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.0.11.tgz#de631d00477081c24a4668c10287ea5f3cd51311"
@@ -21,7 +31,7 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react@*":
+"@types/react@*", "@types/react@^15.0.16":
   version "15.0.30"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.30.tgz#a4e153e1e83fbef341fc9aad1a7d62bf8c1f52a3"
 
@@ -7122,6 +7132,15 @@ react-modal@^1.6.5:
     prop-types "^15.5.7"
     react-dom-factories "^1.0.0"
 
+react-particles-js@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-particles-js/-/react-particles-js-1.5.0.tgz#d30313c52941282b8f8f58eaf909056bcf57a2ba"
+  dependencies:
+    "@types/node" "^7.0.8"
+    "@types/react" "^15.0.16"
+    "@types/react-dom" "^0.14.23"
+    react "^15.4.1"
+
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
@@ -7232,7 +7251,7 @@ react@15.5.4, react@^15.4.2:
     object-assign "^4.1.0"
     prop-types "^15.5.7"
 
-react@^15.6.0:
+react@^15.4.1, react@^15.6.0:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:
@@ -8384,9 +8403,9 @@ style-loader@^0.13.0:
   dependencies:
     loader-utils "^1.0.2"
 
-"styled-jss@git+https://github.com/timsuchanek/styled-jsx.git#build":
+"styled-jss@git+https://github.com/timsuchanek/styled-jsx#build", "styled-jsx@git+https://github.com/timsuchanek/styled-jsx#build":
   version "0.4.4"
-  resolved "git+https://github.com/timsuchanek/styled-jsx.git#020e6b771d5c89750a57abf5707dcebb64707f00"
+  resolved "git+https://github.com/timsuchanek/styled-jsx#020e6b771d5c89750a57abf5707dcebb64707f00"
   dependencies:
     babel-plugin-syntax-jsx "^6.18.0"
     convert-source-map "^1.3.0"
@@ -8417,16 +8436,6 @@ styled-jsx@^0.5.7:
     object.entries "1.0.4"
     source-map "0.5.6"
     string-hash "1.1.1"
-
-"styled-jsx@git+https://github.com/timsuchanek/styled-jsx#build":
-  version "0.4.4"
-  resolved "git+https://github.com/timsuchanek/styled-jsx#020e6b771d5c89750a57abf5707dcebb64707f00"
-  dependencies:
-    babel-plugin-syntax-jsx "^6.18.0"
-    convert-source-map "^1.3.0"
-    object.entries "^1.0.4"
-    source-map "^0.5.6"
-    string-hash "^1.1.1"
 
 subscriptions-transport-ws@^0.7.1:
   version "0.7.3"
