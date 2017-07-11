@@ -1,7 +1,11 @@
 ---
 title: Authentication
+description: In this chapter, you’ll learn how you can implement authentication functionality with Relay and Graphcool to provide a login to the user.
 videoId: f0Mf2YyGdqc
 duration: 18
+question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
+answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
+correctAnswer: 1
 ---
 
 In this section, you'll learn how you can implement authentication functionality with Relay and Graphcool to provide a login to the user.

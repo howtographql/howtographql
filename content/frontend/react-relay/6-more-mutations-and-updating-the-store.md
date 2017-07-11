@@ -2,6 +2,9 @@
 title: More Mutations and Updating the Store
 videoId: yfercdQVFFk
 duration: 14
+question: "What's the purpose of the 'updater' and 'optimisticUpdater' functions?"
+answers: ["They allow to update the state of your React components after the response for a query was received", "They allow to update the UI after the response for a query was received", "They allow to update the UI after a mutation was performed", "They allow to update the Relay Store after mutation was performed."]
+correctAnswer: 3
 ---
 
 The next piece of functionality that you'll implement is the voting feature! Authenticated users are allowed to submit a vote for a link. The most upvoted links will later be displayed on a separate route!

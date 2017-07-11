@@ -1,8 +1,9 @@
 ---
 title: "Queries: Loading Links"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+description: "In this chapter, you learn how you can use Relay to load data from a GraphQL server."
+question: What part of Relay is responsible to put the fragments that you defines alongside your React components into an actual GraphQL query?
+answers: ["The Relay Environment", "The Relay Compiler", "The QueryRender", "None, with Relay you always write the full queries yourself"]
+correctAnswer: 2
 videoId: zrUfWvPs1RA
 duration: 17
 ---

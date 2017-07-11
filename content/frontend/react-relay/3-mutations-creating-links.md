@@ -1,8 +1,9 @@
 ---
 title: "Mutations: Creating Links"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+description: In this chapter, you'll learn how you can send mutations with Relay to enable user to create new links on the server.
+question: What's one of the major changes of Relay Modern compared to Relay Classic?
+answers: ["Detailled documentation and many code samples", "An imperative and more predictible mutation API", "Declaring data dependencies as fragments alongisde React components", "Relay Modern also includes a new server component"]
+correctAnswer: 1
 videoId: x9xtQdWcKMc
 duration: 10
 ---
