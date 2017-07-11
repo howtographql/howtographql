@@ -71,6 +71,7 @@ const DottedListItem = ({
         }
         .play {
           @p: .o0, .absolute, .z3;
+          visibility: hidden;
           pointer-events: none;
           transition: opacity .25s ease-in-out;
           left: -5px;
@@ -79,7 +80,9 @@ const DottedListItem = ({
 
         .dotted-list-item:not(.done):hover .play {
           @p: .o100;
+          visibility: visible;
           pointer-events: all;
+          transition: none;
         }
 
         div.dotted-list-item:not(.done).first:hover::before {
@@ -99,8 +102,8 @@ const DottedListItem = ({
         .dotted-list-item:not(.done).last.small:hover::before {
           bottom: -5px;
         }
-        .dotted-list-item:not(.done).last.small:hover .play {
-          margin-top: 12px;
+        .dotted-list-item:not(.done).last.small .play {
+          bottom: 2px;
         }
 
         .checkmark {
