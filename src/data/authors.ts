@@ -42,6 +42,13 @@ const authors: Author[] = [
     name: 'Bojan Tomic',
   },
   {
+    avatar: require('../assets/graphics/contributors/maira.png'),
+    bio:
+      "Maira is a software engineer at VTEX, currently working with GraphQL every day. She loves web development and learning new technologies that make it even more enjoyable.",
+    job: 'Developer @ VTEX',
+    link: 'https://github.com/mairatma',
+    name: 'Maira Bello',
+  },
     avatar: require('../assets/graphics/contributors/ben.jpg'),
     bio:
       "A full time Elixir developer at CargoSense, Ben is a co-author of the Absinthe GraphQL implementation for Elixir.",

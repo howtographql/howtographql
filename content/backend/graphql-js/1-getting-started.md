@@ -1,5 +1,9 @@
 ---
 title: Getting Started
+question: Which of the following packages allows converting a string in the GraphQL Schema Definition Language into a schema object?
+answers: ["body-parser", "graphql-tools", "graphql-server-express", "express"]
+correctAnswer: 1
+description: Setup your GraphQL server and run it for the first time
 ---
 
 ### Defining the Schema
@@ -23,13 +27,24 @@ type Link {
 
 ### Install Dependencies
 
-It's time to start creating your project. For this, follow these steps:
+It's time to start creating your project.
+
 
 <Instruction>
 
-1. First, you'll need is to have Node.js installed on your machine. If you don't yet, make sure to do it [now](https://nodejs.org/en/). Note that the code samples here assume the latest versions of Node.js, with ES6 support, so it's best if that's what you have as well.
-2. Setup your **package.json** by typing `npm init -y` in the terminal, inside the folder of your choice.
-3. Install dependencies: 
+**Step 1**: First, you'll need is to have Node.js installed on your machine. If you don't yet, make sure to do it [now](https://nodejs.org/en/). Note that the code samples here assume the latest versions of Node.js, with ES6 support, so it's best if that's what you have as well.
+
+</Instruction>
+
+<Instruction>
+
+**Step 2**: Setup your **package.json** by typing `npm init -y` in the terminal, inside the folder of your choice.
+
+</Instruction>
+
+<Instruction>
+
+**Step 3**: Install the following dependencies:
 
 ```bash(path=".../hackernews-graphql-js")
 npm install —save express body-parser graphql-server-express graphql-tools graphql
