@@ -73,7 +73,7 @@ export default class Video extends React.Component<Props, State> {
           img.preview {
             height: 100%;
             width: auto;
-            filter: brightness(40%);
+            filter: brightness(80%) grayscale(30%);
           }
           .author {
             @p: .absolute, .bottom0, .right0, .mb16, .flex, .itemsCenter, .z2;
