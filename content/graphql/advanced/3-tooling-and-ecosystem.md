@@ -12,7 +12,7 @@ If you are familiar with GraphQL basics, you probably know how GraphQL's Type Sy
 
 An amazing thing with GraphQL is that these capabilities are not only known to the server. GraphQL allows clients to ask a server for information about its schema. GraphQL calls this **introspection**.
 
-## Introspecton
+## Introspection
 
 The designers of the schema already know what the schema looks like but how can clients discover what is accessible through a GraphQL API ? We can ask GraphQL for this information by querying the `__schema` meta-field, which is always available on the root type of a Query per the spec.
 
