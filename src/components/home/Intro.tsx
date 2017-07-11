@@ -123,10 +123,8 @@ class Intro extends React.Component<Props, null> {
         <div className="rest">
           <h1>The Fullstack Tutorial for GraphQL</h1>
           <p>
-            The free and open-source tutorial for you to learn about GraphQL from
-            zero to production. After a basic
-            introduction, you’ll build a Hackernews clone with Javascript or any
-            other technology of your choice.
+            The free and open-source tutorial to learn all around GraphQL from and go from
+            zero to production.
           </p>
           <div className="center-container">
             <div
