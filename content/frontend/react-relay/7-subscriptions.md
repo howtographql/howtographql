@@ -5,4 +5,4 @@ description: In this chapter, you learn how you can implemented realtim funciona
 
 The subscriptions chapter for this tutorial is coming soon! 
 
-Follow [How To GraphQL](https://twitter.com/howtographql) on Twitter to stay up-to-date about all new content that's added to the site.
+[Follow us on Twitter](https://twitter.com/graphcool) to stay up-to-date about all new content that's added to the site.
