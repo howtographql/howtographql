@@ -8,7 +8,7 @@ disabled: false
     id
     title
     actors {
-       name
+      name
     }
   }
 }

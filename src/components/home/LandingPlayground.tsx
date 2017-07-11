@@ -97,7 +97,7 @@ export default class LandingPlayground extends React.Component<{}, State> {
             <div className="center-container">
               <div>
                 <h3>That was easy, wasn't it?</h3>
-                <Link to="/tutorials/graphql/basics/0-introduction/">
+                <Link to="/advanced/0-clients/">
                   <div className="btn small">Learn how to use GraphQL</div>
                 </Link>
               </div>
