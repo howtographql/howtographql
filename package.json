@@ -8,6 +8,7 @@
     "frontmatter": "^0.0.3",
     "gatsby": "1.0.0-beta.5-alpha.fb30fcd6",
     "gatsby-link": "git+https://github.com/timsuchanek/gatsby-link",
+    "gatsby-plugin-google-analytics": "^1.0.1",
     "gatsby-plugin-offline": "next",
     "gatsby-plugin-react-helmet": "^1.0.1",
     "gatsby-plugin-sharp": "next",
