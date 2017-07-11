@@ -6,6 +6,7 @@ import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import Duration from '../Duration'
 import * as cn from 'classnames'
 import { extractGroup } from '../../utils/graphql'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 interface Props {
   steps: Step[]
@@ -18,6 +19,8 @@ interface Props {
 
 interface State {
   collapsed: boolean
+  n: number
+  group: string
 }
 
 export default class OptionalSteps extends React.Component<Props, State> {
@@ -26,18 +29,21 @@ export default class OptionalSteps extends React.Component<Props, State> {
 
     this.state = {
       collapsed: true,
+      n: this.getN(2),
+      group: extractGroup(props.location.pathname)
     }
   }
 
+  getN(count: number) {
+    return count * 52 + 16
+  }
+
   render() {
-    const { steps, small, mainPink, location, onClickLink } = this.props
-    const { collapsed } = this.state
-    const group = extractGroup(location.pathname)
+    const { steps, small, mainPink, onClickLink } = this.props
+    const { collapsed, n, group } = this.state
     const reallyCollapsed = collapsed && group !== 'advanced'
 
     const visibleSteps = reallyCollapsed ? steps.slice(0, 2) : steps
-    const count = visibleSteps.length === 2 ? 2 : visibleSteps.length - 1
-    const n = count * 52 + 16
 
     const showDuration = typeof this.props.showDuration !== 'undefined'
       ? this.props.showDuration
@@ -115,6 +121,23 @@ export default class OptionalSteps extends React.Component<Props, State> {
             left: -2px;
           }
         `}</style>
+        <style jsx={true} global={true}>{`
+          .optional-enter {
+            opacity: 0.01;
+          }
+          .optional-enter.optional-enter-active {
+            opacity: 1;
+            transition: opacity 500ms ease-in;
+            transition-delay: 200ms;
+          }
+          .optional-leave {
+            opacity: 1;
+          }
+          .optional-leave.optional-leave-active {
+            opacity: 0.01;
+            transition: opacity 300ms ease-in;
+          }
+        `}</style>
         <div className="line">
           {/*
           <svg width="32px" height="363px" viewBox="0 0 32 363">
@@ -134,23 +157,30 @@ export default class OptionalSteps extends React.Component<Props, State> {
           </svg>
         </div>
         <div className="steps">
-          {visibleSteps.map(step =>
-            <OptionalDottedListItem
-              key={step.title}
-              small={this.props.small}
-              active={step.link === this.props.location.pathname}
-              path={step.link}
-            >
-              <div className="list-item">
-                <Link to={step.link} onClick={onClickLink}>
-                  {step.title}
-                </Link>
-                {showDuration &&
-                  step.duration &&
-                  <Duration duration={step.duration} />}
-              </div>
-            </OptionalDottedListItem>,
-          )}
+          <CSSTransitionGroup
+            transitionName="optional"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}
+          >
+            {visibleSteps.map(step =>
+              <OptionalDottedListItem
+                key={step.title}
+                small={this.props.small}
+                active={step.link === this.props.location.pathname}
+                path={step.link}
+              >
+                <div className="list-item">
+                  <Link to={step.link} onClick={onClickLink}>
+                    {step.title}
+                  </Link>
+                  {showDuration &&
+                    step.duration &&
+                    <Duration duration={step.duration} />}
+                </div>
+              </OptionalDottedListItem>
+            )}
+          </CSSTransitionGroup>
           {reallyCollapsed &&
             <div className="more" onClick={this.toggleCollapse}>
               <div className="plus">
@@ -171,6 +201,19 @@ export default class OptionalSteps extends React.Component<Props, State> {
   }
 
   private toggleCollapse = () => {
-    this.setState(state => ({ collapsed: !state.collapsed }))
+    this.setState(state => ({ collapsed: !state.collapsed }), this.tweenN)
+  }
+
+  private tweenN() {
+    const count = this.props.steps.length
+
+    const animate = () => {
+      if (this.state.n < this.getN(count)) {
+        this.setState(state => ({n: state.n + 15}))
+      }
+      requestAnimationFrame(animate)
+    }
+
+    animate()
   }
 }
