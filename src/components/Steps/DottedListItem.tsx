@@ -140,7 +140,7 @@ const DottedListItem = ({
           padding-top: 0;
         }
         .dotted-list-item:not(.light).first {
-          padding-top: 60px !important;
+          padding-top: 18px !important;
         }
         .dotted-list-item.light :global(a) {
           @p: .black80, .relative;
