@@ -3,6 +3,8 @@ import * as cn from 'classnames'
 import { connect } from 'react-redux'
 import { defaultReaction, QuizReaction, QuizState } from '../../reducers/quiz'
 import Checkmark from '../Checkmark'
+import Icon from 'graphcool-styles/dist/components/Icon/Icon'
+import { $v } from 'graphcool-styles'
 
 interface Props {
   children?: JSX.Element
@@ -52,15 +54,55 @@ const DottedListItem = ({
           margin-top: 3px;
           width: 8px;
           height: 8px;
-          /* TODO: talk to Julian about hover state
-            transition: background-color .25s ease-in-out, border-color .25s ease-in-out;
-          */
-        } /*
-        .dotted-list-item:not(.done):hover::before {
-          @p: .bgPink;
-          border-color: $pink;
+          transition: border-color .15s ease-in-out;
         }
-        */
+        .dotted-list-item {
+          transition: color .15s ease-in-out;
+        }
+        .dotted-list-item:not(.done):hover {
+          color: $pink !important;
+        }
+        .dotted-list-item:not(.done):hover::before {
+          border-color: $pink;
+          margin-top: -2px !important;
+          left: -13px;
+          width: 20px;
+          height: 20px;
+        }
+        .play {
+          @p: .o0, .absolute, .z3;
+          pointer-events: none;
+          transition: opacity .25s ease-in-out;
+          left: -5px;
+          margin-top: 5px;
+        }
+
+        .dotted-list-item:not(.done):hover .play {
+          @p: .o100;
+          pointer-events: all;
+        }
+
+        div.dotted-list-item:not(.done).first:hover::before {
+          margin-top: -4px !important;
+        }
+        .dotted-list-item:not(.done).first:hover .play {
+          margin-top: 3px;
+        }
+
+        .dotted-list-item:not(.done).first.small:hover::before {
+          margin-top: -4px !important;
+        }
+        .dotted-list-item:not(.done).first.small:hover .play {
+          margin-top: 3px;
+        }
+
+        .dotted-list-item:not(.done).last.small:hover::before {
+          bottom: -5px;
+        }
+        .dotted-list-item:not(.done).last.small:hover .play {
+          margin-top: 12px;
+        }
+
         .checkmark {
           @p: .absolute, .z2;
           left: -11px;
@@ -219,6 +261,14 @@ const DottedListItem = ({
           top: 50%;
         }
       `}</style>
+      <div className="play">
+        <Icon
+          src={require('../../assets/icons/video.svg')}
+          width={10}
+          height={10}
+          color={$v.pink}
+        />
+      </div>
       {done &&
         <div className="checkmark">
           <Checkmark checked={true} />
