@@ -45,6 +45,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
     const answerIndeces = reaction.answerIndeces || []
 
     const bonusChapter: Step = {
+      description: `In this chapter, you'll learn about the core concepts of GraphQL clients and the abstractions and functionalities they provide`,
       link: '/advanced/0-clients/',
       title: 'Clients',
     }
