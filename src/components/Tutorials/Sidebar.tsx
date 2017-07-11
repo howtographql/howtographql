@@ -73,7 +73,6 @@ export default class Sidebar extends React.Component<Props, {}> {
               rgba(245, 245, 245, 0)
             );
             height: 38px;
-            width: 100%;
           }
           .sidebar :global(.plus) {
             background-color: rgb(245, 245, 245);
