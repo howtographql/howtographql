@@ -1,5 +1,6 @@
 ---
 title: Pagination
+description: How to handle pagination with GraphQL
 ---
 
 Another important feature for Hackernews is pagination.
