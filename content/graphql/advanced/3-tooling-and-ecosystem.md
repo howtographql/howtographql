@@ -1,5 +1,6 @@
 ---
 title: Tooling and Ecosystem
+description: Learn about what makes GraphQL Ecosystem so great and what kind of tools are available to help build and use GraphQL APIs.
 question: What mechanism is used by most tools use to discover a server's type system?
 answers: ["The IDL", "Introspection"]
 correctAnswer: 2
