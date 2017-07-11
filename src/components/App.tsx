@@ -166,35 +166,30 @@ export default function App({ children, history, steps, location }: Props) {
         } /* Reusable Components */
         .btn {
           @p: .white, .f25, .fw6, .dib, .lhTitle, .pointer;
-          background: linear-gradient(103deg, rgba(224, 0, 130, 0.8), #e00082);
+          background: linear-gradient(103deg, #EC1D97, #e00082);
+          background-color: $pink;
+          background-position: 0 0 ;
+          background-repeat: no-repeat;
           border: solid 2px #e00083;
           padding: 17px 30px 19px;
           border-radius: 6px;
-          transition: background .2s ease, box-shadow .2s ease;
+          transition: background-position .25s ease, box-shadow .25s ease;
         }
         .btn.green {
           @p: .white;
+          background-color: $green;
           background-image: linear-gradient(
             101deg,
-            rgba(39, 174, 96, 0.8),
+            #33BC7F,
             #27ae60
           );
           border: solid 2px #27ae60;
         }
         .btn.green:hover {
-          background-image: linear-gradient(
-            101deg,
-            rgba(39, 174, 96, 1),
-            #27ae60
-          );
           border: solid 2px #27ae60;
         }
         .btn:hover {
-          background-image: linear-gradient(
-            104deg,
-            rgba(224, 0, 130, 1),
-            rgba(224, 0, 130, 1)
-          );
+          background-position: -300px;
           box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
         }
         .btn.passive {

@@ -45,7 +45,7 @@ class Quiz extends React.Component<Props & QuizState, {}> {
     const answerIndeces = reaction.answerIndeces || []
 
     const bonusChapter: Step = {
-      link: '/tutorials/graphql/advanced/0-clients/',
+      link: '/advanced/0-clients/',
       title: 'Clients',
     }
 

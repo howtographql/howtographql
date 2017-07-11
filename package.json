@@ -57,7 +57,8 @@
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prettier": "prettier --single-quote --no-semi --trailing-comma all --write *.{ts,tsx}"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

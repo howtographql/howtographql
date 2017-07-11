@@ -49,9 +49,9 @@ const authors: Author[] = [
     link: 'https://github.com/mairatma',
     name: 'Maira Bello',
   },
+  {
     avatar: require('../assets/graphics/contributors/ben.jpg'),
-    bio:
-      "A full time Elixir developer at CargoSense, Ben is a co-author of the Absinthe GraphQL implementation for Elixir.",
+    bio: "A full time Elixir developer at CargoSense, Ben is a co-author of the Absinthe GraphQL implementation for Elixir.",
     job: 'Developer @ Cargosense',
     link: 'https://twitter.com/benwilson512',
     name: 'Ben Wilson',
