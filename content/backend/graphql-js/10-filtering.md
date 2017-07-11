@@ -68,6 +68,6 @@ module.exports = {
 <Instruction>
 
 Restart the server and try your new filter out now.
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/GT3ykWdKlSr29Ptw4PQtCg)
+![](https://i.imgur.com/lrsChh9.png)
 
 </Instruction>
