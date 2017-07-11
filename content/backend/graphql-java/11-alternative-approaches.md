@@ -34,13 +34,13 @@ public class Link {
 
 Both of these blocks contain the exact same information. Worse yet, changing one requires immediate change to the other. This makes refactoring risky and cumbersome. On the other hand, if you're trying to introduce a GraphQL API into an existing project, writing the schema practically means re-describing the entire existing model. This is both expensive and error-prone, and still suffers from duplication. 
 
-### Code—first style
+### Code-first style
 
 A common alternative to the schema-first style, known as code-first, is generating the schema from the existing model. This keeps the schema and the model in sync, easing refactoring. It also works well in projects where GraphQL is introduced on top of an existing codebase. The downside of this approach is that the schema doesn't exist until the some server code is written, introducing a dependency between the client-side and server-side work. One workaround would be using stubs on the server to generate the schema quickly, then developing the real server code in parallel with the client.
 
 The Java/GraphQL ecosystem spawned a few libraries that facilitate this style of development. You can find them listed [here](https://github.com/graphql-java/awesome-graphql-java#code-first). An example using [`graphql-spqr`](https://github.com/leangen/graphql-spqr), written by yours truly, follows below.
 
-### Setting up graphql—spqr
+### Setting up graphql-spqr
 
 <Instruction>
 
@@ -79,7 +79,7 @@ So enable the `-paramaters` javac option by configuring the `maven-compiler-plug
 
 Make sure you **rebuild the project** now (e.g. run `mvn clean package`) for the new option to take effect. Then, restart Jetty.
 
-### Generating the schema using graphql—spqr
+### Generating the schema using graphql-spqr
 
 In order to generate a schema similar to the one you've been working on so far, but this time using the code-first style you'd (unsurprisingly) start from the business logic. It is fortunate that you already have some business logic ready, in `Query`, `Mutation` and `*Resolver` classes, as it simulates introducing GraphQL into an existing project.
 
