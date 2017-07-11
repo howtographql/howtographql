@@ -1,5 +1,6 @@
 # How to Graphql
 
+
 ## Development Version
 The latest dev version is always available at [https://howtographql.netlify.com](https://howtographql.netlify.com)
 
