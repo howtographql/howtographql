@@ -89,7 +89,7 @@ Mutation: {
 
 **Step 4**: Restart the server and create a test user with your new mutation. You should see something like this:
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/Y6Nf9tR9l6u0RAuBsZViMg)
+![](http://i.imgur.com/5sjrV28.png)
 
 </Instruction>
 
@@ -150,7 +150,7 @@ Mutation: {
 
 **Step 3**: Restart the server and try the new `signinUser` mutation with one of your previously registered users:
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/fjE_a5Qoe7CoAtusz2Z4-Q)
+![](http://i.imgur.com/VknQkQ5.png)
 
 </Instruction>
 
@@ -262,7 +262,7 @@ Link: {
 </Instruction>
 
 Done! Unfortunately, if you try restarting your server and creating new links they will still be stored as if posted anonymously, like this:
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/u7Ktc1GGiSgrNkRcFxYmWA)
+![](http://i.imgur.com/iObKYMi.png)
 That's because nothing is being passed in the `Authorization` header for the requests built by GraphiQL, since it doesn't really know about the authentication method being used. Thankfully, you can configure it so that this is testable as well, which is what will be done next.
 
 ### Configuring GraphiQL headers
@@ -274,7 +274,7 @@ For that, follow these simple steps:
 
 **Step 1**: First, choose a previously created user to act as the one logged in, or even create a new one just for this.
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/Do9U5D_V8IZflD2SNshTEg)
+![](http://i.imgur.com/dlfNseV.png)
 
 </Instruction>
 
@@ -282,7 +282,7 @@ For that, follow these simple steps:
 
 **Step 2**: Call the `signinUser` mutation to grab the token to be passed with the requests.
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/loXIKGkTyRfqgD9a9uKLWQ)
+![](http://i.imgur.com/jl5kC9U.png)
 
 </Instruction>
 
@@ -303,6 +303,6 @@ app.use('/graphiql', graphiqlExpress({
 
 **Step 4**: Try restarting the server, refreshing GraphiQL and creating a new link now. You should see that `postedBy` will have your chosen user's information.
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/azVavXwJUMH9TZ0oImaLgA)
+![](https://i.imgur.com/WAH9DKw.png)
 
 </Instruction>

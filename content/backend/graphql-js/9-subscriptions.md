@@ -181,7 +181,7 @@ app.use('/graphiql', graphiqlExpress({
 
 It's finally time to test your new subscription! Restart the server, refresh your GraphiQL tab and try it out. You'll see that instead of the usual response with data, the right-most text box will show you a message, saying that it will be replaced with data whenever it arrives.
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/dPYpKYADp7onBb1H6VM3Mg)
+![](https://i.imgur.com/aUnwc95.png)
 
 </Instruction>
 
@@ -189,7 +189,7 @@ It's finally time to test your new subscription! Restart the server, refresh you
 
 Leave this tab open and then open another GraphiQL in a separate tab. In this second tab, send a mutation for creating a new link, as you've done other times before. Once that's done, check the first tab again. You should see the newly created link's data there.
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/N604jjYvFoDQhPSBsJrUrw)
+![](https://i.imgur.com/rs8VzN2.png)
 
 </Instruction>
 

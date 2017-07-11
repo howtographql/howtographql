@@ -49,4 +49,4 @@ Query: {
 
 All done! Now restart the server again and test it out.
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/6xVtG_y0JICkisZQSqpuXw)
+![](https://i.imgur.com/20H6nmg.png)

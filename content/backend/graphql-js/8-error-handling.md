@@ -12,7 +12,7 @@ Any good server should be able to handle errors well, otherwise it becomes harde
 
 In fact, if you try right now to send an invalid request to the server, such as a request with a field that doesn't exist, you'll already get a pretty good error message back. For example:
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/X1-QVneOxCNmzDxu4UIvSQ)
+![](https://i.imgur.com/Br8oZzr.png)
 
 This can be very helpful when building apps, as this automatic schema validation can easily help the developer find out what's wrong with his/her request.
 
@@ -55,7 +55,7 @@ module.exports = {
 <Instruction>
 
 Restart the server and try creating a link with an invalid url now. You should get the error you've just created:
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/mnbje2E0csrhf9GdOdappw)
+![](https://i.imgur.com/9Av5Flx.png)
 
 </Instruction>
 
@@ -137,6 +137,6 @@ This just calls the default `formatError` from `graphql` and adds the `field` ke
 <Instruction>
 
 Restart the server again and create another link with an invalid url. You should see the `field` key in the error data now:
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/BL765Ghykn-NHpRLswIERQ)
+![](https://i.imgur.com/z19TbWS.png)
 
 </Instruction>

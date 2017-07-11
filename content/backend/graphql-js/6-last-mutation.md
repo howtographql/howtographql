@@ -108,7 +108,7 @@ Vote: {
 <Instruction>
 
 As always, restart the server to test the new mutation via GraphiQL.
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/MV-sakMGJke_ekiDLKcw9A)
+![](http://i.imgur.com/hRusO4K.png)
 
 </Instruction>
 
@@ -149,7 +149,7 @@ Link: {
 </Instruction>
 
 If you restart your server and run `allLinks` again you should be able to access votes data for each link, for example:
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/GwnXMOTYtFjy3yGmDbnjfg)
+![](https://i.imgur.com/vnXA6ws.png)
 
 ### Relating Users with their votes
 
@@ -188,4 +188,4 @@ User: {
 </Instruction>
 
 And there it is! You can test it with GraphiQL again:
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/h5A1ZYjbAKQJwe5KoZ3P4Q)
+![](https://i.imgur.com/0H2t8zH.png)

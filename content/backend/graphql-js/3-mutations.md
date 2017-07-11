@@ -52,4 +52,4 @@ Since you're just using that local array for now, all that's needed is to add th
 ### Testing with playground
 
 To test, just restart the server again and use the new mutation with GraphiQL:
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/6b0SQMfg1Wf5gNP6W0IyBQ)
+![](http://i.imgur.com/4pKJ9ji.png)

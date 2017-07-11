@@ -101,7 +101,7 @@ app.use('/graphiql', graphiqlExpress({
 
 That's it! Now restart the server again with `node ./src/index.js` and open your browser at [localhost:3000/graphiql](http://localhost:3000/graphiql). You'll see a nice IDE that looks like this:
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/F7_kfgj4Lu7X-F9WrFND4Q)
+![](http://i.imgur.com/0s8NcWR.png)
 
 </Instruction>
 
@@ -109,7 +109,7 @@ That's it! Now restart the server again with `node ./src/index.js` and open your
 
 Click on the **Docs** link at the upper right to see a generated documentation of your schema. You'll see the `Query` type there, and clicking it will show you the new `allLinks` field, exactly as you've defined it.
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/azRDn3RmqApUF4qLqt5XOQ)
+![](http://i.imgur.com/xTTcAZl.png)
 
 </Instruction>
 
@@ -117,7 +117,7 @@ Click on the **Docs** link at the upper right to see a generated documentation o
 
 Try it out! On the left-most text box, type a simple query for listing all links and hit the **Play** button. This is what you'll see:
 
-![](https://vtex.quip.com/-/blob/MYYAAAFJyue/BzZBNEH7JCrFGAmQlPTV6A)
+![](http://i.imgur.com/LuALGY6.png)
 
 </Instruction>
 
