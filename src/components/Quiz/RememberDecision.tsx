@@ -22,7 +22,7 @@ export default function RememberDecision({
         }
       `}</style>
       <Checkmark checked={remember} />
-      <span>Remember my decision. Dont show me anymore tests.</span>
+      <span>Remember my decision. Don't show question in upcoming chapters.</span>
     </div>
   )
 }
