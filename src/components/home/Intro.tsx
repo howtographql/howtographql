@@ -32,7 +32,7 @@ class Intro extends React.Component<Props, null> {
                   },
                   opacity: {value: .2, random: !1, anim: {enable: !1, speed: 1, opacity_min: .6, sync: !1}},
                   size: {value: 1, random: !0, anim: {enable: !1, speed: 40, size_min: .1, sync: !1}},
-                  line_linked: {enable: !0, distance: 150, color: "#ffc0e5", opacity: .15, width: 1},
+                  line_linked: {enable: !0, distance: 150, color: "#ffc0e5", opacity: .3, width: 1},
                   move: {
                     enable: !0,
                     speed: 1,

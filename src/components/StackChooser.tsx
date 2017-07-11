@@ -146,7 +146,7 @@ class StackChooser extends React.Component<Props, {}> {
                   showSelectedBorder,
                 })}
                 onMouseDown={this.handleMouseDown}
-                onMouseMove={this.handleMouseMove}
+                onDrag={this.handleDrag}
                 onMouseUp={this.handleMouseUp.bind(this, index)}
                 key={index}
               >
@@ -195,7 +195,7 @@ class StackChooser extends React.Component<Props, {}> {
   private handleMouseDown = () => {
     this.mouseMoved = false
   }
-  private handleMouseMove = () => {
+  private handleDrag = (e) => {
     this.mouseMoved = true
   }
   private handleMouseUp = i => {
