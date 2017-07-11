@@ -146,6 +146,9 @@ function DottedElement({ children }: DottedElementProps) {
         .dotted-element-content :global(p) {
           @p: .mt0;
         }
+        .dotted-element :global(a) {
+          @p: .underline, .fw6;
+        }
       `}</style>
       <div className="dotted-element-content">
         {children}
