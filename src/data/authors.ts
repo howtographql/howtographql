@@ -64,6 +64,14 @@ const authors: Author[] = [
     link: 'https://twitter.com/wbruce',
     name: 'Bruce Williams',
   },
+  {
+    avatar: require('../assets/graphics/contributors/marcandre.jpg'),
+    bio:
+      "A Jazz guitarist turned developer, Marc-André is currently working at Shopify, trying to make commerce better for everyone. When he's not hacking on Rails, GraphQL or Relay, he likes lifting heavy barbells above his head.",
+    link: 'http://mgiroux.me',
+    job: 'Senior Developer @ Shopify',
+    name: 'Marc-Andre Giroux'
+  }
 ]
 
 export default keyBy(authors, 'name')
