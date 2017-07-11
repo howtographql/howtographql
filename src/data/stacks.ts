@@ -109,22 +109,6 @@ const data: Stack[] = [
     authorName: 'Maira Bello',
   },
   {
-    title: 'Graphene',
-    type: 'backend',
-    key: 'graphene',
-    images: [
-      require('../assets/icons/python.svg'),
-      require('../assets/icons/graphene.svg'),
-    ],
-    content: {
-      title: 'graphene (python)',
-      description:
-        'Learn how to build your own GraphQL server with Python and the Graphene framework',
-    },
-    authorName: 'Syrus Akbary',
-    color2: '#db594c',
-  },
-  {
     title: 'graphql-elixir',
     type: 'backend',
     key: 'graphql-elixir',
@@ -183,6 +167,23 @@ const data: Stack[] = [
     authorName: 'Oleg Ilyenko',
     comingSoon: true,
     darkenGreyLogo: true,
+  },
+  {
+    title: 'Graphene',
+    type: 'backend',
+    key: 'graphene',
+    images: [
+      require('../assets/icons/python.svg'),
+      require('../assets/icons/graphene.svg'),
+    ],
+    content: {
+      title: 'graphene (python)',
+      description:
+        'Learn how to build your own GraphQL server with Python and the Graphene framework',
+    },
+    authorName: 'Syrus Akbary',
+    comingSoon: true,
+    color2: '#db594c',
   },
 ]
 
