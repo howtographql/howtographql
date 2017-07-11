@@ -14,7 +14,7 @@ const data: Stack[] = [
       description:
         "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Sacha Greif',
     comingSoon: true,
   },
   {
@@ -30,7 +30,7 @@ const data: Stack[] = [
       description:
         "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Guillaume Chau',
     comingSoon: true,
   },
   {
@@ -46,7 +46,7 @@ const data: Stack[] = [
       description:
         "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Bent Vatne',
     comingSoon: true,
   },
   {
@@ -122,7 +122,6 @@ const data: Stack[] = [
         'Learn how to build your own GraphQL server with Python and the Graphene framework',
     },
     authorName: 'Syrus Akbary',
-    comingSoon: true,
     color2: '#db594c',
   },
   {
@@ -138,7 +137,7 @@ const data: Stack[] = [
       description:
         'Get started with GraphQL and Elixir by building your own server in this tutorial',
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Ben Wilson',
     color2: '#4e2a8e',
   },
   {
@@ -153,7 +152,7 @@ const data: Stack[] = [
       title: 'graphql-ruby',
       description: 'Learn how to build a GraphQL server with Ruby',
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Radoslav Stankov',
     color2: '#a5152a',
   },
   {
@@ -169,7 +168,7 @@ const data: Stack[] = [
       description:
         'Build your own GraphQL server with the Java programming language',
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Bojan Tomic',
   },
   {
     title: 'Sangria',
@@ -181,7 +180,7 @@ const data: Stack[] = [
       description:
         'Build your own GraphQL server with the Scala programming language',
     },
-    authorName: 'Nikolas Burk',
+    authorName: 'Oleg Ilyenko',
     comingSoon: true,
     darkenGreyLogo: true,
   },
