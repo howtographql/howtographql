@@ -122,6 +122,7 @@ const data: Stack[] = [
         'Learn how to build your own GraphQL server with Python and the Graphene framework',
     },
     authorName: 'Syrus Akbary',
+    comingSoon: true,
     color2: '#db594c',
   },
   {
