@@ -1,11 +1,12 @@
 ---
 title: Getting Started
+description: In this chapter, you'll setup your backend and frontend projects.
 videoId: JV0nLsdeMfo
-videoAuthor: "Abhi Aiyer"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
 duration: 4
+videoAuthor: "Abhi Aiyer"
+question: Which are the two types that you find in all Graphcool project files?
+answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
+correctAnswer: 3
 draft: false
 ---
 
@@ -38,7 +39,7 @@ type Vote {
 
 #### Creating the GraphQL Server
 
-For starting out, you're not going to use the full data model that you saw above. That's becasue we want to evolve the schema when it becomes necessary for the features that we implement.
+For starting out, you're not going to use the full data model that you saw above. That's because we want to evolve the schema when it becomes necessary for the features that we implement.
 
 For now, you'll just use the `Link` type to create the backend.
 
