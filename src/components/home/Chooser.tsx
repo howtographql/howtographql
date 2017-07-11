@@ -13,11 +13,13 @@ import { Step } from '../../types'
 import Duration from '../Duration'
 import NewsletterSignup from '../NewsletterSignup'
 import { getTotalDuration } from '../../utils/getTotalDuration'
+import Steps from '../Steps/Steps'
 
 interface Props {
   width?: number
   mds: { [key: string]: Step[] }
   light?: boolean
+  location: any
 }
 
 interface State {
@@ -213,6 +215,9 @@ class Chooser extends React.Component<Props, State> {
           .list-item {
             @p: .flex, .itemsCenter;
           }
+          .steps-container :global(.dotted-list-item) {
+            @p: .white;
+          }
           .coming-soon {
             @p: .pb96, .pt38;
           }
@@ -350,26 +355,7 @@ class Chooser extends React.Component<Props, State> {
                         className="fade-before-element"
                         key={selected.key}
                       />}
-                    {selected.steps.map((step, index) =>
-                      <DottedListItem key={step.link} path={step.link}>
-                        <div className="list-item">
-                          <div className="link">
-                            <Link to={step.link}>
-                              <span>
-                                {step.title}
-                              </span>
-                            </Link>
-                            {step.duration &&
-                              <Duration
-                                duration={step.duration}
-                                total={false}
-                                dark={true}
-                                link={step.link}
-                              />}
-                          </div>
-                        </div>
-                      </DottedListItem>,
-                    )}
+                    <Steps steps={selected.steps} location={this.props.location} dark={true} showLast={false} />
                   </div>
                 </div>
               </div>

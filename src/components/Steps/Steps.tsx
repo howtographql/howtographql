@@ -16,6 +16,7 @@ interface Props {
   onClickLink?: () => void
   stepsActive?: boolean
   pinkBorder?: boolean
+  dark?: boolean
 }
 
 export default function Steps({
@@ -29,6 +30,7 @@ export default function Steps({
   stepsActive = false,
   onClickLink,
   pinkBorder = false,
+  dark = false,
 }: Props) {
   return (
     <div className={cn('steps', { pinkBorder })}>
@@ -54,7 +56,7 @@ export default function Steps({
         <Link to={step.link} onClick={onClickLink}>
           <DottedListItem
             key={step.title}
-            light={true}
+            light={!dark}
             first={index === 0 && steps.length > 1}
             last={showLast ? index === steps.length - 1 : false}
             small={small}
@@ -73,7 +75,7 @@ export default function Steps({
               </span>
               {showDuration &&
                 step.duration &&
-                <Duration duration={step.duration || 0} link={step.link} />}
+                <Duration duration={step.duration || 0} link={step.link} dark={dark} />}
             </div>
           </DottedListItem>
         </Link>,
