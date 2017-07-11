@@ -1,11 +1,12 @@
 ---
 title: Routing
+description: "In this chapter, you'll setup the navigation for your app"
 videoId: W-MJHNOdUOI
 duration: 4
 videoAuthor: "Abhi Aiyer"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+question: What's the role of the Link component thay you added in this chapter?
+answers: ["It renders a link that was posted by a user", "It renders the input form for users to create new links", "It lets you nagivate to a different URL", "It links your root component with all its children"]
+correctAnswer: 2
 ---
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some nagivation functionality!
