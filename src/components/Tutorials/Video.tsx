@@ -22,6 +22,11 @@ export default class Video extends React.Component<Props, State> {
       showVideo: props.autoplay,
     }
   }
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.videoId !== this.props.videoId) {
+      this.setState({showVideo: false})
+    }
+  }
   render() {
     const { author, videoId } = this.props
     const showVideo = this.state.showVideo || this.props.autoplay
