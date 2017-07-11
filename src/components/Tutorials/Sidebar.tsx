@@ -55,11 +55,13 @@ export default class Sidebar extends React.Component<Props, {}> {
             @p: .relative, .z0;
           }
           .sidebar {
-            @p: .flexFixed, .pt38, .bbox, .overflowAuto, .relative, .bl, .bBlack10;
+            @p: .flexFixed, .pt38, .bbox, .relative, .bl, .bBlack10;
             background-color: rgb(245, 245, 245);
             padding-left: 21px;
             height: calc(100vh - 68px);
             width: 300px;
+            overflow-y: scroll; /* has to be scroll, not auto */
+            -webkit-overflow-scrolling: touch;
           }
           .sidebar-container::before {
             @p: .absolute, .top0, .right0, .z2;
