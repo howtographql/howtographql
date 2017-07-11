@@ -1,5 +1,11 @@
 ---
 title: Realtime Updates with GraphQL Subscriptions
+videoId: R-VLZ--sTzI
+duration: 6
+videoAuthor: "Abhi Ayer"
+question: "What transport does Apollo use to implement subscriptions?"
+answers: ["WebSockets", "TCP", "UDP", "HTTP 2"]
+correctAnswer: 0
 ---
 
 This section is all about bringing realtime functionality into the app by using GraphQL subscriptions.
