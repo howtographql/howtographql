@@ -23,15 +23,15 @@ class Intro extends React.Component<Props, null> {
               {
                 particles: {
                   number: {value: 60, density: {enable: !0, value_area: 800}},
-                  color: {value: "#fbc6e5"},
+                  color: {value: "#f99dd3"},
                   shape: {
                     type: "circle",
-                    stroke: {width: 4, color: "#fbc6e5"},
+                    stroke: {width: 4, color: "#f99dd3"},
                     polygon: {nb_sides: 5}
                   },
                   opacity: {value: .2, random: !1, anim: {enable: !1, speed: 1, opacity_min: .6, sync: !1}},
                   size: {value: 1, random: !0, anim: {enable: !1, speed: 40, size_min: .1, sync: !1}},
-                  line_linked: {enable: !0, distance: 150, color: "#fbc6e5", opacity: .15, width: 1},
+                  line_linked: {enable: !0, distance: 150, color: "#f99dd3", opacity: .15, width: 1},
                   move: {
                     enable: !0,
                     speed: 1,
