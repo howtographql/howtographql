@@ -1,5 +1,6 @@
 ---
 title: Summary
+description: In this chapter, we summarize what you learned in this tutorial.
 ---
 
 In this chapter, you learned how to build a fully-feature Hackernews clone with React and [Apollo Client](http://dev.apollodata.com/react/). You implemented several features, such as displaying a list of links, login functionality, creating new links, voting on links, pagination as well as realtime updates with GraphQL subscriptions.
