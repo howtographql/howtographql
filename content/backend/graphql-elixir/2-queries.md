@@ -1,5 +1,6 @@
 ---
 title: Queries
+description: Learn how to use resolvers by building the query for fetching all links, and then test it using GraphiQL
 ---
 
 ### Defining the Schema

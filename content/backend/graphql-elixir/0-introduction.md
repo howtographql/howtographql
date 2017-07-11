@@ -1,5 +1,6 @@
 ---
 title: Introduction
+description:  Read about what you'll learn in the Elixir  tutorial
 ---
 
 ### Motivation
