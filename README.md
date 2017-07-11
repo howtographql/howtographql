@@ -5,9 +5,7 @@
 
 ## Content
 
-The content for all tutorials is located in the  [`/content`](https://github.com/howtographql/howtographql/tree/master/content) directory.
-
-Here is an overview of all the tutorials that are available at the moment:
+The content for all tutorials is located in the  [`/content`](https://github.com/howtographql/howtographql/tree/master/content) directory. Here is an overview of all the tutorials that are available at the moment:
 
 #### GraphQL
 
