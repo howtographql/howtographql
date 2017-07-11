@@ -5,6 +5,7 @@ import Link from 'gatsby-link'
 import { connect } from 'react-redux'
 import { setOverviewVideoVisible } from '../../actions/ui'
 import Particles from 'react-particles-js'
+import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 
 interface Props {
   steps: { [key: string]: Step[] }
@@ -73,6 +74,19 @@ class Intro extends React.Component<Props, null> {
           }
           .watch-overview {
             @p: .black40, .f16, .fw6, .mt25, .pa16, .ttu, .flex, .itemsCenter, .pointer;
+            transition: color .15s ease-in-out;
+          }
+          .watch-overview:hover {
+            @p: .black60;
+          }
+          .watch-overview img {
+            transition: filter .15s ease-in-out;
+          }
+          .watch-overview :global(svg) > :global(g) {
+            transition: opacity .15s ease-in-out;
+          }
+          .watch-overview:hover :global(svg) > :global(g) {
+            opacity: 0.6;
           }
           .watch-overview span {
             @p: .ml16;
@@ -118,7 +132,7 @@ class Intro extends React.Component<Props, null> {
               className="watch-overview"
               onClick={this.props.setOverviewVideoVisible.bind(null, true)}
             >
-              <img src={require('../../assets/icons/play.svg')}/>
+              <Icon src={require('../../assets/icons/play.svg')} color={'black'} width={37} height={37} />
               <span>
                 Watch Overview
               </span>
