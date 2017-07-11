@@ -1,6 +1,9 @@
 ---
 title: Connectors
 description: Connect your GraphQL API to a MongoDB
+question: Where can a GraphQL server store data to and load data from?
+answers: ["Graph databases, like Neo4j, OrientDB, Arango etc", "GraphQL servers do not store or load data", "Any persistent storage, e.g. MongoDB", "Anywhere"]
+correctAnswer: 3
 ---
 
 As fun as it may be, your GraphQL API is unlikely to be of much use if it doesn't connect to other systems, be it databases, third-party APIs or alike.

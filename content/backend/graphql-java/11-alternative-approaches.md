@@ -1,6 +1,9 @@
 ---
 title: Alternative approaches to schema development
 description: Learn about an alternative approach to developing schemas with graphl-java
+question: Does GraphQL development always start by defining the schema?
+answers: ["Yes", "No, but it is a popular approach approach", "No, the schema can only be produced at the end", "The schema can only be generated dynamically"]
+correctAnswer: 1
 ---
 
 The way you've been developing so far is known as schema-first, as you always start by defining the schema. This style has important benefits, discussed at the beginning of this tutorial, and it works well for new projects, where no legacy code exists. Still, you may have noticed that in strongly and statically typed languages, like Java, it leads to a lot of duplication. For example, revisit the way you developed the `Link` type.

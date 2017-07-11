@@ -1,6 +1,9 @@
 ---
 title: Error Handling
 description: Get to know different kinds of errors and how they are typically handled with GraphQL
+question: How does a GraphQL server signal an error to the client?
+answers: ["It sends errors together with the partial result", "It sends errors instead of the result", "It sends an HTTP error code", "It sends null as the result"]
+correctAnswer: 0
 ---
 
 At this point, it is likely you've already seen an error showing up Graph*i*QL, so you probably have some intuition as to what happens when something goes wrong on the server. In the simplest case, if you just mistype a query you'll see an error popping up in the dedicated `errors` field in the response.

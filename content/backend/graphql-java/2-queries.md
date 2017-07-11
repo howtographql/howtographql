@@ -1,6 +1,9 @@
 ---
 title: Queries
 description: Define Query resolvers and learn how to use GraphiQL to test your queries
+question: Is a special client required to query a GraphQL server?
+answers: ["Yes, and there is an implementation in each language", "Yes, you need GraphiQL to create and issue queries", "No, GraphQL servers are always exposed over HTTP", "No, a GraphQL server could be exposed over any transport"]
+correctAnswer: 3
 ---
 
 ### Query resolvers

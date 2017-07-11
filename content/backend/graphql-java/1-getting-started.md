@@ -1,6 +1,9 @@
 ---
 title: Getting Started
 description: Learn how to setup a graphql-java project and define the GraphQL schema
+question: How are GraphQL schemas built?
+answers: ["Only by using the schema language", "Only programmatically, because schemas contain functions", "Either using the schema language or programmatically", "Using Swagger or similar tools"]
+correctAnswer: 2
 ---
 
 ### Initialize the project

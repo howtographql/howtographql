@@ -1,6 +1,9 @@
 ---
 title: Pagination
-description: Add limit-offset based pagination to your GraphQL API to browser links in 
+description: Add limit-offset based pagination to your GraphQL API to browser links in
+question: Is pagination supported by GraphQL?
+answers: ["Yes, out of the box, via dedicated query arguments", "The implementer can provide their own pagination scheme", "Yes, but only if the Connection specification (part of the Relay spec) is supported", "No"]
+correctAnswer: 1
 ---
 
 As the number of links grow, listing all of them becomes less feasible. It stands to reason you should introduce the ability to only request a number of links and paginate through the result.

@@ -1,6 +1,9 @@
 ---
 title: More Mutations
 description: Add a more complex mutation for upvoting links
+question: What kind of input arguments can mutations take?
+answers: ["All types (scalars, objects, lists, interfaces and unions) can be used as inputs", "Only scalars, objects and lists can be used as inputs", "Only scalars can be input types, nested structures are not allowed", "Mutations can not take input arguments"]
+correctAnswer: 1
 ---
 
 ## Voting for links
