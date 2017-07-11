@@ -35,12 +35,12 @@ module.exports = {
     `gatsby-plugin-typescript`,
     `styled-jsx-plugin`,
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: 'UA-74131346-111',
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     trackingId: 'UA-74131346-111',
+    //   },
+    // },
     // `gatsby-plugin-offline`
   ],
 }
