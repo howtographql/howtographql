@@ -19,7 +19,7 @@ class Intro extends React.Component<Props, null> {
       <section className="intro">
         <div className="particles">
           <Particles
-            width={`${window && window.innerWidth || 1000}`}
+            width={`${typeof window !== 'undefined' && window.innerWidth || 1000}`}
             params={
               {
                 particles: {
