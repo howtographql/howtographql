@@ -18,6 +18,11 @@ export default function Instruction({ text, ...props }: InstructionProps) {
   if (filteredChildren.length === 1 && filteredChildren[0].type === 'P') {
     return (
       <div className="instruction-block">
+        <style jsx={true}>{`
+          .instruction-block {
+            @p: .mt16, .mb10;
+          }
+        `}</style>
         <DottedElement>{filteredChildren[0]}</DottedElement>
       </div>
     )
