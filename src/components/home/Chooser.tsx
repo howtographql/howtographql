@@ -85,7 +85,7 @@ class Chooser extends React.Component<Props, State> {
             @p: .fw6;
           }
           div h3.first-h3 {
-            @p: .mt60;
+            margin-top: 18px;
           }
           .steps-container :global(.steps-description) p {
             @p: .white30;
