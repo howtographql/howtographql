@@ -1,6 +1,9 @@
 ---
 title: Connectors
 description: Connect your GraphQL API to a MongoDB
+question: Where can a GraphQL server store data to and load data from?
+answers: ["Graph databases, like Neo4j, OrientDB, Arango etc", "GraphQL servers do not store or load data", "Any persistent storage, e.g. MongoDB", "Anywhere"]
+correctAnswer: 3
 ---
 
 As fun as it may be, your GraphQL API is unlikely to be of much use if it doesn't connect to other systems, be it databases, third-party APIs or alike.
@@ -14,138 +17,167 @@ Since resolvers are responsible for fetching the value of a single field, it is 
 
 ### Refactor the link type
 
-1. Take this opportunity to add the `id` field to the `Link` type as you'll need it for the features coming later.
+<Instruction>
 
-	```graphql
-	type Link {
-	    id: ID!
-	    url: String!
-	    description: String
-	}
-	```
-	
-2. Analogously, refactor the `Link` class to add the new field:
+Take this opportunity to add the `id` field to the `Link` type as you'll need it for the features coming later.
 
-	```java
-	public class Link {
-	    
-	    private final String id;
-	    private final String url;
-	    private final String description;
-	
-	    public Link(String url, String description) {
-	        this(null, url, description);
-	    }
-	
-	    public Link(String id, String url, String description) {
-	        this.id = id;
-	        this.url = url;
-	        this.description = description;
-	    }
-	
-	    public String getId() {
-	        return id;
-	    }
-	
-	    public String getUrl() {
-	        return url;
-	    }
-	
-	    public String getDescription() {
-	        return description;
-	    }
-	}
-	```
+```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
+type Link {
+    id: ID!
+    url: String!
+    description: String
+}
+```
+
+</Instruction>
+
+<Instruction>
+
+Analogously, refactor the `Link` class to add the new field:
+
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Link.java")
+public class Link {
+    
+    private final String id; //the new field
+    private final String url;
+    private final String description;
+
+    public Link(String url, String description) {
+        this(null, url, description);
+    }
+
+    public Link(String id, String url, String description) {
+        this.id = id;
+        this.url = url;
+        this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+```
+
+</Instruction>
 
 ### Connecting Mongo DB
 
 For this project, you'll use MongoDB as the persistent storage, but by following the exact same approach you can integrate any other third-party system as the underlying provider for your resolvers.
 
-First off, install MongoDB on your computer by following [the installation instructions](https://docs.mongodb.com/manual/administration/install-community/) for your platform, and start it up.
-Having that done, add the dependency to the MongoDB Java driver to `pom.xml`:
+1. First off, install MongoDB on your computer
 
+	<Instruction>
+	
+	Following [the installation instructions](https://docs.mongodb.com/manual/administration/install-community/) for your platform, and start it up.
+	
+	</Instruction>
 
-```xml
-<dependency>
-    <groupId>org.mongodb</groupId>
-    <artifactId>mongodb-driver</artifactId>
-    <version>3.4.2</version>
-</dependency>
-```
+2. Having that done, add MongoDB Java driver
 
+	<Instruction>
+	
+	Declare a dependency to MongoDB Java driver to `pom.xml`:
+	
+	```xml(path=".../hackernews-graphql-java/pom.xml")
+	<dependency>
+	    <groupId>org.mongodb</groupId>
+	    <artifactId>mongodb-driver</artifactId>
+	    <version>3.4.2</version>
+	</dependency>
+	```
+	
+	</Instruction>
 
-Thanks to the decision to extract the logic for saving and loading links into the `LinkRepository` class, introduction of MongoDB now has a very localized impact. Refactor `LinkRepository` so that it persists and loads links from MongoDB and not from an in-memory list.
+3. Thanks to the decision to extract the logic for saving and loading links into the `LinkRepository` class, introduction of MongoDB now has a very localized impact.
 
+	<Instruction>
+	
+	Refactor `LinkRepository` so that it persists and loads links from MongoDB and not from an in-memory list.
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
+	public class LinkRepository {
+	    
+	    private final MongoCollection<Document> links;
+	
+	    public LinkRepository(MongoCollection<Document> links) {
+	        this.links = links;
+	    }
+	
+	    public Link findById(String id) {
+	        Document doc = links.find(eq("_id", new ObjectId(id))).first();
+	        return link(doc);
+	    }
+	    
+	    public List<Link> getAllLinks() {
+	        List<Link> allLinks = new ArrayList<>();
+	        for (Document doc : links.find()) {
+	            allLinks.add(link(doc));
+	        }
+	        return allLinks;
+	    }
+	    
+	    public void saveLink(Link link) {
+	        Document doc = new Document();
+	        doc.append("url", link.getUrl());
+	        doc.append("description", link.getDescription());
+	        doc.append("postedBy", link.getUserId());
+	        links.insertOne(doc);
+	    }
+	    
+	    private Link link(Document doc) {
+	        return new Link(
+	                doc.get("_id").toString(),
+	                doc.getString("url"),
+	                doc.getString("description"),
+	                doc.getString("postedBy"));
+	    }
+	}
+	```
+	
+	</Instruction>
 
-```java
-public class LinkRepository {
-    
-    private final MongoCollection<Document> links;
+4. You'll also have to update `GraphQLEndpoint` to connect to MongoDB.
 
-    public LinkRepository(MongoCollection<Document> links) {
-        this.links = links;
-    }
-
-    public Link findById(String id) {
-        Document doc = links.find(eq("_id", new ObjectId(id))).first();
-        return link(doc);
-    }
-    
-    public List<Link> getAllLinks() {
-        List<Link> allLinks = new ArrayList<>();
-        for (Document doc : links.find()) {
-            allLinks.add(link(doc));
-        }
-        return allLinks;
-    }
-    
-    public void saveLink(Link link) {
-        Document doc = new Document();
-        doc.append("url", link.getUrl());
-        doc.append("description", link.getDescription());
-        doc.append("postedBy", link.getUserId());
-        links.insertOne(doc);
-    }
-    
-    private Link link(Document doc) {
-        return new Link(
-                doc.get("_id").toString(),
-                doc.getString("url"),
-                doc.getString("description"),
-                doc.getString("postedBy"));
-    }
-}
-```
-
-You'll also have to update `GraphQLEndpoint` to initialize the connection to MongoDB and provide it to `LinkRepository`.
-
-
-```java
-@WebServlet(urlPatterns = "/graphql")
-public class GraphQLEndpoint extends SimpleGraphQLServlet {
-
-    private static final LinkRepository linkRepository;
-
-    static {
-        //Change to `new MongoClient("mongodb://<host>:<port>/hackernews")`
-        //if you don't have Mongo running locally on port 27017
-        MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
-        linkRepository = new LinkRepository(mongo.getCollection("links"));
-    }
-    
-    public GraphQLEndpoint() {
-        super(buildSchema());
-    }
-
-    private static GraphQLSchema buildSchema() {
-        return SchemaParser.newParser()
-                .file("schema.graphqls")
-                .resolvers(new Query(linkRepository), new Mutation(linkRepository))
-                .build()
-                .makeExecutableSchema();
-    }
-}
-```
+	<Instruction>
+	
+	Get the `links` collection from MongoDB and provide it to `LinkRepository`.
+	
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
+	@WebServlet(urlPatterns = "/graphql")
+	public class GraphQLEndpoint extends SimpleGraphQLServlet {
+	
+	    private static final LinkRepository linkRepository;
+	
+	    static {
+	        //Change to `new MongoClient("mongodb://<host>:<port>/hackernews")`
+	        //if you don't have Mongo running locally on port 27017
+	        MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
+	        linkRepository = new LinkRepository(mongo.getCollection("links"));
+	    }
+	    
+	    public GraphQLEndpoint() {
+	        super(buildSchema());
+	    }
+	
+	    private static GraphQLSchema buildSchema() {
+	        return SchemaParser.newParser()
+	                .file("schema.graphqls")
+	                .resolvers(new Query(linkRepository), new Mutation(linkRepository))
+	                .build()
+	                .makeExecutableSchema();
+	    }
+	}
+	```
+	
+	</Instruction>
 
 That's all! Restart Jetty, fire up Graph*i*QL and give it a spin! Just make sure you create some links before querying them. Everything should still work the same except you won't lose the saved links if the power goes out.
 
@@ -163,7 +195,7 @@ query links {
 
 the resolver for the `description` field (invoked once for each link in the result)  would query that other database as many times are there were links. This a classic example of the N+1 problem. The solution for this is to batch multiple requests and resolve them in one go. In case of a SQL database, the desired resolver would look like:
 
-```sql
+```sql(nocopy)
 SELECT * FROM Descriptions WHERE link_id IN (1,2,3) // fetch descriptions for 3 links at once
 ```
 
