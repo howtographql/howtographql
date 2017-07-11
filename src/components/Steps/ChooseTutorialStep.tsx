@@ -4,9 +4,10 @@ import * as cn from 'classnames'
 
 interface Props {
   active: boolean
+  onClick?: () => void
 }
 
-export default function ChooseTutorialStep({ active }: Props) {
+export default function ChooseTutorialStep({ active, onClick }: Props) {
   return (
     <div className={cn('choose-tutorial-step', { active })}>
       {active && (
@@ -63,7 +64,7 @@ export default function ChooseTutorialStep({ active }: Props) {
           @p: .f14, .black30, .lhCopy, .mt25;
         }
       `}</style>
-      <Link to="/choose/">
+      <Link to="/choose/" onClick={onClick}>
         <h3>Practical Tutorial</h3>
         <span>Choosing the right tutorial</span>
         <p>

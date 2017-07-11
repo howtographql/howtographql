@@ -108,7 +108,7 @@ export default class Sidebar extends React.Component<Props, {}> {
               onClickLink={this.props.onClickLink}
             />
             {showChoose
-              ? <ChooseTutorialStep active={isChooseTutorial} />
+              ? <ChooseTutorialStep active={isChooseTutorial} onClick={this.props.onClickLink} />
               : <div>
                   {tutorialTitle &&
                     <TutorialTitleStep
