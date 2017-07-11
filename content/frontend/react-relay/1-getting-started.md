@@ -4,8 +4,8 @@ description: In this chapter, you'll setup your backend and frontend projects wi
 question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & User", "File & System", "Query & Mutation", "User & Group"]
 correctAnswer: 0
-videoId: YBUjOTOAIDg
-duration: 4
+videoId: I6I2Y-t7tGI
+duration: 14
 ---
 
 ### Backend
