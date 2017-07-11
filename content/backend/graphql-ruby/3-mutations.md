@@ -1,5 +1,6 @@
 ---
 title: Mutations
+description: Learn how to define GraphQL mutations to change data
 ---
 
 ### Mutation for Creating Links

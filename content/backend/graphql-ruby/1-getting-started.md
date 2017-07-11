@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+description: Learn how to setup a graphql-ruby project
 ---
 
 ### Defining the Scope

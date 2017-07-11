@@ -49,6 +49,21 @@ const authors: Author[] = [
     link: 'https://github.com/mairatma',
     name: 'Maira Bello',
   },
+    avatar: require('../assets/graphics/contributors/ben.jpg'),
+    bio:
+      "A full time Elixir developer at CargoSense, Ben is a co-author of the Absinthe GraphQL implementation for Elixir.",
+    job: 'Developer @ Cargosense',
+    link: 'https://twitter.com/benwilson512',
+    name: 'Ben Wilson',
+  },
+  {
+    avatar: require('../assets/graphics/contributors/bruce.jpg'),
+    bio:
+      "Bruce is a polyglot technologist, speaker, and Pragmatic Bookshelf author. He's the CTO of CargoSense, a logistics intelligence company built on Elixir and committed to its open source community.",
+    job: 'CTO @ Cargosense',
+    link: 'https://twitter.com/wbruce',
+    name: 'Bruce Williams',
+  },
 ]
 
 export default keyBy(authors, 'name')

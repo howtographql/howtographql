@@ -1,5 +1,6 @@
 ---
 title: Error Handling
+description: Get to know different kinds of errors and how they are typically handled with GraphQL
 ---
 
 ### Schema Validation errors
