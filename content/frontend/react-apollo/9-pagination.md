@@ -2,12 +2,12 @@
 title: Pagination
 ---
 
-The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that user's are able to view the links in smaller chunks rather than having an extremely list of `Link` elements.
+The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that user's are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
 
 
 ## Preparing the React Components
 
-Once more, you first need to prepare the React components for this new functionality. In fact, we'll slightly adjust the current routing setup. Here's the idea: The `LinkList` component will be used for two different use cases (and routes). The first one is to display the 10 top voted links. And its second use case is to display a _new_ links in a list where the user can paginate.
+Once more, you first need to prepare the React components for this new functionality. In fact, we'll slightly adjust the current routing setup. Here's the idea: The `LinkList` component will be used for two different use cases (and routes). The first one is to display the 10 top voted links. Its second use case is to display new links in a list separated into multiple pages that the user can navigate through.
 
 <Instruction>
 
@@ -317,3 +317,5 @@ import { GC_USER_ID, LINKS_PER_PAGE } from '../constants'
 ```
 
 </Instruction>
+
+You have now added a simple pagination sytstem to the app, allowing users to load links in small chunks instead of loading them all up front.
