@@ -127,8 +127,8 @@ export default class OptionalSteps extends React.Component<Props, State> {
           }
           .optional-enter.optional-enter-active {
             opacity: 1;
-            transition: opacity 500ms ease-in;
-            transition-delay: 200ms;
+            transition: opacity 400ms ease-in;
+            transition-delay: 100ms;
           }
           .optional-leave {
             opacity: 1;
