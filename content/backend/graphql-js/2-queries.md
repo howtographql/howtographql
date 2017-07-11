@@ -1,5 +1,9 @@
 ---
 title: Queries
+question: What's the quickest way to test GraphQL apis?
+answers: ["Building GraphQL requests with CURL", "Using playgrounds like GraphiQL", "Using Postman or similar app for sending HTTP requests", "Building a frontend client app that sends requests"]
+correctAnswer: 1
+description: Learn how to use resolvers by building the query for fetching all links, and then test it using GraphiQL
 ---
 
 ### Query field for returning links

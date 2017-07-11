@@ -1,6 +1,9 @@
 ---
 title: Summary
 description: Wrapping up the tutorial
+question: Did you find this tutorial useful?
+answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what I knew before!", "Fish!"]
+correctAnswer: 1
 ---
 
 GraphQL promises a clear and concise way to:

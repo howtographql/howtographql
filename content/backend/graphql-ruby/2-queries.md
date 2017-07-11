@@ -1,5 +1,6 @@
 ---
 title: Queries
+description: Learn how to define GraphQL schema, query resolvers and use GraphiQL to test your queries
 ---
 
 ### Setup Links

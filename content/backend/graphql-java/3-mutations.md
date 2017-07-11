@@ -1,31 +1,47 @@
 ---
 title: Mutations
 description: Add your first mutation to the GraphQL schema
+question: How are mutations different from queries?
+answers: ["Only semantically, the syntax is the same for both", "Mutation must be send via HTTP POST", "Mutations start with a different key-word", "Mutation is just another name for a query"]
+correctAnswer: 2
 ---
 
-Defining a mutation is similarly straight forward. Start off by describing a mutation for creating links in SDL:
+Defining a mutation is similarly straight forward.
 
-```graphql
+<Instruction>
+
+Start off by describing a mutation for creating links in SDL:
+
+```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
 type Mutation {
   createLink(url: String!, description: String!): Link
 }
 ```
+Add this definition with the rest in `schema.graphqls`. 
 
-Add this definition with the rest in `schema.graphqls`. Also, update the schema entry to contain the mutation root:
+</Instruction>
+
+<Instruction>
+
+Also, update the schema entry to contain the mutation root:
 
 
-```graphql
+```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
 schema {
     query: Query
     mutation: Mutation
 }
 ```
 
+</Instruction>
+
 ### Resolvers with arguments
+
+<Instruction>
 
 Next off, create the root mutation resolver class (similar to the `Query` class you already have):
 
-```java
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Mutation.java")
 public class Mutation implements GraphQLRootResolver {
     
     private final LinkRepository linkRepository;
@@ -42,11 +58,15 @@ public class Mutation implements GraphQLRootResolver {
 }
 ```
 
+</Instruction>
+
 Notice how the `createLink` method, that will act as the resolver function for the `createLink` mutation, takes arguments of the name and type analogous to those defined in the mutation itself.
+
+<Instruction>
 
 Finally, register this new resolver the same way you registered `Query` inside `GraphQLEndpoint#buildSchema`:
 
-```java
+```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
 private static GraphQLSchema buildSchema(LinkRepository linkRepository) {
     return SchemaParser.*newParser*()
         .file("schema.graphqls")
@@ -55,6 +75,8 @@ private static GraphQLSchema buildSchema(LinkRepository linkRepository) {
         .makeExecutableSchema();
 }
 ```
+
+</Instruction>
 
 ### Creating links
 

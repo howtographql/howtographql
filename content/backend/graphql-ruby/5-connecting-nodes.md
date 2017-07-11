@@ -1,5 +1,6 @@
 ---
 title: Connecting Nodes
+description: Add votes and connect your records
 ---
 
 ### Voting for links

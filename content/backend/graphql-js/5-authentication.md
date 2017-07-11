@@ -1,5 +1,9 @@
 ---
 title: Authentication
+question: What kind of authentication must a GraphQL server implement?
+answers: ["Username/password authentication", "Token authentication", "Any kind that uses the 'Authorization' header", "Any kind, there are no requirements regarding authentication"]
+correctAnswer: 3
+description: Learn how to implement authentication checks in a GraphQL server.
 ---
 
 ### Creating Users
@@ -10,7 +14,7 @@ You'll need some registered users for this, so start by the mutation for creatin
 
 <Instruction>
 
-1. As always, first update the schema to define the new type and mutation.
+**Step 1**: As always, first update the schema to define the new type and mutation.
 
 ```graphql(path=".../hackernews-graphql-js/src/schema/index.js")
 type Mutation {
@@ -40,7 +44,11 @@ input AUTH_PROVIDER_EMAIL {
 }
 ```
 
-2. Create a new MongoDB collection to store user entities.
+</Instruction>
+
+<Instruction>
+
+**Step 2**: Create a new MongoDB collection to store user entities.
 
 ```js{5-5}(path=".../hackernews-graphql-js/src/mongo-connector.js")
 module.exports = async () => {
@@ -52,7 +60,11 @@ module.exports = async () => {
 }
 ```
 
-3. Add a resolver for the mutation, using MongoDB to store the data.
+</Instruction>
+
+<Instruction>
+
+**Step 3**: Add a resolver for the mutation, using MongoDB to store the data.
 
 ```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 Mutation: {
@@ -71,7 +83,11 @@ Mutation: {
 },
 ```
 
-4. Restart the server and create a test user with your new mutation. You should see something like this:
+</Instruction>
+
+<Instruction>
+
+**Step 4**: Restart the server and create a test user with your new mutation. You should see something like this:
 
 ![](https://vtex.quip.com/-/blob/MYYAAAFJyue/Y6Nf9tR9l6u0RAuBsZViMg)
 
@@ -91,7 +107,7 @@ Again, the workflow for adding this mutation will be very similar to the ones we
 
 <Instruction>
 
-1. Update the schema with the new mutation's definition.
+**Step 1**: Update the schema with the new mutation's definition.
 
 ```graphql(path=".../hackernews-graphql-js/src/schema/index.js")
 type Mutation {
@@ -104,7 +120,11 @@ type SigninPayload {
 }
 ```
 
-2. Add a resolver that fetches the user by the given email, validates the password and returns a token. Also, remember to handle the `_id` field from MongoDB, like you did for `Link`.
+</Instruction>
+
+<Instruction>
+
+**Step 2**: Add a resolver that fetches the user by the given email, validates the password and returns a token. Also, remember to handle the `_id` field from MongoDB, like you did for `Link`.
 
 ```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 Mutation: {
@@ -124,7 +144,11 @@ Mutation: {
     },
 ```
 
-3. Restart the server and try the new `signinUser` mutation with one of your previously registered users:
+</Instruction>
+
+<Instruction>
+
+**Step 3**: Restart the server and try the new `signinUser` mutation with one of your previously registered users:
 
 ![](https://vtex.quip.com/-/blob/MYYAAAFJyue/fjE_a5Qoe7CoAtusz2Z4-Q)
 
@@ -188,11 +212,11 @@ It's pretty straightforward, since the generated token is so simple. Like was sa
 
 Your server can now detect the user that triggered each GraphQL request. This could be useful in many situations. For example, the authenticated user should be exactly the one that posted a link being created with the `createLink` mutation. You can now store this information for each link.
 
-<Instruction>
-
 To do that, you'll just need to:
 
-1.  Update the schema for `Link` to include the user that posted it.
+<Instruction>
+
+**Step 1**:  Update the schema for `Link` to include the user that posted it.
 
 ```graphql(path=".../hackernews-graphql-js/src/schema/index.js")
 type Link {
@@ -203,7 +227,11 @@ type Link {
 }
 ```
 
-2. Change the resolver for `createLink` to store the user id together with new links.
+</Instruction>
+
+<Instruction>
+
+**Step 2**: Change the resolver for `createLink` to store the user id together with new links.
 
 ```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 Mutation: {
@@ -215,7 +243,11 @@ Mutation: {
 },
 ```
 
-3. Add a resolver for the `postedBy` field inside `Link `to fetch and return the right user information given the `postedById` retrieved from MongoDB. You could instead do this fetching directly inside the `allLinks` query, looping through the array of items to handle each one, but this approach is a bit cleaner, besides automatically working for any other future queries you may have that also need to fetch link data. Another advantage of having a separate resolver is that it won't even get triggered unless the GraphQL request actually asked for the `postedBy` field, without you having to do any extra checks to avoid fetching useless data. This is what it should look like:
+</Instruction>
+
+<Instruction>
+
+**Step 3**: Add a resolver for the `postedBy` field inside `Link `to fetch and return the right user information given the `postedById` retrieved from MongoDB. You could instead do this fetching directly inside the `allLinks` query, looping through the array of items to handle each one, but this approach is a bit cleaner, besides automatically working for any other future queries you may have that also need to fetch link data. Another advantage of having a separate resolver is that it won't even get triggered unless the GraphQL request actually asked for the `postedBy` field, without you having to do any extra checks to avoid fetching useless data. This is what it should look like:
 
 ```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 Link: {
@@ -240,15 +272,23 @@ For that, follow these simple steps:
 
 <Instruction>
 
-1. First, choose a previously created user to act as the one logged in, or even create a new one just for this.
+**Step 1**: First, choose a previously created user to act as the one logged in, or even create a new one just for this.
 
 ![](https://vtex.quip.com/-/blob/MYYAAAFJyue/Do9U5D_V8IZflD2SNshTEg)
 
-2. Call the `signinUser` mutation to grab the token to be passed with the requests.
+</Instruction>
+
+<Instruction>
+
+**Step 2**: Call the `signinUser` mutation to grab the token to be passed with the requests.
 
 ![](https://vtex.quip.com/-/blob/MYYAAAFJyue/loXIKGkTyRfqgD9a9uKLWQ)
 
-3. Now for the actual code. All you have to do is to set a new option called `passHeader` for that `graphiqlExpress` call, with the proper `Authorization` header for that user.
+</Instruction>
+
+<Instruction>
+
+**Step 3**: Now for the actual code. All you have to do is to set a new option called `passHeader` for that `graphiqlExpress` call, with the proper `Authorization` header for that user.
 
 ```js{3-3}(path=".../hackernews-graphql-js/src/index.js")
 app.use('/graphiql', graphiqlExpress({
@@ -257,7 +297,11 @@ app.use('/graphiql', graphiqlExpress({
 }));
 ```
 
-4. Try restarting the server, refreshing GraphiQL and creating a new link now. You should see that `postedBy` will have your chosen user's information.
+</Instruction>
+
+<Instruction>
+
+**Step 4**: Try restarting the server, refreshing GraphiQL and creating a new link now. You should see that `postedBy` will have your chosen user's information.
 
 ![](https://vtex.quip.com/-/blob/MYYAAAFJyue/azVavXwJUMH9TZ0oImaLgA)
 
