@@ -1,5 +1,6 @@
 ---
 title: Mutations
+description: Learn to implement mutations, and get your first taste of arguments
 ---
 
 
@@ -55,7 +56,7 @@ mutation {
 }
 ```
 
-[Image: file:///-/blob/IERAAA2R4xK/6b0SQMfg1Wf5gNP6W0IyBQ]
+![](http://i.imgur.com/pHNRZlG.png)
 
 If you run your `allLinks` query again you'll now see we have a new link.
 
