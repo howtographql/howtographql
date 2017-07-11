@@ -1,10 +1,10 @@
 ---
 title: Getting Started
-description: In this chapter, you'll setup your backend and frontend projects.
+description: In this chapter, you'll setup your backend and frontend projects with Graphcool and create-react-app.
 videoId: JV0nLsdeMfo
 duration: 4
 videoAuthor: "Abhi Aiyer"
-question: Which are the two types that you find in all Graphcool project files?
+question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
 correctAnswer: 3
 draft: false

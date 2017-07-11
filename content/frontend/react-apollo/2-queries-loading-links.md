@@ -1,10 +1,11 @@
 ---
 title: "Queries: Loading Links"
+description: "In this chapter, you learn how you can use Apollo Client to load data from a GraphQL server."
 videoId: YW7F_scpE4w
 duration: 6
 videoAuthor: "Abhi Aiyer"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
+question: What's the idiomatic way for loading data with React & Apollo?
+answers: ["Using a higher-order component called 'graphql'", "Using the 'query' method on ApolloClient", "Using 'fetch' and putting the query in the body of the request", "Using XMLHTTPRequest and putting the query in the body of the request"]
 correctAnswer: 0
 ---
 
