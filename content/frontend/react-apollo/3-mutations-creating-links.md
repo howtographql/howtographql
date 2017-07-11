@@ -1,11 +1,12 @@
 ---
 title: "Mutations: Creating Links"
+description: In this chapter, you learn how you can create new links in the database by using GraphQL mutations.
 videoId: GFnUSoUfbhw
 duration: 4
 videoAuthor: "Abhi Aiyer"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
+question: Which of the following statements is true?
+answers: ["Only queries can can be wrapped with the 'graphql' higher-order component", "'gql' is a higher-order component from the react-apollo package", "When wrapping a component with a mutation using 'graphql', Apollo injects a function into the component's props", "GraphQL mutations never take any arguments"]
+correctAnswer: 2
 ---
 
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with a minor (but logical) difference in step 3:
