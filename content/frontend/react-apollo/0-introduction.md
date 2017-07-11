@@ -1,17 +1,18 @@
 ---
 title: Introduction
+description: "In this chapter, you learn why should should use a GraphQL client library."
 videoId: lQDrREfapow
-videoAuthor: "Abhi Aiyer"
-question: Can you choose the first answer to this question?
-answers: ["That sounds too easy", "I think this question is fake", "When are the real questions ready", "No"]
-correctAnswer: 0
 duration: 5
+videoAuthor: "Abhi Aiyer"
+question: What's a major benefit of using a GraphQL client library?
+answers: ["It makes it easy to use animations inside your app", "A GraphQL client is mainly used to improve security", "It saves you from writing infrastructure code for networking and caching", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
+correctAnswer: 2
 ---
 
 
 ### Overview
 
-In the previous chapter, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!
+In the previous tutorials, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!
 
 You're going to build a simple clone of [Hackernews](https://news.ycombinator.com/). Here's a list of the features the app will have:
 
@@ -35,7 +36,7 @@ You'll create the React project with [`create-react-app`](https://github.com/fac
 
 ### Why a GraphQL Client?
 
-In the [Clients]() section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get bit more concrete.
+In the [Clients](../../graphql/advanced/0-clients.md) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get bit more concrete.
 
 In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality that you'll want in any frontend application that's talking to a GraphQL server - why build it yourself if you can use one of the amazing GraphQL clients out there?
 
