@@ -34,3 +34,14 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 ## Contributions / Fixes
 
 As the whole project is open-source, you're more than welcome to fix typos and other small issues yourself and create a PR for the fix. If you want to contribute a whole tutorial track, please [get in touch](mailto:nikolas@graph.cool). 
+
+## Installation & Running locally
+
+You can run a local instance of How to GraphQL by executing the following commands in a terminal:
+
+```sh
+git clone git@github.com:howtographql/howtographql.git
+cd howtographql
+yarn install
+yarn start
+```
