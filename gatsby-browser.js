@@ -31,6 +31,10 @@ import createStore from './src/createStore'
 exports.replaceRouterComponent = ({ history }) => {
   const store = createStore()
 
+  if (typeof Raven !== 'undefined') {
+    Raven.config('https://044e7c90fd41456db127c4259db9c51e@sentry.io/190747').install()
+  }
+
   const ConnectedRouterWrapper = ({ children }) => (
     <Provider store={store}>
       <Router history={history}>{children}</Router>
