@@ -48,7 +48,7 @@ The subscription is now _active_, meaning that every time a mutation is performe
 
 Notice that in the payload, the `mutation` field represents the _kind_ of mutation that's happening, so that's either of three values: `CREATED`, `UPDATE` or `DELETED`.
 
-The `node` will hold the information about the `Link` that was created or modified. If the `DELETED` operation occurs, you'd have to inlude the `previousValues` in the payload to retrieve information about the deleted node. This could look as follows:
+The `node` will hold the information about the `Link` that was created or modified. If the `DELETED` operation occurs, you'd have to include the `previousValues` in the payload to retrieve information about the deleted node. This could look as follows:
 
 ```graphql(nocopy)
 subscription {
