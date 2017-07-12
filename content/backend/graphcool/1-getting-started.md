@@ -247,7 +247,7 @@ Note that each `create<Type>` mutation accepts all the _fields_ of the correspon
 
 Often times, you'll want the ability to update existing items in the database. For the `Link` type, a user might want to update the `description` after it was initially created. In the example, the mutation is called `updateLink`.
 
-This can be done using the `update<Type>` mutation. Like the `create<Type>` mutation, this mutation accepts values for all the fields of the type as arguments so you can update as many properties as you like in a single request. Note however that you also must pass the `id` of the object you want to update to the mutation - which is logicall since you need to tell server _which_ item you want to change.
+This can be done using the `update<Type>` mutation. Like the `create<Type>` mutation, this mutation accepts values for all the fields of the type as arguments so you can update as many properties as you like in a single request. Note however that you also must pass the `id` of the object you want to update to the mutation - which is logical since you need to tell server _which_ item you want to change.
 
 ##### Deleting items
 
