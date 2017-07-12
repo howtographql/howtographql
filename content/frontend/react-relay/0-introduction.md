@@ -25,7 +25,7 @@ In this track, you'll use the following technologies for building the app:
 
 - Frontend:
     - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
-    - [Relay](https://github.com/apollographql/apollo-client): Powerful GraphQL client developed by Facebook, heavily optimized for performance
+    - [Relay](https://facebook.github.io/relay/): Powerful GraphQL client developed by Facebook, heavily optimized for performance
 - Backend:
     - [Graphcool](https://www.graph.cool/): Flexible backend platform combining GraphQL + Serverless
 
