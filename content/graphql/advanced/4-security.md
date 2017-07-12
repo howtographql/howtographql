@@ -74,7 +74,7 @@ Take for example a server configured with a Maximum Query Depth of `3`, and the 
 query document. Everything within the red marker is considered too deep and the query
 is invalid.
 
-![](http://imgur.com/a/kUz9d)
+![Query Depth Example](http://imgur.com/a/kUz9d)
 
 Using `graphql-ruby` with the max query depth setting, we get the following result:
 
