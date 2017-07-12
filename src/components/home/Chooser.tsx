@@ -56,7 +56,7 @@ export default class Chooser extends React.Component<Props, State> {
       <div className={cn('steps-container', { light })}>
         <style jsx={true}>{`
           div.steps-container {
-            @p: .white, .bgDarkBlue;
+            @p: .white, .bgDarkBlue, .pb60;
           }
           .steps-content {
             @p: .flex;
@@ -85,7 +85,7 @@ export default class Chooser extends React.Component<Props, State> {
             @p: .fw6;
           }
           div h3.first-h3 {
-            margin-top: 18px;
+            margin-top: 60px;
           }
           .steps-container :global(.steps-description) p {
             @p: .white30;
