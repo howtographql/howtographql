@@ -6,7 +6,7 @@ answers: ["It sends errors together with the partial result", "It sends errors i
 correctAnswer: 0
 ---
 
-At this point, it is likely you've already seen an error showing up Graph*i*QL, so you probably have some intuition as to what happens when something goes wrong on the server. In the simplest case, if you just mistype a query you'll see an error popping up in the dedicated `errors` field in the response.
+At this point, it is likely you've already seen an error showing up GraphiQL, so you probably have some intuition as to what happens when something goes wrong on the server. In the simplest case, if you just mistype a query you'll see an error popping up in the dedicated `errors` field in the response.
 
 GraphQL puts an accent on consistency and predictability and, in that tone, the response from a GraphQL server always has a predictable structure, consisting the 3 fields:
 
@@ -18,7 +18,7 @@ Any GraphQL server will automatically handle syntactical and validation errors a
 
 At the highest level, `graphql-java-servlet` exposes a method (called `isClientError`) that decides whether an error's message is to be sent to the client verbatim or if it is to be obscured by a generic *server error* message. By default, only syntactical and validation errors will be sent as they are. This is a reasonable default, as exception messages and stack traces can potentially reveal a lot of information best kept hidden from public view. Yet, non-informative error messages (or even too numerous messages) can have severe negative impact on the API's usability.
 
-Check out the default behavior in Graph*i*QL by first asking for an non-existent `address` field of a link:
+Check out the default behavior in GraphiQL by first asking for an non-existent `address` field of a link:
 
 ![](http://i.imgur.com/ov6c4eQ.png)
 
@@ -74,7 +74,7 @@ protected List<GraphQLError> filterGraphQLErrors(List<GraphQLError> errors) {
 
 This way, in addition to the syntactical and validation errors, data-fetching errors will have precise messages sent to the client, but without the gritty details. All other error types will still be hidden behind a generic message.
 
-As always, verify your work in Graph*i*QL:
+As always, verify your work in GraphiQL:
 
 ![](http://i.imgur.com/aiH4DcK.png)
 

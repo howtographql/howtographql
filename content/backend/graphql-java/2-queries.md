@@ -157,13 +157,13 @@ If you now open http://localhost:8080/graphql?query={allLinks{url}} you'll see y
 
 It is now appropriate to feel good about yourself 😎
 
-### Testing with Graph*i*ql
+### Testing with GraphiQL
 
-[Graph*i*QL](https://github.com/graphql/graphiql) is an in-browser IDE allowing you to explore the schema, fire queries/mutations and see the results.
+[GraphiQL](https://github.com/graphql/graphiql) is an in-browser IDE allowing you to explore the schema, fire queries/mutations and see the results.
 
 <Instruction>
 
-To add Graph*i*QL, copy [the example `index.html` from Graph*i*QL's GitHub repo](https://github.com/graphql/graphiql/blob/master/example/index.html) and replace the paths to `graphiql.css` and `graphiql.js` from
+To add GraphiQL, copy [the example `index.html` from GraphiQL's GitHub repo](https://github.com/graphql/graphiql/blob/master/example/index.html) and replace the paths to `graphiql.css` and `graphiql.js` from
 
 ```html(nocopy)
 <link rel="stylesheet" href="./node_modules/graphiql/graphiql.css" />
@@ -187,5 +187,5 @@ If you type the same query from above into the left panel (notice the auto-compl
 
 ![](http://i.imgur.com/jMO6hB9.png)
 
-Keep using Graph*i*QL to test out queries and mutation as you follow the tutorial.
+Keep using GraphiQL to test out queries and mutation as you follow the tutorial.
 

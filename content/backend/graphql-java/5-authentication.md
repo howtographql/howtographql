@@ -220,7 +220,7 @@ And finally, you'll need to instantiate a `UserRepository` and update the schema
 
 </Instruction>
 
-With all this behind, all that's left is to test it out in Graph*i*QL:
+With all this behind, all that's left is to test it out in GraphiQL:
 
 ![](http://i.imgur.com/W3XsMKY.png)
 
@@ -323,7 +323,7 @@ return SchemaParser.newParser()
 
 </Instruction>
 
-Restart Jetty and enjoy the fruit of your labor in Graph*i*QL:
+Restart Jetty and enjoy the fruit of your labor in GraphiQL:
 
 ![](http://i.imgur.com/5m3uc2I.png)
 
@@ -334,7 +334,7 @@ The token in this example is just the user id. In reality, it should be a [JWT](
 Now that you have a way to sign the user in, it's time to deal with authenticating their future requests.
 A common way of doing this is expecting the client (usually the browser) to return the token received after a successful sign-in on every subsequent request in the `Authorization` header.
 
-Sadly, there's no good way to make Graph*i*QL send this header, so you'll just have to hard-code it for testing.
+Sadly, there's no good way to make GraphiQL send this header, so you'll just have to hard-code it for testing.
 
 ### Configuring GraphiQL for authentication
 
