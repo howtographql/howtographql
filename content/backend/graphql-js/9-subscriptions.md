@@ -48,7 +48,7 @@ After updating the schema, the next step is to implement the resolver, as in all
 
 <Instruction>
 
-To handle this subscription and publishing process you're going to use the `[graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions)` package, so install it now:
+To handle this subscription and publishing process you're going to use the [`graphql-subscriptions`](https://github.com/apollographql/graphql-subscriptions) package, so install it now:
 
 ```bash(path=".../hackernews-graphql-js")
 npm install --save graphql-subscriptions
