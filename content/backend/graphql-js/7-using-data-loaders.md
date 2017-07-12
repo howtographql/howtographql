@@ -59,7 +59,7 @@ Restart the server now and run a query to fetch links with the users that posted
 </Instruction>
 
 You should be able to see the logs in the terminal running your server. The screenshot below shows the logs for this query when the db has exactly 10 links, all posted by the same user:
-![](https://imgur.com/zvrTREp.png)
+![](https://i.imgur.com/zvrTREp.png)
 
 As you can see, this simple query triggered 12 requests to MongoDB! One of these was for fetching the links data, but all of the others were for the same exact user! That's not good at all, you should be able to reuse data that has already been fetched. That means extra logic for handling cache across different resolver calls...
 
