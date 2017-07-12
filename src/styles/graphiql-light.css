@@ -353,9 +353,9 @@
 
 .docs-graphiql .resultWrap .graphcool-execute-button svg {
     fill: rgba(224, 0, 130, 1) !important;
-    width: 30px;
-    height: 30px;
-    margin-top: 1px;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
 }
 
 .docs-graphiql .docs-button {
