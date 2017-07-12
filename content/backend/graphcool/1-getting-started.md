@@ -253,7 +253,7 @@ This can be done using the `update<Type>` mutation. Like the `create<Type>` muta
 
 Finally, you're of course also able to delete existing items from the database. This can be done using the `delete<Type>` mutation which only requires the `id` of the item that is to be deleted as an argument.
 
-For the Hackernew example schema, this mutation is called `deleteLink`.
+For the Hackernews example schema, this mutation is called `deleteLink`.
 
 
 
