@@ -13,7 +13,8 @@ export default function Header({ steps, location }: Props) {
     <div className="header">
       <style jsx={true}>{`
         .header {
-          @p: .flex, .bb, .bDarkBlue10, .bw2, .justifyBetween, .fixed, .left0, .right0, .top0, .z999, .bgWhite;
+          @p: .flex, .bb, .bDarkBlue10, .bw2, .justifyBetween, .fixed, .left0, .right0, .top0, .bgWhite;
+          z-index: 1000;
           transform: translate3d(0, 0, 0);
         }
         .header-logo {
