@@ -81,11 +81,21 @@ const OptionalDottedListItem = ({
           width: 20px;
           height: 20px;
         }
+        .optional-dotted-list-item.small:not(.done):hover::before {
+          border-color: $pink;
+          margin-top: -2px !important;
+          left: -13px;
+          width: 20px;
+          height: 20px;
+        }
         .optional-dotted-list-item :global(span) {
           transition: color .15s ease-in-out;
         }
         .optional-dotted-list-item:hover :global(span) {
           color: $pink !important;
+        }
+        .small .play {
+          margin-top: 5px;
         }
         .play {
           @p: .o0, .absolute, .z3;
