@@ -146,6 +146,8 @@ Next to requesting information from a server, the majority of applications also 
 
 Mutations follow the same syntactical structure as queries, but they always need to start with the `mutation` keyword. Here’s an example for how we might create a new `Person`:
 
+<Playground>
+
 ```graphql(nocopy)
 mutation {
   createPerson(name: "Bob", age: 36) {
@@ -154,6 +156,8 @@ mutation {
   }
 }
 ```
+
+</Playground>
 
 Notice that similar to the query we wrote before, the mutation also has a _root field_ - in this case it's called `createPerson`. We also already learned about the concepts of arguments for fields. In this case, the `createPerson` field takes two arguments that specify the new person's `name` and `age`.
 
@@ -180,6 +184,8 @@ type Person {
 
 Now, when a new `Person` is created, you could directly ask for the `id` in the payload of the mutation, since that is information that wasn’t available on the client beforehand:
 
+<Playground>
+
 ```graphql(nocopy)
 mutation {
   createPerson(name: "Alice", age: 36) {
@@ -187,6 +193,9 @@ mutation {
   }
 }
 ```
+
+</Playground>
+
 
 ### Realtime Updates with Subscriptions
 
@@ -196,6 +205,8 @@ When a client *subscribes* to an event, it will initiate and hold a steady conne
 
 Subscriptions are written using the same syntax as queries and mutations. Here’s an example where we subscribe on events happening on the `Person` type:
 
+<Playground>
+
 ```graphql(nocopy)
 subscription {
   newPerson {
@@ -204,6 +215,8 @@ subscription {
   }
 }
 ```
+
+</Playground>
 
 After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `Person`, the server sends the information about this person over to the client:
 
