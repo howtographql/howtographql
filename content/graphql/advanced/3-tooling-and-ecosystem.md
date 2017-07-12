@@ -4,7 +4,6 @@ description: Learn about what makes the GraphQL Ecosystem so great and what kind
 question: What mechanism is used by most tools to discover a GraphQL server's type system?
 answers: ["The IDL", "Introspection"]
 correctAnswer: 1
-draft: false
 ---
 
 As you probably realized already, the GraphQL ecosystem is growing at an amazing speed right now. One of the reasons that this is happening is because GraphQL makes it really easy for us to develop great tools. In this section, we will see why this is the case, and a few amazing tools we already have in the ecosystem.
