@@ -29,3 +29,8 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 - graphql-java / Java 
 - Sangria / Scala (Coming Soon)
 - Graphene / Python (Coming Soon)
+
+
+## Contributions / Fixes
+
+As the whole project is open-source, you're more than welcome to fix typos and other small issues yourself and create a PR for the fix. If you want to contribute a whole tutorial track, please [get in touch](mailto:nikolas@graph.cool). 
