@@ -107,6 +107,9 @@ export default class Chooser extends React.Component<Props, State> {
             );
             width: 2px;
           }
+          .steps-list-top :global(.dotted-list-item:not(.light).first) {
+            padding-top: 60px !important;
+          }
           @media (max-width: 500px) {
             div.fade-before-element {
               @p: .dn;

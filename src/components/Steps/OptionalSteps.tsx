@@ -164,21 +164,23 @@ export default class OptionalSteps extends React.Component<Props, State> {
             transitionAppear={true}
           >
             {visibleSteps.map(step =>
-              <OptionalDottedListItem
-                key={step.title}
-                small={this.props.small}
-                active={step.link === this.props.location.pathname}
-                path={step.link}
-              >
-                <div className="list-item">
-                  <Link to={step.link} onClick={onClickLink}>
-                    {step.title}
-                  </Link>
-                  {showDuration &&
-                    step.duration &&
-                    <Duration duration={step.duration} />}
-                </div>
-              </OptionalDottedListItem>
+              <Link to={step.link} onClick={onClickLink}>
+                <OptionalDottedListItem
+                  key={step.title}
+                  small={this.props.small}
+                  active={step.link === this.props.location.pathname}
+                  path={step.link}
+                >
+                  <div className="list-item">
+                    <span>
+                      {step.title}
+                    </span>
+                    {showDuration &&
+                      step.duration &&
+                      <Duration duration={step.duration} />}
+                  </div>
+                </OptionalDottedListItem>
+              </Link>
             )}
           </CSSTransitionGroup>
           {reallyCollapsed &&
