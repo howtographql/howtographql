@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Link from 'gatsby-link'
 import * as cn from 'classnames'
-import withWidth from './withWidth'
 import DottedListItem from '../Steps/DottedListItem'
 import LeftColumn from './LeftColumn'
 import data from '../../data/stacks'
@@ -20,6 +19,7 @@ interface Props {
   mds: { [key: string]: Step[] }
   light?: boolean
   location: any
+  history: any
 }
 
 interface State {
@@ -27,7 +27,7 @@ interface State {
   selectedCategoryIndex: number
 }
 
-class Chooser extends React.Component<Props, State> {
+export default class Chooser extends React.Component<Props, State> {
   state = {
     selectedCategoryIndex: 0,
     selectedIndex: 4,
@@ -323,6 +323,7 @@ class Chooser extends React.Component<Props, State> {
           selectedIndex={this.state.selectedIndex}
           onChangeSelectedIndex={this.selectStack}
           markdownFiles={mds}
+          onClickCurrentStack={this.handleClickCurrentStack}
         />
         <CSSTransitionGroup
           transitionName="chooser"
@@ -377,6 +378,24 @@ class Chooser extends React.Component<Props, State> {
     this.setState({ selectedIndex: index, selectedCategoryIndex })
   }
 
+  private handleClickCurrentStack = () => {
+    const { mds } = this.props
+    const { selectedIndex } = this.state
+
+    const tutorials = data.map(tutorial => {
+      return {
+        ...tutorial,
+        steps: mds[tutorial.key],
+      }
+    })
+    const selected = tutorials[selectedIndex]
+
+    if (!selected.comingSoon) {
+      const introChapter = selected.steps[0]
+      this.props.history.push(introChapter.link)
+    }
+  }
+
   private handleChangeSelectedCategoryIndex = index => {
     this.setState(state => {
       let selectedIndex = 0
@@ -390,5 +409,3 @@ class Chooser extends React.Component<Props, State> {
     })
   }
 }
-
-export default withWidth<Props>()(Chooser)
