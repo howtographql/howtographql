@@ -21,6 +21,7 @@ class Intro extends React.Component<Props, null> {
           <Particles
             style={ { maxWidth: '100%' } }
             width={`${typeof window !== 'undefined' && window.innerWidth || 1000}`}
+            height="466"
             params={
               {
                 particles: {
