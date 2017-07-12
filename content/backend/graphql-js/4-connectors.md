@@ -100,7 +100,7 @@ Let's go over the changes here, step by step:
 1. Import the function you've just created.
 2. Wrap the whole app setup code with an async function. That's just so you can use **[async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)** syntax, now that there's an asynchronous step. You could use [promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) syntax instead as well.
 3. Call the MongoDB connect function and wait for it to finish.
-4. Put the MongoDB collections into the `context` object. This is a special GraphQ object that gets passed to all resolvers, so it's the perfect place to share code (such as connectors like this) between them.
+4. Put the MongoDB collections into the `context` object. This is a special GraphQL object that gets passed to all resolvers, so it's the perfect place to share code (such as connectors like this) between them.
 5. Run the `start` function
 
 <Instruction>
