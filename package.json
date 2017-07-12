@@ -32,6 +32,7 @@
     "postcss-simple-vars": "^4.0.0",
     "prep-cloud": "^0.0.8",
     "prismjs": "^1.6.0",
+    "promise-polyfill": "^6.0.2",
     "react": "15.5.4",
     "react-confetti": "^1.1.5",
     "react-copy-to-clipboard": "^5.0.0",
