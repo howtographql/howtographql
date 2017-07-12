@@ -204,7 +204,7 @@ Now, we could define a `Person` type to be the _union_ of `Adult` and `Child`:
 union Person = Adult | Child
 ```
 
-This brings up a different problem: In a GraphQL query where we ask want to retrieve information about a `Child` but only have a `Person` type to work with, how do we know whether we can actually access this field?
+This brings up a different problem: In a GraphQL query where we ask to retrieve information about a `Child` but only have a `Person` type to work with, how do we know whether we can actually access this field?
 
 The answer to this is called _conditional fragments_:
 
