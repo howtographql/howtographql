@@ -98,7 +98,7 @@ This resolver contains all logic related to find links. Over time you can more r
 
 Use `LinksSearch` for finding links:
 
-```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
 Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
