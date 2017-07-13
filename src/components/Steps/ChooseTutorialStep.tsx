@@ -68,11 +68,11 @@ export default function ChooseTutorialStep({ active, onClick }: Props) {
         <h3>Practical Tutorial</h3>
         <span>Choosing the right tutorial</span>
         <p>
-          We got 10 Tutorials prepared,
+          We have 10 tutorials prepared
           covering all major frontend and
           backend technologies you can
-          use with GraphQL, such as
-          React, Relay, Apollo, NodeJS
+          use with GraphQL such as
+          React, Relay, Apollo, NodeJS,
           and many more.
         </p>
       </Link>
