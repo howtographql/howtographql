@@ -135,7 +135,7 @@ For this project, you'll use MongoDB as the persistent storage, but by following
 	        return new Link(
 	                doc.get("_id").toString(),
 	                doc.getString("url"),
-	                doc.getString("description"),
+	                doc.getString("description"));
 	    }
 	}
 	```
