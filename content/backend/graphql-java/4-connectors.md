@@ -177,7 +177,7 @@ For this project, you'll use MongoDB as the persistent storage, but by following
 	
 	</Instruction>
 
-That's all! Restart Jetty, fire up Graph*i*QL and give it a spin! Just make sure you create some links before querying them. Everything should still work the same except you won't lose the saved links if the power goes out.
+That's all! Restart Jetty, fire up GraphiQL and give it a spin! Just make sure you create some links before querying them. Everything should still work the same except you won't lose the saved links if the power goes out.
 
 ### Performance
 

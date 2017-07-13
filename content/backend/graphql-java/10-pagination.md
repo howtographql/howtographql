@@ -59,7 +59,7 @@ public List<Link> allLinks(LinkFilter filter, Number skip, Number first) {
 
 Note that the parameter type for both *must* be `Number` because `graphql-java-tools` will sometimes try to stuff an `Integer` and sometimes a `BigInteger` into it, depending on the context.
 
-Wasn't that easy? Jump back to Graph*i*QL and paginate away!
+Wasn't that easy? Jump back to GraphiQL and paginate away!
 
 ![](http://i.imgur.com/ln7Ltgv.png)
 ![](http://i.imgur.com/Vm4TZQd.png)

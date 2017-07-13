@@ -121,6 +121,6 @@ Remember that this exact approach is just an example. You might as well implemen
 	
 	</Instruction>
 
-Cool! Check it out in Graph*i*QL!
+Cool! Check it out in GraphiQL!
 
 ![](http://i.imgur.com/tL8owju.png)

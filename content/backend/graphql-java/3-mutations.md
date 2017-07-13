@@ -80,7 +80,7 @@ private static GraphQLSchema buildSchema(LinkRepository linkRepository) {
 
 ### Creating links
 
-Restart Jetty and test out your spiffy new mutation using Graph*i*QL:
+Restart Jetty and test out your spiffy new mutation using GraphiQL:
 
 ![](http://i.imgur.com/6l8HrQq.png)
 
