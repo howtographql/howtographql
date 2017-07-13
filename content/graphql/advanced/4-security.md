@@ -167,7 +167,7 @@ since they are defined by the clients. So what can we use to throttle clients?
 A good estimate of how expensive a query is is the server time it needs to complete. We can use this heuristic to throttle queries. With a good knowledge of your system, you can come up
 with a maximum server time a client can use over a certain time frame.
 
-We also decide on how how much server time is added to a client over time. This is a classic ![leaky bucket
+We also decide on how how much server time is added to a client over time. This is a classic [leaky bucket
 algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Note that there are other throttling algorithms
 out there, but they are out of scope for this chapter. We will use a leaky bucket throttle in the next examples.
 
