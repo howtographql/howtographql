@@ -76,7 +76,7 @@ You'll configure the different routes for the app in the project's root componen
 
 Open the corresponding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
 
-```js(path=".../hackernews-react-apollo/src/components/App.js")
+```js(path=".../hackernews-react-relay/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
@@ -101,7 +101,7 @@ For this code to work, you need to import the required dependencies of `react-ro
 
 Add the following statement to the top of the file:
 
-```js(path=".../hackernews-react-apollo/src/components/App.js")
+```js(path=".../hackernews-react-relay/src/components/App.js")
 import Header from './Header'
 import { Switch, Route } from 'react-router-dom'
 ```
@@ -114,7 +114,7 @@ Now you need to wrap the `App` with with `BrowserRouter` so that all child compo
 
 Open `index.js` and add the following import statement to the top:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js(path=".../hackernews-react-relay/src/index.js")
 import { BrowserRouter } from 'react-router-dom'
 ```
 
@@ -147,7 +147,7 @@ To wrap up this section, you need to implement an automatic redirect from the `C
 
 Open `CreateLink.js` and update `_createLink` to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js(path=".../hackernews-react-relay/src/components/CreateLink.js")
 _createLink = () => {
   const { description, url } = this.state
   CreateLinkMutation(description, url, () => this.props.history.push('/'))
