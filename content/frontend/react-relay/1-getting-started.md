@@ -527,7 +527,7 @@ Copy the endpoint from the terminal output and paste it into `src/Environment.js
 
 Before you can start using Relay, you'll need to download the _full_ GraphQL schema into your project and make it available to the Relay Compiler.
 
-> Note: There is a difference between the GraphQL schema that you saw above and a _full_ GraphQL schema. The full schema is required for every GraphQL sever since it defines all capabilities of the API by spealling out [the `Query` and `Mutation` types](http://graphql.org/learn/schema/#the-query-and-mutation-types). However, when using Graphcool, you only define a subset of this schema, namely the types of your _data model_. The rest of the schema that represents the actual API will then be generated for you. 
+> Note: There is a difference between the GraphQL schema that you saw above and a _full_ GraphQL schema. The full schema is required for every GraphQL server since it defines all capabilities of the API by spelling out [the `Query` and `Mutation` types](http://graphql.org/learn/schema/#the-query-and-mutation-types). However, when using Graphcool, you only define a subset of this schema, namely the types of your _data model_. The rest of the schema that represents the actual API will then be generated for you. 
 
 You'll download the schema using a tool called [`get-graphql-schema`](https://github.com/graphcool/get-graphql-schema).
 
