@@ -71,7 +71,7 @@ Mutation: {
     // Add this block right after the `createLink` mutation resolver.
     createUser: async (root, data, {mongo: {Users}}) => {
     // You need to convert the given arguments into the format for the
-    // `User` type, grabbing email and password from the "authProivder".
+    // `User` type, grabbing email and password from the "authProvider".
     const newUser = {
         name: data.name,
         email: data.authProvider.email.email,

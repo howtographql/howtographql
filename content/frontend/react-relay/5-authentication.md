@@ -332,7 +332,7 @@ You're again defining a `mutation` by using the `graphql` function. The template
 
 The first mutation is used to _create_ a new `User`. It takes the `SignupUserInput` as an argument, which is essentially a wrapper object for the user's `name`, `email` and `password`.
 
-The second mutation is used to _log in_ the user and will return a `token` that you can attach to all subsequent requests and thus authentciate the user against the API.
+The second mutation is used to _log in_ the user and will return a `token` that you can attach to all subsequent requests and thus authenticate the user against the API.
 
 When these two mutations are sent to the server, it will execute them _synchronously_ from _top to bottom_. This means that the server will first _create_ the user and then directly _log them in_ so that you don't have to send an additional request to obtain the user's authentication token. Neat!
 

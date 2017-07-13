@@ -4,12 +4,12 @@ description: "In this chapter, you'll setup the navigation for your app"
 videoId: W-MJHNOdUOI
 duration: 4
 videoAuthor: "Abhi Aiyer"
-question: What's the role of the Link component thay you added in this chapter?
-answers: ["It renders a link that was posted by a user", "It renders the input form for users to create new links", "It lets you nagivate to a different URL", "It links your root component with all its children"]
+question: What's the role of the Link component that you added in this chapter?
+answers: ["It renders a link that was posted by a user", "It renders the input form for users to create new links", "It lets you navigate to a different URL", "It links your root component with all its children"]
 correctAnswer: 2
 ---
 
-In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some nagivation functionality!
+In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
 
 ### Install Dependencies
@@ -72,7 +72,7 @@ You'll configure the different routes for the app in the project's root componen
 
 <Instruction>
 
-Open the correspdonding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
+Open the corresponding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {

@@ -1,6 +1,6 @@
 ---
 title: Realtime Updates with Subscriptions
-description: In this chapter, you learn how you can implemented realtim funcionality using GraphQL subscriptions with Relay.
+description: In this chapter, you learn how you can implemented realtime functionality using GraphQL subscriptions with Relay.
 ---
 
 The subscriptions chapter for this tutorial is coming soon! 

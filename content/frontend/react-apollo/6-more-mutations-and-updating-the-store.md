@@ -40,7 +40,7 @@ render() {
 </Instruction>
 
 
-You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what your're using the `userId` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
+You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what you're using the `userId` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
 
 Notice that you're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user friendly, e.g. `"3 hours ago"`.
 
@@ -117,7 +117,7 @@ Finally, each `Link` element will also render its position inside the list, so y
 
 <Instruction>
 
-Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also incude the link's position:
+Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also include the link's position:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 {linksToRender.map((link, index) => (
@@ -195,7 +195,7 @@ $ gc push
 Your project file project.graphcool was updated. Reload it in your editor if needed.
 ```
 
-Awesome! Now that you updated the schema, you can fix the issue that currently prevents you from propery running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
+Awesome! Now that you updated the schema, you can fix the issue that currently prevents you from properly running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
 
 <Instruction>
 

@@ -325,4 +325,4 @@ import { GC_USER_ID, LINKS_PER_PAGE } from '../constants'
 
 </Instruction>
 
-You have now added a simple pagination sytstem to the app, allowing users to load links in small chunks instead of loading them all up front.
+You have now added a simple pagination system to the app, allowing users to load links in small chunks instead of loading them all up front.

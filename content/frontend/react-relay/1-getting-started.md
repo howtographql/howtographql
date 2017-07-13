@@ -174,7 +174,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 ![](http://imgur.com/ZBgeq22.png)
 
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already opem Playground:
+This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
 ```graphql
 {
@@ -496,7 +496,7 @@ Let's quickly discuss the commented sections to understand better what's going o
 1. You first import the required JS modules that you need to instantiate and configure the `Environment`.
 2. Here you instantiate the required `Store` that will store the cached data.
 3. Now you create a `Network` that knows your GraphQL server from before, it's instantiated with a function that returns a `Promise` of a networking call to the GraphQL API - here that's done using `fetch`.
-4. The `Network` needs to know the server endpoint for your API. In the next step, you'll replace the placeholer `__RELAY_API_ENDPOINT__` with your actual endpoint.
+4. The `Network` needs to know the server endpoint for your API. In the next step, you'll replace the placeholder `__RELAY_API_ENDPOINT__` with your actual endpoint.
 5. With the `store` and `network` available you can instantiate the actual `Environment`.
 6. Lastly you need to export the `environment` from this module.
 
@@ -561,7 +561,7 @@ Notice that the `>` in the this command means that the output of `get-graphql-sc
 ├── config
 ├── node_modules
 ├── project.graphcool
-├── schema.grapghql
+├── schema.graphql
 ├── package.json
 ├── public
 ├── src

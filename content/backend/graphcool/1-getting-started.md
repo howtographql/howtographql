@@ -243,7 +243,7 @@ For creating new items on the server, there will be a `create<Type>` mutation ge
 
 Note that each `create<Type>` mutation accepts all the _fields_ of the corresponding type as arguments so you can directly initialize all its properties when it's created. For types that have relations, you can further use [nested mutations](https://www.graph.cool/docs/tutorials/advanced-features-eath7duf7d/#nested-mutations) and create multiple related nodes at once.
 
-##### Upating items
+##### Updating items
 
 Often times, you'll want the ability to update existing items in the database. For the `Link` type, a user might want to update the `description` after it was initially created. In the example, the mutation is called `updateLink`.
 

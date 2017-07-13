@@ -558,7 +558,7 @@ import { GC_USER_ID } from '../constants'
 
 Perfect! Before sending the mutation, you're now also retrieving the corresponding user id from `localStorage`. If that succeeds, you'll pass it to the call to `createLinkMutation` so that every new `Link` will from now on store information about the `User` who created it.
 
-If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're crreating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
+If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're creating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
 
 ### Configuring Apollo with the Auth Token
 
@@ -568,7 +568,7 @@ Since all the API request are actually created and sent by the `ApolloClient` in
 
 <Instruction>
 
-Open `index.js` and put the following code _between_ the creation of the `networkInterface` and the instantation of the `ApolloClient`:
+Open `index.js` and put the following code _between_ the creation of the `networkInterface` and the instantiation of the `ApolloClient`:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 networkInterface.use([{
