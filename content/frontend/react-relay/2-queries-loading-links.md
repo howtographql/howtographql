@@ -124,7 +124,7 @@ But before you go and make the required changes, a bit of theory!
 
 One of the most powerful concepts of Relay is called _colocation_. This means that a React component declares its data dependencies right next to (i.e. in the same file) where it's defined. This happens in the form of [GraphQL fragments](http://graphql.org/learn/queries/#fragments).
 
-This effectively means that you'll never write any actual GraphQL queries yourself. This is unlike the approach that's taken in Apollo, where you're also able to coloate data dependencies and React components - but are most commonly doing so by writing actual _queries_ instead of _fragments_.
+This effectively means that you'll never write any actual GraphQL queries yourself. This is unlike the approach that's taken in Apollo, where you're also able to colocate data dependencies and React components - but are most commonly doing so by writing actual _queries_ instead of _fragments_.
 
 But if you're never writing any queries in Relay, how can the GraphQL server respond with sensible data?
 
