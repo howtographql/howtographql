@@ -202,8 +202,8 @@ export default function Team() {
                 avatar={require('../../assets/graphics/contributors/marcandre.jpg')}
                 name="Marc-André Giroux"
                 description="Tooling and Ecosystem, Security"
-                x={0}
-                y={40}
+                x={20}
+                y={50}
                 diameter={120}
               />
             </div>
