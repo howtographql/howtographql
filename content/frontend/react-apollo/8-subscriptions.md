@@ -1,6 +1,6 @@
 ---
 title: Realtime Updates with GraphQL Subscriptions
-description: In this chapter, you learn how you can implemented realtim funcionality using GraphQL subscriptions with Apollo.
+description: In this chapter, you learn how you can implemented realtime functionality using GraphQL subscriptions with Apollo.
 videoId: R-VLZ--sTzI
 duration: 6
 videoAuthor: "Abhi Ayer"
@@ -199,9 +199,9 @@ componentDidMount() {
 
 > **Note**: `componentDidMount` is a so-called [_lifecycle_ method](https://facebook.github.io/react/docs/react-component.html#the-component-lifecycle) of React components that will be called once right after the component was initialized.
 
-Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application runnning on `http://localhost:3000/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
+Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application running on `http://localhost:3000/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
 
-### Susbcribing to new Votes
+### Subscribing to new Votes
 
 Next you'll subscribe to new votes that are emitted by other users as well so that the latest vote count is always visible in the app.
 

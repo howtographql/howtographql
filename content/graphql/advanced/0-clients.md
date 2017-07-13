@@ -53,5 +53,5 @@ When the build environment has access to the schema, it can essentially parse al
 
 A powerful concept of GraphQL is that allows to have UI code and data requirements side-by-side. The tight coupling of views and their data dependencies greatly improves developer experience since all mental overhead of thinking about how the right data ends up in the right parts of the UI is eliminated.
 
-How well colocation works depends on the platform you're developing on. For example in Javscript applications, it's possible to actually put data dependencies and UI code into the same file. In Xcode, the _Assistant Editor_ can be used to work on view controllers and graphql code at the same time. 
+How well colocation works depends on the platform you're developing on. For example in Javascript applications, it's possible to actually put data dependencies and UI code into the same file. In Xcode, the _Assistant Editor_ can be used to work on view controllers and graphql code at the same time. 
 

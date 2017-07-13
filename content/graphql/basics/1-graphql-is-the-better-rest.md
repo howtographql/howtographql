@@ -3,7 +3,7 @@ title: "GraphQL is the better REST"
 question: What is a benefit of the GraphQL schema and strong type system?
 answers: ["They work well with the Javascript type system", "Once the schema is defined, frontend and backend teams can work independently from another", "It solves the n+1 request problem", "Trick question: GraphQL doesn't have a type system"]
 correctAnswer: 1
-description: "Learn why GraphQL is a more efficient and fleible alternative to REST APIs"
+description: "Learn why GraphQL is a more efficient and flexible alternative to REST APIs"
 videoId: T571423fC68
 duration: 12
 ---
@@ -28,7 +28,7 @@ In GraphQL on the other hand, you'd simply send a single query to the GraphQL se
 
 ### No more Over- and Underfetching
 
-One of the most common problems with REST is that of over- and underfetching. This happens because the only way for a client to downlad data is by hitting endpoints that return _fixed_ data structures. It's very difficult to design the API in a way that it's able to provide clients with their exact data needs.
+One of the most common problems with REST is that of over- and underfetching. This happens because the only way for a client to download data is by hitting endpoints that return _fixed_ data structures. It's very difficult to design the API in a way that it's able to provide clients with their exact data needs.
 
 > "Think in graphs, not endpoints." [Lessons From 4 Years of GraphQL](http://www.graphql.com/articles/4-years-of-graphql-lee-byron) by [Lee Byron](https://twitter.com/leeb), GraphQL Co-Inventor.
 

@@ -159,7 +159,7 @@ Our approach follows the [Pygments-based][2] implementation of the
   PrismJS-formatted `<pre><code>`-blocks.`.
 * Highlighted lines are wrapped in `<span class="gatsby-highlight-code-line">`.
 * We insert a linebreak before the closing tag of `.gatsby-highlight-code-line`
-  so it ends up at the start of the follwing line.
+  so it ends up at the start of the following line.
 
 With all of this in place, we can apply `float:left; min-width:100%` to `<pre>`,
 throw our overflow and background on `.gatsby-highlight`, and use

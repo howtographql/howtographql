@@ -12,7 +12,7 @@ Once there is a finalized version in quip, you can _export_ your document to Mar
 
 Your tutorial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
 
-[Here](https://github.com/howtographql/howtographql/tree/master/content/frontend/react-apollo) is what the example structure for the React+Apollo tuturial looks like: 
+[Here](https://github.com/howtographql/howtographql/tree/master/content/frontend/react-apollo) is what the example structure for the React+Apollo tutorial looks like: 
 
 ![](http://imgur.com/nGsYY1E.png)
 
@@ -167,7 +167,7 @@ const client = new ApolloClient({
 
 ### Include every step
 
-HTG contains detailled step-by-step tutorials where readers start from scratch and work towards the expected outcome. It's important the every single instruction is listed for the reader. You should aim to separate paragraphs with explanatory or illustrative content from those that actually contain instructions since instructions will be visually highlighted.
+HTG contains detailed step-by-step tutorials where readers start from scratch and work towards the expected outcome. It's important the every single instruction is listed for the reader. You should aim to separate paragraphs with explanatory or illustrative content from those that actually contain instructions since instructions will be visually highlighted.
 
 ### Use You/Your/You'll & Command the reader
 

@@ -71,7 +71,7 @@ You're now in a situation again where your local Project File and the remote sch
 
 This can also happen when you're working with multiple developers on the same project and one developer changes the remote schema.
 
-In these situtations, you need to update your local Project File with the changes that have been performed remotely. This can be done using the `graphcool pull` command.
+In these situations, you need to update your local Project File with the changes that have been performed remotely. This can be done using the `graphcool pull` command.
 
 <Instruction>
 
@@ -114,7 +114,7 @@ type User implements Node {
 
 The [Grapghcool permission system](https://www.graph.cool/blog/2017-04-25-graphql-permission-queries-oolooch8oh/) follows a _whitelist_ approach. This means that all operations that can be performed on a type need to be _explicitly allowed_ (i.e. _whitelisted_).
 
-There are four differnet kinds of operations per type:
+There are four different kinds of operations per type:
 
 - _reading_ items of that type
 - _creating_ items of that type
@@ -266,7 +266,7 @@ query ($user_id: ID!, $node_id: ID!) {
 
 All right, what's going on here?
 
-You just wrote your first [permission query](https://www.graph.cool/docs/reference/auth/permission-queries-iox3aqu0ee/). Permission querys are a mechanism that allow to describe data access rules by means of a GraphQL query.
+You just wrote your first [permission query](https://www.graph.cool/docs/reference/auth/permission-queries-iox3aqu0ee/). Permission queries are a mechanism that allow to describe data access rules by means of a GraphQL query.
 
 A permission query always returns `true` or `false`. It's executed right before the actual operation is performed on the database. But where do the `$user_id` and `$node_id` arguments come from?
 

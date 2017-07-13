@@ -67,7 +67,7 @@ class Resolvers::LinksSearch
 
   # apply_filter recursively loops through "OR" branches
   def apply_filter(scope, value)
-    # normilze filters from nested OR structure, to flat scope list
+    # normalize filters from nested OR structure, to flat scope list
     branches = normalize_filters(value).reduce { |a, b| a.or(b) }
     scope.merge branches
   end

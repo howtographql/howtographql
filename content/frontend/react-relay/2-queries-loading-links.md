@@ -220,7 +220,7 @@ export default createFragmentContainer(LinkList, graphql`
 
 Similar to the `Link` component, you're passing the `LinkList` component along with its data requirements into `createFragmentContainer`. The `LinkList` needs access to a list of links - here you're simply asking for the last 100 links to display. In the last chapter of this tutorial, you'll implement a proper [pagination](https://facebook.github.io/relay/docs/pagination-container.html) approach.
 
-> Note: In Relay, _lists_ are represented with the concept of [_connections_](https://facebook.github.io/relay/docs/graphql-connections.html). This facilicates the implementation of a [cursor-based pagination](https://facebook.github.io/relay/graphql/connections.htm) approach on the client. Relay also requires you to always specify a _limit_ of items that you want to fetch from the server, so you have to pass the `first` or `last` argument when fetching items from a connection.
+> Note: In Relay, _lists_ are represented with the concept of [_connections_](https://facebook.github.io/relay/docs/graphql-connections.html). This facilitates the implementation of a [cursor-based pagination](https://facebook.github.io/relay/graphql/connections.htm) approach on the client. Relay also requires you to always specify a _limit_ of items that you want to fetch from the server, so you have to pass the `first` or `last` argument when fetching items from a connection.
 
 Notice that you're again following the same naming convention and name the fragment `LinkList_viewer `. `LinkList.js` is the name of the file and `viewer` is the prop that you expect in the component.
 
@@ -336,7 +336,7 @@ export default LinkListPage
 
 As discussed before, you're using the `QueryRenderer` and provide the three required props. The `render` function receives the result that's returned by the server and passes it down to its children.
 
-Lastly, you need to make sure that the `LinkListPage` is rendered on the root of your component hierachy.
+Lastly, you need to make sure that the `LinkListPage` is rendered on the root of your component hierarchy.
  
 <Instruction>
 
