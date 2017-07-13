@@ -14,7 +14,7 @@ In this section, you'll learn how to use the [`react-router`](https://github.com
 
 An interesting note about Relay is that it actually started out as a routing framework that eventually also got connected with data loading responsibilities. This was particularly visible in the design of Relay Classic, where [`Relay.Route`](https://facebook.github.io/relay/docs/api-reference-relay-route.html) was a core component. However with Relay Modern, the idea is to move away from having routing as an integral part of Relay and make it more flexible to work with different routing solutions.
 
-Since we're in the early days of Relay Modern, there's not really much advise or conventions to build upon. The Facebook team delivers a [few suggestions](https://facebook.github.io/relay/docs/api-reference-relay-route.html) how this can be handled. But it will certainly take some time until best practices and appropriate tools around this topic evolve!
+Since we're in the early days of Relay Modern, there's not really much advise or conventions to build upon. The Facebook team delivers a [few suggestions](https://facebook.github.io/relay/docs/routing.html) how this can be handled. But it will certainly take some time until best practices and appropriate tools around this topic evolve!
 
 So, to keep it simple in this tutorial, we'll use [`react-router`](https://github.com/ReactTraining/react-router) which is a popular routing solution in the React ecosystem. 
 
