@@ -50,7 +50,7 @@ Note that we just created a *one-to-many*-relationship between `Person` and `Pos
 
 When working with REST APIs, data is loaded from specific endpoints. Each endpoint has a clearly defined structure of the information that it returns. This means that the data requirements of a client are effectively _encoded_ in the URL that it connects to.
 
-The approach that’s taken in GraphQL is radically different. Instead of having multiple endpoints that return fixed data structures, GraphQL APIs typically only expose *a single endpoint*. This works because the structure of the data that’s returned is not fixed. Instead, it’s completely flexible and lets the client decide what data is actually needed. 
+The approach that’s taken in GraphQL is radically different. Instead of having multiple endpoints that return fixed data structures, GraphQL APIs typically only expose *a single endpoint*. This works because the structure of the data that’s returned is not fixed. Instead, it’s completely flexible and lets the client decide what data is actually needed.
 
 That means that the client needs to send more *information* to the server to express its data needs - this information is called a *query*.
 
@@ -106,8 +106,28 @@ One of the major advantages of GraphQL is that it allows for naturally querying 
 <Playground>
 
 ```graphql
-{
-  allPersons {
+
+  // THIS DOES NOT WORK IN Playground
+  // allPersons is just not an object.
+
+    "data": null,
+    "errors": [
+      {
+        "message": "Cannot query field 'newPerson' on type 'Subscription'. Did you mean 'Person'? (line 2, column 3):\n  newPerson {\n  ^",
+
+          "locations": [
+            {
+              "line": 2,
+              "column": 3
+            }
+          ]
+        }
+      }
+    ]
+  
+
+{  
+  allPersons  {
     name
     age
     posts {
@@ -161,7 +181,7 @@ mutation {
 
 Notice that similar to the query we wrote before, the mutation also has a _root field_ - in this case it's called `createPerson`. We also already learned about the concepts of arguments for fields. In this case, the `createPerson` field takes two arguments that specify the new person's `name` and `age`.
 
-Like with a query, we're also able to specify a payload for a mutation in which we can ask for different properties of the new `Person` object. In our case, we’re asking for the `name` and the `age` - though admittedly that’s not super helpful in our example since we obviously already know them as we pass them into the mutation. However, being able to also query information when sending mutations can be a very powerful tool that allows to retrieve new information from the server in a single roundtrip! 
+Like with a query, we're also able to specify a payload for a mutation in which we can ask for different properties of the new `Person` object. In our case, we’re asking for the `name` and the `age` - though admittedly that’s not super helpful in our example since we obviously already know them as we pass them into the mutation. However, being able to also query information when sending mutations can be a very powerful tool that allows to retrieve new information from the server in a single roundtrip!
 
 The server response for the above mutation would look as follows:
 
@@ -199,7 +219,7 @@ mutation {
 
 ### Realtime Updates with Subscriptions
 
-Another important requirement for many applications today is to have a *realtime* connection to the server in order to get immediately informed about important events. For this use case, GraphQL offers the concept of *subscriptions*. 
+Another important requirement for many applications today is to have a *realtime* connection to the server in order to get immediately informed about important events. For this use case, GraphQL offers the concept of *subscriptions*.
 
 When a client *subscribes* to an event, it will initiate and hold a steady connection to the server. Whenever that particular event then actually happens, the server pushes the corresponding data to the client. Unlike queries and mutations that follow a typical “*request-response*-cycle”, subscriptions represent a *stream* of data sent over to the client.
 
