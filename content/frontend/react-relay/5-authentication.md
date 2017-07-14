@@ -120,7 +120,7 @@ With that component in place, you can go and add a new route to your `react-rout
 
 Open `App.js` and update `render` to include the new route:
 
-```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7}(path=".../hackernews-react-relay/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
@@ -144,7 +144,7 @@ render() {
 
 Also import the `Login` component on top of the same file: 
 
-```js(path=".../hackernews-react-apollo/src/components/App.js")
+```js(path=".../hackernews-react-relay/src/components/App.js")
 import Login from './Login'
 ```
 
@@ -266,7 +266,7 @@ Next, you have to make sure that the changes introduced by the authentication pr
 
 Open a terminal window and navigate to the directory where `project.graphcool` is located. Then run the following command:
 
-```bash(path="../hackernews-react-apollo")
+```bash(path="../hackernews-react-relay")
 graphcool pull
 ```
 
