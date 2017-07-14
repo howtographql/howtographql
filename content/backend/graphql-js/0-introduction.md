@@ -1,3 +1,8 @@
+`With FIREFOX every endpoint such as: getting started, quires, mutations connectors, and so on go to the introduction page.`
+* So basically, in firefox, you cannot do the tutorials for these sections.
+* In Chrome it works.
+
+
 ---
 title: Introduction
 question: Which of these is a requirement for GraphQl servers?
