@@ -175,7 +175,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 ![](http://imgur.com/ZBgeq22.png)
 
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already opem Playground:
+This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
 ```graphql
 {
