@@ -86,7 +86,7 @@ First you need to define the mutation in your Javascript code and wrap your comp
 
 <Instruction>
 
-In `CreateLink.js`, add the following statement to the bottom of the file (also replacing the current `export default CreatLink` statement):
+In `CreateLink.js`, add the following statement to the bottom of the file (also replacing the current `export default CreateLink` statement):
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // 1
