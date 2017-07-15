@@ -179,9 +179,9 @@ In this case, you're specifying two filters that account for the following two c
 
 Perfect, the query is defined! But this time we actually want to load the data every time the user hits the _search_-button. 
 
-That's what you're using the [`withApollo`](http://dev.apollodata.com/react/higher-order-components.html#withApollo) function for. This function injects a new prop into the `Search` component called `client`. This `client` is precisely the `ApolloClient` instance that you're creating in `index.js` and which is now directly available inside `Search`.
+That's the purpose of the [`withApollo`](http://dev.apollodata.com/react/higher-order-components.html#withApollo) function. This function injects the `ApolloClient` instance that you created in `index.js` into the `Search` component as a new prop called `client`.
 
-The `client` has a method called `query` that you can use to send a query manually instead of using the `graphql` HOC.
+This `client` has a method called `query` that you can use to send a query manually instead of using the `graphql` Higher Order Component.
 
 
 <Instruction>
