@@ -97,7 +97,7 @@ render() {
 
 <Instruction>
 
-Also import the `Search` component on top of the file:
+Also import the `Search` component at the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Search from './Search'
@@ -139,7 +139,7 @@ Great, let's now go back to the `Search` component and see how we can implement 
 
 <Instruction>
 
-Open `Search.js` and add the following query definition on the bottom of the file:
+Open `Search.js` and add the following query definition at the bottom of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 const ALL_LINKS_SEARCH_QUERY = gql`
@@ -179,7 +179,7 @@ In this case, you're specifying two filters that account for the following two c
 
 Perfect, the query is defined! But this time we actually want to load the data every time the user hits the _search_-button. 
 
-That's what you're using the [`withApollo`](http://dev.apollodata.com/react/higher-order-components.html#withApollo) function for. All it does is injecting a new prop into the `Search` component called `client`. This `client` is precisely the `ApolloClient` instance that you're creating in `index.js` and that's now directly available inside `Search`.
+That's what you're using the [`withApollo`](http://dev.apollodata.com/react/higher-order-components.html#withApollo) function for. This function injects a new prop into the `Search` component called `client`. This `client` is precisely the `ApolloClient` instance that you're creating in `index.js` and which is now directly available inside `Search`.
 
 The `client` has a method called `query` that you can use to send a query manually instead of using the `graphql` HOC.
 
@@ -202,6 +202,6 @@ _executeSearch = async () => {
 
 </Instruction>
 
-The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually, retrieve the `links` from the response that's returned by the server to finally put them into the component's `state` from where they can be rendered.
+The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually and retrieving the `links` from the response that's returned by the server. Then these links are put into the component's `state` so that they can be rendered.
 
 Go ahead and test the app by running `yarn start` in a Terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, click the _search_-button and verify the links that are returned fit the filter conditions.
