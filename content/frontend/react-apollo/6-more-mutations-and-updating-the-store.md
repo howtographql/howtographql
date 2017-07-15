@@ -340,7 +340,7 @@ await this.props.createVoteMutation({
 
 The `update` function that you're adding as an argument to the mutation call will be called when the server returns the response. It receives the payload of the mutation (`data`) and the current cache (`store`) as arguments. You can then use this input to determine a new state of the cache. 
 
-Notice that you're already _desctructuring_ the server response and retrieving the `createVote` field from it. 
+Notice that you're already _destructuring_ the server response and retrieving the `createVote` field from it. 
 
 All right, so now you know what this `update` function is, but the actual implementation will be done in the parent component of `Link`, which is `LinkList`. 
 
