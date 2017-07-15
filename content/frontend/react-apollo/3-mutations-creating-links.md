@@ -169,7 +169,7 @@ render() {
 
 <Instruction>
 
-Next, import the `CreatLink` component by adding the following statement to the top of `App.js`:
+Next, import the `CreateLink` component by adding the following statement to the top of `App.js`:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import CreateLink from './CreateLink'
