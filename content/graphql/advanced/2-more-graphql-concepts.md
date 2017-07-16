@@ -168,7 +168,7 @@ Note that technically enums are special kinds of scalar types.
 
 #### Interface
 
-An _interface_ can be used to describe a type in an abstract way. It allows to specify a set of fields that any concrete type which _implements_ this interface needs to have. In many GraphQL schemas, every type is required to have an `id` field. Using interfaces, this requirement can be expressed by defining an interface with this field and then making sure that all custom types implement it:
+An _interface_ can be used to describe a type in an abstract way. It allows you to specify a set of fields that any concrete type, which _implements_ this interface, needs to have. In many GraphQL schemas, every type is required to have an `id` field. Using interfaces, this requirement can be expressed by defining an interface with this field and then making sure that all custom types implement it:
 
 ```graphql(nocopy)
 interface Node {

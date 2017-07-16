@@ -227,7 +227,7 @@ With a maximum cost of `9`, our clients could run this query only three times, b
 rate allows them to query more.
 
 The principles are the same as our time throttle, but now communicating these limits to clients
-is much nicer. Clients can event calculate the costs of their queries themselves without needing to estimate server time!
+is much nicer. Clients can even calculate the costs of their queries themselves without needing to estimate server time!
 
 The GitHub public API actually uses this approach to throttle their clients. Take a look at how
 they express these limits to users: https://developer.github.com/v4/guides/resource-limitations/.

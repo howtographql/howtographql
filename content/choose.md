@@ -24,11 +24,11 @@ Here's an overview of the frontend tutorials we offer:
 Choose your favorite programming language to get started with GraphQL on the server-side:
 
 - **Javascript**: This tutorial uses the [graphql-js](https://github.com/graphql/graphql-js) reference implementation that's developed by Facebook. You'll build a web server using [Node.js](https://nodejs.org/en/), the [Express](https://expressjs.com/) framework as well as the [graphql-tools](https://github.com/apollographql/graphql-tools) library.
-- **Ruby**: Learn how to build GraphQL server in Ruby with this tutorial based on the [graphql-ruby](https://github.com/rmosolgo/graphql-ruby) library.
-- **Java**: Learn how to build GraphQL server in Java with this tutorial based on the [graphql-java](https://github.com/graphql-java/graphql-java) library.
-- **Elixir**: Learn how to build GraphQL server in Elixir with this tutorial based on the [Absinthe](https://github.com/absinthe-graphql/absinthe) library.
-- **Python**: Learn how to build GraphQL server in Python with this tutorial based on the [Graphene](https://github.com/graphql-python/graphene) library.
-- **Scala** (_Coming Soon_): Learn how to build GraphQL server in Scala with this tutorial based on the [Sangria](https://github.com/sangria-graphql/sangria) library.
+- **Ruby**: Learn how to build a GraphQL server in Ruby with this tutorial based on the [graphql-ruby](https://github.com/rmosolgo/graphql-ruby) library.
+- **Java**: Learn how to build a GraphQL server in Java with this tutorial based on the [graphql-java](https://github.com/graphql-java/graphql-java) library.
+- **Elixir**: Learn how to build a GraphQL server in Elixir with this tutorial based on the [Absinthe](https://github.com/absinthe-graphql/absinthe) library.
+- **Python**: Learn how to build a GraphQL server in Python with this tutorial based on the [Graphene](https://github.com/graphql-python/graphene) library.
+- **Scala** (_Coming Soon_): Learn how to build a GraphQL server in Scala with this tutorial based on the [Sangria](https://github.com/sangria-graphql/sangria) library.
 - **Graphcool**: [Graphcool](https://www.graph.cool/docs/tutorials/graphcool-features-overview-ped6wohw0o/) is a powerful developer platform that combines GraphQL and Serverless technologies to provide you with the best tools to build the backend for your next app. Learn how to leverage the features of Graphcool to build a production-ready GraphQL server.
 
 ### Contribute a Tutorial
