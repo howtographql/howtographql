@@ -8,7 +8,7 @@ videoId: NeQfq0U5LnI
 duration: 15
 ---
 
-In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for your, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use to experiment with that you learn.  
+In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for you, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use to experiment with what you learn.  
 
 ### The Schema Definition Language (SDL)
 
@@ -231,7 +231,7 @@ After a client sent this subscription to a server, a connection is opened betwee
 
 ### Defining a Schema
 
-Now that you have a basic understanding of what queries, mutations and subscriptions look like, let’s put it all together and learn how you can write a schema that would allow you to execute the examples you’ve seen so far.
+Now that you have a basic understanding of what queries, mutations, and subscriptions look like, let’s put it all together and learn how you can write a schema that would allow you to execute the examples you’ve seen so far.
 
 The *schema* is one of the most important concepts when working with a GraphQL API. It specifies the capabilities of the API and defines how clients can request the data. It is often seen as a *contract* between the server and client.
 
@@ -243,7 +243,7 @@ type Mutation { ... }
 type Subscription { ... }
 ```
 
-The `Query`, `Mutation` and `Subscription` types are the *entry points* for the requests sent by the client. To enable the `allPersons`-query that we save before, the `Query` type would have to be written as follows:
+The `Query`, `Mutation`, and `Subscription` types are the *entry points* for the requests sent by the client. To enable the `allPersons`-query that we saw before, the `Query` type would have to be written as follows:
 
 ```graphql(nocopy)
 type Query {
