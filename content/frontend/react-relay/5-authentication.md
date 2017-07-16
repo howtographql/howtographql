@@ -393,13 +393,13 @@ Let's quickly walk through what's going on here!
 3. Once the arguments are ready and stored in `variables`, you're calling `commitMutation` and pass the required data
 4. Finally, you're implementing `onCompleted` again where you retrieve the `id` of the user and their authentication `token` and pass it into a callback
 
-Go ahead and add the single `signIn` mutation right away so that users can also login without having to create an account.
+Go ahead and add the single `signinUser` mutation right away so that users can also login without having to create an account.
 
  <Instruction>
 
-Create a new file in `src/mutations` and call it `SigninMutation.js`.
+Create a new file in `src/mutations` and call it `SigninUserMutation.js`.
 
-```js(path=".../hackernews-react-relay/src/mutations/SigninMutation.js")
+```js(path=".../hackernews-react-relay/src/mutations/SigninUserMutation.js")
 import {
   commitMutation,
   graphql
@@ -407,7 +407,7 @@ import {
 import environment from '../Environment'
 
 const mutation = graphql`
-  mutation SigninMutation($input: SigninUserInput!) {
+  mutation SigninUserMutation($input: SigninUserInput!) {
     signinUser(input: $input) {
       token
       user {
@@ -460,7 +460,7 @@ Open `Login.js` and implement `_confirm` as follows:
 _confirm = () => {
   const { name, email, password } = this.state
   if (this.state.login) {
-    SigninMutation(email, password, (id, token) => {
+    SigninUserMutation(email, password, (id, token) => {
       this._saveUserData(id, token)
       this.props.history.push(`/`)
     })
@@ -475,7 +475,7 @@ _confirm = () => {
 
 </Instruction>
 
-The code is pretty straightforward. If the user wants to only login, you're calling the `SigninMutation ` and pass the provided `email` and `password` as arguments. Otherwise you're using the `CreateUserMutation` where you also pass the user's `name`. The last argument in both cases is the callback that receives the `id` and `token` which you're then storing in `localStorage` using the `_saveUserData` method and navigate back to the root route.
+The code is pretty straightforward. If the user wants to only login, you're calling the `SigninUserMutation ` and pass the provided `email` and `password` as arguments. Otherwise you're using the `CreateUserMutation` where you also pass the user's `name`. The last argument in both cases is the callback that receives the `id` and `token` which you're then storing in `localStorage` using the `_saveUserData` method and navigate back to the root route.
 
 Before you're running the app, you need to import the mutations and run the Relay Compiler again.
 
@@ -484,7 +484,7 @@ Before you're running the app, you need to import the mutations and run the Rela
 Still in `Login.js`, add the following two imports to the top of the file:
 
 ```js(path=".../hackernews-react-relay/src/components/Login.js")
-import SigninMutation from '../mutations/SigninMutation'
+import SigninUserMutation from '../mutations/SigninUserMutation'
 import CreateUserMutation from '../mutations/CreateUserMutation'
 ```
 
