@@ -9,7 +9,7 @@ GraphQL gives enormous power to clients. But with great power comes great respon
 
 Since clients have the possibility to craft very complex queries, our servers must be ready
 to handle them properly. These queries may be abusive queries from evil clients, or may
-simply be very large queries used by legitimate clients.In both of these case, the client
+simply be very large queries used by legitimate clients.In both of these cases, the client
 can potentially take your GraphQL server down.
 
 There are a few strategies to mitigate these risk,
