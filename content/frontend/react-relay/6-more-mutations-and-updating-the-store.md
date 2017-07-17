@@ -201,7 +201,7 @@ const mutation = graphql`
     }
   }
 `
-Cr
+
 export default (userId, linkId) => {
   const variables = {
     input: {
