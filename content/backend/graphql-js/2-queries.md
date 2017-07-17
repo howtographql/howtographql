@@ -66,6 +66,7 @@ module.exports = {
 Now you just have to pass these resolvers when building the schema object with `makeExecutableSchema`:
 
 ```js(path=".../hackernews-graphql-js/src/schema/index.js")
+const {makeExecutableSchema} = require('graphql-tools');
 const resolvers = require('./resolvers');
 
 // ...
