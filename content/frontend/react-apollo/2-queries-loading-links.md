@@ -17,7 +17,7 @@ The first piece of functionality that you'll implement in the app is loading and
 
 Create a new file called `Link.js` in the `components` directory and add the following code:
 
-```js(path=".../hackernews-react-apollo/src/components/Links.js")
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
 import React, { Component } from 'react'
 
 class Link extends Component {
@@ -48,7 +48,7 @@ Next, you'll implement the component that renders a list of links.
 
 Again, in the `components` directory, go ahead and create a new file called `LinkList.js` and add the following code:
 
-```js(path=".../hackernews-react-apollo/src/components/Links.js")
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 import React, { Component } from 'react'
 import Link from './Link'
 
@@ -129,7 +129,7 @@ query AllLinks {
 }
 ```
 
-You could now simply execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use inside your Javascript code?
+You could now simply execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
 
 
 ### Queries with Apollo Client
@@ -186,9 +186,9 @@ export default graphql(ALL_LINKS_QUERY, { name: 'allLinksQuery' }) (LinkList)
 
 </Instruction>
 
-What's going on there?
+What's going on here?
 
-1. Here you create the Javascript constant called `ALL_LINKS_QUERY` that stores the query. The `gql` function is used to parse the plain GraphQL code.
+1. First, you create the JavaScript constant called `ALL_LINKS_QUERY` that stores the query. The `gql` function is used to parse the plain GraphQL code.
 2. Now you define the plain GraphQL query. The name `AllLinksQuery` is the _operation name_ and will be used by Apollo to refer to this query in its internals.  (Notice we're using a GraphQL comment here.) 
 3. Finally, you're using the `graphql` container to combine the `LinkList` component with the `ALL_LINKS_QUERY`. Note that you're also passing an option to the function call where you specify a `name` to be `allLinksQuery`. This is the name of the `prop` that Apollo injects into the `LinkList`component. If you didn't specify it here, the injected prop would be called `data`.
 
