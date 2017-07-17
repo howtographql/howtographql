@@ -172,3 +172,6 @@ end
 </Instruction>
 
 Now you can see all votes for users:
+
+![](http://i.imgur.com/Dhsy92u.png)
+
