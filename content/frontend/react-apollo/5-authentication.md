@@ -63,7 +63,7 @@ class Login extends Component {
             className='pointer mr2 button'
             onClick={() => this._confirm()}
           >
-            {this.state.login ? 'login' : 'create Account' }
+            {this.state.login ? 'login' : 'create account' }
           </div>
           <div
             className='pointer button'
@@ -93,11 +93,11 @@ export default Login
 </Instruction>
 
 
-Let's quickly understand the structure of this new component. The component can have two major states. 
+Let's quickly understand the structure of this new component, which can have two major states.
 
-One state for users that already have an account and only need to login, here the component will only render two `input` fields for the user provide `email` and `password`. Notice that `state.login` will be `true` in this case. 
+One state is for users that already have an account and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `state.login` will be `true` in this case.
 
-The second state is for users that haven't created an account yet and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
+The second state is for users that haven't created an account yet, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
 
 The method `_confirm`  will be used to implement the mutations that we need to send for the login functionality.
 
@@ -598,4 +598,4 @@ import { GC_AUTH_TOKEN } from './constants'
 
 That's it - now all your API requests will be authenticated if a `token` is available.
 
-> Note: In a real application you would now configure the [authorization rules](https://www.graph.cool/docs/reference/auth/authorization-iegoo0heez/) (permissions) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform. 
+> Note: In a real application you would now configure the [authorization rules](https://www.graph.cool/docs/reference/auth/authorization-iegoo0heez/) (permissions) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform.

@@ -35,7 +35,6 @@ class CreateLink extends Component {
   }
 
   render() {
-
     return (
       <div>
         <div className='flex flex-column mt3'>
@@ -57,11 +56,10 @@ class CreateLink extends Component {
         <button
           onClick={() => this._createLink()}
         >
-          submit
+          Submit
         </button>
       </div>
     )
-
   }
 
   _createLink = async () => {
@@ -82,7 +80,7 @@ This is a standard setup for a React component with two `input` fields where use
 
 But how can you now actually send the mutation? Let's follow the three steps from before.
 
-First you need to define the mutation in your Javascript code and wrap your component with the `graphl` container. You'll do that in a similar way as with the query before. 
+First you need to define the mutation in your JavaScript code and wrap your component with the `graphl` container. You'll do that in a similar way as with the query before.
 
 <Instruction>
 
@@ -114,7 +112,7 @@ export default graphql(CREATE_LINK_MUTATION, { name: 'createLinkMutation' })(Cre
 
 Let's take close look again to understand what's going on:
 
-1. You first create the Javascript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
+1. You first create the JavaScript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
 2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.  
 3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The `name` that's specified refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
 
