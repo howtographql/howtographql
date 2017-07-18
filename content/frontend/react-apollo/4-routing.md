@@ -100,7 +100,7 @@ For this code to work, you need to import the required dependencies of `react-ro
 
 Add the following statement to the top of the file:
 
-```(path=".../hackernews-react-apollo/src/components/App.js")
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Header from './Header'
 import { Switch, Route } from 'react-router-dom'
 ```
