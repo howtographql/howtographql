@@ -38,6 +38,18 @@ render() {
 
 </Instruction>
 
+Make sure to import the Redirect component, so you don't get any errors.
+
+<Instruction>
+
+Open `App.js` and update the router import on the top of the file:
+
+```js(path=".../hackernews-react-apollo/src/components/App.js")
+import { Switch, Route, Redirect } from 'react-router-dom'
+```
+
+</Instruction>
+
 
 You now added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkList`.
 
