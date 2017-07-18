@@ -5,7 +5,7 @@ videoId: GFnUSoUfbhw
 duration: 4
 videoAuthor: "Abhi Aiyer"
 question: Which of the following statements is true?
-answers: ["Only queries can can be wrapped with the 'graphql' higher-order component", "'gql' is a higher-order component from the react-apollo package", "When wrapping a component with a mutation using 'graphql', Apollo injects a function into the component's props", "GraphQL mutations never take any arguments"]
+answers: ["Only queries can be wrapped with the 'graphql' higher-order component", "'gql' is a higher-order component from the react-apollo package", "When wrapping a component with a mutation using 'graphql', Apollo injects a function into the component's props", "GraphQL mutations never take any arguments"]
 correctAnswer: 2
 ---
 
