@@ -50,7 +50,7 @@ class Search extends Component {
             OK
           </button>
         </div>
-        {this.state.links.map(link => <Link key={link.id} link={link}/>)}
+        {this.state.links.map((link, index) => <Link key={link.id} link={link} index={index}/>)}
       </div>
     )
   }
