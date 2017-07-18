@@ -35,7 +35,7 @@ module.exports = {
   },
   Mutation: {
     createLink: (_, data) => {
-      const newLink = Object.assign({id: links.length}, data);
+      const newLink = Object.assign({id: links.length + 1}, data);
       links.push(newLink);
       return newLink;
     }
