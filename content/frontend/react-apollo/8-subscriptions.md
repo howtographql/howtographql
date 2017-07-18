@@ -268,7 +268,7 @@ Finally, go ahead and call `_subscribeToNewVotes` inside `componentDidMount` as 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 componentDidMount() {
   this._subscribeToNewLinks()
-  this. _subscribeToNewVotes()
+  this._subscribeToNewVotes()
 }
 ```
 
