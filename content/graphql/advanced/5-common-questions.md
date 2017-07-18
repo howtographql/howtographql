@@ -31,7 +31,7 @@ Server-side caching still is a challenge with GraphQL. More info about caching c
 
 ### How to do Authentication and Authorization?
 
-Authentication and authorization are often confused. _Authentication_ describes the process of claiming an _identity_. That's what you do when you log in to a service with a username and password, you authenticate yourself. _Authorization_ on the other hand describes _permission rules_ that specify which user the access rights of individual users and user groups to certain parts of the system.
+Authentication and authorization are often confused. _Authentication_ describes the process of claiming an _identity_. That's what you do when you log in to a service with a username and password, you authenticate yourself. _Authorization_ on the other hand describes _permission rules_ that specify the access rights of individual users and user groups to certain parts of the system.
 
 Authentication in GraphQL can be implemented with common patterns such as [OAuth](https://oauth.net/).
 
