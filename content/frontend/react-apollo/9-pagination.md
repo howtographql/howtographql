@@ -184,8 +184,8 @@ render() {
         </div>
       }
       <div>
-        {linksToRender.map(link => (
-          <Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote} link={link}/>
+        {linksToRender.map((link, index) => (
+          <Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote} link={link} index={index}/>
         ))}
       </div>
       {isNewPage &&
