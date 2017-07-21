@@ -80,7 +80,7 @@ Great, but how can you now actually implement `_createLink` and send the mutatio
 
 Mutations were one of the major pain points developers had with Relay Classic. The way how they've been implemented was in a declarative and powerful way. However, it was very difficult to actually understand how they worked since there was so much _magic_ going on behind the scenes. As a result, the main concern was that they're not predictible enough and developers had a hard time to reason about them.
 
-That's why one of the major goals of Relay Modern was also to introduce a new and more approachable mutation API. The Facebook team delivered that and Relay now exposes a more [_imperative_ API](https://facebook.github.io/relay/docs/mutations.html) that allows to manipulate the local store directly (actually, the manipulation happens through a dedicated _proxy_ object, but it's definitely much more direct than before). You'll learn about this new API to update the cache in a later chapter - for now we're only interested in performing a mutation to create new link.
+That's why one of the major goals of Relay Modern was also to introduce a new and more approachable mutation API. The Facebook team delivered that and Relay now exposes a more [_imperative_ API](https://facebook.github.io/relay/docs/mutations.html) that allows you to manipulate the local store directly (actually, the manipulation happens through a dedicated _proxy_ object, but it's definitely much more direct than before). You'll learn about this new API to update the cache in a later chapter - for now we're only interested in performing a mutation to create new link.
 
 <Instruction>
 

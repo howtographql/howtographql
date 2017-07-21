@@ -43,7 +43,7 @@ In that context, GraphQL can be used to *unify* these existing systems and hide 
 Just like in the previous architecture where the GraphQL server didn't care about the type of database being used, this time it doesn't care about the data sources that it needs to fetch the data that's needed to *resolve* a query.
 
 ![](http://imgur.com/168FvP4.png)
-*GraphQL allows to hide the complexity of existing systems, such as microservices, legacy infrastructures or third-party APIs behind a single GraphQL interface.*
+*GraphQL allows you to hide the complexity of existing systems, such as microservices, legacy infrastructures or third-party APIs behind a single GraphQL interface.*
 
 #### 3. Hybrid approach with connected database and integration of existing system
 
@@ -52,7 +52,7 @@ Finally, it's possible to combine the two approaches and build a GraphQL server 
 When a query is received by the server, it will resolve it and either retrieve the required data from the connected database or some of the integrated APIs.
 
 ![](http://imgur.com/oOVYriG.png)
-*Both approaches can also be combined and the GraphQL server can fetch data from a single database as well as from existing system - allowing for complete flexibility and pushing all data management complexity to the server-side.*
+*Both approaches can also be combined and the GraphQL server can fetch data from a single database as well as from an existing system - allowing for complete flexibility and pushing all data management complexity to the server.*
 
 ### Resolver Functions
 
