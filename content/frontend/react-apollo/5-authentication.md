@@ -590,7 +590,7 @@ networkInterface.use([{
 
 Then directly import the key that you need to retrieve the token from `localStorage` on top of the same file:
 
-```js
+```js(path=".../hackernews-react-apollo/src/index.js")
 import { GC_AUTH_TOKEN } from './constants'
 ```
 
