@@ -263,7 +263,7 @@ Similarly, for the `createPerson`-mutation, we’ll have to add a root field to 
 
 ```graphql(nocopy)
 type Mutation {
-  createPerson(name: String!, age: String!): Person!
+  createPerson(name: String!, age: Int!): Person!
 }
 ```
 
@@ -285,7 +285,7 @@ type Query {
 }
 
 type Mutation {
-  createPerson(name: String!, age: String!): Person!
+  createPerson(name: String!, age: Int!): Person!
 }
 
 type Subscription {
