@@ -14,7 +14,7 @@ It's time to start talking a bit about performance. You may have noticed that yo
 
 Instead of imagining all this, how about doing a small test? Create links via GraphiQL until you have around 10 of them, all posted by the same user. Then, add some temporary logging to the MongoDB connector, like this:
 
-```js{1-1,8-13}(path=".../hackernews-graphql-js/src/index.js")
+```js{1-1,8-13}(path=".../hackernews-graphql-js/src/mongo-connector.js")
 const {Logger, MongoClient} = require('mongodb');
 
 const MONGO_URL = 'mongodb://localhost:27017/hackernews';
