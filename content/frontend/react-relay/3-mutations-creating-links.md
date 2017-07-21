@@ -8,7 +8,7 @@ videoId: x9xtQdWcKMc
 duration: 10
 ---
 
-In this section, you'll learn how you can send mutations with Relay. 
+In this section, you'll learn how you can send mutations with Relay.
 
 
 ### Preparing the React components
@@ -136,7 +136,7 @@ export default (description, url, callback) => {
 }
 ```
 
-<Instruction>
+</Instruction>
 
 
 Let's quickly walk through the different things that happen here:
@@ -180,7 +180,7 @@ To test the mutation, you now need to render the `CreateLink` component inside t
 
 <Instruction>
 
-Open `App.js` and first import the `CreateLink` component on top of the file: 
+Open `App.js` and first import the `CreateLink` component on top of the file:
 
 ```js(path=".../hackernews-react-relay/src/components/App.js")
 import CreateLink from './CreateLink'
@@ -191,7 +191,7 @@ import CreateLink from './CreateLink'
 
 <Instruction>
 
-Next, still `App.js` update `render` to look as follows: 
+Next, still `App.js` update `render` to look as follows:
 
 ```js(path=".../hackernews-react-relay/src/components/App.js")
 render() {
