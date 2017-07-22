@@ -4,7 +4,7 @@ description: In this chapter, you'll learn how you can send mutations with Relay
 question: What's one of the major changes of Relay Modern compared to Relay Classic?
 answers: ["Detailled documentation and many code samples", "An imperative and more predictible mutation API", "Declaring data dependencies as fragments alongisde React components", "Relay Modern also includes a new server component"]
 correctAnswer: 1
-videoId: x9xtQdWcKMc
+videoId: eIsctkVmq4Y
 duration: 10
 ---
 
