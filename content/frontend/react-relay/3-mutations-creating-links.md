@@ -8,7 +8,7 @@ videoId: x9xtQdWcKMc
 duration: 10
 ---
 
-In this section, you'll learn how you can send mutations with Relay. 
+In this section, you'll learn how you can send mutations with Relay.
 
 
 ### Preparing the React components
@@ -78,9 +78,9 @@ Great, but how can you now actually implement `_createLink` and send the mutatio
 
 ### Writing the Mutation
 
-Mutations were one of the major pain points developers had with Relay Classic. The way how they've been implemented was in a declarative and powerful way. However, it was very difficult to actually understand how they worked since there was so much _magic_ going on behind the scenes. As a result, the main concern was that they're not predictible enough and developers had a hard time to reason about them.
+Mutations were one of the major pain points developers had with Relay Classic. The way that they were implemented was in a declarative and powerful way. However, it was very difficult to actually understand how they worked since there was so much _magic_ going on behind the scenes. As a result, the main concern was that they're not predictable enough and developers had a hard time reasoning about them.
 
-That's why one of the major goals of Relay Modern was also to introduce a new and more approachable mutation API. The Facebook team delivered that and Relay now exposes a more [_imperative_ API](https://facebook.github.io/relay/docs/mutations.html) that allows you to manipulate the local store directly (actually, the manipulation happens through a dedicated _proxy_ object, but it's definitely much more direct than before). You'll learn about this new API to update the cache in a later chapter - for now we're only interested in performing a mutation to create new link.
+That's why one of the major goals of Relay Modern was also to introduce a new and more approachable mutation API. The Facebook team delivered that and Relay now exposes a more [_imperative_ API](https://facebook.github.io/relay/docs/mutations.html) that allows you to manipulate the local store directly (actually, the manipulation happens through a dedicated _proxy_ object, but it's definitely much more direct than before). You'll learn about this new API to update the cache in a later chapter - for now we're only interested in performing a mutation to create a new link.
 
 <Instruction>
 
@@ -136,7 +136,7 @@ export default (description, url, callback) => {
 }
 ```
 
-<Instruction>
+</Instruction>
 
 
 Let's quickly walk through the different things that happen here:
@@ -151,7 +151,7 @@ Let's quickly walk through the different things that happen here:
 
 ### Calling the Mutation
 
-With the `CreateLinkMutation` in place, you now need to implement the functionality to actually call it. That you'll do inside the `CreateLink` component.
+With the `CreateLinkMutation` in place, you now need to implement the functionality to actually call it. You'll do that inside the `CreateLink` component.
 
 <Instruction>
 
@@ -166,7 +166,7 @@ _createLink = () => {
 
 </Instruction>
 
-For this code to work you also need to import the `CreateLinkMutation` on top of the file:
+For this code to work you also need to import the `CreateLinkMutation` at the top of the file:
 
 <Instruction>
 
@@ -180,7 +180,7 @@ To test the mutation, you now need to render the `CreateLink` component inside t
 
 <Instruction>
 
-Open `App.js` and first import the `CreateLink` component on top of the file: 
+Open `App.js` and first import the `CreateLink` component on top of the file:
 
 ```js(path=".../hackernews-react-relay/src/components/App.js")
 import CreateLink from './CreateLink'
@@ -191,7 +191,7 @@ import CreateLink from './CreateLink'
 
 <Instruction>
 
-Next, still `App.js` update `render` to look as follows: 
+Next, still in `App.js`, update `render` to look as follows:
 
 ```js(path=".../hackernews-react-relay/src/components/App.js")
 render() {
@@ -217,7 +217,7 @@ relay-compiler --src ./src --schema ./schema.graphql
 
 This time, the `__generated__` directory is created in the `mutations` folder and contains a Javascript representation for the `CreateLinkMutation`.
 
-You can now finally go ahead an test the mutation. Run `yarn start`, you'll be greeted with a very simple screen: Two input fields and a _submit_-button - not very pretty but functional.
+You can now finally go ahead and test the mutation. Run `yarn start`, you'll be greeted with a very simple screen: Two input fields and a _submit_-button - not very pretty but functional.
 
 Enter some data into the fields, e.g.:
 
