@@ -92,7 +92,7 @@ const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
 // ...
 
 app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
+  endpointURL: '/graphiql',
 }));
 ```
 
