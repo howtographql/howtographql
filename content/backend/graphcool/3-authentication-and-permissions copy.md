@@ -3,7 +3,7 @@ title: Authentication & Permissions with Graphcool
 description: In this chapter, you'll enable email-and-password based authentication for your project and configure the access permissions 
 ---
 
-Authentication and data access permissions are critical features for every production application. In this chapter, you'll learn how you can enable authentication in your project and leverage the powerful Grpahcool permission system to specify data access rules.
+Authentication and data access permissions are critical features for every production application. In this chapter, you'll learn how you can enable authentication in your project and leverage the powerful Graphcool permission system to specify data access rules.
 
 Here's a list of the requirements that we have for the app:
 
