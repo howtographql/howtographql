@@ -36,8 +36,8 @@ The `User` type has a special role in a Graphcool project since it will be used 
 In the schema, there are a few relations defined:
 
 - `UsersLinks`: A _one-to-many_-relationship between `User` and `Link` that expresses that one `User` can create zero or more `Link`s, and one `Link` can only ever have one `User`
-- `UsersVotes`: A _one-to-many_-relationship between `User` and `Vote` that expresses that one `User` can submit zero or more `Vote`s, , and one `Vote` can only ever have one `User`
-- `VotesOnLink`: A _one_to_many_-relationship between `Vote` and `Link` that expresses that one `Link` can have many `Vote`s, but one `Vote` can only ever be associated with one `Link`
+- `UsersVotes`: A _one-to-many_-relationship between `User` and `Vote` that expresses that one `User` can submit zero or more `Vote`s, and one `Vote` can only ever have one `User`
+- `VotesOnLink`: A _one-to-many_-relationship between `Vote` and `Link` that expresses that one `Link` can have many `Vote`s, but one `Vote` can only ever be associated with one `Link`
 
 Note that the [`@relation` directive](https://www.graph.cool/docs/reference/schema/relations-goh5uthoc1/) is specific to Graphcool. 
 
