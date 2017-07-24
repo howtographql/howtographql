@@ -64,7 +64,7 @@ Go back to the main `src/index.js` file and change it to be like this:
 ```js{6-30}(path=".../hackernews-graphql-js/src/index.js")
 const express = require('express');
 const bodyParser = require('body-parser');
-const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
+const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 const schema = require('./schema');
 
 // 1
