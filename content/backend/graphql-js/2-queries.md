@@ -92,7 +92,7 @@ const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 // ...
 
 app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
+  endpointURL: '/graphiql',
 }));
 ```
 
