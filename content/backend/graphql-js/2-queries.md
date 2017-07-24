@@ -80,14 +80,14 @@ module.exports = makeExecutableSchema({typeDefs, resolvers});
 
 It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), as was said before.
 
-It's super easy to setup. You're going to use the same `graphql-server-express` package for this.
+It's super easy to setup. You're going to use the same `apollo-server-express` package for this.
 
 <Instruction>
 
 Just add these lines to `src/index.js`:
 
 ```js(path=".../hackernews-graphql-js/src/index.js")
-const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
+const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 
 // ...
 
