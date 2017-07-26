@@ -47,7 +47,7 @@ It's time to start creating your project.
 **Step 3**: Install the following dependencies:
 
 ```bash(path=".../hackernews-graphql-js")
-npm install -save express body-parser apollo-server-express graphql-tools graphql
+npm install --save express body-parser apollo-server-express graphql-tools graphql
 ```
 
 </Instruction>
