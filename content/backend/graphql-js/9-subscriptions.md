@@ -151,7 +151,7 @@ After that, replace the call to `app.listen` in this same file with this:
 const PORT = 3000;
 const server = createServer(app);
 server.listen(PORT, () => {
-  new SubscriptionServer(
+  SubscriptionServer.create(
     {execute, subscribe, schema},
     {server, path: '/subscriptions'},
   );
