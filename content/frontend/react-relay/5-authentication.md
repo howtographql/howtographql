@@ -539,7 +539,7 @@ Secondly, you should also include the information about the user in the mutation
 
 Sill in `CreateLinkMutation.js`, update the definition of `mutation` like so:
 
-```js{9-11}(path=".../hackernews-react-relay/src/components/CreateLink.js")
+```js{9-11}(path=".../hackernews-react-relay/src/mutations/CreateLinkMutation.js")
 const mutation = graphql`
   mutation CreateLinkMutation($input: CreateLinkInput!) {
     createLink(input: $input) {
