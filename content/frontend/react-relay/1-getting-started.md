@@ -579,4 +579,4 @@ Notice that the `>` in the this command means that the output of `get-graphql-sc
 └── yarn.lock
 ```
 
-That's it, you're all set to start loading some data into your app! 🚀
+That's it, you're all set to start loading some data into your app!
