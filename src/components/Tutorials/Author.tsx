@@ -27,8 +27,8 @@ export default function Author({ post, group }: Props) {
           padding: 31px;
         }
         .author {
-          @p: .center, .flex, .justifyBetween, .itemsCenter;
-          max-width: 747px;
+          @p: .center, .flex, .justifyBetween, .itemsCenter, .ph38;
+          max-width: 924px;
         }
         .img {
           @p: .overflowHidden, .flex, .itemsCenter, .justifyCenter, .br100;
@@ -67,7 +67,10 @@ export default function Author({ post, group }: Props) {
             height: 73px;
           }
           div.author {
-            @p: .db;
+            @p: .db, .ph0;
+          }
+          div.author-wrapper {
+            @p: .ph38, .pv25;
           }
           a.name {
             @p: .f20, .mt4;

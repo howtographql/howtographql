@@ -4,12 +4,12 @@ description: "In this chapter, you'll setup the navigation for your app"
 videoId: W-MJHNOdUOI
 duration: 4
 videoAuthor: "Abhi Aiyer"
-question: What's the role of the Link component thay you added in this chapter?
-answers: ["It renders a link that was posted by a user", "It renders the input form for users to create new links", "It lets you nagivate to a different URL", "It links your root component with all its children"]
+question: What's the role of the Link component that you added in this chapter?
+answers: ["It renders a link that was posted by a user", "It renders the input form for users to create new links", "It lets you navigate to a different URL", "It links your root component with all its children"]
 correctAnswer: 2
 ---
 
-In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some nagivation functionality!
+In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
 
 ### Install Dependencies
@@ -63,7 +63,7 @@ export default withRouter(Header)
 
 This simply renders two `Link` components that users can use to navigate between the `LinkList` and the `CreateLink` components. 
 
-> Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows to navigate between routes inside of your application.
+> Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows you to navigate between routes inside of your application.
 
 
 ### Setup routes
@@ -72,7 +72,7 @@ You'll configure the different routes for the app in the project's root componen
 
 <Instruction>
 
-Open the correspdonding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
+Open the corresponding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
@@ -100,9 +100,9 @@ For this code to work, you need to import the required dependencies of `react-ro
 
 Add the following statement to the top of the file:
 
-```(path=".../hackernews-react-apollo/src/components/App.js")
+```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Header from './Header'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 ```
 
 </Instruction>

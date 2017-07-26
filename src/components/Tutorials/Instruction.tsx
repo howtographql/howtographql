@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as cn from 'classnames'
 
 interface InstructionProps {
   text: string
@@ -65,10 +66,11 @@ export default function Instruction({ text, ...props }: InstructionProps) {
       <div className="instruction-block">
         <style jsx={true}>{`
           .instruction-block {
-            @p: .mv38;
+            @p: .mv38, .relative;
           }
           .instruction-code {
-            @p: .pl25, .pt25, .pb10;
+            @p: .pl25, .pt25;
+            padding-bottom: 1px;
           }
           .instruction-code :global(.pre-container) {
             margin-top: 0 !important;
@@ -78,7 +80,7 @@ export default function Instruction({ text, ...props }: InstructionProps) {
           <div style={{ height: 16 }} />
         </Bordered>
         <DottedElement>{filteredChildren[0]}</DottedElement>
-        <Bordered>
+        <Bordered absolute={true}>
           <div className="instruction-code">
             {filteredChildren[1]}
           </div>
@@ -100,14 +102,18 @@ export default function Instruction({ text, ...props }: InstructionProps) {
 
 interface BorderedProps {
   children?: JSX.Element
+  absolute?: boolean
 }
 
-function Bordered({ children }: BorderedProps) {
+function Bordered({ children, absolute = false }: BorderedProps) {
   return (
-    <div className="bordered">
+    <div className={cn("bordered", {absolute})}>
       <style jsx={true}>{`
         .bordered {
           @p: .relative;
+        }
+        .bordered.absolute {
+          @p: .static;
         }
         .bordered:before {
           content: "";
@@ -115,6 +121,9 @@ function Bordered({ children }: BorderedProps) {
           left: 3px;
           border-radius: 2px;
           width: 4px;
+        }
+        .bordered.absolute:before {
+          top: 40px;
         }
       `}</style>
       {children}

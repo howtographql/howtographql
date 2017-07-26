@@ -50,6 +50,8 @@ All you do here is adding the types to get the full schema that we introduced in
 
 For these changes to take effect, you now need to "sync" with the schema that's still stored on the server. You can use the `graphcool push` command for that.
 
+> Before you're performing `graphcool push`, you can also run the `graphcool status` command that will output the list of potential changes without actually performing them.
+
 <Instruction>
 
 In the terminal, navigate to the directory where `project.graphcool` is located and execute the following command:
@@ -79,8 +81,6 @@ $ graphcool push
 
 Your project file project.graphcool was updated. Reload it in your editor if needed.
 ```
-
-> Before you're performing `graphcool push`, you can also run the `graphcool status` command that will output the list of potential changes without actually performing them.
 
 If you want to verify that your project's schema was actually updated, you can open the schema editor in the [Graphcool Console](https://console.graph.cool) and check if the new types and relations are now actually available:
 

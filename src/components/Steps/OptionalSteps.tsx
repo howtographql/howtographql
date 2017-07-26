@@ -27,14 +27,33 @@ export default class OptionalSteps extends React.Component<Props, State> {
   constructor(props) {
     super(props)
 
+    const group = extractGroup(props.location.pathname)
+
+    const count = group === 'advanced' ? props.steps.length : 2
+
     this.state = {
       collapsed: true,
-      n: this.getN(2),
-      group: extractGroup(props.location.pathname)
+      group,
+      n: this.getN(count),
+    }
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.location.key !== this.props.location.key) {
+
+      const group = extractGroup(nextProps.location.pathname)
+      const isAdvanced = group === 'advanced'
+
+      const count = isAdvanced ? nextProps.steps.length : 2
+
+      this.setState(state => ({...state, group, n: this.getN(count), collapsed: !isAdvanced}))
     }
   }
 
   getN(count: number) {
+    if (this.props.small) {
+      return count * 36 + 16
+    }
     return count * 52 + 16
   }
 
@@ -164,21 +183,23 @@ export default class OptionalSteps extends React.Component<Props, State> {
             transitionAppear={true}
           >
             {visibleSteps.map(step =>
-              <OptionalDottedListItem
-                key={step.title}
-                small={this.props.small}
-                active={step.link === this.props.location.pathname}
-                path={step.link}
-              >
-                <div className="list-item">
-                  <Link to={step.link} onClick={onClickLink}>
-                    {step.title}
-                  </Link>
-                  {showDuration &&
-                    step.duration &&
-                    <Duration duration={step.duration} />}
-                </div>
-              </OptionalDottedListItem>
+              <Link to={step.link} onClick={onClickLink}>
+                <OptionalDottedListItem
+                  key={step.title}
+                  small={this.props.small}
+                  active={step.link === this.props.location.pathname}
+                  path={step.link}
+                >
+                  <div className="list-item">
+                    <span>
+                      {step.title}
+                    </span>
+                    {showDuration &&
+                      step.duration &&
+                      <Duration duration={step.duration} />}
+                  </div>
+                </OptionalDottedListItem>
+              </Link>
             )}
           </CSSTransitionGroup>
           {reallyCollapsed &&
@@ -210,8 +231,8 @@ export default class OptionalSteps extends React.Component<Props, State> {
     const animate = () => {
       if (this.state.n < this.getN(count)) {
         this.setState(state => ({n: state.n + 15}))
+        requestAnimationFrame(animate)
       }
-      requestAnimationFrame(animate)
     }
 
     animate()

@@ -28,7 +28,7 @@ export default (props: Props) => {
     <App history={props.history} steps={steps} location={props.location}>
       <CustomHelmet title={title} description={description} />
       <Intro steps={steps} location={props.location} />
-      <Chooser mds={steps} location={props.location} />
+      <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />
       <LandingPlayground />
       <Team />

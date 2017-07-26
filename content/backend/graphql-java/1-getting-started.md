@@ -20,6 +20,11 @@ mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=co
 
 in a directory of choice and confirm with `Y` when prompted.
 
+Immediately create a directory called `java` under `src/main`. This is where all the Java sources will go. 
+
+Additionally, make sure you also delete `WEB-INF/web.xml` (or simply the entire `WEB-INF`) from `src/main/webapp`.
+Otherwise, Servlet 3.x style configuration that you'll use will be ignored.
+
 </Instruction>
 
 ### Defining the schema
@@ -70,7 +75,7 @@ To build a GraphQL-enabled application, only `graphql-java` (the GraphQL impleme
 
 <Instruction>
 
-Add all the dependencies to your `pom.xml`:
+Add all the dependencies to your `pom.xml` (under `<dependencies>`):
 
 
 ```xml(path=".../hackernews-graphql-java/pom.xml")
@@ -156,7 +161,9 @@ But opening it at this moment won't bring you much joy, as the server still isn'
 
 <Instruction>
 
-To remedy this, start by creating a class called `GraphQLEndpoint`, this will be the servlet exposing the API. The contents should look as follows:
+To remedy this, start by creating a class called `GraphQLEndpoint`, this will be the servlet exposing the API.
+All classes in [the sample project](https://github.com/howtographql/graphql-java) are placed in the package called `com.howtographql.hackernews`, so you may wish to create such a package inside `src/main/java` at this moment.
+`GraphQLEndpoint` should look as follows:
 
 
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")

@@ -241,7 +241,7 @@ This one will require quite a few steps, so buckle up!
 	
 	</Instruction>
 
-Phew! That was a handful! 😩 Jump back into Graph*i*QL to see what has changed.
+Phew! That was a handful! 😩 Jump back into GraphiQL to see what has changed.
 
 ![](http://i.imgur.com/yOGAMop.png)
 

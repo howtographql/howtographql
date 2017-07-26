@@ -36,8 +36,8 @@ The `User` type has a special role in a Graphcool project since it will be used 
 In the schema, there are a few relations defined:
 
 - `UsersLinks`: A _one-to-many_-relationship between `User` and `Link` that expresses that one `User` can create zero or more `Link`s, and one `Link` can only ever have one `User`
-- `UsersVotes`: A _one-to-many_-relationship between `User` and `Vote` that expresses that one `User` can submit zero or more `Vote`s, , and one `Vote` can only ever have one `User`
-- `VotesOnLink`: A _one_to_many_-relationship between `Vote` and `Link` that expresses that one `Link` can have many `Vote`s, but one `Vote` can only ever be associated with one `Link`
+- `UsersVotes`: A _one-to-many_-relationship between `User` and `Vote` that expresses that one `User` can submit zero or more `Vote`s, and one `Vote` can only ever have one `User`
+- `VotesOnLink`: A _one-to-many_-relationship between `Vote` and `Link` that expresses that one `Link` can have many `Vote`s, but one `Vote` can only ever be associated with one `Link`
 
 Note that the [`@relation` directive](https://www.graph.cool/docs/reference/schema/relations-goh5uthoc1/) is specific to Graphcool. 
 
@@ -180,7 +180,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 ![](http://imgur.com/ZBgeq22.png)
 
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already opem Playground:
+This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
 ```graphql
 {
@@ -243,17 +243,17 @@ For creating new items on the server, there will be a `create<Type>` mutation ge
 
 Note that each `create<Type>` mutation accepts all the _fields_ of the corresponding type as arguments so you can directly initialize all its properties when it's created. For types that have relations, you can further use [nested mutations](https://www.graph.cool/docs/tutorials/advanced-features-eath7duf7d/#nested-mutations) and create multiple related nodes at once.
 
-##### Upating items
+##### Updating items
 
 Often times, you'll want the ability to update existing items in the database. For the `Link` type, a user might want to update the `description` after it was initially created. In the example, the mutation is called `updateLink`.
 
-This can be done using the `update<Type>` mutation. Like the `create<Type>` mutation, this mutation accepts values for all the fields of the type as arguments so you can update as many properties as you like in a single request. Note however that you also must pass the `id` of the object you want to update to the mutation - which is logicall since you need to tell server _which_ item you want to change.
+This can be done using the `update<Type>` mutation. Like the `create<Type>` mutation, this mutation accepts values for all the fields of the type as arguments so you can update as many properties as you like in a single request. Note however that you also must pass the `id` of the object you want to update to the mutation - which is logical since you need to tell server _which_ item you want to change.
 
 ##### Deleting items
 
 Finally, you're of course also able to delete existing items from the database. This can be done using the `delete<Type>` mutation which only requires the `id` of the item that is to be deleted as an argument.
 
-For the Hackernew example schema, this mutation is called `deleteLink`.
+For the Hackernews example schema, this mutation is called `deleteLink`.
 
 
 

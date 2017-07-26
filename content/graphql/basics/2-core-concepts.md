@@ -1,14 +1,14 @@
 ---
 title: Core Concepts
 question: "What are GraphQL subscription used for?"
-answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allows to read and write data"]
+answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allows you to read and write data"]
 correctAnswer: 0
 description: "In this chapter, you learn about the basic GraphQL concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema"
 videoId: NeQfq0U5LnI
 duration: 15
 ---
 
-In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for your, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use to experiment with that you learn.  
+In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for you, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use to experiment with what you learn.  
 
 ### The Schema Definition Language (SDL)
 
@@ -146,6 +146,8 @@ Next to requesting information from a server, the majority of applications also 
 
 Mutations follow the same syntactical structure as queries, but they always need to start with the `mutation` keyword. Here’s an example for how we might create a new `Person`:
 
+<Playground>
+
 ```graphql(nocopy)
 mutation {
   createPerson(name: "Bob", age: 36) {
@@ -155,9 +157,11 @@ mutation {
 }
 ```
 
+</Playground>
+
 Notice that similar to the query we wrote before, the mutation also has a _root field_ - in this case it's called `createPerson`. We also already learned about the concepts of arguments for fields. In this case, the `createPerson` field takes two arguments that specify the new person's `name` and `age`.
 
-Like with a query, we're also able to specify a payload for a mutation in which we can ask for different properties of the new `Person` object. In our case, we’re asking for the `name` and the `age` - though admittedly that’s not super helpful in our example since we obviously already know them as we pass them into the mutation. However, being able to also query information when sending mutations can be a very powerful tool that allows to retrieve new information from the server in a single roundtrip! 
+Like with a query, we're also able to specify a payload for a mutation in which we can ask for different properties of the new `Person` object. In our case, we’re asking for the `name` and the `age` - though admittedly that’s not super helpful in our example since we obviously already know them as we pass them into the mutation. However, being able to also query information when sending mutations can be a very powerful tool that allows you to retrieve new information from the server in a single roundtrip! 
 
 The server response for the above mutation would look as follows:
 
@@ -180,6 +184,8 @@ type Person {
 
 Now, when a new `Person` is created, you could directly ask for the `id` in the payload of the mutation, since that is information that wasn’t available on the client beforehand:
 
+<Playground>
+
 ```graphql(nocopy)
 mutation {
   createPerson(name: "Alice", age: 36) {
@@ -187,6 +193,9 @@ mutation {
   }
 }
 ```
+
+</Playground>
+
 
 ### Realtime Updates with Subscriptions
 
@@ -196,6 +205,8 @@ When a client *subscribes* to an event, it will initiate and hold a steady conne
 
 Subscriptions are written using the same syntax as queries and mutations. Here’s an example where we subscribe on events happening on the `Person` type:
 
+<Playground>
+
 ```graphql(nocopy)
 subscription {
   newPerson {
@@ -204,6 +215,8 @@ subscription {
   }
 }
 ```
+
+</Playground>
 
 After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `Person`, the server sends the information about this person over to the client:
 
@@ -218,7 +231,7 @@ After a client sent this subscription to a server, a connection is opened betwee
 
 ### Defining a Schema
 
-Now that you have a basic understanding of what queries, mutations and subscriptions look like, let’s put it all together and learn how you can write a schema that would allow you to execute the examples you’ve seen so far.
+Now that you have a basic understanding of what queries, mutations, and subscriptions look like, let’s put it all together and learn how you can write a schema that would allow you to execute the examples you’ve seen so far.
 
 The *schema* is one of the most important concepts when working with a GraphQL API. It specifies the capabilities of the API and defines how clients can request the data. It is often seen as a *contract* between the server and client.
 
@@ -230,7 +243,7 @@ type Mutation { ... }
 type Subscription { ... }
 ```
 
-The `Query`, `Mutation` and `Subscription` types are the *entry points* for the requests sent by the client. To enable the `allPersons`-query that we save before, the `Query` type would have to be written as follows:
+The `Query`, `Mutation`, and `Subscription` types are the *entry points* for the requests sent by the client. To enable the `allPersons`-query that we saw before, the `Query` type would have to be written as follows:
 
 ```graphql(nocopy)
 type Query {
@@ -250,7 +263,7 @@ Similarly, for the `createPerson`-mutation, we’ll have to add a root field to 
 
 ```graphql(nocopy)
 type Mutation {
-  createPerson(name: String!, age: String!): Person!
+  createPerson(name: String!, age: Int!): Person!
 }
 ```
 
@@ -272,7 +285,7 @@ type Query {
 }
 
 type Mutation {
-  createPerson(name: String!, age: String!): Person!
+  createPerson(name: String!, age: Int!): Person!
 }
 
 type Subscription {

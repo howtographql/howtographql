@@ -9,7 +9,7 @@ Setting up mutations is as easy as queries, following a very similar process.
 
 All [GraphQL mutations](http://graphql.org/learn/queries/#mutations) start from a root type called **Mutation**.
 
-This type is **not** auto generated. You'll need to generate it using `rails generate graphql:install`.
+This type is **not** auto generated.
 
 <Instruction>
 

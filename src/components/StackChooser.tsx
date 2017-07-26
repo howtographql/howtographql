@@ -13,6 +13,7 @@ interface Props {
   markdownFiles: { [key: string]: Step[] }
   fixedWidth?: number
   showSelectedBorder?: boolean
+  onClickCurrentStack?: () => void
 }
 
 class StackChooser extends React.Component<Props, {}> {
@@ -201,6 +202,9 @@ class StackChooser extends React.Component<Props, {}> {
   private handleMouseUp = i => {
     if (!this.mouseMoved) {
       this.props.onChangeSelectedIndex(i)
+      if (i === this.props.selectedIndex && typeof this.props.onClickCurrentStack === 'function') {
+        this.props.onClickCurrentStack()
+      }
     }
     this.mouseMoved = false
   }

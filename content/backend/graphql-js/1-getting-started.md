@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 question: Which of the following packages allows converting a string in the GraphQL Schema Definition Language into a schema object?
-answers: ["body-parser", "graphql-tools", "graphql-server-express", "express"]
+answers: ["body-parser", "graphql-tools", "apollo-server-express", "express"]
 correctAnswer: 1
 description: Setup your GraphQL server and run it for the first time
 ---
@@ -47,7 +47,7 @@ It's time to start creating your project.
 **Step 3**: Install the following dependencies:
 
 ```bash(path=".../hackernews-graphql-js")
-npm install -save express body-parser graphql-server-express graphql-tools graphql
+npm install -save express body-parser apollo-server-express graphql-tools graphql
 ```
 
 </Instruction>
@@ -92,7 +92,7 @@ const bodyParser = require('body-parser');
 
 // This package will handle GraphQL server requests and responses
 // for you, based on your schema.
-const {graphqlExpress} = require('graphql-server-express');
+const {graphqlExpress} = require('apollo-server-express');
 
 const schema = require('./schema');
 

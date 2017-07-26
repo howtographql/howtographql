@@ -57,6 +57,13 @@ module.exports = class Html extends React.Component {
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-74131346-11', 'auto');
+        ga(u => u.set('sendHitTask', model => {
+          fetch('https://ga.graph.cool', {
+            method: 'POST',
+            body: model.get('hitPayload'),
+            mode: 'no-cors',
+          })
+        }))
         ga('send', 'pageview');
         ` }}
       >

@@ -23,7 +23,7 @@ type User {
   votes: [Vote!] @relation(name: "UsersVotes")
 }
 
-type Link { 
+type Link {
   url: String!
   postedBy: User @relation(name: "UsersLinks")
   votes: [Vote!] @relation(name: "VotesOnLink")
@@ -37,7 +37,7 @@ type Vote {
 
 #### Creating the GraphQL Server
 
-The first thing you need to do is install the Graphcool CLI with npm. 
+The first thing you need to do is install the Graphcool CLI with npm.
 
 <Instruction>
 
@@ -174,7 +174,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 ![](http://imgur.com/ZBgeq22.png)
 
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already opem Playground:
+This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
 ```graphql
 {
@@ -184,7 +184,7 @@ This creates two new `Link` records in the database. You can verify that the mut
     url
   }
 }
-``` 
+```
 
 If everything wen well, the query will return the following data:
 
@@ -234,7 +234,7 @@ create-react-app hackernews-react-relay
 </Instruction>
 
 
-This will create a new directory called `hackernews-react-relay` that has all the basic configuration setup. 
+This will create a new directory called `hackernews-react-relay` that has all the basic configuration setup.
 
 Make sure everything works by navigating into the directory and starting the app:
 
@@ -281,6 +281,17 @@ Your project structure should now look as follows:
 │       └── index.css
 └── yarn.lock
 ```
+
+<Instruction>
+
+Now that you've updated the structure of your project and moved `App.js` and `index.css` you need to make sure they are imported properly in `index.js`. Open `index.js` and update the import statements with the new relative paths:
+
+```js(path=".../hackernews-react-relay/src/index.js")
+import './styles/index.css';
+import App from './components/App';
+```
+
+</Instruction>
 
 #### Prepare Styling
 
@@ -358,16 +369,16 @@ input {
 
 Next, you need to pull in the functionality of Relay into your project. In particular, there are three dependencies you need to install:
 
-1. [`react-relay`](https://github.com/facebook/relay/tree/master/packages/react-relay): Contains major functionality of the Relay runtime and is responsible for all networking and caching tasks. 
+1. [`react-relay`](https://github.com/facebook/relay/tree/master/packages/react-relay): Contains major functionality of the Relay runtime and is responsible for all networking and caching tasks.
 2. [`relay-compiler`](https://github.com/facebook/relay/tree/master/packages/relay-compiler): The Relay Compiler is a tool you'll use at _build time_ to validate and optimize the GraphQL code you're writing in the project. Read more about it in the [official docs](https://facebook.github.io/relay/docs/relay-compiler.html).
 3. [`babel-plugin-relay`](https://github.com/facebook/relay/tree/master/packages/babel-plugin-relay): Relay leverages a [Babel](https://babeljs.io/) plugin to transform the GraphQL code you write in a project and bring it into the right format for the Relay Compiler. Read more about it in the [official docs](https://facebook.github.io/relay/docs/babel-plugin-relay.html).
 
 
 > [Here](https://github.com/facebook/relay/blob/master/packages/ARCHITECTURE.md) is high-level overview on the architecture used for Relay Modern.
 
-<Instruction> 
+<Instruction>
 
-First, install the `react-relay` package: 
+First, install the `react-relay` package:
 
 ```bash(path=".../hackernews-react-relay")
 yarn add react-relay
@@ -376,9 +387,9 @@ yarn add react-relay
 </Instruction>
 
 
-<Instruction> 
+<Instruction>
 
-Next, go ahead and add the `relay-compiler` as a development dependency: 
+Next, go ahead and add the `relay-compiler` as a development dependency:
 
 ```bash(path=".../hackernews-react-relay")
 yarn add relay-compiler --dev
@@ -386,9 +397,9 @@ yarn add relay-compiler --dev
 
 </Instruction>
 
-<Instruction> 
+<Instruction>
 
-Finally, install the `babel-plugin-relay`, again only as a development dependency: 
+Finally, install the `babel-plugin-relay`, again only as a development dependency:
 
 ```bash(path=".../hackernews-react-relay")
 yarn add babel-plugin-relay --dev
@@ -412,7 +423,7 @@ yarn eject
 
 </Instruction>
 
-This command essentially opens up the _blackbox_ that was handed to you by `create-react-app` and let's you do the build configuration yourself. In this case, you need to add the `babel-plugin-relay` that you installed in the previous step to the build process. 
+This command essentially opens up the _blackbox_ that was handed to you by `create-react-app` and let's you do the build configuration yourself. In this case, you need to add the `babel-plugin-relay` that you installed in the previous step to the build process.
 
 <Instruction>
 
@@ -496,7 +507,7 @@ Let's quickly discuss the commented sections to understand better what's going o
 1. You first import the required JS modules that you need to instantiate and configure the `Environment`.
 2. Here you instantiate the required `Store` that will store the cached data.
 3. Now you create a `Network` that knows your GraphQL server from before, it's instantiated with a function that returns a `Promise` of a networking call to the GraphQL API - here that's done using `fetch`.
-4. The `Network` needs to know the server endpoint for your API. In the next step, you'll replace the placeholer `__RELAY_API_ENDPOINT__` with your actual endpoint.
+4. The `Network` needs to know the server endpoint for your API. In the next step, you'll replace the placeholder `__RELAY_API_ENDPOINT__` with your actual endpoint.
 5. With the `store` and `network` available you can instantiate the actual `Environment`.
 6. Lastly you need to export the `environment` from this module.
 
@@ -508,7 +519,7 @@ Open up a terminal to navigate to the root directory of your project (where `pro
 
 ```bash(path=".../hackernews-react-relay")
 graphcool endpoints
-``` 
+```
 
 </Instruction>
 
@@ -527,7 +538,7 @@ Copy the endpoint from the terminal output and paste it into `src/Environment.js
 
 Before you can start using Relay, you'll need to download the _full_ GraphQL schema into your project and make it available to the Relay Compiler.
 
-> Note: There is a difference between the GraphQL schema that you saw above and a _full_ GraphQL schema. The full schema is required for every GraphQL sever since it defines all capabilities of the API by spealling out [the `Query` and `Mutation` types](http://graphql.org/learn/schema/#the-query-and-mutation-types). However, when using Graphcool, you only define a subset of this schema, namely the types of your _data model_. The rest of the schema that represents the actual API will then be generated for you. 
+> Note: There is a difference between the GraphQL schema that you saw above and a _full_ GraphQL schema. The full schema is required for every GraphQL server since it defines all capabilities of the API by spelling out [the `Query` and `Mutation` types](http://graphql.org/learn/schema/#the-query-and-mutation-types). However, when using Graphcool, you only define a subset of this schema, namely the types of your _data model_. The rest of the schema that represents the actual API will then be generated for you.
 
 You'll download the schema using a tool called [`get-graphql-schema`](https://github.com/graphcool/get-graphql-schema).
 
@@ -537,15 +548,15 @@ First, install `get-graphql-schema` with npm by typing the following command int
 
 ```bash
 npm install -g get-graphql-schema
-``` 
+```
 
-</Instruction> 
+</Instruction>
 
-Next, you need to use the endpoint for the Relay API again since that's where `get-graphql-schema` will download the schema from. 
+Next, you need to use the endpoint for the Relay API again since that's where `get-graphql-schema` will download the schema from.
 
 <Instruction>
 
-In the terminal, navigate to the root directory of your project and execute the following command, again replacing the placeholder `__RELAY_API_ENDPOINT__` with the actual URL that you also copied into `Environment.js`: 
+In the terminal, navigate to the root directory of your project and execute the following command, again replacing the placeholder `__RELAY_API_ENDPOINT__` with the actual URL that you also copied into `Environment.js`:
 
 ```bash(path=".../hackernews-react-relay")
 get-graphql-schema __RELAY_API_ENDPOINT__ > ./schema.graphql
@@ -561,11 +572,11 @@ Notice that the `>` in the this command means that the output of `get-graphql-sc
 ├── config
 ├── node_modules
 ├── project.graphcool
-├── schema.grapghql
+├── schema.graphql
 ├── package.json
 ├── public
 ├── src
 └── yarn.lock
-``` 
+```
 
 That's it, you're all set to start loading some data into your app! 🚀

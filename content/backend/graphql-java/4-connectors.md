@@ -128,7 +128,6 @@ For this project, you'll use MongoDB as the persistent storage, but by following
 	        Document doc = new Document();
 	        doc.append("url", link.getUrl());
 	        doc.append("description", link.getDescription());
-	        doc.append("postedBy", link.getUserId());
 	        links.insertOne(doc);
 	    }
 	    
@@ -136,8 +135,7 @@ For this project, you'll use MongoDB as the persistent storage, but by following
 	        return new Link(
 	                doc.get("_id").toString(),
 	                doc.getString("url"),
-	                doc.getString("description"),
-	                doc.getString("postedBy"));
+	                doc.getString("description"));
 	    }
 	}
 	```
@@ -179,7 +177,7 @@ For this project, you'll use MongoDB as the persistent storage, but by following
 	
 	</Instruction>
 
-That's all! Restart Jetty, fire up Graph*i*QL and give it a spin! Just make sure you create some links before querying them. Everything should still work the same except you won't lose the saved links if the power goes out.
+That's all! Restart Jetty, fire up GraphiQL and give it a spin! Just make sure you create some links before querying them. Everything should still work the same except you won't lose the saved links if the power goes out.
 
 ### Performance
 

@@ -25,6 +25,7 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import Promise from 'promise-polyfill'
 
 import createStore from './src/createStore'
 
@@ -33,6 +34,11 @@ exports.replaceRouterComponent = ({ history }) => {
 
   if (typeof Raven !== 'undefined') {
     Raven.config('https://044e7c90fd41456db127c4259db9c51e@sentry.io/190747').install()
+  }
+
+  // for our IE11 users
+  if (!window.Promise) {
+    window.Promise = Promise
   }
 
   const ConnectedRouterWrapper = ({ children }) => (

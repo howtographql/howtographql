@@ -67,7 +67,7 @@ class Resolvers::LinksSearch
 
   # apply_filter recursively loops through "OR" branches
   def apply_filter(scope, value)
-    # normilze filters from nested OR structure, to flat scope list
+    # normalize filters from nested OR structure, to flat scope list
     branches = normalize_filters(value).reduce { |a, b| a.or(b) }
     scope.merge branches
   end
@@ -98,7 +98,7 @@ This resolver contains all logic related to find links. Over time you can more r
 
 Use `LinksSearch` for finding links:
 
-```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
 Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 

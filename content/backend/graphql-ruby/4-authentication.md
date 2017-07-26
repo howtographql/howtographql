@@ -357,7 +357,7 @@ class Resolvers::SignInUser < GraphQL::Function
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
     token = crypt.encrypt_and_sign("user-id:#{ user.id }")
 
-    session[:token] = token
+    ctx[:session][:token] = token
 
     # ...code
   end
@@ -417,7 +417,7 @@ Types::LinkType = GraphQL::ObjectType.define do
   field :url, !types.String
   field :description, !types.String
   # add postedBy field to Link type
-  # - "-> { }": helps agains loading issues between types
+  # - "-> { }": helps against loading issues between types
   # - "property": remaps field to an attribute of Link model
   field :postedBy, -> { Types::UserType }, property: :user
 end

@@ -2,6 +2,8 @@
 
 [How to GraphQL](https://www.howtographql.com) is a fullstack tutorial website to learn all around GraphQL! It was built by [Graphcool](https://www.graph.cool) and many amazing contributors. All content on the site is completely free and open-source.
 
+[![](http://i.imgur.com/67oYe9q.png)](https://www.howtographql.com)
+
 
 ## Content
 
@@ -34,3 +36,14 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 ## Contributions / Fixes
 
 As the whole project is open-source, you're more than welcome to fix typos and other small issues yourself and create a PR for the fix. If you want to contribute a whole tutorial track, please [get in touch](mailto:nikolas@graph.cool). 
+
+## Installation & Running locally
+
+You can run a local instance of How to GraphQL by executing the following commands in a terminal:
+
+```sh
+git clone git@github.com:howtographql/howtographql.git
+cd howtographql
+yarn install
+yarn start
+```

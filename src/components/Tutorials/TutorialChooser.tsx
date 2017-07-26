@@ -58,7 +58,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
           }
         `}</style>
         <CustomHelmet
-          title="Chooser your favorite technology"
+          title="Choose your favorite technology"
           description="In the following, you can choose from one of the many hands-on tutorials we created for you. All tutorials will start from scratch and teach you how to build a fully-fledged Hackernews clone. Depending on what you want to learn, you can either choose a tutorial from the frontend or the backend tracks."
         />
         <StackChooser

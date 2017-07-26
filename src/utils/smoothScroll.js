@@ -61,7 +61,7 @@ export const smoothScrollTo = function(element, target, duration) {
       setTimeout(scroll_frame, 0);
     }
 
-    // boostrap the animation process
+    // bootstrap the animation process
     setTimeout(scroll_frame, 0);
   });
 }

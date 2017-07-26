@@ -40,7 +40,7 @@ render() {
 </Instruction>
 
 
-You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what your're using the `userId` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
+You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what you're using the `userId` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
 
 Notice that you're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user friendly, e.g. `"3 hours ago"`.
 
@@ -117,7 +117,7 @@ Finally, each `Link` element will also render its position inside the list, so y
 
 <Instruction>
 
-Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also incude the link's position:
+Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also include the link's position:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 {linksToRender.map((link, index) => (
@@ -195,7 +195,7 @@ $ gc push
 Your project file project.graphcool was updated. Reload it in your editor if needed.
 ```
 
-Awesome! Now that you updated the schema, you can fix the issue that currently prevents you from propery running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
+Awesome! Now that you updated the schema, you can fix the issue that currently prevents you from properly running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
 
 <Instruction>
 
@@ -314,7 +314,7 @@ But at least you know that the mutation is working. In the next section, you'll 
 
 ### Updating the Cache
 
-One cool thing about Apollo is that you can manually control the contents of the cache. This is really handy, especially after a mutation was performed, since this allows to determine precisely how you want the cache to be updated. Here, you'll use it to make sure the UI displays the correct number of votes right after the `createVote` mutation was performed.
+One cool thing about Apollo is that you can manually control the contents of the cache. This is really handy, especially after a mutation was performed, since this allows you to determine precisely how you want the cache to be updated. Here, you'll use it to make sure the UI displays the correct number of votes right after the `createVote` mutation was performed.
 
 You can implement this functionality by using Apollo's [imperative store API](https://dev-blog.apollodata.com/apollo-clients-new-imperative-store-api-6cb69318a1e3).
 
@@ -340,7 +340,7 @@ await this.props.createVoteMutation({
 
 The `update` function that you're adding as an argument to the mutation call will be called when the server returns the response. It receives the payload of the mutation (`data`) and the current cache (`store`) as arguments. You can then use this input to determine a new state of the cache. 
 
-Notice that you're already _desctructuring_ the server response and retrieving the `createVote` field from it. 
+Notice that you're already _destructuring_ the server response and retrieving the `createVote` field from it. 
 
 All right, so now you know what this `update` function is, but the actual implementation will be done in the parent component of `Link`, which is `LinkList`. 
 

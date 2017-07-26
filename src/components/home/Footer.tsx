@@ -43,7 +43,7 @@ export default function Footer() {
         <a href="https://slack.graph.cool" target="_blank">
           <img src={require('../../assets/icons/slack.svg')} alt="" />
         </a>
-        <a href="https://twitter.com/howtographql" target="_blank">
+        <a href="https://twitter.com/graphcool" target="_blank">
           <img src={require('../../assets/icons/twitter.svg')} alt="" />
         </a>
         <a href="https://github.com/howtographql/howtographql" target="_blank">

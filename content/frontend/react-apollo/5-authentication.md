@@ -63,7 +63,7 @@ class Login extends Component {
             className='pointer mr2 button'
             onClick={() => this._confirm()}
           >
-            {this.state.login ? 'login' : 'create Account' }
+            {this.state.login ? 'login' : 'create account' }
           </div>
           <div
             className='pointer button'
@@ -93,11 +93,11 @@ export default Login
 </Instruction>
 
 
-Let's quickly understand the structure of this new component. The component can have two major states. 
+Let's quickly understand the structure of this new component, which can have two major states.
 
-One state for users that already have an account and only need to login, here the component will only render two `input` fields for the user provide `email` and `password`. Notice that `state.login` will be `true` in this case. 
+One state is for users that already have an account and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `state.login` will be `true` in this case.
 
-The second state is for users that haven't created an account yet and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
+The second state is for users that haven't created an account yet, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
 
 The method `_confirm`  will be used to implement the mutations that we need to send for the login functionality.
 
@@ -435,7 +435,7 @@ Now, let's understand what's going in the two mutations that you just added to t
 
 The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It simply takes the `email` and `password` as arguments and returns info about the `user` as well as a `token` that you can attach to subsequent requests to authenticate the user. You'll learn in a bit how to do so.
 
-The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always _from top to bottom_. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows to sign up and login in a single request!
+The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always _from top to bottom_. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows you to sign up and login in a single request!
 
 All right, all that's left to do is call the two mutations inside the code!
 
@@ -558,7 +558,7 @@ import { GC_USER_ID } from '../constants'
 
 Perfect! Before sending the mutation, you're now also retrieving the corresponding user id from `localStorage`. If that succeeds, you'll pass it to the call to `createLinkMutation` so that every new `Link` will from now on store information about the `User` who created it.
 
-If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're crreating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
+If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're creating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
 
 ### Configuring Apollo with the Auth Token
 
@@ -568,7 +568,7 @@ Since all the API request are actually created and sent by the `ApolloClient` in
 
 <Instruction>
 
-Open `index.js` and put the following code _between_ the creation of the `networkInterface` and the instantation of the `ApolloClient`:
+Open `index.js` and put the following code _between_ the creation of the `networkInterface` and the instantiation of the `ApolloClient`:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 networkInterface.use([{
@@ -590,7 +590,7 @@ networkInterface.use([{
 
 Then directly import the key that you need to retrieve the token from `localStorage` on top of the same file:
 
-```js
+```js(path=".../hackernews-react-apollo/src/index.js")
 import { GC_AUTH_TOKEN } from './constants'
 ```
 
@@ -598,4 +598,4 @@ import { GC_AUTH_TOKEN } from './constants'
 
 That's it - now all your API requests will be authenticated if a `token` is available.
 
-> Note: In a real application you would now configure the [authorization rules](https://www.graph.cool/docs/reference/auth/authorization-iegoo0heez/) (permissions) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform. 
+> Note: In a real application you would now configure the [authorization rules](https://www.graph.cool/docs/reference/auth/authorization-iegoo0heez/) (permissions) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform.

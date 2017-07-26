@@ -9,7 +9,7 @@ correctAnswer: 3
 
 ### Enhancing Reusability with Fragments
 
-_Fragments_ are a handy feature to help improving the structure and and reusability of your GraphQL code. A fragment is a collection of fields on a specific type.
+_Fragments_ are a handy feature to help improving the structure and reusability of your GraphQL code. A fragment is a collection of fields on a specific type.
 
 Let's assume we have the following type:
 
@@ -60,7 +60,7 @@ This query is equivalent to writing:
 
 ### Parameterizing Fields with Arguments
 
-In GraphQL type definitions, each field can take zero or more of _arguments_. Similar to arguments that are passed into functions in typed programming languages, each argument needs to have a _name_ and a _type_. In GraphQL, it's also possible to specify _default values_ for arguments.
+In GraphQL type definitions, each field can take zero or more _arguments_. Similar to arguments that are passed into functions in typed programming languages, each argument needs to have a _name_ and a _type_. In GraphQL, it's also possible to specify _default values_ for arguments.
 
 As an example, let's consider a part of the schema that we saw in the beginning:
 
@@ -96,7 +96,7 @@ This `olderThan` argument can now be passed into the query using the following s
 
 ### Named Query Results with Aliases
 
-One of GraphQL's major strengths is that it let's you send multiple queries in a single request. However, since the response data is shaped after the structure of the fields being requested, you might run into naming issues when you're sending multiple queries asking for the same fields:
+One of GraphQL's major strengths is that it lets you send multiple queries in a single request. However, since the response data is shaped after the structure of the fields being requested, you might run into naming issues when you're sending multiple queries asking for the same fields:
 
 ```graphql(nocopy)
 {
@@ -109,7 +109,7 @@ One of GraphQL's major strengths is that it let's you send multiple queries in a
 }
 ```
 
-In fact, this will produce an error with a GraphQL server, since it's the same field but different arguments. The only way to send a query like that would be to use aliased, i.e. specifying names for the query results:
+In fact, this will produce an error with a GraphQL server, since it's the same field but different arguments. The only way to send a query like that would be to use aliases, i.e. specifying names for the query results:
 
 ```graphql(nocopy)
 {
@@ -143,10 +143,10 @@ The SDL offers a couple of language features that weren't discussed in the previ
 
 In GraphQL, there are two different kinds of types.
 
-- _Scalar_ types represent conrete units of data. The GraphQL spec has five predefined scalars: as `String`, `Int`, `Float`, `Boolean` and `ID`. 
+- _Scalar_ types represent concrete units of data. The GraphQL spec has five predefined scalars: as `String`, `Int`, `Float`, `Boolean`, and `ID`. 
 - _Object_ types have _fields_ that express the properties of that type and are composable. Examples for object types are the `User` or `Post` types we saw in the previous section.
 
-In every GraphQL schema, you can define your own scalar and object types. An often cited example for a custom scalar would be a `Date` type where the implementation needs to define how that type validated, serialized and deserialized.
+In every GraphQL schema, you can define your own scalar and object types. An often cited example for a custom scalar would be a `Date` type where the implementation needs to define how that type validated, serialized, and deserialized.
 
 #### Enums
 
@@ -168,7 +168,7 @@ Note that technically enums are special kinds of scalar types.
 
 #### Interface
 
-An _interface_ can be used to describe a type in an abstract way. It allows to specify a set of fields that any concrete type which _implements_ this interface needs to have. In many GraphQL schemas, every type is required to have an `id` field. Using interfaces, this requirement can be expressed by defining an interface with this field and then making sure that all custom types implement it:
+An _interface_ can be used to describe a type in an abstract way. It allows you to specify a set of fields that any concrete type, which _implements_ this interface, needs to have. In many GraphQL schemas, every type is required to have an `id` field. Using interfaces, this requirement can be expressed by defining an interface with this field and then making sure that all custom types implement it:
 
 ```graphql(nocopy)
 interface Node {

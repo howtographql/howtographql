@@ -71,7 +71,7 @@ Mutation: {
     // Add this block right after the `createLink` mutation resolver.
     createUser: async (root, data, {mongo: {Users}}) => {
     // You need to convert the given arguments into the format for the
-    // `User` type, grabbing email and password from the "authProivder".
+    // `User` type, grabbing email and password from the "authProvider".
     const newUser = {
         name: data.name,
         email: data.authProvider.email.email,
@@ -158,7 +158,7 @@ Mutation: {
 
 With the token that the `signinUser` mutation provides, apps can authenticate subsequent requests by passing it via the `Authorization` header. The GraphQL server should be able to get the contents from this header on each request, detect what user it's related to, and pass this information down to the resolvers.
 
-As you've already seen before, the best place to put data shared between resolvers is in the context object. You'll need that object to be different in every request now though, since each one may be from a different user. Thankfully, `graphql-server-express` allows that too.
+As you've already seen before, the best place to put data shared between resolvers is in the context object. You'll need that object to be different in every request now though, since each one may be from a different user. Thankfully, `apollo-server-express` allows that too.
 
 <Instruction>
 
