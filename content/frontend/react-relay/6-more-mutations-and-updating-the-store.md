@@ -118,7 +118,7 @@ Open `LinkList.js` and update the rendering of the `Link` components inside `ren
 
 ```js(path=".../hackernews-react-relay/src/components/LinkList.js")
 {this.props.viewer.allLinks.edges.map(({node}, index) => (
-  <Link key={node.id} index={index} link={node}/>
+  <Link key={node.__id} index={index} link={node}/>
 ))}
 ```
 
