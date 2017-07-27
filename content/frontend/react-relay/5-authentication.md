@@ -297,7 +297,7 @@ You'll start with the `createUser` mutation.
 
 <Instruction>
 
-Create a new file in `src/mutation` and call it `CreateUserMutation.js`. Then copy the following code into it:
+Create a new file in `src/mutations` and call it `CreateUserMutation.js`. Then copy the following code into it:
 
 ```js(path=".../hackernews-react-relay/src/mutations/CreateUserMutation.js")
 import {
