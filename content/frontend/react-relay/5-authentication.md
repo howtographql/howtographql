@@ -506,7 +506,7 @@ You can now create an account by providing a `name`, `email` and `password`. Onc
 
 ![](http://imgur.com/WoWLmDJ.png) 
 
-### Updating the `createLink`-mutation
+### Updating the `CreateLinkMutation.js`
 
 Since you're now able to authenticate users and also added a new relation between the `Link` and `User` type, you can also make sure that every new link that gets created in the app can store information about the user that posted it. That's what the `postedBy` field on `Link` will be used for.
 
@@ -514,7 +514,7 @@ Since you're now able to authenticate users and also added a new relation betwee
 
 Open `CreateLinkMutation.js` and update the exported function as follows:
 
-```js{1,4}(path=".../hackernews-react-relay/src/components/CreateLink.js")
+```js{1,4}(path=".../hackernews-react-relay/src/mutations/CreateLinkMutation.js")
 export default (postedById, description, url, callback) => {
   const variables = {
     input: {
