@@ -21,7 +21,7 @@ In this chapter, you'll dive into the development of a custom GraphQL backend wi
 While contract-first design has been touted in various contexts, it has rarely been easy to employ.
 
 
-> Developing the contract (be it in the form of WDSL or Swagger or anything else) often assumes a deep and precise understanding of the client's data requirements upfront, and this type of understanding is usually only developed *over time*.
+> Developing the contract (be it in the form of WSDL or Swagger or anything else) often assumes a deep and precise understanding of the client's data requirements upfront, and this type of understanding is usually only developed *over time*.
 
 
 GraphQL conveniently does away with this hurdle by making the decision of what data gets fetched the exclusive domain of the client, opening in turn a path to a much smoother API evolution. This is further complemented by GraphQL's self-describing nature (via [introspection queries](http://graphql.org/learn/introspection/)), making contract-first (or rather *schema-first*, in GraphQL lingo) approach both natural and easy.
