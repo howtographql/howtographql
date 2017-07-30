@@ -74,7 +74,7 @@ That's it! You now have a schema that can do something. All you need to do now i
 
 ### Testing with playground
 
-It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), which you'll need to route to from within the router generated for us by Phoenix. Replace the contents of `lib/community/web/router.ex` with:
+It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), which you'll need to route to from within the router generated for us by Phoenix. Replace the contents of `lib/community_web/router.ex` with:
 
 ```elixir(path=".../graphql-elixir/lib/community/web/router.ex")
 defmodule Community.Web.Router do
