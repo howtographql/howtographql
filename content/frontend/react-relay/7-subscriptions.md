@@ -1,5 +1,6 @@
 ---
 title: Realtime Updates with Subscriptions
+pageTitle: "Implementing Realtime Updates with GraphQL Subscriptions, React & Relay"
 description: In this chapter, you learn how you can implemented realtime funcionality using GraphQL subscriptions with Relay.
 question: "What's the name of the function that Relay provides to initiate a subscription with the server?"
 answers: ["subscribe", "createSubscription", "requestSubscription", "createRealtimeConnection"]

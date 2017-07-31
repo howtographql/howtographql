@@ -1,5 +1,6 @@
 ---
 title: Routing
+pageTitle: "Using React Router with GraphQL & Relay"
 descriptions: In this chapter, you'll setup the navigation for your app.
 videoId: xmaDSTXeN54
 duration: 5

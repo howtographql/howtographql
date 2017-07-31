@@ -1,5 +1,6 @@
 ---
 title: Introduction
+pageTitle: "Introduction to GraphQL, React & Relay" 
 description: In this chapter, you learn why should should use a GraphQL client library.
 question: What's a major benefit of using a GraphQL client library?
 answers: ["It makes it easy to use animations inside your app", "It saves you from writing infrastructure code for networking and caching", "A GraphQL client is mainly used to improve security", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]

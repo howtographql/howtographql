@@ -1,5 +1,6 @@
 ---
 title: Summary
+pageTitle: "Building a Hackernews clone with GraphQL, React & Relay - Tutorial Summary"
 ---
 
 In this chapter, you learned how to build a fully-feature Hackernews clone with React and [Relay](https://facebook.github.io/relay/). You implemented several features, such as displaying a list of links, login functionality, creating new links, voting on links as well as realtime updates with GraphQL subscriptions.

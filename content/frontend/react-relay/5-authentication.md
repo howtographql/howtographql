@@ -1,5 +1,6 @@
 ---
 title: Authentication
+pageTitle: "Implementing Authentication with GraphQL, React & Relay"
 description: In this chapter, you’ll learn how you can implement authentication functionality with Relay and Graphcool to provide a login to the user.
 videoId: f0Mf2YyGdqc
 duration: 18

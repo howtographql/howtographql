@@ -1,5 +1,6 @@
 ---
 title: "Queries: Loading Links"
+pageTitle: "Fetching Data using GraphQL Queries with React & Relay"
 description: "In this chapter, you learn how you can use Relay to load data from a GraphQL server."
 question: What part of Relay is responsible to put the fragments that you defines alongside your React components into an actual GraphQL query?
 answers: ["The Relay Environment", "The Relay Compiler", "The QueryRender", "None, with Relay you always write the full queries yourself"]

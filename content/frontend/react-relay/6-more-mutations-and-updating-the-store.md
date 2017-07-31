@@ -1,5 +1,6 @@
 ---
 title: More Mutations and Updating the Store
+pageTitle: "Advanced Mutations & Caching with GraphQL, React & Relay"
 videoId: yfercdQVFFk
 duration: 14
 question: "What's the purpose of the 'updater' and 'optimisticUpdater' functions?"
