@@ -1,5 +1,6 @@
 ---
 title: Introduction
+pageTitle: "Building a GraphQL Server with Graphcool - Tutorial Introduction"
 description: In this chapter, you get an overview over what you'll build and some major platform features of Graphcool
 ---
 

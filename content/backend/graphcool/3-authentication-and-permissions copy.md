@@ -1,5 +1,6 @@
 ---
 title: Authentication & Permissions with Graphcool
+pageTitle: "Authentication & Authorization in GraphQL using Graphcool"
 description: In this chapter, you'll enable email-and-password based authentication for your project and configure the access permissions 
 ---
 

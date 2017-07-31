@@ -1,5 +1,6 @@
 ---
 title: Mutations
+pageTitle: "Implementing Mutations with an Elixir GraphQL Server"
 description: Learn to implement mutations, and get your first taste of arguments
 ---
 

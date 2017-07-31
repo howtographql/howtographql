@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+pageTitle: "Creating a GraphQL Server with Graphcool"
 description: Learn how to create and evolve a GraphQL server using the Graphcool CLI
 ---
 

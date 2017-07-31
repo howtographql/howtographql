@@ -1,5 +1,6 @@
 ---
 title: Queries
+pageTitle: "Responding to Queries with an Elixir GraphQL Server"
 description: Learn how to use resolvers by building the query for fetching all links, and then test it using GraphiQL
 ---
 

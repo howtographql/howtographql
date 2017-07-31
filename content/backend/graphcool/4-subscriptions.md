@@ -1,5 +1,6 @@
 ---
 title: Realtime with GraphQL subscriptions
+pageTitle: "Using GraphQL Realtime Subscriptions with Graphcool"
 description: Learn how to use GraphQL subscriptions live in a Playground
 ---
 

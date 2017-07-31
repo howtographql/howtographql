@@ -1,5 +1,6 @@
 ---
 title: Summary
+pageTitle: "Building a GraphQL Server with Graphcool - Tutorial Summary"
 ---
 
 In this chapter, you learned how to build a GraphQL server using [Graphcool](https://www.graph.cool/), a backend developer platform that combines GraphQL with [serverless](https://en.wikipedia.org/wiki/Serverless_computing) technologies.

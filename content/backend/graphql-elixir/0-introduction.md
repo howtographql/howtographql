@@ -1,6 +1,7 @@
 ---
 title: Introduction
-description:  Read about what you'll learn in the Elixir  tutorial
+pageTitle: "Building a GraphQL Server with Elixir - Tutorial Introduction"
+description: Read about what you'll learn in the Elixir tutorial
 ---
 
 ### Motivation
@@ -12,7 +13,6 @@ GraphQL and Elixir go really well together, and this part of the tutorial will h
 In this chapter you'll learn how to build your very own GraphQL server using the following technologies:
 
 * Server
-
     * Elixir: The programming language https://elixir-lang.org/
     * Phoenix: Web framework in Elixir http://www.phoenixframework.org/
     * Absinthe: GraphQL implementation for Elixir that will handle running GraphQL queries submitted via Phoenix. http://absinthe-graphql.org/

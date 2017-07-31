@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+pageTitle: "Getting Started with GraphQL and Elixir"
 description: Setup your GraphQL server and run it for the first time
 ---
 

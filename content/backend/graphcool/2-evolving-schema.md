@@ -1,5 +1,6 @@
 ---
 title: Evolving the Schema with the CLI
+pageTitle: "GraphQL Schema Migrations with the Graphcool CLI"
 description: "Learn how to use the Graphcool CLI to make changes to the project's schema"
 ---
 
