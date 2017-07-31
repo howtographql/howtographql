@@ -29,7 +29,7 @@ export default function Success({ post, steps }: Props) {
       `}</style>
       <CustomHelmet
         title="It was great having you!"
-        description="We hope you enjoyed going through this tutorial and learning about GraphQL. We believe that GraphQL will fundamentally change the way how we build applications and want to create an active community around it and are happy to welcome you as a new member! 🙌"
+        description="We hope you enjoyed going through this tutorial and learning about GraphQL. We believe that GraphQL will fundamentally change the way how we build applications. Our goal is to create an active community around it and we're to welcome you as a new member! 🙌"
       />
       <Result steps={steps} />
       <Share />

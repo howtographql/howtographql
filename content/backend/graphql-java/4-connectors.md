@@ -142,7 +142,9 @@ For this project, you'll use MongoDB as the persistent storage, but by following
 	
 	</Instruction>
 
-4. You'll also have to update `GraphQLEndpoint` to connect to MongoDB.
+4. Update the allLinks method in the Query class to now call `linkRepository.getAllLinks()` instead of `linkRepository.allLinks()`.
+
+5. You'll also have to update `GraphQLEndpoint` to connect to MongoDB.
 
 	<Instruction>
 	

@@ -297,7 +297,7 @@ You'll start with the `createUser` mutation.
 
 <Instruction>
 
-Create a new file in `src/mutation` and call it `CreateUserMutation.js`. Then copy the following code into it:
+Create a new file in `src/mutations` and call it `CreateUserMutation.js`. Then copy the following code into it:
 
 ```js(path=".../hackernews-react-relay/src/mutations/CreateUserMutation.js")
 import {
@@ -537,9 +537,9 @@ Secondly, you should also include the information about the user in the mutation
 
 <Instruction>
 
-Sill in `CreateLinkMutation.js`, update the definition of `mutation` like so:
+Still in `CreateLinkMutation.js`, update the definition of `mutation` like so:
 
-```js{9-11}(path=".../hackernews-react-relay/src/components/CreateLink.js")
+```js{9-11}(path=".../hackernews-react-relay/src/mutations/CreateLinkMutation.js")
 const mutation = graphql`
   mutation CreateLinkMutation($input: CreateLinkInput!) {
     createLink(input: $input) {
