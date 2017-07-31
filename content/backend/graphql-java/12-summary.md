@@ -1,5 +1,6 @@
 ---
 title: Summary
+pageTitle: "Building a GraphQL Server with Java - Tutorial Summary"
 description: Wrapping up the tutorial
 question: Did you find this tutorial useful?
 answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what I knew before!", "Fish!"]

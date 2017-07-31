@@ -1,5 +1,6 @@
 ---
 title: Pagination
+pageTitle: "Implementing Server-side Pagination with GraphQL & Java"
 description: Add limit-offset based pagination to your GraphQL API to browser links in
 question: Is pagination supported by GraphQL?
 answers: ["Yes, out of the box, via dedicated query arguments", "The implementer can provide their own pagination scheme", "Yes, but only if the Connection specification (part of the Relay spec) is supported", "No"]

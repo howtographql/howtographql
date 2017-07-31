@@ -1,5 +1,6 @@
 ---
 title: Connectors
+pageTitle: "Using Connectors with GraphQL & Java"
 description: Connect your GraphQL API to a MongoDB
 question: Where can a GraphQL server store data to and load data from?
 answers: ["Graph databases, like Neo4j, OrientDB, Arango etc", "GraphQL servers do not store or load data", "Any persistent storage, e.g. MongoDB", "Anywhere"]
@@ -63,6 +64,7 @@ public class Link {
     public String getDescription() {
         return description;
     }
+    
 }
 ```
 

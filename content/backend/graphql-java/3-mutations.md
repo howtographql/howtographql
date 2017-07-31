@@ -1,5 +1,6 @@
 ---
 title: Mutations
+pageTitle: "Implementing Mutations with a Java GraphQL Server"
 description: Add your first mutation to the GraphQL schema
 question: How are mutations different from queries?
 answers: ["Only semantically, the syntax is the same for both", "Mutation must be send via HTTP POST", "Mutations start with a different key-word", "Mutation is just another name for a query"]

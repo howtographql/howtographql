@@ -1,5 +1,6 @@
 ---
 title: Filtering
+pageTitle: "Server-side Filtering with GraphQL & Java"
 description: Use query arguments to filter which links are returned
 question: Is result filtering supported by GraphQL?
 answers: ["Yes, out of the box, via dedicated query arguments", "Arguments have no built-in semantics, the implementer can provide arguments used for filtering (like Graph.cool does)", "Yes, but only if extensions are installed", "No"]

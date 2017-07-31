@@ -1,5 +1,6 @@
 ---
 title: Authentication
+pageTitle: "Implementing Server-side Authentication with GraphQL & Java"
 description: Add simple authentication to your GraphQL API
 question: How does authentication work in GraphQL?
 answers: ["GraphQL servers must have a built-in auth system", "JWT must be used", "There is no notion of authentication built-in, you provide one yourself", "GraphQL server can not authenticate users, it must be done outside of GraphQL"]
