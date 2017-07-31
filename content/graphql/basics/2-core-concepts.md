@@ -1,5 +1,6 @@
 ---
 title: Core Concepts
+pageTitle: GraphQL Core Concepts
 question: "What are GraphQL subscription used for?"
 answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allows you to read and write data"]
 correctAnswer: 0
