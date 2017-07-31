@@ -1,5 +1,6 @@
 ---
 title: Summary
+pageTitle: "Building a GraphQL Sever with Node & Javascript - Tutorial Summary"
 description: A quick summary of what you learned in this tutorial
 ---
 

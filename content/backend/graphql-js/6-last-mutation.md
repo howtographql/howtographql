@@ -1,5 +1,6 @@
 ---
 title: More Mutations
+pageTitle: "Advanced Server-side Mutations with GraphQL, Javascript & NodeJS"
 question: What's usually the first thing you do when you need to add a new GraphQL type or field?
 answers: ["Create a new endpoint", "Update the schema definition", "Add a new resolver", "Create a new version of the API to avoid conflicts"]
 correctAnswer: 1

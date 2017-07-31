@@ -1,5 +1,6 @@
 ---
 title: Authentication
+pageTitle: "Implementing Server-side Authgentication with GraphQL & Ruby"
 description: Authenticate your users with GraphQL
 ---
 

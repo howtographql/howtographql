@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+pageTitle: "Getting Started with GraphQL, Javascript and NodeJS"
 question: Which of the following packages allows converting a string in the GraphQL Schema Definition Language into a schema object?
 answers: ["body-parser", "graphql-tools", "apollo-server-express", "express"]
 correctAnswer: 1

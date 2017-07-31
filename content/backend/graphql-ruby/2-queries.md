@@ -1,5 +1,6 @@
 ---
 title: Queries
+pageTitle: "Responding to Queries with a Ruby GraphQL Server"
 description: Learn how to define GraphQL schema, query resolvers and use GraphiQL to test your queries
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: Subscriptions
+pageTitle: "Implementing a Realtime GraphQL Subscriptions Server with Javascript & NodeJS"
 question: Which of the following is true?
 answers: ["Real time support should be implemented via regular queries", "It's not currently possible to test subscriptions via GraphiQL", "Subscriptions can be implemented via web sockets", "The only way to implement subscriptions is by using the `subscriptions-transport-ws` package"]
 correctAnswer: 2

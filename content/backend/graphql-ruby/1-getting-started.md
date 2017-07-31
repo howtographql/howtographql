@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+pageTitle: "Getting Started Building a GraphQL Server with Ruby"
 description: Learn how to setup a graphql-ruby project
 ---
 

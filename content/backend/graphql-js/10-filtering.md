@@ -1,5 +1,6 @@
 ---
 title: Filtering
+pageTitle: "Server-side Filtering with GraphQL, Javascript & NodeJS"
 question: How can you implement filters in GraphQL servers?
 answers: ["You need to define a special Filter root type", "You can simply use field arguments for that", "You need to use a special function from `graphql-tools`", "That's not possible yet"]
 correctAnswer: 1

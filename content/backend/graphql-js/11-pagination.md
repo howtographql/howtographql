@@ -1,5 +1,6 @@
 ---
 title: Pagination
+pageTitle: "Implementing Server-side Pagination with GraphQL, Javascript & NodeJS"
 question: How can you implement pagination in GraphQL servers?
 answers: ["You need to define a special Pagination root type", "You can simply use field arguments for that", "You need to use a special function from `graphql-tools`", "That's not possible yet"]
 correctAnswer: 1

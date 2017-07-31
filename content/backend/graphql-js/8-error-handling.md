@@ -1,5 +1,6 @@
 ---
 title: Error Handling
+pageTitle: "Implementing Server-side Authentication with GraphQL, Javascript & NodeJS"
 question: How can you change the contents of error messages sent to GraphQL clients?
 answers: ["Using the `formatError` option in the server call", "Extending a special error class from `graphql-tools`", "You need to catch the errors yourself and change their contents", "That's not allowed"]
 correctAnswer: 0

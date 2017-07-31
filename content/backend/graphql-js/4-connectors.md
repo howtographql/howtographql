@@ -1,5 +1,6 @@
 ---
 title: Connectors
+pageTitle: "Using Connectors with GraphQL, Javascript & NodeJS"
 question: Which of the following is the best way to share data/functions between resolvers?
 answers: ["The server's context object", "Global variables", "Separate module file", "That's not possible"]
 correctAnswer: 0

@@ -1,5 +1,6 @@
 ---
 title: Filtering
+pageTitle: "Server-side Filtering with GraphQL & Ruby"
 description: Define more complicated queries with GraphQL
 ---
 

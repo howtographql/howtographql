@@ -1,5 +1,6 @@
 ---
 title: Mutations
+pageTitle: "Implementing Mutations with a Ruby GraphQL Server"
 description: Learn how to define GraphQL mutations to change data
 ---
 

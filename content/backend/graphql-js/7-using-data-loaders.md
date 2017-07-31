@@ -1,5 +1,6 @@
 ---
 title: Using dataloaders
+pageTitle: "Using Dataloaders with GraphQL, Javascript & NodeJS"
 question: What are data loaders useful for?
 answers: ["Improving the resolver code's readability", "Catching and handling errors", "Reducing the number of data requests", "Making data fetch calls consistent"]
 correctAnswer: 2

@@ -1,5 +1,6 @@
 ---
 title: Queries
+pageTitle: "Responding to Queries with a Javascript & Node GraphQL Server"
 question: What's the quickest way to test GraphQL apis?
 answers: ["Building GraphQL requests with CURL", "Using playgrounds like GraphiQL", "Using Postman or similar app for sending HTTP requests", "Building a frontend client app that sends requests"]
 correctAnswer: 1

@@ -1,5 +1,6 @@
 ---
 title: Error Handling
+pageTitle: "Implementing Server-side Error Handling with GraphQL & Ruby"
 description: Get to know different kinds of errors and how they are typically handled with GraphQL
 ---
 

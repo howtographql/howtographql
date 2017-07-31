@@ -1,5 +1,6 @@
 ---
 title: Connecting Nodes
+pageTitle: "Advanced Server-side Mutations with GraphQL & Ruby"
 description: Add votes and connect your records
 ---
 

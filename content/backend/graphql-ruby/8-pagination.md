@@ -1,5 +1,6 @@
 ---
 title: Pagination
+pageTitle: "Implementing Server-side Pagination with GraphQL & Ruby"
 description: How to handle pagination with GraphQL
 ---
 
