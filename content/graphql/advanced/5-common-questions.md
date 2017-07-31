@@ -1,5 +1,6 @@
 ---
 title: Common Questions
+pageTitle: "Common GraphQL Questions"
 description: In this chapter, we answer common questions people have about GraphQL
 question: How does a GraphQL server deal with failures?
 answers: ["A GraphQL server never fails", "It uses HTTP status codes to indicate what went wrong", "It returns a dedicated errors object in the server response", "It starts crying and hides under the bed"]

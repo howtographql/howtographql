@@ -1,5 +1,6 @@
 ---
 title: "Queries: Loading Links"
+pageTitle: "Fetching Data using GraphQL Queries with React & Apollo"
 description: "In this chapter, you learn how you can use Apollo Client to load data from a GraphQL server."
 videoId: YW7F_scpE4w
 duration: 6

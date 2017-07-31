@@ -1,5 +1,6 @@
 ---
 title: Introduction
+pageTitle: "Introduction to GraphQL, React & Apollo"
 description: "In this chapter, you learn why should should use a GraphQL client library."
 videoId: lQDrREfapow
 duration: 5

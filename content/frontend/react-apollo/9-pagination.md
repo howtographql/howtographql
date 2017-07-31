@@ -1,5 +1,6 @@
 ---
 title: Pagination
+pageTitle: "Implement Pagination with GraphQL, React & Apollo"
 description: In this chapter, you learn how you can implement limit-offset pagination with Apollo and Graphcool.
 question: "What's the difference between the 'query' and 'readQuery' methods on the 'ApolloClient'?"
 answers: ["'readQuery' always fetches data over the network while 'query' can retrieve data either from the cache or remotely", "'readQuery' can only be used to reading data while 'query' can also be used to write data", "'readQuery' was formerly called 'query' and the functionality of both is identical", "'readQuery' always reads data from the local cache while 'query' might retrieve data either from the cache or remotely"]

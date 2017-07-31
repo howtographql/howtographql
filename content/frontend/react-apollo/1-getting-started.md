@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+pageTitle: "Getting Started with GraphQL, React & Apollo"
 description: In this chapter, you'll setup your backend and frontend projects with Graphcool and create-react-app.
 videoId: JV0nLsdeMfo
 duration: 4

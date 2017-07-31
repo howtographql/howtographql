@@ -1,5 +1,6 @@
 ---
 title: Server
+pageTitle: "GraphQL Servers Overview"
 description: "An introduction to the core concepts that are required when using GraphQL on the server-side"
 question: Which statement about GraphQL servers is correct?
 answers: ["A single record is never fetched more than once for a given query", "Query fields are resolved depth-first", "Resolvers can be defined on a field granularity", "A GraphQL server that doesn't use DataLoader isn't a GraphQL Server"]

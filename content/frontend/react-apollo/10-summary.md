@@ -1,5 +1,6 @@
 ---
 title: Summary
+pageTitle: "Building a Hackernews clone with GraphQL, React & Apollo - Summary"
 description: In this chapter, we summarize what you learned in this tutorial.
 ---
 

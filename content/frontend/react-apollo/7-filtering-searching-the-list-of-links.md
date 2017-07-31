@@ -1,5 +1,6 @@
 ---
 title: "Filtering: Searching the List of Links"
+pageTitle: "Filtering with GraphQL, React & Apollo"
 description: In this chapter, you'll implement a search to retrieve a filtered list of links from the server.
 question: "What's the purpose of the 'withApollo' function?"
 answers: ["You use it to send queries and mutations to a GraphQL server", "When wrapped around a component, it injects the 'ApolloClient' instance into the component's props", "You have to use it everywhere where you want to use Apollo functionality", "It parses GraphQL code"]

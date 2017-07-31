@@ -1,5 +1,6 @@
 ---
 title: More Mutations and Updating the Store
+pageTitle: "Advanced Mutations & Caching with GraphQL, React & Apollo"
 description: In this chapter, you implement the voting feature and learn how you can manually control the cache when using Apollo.
 question: "What does the 'graphcool push' command do?"
 answers: ["It uploads the local schema changes to the remote Graphcool project", "It pushes a git repository to Graphcool so you can manage your project and code together", "It tells the server to push its remote schema changes into the local project file", "There is no 'graphcool push' command"]

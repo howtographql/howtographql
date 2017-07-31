@@ -1,5 +1,6 @@
 ---
 title: "Mutations: Creating Links"
+pageTitle: "Updating Data using GraphQL Mutations with React & Apollo"
 description: In this chapter, you learn how you can create new links in the database by using GraphQL mutations.
 videoId: GFnUSoUfbhw
 duration: 4
