@@ -244,8 +244,8 @@ _nextPage = () => {
 _previousPage = () => {
   const page = parseInt(this.props.match.params.page, 10)
   if (page > 1) {
-    const nextPage = page - 1
-    this.props.history.push(`/new/${nextPage}`)
+    const previousPage = page - 1
+    this.props.history.push(`/new/${previousPage}`)
   }
 }
 ```
