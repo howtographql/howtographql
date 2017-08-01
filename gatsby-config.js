@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `My Sweet Gatsby Site!`,
+    siteUrl: `https://www.howtographql.com`,
   },
   plugins: [
     {
@@ -31,7 +32,9 @@ module.exports = {
     },
     `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-jsx`,
-    // `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+    },
     `gatsby-plugin-typescript`,
     `styled-jsx-plugin`,
     `gatsby-plugin-react-helmet`,
