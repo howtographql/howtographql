@@ -1,6 +1,6 @@
 ---
 title: Introduction
-pageTitle: "Building a GraphQL Server with Java - Tutorial Introduction"
+pageTitle: "Building a GraphQL Server with Java - Tutorial"
 description: This chapter provides a motivation for building a server with GraphQL and graphql-java
 question: Can a GraphQL server be implemented in any language?
 answers: ["Yes", "No, GraphQL is a JavaScript-only thing", "Yes, but only the Node.js implementation exists", "No, only statically typed languages are suitable"]

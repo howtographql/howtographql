@@ -1,7 +1,7 @@
 ---
 title: Realtime Updates with GraphQL Subscriptions
-pageTitle: "Implementing Realtime Updates with GraphQL Subscriptions, React & Apollo"
-description: In this chapter, you learn how you can implemented realtime functionality using GraphQL subscriptions with Apollo.
+pageTitle: "Realtime with GraphQL Subscriptions, React & Apollo Tutorial"
+description: "Learn how to implement realtime funcionality using GraphQL subscriptions with Apollo Client & React. The websockets will be handled by subscriptions-transport-ws."
 videoId: R-VLZ--sTzI
 duration: 6
 videoAuthor: "Abhi Ayer"

@@ -1,7 +1,7 @@
 ---
 title: Authentication
-pageTitle: "Implementing Authentication with GraphQL, React & Apollo"
-description: In this chapter, you implement the authentication functionality so users can login to your app.
+pageTitle: "Authentication with GraphQL, React & Apollo Tutorial"
+description: "Learn how you can implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Graphcool."
 question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
 answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
 correctAnswer: 1

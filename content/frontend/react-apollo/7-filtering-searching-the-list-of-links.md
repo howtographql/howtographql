@@ -1,7 +1,7 @@
 ---
 title: "Filtering: Searching the List of Links"
-pageTitle: "Filtering with GraphQL, React & Apollo"
-description: In this chapter, you'll implement a search to retrieve a filtered list of links from the server.
+pageTitle: "Filtering with GraphQL, React & Apollo Tutorial"
+description: "Learn how to use filters with GraphQL and Apollo Client. Graphcool provides a powerful filter and ordering API that you'll explore in this example."
 question: "What's the purpose of the 'withApollo' function?"
 answers: ["You use it to send queries and mutations to a GraphQL server", "When wrapped around a component, it injects the 'ApolloClient' instance into the component's props", "You have to use it everywhere where you want to use Apollo functionality", "It parses GraphQL code"]
 correctAnswer: 1
@@ -9,7 +9,6 @@ videoId: sycCQujmWzg
 duration: 3
 videoAuthor: "Abhi Aiyer"
 ---
-
 
 In this section, you'll implement a search feature and learn about the filtering capabilities of your GraphQL API.
 

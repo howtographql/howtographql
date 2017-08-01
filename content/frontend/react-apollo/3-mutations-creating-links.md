@@ -1,7 +1,7 @@
 ---
 title: "Mutations: Creating Links"
-pageTitle: "Updating Data using GraphQL Mutations with React & Apollo"
-description: In this chapter, you learn how you can create new links in the database by using GraphQL mutations.
+pageTitle: "GraphQL Mutations with React & Apollo Tutorial"
+description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `graphql` higer-order component to define and send mutations."
 videoId: GFnUSoUfbhw
 duration: 4
 videoAuthor: "Abhi Aiyer"
