@@ -1,7 +1,7 @@
 ---
 title: Routing
-pageTitle: "Using React Router with GraphQL & Apollo"
-description: "In this chapter, you'll setup the navigation for your app"
+pageTitle: "React Router with GraphQL & Apollo Tutorial"
+description: "Learn how to use react-router 4 together with GraphQL and Apollo Client to implement navigation in a React app. Each route will be represented as a `Link`."
 videoId: W-MJHNOdUOI
 duration: 4
 videoAuthor: "Abhi Aiyer"

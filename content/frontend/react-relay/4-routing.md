@@ -1,7 +1,7 @@
 ---
 title: Routing
-pageTitle: "Using React Router with GraphQL & Relay"
-descriptions: In this chapter, you'll setup the navigation for your app.
+pageTitle: "React Router with GraphQL & Relay Tutorial"
+descriptions: "Learn how to use react-router 4 together with GraphQL and Relay Modern to implement navigation in a React app. Each route will be represented as a `Link`."
 videoId: xmaDSTXeN54
 duration: 5
 question: What's the role of the Link component that you added in this chapter?

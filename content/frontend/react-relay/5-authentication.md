@@ -1,7 +1,7 @@
 ---
 title: Authentication
-pageTitle: "Implementing Authentication with GraphQL, React & Relay"
-description: In this chapter, you’ll learn how you can implement authentication functionality with Relay and Graphcool to provide a login to the user.
+pageTitle: "Authentication with GraphQL, React & Relay Tutorial"
+description: "Learn how you can implement authentication with GraphQL & Relay to provide an email-and-password-based login in a React app with Graphcool."
 videoId: f0Mf2YyGdqc
 duration: 18
 question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
