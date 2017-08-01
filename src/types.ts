@@ -21,6 +21,7 @@ export interface MarkdownRemark {
     answers: string[]
     correctAnswer: number
     description?: string
+    pageTitle?: string
   }
 }
 
