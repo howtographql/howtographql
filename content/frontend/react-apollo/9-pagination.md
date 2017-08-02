@@ -23,17 +23,22 @@ Open `App.js` and adjust the render method like so:
 
 ```js{4,8,9}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
-  return (
-    <Switch>
-      <Route exact path='/' render={() => <Redirect to='/new/1' />} />
-      <Route exact path='/login' component={Login}/>
-      <Route exact path='/create' component={CreateLink}/>
-      <Route exact path='/search' component={Search}/>
-      <Route exact path='/top' component={LinkList}/>
-      <Route exact path='/new/:page' component={LinkList}/>
-    </Switch>
-  )
-}
+    return (
+      <div className='center w85'>
+        <Header />
+        <div className='ph3 pv1 background-gray'>
+          <Switch>
+            <Route exact path='/' render={() => <Redirect to='/new/1' />} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/create' component={CreateLink} />
+            <Route exact path='/search' component={Search} />
+            <Route exact path='/top' component={LinkList} />
+            <Route exact path='/new/:page' component={LinkList} />
+          </Switch>
+        </div>
+      </div>
+    )
+  }
 ```
 
 </Instruction>
@@ -244,8 +249,8 @@ _nextPage = () => {
 _previousPage = () => {
   const page = parseInt(this.props.match.params.page, 10)
   if (page > 1) {
-    const nextPage = page - 1
-    this.props.history.push(`/new/${nextPage}`)
+    const previousPage = page - 1
+    this.props.history.push(`/new/${previousPage}`)
   }
 }
 ```
