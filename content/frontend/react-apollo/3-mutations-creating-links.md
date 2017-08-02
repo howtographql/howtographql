@@ -81,7 +81,7 @@ This is a standard setup for a React component with two `input` fields where use
 
 But how can you now actually send the mutation? Let's follow the three steps from before.
 
-First you need to define the mutation in your JavaScript code and wrap your component with the `graphl` container. You'll do that in a similar way as with the query before.
+First you need to define the mutation in your JavaScript code and wrap your component with the `graphql` container. You'll do that in a similar way as with the query before.
 
 <Instruction>
 
