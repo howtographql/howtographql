@@ -1,7 +1,7 @@
 ---
 title: "Mutations: Creating Links"
 pageTitle: "GraphQL Mutations with React & Apollo Tutorial"
-description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `graphql` higer-order component to define and send mutations."
+description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `graphql` higher-order component to define and send mutations."
 videoId: GFnUSoUfbhw
 duration: 4
 videoAuthor: "Abhi Aiyer"

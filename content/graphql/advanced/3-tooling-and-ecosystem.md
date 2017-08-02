@@ -1,7 +1,7 @@
 ---
 title: Tooling and Ecosystem
-pageTitle: "GraphQL Tooling & Ecosystem"
-description: Learn about what makes the GraphQL Ecosystem so great and what kind of tools are available to help build and use GraphQL APIs.
+pageTitle: "GraphQL Tooling & Ecosystem Tutorial"
+description: "Learn about the GraphQL ecosystem and its awesome tooling like the GraphiQL playgrounds or self-generating docs through introspection."  
 question: What mechanism is used by most tools to discover a GraphQL server's type system?
 answers: ["The IDL", "Introspection", "GraphiQL", "Subscriptions"]
 correctAnswer: 1

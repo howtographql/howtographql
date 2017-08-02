@@ -1,7 +1,7 @@
 ---
 title: Realtime Updates with Subscriptions
 pageTitle: "Realtime with GraphQL Subscriptions, React & Relay Tutorial"
-description: "Learn how to implement realtime funcionality using GraphQL subscriptions with Relay Modern & React. The websockets will be handled by subscriptions-transport-ws."
+description: "Learn how to implement realtime functionality using GraphQL subscriptions with Relay Modern & React. The websockets will be handled by subscriptions-transport-ws."
 question: "What's the name of the function that Relay provides to initiate a subscription with the server?"
 answers: ["subscribe", "createSubscription", "requestSubscription", "createRealtimeConnection"]
 correctAnswer: 2

@@ -1,6 +1,6 @@
 ---
 title: Introduction
-pageTitle: "Introduction to GraphQL, React & Relay" 
+pageTitle: "Fullstack Tutorial with GraphQL, React & Relay"
 description: Learn how to build a production-ready Hackernews clone with GraphQL, React & Relay. You'll use create-react-app for the frontend and Graphcool for the backend.
 question: What's a major benefit of using a GraphQL client library?
 answers: ["It makes it easy to use animations inside your app", "It saves you from writing infrastructure code for networking and caching", "A GraphQL client is mainly used to improve security", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
