@@ -1,7 +1,7 @@
 ---
 title: Queries
-pageTitle: "Responding to Queries with an Elixir GraphQL Server"
-description: Learn how to use resolvers by building the query for fetching all links, and then test it using GraphiQL
+pageTitle: "Resolving Queries with an Elixir GraphQL Server Tutorial"
+description:  "Learn how to define the GraphQL schema with Absinthe, implement query resolvers in Elixir and test your queries in a GraphiQL Playground."
 ---
 
 ### Defining the Schema

@@ -1,6 +1,7 @@
 ---
 title: Introduction
-pageTitle: "Building a GraphQL Sever with Node & Javascript - Tutorial Introduction"
+pageTitle: "Building a GraphQL Sever with Javascript Backend Tutorial"
+description: "Learn how to build a GraphQL server with graphql-js and best practices for filters, authentication, pagination and subscriptions. Compatible with Apollo."
 question: Which of these is a requirement for GraphQl servers?
 answers: ["Run in NodeJS", "Real time subscriptions support", "Validate incoming GraphQL requests", "Automatically generate queries and mutations from schema types"]
 correctAnswer: 2

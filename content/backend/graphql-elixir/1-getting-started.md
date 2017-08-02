@@ -1,7 +1,7 @@
 ---
 title: Getting Started
-pageTitle: "Getting Started with GraphQL and Elixir"
-description: Setup your GraphQL server and run it for the first time
+pageTitle: "Getting Started with GraphQL & Elixir Tutorial"
+description: "Learn how to setup a GraphQL server with Elixir & Absinthe as well as best practices for defining the GraphQL schema."
 ---
 
 ### Install Dependencies
@@ -12,9 +12,9 @@ Unlike some frameworks, Phoenix works within the ordinary structure of a regular
 
 <Instruction>
 
-Install this generator
+Install this generator:
 
-```
+```bash
 mix local.hex --force && \
 mix local.rebar --force && \
 mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez
@@ -32,9 +32,9 @@ You're going to build an app called Community, and you can think of it as a mini
 
 <Instruction>
 
-Use the `phx.new` generator:
+Use the `phx.new` generator (confirm with `y` when prompted):
 
-```
+```bash
 mix phx.new community --no-brunch --no-html
 ```
 
@@ -63,7 +63,7 @@ mix deps.get
 
 You're also going to generate some of the database tables and seed data now so that you're all set for the rest of the tutorial.
 
-```
+```bash
 mix phx.gen.context News Link links url:string description:text
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: Introduction
-pageTitle: "Building a GraphQL Server with Ruby - Tutorial Introduction"
-description: This chapter provides a motivation for building a server with GraphQL and graphql-ruby
+pageTitle: "Building a GraphQL Server with Ruby Backend Tutorial"
+description: "Learn how to build a GraphQL server with graphql-ruby and best practices for filters, authentication, pagination and subscriptions. Compatible with Apollo."
 ---
 
 ### Motivation

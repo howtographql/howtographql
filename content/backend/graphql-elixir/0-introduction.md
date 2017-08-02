@@ -1,7 +1,7 @@
 ---
 title: Introduction
-pageTitle: "Building a GraphQL Server with Elixir - Tutorial Introduction"
-description: Read about what you'll learn in the Elixir tutorial
+pageTitle: "Building a GraphQL Server with Elixir Backend Tutorial"
+description: "Learn how to build a GraphQL server with Elixir & Absinthe and best practices for filters, authentication, pagination and subscriptions. Compatible with Apollo."
 ---
 
 ### Motivation

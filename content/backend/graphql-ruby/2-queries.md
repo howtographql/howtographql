@@ -1,7 +1,7 @@
 ---
 title: Queries
-pageTitle: "Responding to Queries with a Ruby GraphQL Server"
-description: Learn how to define GraphQL schema, query resolvers and use GraphiQL to test your queries
+pageTitle: "Responding to Queries with a Ruby GraphQL Server Tutorial"
+description: "Learn how to define the GraphQL schema with graphql-ruby, implement query resolvers in Ruby and use a GraphiQL Playground to test your queries."
 ---
 
 ### Setup Links

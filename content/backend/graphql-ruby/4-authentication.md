@@ -1,7 +1,7 @@
 ---
 title: Authentication
-pageTitle: "Implementing Server-side Authgentication with GraphQL & Ruby"
-description: Authenticate your users with GraphQL
+pageTitle: "Server-side Authentication with GraphQL & Ruby Tutorial"
+description: "Learn best practices for implementing email-password authentication on a GraphQL Server written in Ruby."
 ---
 
 ### Creating Users

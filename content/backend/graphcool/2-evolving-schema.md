@@ -1,7 +1,7 @@
 ---
 title: Evolving the Schema with the CLI
-pageTitle: "GraphQL Schema Migrations with the Graphcool CLI"
-description: "Learn how to use the Graphcool CLI to make changes to the project's schema"
+pageTitle: "GraphQL Schema Migrations with the Graphcool CLI Tutorial"
+description: "Learn best practices for using the Graphcool CLI and how it can be used to evolve to the GraphQL schema."
 ---
 
 In this chapter, you'll evolve the schema of the Graphcool project by adding the additional types and relations that you need for the Hackernews clone.
@@ -65,7 +65,7 @@ graphcool push
 
 The CLI output will provide the information about all changes that were applied to the schema on the server-side:
 
-```bash
+```bash(nocopy)
 $ graphcool push
  ✔ Your schema was successfully updated. Here are the changes: 
 

@@ -1,10 +1,10 @@
 ---
 title: Mutations
-pageTitle: "Implementing Mutations with a Javascript & NodeJS GraphQL Server"
+pageTitle: "Mutations with a Javascript & Node.js GraphQL Server Tutorial"
+description: "Learn best practices for implementing GraphQL mutations with graphql-js, Javascript, Node.js & Express. Test your implementation in a GraphiQL Playground."
 question: Which of these is false about GraphQL field arguments?
 answers: ["They are how clients pass data to the server", "They must be included in the field schema definition", "They can be accessed inside resolvers", "Only mutation fields can have them"]
 correctAnswer: 3
-description: Learn to implement mutations by using resolvers again, but this time with arguments
 ---
 
 ### Mutation for creating links

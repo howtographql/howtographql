@@ -1,10 +1,10 @@
 ---
 title: Queries
-pageTitle: "Responding to Queries with a Javascript & Node GraphQL Server"
+pageTitle: "Resolving Queries with a Javascript GraphQL Server Tutorial"
+description: "Learn how to define the GraphQL schema using graphql-js, implement query resolvers with Javascript & Node.js and test your queries in a GraphiQL Playground."
 question: What's the quickest way to test GraphQL apis?
 answers: ["Building GraphQL requests with CURL", "Using playgrounds like GraphiQL", "Using Postman or similar app for sending HTTP requests", "Building a frontend client app that sends requests"]
 correctAnswer: 1
-description: Learn how to use resolvers by building the query for fetching all links, and then test it using GraphiQL
 ---
 
 ### Query field for returning links

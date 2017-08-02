@@ -1,7 +1,7 @@
 ---
 title: Mutations
-pageTitle: "Implementing Mutations with an Elixir GraphQL Server"
-description: Learn to implement mutations, and get your first taste of arguments
+pageTitle: "Implementing Mutations with an Elixir GraphQL Server Tutorial"
+description: "Learn best practices for implementing GraphQL mutations with Absinthe & Elixir. You can test your implementation in a GraphiQL Playground."
 ---
 
 

@@ -1,10 +1,10 @@
 ---
 title: Connectors
-pageTitle: "Using Connectors with GraphQL, Javascript & NodeJS"
+pageTitle: "GraphQL Connectors with Javascript & MongoDB Tutorial"
+description: "Learn how to write connectors in Javascript to load data from MongoDB with graphql-js and a Node.js & Express GraphQL server."
 question: Which of the following is the best way to share data/functions between resolvers?
 answers: ["The server's context object", "Global variables", "Separate module file", "That's not possible"]
 correctAnswer: 0
-description: Learn to connect your resolvers with MongoDB
 ---
 
 ### Set up MongoDB

@@ -1,7 +1,7 @@
 ---
 title: Getting Started
-pageTitle: "Creating a GraphQL Server with Graphcool"
-description: Learn how to create and evolve a GraphQL server using the Graphcool CLI
+pageTitle: "Building a GraphQL Server with Graphcool Tutorial"
+description: "Learn how to build a GraphQL server with Graphcool and best practices for defining and evolving the schema. The Graphcool API is compatible with Relay & Apollo."
 ---
 
 In this chapter, you'll define the schema for the application and then build the GraphQL server using the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). 
