@@ -1,7 +1,7 @@
 ---
 title: Connecting Nodes
-pageTitle: "Advanced Server-side Mutations with GraphQL & Ruby"
-description: Add votes and connect your records
+pageTitle: "Advanced Server-side Mutations with GraphQL & Ruby Tutorial"
+description: "Learn best practices for implementing advanced GraphQL mutations with Ruby and graphql-ruby. You can test your implementation in a GraphiQL Playground."
 ---
 
 ### Voting for links

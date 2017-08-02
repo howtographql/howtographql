@@ -1,10 +1,10 @@
 ---
 title: Using dataloaders
-pageTitle: "Using Dataloaders with GraphQL, Javascript & NodeJS"
+pageTitle: "GraphQL Dataloader with Node.js & MongoDB Tutorial"
+description: "Learn how to use dataloader with your GraphQL server for caching and batching to reduce the number of requests to services like MongoDB."
 question: What are data loaders useful for?
 answers: ["Improving the resolver code's readability", "Catching and handling errors", "Reducing the number of data requests", "Making data fetch calls consistent"]
 correctAnswer: 2
-description: Learn how to use data loader to reduce the number of requests to services like MongoDB.
 ---
 
 ### Overfetching problem

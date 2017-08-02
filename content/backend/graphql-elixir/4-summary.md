@@ -1,6 +1,7 @@
 ---
 title: Summary
-pageTitle: Building a GraphQL Server with Elixir - Tutorial Summary
+pageTitle: Building a GraphQL Server with Elixir Backend Tutorial
+description: "You learned how to build a GraphQL server with Elixir & Absinthe and best practices for filters, authentication, pagination and subscriptions."
 ---
 
 More content for this tutorial is coming soon! 

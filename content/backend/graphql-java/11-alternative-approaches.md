@@ -1,7 +1,7 @@
 ---
 title: Alternative approaches to schema development
 pageTitle: "More Approaches to Schema Development with GraphQL & Java"
-description: Learn about an alternative approach to developing schemas with graphl-java
+description: "Learn about an alternative approach to developing schemas with graphl-java with graphql-spqr"
 question: Does GraphQL development always start by defining the schema?
 answers: ["Yes", "No, but it is a popular approach approach", "No, the schema can only be produced at the end", "The schema can only be generated dynamically"]
 correctAnswer: 1

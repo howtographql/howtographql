@@ -1,7 +1,7 @@
 ---
 title: Filtering
-pageTitle: "Server-side Filtering with GraphQL & Ruby"
-description: Define more complicated queries with GraphQL
+pageTitle: "Server-side Filtering with GraphQL & Ruby Tutorial"
+description: "Learn best practices for implementing filters in a GraphQL API using query arguments with a Ruby GraphQL server."
 ---
 
 Another important [Hackernews](https://news.ycombinator.com/) feature is searching the links, so you're going to be adding support for that now. You already know that it's possible to pass input data to mutations, via arguments. Now you're going to use this same concept to apply optional filters to the existing `allLinks` query.

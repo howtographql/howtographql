@@ -1,7 +1,7 @@
 ---
 title: Subscriptions
-pageTitle: Implementing a Realtime GraphQL Subscriptions Server with Java 
-description: Find out more about GraphQL subscriptions in Java
+pageTitle: "GraphQL Realtime Subscriptions with Java Tutorial"
+description: "Learn how to implement server-side GraphQL subscriptions with Java to add realtime functionality to an app."
 question: Can a GraphQL asynchronously push data to the client?
 answers: ["Not yet, this feature is still only a proposal", "Yes, all servers and clients are required to support this feature", "Yes, but not all servers and clients support it", "No"]
 correctAnswer: 2
