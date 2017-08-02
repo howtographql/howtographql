@@ -100,6 +100,7 @@ export const pageQuery = graphql`
         answers
         correctAnswer
         description
+        pageTitle
       }
     }
     mds: allMarkdownRemark {

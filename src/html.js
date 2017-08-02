@@ -31,12 +31,17 @@ module.exports = class Html extends React.Component {
         />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,700" rel="stylesheet" />
+        <link
+          key={`gatsby-plugin-sitemap`}
+          rel="sitemap"
+          type="application/xml"
+          href="/sitemap.xml"
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#e00083" />
-        <title>How to GraphQL</title>
         {this.props.headComponents}
         {css}
       </head>
