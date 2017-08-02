@@ -1,12 +1,10 @@
-require('babel-core/register')
-require('babel-polyfill')
 import path from "path"
 import sitemap from "sitemap"
 import { defaultOptions, runQuery, writeFile } from "./internals"
 
 const publicPath = `./public`
 
-exports.onPostBuild = async ({ graphql }, pluginOptions) => {
+exports.onPostBuild = ({ graphql }, pluginOptions) => {
   delete pluginOptions.plugins
 
   const { query, serialize, output, ...rest } = {
@@ -15,10 +13,12 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
   }
 
   const map = sitemap.createSitemap(rest)
-  const records = await runQuery(graphql, query)
-  const saved = path.join(publicPath, output)
-  console.log('Saving file to', saved)
+  return runQuery(graphql, query)
+    .then(records => {
+      const saved = path.join(publicPath, output)
+      console.log('Saving file to', saved)
 
-  serialize(records).forEach(u => map.add(u))
-  return await writeFile(saved, map.toString())
+      serialize(records).forEach(u => map.add(u))
+      return writeFile(saved, map.toString())
+    })
 }
