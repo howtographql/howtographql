@@ -97,7 +97,7 @@ defmodule Community.Web.Router do
 end
 ```
 
-Start your server with `iex -S mix phx.server` and then open your browser to [localhost:4000/graphiql](http://localhost:3000/graphiql).
+Start your server with `iex -S mix phx.server` and then open your browser to [localhost:4000/graphiql](http://localhost:4000/graphiql).
 
 ![](http://i.imgur.com/EZIVYxP.png)
 
