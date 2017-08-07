@@ -185,7 +185,7 @@ query {
 
 We know that this query has a cost `3` based on complexity. Just like a time throttle, we can comeup with a maximum cost (Bucket Size) per time a client can use.
 
-With a maximum cost of `9`, our clients could run this query only three times, before the leak rate allows them to query more.
+With a maximum cost of `9`, our clients could run this query only three times, before the leak rate forbids them to query more.
 
 The principles are the same as our time throttle, but now communicating these limits to clients is much nicer. Clients can even calculate the costs of their queries themselves without needing to estimate server time!
 
