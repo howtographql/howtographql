@@ -68,6 +68,13 @@ This is what a rendered instruction block (including code block) will look like:
 
 ![](http://imgur.com/pMeAkpB.png)
 
+**IMPORTANT**: There are two important notes about using _code blocks_ in an instruction block:
+
+1. One instruction block can only contain at most one code block. If you require multiple code blocks, you need to put them into multiple instruction blocks.
+2. The code block must always come at the very _end_ of an instruction block - otherwise the it won't be rendered properly.
+
+Instruction blocks can only contain _one_ code block. If you need the reader to perform multiple steps in a row, please use multiple instruction blocks!
+
 
 ### Code Blocks
 
