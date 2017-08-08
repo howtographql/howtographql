@@ -273,7 +273,7 @@ A permission query always returns `true` or `false`. It's executed right before 
 
 The `$user_id` represents the `User` that wants to perform an operation. The `$node_id` on the other hand identifies the element (in this case a `Link`) that the operation is to be performed on!
 
-So, in effect, what you're expressing with this query is that the `createLink` operation can only be executed if:
+So, in effect, what you're expressing with this query is that the `updateLink` operation can only be executed if:
 
 - there is a `Link` element in the database that is identified by `link_id`
 - the `User` who  is trying to perform the mutation has initially posted that `Link`, since the `id` of the `postedBy` field needs to be the same as the `User` that's identified by `user_id`
