@@ -84,7 +84,7 @@ render() {
         <Switch>
           <Route exact path='/' component={LinkList}/>
           <Route exact path='/create' component={CreateLink}/>
-         </Switch>
+        </Switch>
       </div>
     </div>
   )
