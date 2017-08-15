@@ -71,6 +71,13 @@ const authors: Author[] = [
     link: 'http://mgiroux.me',
     job: 'Senior Developer @ Shopify',
     name: 'Marc-Andre Giroux'
+  },
+  {
+    avatar: require('../assets/graphics/contributors/jonatas.jpg'),
+    bio: "Software developer @ Cheesecake Labs. Speaker, contributor and conferences organizer. Loves open source communities.",
+    link: 'https://twitter.com/jonatasbaldin',
+    job: 'Developer @ Cheesecake Labs',
+    name: 'Jonatas Baldin'
   }
 ]
 
