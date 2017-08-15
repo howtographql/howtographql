@@ -20,7 +20,7 @@ First add the dependency to the app. Open a Terminal, navigate to your project d
 <Instruction>
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add yarn add react-router react-router-dom
+yarn add react-router react-router-dom
 ```
 
 </Instruction>
