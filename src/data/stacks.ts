@@ -155,6 +155,22 @@ const data: Stack[] = [
     authorName: 'Bojan Tomic',
   },
   {
+    title: 'graphql-python',
+    type: 'backend',
+    key: 'graphql-python',
+    images: [
+      require('../assets/icons/python.svg'),
+      require('../assets/icons/graphene.svg'),
+    ],
+    content: {
+      title: 'graphql-python',
+      description:
+        'Learn how to build your own GraphQL server with Python and the Graphene framework',
+    },
+    authorName: 'Jonatas Baldin',
+    color2: '#db594c',
+  },
+  {
     title: 'Sangria',
     type: 'backend',
     key: 'sangria',
@@ -167,24 +183,7 @@ const data: Stack[] = [
     authorName: 'Oleg Ilyenko',
     comingSoon: true,
     darkenGreyLogo: true,
-  },
-  {
-    title: 'Graphene',
-    type: 'backend',
-    key: 'graphene',
-    images: [
-      require('../assets/icons/python.svg'),
-      require('../assets/icons/graphene.svg'),
-    ],
-    content: {
-      title: 'graphene (python)',
-      description:
-        'Learn how to build your own GraphQL server with Python and the Graphene framework',
-    },
-    authorName: 'Syrus Akbary',
-    comingSoon: true,
-    color2: '#db594c',
-  },
+  }
 ]
 
 export default data
