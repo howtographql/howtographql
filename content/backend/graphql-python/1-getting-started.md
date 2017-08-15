@@ -55,7 +55,7 @@ The commands above will install the necessary libraries, create a new Django pro
 
 On the `hackernews/settings.py` file, search for the `INSTALLED_APPS` variable and add the following:
 
-```python(path="hackernews/hackernews/settings.py")
+```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 INSTALLED_APPS = (
     # After the default packages
     'graphene_django',
@@ -69,7 +69,7 @@ INSTALLED_APPS = (
 
 And add following at the bottom of the file:
 
-```python(path=hackernews/hackernews/settings.py)
+```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 GRAPHENE = {
     'SCHEMA': 'hackernews.schema.schema',
 }

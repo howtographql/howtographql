@@ -10,7 +10,7 @@ The process of sending data to server is called *Mutation*. Defining it is prett
 
 On the `hackernews/links/schema.py` add the following:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
 #1
 class CreateLink(graphene.Mutation):
@@ -57,7 +57,7 @@ Let me explain this snippet, piece by piece:
 
 On the `hackernews/hackernews/schema.py` add the following:
 
-```python(path="hackernews/hackernews/schema.py")
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 class Mutation(links.schema.Mutation, graphene.ObjectType):
     pass
 ```
@@ -68,7 +68,7 @@ class Mutation(links.schema.Mutation, graphene.ObjectType):
 
 And change the `schema` variable to:
 
-```python(path="hackernews/hackernews/schema.py")
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 schema = graphene.Schema(query=Query, mutation=Mutation)
 ```
 

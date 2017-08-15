@@ -11,7 +11,7 @@ You already can list all links, but another feature of Hackernews is to search t
 
 Change your links query class to the following:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 # ..code
 # After the imports, add
 from django.db.models import Q

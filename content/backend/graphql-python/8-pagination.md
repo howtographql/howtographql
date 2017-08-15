@@ -15,7 +15,7 @@ Let's implement it on the links query.
 
 Change your links query class to the following:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 class Query(graphene.AbstractType):
     # Add the first and skip parameters
     links = graphene.List(

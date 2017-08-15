@@ -25,7 +25,7 @@ First of all, let's implement our link query using Relay. You will write all the
 
 Create a new file `links/schema_relay.py`:
 
-```python(path="hackernews/links/schema_relay.py")
+```python(path=".../graphql-python/hackernews/links/schema_relay.py")
 import graphene
 import django_filters
 from graphene_django import DjangoObjectType
@@ -77,7 +77,7 @@ Let's go over the essential changes:
 
 On the root schema file, add the new query:
 
-```python(path="hackernews/hackernews/schema.py")
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 # ...code
 # Import your new schema
 import links.schema_relay
@@ -121,7 +121,7 @@ Defining mutations with Relay is pretty straightforward.
 
 Add the following code on `links/schema_relay.py`:
 
-```python(path="hackernews/links/schema_relay.py")
+```python(path=".../graphql-python/hackernews/links/schema_relay.py")
 class RelayCreateLink(graphene.relay.ClientIDMutation):
     link = graphene.Field(LinkNode)
 
@@ -153,7 +153,7 @@ class RelayMutation(graphene.AbstractType):
 
 On the root schema file, add the new mutation:
 
-```python(path="hackernews/hackernews/schema.py")
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 # ...code
 # Add on the main Query
 class Mutation(

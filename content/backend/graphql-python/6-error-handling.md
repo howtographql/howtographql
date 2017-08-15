@@ -21,7 +21,7 @@ You already used the `raise Exception('message')` through the code, for example,
 
 To refresh your mind, let's take a look at that code snippet:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 class CreateVote(graphene.Mutation):
     user = graphene.Field(UserType)
     link = graphene.Field(LinkType)

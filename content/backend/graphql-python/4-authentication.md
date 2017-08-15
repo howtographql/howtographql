@@ -20,7 +20,7 @@ python manage.py startapp users
 
 Configure Django to use the new `users` app on the `hackernews/settings.py` file:
 
-```python(path="hackernews/hackernews/settings.py")
+```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 INSTALLED_APPS = (
     # After the graphene_django app
     'users',
@@ -36,7 +36,7 @@ After creating the `users` app, define its model – the layer between Django an
 
 On the `users/models.py` file, add the following content:
 
-```python(path="hackernews/users/models.py")
+```python(path=".../graphql-python/hackernews/users/models.py")
 import binascii
 import os
 
@@ -59,7 +59,7 @@ class User(AbstractUser):
 
 Configure Django to use this `User` model instead of its builtin one by adding the following on the `hackernews/settings.py` file:
 
-```python(path="hackernews/hackernews/settings.py")
+```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 # Our custom user model
 AUTH_USER_MODEL = 'users.User'
 ```
@@ -91,7 +91,7 @@ To create a user data must be sent to the server through a mutation.
 
 Create the file `users/schema.py`, add the `UeserType` and the `CreateUser` mutation:
 
-```python(path="hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/user/schema.py")
 import graphene
 from graphene_django import DjangoObjectType
 
@@ -136,7 +136,7 @@ In this mutation the server will receive a `username`, `password` and `email`, r
 
 Before executing it, you need to put the new mutation on the root schema file, `hackernews/schema.py`. It will look like this:
 
-```python(path="hackernews/hackernews/schema.py")
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 import graphene
 
 import links.schema
@@ -169,7 +169,7 @@ Before authenticating, let's create a query for listing all users:
 
 On the `users/schema.py` file, add the following:
 
-```python(path="hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/user/schema.py")
 # ...code
 class Query(graphene.AbstractType):
     users = graphene.List(UserType)
@@ -185,7 +185,7 @@ class Query(graphene.AbstractType):
 
 Enable the users query on the main query class:
 
-```python(path="hackernews/hackernews/schema.py")
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 # ...code
 
 # Add the users.schema.Query
@@ -210,7 +210,7 @@ But keep in mind this method may not be recommend for production systems! Take a
 
 Create the `LogIn` mutation on the `users/schema.py` file. It will accept a pair of `username`/`password` to authenticate the user. If the operation is successful, it'll store the token on the client session. If not, returns an error message.
 
-```python(path="hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/user/schema.py")
 # ...code
 # Import the authenticate method
 from django.contrib.auth import authenticate
@@ -253,7 +253,7 @@ Before testing the mutation, how would you really know that the authentication w
 
 Let's add a method to check the client's session and, on the `Query` class, a new field and resolver:
 
-```python(path="hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/user/schema.py")
 # ...code
 
 # Add this method after the imports 

@@ -10,7 +10,7 @@ With sign in power, you can now create you *own* links, posted by you. To make i
 
 On the User models file, add the `posted_by` field at the very end:
 
-```python(path="hackernews/links/models.py")
+```python(path=".../graphql-python/hackernews/links/models.py")
 posted_by = models.ForeignKey('users.User', null=True)
 ```
 
@@ -31,7 +31,7 @@ python manage.py migrate
 
 On the `CreateLink` mutation, grab the user from the client's session to use it in the new created field:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
 # Add the following imports
 from users.schema import get_user, UserType
@@ -84,7 +84,7 @@ One of the Hackernews' features is to vote on links, making ones more popular th
 
 Add the Vote model on the `links/models.py`:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 class Vote(models.Model):
     user = models.ForeignKey('users.User')
     link = models.ForeignKey('links.Link', related_name='votes')
@@ -107,7 +107,7 @@ python manage.py migrate
 
 Finally, add a new mutation for voting:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
 # In the same import line, add the Vote model
 from links.models import Link, Vote
@@ -160,7 +160,7 @@ You can already vote, but you can't see it! A solution for this is being able to
 
 Add the `VoteType` and a `votes` field to get all votes:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
 # Add after the LinkType
 class VoteType(DjangoObjectType):
@@ -172,7 +172,7 @@ class VoteType(DjangoObjectType):
 
 <Instruction>
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
 # Add the votes field
 class Query(graphene.AbstractType):

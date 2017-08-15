@@ -30,7 +30,7 @@ With an app in place, you need to define a Model â€“ the layer between Django an
 
 On the `links/models.py` file, add the following content:
 
-```python(path="hackernews/links/models.py")
+```python(path=".../graphql-python/hackernews/links/models.py")
 class Link(models.Model):
     url = models.URLField()
     description = models.TextField(null=True, blank=True)
@@ -42,7 +42,7 @@ class Link(models.Model):
 
 Lastly, configure Django to use the new `links` app on the `hackernews/settings.py` file:
 
-```python(path="hackernews/hackernews/settings.py")
+```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 INSTALLED_APPS = (
     # After the graphene_django app
     'links',
@@ -81,7 +81,7 @@ This is a simple overview of the concepts, but it should be enough to go through
 
 Create the `links/schema.py` file, with the content below:
 
-```python(path="hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/schema.py")
 import graphene
 from graphene_django import DjangoObjectType
 
@@ -109,7 +109,7 @@ On the snippet above, the `LinkType` was created using the `DjangoObjectType` â€
 
 Create the `hackernews/schema.py` file, with the query type:
 
-```python(path="hackernews/schema.py")
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 import graphene
 
 import links.schema
@@ -135,7 +135,7 @@ Wow, that's a lot, right? But now you can finally query some data!
 
 To install it, add the following on the `hackernews/urls.py` file:
 
-```python(path="hackernews/hackernews/urls.py")
+```python(path=".../graphql-python/hackernews/hackernews/urls.py")
 ... # code
 from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
