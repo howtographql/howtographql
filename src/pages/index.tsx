@@ -26,7 +26,7 @@ export default (props: Props) => {
     'Fullstack GraphQL Tutorial to go from zero to production covering all basics and advanced concepts. Includes tutorials for Apollo, Relay, React and NodeJS.'
   return (
     <App history={props.history} steps={steps} location={props.location}>
-      <CustomHelmet title={title} description={description} />
+      <CustomHelmet title={title} description={description} overrideDescription={description} />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />
