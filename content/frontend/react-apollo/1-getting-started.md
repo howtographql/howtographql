@@ -384,9 +384,9 @@ Open `src/index.js` and replace the contents with the following:
 ```js{6-7,9-12,14-17,19-25}(path="src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components/App'
+import App from './App';
 import registerServiceWorker from './registerServiceWorker'
-import './styles/index.css'
+import './index.css'
 // 1
 import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
 
