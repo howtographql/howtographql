@@ -103,7 +103,7 @@ Add the following statement to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Header from './Header'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 ```
 
 </Instruction>
