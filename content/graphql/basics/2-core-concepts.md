@@ -206,8 +206,6 @@ When a client *subscribes* to an event, it will initiate and hold a steady conne
 
 Subscriptions are written using the same syntax as queries and mutations. Here’s an example where we subscribe on events happening on the `Person` type:
 
-<Playground>
-
 ```graphql(nocopy)
 subscription {
   newPerson {
@@ -216,8 +214,6 @@ subscription {
   }
 }
 ```
-
-</Playground>
 
 After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `Person`, the server sends the information about this person over to the client:
 
