@@ -507,7 +507,7 @@ You can now create an account by providing a `name`, `email` and `password`. Onc
 
 ![](http://imgur.com/WoWLmDJ.png) 
 
-### Updating the `CreateLinkMutation.js`
+### Updating the `createLink`-mutation
 
 Since you're now able to authenticate users and also added a new relation between the `Link` and `User` type, you can also make sure that every new link that gets created in the app can store information about the user that posted it. That's what the `postedBy` field on `Link` will be used for.
 
