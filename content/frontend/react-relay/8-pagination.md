@@ -137,7 +137,7 @@ export default createPaginationContainer(LinkList,
       }
     `,
   },
-  { }
+  { // ... this will be added soon }
 )
 ```
 
@@ -277,7 +277,7 @@ import {ITEMS_PER_PAGE} from '../constants'
 
 </Instruction>
 
-All right - you're almost there! The last thing you need to is actually calling Relay's `loadMore` function to fetch the next chunk of links from the server.
+All right - you're almost there! The last thing you need is actually calling Relay's `loadMore` function to fetch the next chunk of links from the server.
 
 <Instruction>  
 
