@@ -45,5 +45,5 @@ You can run a local instance of How to GraphQL by executing the following comman
 git clone git@github.com:howtographql/howtographql.git
 cd howtographql
 yarn install
-yarn start
+yarn start # http://localhost:8000/ 
 ```
