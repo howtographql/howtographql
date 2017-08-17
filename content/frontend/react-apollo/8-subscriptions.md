@@ -97,6 +97,7 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 
 
 > The endpoints for the Subscription API generally are of the form: `wss://subscriptions.graph.cool/v1/<project-id>`. 
+>
 > Notice that if you project isn't running in the "default" Graphcool [region](https://blog.graph.cool/new-regions-and-improved-performance-7bbc0a35c880), you need to add the your project's region to the endpoint like so: `wss://subscriptions.ap-northeast-1.graph.cool/v1/<project-id>` (for regoin _Asia Pacific_) or `wss://subscriptions.us-west-2.graph.cool/v1/<project-id>` (for _US West_).
 
 
