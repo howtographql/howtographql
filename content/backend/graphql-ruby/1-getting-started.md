@@ -28,6 +28,7 @@ gem install bundler
 gem install rails
 rails new graphql-tutorial
 cd graphql-tutorial
+rails db:create
 rails server
 ```
 
