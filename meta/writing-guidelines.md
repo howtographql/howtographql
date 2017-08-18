@@ -2,12 +2,6 @@
 
 This document describes writing guidelines and best practices for the HTG tutorial tracks (frontend + backend).
 
-## Writing Process & Feedback
-
-Please use [Quip](https://www.quip.com) to write your tutorials. This allows others to easily access your document and provide feedback with comments.
-
-Once there is a finalized version in quip, you can _export_ your document to Markdown. The exporter generally works well, but has a few flaws so that you'll probably have to do some finetuning on the Markdown here and there. 
-
 ## Document Format
 
 Your tutorial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
