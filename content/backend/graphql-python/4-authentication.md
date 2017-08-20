@@ -68,13 +68,21 @@ AUTH_USER_MODEL = 'users.User'
 
 To reflect this changes on the database, create a [migration](https://docs.djangoproject.com/en/1.11/topics/migrations/) and run it. 
 
-Unfortunately, there's an issue here: since you initialized Django with its own `User` model, you need to flush the database. On your terminal, execute the migrations and add the links again:
+Unfortunately, there's an issue here: since you initialized Django with its own `User` model, you need to flush the database.
+
+<Instruction>
+
+On your terminal, execute the migrations and add the links again:
 
 ```bash
 rm db.sqlite3
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+</Instruction>
+
+<Instruction>
 
 Enter the Django shell with the command `python manage.py shell` and create some links:
 
@@ -83,6 +91,8 @@ from links.models import Link
 Link.objects.create(url='https://www.howtographql.com/', description='The Fullstack Tutorial for GraphQL')
 Link.objects.create(url='https://twitter.com/jonatasbaldin/', description='The Jonatas Baldin Twitter')
 ```
+
+</Instruction>
 
 ### Creating a User
 To create a user data must be sent to the server through a mutation.
@@ -200,9 +210,9 @@ To test it, send a query to the server:
 ![](http://i.imgur.com/zqz6miO.png)
 
 ### Authenticating a User
-In modern web applications – when clients and servers are different applications – authentication generally happens with *Tokens*. The client gets a token during the authentication process and send it on all subsequent requests. One of the most used methods is [JWT](https://jwt.io/).
+In modern web applications – when clients and servers are different applications – authentication generally happens with *tokens*. The client gets a token during the authentication process and send it on all subsequent requests. One of the most used methods is [JWT](https://jwt.io/).
 
-Unfortunately, neither Django or Graphene comes with the token approach builtin, so you are going to use *Sessions* to accomplish the same task. Sessions are little pieces of information the server can store and retrieve from the client.
+Unfortunately, neither Django or Graphene comes with the token approach builtin, so you are going to use *sessions* to accomplish the same task. Sessions are little pieces of information the server can store and retrieve from the client.
 
 But keep in mind this method may not be recommend for production systems! Take a loot at JWT if you need to go this way!
 

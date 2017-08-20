@@ -6,7 +6,7 @@ description: Creating Your First Queries
 ### About the Django structure
 It's important to understand how the Django project structure works before moving on.
 
-On the last chapter, you created a *Django Project*, which holds everything related to your application. However, Django separates the project into *apps*. Think about apps as a[separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). You will have two apps, one for Users and one for the Links.
+On the last chapter, you created a *Django Project*, which holds everything related to your application. However, Django separates the project into *apps*. Think about apps as a [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). You will have two apps, one for Users and one for the Links.
 
 Another essential decision is about the database. Django works out of the box with [SQLite](https://www.sqlite.org/) – a file based database – which you will use. On production systems, you should have a more robust database, such as [PostgreSQL](https://www.postgresql.org/). 
 
@@ -73,7 +73,7 @@ Link.objects.create(url='https://twitter.com/jonatasbaldin/', description='The J
 ```
 
 ### Creating your first Type and Schema
-In GraphQL, a *Type* is an object that may contain multiple *Fields*. Each field is calculated through *Resolvers*, that returns a value. A collection of types is called a *Schema*. Every schema has a special type called *Query* for getting data from the server and *Mutation* for sending data to the server.
+In GraphQL, a *Type* is an object that may contain multiple *fields*. Each field is calculated through *resolvers*, that returns a value. A collection of types is called a *schema*. Every schema has a special type called *query* for getting data from the server and *mutation* for sending data to the server.
 
 This is a simple overview of the concepts, but it should be enough to go through the tutorial. You can read more about it [here](http://graphql.org/learn/schema/).
 
@@ -124,7 +124,7 @@ schema = graphene.Schema(query=Query)
 
 </Instruction>
 
-Why creating another query? This query just inherits the query defined before. This way, you are able to keep every part of the schema isolated in the apps. After, the schema is defined, with the main query.
+Why creating another query? This query just inherits the query defined before. This way, you are able to keep every part of the schema isolated in the apps.
 
 Wow, that's a lot, right? But now you can finally query some data!
 

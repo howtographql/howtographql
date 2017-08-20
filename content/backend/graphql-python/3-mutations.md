@@ -4,7 +4,7 @@ description: Creating Data With Mutations
 ---
 
 ### Mutations
-The process of sending data to server is called *Mutation*. Defining it is pretty similar on how you've defined the query. 
+The process of sending data to server is called *mutation*. Defining it is pretty similar on how you've defined the query. 
 
 <Instruction>
 

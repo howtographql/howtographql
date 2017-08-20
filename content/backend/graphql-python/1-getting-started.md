@@ -24,14 +24,16 @@ python3.6 -m venv venv
 source venv/bin/activate
 ```
 
-You'll notice your prompt changed to `(venv) ...`. It means you are *inside* your virtual environment, every Python package will be installed there. If you want to leave it, just type `deactivate`. Make sure to *always* have the virtual environment activated.
-
 </Instruction>
 
+You'll notice your prompt changed to `(venv) ...`. It means you are *inside* your virtual environment, every Python package will be installed there. If you want to leave it, just type `deactivate`. Make sure to *always* have the virtual environment activated.
+
 ### Installing Django and Graphene 
-The tool used to manage Python packages is `pip`, which should be available with your Python installation.  With the virtual environment activated, run the following commands:
+The tool used to manage Python packages is `pip`, which should be available with your Python installation.
 
 <Instruction>
+
+With the virtual environment activated, run the following commands:
 
 ```bash
 pip install django graphene graphene-django django-filter
