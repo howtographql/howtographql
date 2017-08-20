@@ -1,5 +1,8 @@
 ---
 title: Error Handling
+question: Why can GraphQL predetermine if a query is valid?
+answers: ["GraphQL language has a strong type system", "GraphQL is a new language", "GraphQL can be implemented in various languages", "GraphQL has security built-in"]
+correctAnswer: 0
 description: Handling Errors on GraphQL
 ---
 

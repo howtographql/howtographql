@@ -1,5 +1,8 @@
 ---
 title: Filtering
+question: What you happen if you run the last query without the search parameter?
+answers: ["The application would break", "The search parameter is mandatory", "All the Links would be returned", "Just the first Link would be returned"]
+correctAnswer: 2
 description: Filtering GraphQL Queries
 ---
 

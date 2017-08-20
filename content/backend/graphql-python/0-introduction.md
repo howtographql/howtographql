@@ -1,5 +1,8 @@
 ---
 title: Introduction
+question: What is the role of Django in the Python ecosystem?
+answers: ["Deploy Python applications", "Implement the GraphQL server", "Running Python scripts", "Create web applications"]
+correctAnswer: 3
 description: Building a Server with GraphQL and Graphene
 ---
 

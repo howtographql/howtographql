@@ -1,5 +1,8 @@
 ---
 title: Mutations
+question: What differentiates a query from a mutation?
+answers: ["The query returns just lists of objects", "The mutation is used for pagination", "Mutations are used for getting data and queries for sending data", "Mutations are used for sending data and queries for getting data"]
+correctAnswer: 3
 description: Creating Data With Mutations
 ---
 

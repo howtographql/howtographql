@@ -1,5 +1,8 @@
 ---
 title: Queries
+question: In GraphQL, what type of method returns the value of a field?
+answers: ["Query", "Mutation", "Type", "Resolver"]
+correctAnswer: 3
 description: Creating Your First Queries
 ---
 

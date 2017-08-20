@@ -1,5 +1,8 @@
 ---
 title: Relay
+question: Which one is a feature of the relay implementation?
+answers: ["Error handling", "JavaScript support", "Query search parameters", "Pagination"]
+correctAnswer: 3
 description: Using Relay on Graphene
 ---
 

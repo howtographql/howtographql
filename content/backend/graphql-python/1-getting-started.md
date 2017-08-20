@@ -1,5 +1,8 @@
 ---
 title: Getting Started
+question: What is the Python Virtual Environment?
+answers: ["A Python obligatory library", "A Python library for creating isolated projects", "Base Python application for running GraphQL", "Python app for Django"]
+correctAnswer: 1
 description: Setting up a Django Graphene Project
 ---
 
@@ -61,7 +64,6 @@ On the `hackernews/settings.py` file, search for the `INSTALLED_APPS` variable a
 INSTALLED_APPS = (
     # After the default packages
     'graphene_django',
-    ''
 )
 ```
 

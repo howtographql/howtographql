@@ -1,5 +1,8 @@
 ---
 title: Authentication
+question: Which is the best way to authorize users in the modern web?
+answers: ["Sessions", "Cookies", "Tokens", "Local Storage"]
+correctAnswer: 2
 description: Authenticating on GraphQL
 ---
 
