@@ -2,8 +2,8 @@
 title: Core Concepts
 pageTitle: GraphQL Core Concepts Tutorial
 description: "Learn about the basic GraphQL language concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema & SDL. Try them out in your own sandbox."
-question: "What are GraphQL subscription used for?"
-answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allows you to read and write data"]
+question: "What are GraphQL subscriptions used for?"
+answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allow you to read and write data"]
 correctAnswer: 0
 videoId: NeQfq0U5LnI
 duration: 15
