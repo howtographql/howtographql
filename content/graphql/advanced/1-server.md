@@ -46,7 +46,7 @@ The first thing to see is that every field in the query can be associated with a
 
 ```graphql(nocopy)
 query: Query {
-  author(id: "abc"): Author {
+  author(id: String): Author {
     posts: [Post] {
       title: String
       content: String
