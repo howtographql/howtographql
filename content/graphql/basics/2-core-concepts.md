@@ -24,7 +24,7 @@ type Person {
 }
 ```
 
-This type has two *fields*, they’re called `name` and `age` and are both of type `String` and `Int`. The `!` following the type means that this field is *required*.
+This type has two *fields*, they’re called `name` and `age` and are respectively of type `String` and `Int`. The `!` following the type means that this field is *required*.
 
 It’s also possible to express relationships between types. In the example of a *blogging* application, a `Person` could be associated with a `Post`:
 
