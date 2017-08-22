@@ -196,7 +196,7 @@ export default Ember.Route.extend(UnsubscribeRoute, {
 
   model() {
     // 3.
-    return this.get('apollo').query({ query }, 'allLinks');
+    return this.get('apollo').query({ query }, 'allLinks').catch(error => alert(error));
   }
 });
 ```

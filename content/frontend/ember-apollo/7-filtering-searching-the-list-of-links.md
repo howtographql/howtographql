@@ -24,7 +24,7 @@ ember generate route search
 
 </Instruction>
 
-This will generate a new route, add it to your `router.js` and create a new template.
+This will generate a new route, add it to your `router.js` and create a new template. You won't be needing the route file go delete `app/routes/search.js`.
 
 <Instruction>
 
@@ -101,7 +101,7 @@ export default Ember.Controller.extend({
       if (!searchText) return console.error('No search text provided.');
       return this.get('apollo').queryOnce({ query, variables: { searchText } }, 'allLinks').then(result => {
         this.set('model', result);
-      });
+      }).catch(error => alert(error));
     }
   },
 

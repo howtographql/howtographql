@@ -109,7 +109,7 @@ export default Ember.Controller.extend({
           this.set('description', '');
           this.set('url', '');
           this.transitionToRoute('links');
-        });
+        }).catch(error => alert(error));
     }
   },
 

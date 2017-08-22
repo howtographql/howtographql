@@ -371,7 +371,7 @@ export default Ember.Controller.extend({
         .then(() => {
           this.transitionToRoute('/');
         })
-        .catch(error => console.error(error));
+        .catch(error => alert(error));
     }
   },
 
@@ -487,7 +487,62 @@ Also update the template:
 
 </Instruction>
 
-You are accessing your `auth` service so you can use the `isLoggedIn` helper and `logout` method. You also added a link to the login route. 
+You are accessing your `auth` service so you can use the `isLoggedIn` helper and `logout` method. You also added a link to the login route.
+
+### Redirecting user on logout
+
+You need to now redirect a user when they click the logout link. For this you will need to add a new add-on and an application level route file.
+
+<Instruction>
+
+In your terminal, add the `ember-route-action-helper` add-on:
+
+```bash
+ember install ember-route-action-helper
+```
+
+</Instruction>
+
+This add-on allows you to specify a route level action and fire that via the `route-action` helper. 
+
+<Instruction>
+
+Now add a new file, `app/routes/application.js`, and add the following contents:
+
+```js(path=".../hackernews-ember-apollo/app/routes/application.js")
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+  actions: {
+    navigateHome() {
+      this.transitionTo('links');
+    }
+  }
+});
+```
+
+</Instruction>
+
+This action is defined on the application route so when a user clicks the "logout" button it will be fired no matter where they are in the application.
+
+The last piece to all of this is that you need to pass in that route-action to your `site-header` component so it can be called. Earlier you added an action to the `site-header` component that calls the `navigateHome` action. This is simply hooking it all up to work now!
+
+<Instruction>
+
+In `app/templates/application.hbs` change your `site-header` component to recieve the following:
+
+```hbs(path=".../hackernews-ember-apollo/app/templates/application.hbs")
+<div class='center w85'>
+  {{site-header onLogout=(route-action 'navigateHome')}}
+  <div class='ph3 pv1 background-gray'>
+    {{outlet}}
+  </div>
+</div>
+```
+
+</Instruction>
+
+Now if you run the app, with `yarn start`, login, navigate to `/create`, then click the logout link in the header, you should be redirected back to the home page!
 
 ### Updating the** **`createLink`-mutation
 
@@ -556,7 +611,7 @@ export default Ember.Controller.extend({
           this.set('description', '');
           this.set('url', '');
           this.transitionToRoute('links');
-        });
+        }).catch(error => alert(error));
     }
   },
 

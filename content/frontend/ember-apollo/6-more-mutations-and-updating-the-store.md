@@ -194,7 +194,7 @@ export default Ember.Component.extend({
           variables: { userId, linkId }
         },
         'createVote'
-      );
+      ).catch(error => alert(error));
     }
   },
 
@@ -270,7 +270,7 @@ return this.get('apollo').mutate(
     }
   },
   'createVote'
-);
+).catch(error => alert(error));
 ```
 
 Also be sure to import the `allLinks.graphql` query that you are using in the update method:
@@ -318,7 +318,7 @@ return this.get('apollo')
     this.set('description', '');
     this.set('url', '');
     this.transitionToRoute('links');
-  });
+  }).catch(error => alert(error));
 ```
 
 Also be sure to import the `allLinks.graphql` query that you are using in the update method:
