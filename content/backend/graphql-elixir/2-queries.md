@@ -8,11 +8,11 @@ description:  "Learn how to define the GraphQL schema with Absinthe, implement q
 
 You're going to start by building out an empty Schema. The GraphQL API is how you're going to expose your data to the web, so you're going to place the code for the schema in the web context of your application. Get started by placing the following code in `lib/community/web/schema.ex`
 
-```elixir(path=".../graphql-elixir/lib/community/web/schema.ex")
-defmodule Community.Web.Schema do
+```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
+defmodule CommunityWeb.Schema do
   use Absinthe.Schema
 
-  alias Community.{Web, News}
+  alias CommunityWeb.News
 
   query do
     # this is the query entry point to our app
@@ -26,11 +26,11 @@ This is a bare bones skeleton of a GraphQL schema with Absinthe. You're defining
 
 The first simple thing to handle is getting all the available links. Add a `:link` object to the schema, and an `:all_links` field to the root query object. There is no need to add arguments right now, you'll do that once you start handling filtering and pagination.
 
-```elixir(path=".../graphql-elixir/lib/community/web/schema.ex")
-defmodule Community.Web.Schema do
+```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
+defmodule CommunityWeb.Schema do
   use Absinthe.Schema
 
-  alias Community.{Web, News}
+  alias CommunityWeb.NewsResolver
 
   object :link do
     field :id, non_null(:id)
@@ -52,16 +52,16 @@ Absinthe Schemas are also type checked at compile time. If you refer to a type t
 
 The query is now defined, but the server still doesn't know how to handle it. To do that you will now write your first **resolver**. Resolvers are just functions mapped to GraphQL fields, with their actual behavior. You specify the field for a resolver by using the resolve macro and passing it a function:
 
-```elixir(path=".../graphql-elixir/lib/community/web/schema.ex")
+```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
 field :all_links, non_null(list_of(non_null(:link))) do
-  resolve &Web.NewsResolver.all_links/3
+  resolve &NewsResolver.all_links/3
 end
 ```
 
-If you aren't super familiar with Elixir, `&Web.NewsResolver.all_links/3` is just a reference to the 3 arity function `all_links` found in the `Community.Web.NewsResolver` module. Neither this function nor this module exist yet though so go ahead and fix that by putting this code in `lib/community/web/resolvers/news_resolver.ex`.
+If you aren't super familiar with Elixir, `&NewsResolver.all_links/3` is just a reference to the 3 arity function `all_links` found in the `CommunityWeb.NewsResolver` module. Neither this function nor this module exist yet though so go ahead and fix that by putting this code in `lib/community_web/resolvers/news_resolver.ex`.
 
-```elixir(path=".../graphql-elixir/lib/community/web/resolvers/news_resolver.ex")
-defmodule Community.Web.NewsResolver do
+```elixir(path=".../graphql-elixir/lib/community_web/resolvers/news_resolver.ex")
+defmodule CommunityWeb.NewsResolver do
   alias Community.News
 
   def all_links(_root, _args, _info) do
@@ -77,9 +77,9 @@ That's it! You now have a schema that can do something. All you need to do now i
 
 It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), which you'll need to route to from within the router generated for us by Phoenix. Replace the contents of `lib/community_web/router.ex` with:
 
-```elixir(path=".../graphql-elixir/lib/community/web/router.ex")
-defmodule Community.Web.Router do
-  use Community.Web, :router
+```elixir(path=".../graphql-elixir/lib/community_web/router.ex")
+defmodule CommunityWeb.Router do
+  use CommunityWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -89,9 +89,9 @@ defmodule Community.Web.Router do
     pipe_through :api
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
-      schema: Community.Web.Schema,
+      schema: CommunityWeb.Schema,
       interface: :simple,
-      context: %{pubsub: Community.Web.Endpoint}
+      context: %{pubsub: CommunityWeb.Endpoint}
   end
 
 end
