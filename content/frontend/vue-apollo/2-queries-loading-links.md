@@ -1,7 +1,7 @@
 ---
 title: "Queries: Loading Links"
 pageTitle: "Fetching Data using GraphQL Queries with VueJS & Apollo Tutorial"
-description: "Learn how you can use GraphQL queries with Apollo Client to load data from a server and display it in your React components."
+description: "Learn how you can use GraphQL queries with Apollo Client to load data from a server and display it in your VueJS components."
 question: What property should be added to a Vue instance in order to query a GraphQL endpoint?
 answers: ["graphql", "fetch-graphql", "apollo-client", "apollo"]
 correctAnswer: 3
