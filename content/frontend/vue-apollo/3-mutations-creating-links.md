@@ -2,12 +2,9 @@
 title: "Mutations: Creating Links"
 pageTitle: "GraphQL Mutations with VueJS & Apollo Tutorial"
 description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `mutate` method to define and send mutations."
-videoId: N/A
-duration: N/A
-videoAuthor: "Matt Dionis"
-question:
-answers: []
-correctAnswer:
+question: How do you execute a GraphQL mutation within a VueJS component?
+answers: ["Add a mutation property to the component", "Add a mutation property to the component's apollo object", "Call this.$apollo.mutate within a method", "You can not execute a mutation within a VueJS component"]
+correctAnswer: 2
 ---
 
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows similar steps that were mentioned before with queries:
@@ -24,7 +21,7 @@ Like before, let's start by writing the VueJS component where users will be able
 
 Create a new file in the `src/components` directory and call it `CreateLink.vue`. Then paste the following code into it:
 
-```vue(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
+```js(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
 <template>
   <div>
     <div class="flex flex-column mt3">
@@ -122,7 +119,7 @@ Let's see the mutation in action!
 
 Still in `src/components/CreateLink.vue`, implement the `createLink` mutation as follows:
 
-```vue(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
+```js(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
 createLink () {
   const { description, url } = this
   this.$apollo.mutate({

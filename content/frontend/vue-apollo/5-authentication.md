@@ -2,12 +2,9 @@
 title: Authentication
 pageTitle: "Authentication with GraphQL, VueJS & Apollo Tutorial"
 description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a VueJS app with Graphcool."
-videoAuthor: "Matt Dionis"
-videoId: N/A
-duration: N/A
-question:
-answers: []
-correctAnswer:
+question: Where do you handle routing to a different component after a successful mutation?
+answers: ["Within the update callback", "Within the mutation's .then block", "Within the mutation's .catch block", "Within a routing callback"]
+correctAnswer: 1
 ---
 
 In this section, you'll learn how you can implement authentication functionality with Apollo and Graphcool to provide a login to the user.
@@ -20,7 +17,7 @@ As in the sections before, you'll set the stage for the login functionality by p
 
 Create a new file in `src/components` and call it `AppLogin.vue`. Then paste the following code inside of it:
 
-```vue(path=".../hackernews-vue-apollo/src/components/AppLogin.vue")
+```js(path=".../hackernews-vue-apollo/src/components/AppLogin.vue")
 <template>
   <div>
     <h4 class='mv3'>{{login ? 'Login' : 'Sign Up'}}</h4>
@@ -116,7 +113,7 @@ With that component in place, you can go ahead and add a new route to your `src/
 
 Open `src/router/index.js` and update the `routes` array to include the new route:
 
-```js{11-12}(path=".../hackernews-vue-apollo/src/router/index.js")
+```js{10-13}(path=".../hackernews-vue-apollo/src/router/index.js")
 routes: [
   {
     path: '/',
@@ -153,16 +150,12 @@ Finally, go ahead and add the `AppLink` to the `AppHeader` component that allows
 
 Open `src/components/AppHeader.vue` and update the file to look like the following:
 
-```vue(path=".../hackernews-vue-apollo/src/components/AppHeader.vue")
+```js(path=".../hackernews-vue-apollo/src/components/AppHeader.vue")
 <template>
   <div class="flex pa1 justify-between nowrap orange">
     <div class="flex flex-fixed black">
       <div class="fw7 mr1">Hacker News</div>
       <router-link to="/" class="ml1 no-underline black">new</router-link>
-      <div class="ml1">|</div>
-      <router-link to="/top" class="ml1 no-underline black">top</router-link>
-      <div class="ml1">|</div>
-      <router-link to="/search" class="ml1 no-underline black">search</router-link>
       <div class="flex" v-if="userId">
         <div class="ml1">|</div>
         <router-link to="/create" class="ml1 no-underline black">submit</router-link>
@@ -219,7 +212,7 @@ Before you can implement the authentication functionality in `src/components/App
 
 In the directory where `project.graphcool` is located, type the following into the terminal:
 
-```bash(path="../hackernews-vue-apollo")
+```bash
 graphcool console
 ```
 
@@ -269,7 +262,7 @@ Next, you have to make sure that the changes introduced by the authentication pr
 
 Open a terminal window and navigate to the directory where `project.graphcool` is located. Then run the following command:
 
-```bash(path="../hackernews-vue-apollo")
+```bash
 graphcool pull
 ```
 
@@ -330,7 +323,7 @@ You added two things to the schema:
 
 Save the file and execute the following command in the Terminal:
 
-```bash(path="../hackernews-vue-apollo")
+```bash
 graphcool push
 ```
 
@@ -365,7 +358,7 @@ Perfect, you're all set now to actually implement the authentication functionali
 Open `src/constants/graphql.js` and add the following two definitions to the file:
 
 ```js(path=".../hackernews-vue-apollo/src/constants/graphql.js")
-const CREATE_USER_MUTATION = gql`
+export const CREATE_USER_MUTATION = gql`
   mutation CreateUserMutation($name: String!, $email: String!, $password: String!) {
     createUser(
       name: $name,
@@ -391,7 +384,7 @@ const CREATE_USER_MUTATION = gql`
   }
 `
 
-const SIGNIN_USER_MUTATION = gql`
+export const SIGNIN_USER_MUTATION = gql`
   mutation SigninUserMutation($email: String!, $password: String!) {
     signinUser(email: {
       email: $email,
@@ -459,6 +452,55 @@ confirm () {
 
 The code is pretty straightforward. If the user wants to only login, you're calling the `signinUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `createUserMutation` where you also pass the user's `name`. After the mutation was performed, you're storing the `id` and `token` in `localStorage` and navigate back to the root route.
 
+<Instruction>
+
+Also import the `CREATE_USER_MUTATION` and `SIGNIN_USER_MUTATION` constants near top of the `script` block:
+
+```js(path=".../hackernews-vue-apollo/src/components/AppLogin.vue")
+import { CREATE_USER_MUTATION, SIGNIN_USER_MUTATION } from '../constants/graphql'
+```
+
+</Instruction>
+
+You now need to make a couple more changes to `src/main.js` to get things working.
+
+<Instruction>
+
+First, import `GC_USER_ID` near top of `src/main.js`:
+
+```js(path=".../hackernews-vue-apollo/src/main.js")
+import { GC_USER_ID } from './constants/settings'
+```
+
+</Instruction>
+
+<Instruction>
+
+Still in `src/main.js` make the following change to the bottom of the file:
+
+```js(path=".../hackernews-vue-apollo/src/main.js")
+// 1
+let userId = localStorage.getItem(GC_USER_ID)
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  apolloProvider,
+  router,
+  // 2
+  data: {
+    userId
+  },
+  template: '<App/>',
+  components: { App }
+})
+```
+
+1. You get the current `GC_USER_ID` from `localStorage` if there is one
+2. You set this `userId` on the `$root` `$data` object
+
+</Instruction>
+
 You can now create an account by providing a `name`, `email` and `password`. Once you did that, the _submit_-button will be rendered again:
 
 ![](http://imgur.com/WoWLmDJ.png)
@@ -472,7 +514,7 @@ Since you're now able to authenticate users and also added a new relation betwee
 Open `src/constants/graphql.js` and update the definition of `CREATE_LINK_MUTATION` as follows:
 
 ```js(path=".../hackernews-vue-apollo/src/constants/graphql.js")
-const CREATE_LINK_MUTATION = gql`
+export const CREATE_LINK_MUTATION = gql`
   mutation CreateLinkMutation($description: String!, $url: String!, $postedById: ID!) {
     createLink(
       description: $description,
@@ -525,7 +567,7 @@ createLink () {
     },
     update: (store, { data: { createLink } }) => {
       const data = store.readQuery({ query: ALL_LINKS_QUERY })
-      data.allLinks.splice(0, 0, createLink)
+      data.allLinks.push(createLink)
       store.writeQuery({ query: ALL_LINKS_QUERY, data })
     }
   }).then((data) => {
@@ -571,7 +613,7 @@ Open `src/main.js` and put the following code _between_ the creation of the `net
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
 networkInterface.use([{
-  applyMiddleware(req, next) {
+  applyBatchMiddleware (req, next) {
     if (!req.options.headers) {
       req.options.headers = {}
     }
@@ -590,7 +632,7 @@ networkInterface.use([{
 Then directly import the key that you need to retrieve the token from `localStorage` on top of the same file:
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
-import { GC_AUTH_TOKEN } from './constants/settings'
+import { GC_USER_ID, GC_AUTH_TOKEN } from './constants/settings'
 ```
 
 </Instruction>

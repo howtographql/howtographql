@@ -2,12 +2,9 @@
 title: Getting Started
 pageTitle: "Getting Started with GraphQL, VueJS & Apollo Tutorial"
 description: Start building a Hackernews clone. Create the frontend with vue-cli and the backend with Graphcool.
-videoId: N/A
-duration: N/A
-videoAuthor: "Matt Dionis"
-question:
-answers: []
-correctAnswer:
+question: What packages need to be installed to work with GraphQL in a VueJS app?
+answers: ["graphql", "apollo", "apollo-client & vue-apollo", "vue-apollo"]
+correctAnswer: 2
 ---
 
 ### Backend
@@ -301,7 +298,7 @@ This tutorial is about the concepts of GraphQL and how you can use it from withi
 
 Make sure you are inside your project directory and run the following:
 
-```bash(path=".../hackernews-vue-apollo")
+```bash
 npm install --save tachyons
 ```
 
@@ -329,49 +326,51 @@ Since we still want to have a bit more custom styling here and there, we also pr
 Open `src/App.vue` and replace the contents of the `style` block with the following:
 
 ```css(path=".../hackernews-vue-apollo/src/App.vue")
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Verdana, Geneva, sans-serif;
-}
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, sans-serif;
+  }
 
-input {
-  max-width: 500px;
-}
+  input {
+    max-width: 500px;
+  }
 
-.gray {
-  color: #828282;
-}
+  .gray {
+    color: #828282;
+  }
 
-.orange {
-  background-color: #ff6600;
-}
+  .orange {
+    background-color: #ff6600;
+  }
 
-.background-gray {
-  background-color: rgb(246,246,239);
-}
+  .background-gray {
+    background-color: rgb(246,246,239);
+  }
 
-.f11 {
-  font-size: 11px;
-}
+  .f11 {
+    font-size: 11px;
+  }
 
-.w85 {
-  width: 85%;
-}
+  .w85 {
+    width: 85%;
+  }
 
-.button {
-  font-family: monospace;
-  font-size: 10pt;
-  color: black;
-  background-color: buttonface;
-  text-align: center;
-  padding: 2px 6px 3px;
-  border-width: 2px;
-  border-style: outset;
-  border-color: buttonface;
-  cursor: pointer;
-  max-width: 250px;
-}
+  .button {
+    font-family: monospace;
+    font-size: 10pt;
+    color: black;
+    background-color: buttonface;
+    text-align: center;
+    padding: 2px 6px 3px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonface;
+    cursor: pointer;
+    max-width: 250px;
+  }
+</style>
 ```
 
 </Instruction>
@@ -384,7 +383,7 @@ input {
 
 Next, you need to pull in the functionality of Apollo Client by installing both `apollo-client` and `vue-apollo`:
 
-```bash(path=".../hackernews-vue-apollo")
+```bash
 npm install --save vue-apollo apollo-client
 ```
 
@@ -402,7 +401,7 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/main.js` and replace the contents with the following:
 
-```js{}(path="src/main.js")
+```js{1-2,5-6,13-16,18-22,24-25,27-30,35-36}(path=".../hackernews-vue-apollo/src/main.js")
 // 1
 import { ApolloClient, createBatchingNetworkInterface } from 'apollo-client'
 import 'tachyons'
@@ -443,7 +442,6 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
-
 ```
 
 </Instruction>
@@ -467,7 +465,7 @@ There are two ways for you to get your endpoint. You can either open the [Graphc
 
 In the terminal, navigate into the directory where `project.graphcool` is located and use the following command:
 
-```bash(path=".../hackernews-vue-apollo")
+```bash
 graphcool endpoints
 ```
 

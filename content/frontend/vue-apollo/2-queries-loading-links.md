@@ -2,12 +2,9 @@
 title: "Queries: Loading Links"
 pageTitle: "Fetching Data using GraphQL Queries with VueJS & Apollo Tutorial"
 description: "Learn how you can use GraphQL queries with Apollo Client to load data from a server and display it in your React components."
-videoId: N/A
-duration: N/A
-videoAuthor: "Matt Dionis"
-question:
-answers: []
-correctAnswer:
+question: What property should be added to a Vue instance in order to query a GraphQL endpoint?
+answers: ["graphql", "fetch-graphql", "apollo-client", "apollo"]
+correctAnswer: 3
 ---
 
 ### Preparing the VueJS components
@@ -20,7 +17,7 @@ Remove the `Hello.vue` file from `src/components`. You will be creating several 
 
 Create a new file called `LinkItem.vue` in the `src/components` directory and add the following code:
 
-```vue(path=".../hackernews-vue-apollo/src/components/Link.vue")
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
 <template>
   <div>{{link.description}} ({{link.url}})</div>
 </template>
@@ -45,7 +42,7 @@ Next, you'll implement the component that renders a list of links.
 
 Again, in the `src/components` directory, go ahead and create a new file called `LinkList.vue` and add the following code:
 
-```vue(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <template>
   <div>
     <link-item
@@ -95,7 +92,7 @@ Here, you're using mock data for now to make sure the component setup works. You
 
 To complete the setup, open `src/App.vue` and replace the current contents with the following:
 
-```vue(path=".../hackernews-vue-apollo/src/App.vue")
+```js(path=".../hackernews-vue-apollo/src/App.vue")
 <template>
   <div id="app">
     <link-list></link-list>
@@ -171,32 +168,26 @@ You need to make one more change before testing out the app.
 Open `src/main.js` and remove the two references to router for now. After removing them, `src/main.js` should look like this:
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
-// 1
 import { ApolloClient, createBatchingNetworkInterface } from 'apollo-client'
 import 'tachyons'
 import Vue from 'vue'
-// 2
 import VueApollo from 'vue-apollo'
 
 import App from './App'
 
 Vue.config.productionTip = false
 
-// 3
 const networkInterface = createBatchingNetworkInterface({
-  uri: 'https://api.graph.cool/simple/v1/cj6mthbw60jgq0178a6do24rl'
+  uri: '__SIMPLE_API_ENDPOINT__'
 })
 
-// 4
 const apolloClient = new ApolloClient({
   networkInterface,
   connectToDevTools: true
 })
 
-// 5
 Vue.use(VueApollo)
 
-// 6
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 })
@@ -204,7 +195,6 @@ const apolloProvider = new VueApollo({
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  // 7
   apolloProvider,
   template: '<App/>',
   components: { App }
@@ -275,7 +265,7 @@ You will be writing your queries and mutations in a `constants` folder and simpl
 
 Open up `src/constants/graphql.js` and add your first query:
 
-```js(path=".../hackernews-vue-apollo/src/constants/graphql.js")
+```js{1-2,4-13}(path=".../hackernews-vue-apollo/src/constants/graphql.js")
 // 1
 import gql from 'graphql-tag'
 
@@ -305,7 +295,7 @@ Next, you will add an `apollo` object to the `LinkList` component and call this 
 
 Open up `LinkList.vue` and add the `apollo` object. Your `LinkList` component should now look like this:
 
-```vue(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+```js{12-13,20-21,27-32}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <template>
   <div>
     <link-item

@@ -2,12 +2,9 @@
 title: Introduction
 pageTitle: "Fullstack Tutorial with GraphQL, VueJS & Apollo"
 description: "Learn how to build a Hackernews clone with GraphQL, VueJS & Apollo Client. You'll use vue-cli for the frontend and Graphcool for the backend."
-videoId: N/A
-duration: N/A
-videoAuthor: "Matt Dionis"
-question:
-answers: []
-correctAnswer:
+question: What's a major benefit of using a GraphQL client library?
+answers: ["It makes it easy to use animations inside your app", "A GraphQL client is mainly used to improve security", "It saves you from writing infrastructure code for networking and caching", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
+correctAnswer: 2
 ---
 
 

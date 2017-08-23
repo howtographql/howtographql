@@ -2,12 +2,9 @@
 title: Routing
 pageTitle: "Vue-router with GraphQL & Apollo Tutorial"
 description: "Learn how to use vue-router together with GraphQL and Apollo Client to implement navigation in a VueJS app."
-videoId: N/A
-duration: N/A
-videoAuthor: "Matt Dionis"
-question:
-answers: []
-correctAnswer:
+question: Where do you handle optimistic UI updates when executing a GraphQL mutation in a VueJS component?
+answers: ["Within an optimisticUpdate method", "Within the .then block of a mutation", "You can not optimistically update the UI in a VueJS component", "Within the update callback of a mutation"]
+correctAnswer: 3
 ---
 
 In this section, you'll learn how to use the [`vue-router`](https://github.com/vuejs/vue-router) library with Apollo to implement some navigation functionality!
@@ -21,7 +18,7 @@ Before moving on to configure the different routes for your application, you nee
 
 Create a new file in `src/components` and call it `AppHeader.js`. Then paste the following code inside of it:
 
-```vue(path=".../hackernews-vue-apollo/src/components/AppHeader.vue")
+```js(path=".../hackernews-vue-apollo/src/components/AppHeader.vue")
 <template>
   <div class="flex pa1 justify-between nowrap orange">
     <div class="flex flex-fixed black">
@@ -173,7 +170,7 @@ To wrap up this section, you need to implement an automatic redirect from `Creat
 
 First, open `src/components/CreateLink.vue` and add `ALL_LINKS_QUERY` to your imports like so:
 
-```vue(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
+```js(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
 import { ALL_LINKS_QUERY, CREATE_LINK_MUTATION } from '../constants/graphql'
 ```
 
@@ -183,7 +180,7 @@ import { ALL_LINKS_QUERY, CREATE_LINK_MUTATION } from '../constants/graphql'
 
 Still in `src/components/CreateLink.vue` update the `createLink` method to look like the following:
 
-```js(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
+```js{9-21}(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
 createLink () {
   const { description, url } = this
   this.$apollo.mutate({
