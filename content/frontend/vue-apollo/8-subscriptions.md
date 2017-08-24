@@ -306,7 +306,7 @@ import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION, NEW_VOTES_SUBSCRIPTION } from 
 
 </Instruction>
 
-Similar as before, you're calling `subscribeToMore` on the `allLinks` query. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and and then updating its `votes` with the `Vote` element that was sent from the server.
+Similar to before, you're calling `subscribeToMore` on the `allLinks` query. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and and then updating its `votes` with the `Vote` element that was sent from the server.
 
 <Instruction>
 

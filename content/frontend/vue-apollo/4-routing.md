@@ -157,7 +157,7 @@ export default {
 
 </Instruction>
 
-That's it. You can now access two URLs: `http://localhost:8080/` will render `LinkList` and `http://localhost:3000/create` will render the `CreateLink` component you just wrote in the previous section.
+That's it. You can now access two URLs: `http://localhost:8080/` will render `LinkList` and `http://localhost:8080/create` will render the `CreateLink` component you just wrote in the previous section.
 
 ![](http://imgur.com/bcHzt5W.gif)
 

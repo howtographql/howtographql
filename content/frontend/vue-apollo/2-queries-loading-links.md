@@ -15,6 +15,10 @@ The first piece of functionality that you'll implement in the app is loading and
 
 Remove the `Hello.vue` file from `src/components`. You will be creating several new components throughout the remainder of this tutorial.
 
+</Instruction>
+
+<Instruction>
+
 Create a new file called `LinkItem.vue` in the `src/components` directory and add the following code:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
@@ -230,36 +234,24 @@ You could now simply execute this query in a Playground and retrieve the results
 
 ### Queries with Apollo Client
 
-When using Apollo, you've got two ways of sending queries to the server.
+When using VueJS with `vue-apollo` the `apollo` object makes it easy to fetch GraphQL data.
 
-The first one is to use the [`query`](http://dev.apollodata.com/core/apollo-client-api.html#ApolloClient\.query) method on the `ApolloClient` directly. This is a more _imperative_ way of fetching data and will allow you to process the response as a _promise_.
-
-A practical example would look as follows:
-
-```js(nocopy)
-client.query({
-  query: gql`
-    query AllLinks {
-      allLinks {
-        id
-      }
-    }
-  `
-}).then(response => console.log(response.data.allLinks))
-```
-
-A more idiomatic way when using VueJS however is to use `vue-apollo`'s `apollo` object.
-
-With this approach, all you need to do when it comes to data fetching is write the GraphQL query and `graphql` will fetch the data for you under the hood and then make it available in your component's data.
+With this approach, all you need to do when it comes to data fetching is write the GraphQL query and `apollo-client` will fetch the data for you under the hood and then make it available in your component's `data`.
 
 In general, the process for you to add some data fetching logic will be very similar every time:
 
 1. Write the query as a JS constant using the `gql` parser function
-2. Initialize the property in your component's data hook
+2. Initialize the property in your component's `data` property
 2. Use the `apollo` object to fetch the results of your `graphql` query
 3. Access the query results in the component's `data`
 
-You will be writing your queries and mutations in a `constants` folder and simply importing these queries and mutations into components as needed. Create a directory within `src` called `constants`. Within this new directory, create a file called `graphql.js`. This is where all of your queries and mutations will live.
+You will be writing your queries and mutations in a `constants` folder and simply importing these queries and mutations into components as needed.
+
+<Instruction>
+
+Create a directory within `src` called `constants`. Within this new directory, create a file called `graphql.js`. This is where all of your queries and mutations will live.
+
+</Instruction>
 
 <Instruction>
 
@@ -293,7 +285,7 @@ Next, you will add an `apollo` object to the `LinkList` component and call this 
 
 <Instruction>
 
-Open up `LinkList.vue` and add the `apollo` object. Your `LinkList` component should now look like this:
+Open up `src/components/LinkList.vue` and add the `apollo` object. Your `LinkList` component should now look like this:
 
 ```js{12-13,20-21,27-32}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <template>

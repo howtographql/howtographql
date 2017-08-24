@@ -154,7 +154,7 @@ Go ahead and see if the mutation works. To be able to test the code, open `src/A
 
 <Instruction>
 
-Next, import the `CreateLink` component by adding the following statement to the top of `App.vue`'s `script` block:
+Next, import the `CreateLink` component by adding the following statement to the top of `src/App.vue`'s `script` block:
 
 ```js(path=".../hackernews-vue-apollo/src/App.vue")
 import CreateLink from './CreateLink'
@@ -166,7 +166,7 @@ You should now see the following screen:
 
 ![](http://imgur.com/AJNlEfj.png)
 
-Two input fields and a _submit_-button - not very pretty but functional.
+Two input fields and a _submit_-button - not very pretty, but functional.
 
 Enter some data into the fields, e.g.:
 
@@ -174,6 +174,8 @@ Enter some data into the fields, e.g.:
 - **URL**: `www.howtographql.com`
 
 Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
+
+<Instruction>
 
 Type `graphcool playground` into a Terminal and send the following query:
 
@@ -185,6 +187,8 @@ Type `graphcool playground` into a Terminal and send the following query:
   }
 }
 ```
+
+</Instruction>
 
 You'll see the following server response:
 

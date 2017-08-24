@@ -2,9 +2,9 @@
 title: Pagination
 pageTitle: "Pagination with GraphQL, VueJS & Apollo Tutorial"
 description: "Learn how to implement limit-offset pagination with GraphQL and Apollo Client in a VueJS app. The Graphcool API exposes the required arguments for lists."
-question: "What's the difference between the 'query' and 'readQuery' methods on the 'ApolloClient'?"
-answers: ["'readQuery' always fetches data over the network while 'query' can retrieve data either from the cache or remotely", "'readQuery' can only be used to reading data while 'query' can also be used to write data", "'readQuery' was formerly called 'query' and the functionality of both is identical", "'readQuery' always reads data from the local cache while 'query' might retrieve data either from the cache or remotely"]
-correctAnswer: 3
+question: "How do you access information about the current page URL?"
+answers: ["A GraphQL query", "Import & use the router-info package", "By accessing this.$route.params.page", "You can not gain access to this information"]
+correctAnswer: 2
 ---
 
 Next up we'll cover pagination. You'll implement a simple pagination approach so that users are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
@@ -50,7 +50,7 @@ const routes = [
 </Instruction>
 
 
-You now added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkList`.
+You added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkList`.
 
 The root route `/` now redirects to the first page of the route where new posts are displayed.
 
@@ -199,7 +199,45 @@ getLinksToRender (isNewPage) {
 </Instruction>
 
 
-For the `isNewPage`, you'll simply return all the links returned by the query. That's logical since here you don't have to make any manual modifications to the list that is to be rendered. If the user loaded the component from the `/top` route, you'll sort the list according to the number of votes and return the top 10 links.
+For the `isNewPage`, you'll simply return all the links returned by the query. That's logical since here you don't have to make any manual modifications to the list that is to be rendered. If the user loaded the component from the `/top` route, you'll sort the list according to the number of votes and return the top 10 links. This is accomplished through an `orderedLinks` computed property which you will implement next.
+
+You will make use of the [lodash](https://lodash.com/) library within the `orderedLinks` function.
+
+<Instruction>
+
+Open a terminal window and within your project directory run the following command:
+
+```bash
+npm install --save lodash
+```
+
+</Instruction>
+
+<Instruction>
+
+Now, in `src/components/LinkList.vue` near the top of the `script` block import `lodash`:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+import _ from 'lodash'
+```
+
+</Instruction>
+
+<Instruction>
+
+Still in `src/components/LinkList.vue` implement the following within the `computed` object:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+orderedLinks: function () {
+  if (this.$route.path.includes('top')) {
+    return _.orderBy(this.allLinks, 'votes.length').reverse()
+  } else {
+    return this.allLinks
+  }
+}
+```
+
+</Instruction>
 
 Next, you'll implement the functionality for the _Previous_- and _Next_-buttons.
 

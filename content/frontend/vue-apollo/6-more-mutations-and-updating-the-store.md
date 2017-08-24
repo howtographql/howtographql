@@ -34,10 +34,6 @@ Open `src/components/LinkItem.vue` and update it to look like the following:
 </template>
 
 <script>
-  import { CREATE_VOTE_MUTATION } from '../constants/graphql'
-  import { GC_USER_ID, LINKS_PER_PAGE } from '../constants/settings'
-  import { timeDifferenceForDate } from '../utils'
-
   export default {
     name: 'LinkItem',
     computed: {
@@ -164,7 +160,7 @@ For this new feature, you also need to update the schema again since votes on li
 
 Open `project.graphcool` and add the following type:
 
-```graphql(path=".../hackernews-vue-apollo/project.graphcool")
+```graphql
 type Vote {
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
@@ -179,7 +175,7 @@ Each `Vote` will be associated with the `User` who created it as well as the `Li
 
 Still in `project.graphcool`, add the following field to the `User` type:
 
-```graphql(path=".../hackernews-vue-apollo/project.graphcool")
+```graphql
 votes: [Vote!]! @relation(name: "UsersVotes")
 ```
 
@@ -189,7 +185,7 @@ votes: [Vote!]! @relation(name: "UsersVotes")
 
 Now add another field to the `Link` type:
 
-```graphql(path=".../hackernews-vue-apollo/project.graphcool")
+```graphql
 votes: [Vote!]! @relation(name: "VotesOnLink")
 ```
 
@@ -197,7 +193,7 @@ votes: [Vote!]! @relation(name: "VotesOnLink")
 
 <Instruction>
 
-Next open up a terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
+Next, open up a terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
 
 ```bash
 graphcool push
@@ -302,9 +298,9 @@ import { CREATE_VOTE_MUTATION } from '../constants/graphql'
 
 <Instruction>
 
-Finally, you need to implement `voteForLink` as follows:
+Finally, you need to implement `voteForLink` as follows in `src/components/LinkItem.vue`:
 
-```js(path=".../hackernews-vue-apollo/src/components/Link.js")
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
 voteForLink () {
   const userId = localStorage.getItem(GC_USER_ID)
   const voterIds = this.link.votes.map(vote => vote.user.id)
@@ -344,7 +340,7 @@ You can implement this functionality by using Apollo's [imperative store API](ht
 
 Open `src/components/LinkItem.vue` and update the call to `CREATE_VOTE_MUTATION` inside the `voteForLink` method as follows:
 
-```js(path=".../hackernews-vue-apollo/src/components/Link.js")
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
 this.$apollo.mutate({
   mutation: CREATE_VOTE_MUTATION,
   variables: {
@@ -368,9 +364,9 @@ All right, so now you know what this `update` function is, but the actual implem
 
 <Instruction>
 
-Open `src/components/LinkList.vue` and add the following method inside the scope of the `LinkList` component:
+Open `src/components/LinkList.vue` and add the following method to the `LinkList` component:
 
-```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+```js{2-3,5-7,9-10}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 updateCacheAfterVote = (store, createVote, linkId) => {
   // 1
   const data = store.readQuery({ query: ALL_LINKS_QUERY })
@@ -398,7 +394,7 @@ Next you need to pass this function down to the `LinkItem` so it can be called f
 
 Still in `src/components/LinkList.vue`, update how the `LinkItem` components are rendered like so:
 
-```html(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+```html{6}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <link-item
   v-for="(link, index) in orderedLinks"
   :key="link.id"

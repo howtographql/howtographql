@@ -16,21 +16,33 @@ Since this is a frontend track, you don't want to spend too much time setting up
 You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to generate the server based on the data model that you need for the app. Speaking of the data model, here is what the final version of it looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
 
 ```graphql(nocopy)
-type User {
+type Link implements Node {
+  url: String!
+  description: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  postedBy: User @relation(name: "UsersLinks")
+  votes: [Vote!]! @relation(name: "VotesOnLink")
+}
+
+type User implements Node {
+  createdAt: DateTime!
+  email: String @isUnique
+  id: ID! @isUnique
+  password: String
+  updatedAt: DateTime!
   name: String!
   links: [Link!]! @relation(name: "UsersLinks")
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Link {
-  url: String!
-  postedBy: User! @relation(name: "UsersLinks")
-  votes: [Vote!]! @relation(name: "VotesOnLink")
-}
-
-type Vote {
+type Vote implements Node {
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
 }
 ```
 
@@ -74,7 +86,7 @@ Note that this command will open up a browser window first and ask you to authen
 The schema that's stored at [https://graphqlbin.com/hn-starter.graphql](https://graphqlbin.com/hn-starter.graphql) only defines the `Link` type for now:
 
 ```graphql(nocopy)
-type Link implements Node {
+type Link {
   description: String!
   url: String!
 }
@@ -239,6 +251,8 @@ Here is what my project setup looks like as an example:
 
 Based on your choices, `vue-cli` will now create a new directory called `hackernews-vue-apollo` that has all the basic configuration setup.
 
+<Instruction>
+
 Make sure everything works by navigating into the directory, installing dependencies, and starting the app:
 
 ```bash
@@ -246,6 +260,8 @@ cd hackernews-vue-apollo
 npm install
 npm run dev
 ```
+
+</Instruction>
 
 This will open a browser and navigate to `http://localhost:8080` where the app is running. If everything went well, you'll see the following:
 
@@ -292,7 +308,7 @@ Your project structure should now look as follows:
 
 #### Prepare Styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a VueJS application, so we want to spend the least time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes. Use npm to install Tachyons like so:
+This tutorial is about the concepts of GraphQL and how you can use it from within a VueJS application, so we want to spend a minimal amount of time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes. Use npm to install Tachyons like so:
 
 <Instruction>
 
@@ -308,7 +324,7 @@ Now that you have installed Tachyons, you need to import it into your project.
 
 <Instruction>
 
-Open up `main.js` and import Tachyons like this:
+Open up `src/main.js` and import Tachyons like this:
 
 ```js{4}(path=".../hackernews-vue-apollo/src/main.js")
 import Vue from 'vue'
@@ -478,4 +494,4 @@ Copy the endpoint for the `Simple API` and paste it into `src/main.js` to replac
 </Instruction>
 
 
-That's it, you're all set to start for loading some data into your app! 😎
+That's it, you're all set to start loading some data into your app! 😎

@@ -2,17 +2,17 @@
 title: Deploying
 pageTitle: "Deploying a Vue + Apollo app with Surge.sh"
 description: "Learn how to deploy an application built with VueJS and Graphcool through Surge.sh."
-question: ""
-answers: []
+question: "What directory will you execute the 'surge' command in?"
+answers: ["/build", "/src", "/static", "/dist"]
 correctAnswer: 3
 ---
 
-Finally, let's learn how we can easily deploy VueJS applications with [Surge.sh](http://surge.sh/).
+Finally, let's learn how to easily deploy VueJS applications with [Surge.sh](http://surge.sh/).
 
 
 ## Installing and running Surge
 
-Let's first install Surge globally.
+First, you need to install Surge globally.
 
 <Instruction>
 

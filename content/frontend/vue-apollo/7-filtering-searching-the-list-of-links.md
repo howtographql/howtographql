@@ -2,9 +2,9 @@
 title: "Filtering: Searching the List of Links"
 pageTitle: "Filtering with GraphQL, VueJS & Apollo Tutorial"
 description: "Learn how to use filters with GraphQL and Apollo Client. Graphcool provides a powerful filter and ordering API that you'll explore in this example."
-question: ""
-answers: []
-correctAnswer: 1
+question: "What object is used within a GraphQL query to add 'search' functionality through filtering?"
+answers: ["limit", "search", "filter", "You can not filter within a GraphQL query"]
+correctAnswer: 2
 ---
 
 In this section, you'll implement a search feature and learn about the filtering capabilities of your GraphQL API.
@@ -74,7 +74,7 @@ Notice that the `allLinks` field in the component's `data` will hold all the lin
 
 Now add the `Search` component as a new route to the app. Open `src/router/index.js` and update it to look like the following:
 
-```js{7=8,26-30}(path=".../hackernews-vue-apollo/src/router/index.js")
+```js{7-8,26-30}(path=".../hackernews-vue-apollo/src/router/index.js")
 import Vue from 'vue'
 import Router from 'vue-router'
 

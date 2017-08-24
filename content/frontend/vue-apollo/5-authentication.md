@@ -144,7 +144,7 @@ import AppLogin from '../components/AppLogin'
 </Instruction>
 
 
-Finally, go ahead and add the `AppLink` to the `AppHeader` component that allows the users to navigate to the `Login` page.
+Finally, go ahead and add the `AppLink` to the `AppHeader` component that allows users to navigate to the `Login` page.
 
 <Instruction>
 
@@ -229,7 +229,7 @@ Select the _Integrations_-tab on the left side-menu and then click on the _Email
 
 ![](http://imgur.com/FkyzuuM.png)
 
-This will open the popup that allows you to enable the Graphcool's email-based authentication mechanism.
+This will open the popup that allows you to enable Graphcool's email-based authentication mechanism.
 
 <Instruction>
 
@@ -291,7 +291,7 @@ Next you need to make one more modification to the schema. Generally, when updat
 
 Open your project file `project.graphcool` and update the `User` and `Link` types as follows:
 
-```{7,17}graphql
+```graphql{7,15,17}
 type Link implements Node {
   createdAt: DateTime!
   description: String!
@@ -450,7 +450,7 @@ confirm () {
 
 </Instruction>
 
-The code is pretty straightforward. If the user wants to only login, you're calling the `signinUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `createUserMutation` where you also pass the user's `name`. After the mutation was performed, you're storing the `id` and `token` in `localStorage` and navigate back to the root route.
+The code is pretty straightforward. If the user wants to only login, you're calling the `signinUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `createUserMutation` where you also pass the user's `name`. After the mutation is performed, you're storing the `id` and `token` in `localStorage` and navigating back to the root route.
 
 <Instruction>
 
@@ -478,7 +478,7 @@ import { GC_USER_ID } from './constants/settings'
 
 Still in `src/main.js` make the following change to the bottom of the file:
 
-```js(path=".../hackernews-vue-apollo/src/main.js")
+```js{1-2,9-12}(path=".../hackernews-vue-apollo/src/main.js")
 // 1
 let userId = localStorage.getItem(GC_USER_ID)
 
@@ -496,12 +496,12 @@ new Vue({
 })
 ```
 
+</Instruction>
+
 1. You get the current `GC_USER_ID` from `localStorage` if there is one
 2. You set this `userId` on the `$root` `$data` object
 
-</Instruction>
-
-You can now create an account by providing a `name`, `email` and `password`. Once you did that, the _submit_-button will be rendered again:
+You can now create an account by providing a `name`, `email` and `password`. Once you do so, the _submit_-button will be rendered again:
 
 ![](http://imgur.com/WoWLmDJ.png)
 
