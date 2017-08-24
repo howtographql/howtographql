@@ -565,7 +565,7 @@ If you haven't done so before, go ahead and test the login functionality. Run `y
 
 Now that users are able to login and obtain a token that authenticates them against the Graphcool backend, you actually need to make sure that the token gets attached to all requests that are sent to the API.
 
-Since all the API request are actually created and sent by the `ApolloClient` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all request by using [middleware](http://dev.apollodata.com/react/auth.html#Header).
+Since all the API requests are actually created and sent by the `ApolloClient` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all requests by using [middleware](http://dev.apollodata.com/react/auth.html#Header).
 
 <Instruction>
 
