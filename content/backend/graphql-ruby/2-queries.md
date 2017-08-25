@@ -76,11 +76,11 @@ When you previously ran `rails generate graphql:install`, it created the root qu
 
 <Instruction>
 
-Now update the content in both mutation_type.rb and query_type.rb to:
+Now update its content to:
 
-```
-Types::MutationType = GraphQL::ObjectType.define do
-  name "Mutation"
+```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
+Types::QueryType = GraphQL::ObjectType.define do
+  name 'Query'
 
   # queries are just represented as fields
   field :allLinks, !types[Types::LinkType] do
@@ -90,9 +90,15 @@ Types::MutationType = GraphQL::ObjectType.define do
 end
 ```
 
-```
-Types::QueryType = GraphQL::ObjectType.define do
-  name 'Query'
+</Instruction>
+
+<Instruction>
+
+Also update the content in:
+
+```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
+Types::MutationType = GraphQL::ObjectType.define do
+  name "Mutation"
 
   # queries are just represented as fields
   field :allLinks, !types[Types::LinkType] do
