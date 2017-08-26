@@ -15,7 +15,7 @@ GraphQL doesn't just specify a way to describe schemas and a query language to r
 
 ```graphql(nocopy)
 type Query {
-  author(id: ID!): [Author]
+  author(id: ID!): Author
 }
 
 type Author {
