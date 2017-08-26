@@ -365,10 +365,17 @@ All right, so now you know what this `update` function is, but the actual implem
 
 Open `src/components/LinkList.vue` and add the following method to the `LinkList` component:
 
-```js{2-3,5-7,9-10}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+```js{2-9,5-7,9-10}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 updateCacheAfterVote (store, createVote, linkId) {
   // 1
-  const data = store.readQuery({ query: ALL_LINKS_QUERY })
+  const data = store.readQuery({
+    query: ALL_LINKS_QUERY,
+    variables: {
+      first: 5,
+      skip: 0,
+      orderBy: 'createdAt_DESC'
+    }
+  })
 
   // 2
   const votedLink = data.allLinks.find(link => link.id === linkId)
