@@ -19,7 +19,7 @@ Once more, you first need to prepare the VueJS components for this new functiona
 Open `src/router/index.js` and adjust the routes like so:
 
 ```js{4,15,23}(path=".../hackernews-vue-apollo/src/router/index.js")
-const routes = [
+routes: [
   {
     path: '/',
     redirect: '/new/1'
@@ -54,11 +54,42 @@ You added two new routes: `/top` and `/new/:page`. The second one reads the valu
 
 The root route `/` now redirects to the first page of the route where new posts are displayed.
 
+You need to update the `AppHeader` component to show the new `/top` route:
+
+<Instruction>
+
+Open `src/components/AppHeader.vue` and add `top`. This component's template should now look like this:
+
+```html{6-7}(path=".../hackernews-vue-apollo/src/components/AppHeader.vue")
+<template>
+  <div class="flex pa1 justify-between nowrap orange">
+    <div class="flex flex-fixed black">
+      <div class="fw7 mr1">Hacker News</div>
+      <router-link to="/" class="ml1 no-underline black">new</router-link>
+      <div class="ml1">|</div>
+      <router-link to="/top" class="ml1 no-underline black">top</router-link>
+      <div class="ml1">|</div>
+      <router-link to="/search" class="ml1 no-underline black">search</router-link>
+      <div class="flex" v-if="userId">
+        <div class="ml1">|</div>
+        <router-link to="/create" class="ml1 no-underline black">submit</router-link>
+      </div>
+    </div>
+    <div class="flex flex-fixed">
+      <div v-if="userId" class="ml1 pointer black" @click="logout()">logout</div>
+      <router-link v-else to="/login" class="ml1 no-underline black">login</router-link>
+    </div>
+  </div>
+</template>
+```
+
+</Instruction>
+
 We need to add quite a bit of logic to the `LinkList` component to account for the two different responsibilities that it now has.
 
 <Instruction>
 
-Open `src/constants/graphql.js` and add three arguments to the `AllLinksQuery` by replacing the `ALL_LINKS_QUERY` definition with the following:
+Open `src/constants/graphql.js` and add three arguments to the `AllLinksQuery` by replacing the `ALL_LINKS_QUERY` definition with the following. Note that you are also adding the `count` property from `_allLinksMeta` so that you have access to the count of links:
 
 ```js(path=".../hackernews-vue-apollo/src/constants/graphql.js")
 export const ALL_LINKS_QUERY = gql`
@@ -177,6 +208,18 @@ Open `src/components/LinkList.vue` and update the `template` to look like the fo
 
 </Instruction>
 
+Since you added `pageNumber` as one of the `props` on `LinkItem`, you now need to add it to the `props` array of the `LinkItem` component.
+
+<Instruction>
+
+Open `src/components/LinkItem.vue` and update the `props` array to also include `pageNumber`:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
+props: ['link', 'index', 'pageNumber', 'updateStoreAfterVote']
+```
+
+</Instruction>
+
 
 Since the setup is slightly more complicated now, you are going to calculate the list of links to be rendered in a separate method.
 
@@ -234,6 +277,27 @@ orderedLinks: function () {
   } else {
     return this.allLinks
   }
+}
+```
+
+</Instruction>
+
+<Instruction>
+
+Still in `src/components/LinkList.vue` there are four more `computed` properties you need to add as follows:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+isFirstPage () {
+  return this.$route.params.page === '1'
+},
+isNewPage () {
+  return this.$route.path.includes('new')
+},
+pageNumber (index) {
+  return parseInt(this.$route.params.page, 10)
+},
+morePages () {
+  return parseInt(this.$route.params.page, 10) <= this.count / LINKS_PER_PAGE
 }
 ```
 

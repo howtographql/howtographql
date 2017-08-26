@@ -201,7 +201,7 @@ You're also adding a second button on the right side of the `AppHeader` that use
 
 Here is what the `AppLogin` and `AppHeader` components now look like:
 
-![](http://imgur.com/tBxMVtb.png)
+![](http://imgur.com/YgAgtTB.png)
 
 Before you can implement the authentication functionality in `src/components/AppLogin.vue`, you need to prepare the Graphcool project and enable authentication on the server-side.
 
@@ -398,6 +398,8 @@ export const SIGNIN_USER_MUTATION = gql`
   }
 `
 ```
+
+</Instruction>
 
 Now, let's gain a better understanding what's going on in the two mutations that you just added to the `src/constants/graphql.js` file.
 

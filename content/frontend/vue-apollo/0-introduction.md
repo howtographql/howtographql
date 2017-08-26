@@ -12,7 +12,7 @@ correctAnswer: 2
 
 In the previous tutorials, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!
 
-You're going to build a simple clone of [Hackernews](https://news.ycombinator.com/). Here's a list of the features the app will have:
+You're going to build a simple clone of [Hackernews](https://news.ycombinator.com/). The final product can be viewed [here](http://vue-apollo-hn.surge.sh/). Here's a list of the features the app will have:
 
 - Display a list of links
 - Search the list of links

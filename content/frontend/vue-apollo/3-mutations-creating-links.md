@@ -157,14 +157,27 @@ Go ahead and see if the mutation works. To be able to test the code, open `src/A
 Next, import the `CreateLink` component by adding the following statement to the top of `src/App.vue`'s `script` block:
 
 ```js(path=".../hackernews-vue-apollo/src/App.vue")
-import CreateLink from './CreateLink'
+import CreateLink from './components/CreateLink'
+```
+
+</Instruction>
+
+<Instruction>
+
+Still in the `CreateLink` component you also need to add `CreateLink` to the `components` object:
+
+```js{2}(path=".../hackernews-vue-apollo/src/App.vue")
+components: {
+  CreateLink,
+  LinkList
+}
 ```
 
 </Instruction>
 
 You should now see the following screen:
 
-![](http://imgur.com/AJNlEfj.png)
+![](http://imgur.com/KXMe1MG.png)
 
 Two input fields and a _submit_-button - not very pretty, but functional.
 

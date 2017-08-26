@@ -285,7 +285,7 @@ Next, you will add an `apollo` object to the `LinkList` component and call this 
 
 <Instruction>
 
-Open up `src/components/LinkList.vue` and add the `apollo` object. Your `LinkList` component should now look like this:
+Open up `src/components/LinkList.vue`, import `ALL_LINKS_QUERY`, remove the hard-coded `allLinks`, and add the `apollo` object. Your `LinkList` component should now look like this:
 
 ```js{12-13,20-21,27-32}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <template>

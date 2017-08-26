@@ -13,7 +13,7 @@ The next piece of functionality that you'll implement is the voting feature! Aut
 
 Once more, the first step to implement this new feature is to prepare your VueJS components for the new functionality.
 
-</Instruction>
+<Instruction>
 
 Open `src/components/LinkItem.vue` and update it to look like the following:
 
@@ -121,10 +121,9 @@ export function timeDifferenceForDate (date) {
 
 <Instruction>
 
-Back in `src/components/LinkItem.vue`, import `GC_USER_ID` and `timeDifferenceForDate`  near the top of the `script` block:
+Back in `src/components/LinkItem.vue`, import `timeDifferenceForDate`  near the top of the `script` block:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
-import { GC_USER_ID } from '../constants'
 import { timeDifferenceForDate } from '../utils'
 ```
 
@@ -140,7 +139,7 @@ Open `src/components/LinkList.vue` and update the rendering of the `LinkItem` co
 
 ```html(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <link-item
-  v-for="(link, index) in orderedLinks"
+  v-for="(link, index) in allLinks"
   :key="link.id"
   :link="link"
   :index="index">
@@ -148,7 +147,6 @@ Open `src/components/LinkList.vue` and update the rendering of the `LinkItem` co
 ```
 
 </Instruction>
-
 
 Notice that the app won't run at the moment since the `votes` are not yet included in the query. You'll fix that next!
 
@@ -224,7 +222,7 @@ Awesome! Now that you updated the schema, you can fix the issue that currently p
 Open `/src/constants/graphql.js` and update the definition of `ALL_LINKS_QUERY` to look as follows:
 
 ```js(path=".../hackernews-vue-apollo/src/constants/graphql.js")
-const ALL_LINKS_QUERY = gql`
+export const ALL_LINKS_QUERY = gql`
   query AllLinksQuery {
     allLinks {
       id
@@ -251,7 +249,7 @@ const ALL_LINKS_QUERY = gql`
 
 All you do here is add information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed.
 
-![](http://imgur.com/eHaPg3L.png)
+![](http://imgur.com/j50X5Dm.png)
 
 Let's now move on and implement the upvote mutation!
 
@@ -262,7 +260,7 @@ Let's now move on and implement the upvote mutation!
 Open `src/constants/graphql.js` and add the following mutation definition to the file:
 
 ```js(path=".../hackernews-vue-apollo/src/constants/graphql.js")
-const CREATE_VOTE_MUTATION = gql`
+export const CREATE_VOTE_MUTATION = gql`
   mutation CreateVoteMutation($userId: ID!, $linkId: ID!) {
     createVote(userId: $userId, linkId: $linkId) {
       id
@@ -288,10 +286,11 @@ This step should feel pretty familiar by now. You're adding the ability to call 
 
 <Instruction>
 
-As with the times before, you also need to import this constant near the top of the `script` block in `src/components/LinkItem.vue`:
+As with the times before, you also need to import this constant near the top of the `script` block in `src/components/LinkItem.vue`. You need to import `GC_USER_ID` as well:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
 import { CREATE_VOTE_MUTATION } from '../constants/graphql'
+import { GC_USER_ID } from '../constants/settings'
 ```
 
 </Instruction>
@@ -367,7 +366,7 @@ All right, so now you know what this `update` function is, but the actual implem
 Open `src/components/LinkList.vue` and add the following method to the `LinkList` component:
 
 ```js{2-3,5-7,9-10}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-updateCacheAfterVote = (store, createVote, linkId) => {
+updateCacheAfterVote (store, createVote, linkId) {
   // 1
   const data = store.readQuery({ query: ALL_LINKS_QUERY })
 
@@ -396,12 +395,24 @@ Still in `src/components/LinkList.vue`, update how the `LinkItem` components are
 
 ```html{6}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <link-item
-  v-for="(link, index) in orderedLinks"
+  v-for="(link, index) in allLinks"
   :key="link.id"
   :link="link"
   :index="index"
   :updateStoreAfterVote="updateCacheAfterVote">
 </link-item>
+```
+
+</Instruction>
+
+Since you added `updateStoreAfterVote` as one of the `props` on `LinkItem`, you now need to add it to the `props` array of the `LinkItem` component.
+
+<Instruction>
+
+Open `src/components/LinkItem.vue` and update the `props` array to also include `updateStoreAfterVote`:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
+props: ['link', 'index', 'updateStoreAfterVote']
 ```
 
 </Instruction>

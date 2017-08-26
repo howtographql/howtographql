@@ -16,7 +16,7 @@ Before moving on to configure the different routes for your application, you nee
 
 <Instruction>
 
-Create a new file in `src/components` and call it `AppHeader.js`. Then paste the following code inside of it:
+Create a new file in `src/components` and call it `AppHeader.vue`. Then paste the following code inside of it:
 
 ```js(path=".../hackernews-vue-apollo/src/components/AppHeader.vue")
 <template>
@@ -142,17 +142,19 @@ In `src/App.vue` update your template to the following (`router-view` is where t
 
 <Instruction>
 
-Still in `src/App.vue` remove the `CreateLink` and `LinkList` imports from the `script` block. Your `script` block should now look like this:
+Still in `src/App.vue`, import `AppHeader` and add it to the `components` object, and remove `CreateLink` and `LinkList`. Your `script` block should now look like this:
 
-```js(path=".../hackernews-vue-apollo/src/App.vue")
-import AppHeader from './components/AppHeader'
+```js{2,7}(path=".../hackernews-vue-apollo/src/App.vue")
+<script>
+  import AppHeader from './components/AppHeader'
 
-export default {
-  name: 'app',
-  components: {
-    AppHeader
+  export default {
+    name: 'app',
+    components: {
+      AppHeader
+    }
   }
-}
+</script>
 ```
 
 </Instruction>
