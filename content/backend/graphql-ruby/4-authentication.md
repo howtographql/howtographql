@@ -358,6 +358,7 @@ class Resolvers::SignInUser < GraphQL::Function
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
     token = crypt.encrypt_and_sign("user-id:#{ user.id }")
 
+    ctx[:session] = {}
     ctx[:session][:token] = token
 
     # ...code
@@ -446,6 +447,37 @@ class Resolvers::CreateLink < GraphQL::Function
   end
 end
 ```
+
+</Instruction>
+
+<Instruction>
+
+Finally update `CreateLink` test:
+
+```ruby(path=".../graphql-ruby/test/resolvers/create_link_test.rb")
+require 'test_helper'
+
+class Resolvers::CreateLinkTest < ActiveSupport::TestCase
+  def perform(args = {}, context = {})
+    Resolvers::CreateLink.new.call(nil, args, context)
+  end
+
+  test 'creating new link' do
+    user = User.create!(name: 'test',
+                        email: 'test@email.com',
+                        password: 'test')
+
+    result = perform(
+      { description: 'description', url: 'http://example.com' },
+      current_user: user
+    )
+
+    assert result.persisted?
+    assert_equal result.description, 'description'
+    assert_equal result.url, 'http://example.com'
+    assert_equal result.user, user
+  end
+end
 
 </Instruction>
 
