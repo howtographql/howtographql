@@ -452,7 +452,7 @@ end
 
 <Instruction>
 
-Finally update `CreateLink` test:
+Next, update `CreateLink` test:
 
 ```ruby(path=".../graphql-ruby/test/resolvers/create_link_test.rb")
 require 'test_helper'
