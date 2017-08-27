@@ -478,6 +478,7 @@ class Resolvers::CreateLinkTest < ActiveSupport::TestCase
     assert_equal result.user, user
   end
 end
+```
 
 </Instruction>
 
