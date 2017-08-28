@@ -76,9 +76,6 @@ Create a new file in `src/components` and call it `AppLogin.vue`. Then paste the
     }
   }
 </script>
-
-<style scoped>
-</style>
 ```
 
 </Instruction>
@@ -187,9 +184,6 @@ Open `src/components/AppHeader.vue` and update the file to look like the followi
     }
   }
 </script>
-
-<style scoped>
-</style>
 ```
 
 </Instruction>
@@ -415,7 +409,7 @@ Open `src/components/AppLogin.vue` and implement `confirm` as follows:
 
 ```js(path=".../hackernews-vue-apollo/src/components/AppLogin.vue")
 confirm () {
-  const { name, email, password } = this
+  const { name, email, password } = this.$data
   if (this.login) {
     this.$apollo.mutate({
       mutation: SIGNIN_USER_MUTATION,
@@ -493,8 +487,7 @@ new Vue({
   data: {
     userId
   },
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })
 ```
 

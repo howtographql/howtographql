@@ -32,9 +32,6 @@ Create a new file called `LinkItem.vue` in the `src/components` directory and ad
     props: ['link']
   }
 </script>
-
-<style scoped>
-</style>
 ```
 </Instruction>
 
@@ -82,9 +79,6 @@ Again, in the `src/components` directory, go ahead and create a new file called 
     }
   }
 </script>
-
-<style scoped>
-</style>
 ```
 
 </Instruction>
@@ -200,8 +194,7 @@ const apolloProvider = new VueApollo({
 new Vue({
   el: '#app',
   apolloProvider,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })
 ```
 
@@ -322,9 +315,6 @@ Open up `src/components/LinkList.vue`, import `ALL_LINKS_QUERY`, remove the hard
     }
   }
 </script>
-
-<style scoped>
-</style>
 ```
 
 </Instruction>

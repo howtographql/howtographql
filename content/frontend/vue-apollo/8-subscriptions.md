@@ -146,17 +146,17 @@ You'll implement this subscription in the `LinkList` component since that's wher
 
 <Instruction>
 
-Open `src/components/LinkList.vue` and add the following method:
+Open `src/components/LinkList.vue` and add the following property to the `allLinks` object within the `apollo` object:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-subscribeToNewLinks () {
-  this.$apollo.queries.allLinks.subscribeToMore({
+subscribeToMore: [
+  {
     document: NEW_LINKS_SUBSCRIPTION,
     updateQuery: (previous, { subscriptionData }) => {
       // ... you'll implement this in a bit
     }
-  })
-}
+  }
+]
 ```
 
 </Instruction>
@@ -174,10 +174,10 @@ import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION } from '../constants/graphql'
 
 Let's understand what's going on here! You're using the `allLinks` query that you have access to to call [`subscribeToMore`](https://github.com/Akryum/vue-apollo#subscribetomore). This call opens up a websocket connection to the subscription server.
 
-You're passing two arguments to `subscribeToMore`:
+You're passing an array to `subscribeToMore`:
 
-1. `document`: This represents the subscription itself. In your case, the subscription will fire for `CREATED` events on the `Link` type, i.e. every time a new link is created.
-2. `updateQuery`: Similar to `update`, this function allows you to determine how the store should be updated with the information that was sent by the server.
+1. Each object within the array contains a `document` property: This represents the subscription itself. In your case, the subscription will fire for `CREATED` events on the `Link` type, i.e. every time a new link is created.
+2. The other property is `updateQuery`: Similar to `update`, this function allows you to determine how the store should be updated with the information that was sent by the server.
 
 Go ahead and implement `updateQuery` next. This function works slightly differently than `update`. In fact, it follows exactly the same principle as a [Redux reducer](http://redux.js.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that's sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated version.
 
@@ -205,22 +205,6 @@ updateQuery: (previous, { subscriptionData }) => {
 
 
 All you do here is retrieve the new link from the subscription data (` subscriptionData.data.Link.node`), merge it into the existing list of links and return the result of this operation.
-
-The last thing here is to make sure that the component actually subscribes to the events by calling `subscribeToMore`.
-
-<Instruction>
-
-In `src/components/LinkList.vue`, add a new lifecycle hook, `created`, and implement it like so:
-
-```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-created () {
-  this.subscribeToNewLinks()
-}
-```
-
-</Instruction>
-
-> **Note**: `created` is a so-called [_lifecycle_ hook](https://vuejs.org/v2/api/#Options-Lifecycle-Hooks) of VueJS components that will be called once right after the Vue instance is created.
 
 Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application running on `http://localhost:8080/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
 
@@ -273,24 +257,22 @@ You'll also implement this subscription in the `LinkList` component since that's
 
 <Instruction>
 
-Open `src/components/LinkList.vue` and add the following method to the `LinkList` component:
+Open `src/components/LinkList.vue` and add the following object to the `sunscribeToMore` array:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-subscribeToNewVotes () {
-  this.$apollo.queries.allLinks.subscribeToMore({
-    document: NEW_VOTES_SUBSCRIPTION,
-    updateQuery: (previous, { subscriptionData }) => {
-      const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.data.Vote.node.link.id)
-      const link = subscriptionData.data.Vote.node.link
-      const newAllLinks = previous.allLinks.slice()
-      newAllLinks[votedLinkIndex] = link
-      const result = {
-        ...previous,
-        allLinks: newAllLinks
-      }
-      return result
+{
+  document: NEW_VOTES_SUBSCRIPTION,
+  updateQuery: (previous, { subscriptionData }) => {
+    const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.data.Vote.node.link.id)
+    const link = subscriptionData.data.Vote.node.link
+    const newAllLinks = previous.allLinks.slice()
+    newAllLinks[votedLinkIndex] = link
+    const result = {
+      ...previous,
+      allLinks: newAllLinks
     }
-  })
+    return result
+  }
 }
 ```
 
@@ -307,18 +289,5 @@ import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION, NEW_VOTES_SUBSCRIPTION } from 
 </Instruction>
 
 Similar to before, you're calling `subscribeToMore` on the `allLinks` query. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and and then updating its `votes` with the `Vote` element that was sent from the server.
-
-<Instruction>
-
-Finally, go ahead and add `subscribeToNewVotes` to the `created` lifecycle hook:
-
-```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-created () {
-  this.subscribeToNewLinks()
-  this.subscribeToNewVotes()
-}
-```
-
-</Instruction>
 
 Fantastic! Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.

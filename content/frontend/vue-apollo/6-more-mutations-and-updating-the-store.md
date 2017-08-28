@@ -359,14 +359,14 @@ The `update` function that you're adding as an argument to the mutation will be 
 
 Notice that you're already _destructuring_ the server response and retrieving the `createVote` field from it.
 
-All right, so now you know what this `update` function is, but the actual implementation will be done in the parent component of `LinkItem`, which is `LinkList`.
+All right, so now you know what this `update` function is, next you will need to implement the `updateStoreAfterVote` method.
 
 <Instruction>
 
-Open `src/components/LinkList.vue` and add the following method to the `LinkList` component:
+Still in `src/components/LinkItem.vue`, add the following method:
 
 ```js{2-9,5-7,9-10}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-updateCacheAfterVote (store, createVote, linkId) {
+updateStoreAfterVote (store, createVote, linkId) {
   // 1
   const data = store.readQuery({
     query: ALL_LINKS_QUERY,
@@ -388,42 +388,22 @@ updateCacheAfterVote (store, createVote, linkId) {
 
 </Instruction>
 
+<Instruction>
+
+Still in `src/components/LinkItem.vue`, you now need to import `ALL_LINKS_QUERY`:
+
+```js{2-9,5-7,9-10}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+import { ALL_LINKS_QUERY, CREATE_VOTE_MUTATION } from '../constants/graphql'
+```
+
+</Instruction>
+
 What's going on here?
 
 1. You start by reading the current state of the cached data for the `ALL_LINKS_QUERY` from the `store`.
 2. Now you're retrieving the link that the user just voted for from that list. You're also manipulating that link by resetting its `votes` to the `votes` that were just returned by the server.
 3. Finally, you take the modified data and write it back into the store.
 
-Next you need to pass this function down to the `LinkItem` so it can be called from there.
-
-<Instruction>
-
-Still in `src/components/LinkList.vue`, update how the `LinkItem` components are rendered like so:
-
-```html{6}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-<link-item
-  v-for="(link, index) in allLinks"
-  :key="link.id"
-  :link="link"
-  :index="index"
-  :updateStoreAfterVote="updateCacheAfterVote">
-</link-item>
-```
-
-</Instruction>
-
-Since you added `updateStoreAfterVote` as one of the `props` on `LinkItem`, you now need to add it to the `props` array of the `LinkItem` component.
-
-<Instruction>
-
-Open `src/components/LinkItem.vue` and update the `props` array to also include `updateStoreAfterVote`:
-
-```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
-props: ['link', 'index', 'updateStoreAfterVote']
-```
-
-</Instruction>
-
-That's it! You're now passing the `updateStoreAfterVote` method down as a `prop` on `LinkItem`. The `update` method will now be executed and ensure that the store gets updated properly after a mutation is performed. The store update will trigger a re-render of the component and thus update the UI with the correct information!
+That's it! The `update` method will now be executed and ensure that the store gets updated properly after a mutation is performed. The store update will trigger a re-render of the component and thus update the UI with the correct information!
 
 Note that we already implemented this same "optimistic UI updating" within the `CreateLink` component in an earlier chapter. The app is rounding into shape! 🤓

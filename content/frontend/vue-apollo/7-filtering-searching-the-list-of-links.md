@@ -58,9 +58,6 @@ Start by creating a new file called `src/components/Search.vue` and add the foll
     }
   }
 </script>
-
-<style scoped>
-</style>
 ```
 
 </Instruction>
@@ -202,7 +199,7 @@ Open `src/components/Search.vue` and implement `executeSearch` as follows:
 
 ```js(path=".../hackernews-vue-apollo/src/components/Search.vue")
 executeSearch () {
-  const { searchText } = this
+  const { searchText } = this.$data
   this.$apollo.query({
     query: ALL_LINKS_SEARCH_QUERY,
     variables: { searchText }

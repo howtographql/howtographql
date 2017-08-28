@@ -457,8 +457,7 @@ new Vue({
   // 7
   apolloProvider,
   router,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })
 ```
 

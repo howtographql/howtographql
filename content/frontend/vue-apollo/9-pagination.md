@@ -194,8 +194,7 @@ Open `src/components/LinkList.vue` and update the `template` to look like the fo
         :key="link.id"
         :link="link"
         :index="index"
-        :pageNumber="pageNumber"
-        :updateStoreAfterVote="updateCacheAfterVote">
+        :pageNumber="pageNumber">
       </link-item>
     </div>
     <div v-if="isNewPage">
@@ -215,7 +214,7 @@ Since you added `pageNumber` as one of the `props` on `LinkItem`, you now need t
 Open `src/components/LinkItem.vue` and update the `props` array to also include `pageNumber`:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
-props: ['link', 'index', 'pageNumber', 'updateStoreAfterVote']
+props: ['link', 'index', 'pageNumber']
 ```
 
 </Instruction>
@@ -297,7 +296,7 @@ pageNumber (index) {
   return parseInt(this.$route.params.page, 10)
 },
 morePages () {
-  return parseInt(this.$route.params.page, 10) <= this.count / LINKS_PER_PAGE
+  return parseInt(this.$route.params.page, 10) < this.count / LINKS_PER_PAGE
 }
 ```
 
@@ -312,7 +311,7 @@ In `src/components/LinkList.vue`, add the following two methods that will be cal
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 nextPage () {
   const page = parseInt(this.$route.params.page, 10)
-  if (page <= this.count / LINKS_PER_PAGE) {
+  if (page < this.count / LINKS_PER_PAGE) {
     const nextPage = page + 1
     this.$router.push({path: `/new/${nextPage}`})
   }

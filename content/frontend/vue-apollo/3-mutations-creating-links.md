@@ -29,7 +29,7 @@ Create a new file in the `src/components` directory and call it `CreateLink.vue`
         class="mb2"
         v-model="description"
         type="text"
-        placeholder='A description for the link'>
+        placeholder="A description for the link">
       <input
         class="mb2"
         v-model="url"
@@ -56,9 +56,6 @@ Create a new file in the `src/components` directory and call it `CreateLink.vue`
     }
   }
 </script>
-
-<style scoped>
-</style>
 ```
 
 </Instruction>
@@ -121,7 +118,7 @@ Still in `src/components/CreateLink.vue`, implement the `createLink` mutation as
 
 ```js(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
 createLink () {
-  const { description, url } = this
+  const { description, url } = this.$data
   this.$apollo.mutate({
     mutation: CREATE_LINK_MUTATION,
     variables: {

@@ -35,9 +35,6 @@ Create a new file in `src/components` and call it `AppHeader.vue`. Then paste th
     name: 'AppHeader'
   }
 </script>
-
-<style scoped>
-</style>
 ```
 
 </Instruction>
@@ -111,8 +108,7 @@ new Vue({
   el: '#app',
   apolloProvider,
   router,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })
 ```
 
@@ -184,7 +180,7 @@ Still in `src/components/CreateLink.vue` update the `createLink` method to look 
 
 ```js{9-21}(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
 createLink () {
-  const { description, url } = this
+  const { description, url } = this.$data
   this.$apollo.mutate({
     mutation: CREATE_LINK_MUTATION,
     variables: {
