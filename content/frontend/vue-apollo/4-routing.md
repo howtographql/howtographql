@@ -101,7 +101,7 @@ import router from './router'
 
 <Instruction>
 
-Still in `src/main.js`, and `router` to the Vue instance:
+Still in `src/main.js`, add `router` to the Vue instance:
 
 ```js{4}(path=".../hackernews-vue-apollo/src/main.js")
 new Vue({
