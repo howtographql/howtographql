@@ -48,10 +48,10 @@ Now update the configuration code like so:
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
 const networkInterface = createBatchingNetworkInterface({
-  uri: 'https://api.graph.cool/simple/v1/__PROJECT_ID__'
+  uri: '__SIMPLE_API_ENDPOINT__'
 })
 
-const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/__SUBSCRIPTION_API_ENDPOINT__', {
+const wsClient = new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
   reconnect: true,
   connectionParams: {
     authToken: localStorage.getItem(GC_AUTH_TOKEN)
@@ -195,7 +195,7 @@ updateQuery: (previous, { subscriptionData }) => {
   ]
   const result = {
     ...previous,
-    allLinks: newAllLinks
+    allLinks: newAllLinks.slice(0, 5)
   }
   return result
 }

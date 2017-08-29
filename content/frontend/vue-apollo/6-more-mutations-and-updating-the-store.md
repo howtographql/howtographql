@@ -365,16 +365,11 @@ All right, so now you know what this `update` function is, next you will need to
 
 Still in `src/components/LinkItem.vue`, add the following method:
 
-```js{2-9,5-7,9-10}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+```js{2-5,7-9,11-12}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 updateStoreAfterVote (store, createVote, linkId) {
   // 1
   const data = store.readQuery({
-    query: ALL_LINKS_QUERY,
-    variables: {
-      first: 5,
-      skip: 0,
-      orderBy: 'createdAt_DESC'
-    }
+    query: ALL_LINKS_QUERY
   })
 
   // 2

@@ -162,7 +162,7 @@ That's it. You can now access two URLs: `http://localhost:8080/` will render `Li
 
 ### Implement navigation
 
-To wrap up this section, you need to implement an automatic redirect from `CreateLink` to `LinkList` after a mutation is performed. You also need to incorporate the result of your mutation into an "optimistic UI update".
+To wrap up this section, you need to implement an automatic redirect from `CreateLink` to `LinkList` after a mutation is performed.
 
 <Instruction>
 
@@ -190,12 +190,7 @@ createLink () {
     // 1
     update: (store, { data: { createLink } }) => {
       const data = store.readQuery({
-        query: ALL_LINKS_QUERY,
-        variables: {
-          first: 5,
-          skip: 0,
-          orderBy: 'createdAt_DESC'
-        }
+        query: ALL_LINKS_QUERY
       })
       data.allLinks.push(createLink)
       store.writeQuery({ query: ALL_LINKS_QUERY, data })
@@ -214,7 +209,7 @@ createLink () {
 
 Let's unpack what's going on here:
 
-1. You add an `update` method which queries the current cache (`store`) and updates it with the result of your mutation. This is known as an "optimistic UI update" and will be replaced by the actual data once the mutation completes.
+1. You add an `update` method which queries the current cache (`store`) and updates it with the result of your mutation.
 2. Here you define a success handler which routes to `/` upon a successful mutation
 3. Here you define an error handler which logs the error when a mutation fails
 

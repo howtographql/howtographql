@@ -161,7 +161,7 @@ import CreateLink from './components/CreateLink'
 
 <Instruction>
 
-Still in the `CreateLink` component you also need to add `CreateLink` to the `components` object:
+Still in the `App` component you also need to add `CreateLink` to the `components` object:
 
 ```js{2}(path=".../hackernews-vue-apollo/src/App.vue")
 components: {

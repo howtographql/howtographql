@@ -20,13 +20,13 @@ The search will be available under a new route and implemented in a new VueJS co
 
 Start by creating a new file called `src/components/Search.vue` and add the following code:
 
-```js(path=".../hackernews-vue-apollo/src/components/Search.vue")
+```js{5-6,18-19,30-43}(path=".../hackernews-vue-apollo/src/components/Search.vue")
 <template>
   <div>
     <div>
       Search
+      <!-- 1 -->
       <input type="text" v-model="searchText">
-      <button @click="executeSearch()">OK</button>
     </div>
     <link-item
       v-for="(link, index) in allLinks"
@@ -38,6 +38,8 @@ Start by creating a new file called `src/components/Search.vue` and add the foll
 </template>
 
 <script>
+  // 2
+  import { ALL_LINKS_SEARCH_QUERY } from '../constants/graphql'
   import LinkItem from './LinkItem'
 
   export default {
@@ -48,9 +50,18 @@ Start by creating a new file called `src/components/Search.vue` and add the foll
         searchText: ''
       }
     },
-    methods: {
-      executeSearch () {
-        // ... you'll implement this in a bit
+    // 3
+    apollo: {
+      allLinks: {
+        query: ALL_LINKS_SEARCH_QUERY,
+        variables () {
+          return {
+            searchText: this.searchText
+          }
+        },
+        skip () {
+          return !this.searchText
+        }
       }
     },
     components: {
@@ -62,8 +73,11 @@ Start by creating a new file called `src/components/Search.vue` and add the foll
 
 </Instruction>
 
+Let's review what you are doing here.
 
-Again, this is a pretty standard setup. You're rendering an `input` field where the user can type a search string.
+1. First, you bind `searchText` to an input element
+2. Next, you import the, soon to be created, `ALL_LINKS_SEARCH_QUERY`
+3. Finally, you define a smart query. Note that `variables` is a function rather than an object. This means that each time `this.searchText` is updated, `variables` will trigger the smart query to re-run. You also define `skip` which ensures this query will not run if there is no `searchText` to search.
 
 Notice that the `allLinks` field in the component's `data` will hold all the links to be rendered, so this time we're not accessing query results through the component props!
 
@@ -146,7 +160,7 @@ You can now navigate to the search functionality using the new button in the `Ap
 
 ![](http://imgur.com/XxPdUvo.png)
 
-Great, let's now go back to the `Search` component and see how we can implement the actual search.
+Great, let's now define `ALL_LINKS_SEARCH_QUERY`.
 
 ### Filtering Links
 
@@ -190,38 +204,7 @@ This query looks similar to the `allLinks` query that's used in `LinkList`. Howe
 
 In this case, you're specifying two filters that account for the following two conditions: A link is only returned if either its `url` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
 
-Perfect, the query is defined! But this time we actually want to load the data every time the user hits the _search_-button.
 
+The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` each time `searchText` changes, and binding the results to `allLinks` on the component's `data` so that they can be rendered.
 
-<Instruction>
-
-Open `src/components/Search.vue` and implement `executeSearch` as follows:
-
-```js(path=".../hackernews-vue-apollo/src/components/Search.vue")
-executeSearch () {
-  const { searchText } = this.$data
-  this.$apollo.query({
-    query: ALL_LINKS_SEARCH_QUERY,
-    variables: { searchText }
-  }).then((result) => {
-    const links = result.data.allLinks
-    this.allLinks = links
-  })
-}
-```
-
-</Instruction>
-
-<Instruction>
-
-Still in `src/components/Search.vue` you now need to import the `ALL_LINKS_SEARCH_QUERY`:
-
-```js(path=".../hackernews-vue-apollo/src/components/Search.vue")
-import { ALL_LINKS_SEARCH_QUERY } from '../constants/graphql'
-```
-
-</Instruction>
-
-The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually and retrieving the `links` from the response that's returned by the server. Then these links are put into the component's `data` so that they can be rendered.
-
-Go ahead and test the app by navigating to `http://localhost:8080/search`. Then type a search string into the text field, click the _search_-button and verify the links that are returned fit the filter conditions.
+Go ahead and test the app by navigating to `http://localhost:8080/search`. Then type a search string into the text field and verify the links that are returned fit the filter conditions.

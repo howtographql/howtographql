@@ -122,29 +122,59 @@ export const ALL_LINKS_QUERY = gql`
 
 The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` to this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.
 
+You need to update the references to this query in the `CreateLink` component.
+
 <Instruction>
 
-Next, open `src/components/LinkList.vue` and replace the `allLinks` object within `apollo` with the following:
+Open `src/components/CreateLink.vue` and update the `update` callback within the mutation to look like this:
+
+```js{4-8,13-17}(path=".../hackernews-vue-apollo/src/components/CreateLink.vue")
+update: (store, { data: { createLink } }) => {
+  const data = store.readQuery({
+    query: ALL_LINKS_QUERY,
+    variables: {
+      first: 5,
+      skip: 0,
+      orderBy: 'createdAt_DESC'
+    }
+  })
+  data.allLinks.push(createLink)
+  store.writeQuery({
+    query: ALL_LINKS_QUERY,
+    variables: {
+      first: 5,
+      skip: 0,
+      orderBy: 'createdAt_DESC'
+    },
+    data
+  })
+}
+```
+
+Here you are simply adding the variables that this query now expects.
+
+</Instruction>
+
+<Instruction>
+
+Next, open `src/components/LinkList.vue` and add the following `variables` and `update` callback to `allLinks` within the `apollo` object:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
-allLinks: {
-  query: ALL_LINKS_QUERY,
-  variables () {
-    const page = parseInt(this.$route.params.page, 10)
-    const isNewPage = this.$route.path.includes('new')
-    const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
-    const first = isNewPage ? LINKS_PER_PAGE : 100
-    const orderBy = isNewPage ? 'createdAt_DESC' : null
-    return {
-      first,
-      skip,
-      orderBy
-    }
-  },
-  update (data) {
-    this.count = data._allLinksMeta.count
-    return data.allLinks
+variables () {
+  const page = parseInt(this.$route.params.page, 10)
+  const isNewPage = this.$route.path.includes('new')
+  const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
+  const first = isNewPage ? LINKS_PER_PAGE : 100
+  const orderBy = isNewPage ? 'createdAt_DESC' : null
+  return {
+    first,
+    skip,
+    orderBy
   }
+},
+update (data) {
+  this.count = data._allLinksMeta.count
+  return data.allLinks
 }
 ```
 
@@ -154,7 +184,7 @@ You've set the `variables` to a function which runs before the query is executed
 
 Also note that you're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
 
-You also need to define the `LINKS_PER_PAGE` constant and then import it into the `LinkList` component.
+You also need to define the `LINKS_PER_PAGE` constant and then import it into the `LinkList` component as well as the `LinkItem` component.
 
 <Instruction>
 
@@ -173,6 +203,32 @@ Now add an import statement from `../constants/settings` in `src/components/Link
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 import { LINKS_PER_PAGE } from '../constants/settings'
+```
+
+</Instruction>
+
+<Instruction>
+
+Add an import statement from `../constants/settings` in `src/components/LinkItem.vue` as well:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
+import { LINKS_PER_PAGE } from '../constants/settings'
+```
+
+</Instruction>
+
+You also need to map `linksPerPage` to `LINKS_PER_PAGE` in `src/components/LinkItem.vue`.
+
+<Instruction>
+
+Add a `data` property to the `LinkItem` component:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
+data () {
+  return {
+    linksPerPage: LINKS_PER_PAGE
+  }
+}
 ```
 
 </Instruction>
@@ -225,7 +281,7 @@ Since the setup is slightly more complicated now, you are going to calculate the
 
 <Instruction>
 
-Still in `src/components/LinkList.vue`, add the following method:
+In `src/components/LinkList.vue`, add the following method:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 getLinksToRender (isNewPage) {
@@ -297,6 +353,24 @@ pageNumber (index) {
 },
 morePages () {
   return parseInt(this.$route.params.page, 10) < this.count / LINKS_PER_PAGE
+}
+```
+
+</Instruction>
+
+You also need to add a `count` property to the `LinkList` `data` property.
+
+<Instruction>
+
+Still in `src/components/LinkList.vue` add `count` to `data` and initialize it to 0:
+
+```js{4}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+data () {
+  return {
+    allLinks: [],
+    count: 0,
+    loading: 0
+  }
 }
 ```
 

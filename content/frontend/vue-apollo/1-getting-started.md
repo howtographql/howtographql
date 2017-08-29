@@ -245,11 +245,11 @@ vue init webpack hackernews-vue-apollo
 
 </Instruction>
 
-The Webpack template will be downloaded and you will be presented with several questions. You can choose the project name and description you desire or simply hit "enter" to select the defaults. Make sure to install [vue-router](https://router.vuejs.org/en/) as you will be using it in this tutorial. I also recommend using "standard" ESLint rules and choosing "yes" for unit tests in case you want to add some in the future. Note that you will not be writing tests in this tutorial.
+The Webpack template will be downloaded and you will be presented with several questions. You can choose the project name and description you desire or simply hit "enter" to select the defaults. You can choose the lighter "Runtime-only" Vue build. Make sure to install [vue-router](https://router.vuejs.org/en/) as you will be using it in this tutorial. I also recommend using "standard" ESLint rules and choosing "yes" for unit tests in case you want to add some in the future. Note that you will not be writing tests in this tutorial.
 
 Here is what my project setup looks like as an example:
 
-![](http://imgur.com/puR4Rp4.png)
+![](http://imgur.com/9qO3Lis.png)
 
 Based on your choices, `vue-cli` will now create a new directory called `hackernews-vue-apollo` that has all the basic configuration setup.
 
@@ -448,7 +448,10 @@ Vue.use(VueApollo)
 
 // 6
 const apolloProvider = new VueApollo({
-  defaultClient: apolloClient
+  defaultClient: apolloClient,
+  defaultOptions: {
+    $loadingKey: 'loading'
+  }
 })
 
 /* eslint-disable no-new */
@@ -471,7 +474,7 @@ Let's try to understand what's going on in that code snippet:
 3. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit
 4. Now you instantiate the `ApolloClient` by passing in the `networkInterface`
 5. Here you install the vue plugin
-6. Next you create a new apollo client instance through `VueApollo` and set the `defaultClient` to the `apolloClient` we just created
+6. Next you create a new apollo client instance through `VueApollo` and set the `defaultClient` to the `apolloClient` we just created. You also set `$loadingKey` to 'loading' so that we can easily display a loading indicator in the UI.
 7. Finally you specify the `apolloProvider` object on your root component
 
 Next you need to replace the placeholder for the `networkInterface` `uri` with your actual endpoint. But where do you get your endpoint from?

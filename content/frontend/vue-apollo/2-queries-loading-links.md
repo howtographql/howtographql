@@ -187,7 +187,10 @@ const apolloClient = new ApolloClient({
 Vue.use(VueApollo)
 
 const apolloProvider = new VueApollo({
-  defaultClient: apolloClient
+  defaultClient: apolloClient,
+  defaultOptions: {
+    $loadingKey: 'loading'
+  }
 })
 
 /* eslint-disable no-new */
@@ -280,9 +283,11 @@ Next, you will add an `apollo` object to the `LinkList` component and call this 
 
 Open up `src/components/LinkList.vue`, import `ALL_LINKS_QUERY`, remove the hard-coded `allLinks`, and add the `apollo` object. Your `LinkList` component should now look like this:
 
-```js{12-13,20-21,27-32}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+```js{3-6,16-17,24-26,32-37}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 <template>
   <div>
+    <!-- 1 -->
+    <h4 v-if="loading">Loading...</h4>
     <link-item
       v-for="link in allLinks"
       :key="link.id"
@@ -292,7 +297,7 @@ Open up `src/components/LinkList.vue`, import `ALL_LINKS_QUERY`, remove the hard
 </template>
 
 <script>
-  // 1
+  // 2
   import { ALL_LINKS_QUERY } from '../constants/graphql'
   import LinkItem from './LinkItem'
 
@@ -300,14 +305,15 @@ Open up `src/components/LinkList.vue`, import `ALL_LINKS_QUERY`, remove the hard
     name: 'LinkList',
     data () {
       return {
-        // 2
-        allLinks: []
+        // 3
+        allLinks: [],
+        loading: 0
       }
     },
     components: {
       LinkItem
     },
-    // 3
+    // 4
     apollo: {
       allLinks: {
         query: ALL_LINKS_QUERY
@@ -321,8 +327,9 @@ Open up `src/components/LinkList.vue`, import `ALL_LINKS_QUERY`, remove the hard
 
 What's going on here?
 
-1. First, you import the `ALL_LINKS_QUERY` which you just created
-2. Next, you initialize the `allLinks` data property to an empty array
-3. Now you add an `apollo` object to your component and add an `allLinks` property to it. This property requires a `query` and you pass it the `ALL_LINKS_QUERY`.
+1. First, you use `v-if` to display a loading indicator while data is being fetched.
+2. You import the `ALL_LINKS_QUERY` which you just created
+3. Next, you initialize the `allLinks` data property to an empty array, and `loading` to 0. This will be incremented to 1 once data loads.
+4. Now you add an `apollo` object to your component and add an `allLinks` property to it. This property requires a `query` and you pass it the `ALL_LINKS_QUERY`.
 
 That's it! If you ran `npm run dev` earlier, you should see your UI update and show the two links thanks to built-in [hot-reloading](https://vue-loader.vuejs.org/en/features/hot-reload.html).
