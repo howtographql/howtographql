@@ -26,12 +26,11 @@ const data: Stack[] = [
       require('../assets/icons/apollo.svg'),
     ],
     content: {
-      title: 'React + Relay',
+      title: 'Vue + Apollo',
       description:
-        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+        "Learn how to get started with VueJS and Apollo Client on the frontend",
     },
-    authorName: 'Guillaume Chau',
-    comingSoon: true,
+    authorName: 'Matt Dionis',
   },
   {
     title: 'Expo + Apollo',
