@@ -2,12 +2,6 @@
 
 This document describes writing guidelines and best practices for the HTG tutorial tracks (frontend + backend).
 
-## Writing Process & Feedback
-
-Please use [Quip](https://www.quip.com) to write your tutorials. This allows others to easily access your document and provide feedback with comments.
-
-Once there is a finalized version in quip, you can _export_ your document to Markdown. The exporter generally works well, but has a few flaws so that you'll probably have to do some finetuning on the Markdown here and there. 
-
 ## Document Format
 
 Your tutorial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
@@ -67,6 +61,13 @@ Often times, you'll want to combine a short instruction with a code block that t
 This is what a rendered instruction block (including code block) will look like: 
 
 ![](http://imgur.com/pMeAkpB.png)
+
+**IMPORTANT**: There are two important notes about using _code blocks_ in an instruction block:
+
+1. One instruction block can only contain at most one code block. If you require multiple code blocks, you need to put them into multiple instruction blocks.
+2. The code block must always come at the very _end_ of an instruction block - otherwise the it won't be rendered properly.
+
+Instruction blocks can only contain _one_ code block. If you need the reader to perform multiple steps in a row, please use multiple instruction blocks!
 
 
 ### Code Blocks

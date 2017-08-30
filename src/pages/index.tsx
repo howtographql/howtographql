@@ -22,11 +22,13 @@ interface Props {
 export default (props: Props) => {
   const steps = extractSteps(props.data.mds)
   const title = 'How to GraphQL - The Fullstack Tutorial for GraphQL'
+  const overrideDescription =
+    'Fullstack GraphQL Tutorial to go from zero to production covering all basics and advanced concepts. Includes tutorials for Apollo, Relay, React and NodeJS.'
   const description =
-    'The free and open-source tutorial for you to learn about GraphQL from zero to production. After a basic introduction, you’ll build a Hackernews clone with Javascript or any other technology of your choice.'
+    'Fullstack GraphQL Tutorial to go from zero to production covering all basics and advanced concepts.'
   return (
     <App history={props.history} steps={steps} location={props.location}>
-      <CustomHelmet title={title} description={description} />
+      <CustomHelmet title={title} description={description} overrideDescription={overrideDescription} />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />

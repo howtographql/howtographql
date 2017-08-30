@@ -1,6 +1,6 @@
 # How to GraphQL 🎓
 
-[How to GraphQL](https://www.howtographql.com) is a fullstack tutorial website to learn all around GraphQL! It was built by [Graphcool](https://www.graph.cool) and many amazing contributors. All content on the site is completely free and open-source.
+[How to GraphQL](https://www.howtographql.com) is a fullstack tutorial website to learn all about GraphQL! It was built by [Graphcool](https://www.graph.cool) and many amazing contributors. All content on the site is completely free and open-source.
 
 [![](http://i.imgur.com/67oYe9q.png)](https://www.howtographql.com)
 
@@ -45,5 +45,5 @@ You can run a local instance of How to GraphQL by executing the following comman
 git clone git@github.com:howtographql/howtographql.git
 cd howtographql
 yarn install
-yarn start
+yarn start # http://localhost:8000/ 
 ```

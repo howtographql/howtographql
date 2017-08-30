@@ -1,6 +1,7 @@
 ---
 title: Realtime with GraphQL subscriptions
-description: Learn how to use GraphQL subscriptions live in a Playground
+pageTitle: "GraphQL Realtime Subscriptions with Graphcool Tutorial"
+description: "Learn how to setup server-side GraphQL subscriptions with Graphcool to add realtime functionality to an app. Subscriptions can be tested in a Playground too."
 ---
 
 This will be a short chapter where we want to provide some tips on how you can test the realtime abilities of GraphQL subscriptions live in a Playground.

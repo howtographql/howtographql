@@ -1,9 +1,10 @@
 ---
 title: Authentication
+pageTitle: "Server-side Authentication with GraphQL, Javascript & Node.js Tutorial"
+description: "Learn best practices for implementing email-password authentication on a GraphQL Server with Javascript, Node.js & Express."
 question: What kind of authentication must a GraphQL server implement?
 answers: ["Username/password authentication", "Token authentication", "Any kind that uses the 'Authorization' header", "Any kind, there are no requirements regarding authentication"]
 correctAnswer: 3
-description: Learn how to implement authentication checks in a GraphQL server.
 ---
 
 ### Creating Users

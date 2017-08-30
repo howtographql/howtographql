@@ -1,6 +1,7 @@
 ---
 title: Introduction
-description: "In this chapter, you learn why should should use a GraphQL client library."
+pageTitle: "Fullstack Tutorial with GraphQL, React & Apollo"
+description: "Learn how to build a Hackernews clone with GraphQL, React & Apollo Client. You'll use create-react-app for the frontend and Graphcool for the backend."
 videoId: lQDrREfapow
 duration: 5
 videoAuthor: "Abhi Aiyer"

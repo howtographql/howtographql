@@ -1,9 +1,10 @@
 ---
 title: More Mutations
+pageTitle: "Server-side Mutations with GraphQL, Javascript & Node.js Tutorial"
+description: "Learn best practices for implementing advanced GraphQL mutations with Javascript, Node.js, Express and MongoDB. Test your implementation in a GraphiQL Playground."
 question: What's usually the first thing you do when you need to add a new GraphQL type or field?
 answers: ["Create a new endpoint", "Update the schema definition", "Add a new resolver", "Create a new version of the API to avoid conflicts"]
 correctAnswer: 1
-description: Add the remaining mutation needed for your Hackernews app
 ---
 
 ### Voting for links

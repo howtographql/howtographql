@@ -1,6 +1,7 @@
 ---
 title: Authentication & Permissions with Graphcool
-description: In this chapter, you'll enable email-and-password based authentication for your project and configure the access permissions 
+pageTitle: "Authentication & Authorization in GraphQL Tutorial"
+description: "Learn best practices for implementing email-password authentication and defining permission / authorization rules on a GraphQL server with Graphcool." 
 ---
 
 Authentication and data access permissions are critical features for every production application. In this chapter, you'll learn how you can enable authentication in your project and leverage the powerful Graphcool permission system to specify data access rules.
@@ -272,7 +273,7 @@ A permission query always returns `true` or `false`. It's executed right before 
 
 The `$user_id` represents the `User` that wants to perform an operation. The `$node_id` on the other hand identifies the element (in this case a `Link`) that the operation is to be performed on!
 
-So, in effect, what you're expressing with this query is that the `createLink` operation can only be executed if:
+So, in effect, what you're expressing with this query is that the `updateLink` operation can only be executed if:
 
 - there is a `Link` element in the database that is identified by `link_id`
 - the `User` who  is trying to perform the mutation has initially posted that `Link`, since the `id` of the `postedBy` field needs to be the same as the `User` that's identified by `user_id`

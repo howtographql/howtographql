@@ -1,9 +1,10 @@
 ---
 title: Core Concepts
-question: "What are GraphQL subscription used for?"
-answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allows you to read and write data"]
+pageTitle: GraphQL Core Concepts Tutorial
+description: "Learn about the basic GraphQL language concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema & SDL. Try them out in your own sandbox."
+question: "What are GraphQL subscriptions used for?"
+answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allow you to read and write data"]
 correctAnswer: 0
-description: "In this chapter, you learn about the basic GraphQL concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema"
 videoId: NeQfq0U5LnI
 duration: 15
 ---
@@ -23,7 +24,7 @@ type Person {
 }
 ```
 
-This type has two *fields*, they’re called `name` and `age` and are both of type `String` and `Int`. The `!` following the type means that this field is *required*.
+This type has two *fields*, they’re called `name` and `age` and are respectively of type `String` and `Int`. The `!` following the type means that this field is *required*.
 
 It’s also possible to express relationships between types. In the example of a *blogging* application, a `Person` could be associated with a `Post`:
 
@@ -205,8 +206,6 @@ When a client *subscribes* to an event, it will initiate and hold a steady conne
 
 Subscriptions are written using the same syntax as queries and mutations. Here’s an example where we subscribe on events happening on the `Person` type:
 
-<Playground>
-
 ```graphql(nocopy)
 subscription {
   newPerson {
@@ -215,8 +214,6 @@ subscription {
   }
 }
 ```
-
-</Playground>
 
 After a client sent this subscription to a server, a connection is opened between them. Then, whenever a new mutation is performed that creates a new `Person`, the server sends the information about this person over to the client:
 

@@ -1,5 +1,7 @@
 ---
 title: Summary
+pageTitle: "Fullstack GraphQL, React & Relay Tutorial with create-react-app"
+description: "In this Fullstack GraphQL Tutorial with React & Relay Modern you learned how to build a production-ready Hackernews clone using create-react-app & Graphcool."
 ---
 
 In this chapter, you learned how to build a fully-feature Hackernews clone with React and [Relay](https://facebook.github.io/relay/). You implemented several features, such as displaying a list of links, login functionality, creating new links, voting on links as well as realtime updates with GraphQL subscriptions.

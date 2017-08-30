@@ -1,6 +1,7 @@
 ---
 title: Getting Started
-description: In this chapter, you'll setup your backend and frontend projects with Graphcool and create-react-app.
+pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
+description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Graphcool.
 videoId: JV0nLsdeMfo
 duration: 4
 videoAuthor: "Abhi Aiyer"

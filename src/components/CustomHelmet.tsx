@@ -4,15 +4,16 @@ import { Helmet } from 'react-helmet'
 interface Props {
   title: string
   description: string
+  overrideDescription?: string
 }
 
-export default function CustomHelmet({ title, description }: Props) {
+export default function CustomHelmet({ title, description, overrideDescription }: Props) {
   const image = 'https://www.howtographql.com/social.png'
   return (
     <Helmet
       title={title}
       meta={[
-        { name: 'description', content: title },
+        { name: 'description', content: overrideDescription || title },
         { property: 'og:type', content: 'article' },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },

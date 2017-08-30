@@ -1,6 +1,7 @@
 ---
 title: Mutations
-description: Learn how to define GraphQL mutations to change data
+pageTitle: "Implementing Mutations with a Ruby GraphQL Server Tutorial"
+description: "Learn best practices for implementing GraphQL mutations with Ruby and graphql-ruby. You can test your implementation in a GraphiQL Playground."
 ---
 
 ### Mutation for Creating Links

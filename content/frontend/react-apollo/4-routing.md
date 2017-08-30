@@ -1,6 +1,7 @@
 ---
 title: Routing
-description: "In this chapter, you'll setup the navigation for your app"
+pageTitle: "React Router with GraphQL & Apollo Tutorial"
+description: "Learn how to use react-router 4 together with GraphQL and Apollo Client to implement navigation in a React app. Each route will be represented as a `Link`."
 videoId: W-MJHNOdUOI
 duration: 4
 videoAuthor: "Abhi Aiyer"
@@ -19,7 +20,7 @@ First add the dependency to the app. Open a Terminal, navigate to your project d
 <Instruction>
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-router-dom
+yarn add react-router react-router-dom
 ```
 
 </Instruction>
@@ -27,7 +28,7 @@ yarn add react-router-dom
 
 ### Create a Header
 
-Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate to between the different parts of your app.
+Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
 
 <Instruction>
 
@@ -83,7 +84,7 @@ render() {
         <Switch>
           <Route exact path='/' component={LinkList}/>
           <Route exact path='/create' component={CreateLink}/>
-         </Switch>
+        </Switch>
       </div>
     </div>
   )
@@ -102,7 +103,7 @@ Add the following statement to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Header from './Header'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 ```
 
 </Instruction>

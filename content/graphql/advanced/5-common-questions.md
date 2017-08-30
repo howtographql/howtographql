@@ -1,6 +1,7 @@
 ---
 title: Common Questions
-description: In this chapter, we answer common questions people have about GraphQL
+pageTitle: "Common GraphQL Questions"
+description: "Answer common GraphQL questions about server-side caching, authentication, authorization, error handling, offline usage and more."
 question: How does a GraphQL server deal with failures?
 answers: ["A GraphQL server never fails", "It uses HTTP status codes to indicate what went wrong", "It returns a dedicated errors object in the server response", "It starts crying and hides under the bed"]
 correctAnswer: 2
@@ -41,7 +42,7 @@ To implement authorization, it is [recommended](http://graphql.org/learn/authori
 
 A successful GraphQL query is supposed to return a JSON object with a root field called `"data"`. If the request fails or partially fails (e.g. because the user requesting the data doesn't have the right access permissions), a second root field called `"errors"` is added to the response:
 
-```js
+```js(nocopy)
 {
   "data": { ... },
   "errors": [ ... ]
@@ -52,6 +53,8 @@ For more details, you can refer to the [GraphQL specification](http://facebook.g
 
 ### Does GraphQL Support Offline Usage?
 
-GraphQL is a query language for (web) APIs, and in that sense by definition only works online. However, offline support on the client-side is a valid concern. The caching abilities of Relay and Apollo might already be enough for some use cases, but there isn't a popular solution for actually persisting stored data yet. You can gain some more insights in the GitHub issues of [Relay](https://github.com/facebook/relay/issues/676) and [Apollo](https://github.com/apollographql/apollo-client/issues/424) where offline support is discussed.
+GraphQL is a query language for (web) APIs, and in that sense by definition only works online. However, offline support on the client-side is a valid concern. The caching abilities of Relay and Apollo might already be enough for some use cases, but there isn't a popular solution for actually persisting stored data yet. You can gain some more insights in the GitHub issues of [Relay](https://github.com/facebook/relay/issues/676) and [Apollo](https://github.com/apollographql/apollo-client/issues/424) where offline support is discussed. 
+
+> One interesting approach for offline usage and persistence can be found [here](http://www.east5th.co/blog/2017/07/24/offline-graphql-queries-with-redux-offline-and-apollo/).
 
 

@@ -1,9 +1,10 @@
 ---
 title: Pagination
+pageTitle: "Pagination with GraphQL, Javascript & Node.js Tutorial"
+description: "Learn best practices for implementing limit-offset pagination in a GraphQL API using query arguments with a Node.js & Express GraphQL server."
 question: How can you implement pagination in GraphQL servers?
 answers: ["You need to define a special Pagination root type", "You can simply use field arguments for that", "You need to use a special function from `graphql-tools`", "That's not possible yet"]
 correctAnswer: 1
-description: Learn how to use arguments to add pagination to your your GraphQL queries.
 ---
 
 Another important feature for Hackernews is pagination. Fetching all links that were ever posted to the app would soon become too much, besides not being that useful. What's usually done is show just a few at a time, letting the user navigate to pages with older links.

@@ -1,6 +1,7 @@
 ---
 title: Authentication
-description: In this chapter, you implement the authentication functionality so users can login to your app.
+pageTitle: "Authentication with GraphQL, React & Apollo Tutorial"
+description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Graphcool."
 question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
 answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
 correctAnswer: 1
@@ -564,7 +565,7 @@ If you haven't done so before, go ahead and test the login functionality. Run `y
 
 Now that users are able to login and obtain a token that authenticates them against the Graphcool backend, you actually need to make sure that the token gets attached to all requests that are sent to the API.
 
-Since all the API request are actually created and sent by the `ApolloClient` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all request by using [middleware](http://dev.apollodata.com/react/auth.html#Header).
+Since all the API requests are actually created and sent by the `ApolloClient` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all requests by using [middleware](http://dev.apollodata.com/react/auth.html#Header).
 
 <Instruction>
 

@@ -1,6 +1,7 @@
 ---
 title: "Mutations: Creating Links"
-description: In this chapter, you learn how you can create new links in the database by using GraphQL mutations.
+pageTitle: "GraphQL Mutations with React & Apollo Tutorial"
+description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `graphql` higher-order component to define and send mutations."
 videoId: GFnUSoUfbhw
 duration: 4
 videoAuthor: "Abhi Aiyer"
@@ -80,7 +81,7 @@ This is a standard setup for a React component with two `input` fields where use
 
 But how can you now actually send the mutation? Let's follow the three steps from before.
 
-First you need to define the mutation in your JavaScript code and wrap your component with the `graphl` container. You'll do that in a similar way as with the query before.
+First you need to define the mutation in your JavaScript code and wrap your component with the `graphql` container. You'll do that in a similar way as with the query before.
 
 <Instruction>
 

@@ -1,6 +1,7 @@
 ---
 title: Error Handling
-description: Get to know different kinds of errors and how they are typically handled with GraphQL
+pageTitle: "Error Handling with GraphQL & Java Tutorial"
+description: "Learn best practices for validation of input arguments and implementing error handling in GraphQL with Ruby."
 ---
 
 ### Schema Validation errors

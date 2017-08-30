@@ -69,7 +69,11 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         })
 
         if (process.env.NODE_ENV === 'production') {
-          syncToAlgolia(result.data)
+          try {
+            syncToAlgolia(result.data)
+          } catch (e) {
+            console.log('Warning: Algolia Error')
+          }
         }
 
         return

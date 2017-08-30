@@ -49,8 +49,9 @@ export default function Chapter({ post, location, steps }: Props) {
     }
   }
   const showBonus = location.pathname.startsWith('/basics/3-big-picture/')
-  const title = getTitle(group, post)
+  const title = post.frontmatter.pageTitle || getTitle(group, post)
   const description = post.excerpt
+  const contentTitle = n === 0 ? `${getStackName(group)} Tutorial - ${post.frontmatter.title}` : post.frontmatter.title
 
   return (
     <div>
@@ -77,7 +78,7 @@ export default function Chapter({ post, location, steps }: Props) {
       {showAuthor && <Author post={post} group={group} />}
       <div className="left">
         <div className="content">
-          <h1>{post.frontmatter.title}</h1>
+          <h1>{contentTitle}</h1>
           <Markdown html={post.html} steps={steps} />
         </div>
       </div>

@@ -1,6 +1,7 @@
 ---
 title: Getting Started
-description: Learn how to setup a graphql-java project and define the GraphQL schema
+pageTitle: "Getting Started with GraphQL & Java Backend Tutorial"
+description: "Learn how to setup a GraphQL server with graphql-java and best practices for defining the GraphQL schema in this tutorial."
 question: How are GraphQL schemas built?
 answers: ["Only by using the schema language", "Only programmatically, because schemas contain functions", "Either using the schema language or programmatically", "Using Swagger or similar tools"]
 correctAnswer: 2
@@ -12,13 +13,17 @@ Since you'll be using [Maven](https://maven.apache.org/) (still the most widely 
 
 <Instruction>
 
-To bootstrap a simple web application project execute
+To bootstrap a simple web application project execute the following commands in a terminal (and confirm with `Y` when prompted):
 
-```sh(path=".../")
+```bash(path=".../")
 mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=com.howtographql.sample -DartifactId=hackernews-graphql-java -Dversion=1.0-SNAPSHOT
 ```
 
-in a directory of choice and confirm with `Y` when prompted.
+</Instruction>
+
+Next you'll setup the project structure.
+
+<Instruction>
 
 Immediately create a directory called `java` under `src/main`. This is where all the Java sources will go. 
 
@@ -76,7 +81,6 @@ To build a GraphQL-enabled application, only `graphql-java` (the GraphQL impleme
 <Instruction>
 
 Add all the dependencies to your `pom.xml` (under `<dependencies>`):
-
 
 ```xml(path=".../hackernews-graphql-java/pom.xml")
 <dependency>

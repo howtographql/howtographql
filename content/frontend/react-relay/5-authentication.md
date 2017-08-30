@@ -1,6 +1,7 @@
 ---
 title: Authentication
-description: In this chapter, you’ll learn how you can implement authentication functionality with Relay and Graphcool to provide a login to the user.
+pageTitle: "Authentication with GraphQL, React & Relay Tutorial"
+description: "Learn best practices to implement authentication with GraphQL & Relay to provide an email-and-password-based login in a React app with Graphcool."
 videoId: f0Mf2YyGdqc
 duration: 18
 question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
@@ -514,7 +515,7 @@ Since you're now able to authenticate users and also added a new relation betwee
 
 Open `CreateLinkMutation.js` and update the exported function as follows:
 
-```js{1,4}(path=".../hackernews-react-relay/src/components/CreateLink.js")
+```js{1,4}(path=".../hackernews-react-relay/src/mutations/CreateLinkMutation.js")
 export default (postedById, description, url, callback) => {
   const variables = {
     input: {

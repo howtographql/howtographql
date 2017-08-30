@@ -1,7 +1,9 @@
 ---
 title: Introduction
-description: In this chapter, you get an overview over what you'll build and some major platform features of Graphcool
+pageTitle: "Building a GraphQL Server with Graphcool Backend Tutorial"
+description: "Learn how to build a GraphQL server with Graphcool and best practices for filters, authentication, pagination and subscriptions. Compatible with Relay & Apollo."
 ---
+
 
 In this tutorial, you'll learn how you can use [Graphcool](https://www.graph.cool) to build the backend for a [Hackernews](https://news.ycombinator.com/) clone.
 

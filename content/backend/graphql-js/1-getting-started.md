@@ -1,9 +1,10 @@
 ---
 title: Getting Started
+pageTitle: "Getting Started with GraphQL, Javascript and Node.js Tutorial"
+description: "Learn how to setup a GraphQL server with Javascript, Node.js & Express as well as best practices for defining the GraphQL schema."
 question: Which of the following packages allows converting a string in the GraphQL Schema Definition Language into a schema object?
 answers: ["body-parser", "graphql-tools", "apollo-server-express", "express"]
 correctAnswer: 1
-description: Setup your GraphQL server and run it for the first time
 ---
 
 ### Defining the Schema
@@ -12,7 +13,7 @@ You'll start by defining the schema. As in previous sections, you'll do that by 
 
 Here you're going to build the backend for a [Hackernews](https://news.ycombinator.com/) clone, so start with the most important piece of data: the `Link` type.
 
-```
+```graphql
 type Link {
   id: ID!
   url: String!
@@ -21,14 +22,11 @@ type Link {
 
 > **Note:** If you've followed the frontend tutorials, you may notice that now you have to manually specify the `id` fields, since Graphcool won't automatically generate them anymore. You'll also not use directives such as `@relation` and `@isUnique` now, as those are specific to Graphcool as well. This time it will be just plain GraphQL.
 
-
-
 > **Bonus**: there's a super useful [](https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png)[GraphQL Cheat Sheet](https://github.com/sogko/graphql-schema-language-cheat-sheet) for building schemas. Check it out!
 
 ### Install Dependencies
 
 It's time to start creating your project.
-
 
 <Instruction>
 

@@ -1,6 +1,7 @@
 ---
 title: Pagination
-description: How to handle pagination with GraphQL
+pageTitle: "Server-side Pagination with GraphQL & Ruby Tutorial"
+description: "Learn best practices for implementing limit-offset pagination in a GraphQL API using query arguments with Ruby GraphQL server."
 ---
 
 Another important feature for Hackernews is pagination.

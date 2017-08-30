@@ -1,6 +1,7 @@
 ---
 title: Pagination
-description: In this chapter, you learn how you can implement cursor-based pagination with Relay and Graphcool.
+pageTitle: "Pagination with GraphQL, React & Relay Tutorial"
+description: "Learn how to implement cursor-based pagination with GraphQL and Relay Modern using `PaginationContainer`. Relay uses the concept of connections to represent lists."
 question: "What's the name of the GraphQL type that needs to wrap the items of a list according to the Relay Connection specification"
 answers: ["Graph", "Edge", "Node", "Connection"]
 correctAnswer: 1
@@ -136,7 +137,7 @@ export default createPaginationContainer(LinkList,
       }
     `,
   },
-  { }
+  { // ... this will be added soon }
 )
 ```
 
@@ -276,7 +277,7 @@ import {ITEMS_PER_PAGE} from '../constants'
 
 </Instruction>
 
-All right - you're almost there! The last thing you need to is actually calling Relay's `loadMore` function to fetch the next chunk of links from the server.
+All right - you're almost there! The last thing you need is actually calling Relay's `loadMore` function to fetch the next chunk of links from the server.
 
 <Instruction>  
 

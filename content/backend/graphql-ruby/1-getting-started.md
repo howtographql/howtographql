@@ -1,6 +1,7 @@
 ---
 title: Getting Started
-description: Learn how to setup a graphql-ruby project
+pageTitle: "Getting Started Building a GraphQL Server with Ruby Tutorial"
+description: "Learn how to setup a GraphQL server with graphql-ruby and best practices for defining the GraphQL schema."
 ---
 
 ### Defining the Scope
@@ -27,6 +28,7 @@ gem install bundler
 gem install rails
 rails new graphql-tutorial
 cd graphql-tutorial
+rails db:create
 rails server
 ```
 

@@ -1,6 +1,7 @@
 ---
 title: Realtime Updates with GraphQL Subscriptions
-description: In this chapter, you learn how you can implemented realtime functionality using GraphQL subscriptions with Apollo.
+pageTitle: "Realtime with GraphQL Subscriptions, React & Apollo Tutorial"
+description: "Learn how to implement realtime functionality using GraphQL subscriptions with Apollo Client & React. The websockets will be handled by subscriptions-transport-ws."
 videoId: R-VLZ--sTzI
 duration: 6
 videoAuthor: "Abhi Ayer"
@@ -95,7 +96,9 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 </Instruction>
 
 
-> Note: The endpoints for the Subscription API generally are of the form: `wss://subscriptions.graph.cool/v1/<project-id>`
+> The endpoints for the Subscription API generally are of the form: `wss://subscriptions.graph.cool/v1/<project-id>`. 
+>
+> Notice that if you project isn't running in the "default" Graphcool [region](https://blog.graph.cool/new-regions-and-improved-performance-7bbc0a35c880), you need to add the your project's region to the endpoint like so: `wss://subscriptions.ap-northeast-1.graph.cool/v1/<project-id>` (for regoin _Asia Pacific_) or `wss://subscriptions.us-west-2.graph.cool/v1/<project-id>` (for _US West_).
 
 
 ### Subscribing to new Links

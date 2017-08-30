@@ -1,6 +1,7 @@
 ---
 title: Queries
-description: Learn how to define GraphQL schema, query resolvers and use GraphiQL to test your queries
+pageTitle: "Responding to Queries with a Ruby GraphQL Server Tutorial"
+description: "Learn how to define the GraphQL schema with graphql-ruby, implement query resolvers in Ruby and use a GraphiQL Playground to test your queries."
 ---
 
 ### Setup Links
@@ -80,6 +81,24 @@ Now update its content to:
 ```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
 Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
+
+  # queries are just represented as fields
+  field :allLinks, !types[Types::LinkType] do
+    # resolve would be called in order to fetch data for that field
+    resolve -> (obj, args, ctx) { Link.all }
+  end
+end
+```
+
+</Instruction>
+
+<Instruction>
+
+Also update the content in:
+
+```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
+Types::MutationType = GraphQL::ObjectType.define do
+  name "Mutation"
 
   # queries are just represented as fields
   field :allLinks, !types[Types::LinkType] do
