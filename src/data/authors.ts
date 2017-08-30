@@ -73,6 +73,13 @@ const authors: Author[] = [
     name: 'Marc-Andre Giroux'
   },
   {
+    avatar: require('../assets/graphics/contributors/jonatas.jpg'),
+    bio: "Software developer @ Cheesecake Labs. Speaker, contributor and conferences organizer. Loves open source communities.",
+    link: 'https://twitter.com/jonatasbaldin',
+    job: 'Developer @ Cheesecake Labs',
+    name: 'Jonatas Baldin'
+  },
+  {
     avatar: require('../assets/graphics/contributors/matt.jpg'),
     bio:
       "Matt is a full-stack JavaScript engineer who spends most of his time on GraphQL, VueJS, and D3js projects. He also dabbles in powerlifting and is known to have a weakness for chihuahuas.",
