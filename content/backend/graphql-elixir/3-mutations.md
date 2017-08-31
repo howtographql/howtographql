@@ -7,15 +7,15 @@ description: "Learn best practices for implementing GraphQL mutations with Absin
 
 ### Mutation for creating links
 
-Setting up mutations is as easy as queries, and you'll follow basically the same process. Create a root mutation object in your `lib/community/web/schema.ex` file and add a `:create_link` field to it with a couple of arguments.
+Setting up mutations is as easy as queries, and you'll follow basically the same process. Create a root mutation object in your `lib/community_web/schema.ex` file and add a `:create_link` field to it with a couple of arguments.
 
-```elixir(path=".../graphql-elixir/lib/community/web/schema.ex")
+```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
 mutation do
   field :create_link, :link do
     arg :url, non_null(:string)
     arg :description, non_null(:string)
 
-    resolve &Web.NewsResolver.create_link/3
+    resolve &NewsResolver.create_link/3
   end
 end
 ```
@@ -24,7 +24,7 @@ end
 
 As before you'll need to actually write the `create_link` function inside the news resolver.
 
-```elixir(path=".../graphql-elixir/lib/community/web/resolvers/news_resolver.ex")
+```elixir(path=".../graphql-elixir/lib/community_web/resolvers/news_resolver.ex")
 def create_link(_root, args, _info) do
   # TODO: add detailed error message handling later
   case News.create_link(args) do
