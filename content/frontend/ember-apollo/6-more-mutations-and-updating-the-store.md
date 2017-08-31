@@ -341,11 +341,17 @@ return this.get('apollo')
   }).catch(error => alert(error));
 ```
 
+</Instruction>
+
+<Instruction>
+
 Also be sure to import the `allLinks.graphql` query that you are using in the update method:
 
 ```js(path=".../hackernews-ember-apollo/app/components/link-post.js")
 import allLinks from 'hackernews-ember-apollo/gql/queries/allLinks';
 ```
+
+</Instruction>
 
 The `update` function works in a very similar way as before. You first read the current state of the results of the `allLinks` query. Then you insert the newest link to the top and write the query results back to the store.
 

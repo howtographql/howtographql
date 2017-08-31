@@ -453,7 +453,7 @@ Go ahead and test the login functionality. Run `yarn start` and open `http://loc
 
 You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
 
-### Integrate authentication with** **`site-header`
+### Integrate authentication with `site-header`
 
 You need to update your `site-header` component to add a link to the login route, and to show auth status.
 
@@ -568,7 +568,7 @@ In `app/templates/application.hbs` change your `site-header` component to reciev
 
 Now if you run the app, with `yarn start`, login, navigate to `/create`, then click the logout link in the header, you should be redirected back to the home page!
 
-### Updating the** **`createLink`-mutation
+### Updating the `createLink`-mutation
 
 I promise you are nearly done with authentication; only this section and one more!
 
