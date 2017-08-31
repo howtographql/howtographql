@@ -1,5 +1,5 @@
 ---
-title: "Summary"
+title: Summary
 pageTitle: "Fullstack GraphQL, Ember & Apollo Tutorial with ember-apollo-client“
 description: "In this Fullstack GraphQL Tutorial with Ember & Apollo Client you learned how to build a production-ready Hackernews clone using ember-apollo-client & Graphcool."
 ---

@@ -2,10 +2,9 @@
 title: "Filtering: Searching the List of Links"
 pageTitle: "Filtering with GraphQL, Ember & Apollo Tutorial"
 description: "Learn how to use filters with GraphQL and Apollo Client. Graphcool provides a powerful filter and ordering API that you'll explore in this example."
-question: "What `ember-apollo-client` method queries the server and creates a subscription on the store?"
+question: "What ember-apollo-client method queries the server and creates a subscription on the store?"
 answers: ["queryOnce", "querySubscribe", "query", "observableQuery"]
 correctAnswer: 2
-videoAuthor: "Devan Beitel"
 ---
 
 In this section, you’ll implement a search feature and learn about the filtering capabilities of your GraphQL API.
