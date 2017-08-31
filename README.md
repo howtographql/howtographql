@@ -18,8 +18,10 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 
 - React & Apollo
 - React & Relay
-- Vue & Apollo (Coming Soon) 
-- Expo & Apollo (Coming Soon) 
+- Vue & Apollo
+- Ember & Apollo
+- Expo & Apollo (Coming Soon)
+- Angular & Apollo (Coming Soon) 
 - VulcanJS (Coming Soon)
 
 #### Backend
@@ -29,8 +31,9 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 - Absinthe / Elixir
 - graphql-ruby / Ruby
 - graphql-java / Java 
+- Graphene / Python
 - Sangria / Scala (Coming Soon)
-- Graphene / Python (Coming Soon)
+- graphql-go / Go (Coming Soon)
 
 
 ## Contributions / Fixes
