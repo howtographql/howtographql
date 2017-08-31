@@ -217,7 +217,7 @@ npm install -g ember-cli
 
 </Instruction>
 
-<Instruction
+<Instruction>
 
 Next, you can use it to create your Ember application:
 
@@ -229,12 +229,16 @@ ember new hackernews-ember-apollo
 
 This will create a new directory called `hackernews-ember-apollo` that has all the basic configuration setup.
 
+<Instruction>
+
 Make sure everything works by navigating into the directory and starting the app:
 
 ```bash(path=".../hackernews-ember-apollo")
 cd hackernews-ember-apollo
 yarn start
 ```
+
+</Instruction>
 
 This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you’ll see the following:
 
@@ -389,7 +393,7 @@ graphcool endpoints
 
 </Instruction>
 
-<Instruction
+<Instruction>
 
 Copy the endpoint for the `Simple API` and paste it into `config/environment.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
 
