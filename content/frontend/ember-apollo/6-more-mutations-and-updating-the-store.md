@@ -17,7 +17,7 @@ Once more, the first step to implement this new feature is to make your componen
 
 Open the template for your `link-post` component and update it to look as follows:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/components/link-post.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/components/link-post.hbs")
 <div class='flex mt2 items-start'>
   <div class='flex items-center'>
     <span class='gray'>{{add index 1}}.</span>
@@ -56,11 +56,19 @@ export function add(params) {
 export default Ember.Helper.helper(add);
 ```
 
+</Instruction>
+
+<Instruction>
+
 In your terminal, add the `ember-moment` add-on:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember install ember-moment
 ```
+
+</Instruction>
+
+<Instruction>
 
 Finally, you need to let your `link-post` component know about your `auth` service and the user's currently logged in status:
 
@@ -105,15 +113,23 @@ Still in `project.graphcool`, add the following field to the `User` type:
 votes: [Vote!]! @relation(name: "UsersVotes")
 ```
 
+</Instruction>
+
+<Instruction>
+
 Now add another field to the `Link` type:
 
 ```graphql(path=".../hackernews-ember-apollo/project.graphcool")
 votes: [Vote!]! @relation(name: "VotesOnLink")
 ```
 
+</Instruction>
+
+<Instruction>
+
 Next, open up a terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 graphcool push
 ```
 
@@ -272,6 +288,10 @@ return this.get('apollo').mutate(
   'createVote'
 ).catch(error => alert(error));
 ```
+
+</Instruction>
+
+<Instruction>
 
 Also be sure to import the `allLinks.graphql` query that you are using in the update method:
 

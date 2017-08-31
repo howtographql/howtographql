@@ -20,15 +20,23 @@ Like before, start by creating the route and template where users will be able t
 
 From the terminal, use the Ember generator and create a new route:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember generate route create
 ```
 
+</Instruction>
+
+<Instruction>
+
 You will not be needing the route file the generator created, so delete the `app/routes/create.js` file. You used the ember-cli generator mainly for the template and the route addition to your router.
+
+</Instruction>
+
+<Instruction>
 
 Replace the code in the `app/templates/create.hbs` file with the following:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/create.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/create.hbs")
 <div>
   <form class='flex flex-column mt3' {{action 'createLink' on='submit'}}>
     {{input class='mb2' type='text' placeholder='A description for the link' value=description}}
@@ -75,9 +83,13 @@ Time to wire everything up and see it in action!
 
 The first thing you will need to do is create a controller for your `create` route. You can do that using an Ember generator:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember generate controller create
 ```
+
+</Instruction>
+
+<Instruction>
 
 Add the following to the new controller:
 
@@ -133,7 +145,7 @@ Pretty simple!
 
 Go ahead and see if the mutation works; run `yarn start` and you’ll see the following screen:
 
-![](http://imgur.com/om3TXDz)
+![](http://i.imgur.com/om3TXDz.png)
 
 Two input fields and a *submit*-button - not very pretty but functional.
 

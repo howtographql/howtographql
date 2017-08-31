@@ -44,7 +44,7 @@ For now, you’ll just use the `Link` type to create the backend. The first thin
 
 Open up a terminal window and type the following:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 npm install -g graphcool
 ```
 
@@ -56,7 +56,7 @@ Now you can go and create the server.
 
 Type the following command into the terminal:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 graphcool init --schema https://graphqlbin.com/hn-starter.graphql --name Hackernews
 ```
 
@@ -126,7 +126,7 @@ You’ll do this by using a GraphQL [Playground](https://www.graph.cool/docs/ref
 
 Open up a terminal and navigate to the directory where `project.graphcool`is located. Then execute the following command:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 graphcool playground
 ```
 
@@ -211,13 +211,17 @@ Next, you are going to create the Ember app! As mentioned in the beginning, you�
 
 If you haven’t already, you need to install `ember-cli` using npm:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 npm install -g ember-cli
 ```
 
+</Instruction>
+
+<Instruction
+
 Next, you can use it to create your Ember application:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember new hackernews-ember-apollo
 ```
 
@@ -227,20 +231,20 @@ This will create a new directory called `hackernews-ember-apollo` that has all t
 
 Make sure everything works by navigating into the directory and starting the app:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 cd hackernews-ember-apollo
 yarn start
 ```
 
 This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you’ll see the following:
 
-![](http://imgur.com/a/u0OR2)
+![](http://i.imgur.com/a/u0OR2.png)
 
 <Instruction>
 
 Next, go move `project.graphcool` into the `hackernews-ember-apollo` directory to manage everything in one place.
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 mv ../project.graphcool .
 ```
 
@@ -280,7 +284,7 @@ This tutorial is about the concepts of GraphQL and how you can use it from withi
 
 In your terminal add the `ember-cli-tachyons-shim` add-on: 
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember install ember-cli-tachyons-shim
 ```
 </Instruction>
@@ -345,7 +349,7 @@ input {
 
 Next, you need to pull in the functionality of Apollo which is exposed in the `ember-apollo-client` add-on:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember install ember-apollo-client
 ```
 
@@ -353,7 +357,7 @@ ember install ember-apollo-client
 
 That’s it, you’re ready to write some code! 🚀
 
-### Configuring** **`Apollo`
+### Configuring `Apollo`
 
 Apollo abstracts away all lower-lever networking logic and provides a nice interface to the GraphQL API. In contrast to working with REST APIs, you don’t have to deal with constructing your own HTTP requests any more - instead you can simply write queries and mutations and send them using the `ember-apollo-client`.
 
@@ -379,9 +383,13 @@ There are two ways for you to get your endpoint. You can either open the [Graphc
 
 In the terminal, navigate to your project root directory, where `project.graphcool`, is located and execute the following command:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 graphcool endpoints
 ```
+
+</Instruction>
+
+<Instruction
 
 Copy the endpoint for the `Simple API` and paste it into `config/environment.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
 
@@ -397,13 +405,17 @@ Inside of `app/templates/application.hbs` remove the `{{welcome-page}}`component
 
 Also, in your terminal remove the `ember-welcome-page` add-on:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 npm uninstall ember-welcome-page --save-dev
 ```
 
+</Instruction>
+
+<Instruction>
+
 Then remove the extraneous files by running:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 npm prune
 ```
 

@@ -2,7 +2,7 @@
 title: "Queries: Loading Links"
 pageTitle: "Fetching Data using GraphQL Queries with Ember & Apollo Tutorial"
 description: "Learn how you can use GraphQL queries with Apollo Client to load data from a server and display it in your React components."
-question: "ember-apollo-client exposes a service to your Ember application name what?"
+question: "ember-apollo-client exposes a service to your Ember application named what?"
 answers: ["apollo-store", "apollo", "ember-apollo", "store"]
 correctAnswer: 1
 ---
@@ -15,7 +15,7 @@ The first piece of functionality that you’ll implement in the app is loading a
 
 In your terminal, create a new component named `link-post`. You are naming this component `link-post`, as opposed to `link`, because Ember requires all components to have a hyphen in it’s name.
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember generate component link-post
 ```
 
@@ -27,7 +27,7 @@ Running that generator creates a component file and a handlebars template along 
 
 Replace the code in the `link-post` template with the following:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/components/link-post.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/components/link-post.hbs")
 <div>
   <div>{{link.description}} ({{link.url}})</div>
 </div>
@@ -43,7 +43,7 @@ Next, you’ll implement the route that renders a list of links.
 
 Again, you will use an ember-cli generate command to create a links route.
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember generate route links
 ```
 
@@ -55,13 +55,17 @@ This creates a few files including a route file, template for the route, and it 
 
 Replace the contents of the route template with the following:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/links.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/links.hbs")
 <div>
   {{#each model as |link index|}}
     {{link-post index=index link=link}}
   {{/each}}
 </div>
 ```
+
+</Instruction>
+
+<Instruction>
 
 In the link route’s `model` hook, add the following code: 
 
@@ -100,7 +104,7 @@ Router.map(function() {
 
 Run the app to check if everything works so far! The app should now display the two links from the array:
 
-![](http://imgur.com/Oky5GLx)
+![](http://i.imgur.com/Oky5GLx.png)
 
 ### Writing the GraphQL Query
 
@@ -158,6 +162,10 @@ Create a nested set of folders in the `app` folder like so:
 │ │ ├── queries
 │ │ ├── mutations
 ```
+
+</Instruction>
+
+<Instruction>
 
 In the `queries` folder, create a new file named `allLinks.graphql` and add the following contents:
 

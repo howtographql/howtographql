@@ -18,7 +18,7 @@ In this section, you’ll implement a search feature and learn about the filteri
 
 The search will be available under a new route. Start by creating a new route called `search`:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember generate route search
 ```
 
@@ -30,7 +30,7 @@ This will generate a new route, add it to your `router.js` and create a new temp
 
 Open that template (`app/templates/search.hbs`) and replace the contents with the following code:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/search.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/search.hbs")
 <div>
   <form {{action 'executeSearch' on='submit'}}>
     {{input type='text' value=searchText}}
@@ -54,7 +54,7 @@ For the user to be able to comfortably navigate to the search functionality, you
 
 Open the template for your `site-header` component and insert a new link between `new` and `submit`:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/components/site-header.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/components/site-header.hbs")
 <div class='flex pa1 justify-between nowrap orange'>
   <div class='flex flex-fixed black'>
     <div class='fw7 mr1'>Hacker News</div>
@@ -108,6 +108,10 @@ export default Ember.Controller.extend({
   apollo: Ember.inject.service()
 });
 ```
+
+</Instruction>
+
+<Instruction>
 
 Also create a new file named `allLinksSearch.graphql` in your `app/gql/queries` directory, and add the following contents:
 

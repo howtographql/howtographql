@@ -15,9 +15,13 @@ In this section, you’ll learn how you can implement authentication functionali
 
 Start off by creating an authentication service to handle the logic and state. You'll add this, again, by using a generator:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember generate service auth
 ```
+
+</Instruction>
+
+<Instruction>
 
 The `userId` and `authToken` will be stored in the user’s `localStorage` in this app, so add some methods for setting and retrieving that data from `localStorage` and in your service:
 
@@ -95,7 +99,7 @@ What’s missing from this long block of code is methods to login, signup, and l
 
 In the directory where `project.graphcool` is located, type the following into the terminal:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 graphcool console
 ```
 
@@ -109,7 +113,7 @@ Select the *Integrations*-tab in the left side-menu and then click on the *Email
 
 </Instruction>
 
-![](http://imgur.com/25iMZtf)
+![](http://i.imgur.com/25iMZtf.png)
 
 This will open the popup that allows you to enable the Graphcool’s email-based authentication mechanism.
 
@@ -141,7 +145,7 @@ Next, you have to make sure that the changes introduced by the authentication pr
 
 Open a terminal window and navigate to the directory where `project.graphcool` is located. Then run the following command:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 graphcool pull
 ```
 
@@ -202,7 +206,7 @@ You added two things to the schema:
 
 Save the file and execute the following command in the Terminal:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 graphcool push
 ```
 
@@ -226,7 +230,7 @@ Your project file project.graphcool was updated. Reload it in your editor if nee
 
 Perfect, you’re all set now to actually implement the authentication functionality inside your app.
 
-### Authentication with Graph.cool
+### Authentication with Graphcool
 
 Time to quickly add the remaning methods to your `auth` service that would allow us to login, sign up, and logout. 
 
@@ -247,6 +251,10 @@ mutation SigninUserMutation($email: String!, $password: String!) {
 }
 ```
 
+</Instruction>
+
+<Instruction>
+
 Also add a `createUser.graphql` file and add these contents:
 
 ```graphql
@@ -263,6 +271,10 @@ mutation CreateUserMutation($name: String!, $email: String!, $password: String!)
 }
 ```
 
+</Instruction>
+
+<Instruction>
+
 Now add some more imports to your `auth` service:
 
 ```js(path=".../hackernews-ember-apollo/app/services/auth.js")
@@ -270,6 +282,10 @@ import RSVP from 'rsvp';
 import signInUserMutation from 'hackernews-ember-apollo/gql/mutations/signInUser';
 import createUser from 'hackernews-ember-apollo/gql/mutations/createUser';
 ```
+
+</Instruction>
+
+<Instruction>
 
 And the remaining methods for login, logout, and sign up:
 
@@ -348,6 +364,10 @@ Router.map(function() {
 });
 ```
 
+</Instruction>
+
+<Instruction>
+
 Next, add a controller for your login route. Create a new file, `login.js` in the `app/controllers` directory, and add the following code:
 
 ```js(path=".../hackernews-ember-apollo/app/controllers/login.js")
@@ -396,7 +416,7 @@ Now add the template for your login route.
 
 Add a new file named `login.hbs` to your `app/templates` directory and add the following contents:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/login.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/login.hbs")
 <div>
   <h4 class='mv3'>
     {{#if loginState}}
@@ -459,9 +479,13 @@ export default Ember.Component.extend({
 });
 ```
 
+</Instruction>
+
+<Instruction>
+
 Also update the template:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/components/site-header.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/components/site-header.hbs")
 <div class='flex pa1 justify-between nowrap orange'>
   <div class='flex flex-fixed black'>
     <div class='fw7 mr1'>Hacker News</div>
@@ -497,7 +521,7 @@ You need to now redirect a user when they click the logout link. For this you wi
 
 In your terminal, add the `ember-route-action-helper` add-on:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember install ember-route-action-helper
 ```
 
@@ -531,7 +555,7 @@ The last piece to all of this is that you need to pass in that route-action to y
 
 In `app/templates/application.hbs` change your `site-header` component to recieve the following:
 
-```hbs(path=".../hackernews-ember-apollo/app/templates/application.hbs")
+```html(path=".../hackernews-ember-apollo/app/templates/application.hbs")
 <div class='center w85'>
   {{site-header onLogout=(route-action 'navigateHome')}}
   <div class='ph3 pv1 background-gray'>
@@ -637,9 +661,13 @@ You need to override the default `ApolloService` that `ember-apollo-client` is e
 
 Within your command line, add an apollo service:
 
-```bash
+```bash(path=".../hackernews-ember-apollo")
 ember generate service apollo
 ```
+
+</Instruction>
+
+<Instruction>
 
 Add the following imports to the top of your new service:
 
