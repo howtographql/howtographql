@@ -40,7 +40,7 @@ In the majority of applications, you'll want to maintain a cache of the data tha
 
 Generally when caching data, the intuition is to put information that's fetched remotely into a local _store_ from where it can be retrieved later on. With GraphQL, the naive approach would be to simply put the results of GraphQL queries into the store and whenever that exact same query is executed again, just return the previously stored data. It turns out that this approach is very inefficient for most applications. 
 
-A more beneficial approach is to _normalize_ the data beforehand. That means that the (potentially nested) query result gets flattened and the store will only contain individual records that can be referenced with a globally unique ID. If you want to learn more about this, the [Apollo blog](http://dev.apollodata.com/core/how-it-works.html) has a great write-up on the topic.
+A more beneficial approach is to _normalize_ the data beforehand. That means that the (potentially nested) query result gets flattened and the store will only contain individual records that can be referenced with a globally unique ID. If you want to learn more about this, the [Apollo blog](https://dev-blog.apollodata.com/the-concepts-of-graphql-bc68bd819be3) has a great write-up on the topic.
 
 
 ### Build-time Schema Validation & Optimizations
