@@ -82,15 +82,15 @@ export default function Team() {
                 y={60}
               />
               <Bubble
-                avatar={require('../../assets/graphics/contributors/oleg.jpg')}
-                name="Oleg Ilyenko"
-                description="sangria"
+                avatar={require('../../assets/graphics/contributors/lee.jpg')}
+                name="Lee Byron"
+                description="Advisor & Feedback"
                 x={0}
                 y={-30}
               />
               <Bubble
-                avatar={require('../../assets/graphics/contributors/syrus.jpg')}
-                name="Syrus Akbary "
+                avatar={require('../../assets/graphics/contributors/jonatas.jpg')}
+                name="Jonatas Baldin"
                 description="graphene"
                 x={0}
                 y={20}
@@ -112,6 +112,7 @@ export default function Team() {
                 description="GraphQL Server & Tooling"
                 x={0}
                 y={0}
+                diameter={120}
               />
               <Bubble
                 avatar={require('../../assets/graphics/contributors/nikolas.jpg')}
@@ -206,6 +207,31 @@ export default function Team() {
                 y={50}
                 diameter={120}
               />
+            </div>
+
+            <div style={{ marginTop: '40px', display: 'flex', marginLeft: 60 }}>
+
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/matt.jpg')}
+                name="Matt Dionis"
+                description="vue-apollo"
+                x={0}
+                y={-50}
+              />
+              <Company
+                src={require('../../assets/icons/companies/facebook.svg')}
+                color="#0068B3"
+                x={150}
+                y={-20}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/devan.jpg')}
+                name="Devan Beitel"
+                description="ember-apollo"
+                x={350}
+                y={-70}
+              />
+
             </div>
           </div>
         </div>

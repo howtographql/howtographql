@@ -18,21 +18,6 @@ const data: Stack[] = [
     comingSoon: true,
   },
   {
-    title: 'Vue + Apollo',
-    type: 'frontend',
-    key: 'vue-apollo',
-    images: [
-      require('../assets/icons/vue.svg'),
-      require('../assets/icons/apollo.svg'),
-    ],
-    content: {
-      title: 'Vue + Apollo',
-      description:
-        "Learn how to get started with VueJS and Apollo Client on the frontend",
-    },
-    authorName: 'Matt Dionis',
-  },
-  {
     title: 'Expo + Apollo',
     type: 'frontend',
     key: 'expo-apollo',
@@ -47,6 +32,36 @@ const data: Stack[] = [
     },
     authorName: 'Bent Vatne',
     comingSoon: true,
+  },
+  {
+    title: 'Ember + Apollo',
+    type: 'frontend',
+    key: 'ember-apollo',
+    images: [
+      require('../assets/icons/ember.svg'),
+      require('../assets/icons/apollo.svg'),
+    ],
+    content: {
+      title: 'Ember + Apollo',
+      description:
+        "Learn how to get started with Ember.js and Apollo Client on the frontend",
+    },
+    authorName: 'Devan Beitel',
+  },
+  {
+    title: 'Vue + Apollo',
+    type: 'frontend',
+    key: 'vue-apollo',
+    images: [
+      require('../assets/icons/vue.svg'),
+      require('../assets/icons/apollo.svg'),
+    ],
+    content: {
+      title: 'Vue + Apollo',
+      description:
+        "Learn how to get started with VueJS and Apollo Client on the frontend",
+    },
+    authorName: 'Matt Dionis',
   },
   {
     title: 'React + Relay',

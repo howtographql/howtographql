@@ -86,6 +86,14 @@ const authors: Author[] = [
     link: 'https://twitter.com/mattdionis',
     job: 'Software Engineer @ Circle',
     name: 'Matt Dionis'
+  },
+  {
+    avatar: require('../assets/graphics/contributors/devan.jpg'),
+    bio:
+      "Devan is a full-stack JavaScript engineer who enjoys working with GraphQL.!",
+    link: 'https://twitter.com/devanb',
+    job: 'Software Engineer @ ...',
+    name: 'Devan Beitel'
   }
 ]
 
