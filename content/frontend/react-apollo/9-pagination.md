@@ -10,7 +10,7 @@ videoAuthor: "Abhi Ayer"
 duration: 6
 ---
 
-The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that user's are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
+The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that users are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
 
 
 ## Preparing the React Components
