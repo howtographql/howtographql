@@ -10,7 +10,7 @@ videoAuthor: "Abhi Ayer"
 duration: 6
 ---
 
-The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that user's are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
+The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that users are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
 
 
 ## Preparing the React Components
@@ -125,7 +125,7 @@ You're now passing a function to `graphql` that takes in the props of the compon
 
 Also note that you're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
 
-You also need to define the `LINKS_PER_PAGE` constant and then import it into the `ListList` component.
+You also need to define the `LINKS_PER_PAGE` constant and then import it into the `LinkList` component.
 
 <Instruction>
 
