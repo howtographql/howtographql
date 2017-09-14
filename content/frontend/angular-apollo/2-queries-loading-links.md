@@ -44,7 +44,7 @@ export class LinkItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  _voteForLink= async () => {
+  voteForLink= async () => {
     // ... you'll implement this in chapter 6
   }
 }
@@ -68,6 +68,7 @@ export class Link {
   id: string;
   description: string;
   url: string;
+  createdAt: string;
 }
 
 ```
@@ -80,7 +81,7 @@ Next, you'll implement the component that renders a list of link-items.
 
 <Instruction>
 
-Again, in the root directory, go ahead and run `ng generate component link-list` and create `link-list.component.ts` , `link-list.component.spec.ts`, `link-list.component.html`, `link-list.component.css` and add the following code:
+Again, in the root directory, go ahead and run `ng generate component link-list` and this create `link-list.component.ts` , `link-list.component.spec.ts`, `link-list.component.html`, `link-list.component.css` in `src/app/link-list` folder and add the following code in `link-list.component.ts`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 import {Component, OnInit} from '@angular/core';
@@ -110,6 +111,7 @@ export class LinkListComponent implements OnInit {
 
 }
 ```
+Then, add the following code in `link-list.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
