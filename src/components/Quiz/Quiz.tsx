@@ -209,6 +209,12 @@ class Quiz extends React.Component<Props & QuizState, {}> {
 
   private handleAnswerClick = i => {
     const { path } = this.props
+    const reaction = this.props.quizReactions[path] || defaultReaction
+    const { answeredCorrectly } = reaction
+    const answerIndeces = reaction.answerIndeces || []
+    if (answeredCorrectly || answerIndeces.includes(i))  {
+      return
+    }
     this.props.addAnswer(path, i)
     if (this.props.correctAnswerIndex === i) {
       this.props.answerCorrectly(path)
