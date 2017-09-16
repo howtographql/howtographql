@@ -92,7 +92,7 @@ To complete the setup, open `App.js` and replace the current contents with the f
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import React, { Component } from 'react'
-import LinkList from './LinkList'
+import LinkList from './components/LinkList'
 
 class App extends Component {
   render() {
