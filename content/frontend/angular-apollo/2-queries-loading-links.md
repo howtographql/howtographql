@@ -30,7 +30,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Link} from '../types';
 
 @Component({
-  selector: 'link-item',
+  selector: 'hn-link-item',
   templateUrl: './link-item.component.html',
   styleUrls: ['./link-item.component.css']
 })
@@ -88,7 +88,7 @@ import {Component, OnInit} from '@angular/core';
 import {Link} from '../types';
 
 @Component({
-  selector: 'link-list',
+  selector: 'hn-link-list',
   templateUrl: './link-list.component.html',
   styleUrls: ['./link-list.component.css']
 })
@@ -115,9 +115,9 @@ Then, add the following code in `link-list.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
-<link-item *ngFor="let link of linksToRender"
+<hn-link-item *ngFor="let link of linksToRender"
           [link]="link">
-</link-item>
+</hn-link-item>
 
 ```
 
@@ -162,7 +162,7 @@ export class AppModule {
 Then, open `app.component.html` and replace the current contents with the following:
 
 ```html(path=".../hackernews-angular-apollo/src/app/app.component.html")
-  <link-list></link-item-list>
+  <hn-link-list></hn-link-item-list>
 ```
 
 </Instruction>
@@ -260,9 +260,9 @@ Open up `src/app/link-list/link-list.component.html`, update the html template t
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
 <h4 *ngIf="loading">Loading...</h4>
-<link-item *ngFor="let link of allLinks"
+<hn-link-item *ngFor="let link of allLinks"
           [link]="link">
-</link-item>
+</hn-link-item>
 
 
 ```
@@ -278,7 +278,7 @@ import {Link} from '../types';
 import {ALL_LINKS_QUERY, AllLinkQueryResponse} from '../graphql';
 
 @Component({
-  selector: 'link-list',
+  selector: 'hn-link-list',
   templateUrl: './link-list.component.html',
   styleUrls: ['./link-list.component.css']
 })
