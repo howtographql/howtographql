@@ -114,8 +114,8 @@ export default graphql(CREATE_LINK_MUTATION, { name: 'createLinkMutation' })(Cre
 Let's take close look again to understand what's going on:
 
 1. You first create the JavaScript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
-2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.
-3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The `name` that's specified refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments.
+2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.  
+3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The `name` that's specified refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
 
 <Instruction>
 
@@ -150,7 +150,7 @@ _createLink = async () => {
 </Instruction>
 
 
-As promised, all you need to do is call the function that Apollo injects into `CreateLink` and pass the variables that represent the user input.
+As promised, all you need to do is call the function that Apollo injects into `CreateLink` and pass the variables that represent the user input. 
 
 <Instruction>
 
@@ -162,7 +162,7 @@ render() {
     <CreateLink />
   )
 }
-```
+```  
 
 </Instruction>
 
@@ -178,7 +178,7 @@ import CreateLink from './CreateLink'
 
 Now, run `yarn start`, you'll see the following screen:
 
-![](http://imgur.com/AJNlEfj.png)
+![](http://imgur.com/AJNlEfj.png) 
 
 Two input fields and a _submit_-button - not very pretty but functional.
 
