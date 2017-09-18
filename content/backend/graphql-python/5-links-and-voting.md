@@ -11,7 +11,7 @@ With sign in power, you can now create you *own* links, posted by you. To make i
 
 <Instruction>
 
-On the User models file, add the `posted_by` field at the very end:
+On the Link models file, add the `posted_by` field at the very end:
 
 ```python(path=".../graphql-python/hackernews/links/models.py")
 posted_by = models.ForeignKey('users.User', null=True)
