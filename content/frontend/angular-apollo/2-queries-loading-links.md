@@ -294,7 +294,7 @@ export class LinkListComponent implements OnInit {
   ngOnInit() {
 
     // 4
-    this.apollo.query<AllLinkQueryResponse>({
+    this.apollo.watchQuery<AllLinkQueryResponse>({
       query: ALL_LINKS_QUERY
     }).subscribe((response) => {
       // 5
