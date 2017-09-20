@@ -78,7 +78,7 @@ Note that this command will open up a browser window first and ask you to authen
 The schema that's stored at [https://graphqlbin.com/hn-starter.graphql](https://graphqlbin.com/hn-starter.graphql) only defines the `Link` type for now:
 
 ```graphql(nocopy)
-type Link implements Node {
+type Link {
   description: String!
   url: String!
 }
