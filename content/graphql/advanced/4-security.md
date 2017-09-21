@@ -7,9 +7,9 @@ answers: ["Calculating query complexity", "Maximum query depth", "Adding more se
 correctAnswer: 2
 ---
 
-GraphQL gives enormous power to clients. But with great power comes great responsibilities 🕷.
+GraphQL gives enormous power to clients. But with great power come great responsibilities 🕷.
 
-Since clients have the possibility to craft very complex queries, our servers must be ready to handle them properly. These queries may be abusive queries from evil clients, or may simply be very large queries used by legitimate clients.In both of these cases, the client
+Since clients have the possibility to craft very complex queries, our servers must be ready to handle them properly. These queries may be abusive queries from evil clients, or may simply be very large queries used by legitimate clients. In both of these cases, the client
 can potentially take your GraphQL server down.
 
 There are a few strategies to mitigate these risk, which we will cover in this chapter. We will cover them in order of most simple
@@ -58,7 +58,7 @@ query IAmEvil {
 
 What if we could prevent clients from abusing query depth like this? Knowing your schema might give you an idea of how deep a legitimate query can go. This is actually possible to implement and is often called Maximum Query Depth.
 
-By analyzing the query document's AST, a GraphQL server is able to reject or accept a request based on it's depth.
+By analyzing the query document's AST, a GraphQL server is able to reject or accept a request based on its depth.
 
 Take for example a server configured with a Maximum Query Depth of `3`, and the following query document. Everything within the red marker is considered too deep and the query is invalid.
 
