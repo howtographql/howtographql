@@ -141,6 +141,7 @@ Open `project.graphcool` and add the following type:
 
 ```graphql(path=".../hackernews-react-apollo/project.graphcool")
 type Vote {
+  id: ID! @isUnique
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
 }
