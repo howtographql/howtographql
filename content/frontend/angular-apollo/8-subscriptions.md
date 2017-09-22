@@ -321,5 +321,5 @@ Similar to before, you're calling `subscribeToMore` on the `allLinks` query. Thi
 
 Fantastic! Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.
 
-**/!\ Actually, there are a bug that blocks the UI update. Indeed, if a subscription event comes, the store is updated, the observable emits, but the change detection is not run. The issue is tracked [here](https://github.com/apollographql/apollo-angular/issues/320) /!\**
+**/!\ Actually, there are a bug that blocks the UI update. Indeed, if a subscription event comes, the store is updated, the observable emits, but the change detection is not run. The issue is tracked [here](https://github.com/apollographql/apollo-angular/issues/320) and another that blocks the [`subscribeToMore`](https://github.com/kamilkisiela/apollo-client-rxjs/issues/37) /!\**
 
