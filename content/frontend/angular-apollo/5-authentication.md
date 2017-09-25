@@ -312,7 +312,7 @@ Before you can implement the authentication functionality in `src/app/login/logi
 
 <Instruction>
 
-In the directory where `project.graphcool` is located, type the following into the terminal:
+In the directory where `types.graphql` is located, type the following into the terminal:
 
 ```bash
 graphcool console
@@ -391,7 +391,7 @@ Next you need to make one more modification to the schema. Generally, when updat
 
 <Instruction>
 
-Open your project file `project.graphcool` and update the `User` and `Link` types as follows:
+Open your project file `types.graphql` and update the `User` and `Link` types as follows:
 
 ```graphql{7,15,17}
 type Link implements Node {

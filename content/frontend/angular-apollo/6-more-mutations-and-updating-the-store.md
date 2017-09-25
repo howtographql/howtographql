@@ -223,7 +223,7 @@ For this new feature, you also need to update the schema again since votes on li
 
 <Instruction>
 
-Open `project.graphcool` and add the following type:
+Open `types.graphql` and add the following type:
 
 ```graphql
 type Vote {
@@ -239,7 +239,7 @@ Each `Vote` will be associated with the `User` who created it as well as the `Li
 
 <Instruction>
 
-Still in `project.graphcool`, add the following field to the `User` type:
+Still in `types.graphql`, add the following field to the `User` type:
 
 ```graphql
 votes: [Vote!]! @relation(name: "UsersVotes")
@@ -259,10 +259,10 @@ votes: [Vote!]! @relation(name: "VotesOnLink")
 
 <Instruction>
 
-Next, open up a terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
+Next, open up a terminal window and navigate to the directory where `types.graphql` is located. Then apply your schema changes by typing the following command:
 
 ```bash
-graphcool push
+graphcool deploy
 ```
 
 </Instruction>
@@ -271,7 +271,7 @@ graphcool push
 Here is what the Terminal output looks like:
 
 ```(nocopy)
-$ gc push
+$ graphcool deploy
  ✔ Your schema was successfully updated. Here are the changes:
 
   | (+)  A new type with the name `Vote` is created.
@@ -280,7 +280,6 @@ $ gc push
   |
   | (+)  The relation `VotesOnLink` is created. It connects the type `Link` with the type `Vote`.
 
-Your project file project.graphcool was updated. Reload it in your editor if needed.
 ```
 
 

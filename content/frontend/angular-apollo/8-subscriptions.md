@@ -92,7 +92,7 @@ Now you need to replace the placeholder `__SUBSCRIPTION_API_ENDPOINT__ ` with th
 
 <Instruction>
 
-To get access to this endpoint, open up a terminal and navigate to the directory where `project.graphcool` is located. Then type the `graphcool endpoints` command. Now copy the endpoint for the `Subscriptions API` and replace the placeholder with it.
+To get access to this endpoint, open up a terminal and navigate to the directory where `types.graphql` is located. Then type the `graphcool endpoints` command. Now copy the endpoint for the `Subscriptions API` and replace the placeholder with it.
 
 </Instruction>
 
