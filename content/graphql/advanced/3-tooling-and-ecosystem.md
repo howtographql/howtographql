@@ -15,7 +15,7 @@ An amazing thing with GraphQL is that these capabilities are not only known to t
 
 ## Introspection
 
-The designers of the schema already know what the schema looks like but how can clients discover what is accessible through a GraphQL API ? We can ask GraphQL for this information by querying the `__schema` meta-field, which is always available on the root type of a Query per the spec.
+The designers of the schema already know what the schema looks like but how can clients discover what is accessible through a GraphQL API? We can ask GraphQL for this information by querying the `__schema` meta-field, which is always available on the root type of a Query per the spec.
 
 ```graphql
 query {

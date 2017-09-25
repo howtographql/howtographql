@@ -12,8 +12,8 @@ GraphQL gives enormous power to clients. But with great power comes great respon
 Since clients have the possibility to craft very complex queries, our servers must be ready to handle them properly. These queries may be abusive queries from evil clients, or may simply be very large queries used by legitimate clients.In both of these cases, the client
 can potentially take your GraphQL server down.
 
-There are a few strategies to mitigate these risk, which we will cover in this chapter. We will cover them in order of most simple
-to most complex, and look at their pros and cons.
+There are a few strategies to mitigate these risks, which we will cover in this chapter. We will cover them in order of most simple
+to the most complex, and look at their pros and cons.
 
 ## Timeout
 
@@ -58,7 +58,7 @@ query IAmEvil {
 
 What if we could prevent clients from abusing query depth like this? Knowing your schema might give you an idea of how deep a legitimate query can go. This is actually possible to implement and is often called Maximum Query Depth.
 
-By analyzing the query document's AST, a GraphQL server is able to reject or accept a request based on it's depth.
+By analyzing the query document's AST, a GraphQL server is able to reject or accept a request based on its depth.
 
 Take for example a server configured with a Maximum Query Depth of `3`, and the following query document. Everything within the red marker is considered too deep and the query is invalid.
 
@@ -141,7 +141,7 @@ since they are defined by the clients. So what can we use to throttle clients?
 
 A good estimate of how expensive a query is is the server time it needs to complete. We can use this heuristic to throttle queries. With a good knowledge of your system, you can come up with a maximum server time a client can use over a certain time frame.
 
-We also decide on how how much server time is added to a client over time. This is a classic [leaky bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Note that there are other throttling algorithms out there, but they are out of scope for this chapter. We will use a leaky bucket throttle in the next examples.
+We also decide on how much server time is added to a client over time. This is a classic [leaky bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Note that there are other throttling algorithms out there, but they are out of scope for this chapter. We will use a leaky bucket throttle in the next examples.
 
 Let's imagine our maximum server time (Bucket Size) allowed is set to `1000ms`, that clients gain `100ms` of server time per second (Leak Rate) and this mutation:
 
@@ -155,9 +155,9 @@ mutation {
 }
 ```
 
-takes on average `200ms` to complete. In reality the time may vary but we'll assume it always takes `200ms` to complete for the sake of this example.
+takes on average `200ms` to complete. In reality, the time may vary but we'll assume it always takes `200ms` to complete for the sake of this example.
 
-It means that a client calling this operation more than 5 times within 1 second would be blocked, until more available server time is added to the client.
+It means that a client calling this operation more than 5 times within 1 second would be blocked until more available server time is added to the client.
 
 After two seconds (`100ms` is added by second), our client could call the `createPost` a single time.
 
@@ -183,7 +183,7 @@ query {
 }
 ```
 
-We know that this query has a cost `3` based on complexity. Just like a time throttle, we can comeup with a maximum cost (Bucket Size) per time a client can use.
+We know that this query has a cost `3` based on complexity. Just like a time throttle, we can come up with a maximum cost (Bucket Size) per time a client can use.
 
 With a maximum cost of `9`, our clients could run this query only three times, before the leak rate forbids them to query more.
 
@@ -195,4 +195,4 @@ The GitHub public API actually uses this approach to throttle their clients. Tak
 
 GraphQL is great to use for clients because it gives them so much more power. But that power also gives them the possibility to abuse your GraphQL server with very expensive queries.
 
-There are many approaches to secure your GraphQL server against these queries, but none of them are bullet proof. It's important to know what options are available and know their limits so we take the best decisions!
+There are many approaches to secure your GraphQL server against these queries, but none of them is bullet proof. It's important to know what options are available and know their limits so we take the best decisions!

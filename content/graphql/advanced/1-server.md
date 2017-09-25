@@ -7,7 +7,7 @@ answers: ["A single record is never fetched more than once for a given query", "
 correctAnswer: 2
 ---
 
-GraphQL is often explained as a frontend-focused API technology, because it enables clients to get data in a much nicer way than before. But the API itself is, of course, implemented on the server side. There are a lot of benefits to be had on the server as well, because GraphQL enables the server developer to focus on describing the data available rather than implementing and optimizing specific endpoints.
+GraphQL is often explained as a frontend-focused API technology because it enables clients to get data in a much nicer way than before. But the API itself is, of course, implemented on the server side. There are a lot of benefits to be had on the server as well because GraphQL enables the server developer to focus on describing the data available rather than implementing and optimizing specific endpoints.
 
 ## GraphQL execution
 
@@ -55,7 +55,7 @@ query: Query {
 }
 ```
 
-Now, we can easily find the resolvers in our server to run for every field. The execution starts at the query type and goes breadth-first. This means we run the resolver for `Query.author` first. Then, we take the result of that resolver, and pass it into its child, the resolver for `Author.posts`. At the next level, the result is a list, so in that case the execution algorithm runs on one item at a time. So the execution works like this:
+Now, we can easily find the resolvers in our server to run for every field. The execution starts at the query type and goes breadth-first. This means we run the resolver for `Query.author` first. Then, we take the result of that resolver, and pass it into its child, the resolver for `Author.posts`. At the next level, the result is a list, so in that case, the execution algorithm runs on one item at a time. So the execution works like this:
 
 ```(nocopy)
 Query.author(root, { id: 'abc' }, context) -> author
@@ -65,11 +65,11 @@ for each post in posts
   Post.content(post, null, context) -> content
 ```
 
-At the end, the execution algorithm puts everything together into the correct shape for the result, and returns that.
+At the end, the execution algorithm puts everything together into the correct shape for the result and returns that.
 
 One thing to note is that most GraphQL server implementations will provide "default resolvers" - so you don't have to specify a resolver function for every single field. In GraphQL.js, for example, you don't need to specify resolvers when the parent object of the resolver contains a field with the correct name.
 
-Read more in depth about GraphQL execution in the ["GraphQL Explained" post](https://dev-blog.apollodata.com/graphql-explained-5844742f195e) on the Apollo blog.
+Read more in-depth about GraphQL execution in the ["GraphQL Explained" post](https://dev-blog.apollodata.com/graphql-explained-5844742f195e) on the Apollo blog.
 
 ## Batched Resolving
 

@@ -10,7 +10,7 @@ correctAnswer: 3
 
 ### Enhancing Reusability with Fragments
 
-_Fragments_ are a handy feature to help improving the structure and reusability of your GraphQL code. A fragment is a collection of fields on a specific type.
+_Fragments_ are a handy feature to help to improve the structure and reusability of your GraphQL code. A fragment is a collection of fields on a specific type.
 
 Let's assume we have the following type:
 
@@ -145,7 +145,7 @@ The SDL offers a couple of language features that weren't discussed in the previ
 In GraphQL, there are two different kinds of types.
 
 - _Scalar_ types represent concrete units of data. The GraphQL spec has five predefined scalars: as `String`, `Int`, `Float`, `Boolean`, and `ID`. 
-- _Object_ types have _fields_ that express the properties of that type and are composable. Examples for object types are the `User` or `Post` types we saw in the previous section.
+- _Object_ types have _fields_ that express the properties of that type and are composable. Examples of object types are the `User` or `Post` types we saw in the previous section.
 
 In every GraphQL schema, you can define your own scalar and object types. An often cited example for a custom scalar would be a `Date` type where the implementation needs to define how that type validated, serialized, and deserialized.
 
