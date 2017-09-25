@@ -7,9 +7,9 @@ answers: ["Calculating query complexity", "Maximum query depth", "Adding more se
 correctAnswer: 2
 ---
 
-GraphQL gives enormous power to clients. But with great power comes great responsibilities 🕷.
+GraphQL gives enormous power to clients. But with great power come great responsibilities 🕷.
 
-Since clients have the possibility to craft very complex queries, our servers must be ready to handle them properly. These queries may be abusive queries from evil clients, or may simply be very large queries used by legitimate clients.In both of these cases, the client
+Since clients have the possibility to craft very complex queries, our servers must be ready to handle them properly. These queries may be abusive queries from evil clients, or may simply be very large queries used by legitimate clients. In both of these cases, the client
 can potentially take your GraphQL server down.
 
 There are a few strategies to mitigate these risks, which we will cover in this chapter. We will cover them in order of most simple
