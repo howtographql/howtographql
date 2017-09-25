@@ -313,7 +313,7 @@ loginOrSignUp(state, name, email, password) {
     } else {
       variables = { name, email, password };
       this.get('apollo')
-        .mutate({ mutation: createUserMutation, variables }, 'signinUser')
+        .mutate({ mutation: createUser, variables }, 'signinUser')
         .then(result => {
           this.saveUserData(result.user.id, result.token);
           resolve();
