@@ -184,7 +184,29 @@ You've set the `variables` to a function which runs before the query is executed
 
 Also note that you're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
 
+<Instruction>
+
+Still in `src/components/LinkList.vue` you also need to update the `updateQuery` method like so:
+
+```js{8}(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
+updateQuery: (previous, { subscriptionData }) => {
+  const newAllLinks = [
+    subscriptionData.data.Link.node,
+    ...previous.allLinks
+  ]
+  const result = {
+    ...previous,
+    allLinks: newAllLinks.slice(0, LINKS_PER_PAGE)
+  }
+  return result
+}
+```
+
+This change ensures that only the most recent `LINKS_PER_PAGE` links will be shown even after an update through subscriptions.
+
 You also need to define the `LINKS_PER_PAGE` constant and then import it into the `LinkList` component as well as the `LinkItem` component.
+
+</Instruction>
 
 <Instruction>
 

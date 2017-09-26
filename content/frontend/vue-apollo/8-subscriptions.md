@@ -195,7 +195,7 @@ updateQuery: (previous, { subscriptionData }) => {
   ]
   const result = {
     ...previous,
-    allLinks: newAllLinks.slice(0, 5)
+    allLinks: newAllLinks
   }
   return result
 }
