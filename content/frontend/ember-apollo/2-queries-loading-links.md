@@ -194,8 +194,8 @@ In the `links.js` route file, update the code as follows:
 
 ```js(path=".../hackernews-ember-apollo/app/routes/links.js")
 import Ember from 'ember';
-import UnsubscribeRoute from 'ember-apollo-client/mixins/unsubscribe-route';
-import query from ‘hackernews-ember-apollo/gql/queries/allLinks';
+import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
+import query from 'hackernews-ember-apollo/gql/queries/allLinks';
 
 // 1.
 export default Ember.Route.extend(UnsubscribeRoute, {
@@ -204,7 +204,7 @@ export default Ember.Route.extend(UnsubscribeRoute, {
 
   model() {
     // 3.
-    return this.get('apollo').query({ query }, 'allLinks').catch(error => alert(error));
+    return this.get('apollo').watchQuery({ query }, 'allLinks').catch(error => alert(error));
   }
 });
 ```

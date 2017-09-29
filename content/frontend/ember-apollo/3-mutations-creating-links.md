@@ -96,7 +96,7 @@ Add the following to the new controller:
 ```js(path=".../hackernews-ember-apollo/app/controllers/create.js")
 import Ember from 'ember';
 // 1.
-import mutation from ‘hackernews-ember-apollo/gql/mutations/createLink';
+import mutation from 'hackernews-ember-apollo/gql/mutations/createLink';
 
 export default Ember.Controller.extend({
   actions: {
