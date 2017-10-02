@@ -173,7 +173,7 @@ server.listen(PORT, () => {
 });
 ```
 
-If the return value of `onConnect` function is an object then its elements will be added to the `context` which will be used by all resolvers. We are generating this context by using our existing `buildOptions` function and we are passing a dummy http request object with `authorization` header because `buildOptions` function expects http request object as first argument. For production-ready apps can pass authorization token from client side and detect current user as mentioned in this **[guide](http://dev.apollodata.com/tools/graphql-subscriptions/authentication.html)**.
+If the return value of `onConnect` function is an object then its elements will be added to the `context` which will be used by all resolvers. We are generating this context by using our existing `buildOptions` function and we are passing a dummy http request object with `authorization` header because `buildOptions` function expects http request object as first argument. For production-ready apps you can pass authorization token from client side and detect current user as mentioned in this **[guide](http://dev.apollodata.com/tools/graphql-subscriptions/authentication.html)**.
 
 </Instruction>
 
