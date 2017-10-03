@@ -24,7 +24,7 @@ Here's an overview of the frontend tutorials we offer:
 Choose your favorite programming language to get started with GraphQL on the server-side:
 
 - **Javascript**: This tutorial uses the [graphql-js](https://github.com/graphql/graphql-js) reference implementation that's developed by Facebook. You'll build a web server using [Node.js](https://nodejs.org/en/), the [Express](https://expressjs.com/) framework as well as the [graphql-tools](https://github.com/apollographql/graphql-tools) library.
-- **Ruby**: Learn how to build a GraphQL server in Ruby with this tutorial based on the [graphql-ruby](https://github.com/rmosolgo/graphql-ruby) library.
+- **Ruby**: [Get Started](https://www.howtographql.com/graphql-ruby/0-introduction/): Learn how to build a GraphQL server in Ruby with this tutorial based on the [graphql-ruby](https://github.com/rmosolgo/graphql-ruby) library.
 - **Java**: [Get Started](https://www.howtographql.com/graphql-java/0-introduction/): Learn how to build a GraphQL server in Java with this tutorial based on the [graphql-java](https://github.com/graphql-java/graphql-java) library.
 - **Elixir**: [Get Started](https://www.howtographql.com/graphql-elixir/0-introduction/): Learn how to build a GraphQL server in Elixir with this tutorial based on the [Absinthe](https://github.com/absinthe-graphql/absinthe) library.
 - **Python** [Get Started](https://www.howtographql.com/graphql-python/0-introduction/): Learn how to build a GraphQL server in Python with this tutorial based on the [Graphene](https://github.com/graphql-python/graphene) library.
