@@ -27,10 +27,12 @@ Go and add this dependency to your app first.
 Open a terminal and navigate to the project's root directory. Then execute the following command:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add subscriptions-transport-ws
+yarn add subscriptions-transport-ws@0.8.3
 ```
 
 </Instruction>
+
+> Note: We're using a version 0.8.3 of the `subscriptions-transport-ws` package to be able to use the `SubscriptionClient`. The tutorial will soon be updated to use the latest APIs.
 
 
 Next, make sure your `ApolloClient` instance knows about the subscription server.
