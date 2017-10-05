@@ -384,7 +384,7 @@ Still in `LinkList.js`, update the way how the `Link` components are rendered in
 
 </Instruction>
 
-That's it! The `updater` function will now be executed and make sure that the store gets updated properly after a mutation was performed. The store update will trigger a rerender of the component and thus update the UI with the correct information!
+That's it! The `update` function will now be executed and make sure that the store gets updated properly after a mutation was performed. The store update will trigger a rerender of the component and thus update the UI with the correct information!
 
 While we're at it, let's also implement `update` for adding new links!
 
