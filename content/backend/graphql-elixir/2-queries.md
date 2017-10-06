@@ -6,7 +6,7 @@ description:  "Learn how to define the GraphQL schema with Absinthe, implement q
 
 ### Defining the Schema
 
-You're going to start by building out an empty Schema. The GraphQL API is how you're going to expose your data to the web, so you're going to place the code for the schema in the web context of your application. Get started by placing the following code in `lib/community/web/schema.ex`
+You're going to start by building out an empty Schema. The GraphQL API is how you're going to expose your data to the web, so you're going to place the code for the schema in the web context of your application. Get started by placing the following code in `lib/community_web/schema.ex`
 
 ```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
 defmodule CommunityWeb.Schema do
