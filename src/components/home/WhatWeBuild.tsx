@@ -81,7 +81,7 @@ export default function WhatWeBuild() {
             </div>
             <div className="point">
               <Checkmark />
-              <p>Detailled instructions &amp; explanations</p>
+              <p>Detailed instructions &amp; explanations</p>
             </div>
             <div className="point">
               <Checkmark />
