@@ -34,7 +34,9 @@ Start by running `ng generate component search` and this create `search.componen
 </hn-link-item>
 
 ```
+</Instruction>
 
+<Instruction>
 Then, add the following code in `search.component.ts`:
 
 ```ts{6-7,}(path=".../hackernews-angular-apollo/src/app/search/search.component.ts")
@@ -112,7 +114,7 @@ Let's review what you are doing here.
 
 <Instruction>
 
-Now add the `SearchComponent` as a new route to the app. Open `src/app/app.routing.module.ts` and update it to look like the following:
+Now add the `SearchComponent` as a new route to the app. Open `src/app/app.routing.ts` and update it to look like the following:
 
 ```ts{6-7,28-33}(path=".../hackernews-angular-apollo/src/router/index.ts")
 import {NgModule} from '@angular/core';

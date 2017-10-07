@@ -17,9 +17,9 @@ Once more, you first need to prepare the Angular components for this new functio
 <Instruction>
 
 
-Open `src/app/app.routing.module.ts` and adjust the routes like so:
+Open `src/app/app.routing.ts` and adjust the routes like so:
 
-```ts{13-27}(path=".../hackernews-angular-apollo/src/app/app.routing.module.ts")
+```ts{13-27}(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
 routes: Routes = [
   {
     path: '',
@@ -353,12 +353,12 @@ You will make use of the [lodash](https://lodash.com/) library within the `order
 
 Open a terminal window and within your project directory run the following command:
 
-```bash
+```bash(path=".../hackernews-angular-apollo")
 npm install --save lodash
 
-or
+# or
 
-yarn add lodash
+# yarn add lodash
 
 ```
 

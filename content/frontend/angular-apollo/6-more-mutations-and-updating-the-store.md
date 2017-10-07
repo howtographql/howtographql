@@ -33,6 +33,10 @@ Open `src/app/link-item/link-item.component.html` and update it to look like the
 </div>
 ```
 
+</Instruction>
+
+<Instruction>
+
 Then, update the code in `login.component.ts`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
@@ -73,7 +77,9 @@ export class LinkItemComponent implements OnInit, OnDestroy {
   }
 }
 ```
+</Instruction>
 
+<Instruction>
 Finally, add the following code in `login.component.css` :
 
 ```css(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.css")
@@ -169,7 +175,9 @@ Open `src/app/link-list/link-list.component.html` and update the rendering of th
 </hn-link-item>
 
 ```
+</Instruction>
 
+<Instruction>
 Then, go ahead and update `src/app/link-list/link-list.component.ts` to look like the following:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
@@ -261,7 +269,7 @@ votes: [Vote!]! @relation(name: "VotesOnLink")
 
 Next, open up a terminal window and navigate to the directory where `types.graphql` is located. Then apply your schema changes by typing the following command:
 
-```bash
+```bash(path=".../hackernews-angular-apollo/graphcool")
 graphcool deploy
 ```
 

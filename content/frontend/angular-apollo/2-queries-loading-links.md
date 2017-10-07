@@ -15,7 +15,7 @@ The first piece of functionality that you'll implement in the app is loading and
 
 Run the command below to generate all boilerplate files:
 
-```bash
+```bash(path=".../hackernews-angular-apollo/")
 ng generate component link-item
 ```
 
@@ -49,7 +49,9 @@ export class LinkItemComponent implements OnInit {
   }
 }
 ```
+</Instruction>
 
+<Instruction>
 ```html(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.html")
 
 <div>{{link.description}} ({{link.url}})</div>
@@ -111,6 +113,9 @@ export class LinkListComponent implements OnInit {
 
 }
 ```
+</Instruction>
+
+<Instruction>
 Then, add the following code in `link-list.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
@@ -158,7 +163,8 @@ export class AppModule {
 }
 
 ```
-
+</Instruction>
+<Instruction>
 Then, open `app.component.html` and replace the current contents with the following:
 
 ```html(path=".../hackernews-angular-apollo/src/app/app.component.html")
@@ -266,7 +272,9 @@ Open up `src/app/link-list/link-list.component.html`, update the html template t
 
 
 ```
+</Instruction>
 
+<Instruction>
 Then, open up `src/app/link-list/link-list.component.ts`, import `ALL_LINKS_QUERY`, remove the hard-coded `linksToRender`, and inject the `Apollo` service. Your `LinkListComponent` component should now look like this:
 
 ```ts{5-6,17-18,23-25,27-28}(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")

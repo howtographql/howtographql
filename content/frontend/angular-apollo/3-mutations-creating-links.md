@@ -18,6 +18,7 @@ In this section, you'll learn how you can send mutations with Apollo. It's actua
 
 Like before, let's start by writing the Angular component where users will be able to add new links.
 
+<Instruction>
 In the root directory, go ahead and run `ng generate component create-link` and this create `create-link.component.ts` , `create-link.component.spec.ts`, `create-link.component.html`, `create-link.component.css` in `src/app/create-link` folder and add the following code in `create-link.component.ts`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
@@ -44,6 +45,9 @@ export class CreateLinkComponent implements OnInit {
 }
 
 ```
+</Instruction>
+
+<Instruction>
 Then, add the following code in `create-link.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.html")
@@ -210,7 +214,7 @@ export class AppModule {
 
 You should now see the following screen:
 
-![](https://imgur.com/a/B4KU9)
+![](https://i.imgur.com/mPiqOCd.png)
 
 Two input fields and a _submit_-button - not very pretty but functional.
 

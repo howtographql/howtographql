@@ -23,10 +23,10 @@ Go ahead and add this dependency to your app first.
 
 Open a terminal and navigate to the project's root directory. Then execute the following command:
 
-```bash
+```bash(path=".../hackernews-angular-apollo/")
 npm install --save subscriptions-transport-ws@0.8.0
-or
-yarn add subscriptions-transport-ws@0.8.0
+# or
+# yarn add subscriptions-transport-ws@0.8.0
 
 ```
 

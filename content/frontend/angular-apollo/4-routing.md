@@ -14,12 +14,12 @@ In this section, you'll learn how to use the [`Angular Router`](https://angular.
 
 The Angular Router is an optional service that are already installed thanks to `angular-cli`.
 
-</Instruction>
-
 
 ### Create a Header
 
 Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
+
+<Instruction>
 
 Go ahead and run `ng generate component header` and this create `header.component.ts` , `header.component.spec.ts`, `header.component.html`, `header.component.css` in `src/app/header` folder and add the following code in `header.component.ts`:
 
@@ -40,6 +40,9 @@ export class HeaderComponent implements OnInit {
 
 }
 ```
+</Instruction>
+
+<Instruction>
 Then, add the following code in `header.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/header/header.component.html")
@@ -62,13 +65,13 @@ This simply renders two `router-link` that users can use to navigate between the
 
 ### Setup routes
 
-You'll configure the different routes for the app in `src/app/app.routing.module.ts`.
+You'll configure the different routes for the app in `src/app/app.routing.ts`.
 
 <Instruction>
 
-Open the corresponding file `src/app/app.route.ts` and update the code to match the following:
+Open the corresponding file `src/app/app.routing.ts` and update the code to match the following:
 
-```js{4-6,11-23}(path=".../hackernews-angular-apollo/src/app/app.routing.module.ts")
+```js{4-6,11-23}(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
@@ -166,7 +169,6 @@ In `src/app/app.component.html` update your template to the following (`router-o
 
 </Instruction>
 
-<Instruction>
 
 That's it. You can now access two URLs: `http://localhost:4200/` will render `LinkListComponent` and `http://localhost:4200/create` will render the `CreateLinkComponent` component you just wrote in the previous section.
 

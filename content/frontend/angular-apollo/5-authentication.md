@@ -48,9 +48,10 @@ export class LoginComponent implements OnInit {
     this.authService.setUserId(id);
   }
 }
-
-
 ```
+</Instruction>
+
+<Instruction>
 Then, add the following code in `login.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/login/login.component.html")
@@ -117,9 +118,9 @@ With that component in place, you can go ahead and add a new route to your `src/
 
 <Instruction>
 
-Open `src/app/app.routing.module.ts` and update the `routes` array to include the new route:
+Open `src/app/app.routing.ts` and update the `routes` array to include the new route:
 
-```ts{23-27}(path=".../hackernews-angular-apollo/src/app/app.routing.module.ts")
+```ts{23-27}(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
 const routes: Routes = [
   {
     path: '',
@@ -150,7 +151,7 @@ const routes: Routes = [
 
 Also import the `Login` component near top of the same file:
 
-```ts(path=".../hackernews-angular-apollo/src/app/app.routing.module.ts")
+```ts(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
 import {LoginComponent} from './login/login.component';
 ```
 
@@ -229,6 +230,8 @@ Let's take close look again to understand what's going on:
 
 Note, don't forgot to inject `AuthService` in `app.module.ts`:
 
+</Instruction>
+<Instruction>
 ```ts{31-33}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 providers: [
     AuthService
@@ -274,6 +277,10 @@ export class HeaderComponent implements OnInit {
 }
 
 ```
+
+</Instruction>
+
+<Instruction>
 Then, update the following code in `header.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/header/header.component.html")
@@ -314,7 +321,7 @@ Before you can implement the authentication functionality in `src/app/login/logi
 
 In the directory where `types.graphql` is located, type the following into the terminal:
 
-```bash
+```bash(path=".../hackernews-angular-apollo/graphcool")
 graphcool console
 ```
 
@@ -364,7 +371,7 @@ Next, you have to make sure that the changes introduced by the authentication pr
 
 Open a terminal window and navigate to the directory where `project.graphcool` is located. Then run the following command:
 
-```bash
+```bash(path=".../hackernews-angular-apollo/graphcool")
 graphcool pull
 ```
 
@@ -425,7 +432,7 @@ You added two things to the schema:
 
 Save the file and execute the following command in the Terminal:
 
-```bash
+```bash(path=".../hackernews-angular-apollo/graphcool")
 graphcool push
 ```
 

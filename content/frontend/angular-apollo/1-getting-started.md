@@ -61,7 +61,7 @@ Now you can go and create the server.
 Type the following command into the terminal:
 
 ```bash
-graphcool init graphqlcool --template blank --name Hackernews
+graphcool init graphcool --template blank --name Hackernews
 ```
 
 </Instruction>
@@ -72,13 +72,13 @@ This will execute the `graphcool init` command with two arguments:
 - `--name`: This is the name of the Graphcool project you're creating, here you're simply calling it `Hackernews`.
 
 
-Note that this command will create a `graphql` directory
+Note that this command will create a `graphcool` directory
 
 <Instruction>
 
 ```bash
 .
-└── graphqlcool
+└── graphcool
     ├── .graphcoolrc
     ├── code
     │   ├── hello.graphql
@@ -87,10 +87,10 @@ Note that this command will create a `graphql` directory
     └── types.graphql
 ```
 Each of the created files and directories have a dedicated purpose inside your Graphcool project:
-* .graphcoolrc: Contains information about the environments that you have configured for your project.
-* code: Contains the source code (and if necessary GraphQL queries) for the functions you've configured for your project.
-* graphcool.yml: Contains your project definition.
-* types.graphql: Contains all the type definitions for your project, written in the GraphQL Schema Definitiona Language (SDL).
+* `.graphcoolrc`: Contains information about the environments that you have configured for your project.
+* `code`: Contains the source code (and if necessary GraphQL queries) for the functions you've configured for your project.
+* `graphcool.yml`: Contains your project definition.
+* `types.graphql`: Contains all the type definitions for your project, written in the GraphQL Schema Definitiona Language (SDL).
 
 </Instruction>
 
@@ -154,9 +154,9 @@ You'll do this by using a GraphQL [Playground](https://www.graph.cool/docs/refer
 
 <Instruction>
 
-Open up a terminal and navigate to the `graphqlcool` directory created with the `graphcool cli`. Then execute the following command:
+Open up a terminal and navigate to the `graphcool` directory created with the `graphcool cli`. Then execute the following command:
 
-```bash
+```bash(path=".../hackernews-angular-apollo/graphcool")
 graphcool playground
 ```
 
@@ -265,8 +265,8 @@ Make sure everything works by navigating into the directory and starting the app
 
 ```bash
 cd hackernews-angular-apollo
-npm install or yarn
-npm start or yarn start
+npm install # or yarn
+npm start # or yarn start
 ```
 
 This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you'll see the following:
@@ -276,14 +276,14 @@ This will open a browser and navigate to `http://localhost:4200` where the app i
 
 <Instruction>
 
-Next, go ahead move `graphqlcool` folder created into the `hackernews-angular-apollo` directory to manage everything in one place.
+Next, go ahead move `graphcool` folder created into the `hackernews-angular-apollo` directory to manage everything in one place.
 
 </Instruction>
 
 
 Your project structure should now look as follows:
 
-```bash(nocopy)
+```bash(nocopy)(path=".../hackernews-angular-apollo")
 .
 ├── README.md
 ├── e2e
@@ -293,7 +293,12 @@ Your project structure should now look as follows:
 ├── karma.conf.ts
 ├── node_modules
 ├── package.tson
-├── project.graphcool
+├── graphcool
+│   ├── code
+│   │   ├── hello.graphql
+│   │   └── hello.js
+│   ├── graphcool.yml
+│   └── types.graphql
 ├── protractor.conf.ts
 ├── src
 │   ├── app
@@ -302,12 +307,6 @@ Your project structure should now look as follows:
 │   │   ├── app.component.spec.ts
 │   │   ├── app.component.ts
 │   │   └── app.module.ts
-│   │   ├── graphqlcool
-│   │   │   ├── code
-│   │   │   │   ├── hello.graphql
-│   │   │   │   └── hello.js
-│   │   │   ├── graphcool.yml
-│   │   │   └── types.graphql
 │   ├── assets
 │   ├── environments
 │   │   ├── environment.prod.ts
@@ -334,7 +333,7 @@ This tutorial is about the concepts of GraphQL and how you can use it from withi
 
 Open `src/index.html` and add a second `link` tag right below the two existing ones that pulls in Tachyons:
 
-```html{3}(path=".../hackernews-angular-apollo/src/index.html")
+```html(path=".../hackernews-angular-apollo/src/index.html")
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
 ```
@@ -406,9 +405,9 @@ Next, you need to pull in the functionality of Apollo Client by installing both 
 ```bash(path=".../hackernews-angular-apollo")
 npm install apollo-client apollo-angular --save
 
-or
+# or
+# yarn add  apollo-client apollo-angular
 
-yarn add  apollo-client apollo-angular
 ```
 
 </Instruction>
@@ -494,7 +493,7 @@ There are two ways for you to get your endpoint. You can either open the [Graphc
 
 In the terminal, navigate into the directory where `types.graphql` is located and use the following command:
 
-```bash(path=".../hackernews-angular-apollo")
+```bash(path=".../hackernews-angular-apollo/graphcool")
 graphcool info
 ```
 
