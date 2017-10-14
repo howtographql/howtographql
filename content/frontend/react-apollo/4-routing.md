@@ -15,7 +15,7 @@ In this section, you'll learn how to use the [`react-router`](https://github.com
 
 ### Install Dependencies
 
-First add the dependency to the app. Open a Terminal, navigate to your project directory and and type: 
+First add the dependency to the app. Open a Terminal, navigate to your project directory and type: 
 
 <Instruction>
 
@@ -109,7 +109,7 @@ import { Switch, Route } from 'react-router-dom'
 </Instruction>
 
 
-Now you need to wrap the `App` with with `BrowserRouter` so that all child components of `App` will get access to the routing functionality.
+Now you need to wrap the `App` with `BrowserRouter` so that all child components of `App` will get access to the routing functionality.
 
 
 <Instruction>
