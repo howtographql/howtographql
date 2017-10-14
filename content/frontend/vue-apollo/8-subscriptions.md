@@ -172,7 +172,7 @@ import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION } from '../constants/graphql'
 </Instruction>
 
 
-Let's understand what's going on here! You're using the `allLinks` query that you have access to to call [`subscribeToMore`](https://github.com/Akryum/vue-apollo#subscribetomore). This call opens up a websocket connection to the subscription server.
+Let's understand what's going on here! You're using the `allLinks` query that you have access to call [`subscribeToMore`](https://github.com/Akryum/vue-apollo#subscribetomore). This call opens up a websocket connection to the subscription server.
 
 You're passing an array to `subscribeToMore`:
 
@@ -288,6 +288,6 @@ import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION, NEW_VOTES_SUBSCRIPTION } from 
 
 </Instruction>
 
-Similar to before, you're calling `subscribeToMore` on the `allLinks` query. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and and then updating its `votes` with the `Vote` element that was sent from the server.
+Similar to before, you're calling `subscribeToMore` on the `allLinks` query. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and then updating its `votes` with the `Vote` element that was sent from the server.
 
 Fantastic! Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.
