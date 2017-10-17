@@ -14,7 +14,7 @@ In this section, you'll learn how you can implement authentication functionality
 
 ### Prepare the React components
 
-As in the sections before, you'll set the stage for the login functionality by preparing the React components that are needed for this feature. You'll start by implementing the `Login` component. 
+As in the sections before, you'll set the stage for the login functionality by preparing the React components that are needed for this feature. You'll start by implementing the `Login` component.
 
 <Instruction>
 
@@ -89,7 +89,7 @@ class Login extends Component {
 }
 
 export default Login
-``` 
+```
 
 </Instruction>
 
@@ -102,7 +102,7 @@ The second state is for users that haven't created an account yet, and thus stil
 
 The method `_confirm`  will be used to implement the mutations that we need to send for the login functionality.
 
-Next you also need to provide the `constants.js` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`. 
+Next you also need to provide the `constants.js` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`.
 
 <Instruction>
 
@@ -116,7 +116,7 @@ export const GC_AUTH_TOKEN = 'graphcool-auth-token'
 </Instruction>
 
 
-With that component in place, you can go and add a new route to your `react-router-dom` setup. 
+With that component in place, you can go and add a new route to your `react-router-dom` setup.
 
 
 <Instruction>
@@ -145,7 +145,7 @@ render() {
 
 <Instruction>
 
-Also import the `Login` component on top of the same file: 
+Also import the `Login` component on top of the same file:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import Login from './Login'
@@ -154,7 +154,7 @@ import Login from './Login'
 </Instruction>
 
 
-Finally, go ahead and add `Link` to the `Header` that allows the users to navigate to the `Login` page. 
+Finally, go ahead and add `Link` to the `Header` that allows the users to navigate to the `Login` page.
 
 <Instruction>
 
@@ -180,7 +180,7 @@ render() {
           <div className='ml1 pointer black' onClick={() => {
             localStorage.removeItem(GC_USER_ID)
             localStorage.removeItem(GC_AUTH_TOKEN)
-            this.props.history.push(`/new/1`)
+            this.props.history.push(`/`)
           }}>logout</div>
           :
           <Link to='/login' className='ml1 no-underline black'>login</Link>
@@ -194,7 +194,7 @@ render() {
 </Instruction>
 
 
-You first retrieve the `userId` from local storage. If the `userId` is not available, the _submit_-button won't be rendered any more. That way you make sure only authenticated users can create new links. 
+You first retrieve the `userId` from local storage. If the `userId` is not available, the _submit_-button won't be rendered any more. That way you make sure only authenticated users can create new links.
 
 You're also adding a second button to the right of the `Header` that users can use to login and logout.
 
@@ -208,11 +208,11 @@ import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 
 </Instruction>
 
- 
+
 Here is what the ready component looks like:
 
 ![](http://imgur.com/tBxMVtb.png)
- 
+
 Before you can implement the authentication functionality in `Login.js`, you need to prepare the Graphcool project and enable authentication on the server-side.
 
 ### Enabling Email-and-Password Authentication & Updating the Schema
@@ -278,7 +278,7 @@ graphcool pull
 
 </Instruction>
 
-> Note: Before the remote schema gets fetched, you will be asked to confirm that you want to override the current project file. You can confirm by typing `y`. 
+> Note: Before the remote schema gets fetched, you will be asked to confirm that you want to override the current project file. You can confirm by typing `y`.
 
 This will bump the schema `version` to `2` and update the `User` type to now also include the `email` and `password` fields:
 
@@ -344,7 +344,7 @@ Here is the Terminal output after you can the command:
 
 ```sh(nocopy)
 $ graphcool push
- ✔ Your schema was successfully updated. Here are the changes: 
+ ✔ Your schema was successfully updated. Here are the changes:
 
   | (*)  The type `User` is updated.
   ├── (+)  A new field with the name `name` and type `String!` is created.
@@ -419,7 +419,7 @@ export default compose(
 
 Note that you're using `compose` for the export statement this time since there is more than one mutation that you want to wrap the component with.
 
-Before we take a closer look at the two mutations, go ahead and add the required imports. 
+Before we take a closer look at the two mutations, go ahead and add the required imports.
 
 <Instruction>
 
@@ -479,7 +479,7 @@ The code is pretty straightforward. If the user wants to only login, you're call
 
 You can now create an account by providing a `name`, `email` and `password`. Once you did that, the _submit_-button will be rendered again:
 
-![](http://imgur.com/WoWLmDJ.png) 
+![](http://imgur.com/WoWLmDJ.png)
 
 ### Updating the `createLink`-mutation
 
@@ -543,7 +543,7 @@ _createLink = async () => {
 </Instruction>
 
 
-For this to work, you also need to import the `GC_USER_ID` key. 
+For this to work, you also need to import the `GC_USER_ID` key.
 
 
 <Instruction>
