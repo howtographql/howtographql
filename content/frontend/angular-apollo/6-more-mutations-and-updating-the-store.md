@@ -202,7 +202,7 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     const querySubscription = this.apollo.watchQuery<AllLinkQueryResponse>({
       query: ALL_LINKS_QUERY
-    }).subscribe((response) => {
+    }).valueChanges.subscribe((response) => {
       this.allLinks = response.data.allLinks;
       this.loading = response.data.loading;
     });

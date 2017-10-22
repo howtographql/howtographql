@@ -304,7 +304,7 @@ export class LinkListComponent implements OnInit {
     // 4
     this.apollo.watchQuery<AllLinkQueryResponse>({
       query: ALL_LINKS_QUERY
-    }).subscribe((response) => {
+    }).valueChanges.subscribe((response) => {
       // 5
       this.allLinks = response.data.allLinks;
       this.loading = response.data.loading;
