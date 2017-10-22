@@ -399,14 +399,15 @@ input {
 #### Installing Apollo
 
 <Instruction>
+ApolloClient 2.0 introduced two new features, Links and Cache. Links are for fetching and manipulating data using custom logic.
 
-Next, you need to pull in the functionality of Apollo Client by installing both `apollo-client` and `apollo-angular`:
+To get back all the functionalities provided by the Apollo Client 1.0, we need to install `apollo-cache-inmemory` (for the caching), `apollo-angular-link-http` (for fetching and manipulating data), `apollo-client`, `@types/zen-observable`, `apollo-link-ws`, `graphql` and `apollo-angular`:
 
 ```bash(path=".../hackernews-angular-apollo")
-npm install apollo-client apollo-angular --save
+npm install apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http --save
 
 # or
-# yarn add  apollo-client apollo-angular
+# yarn add  apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http
 
 ```
 
