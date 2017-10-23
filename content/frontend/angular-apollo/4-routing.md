@@ -142,7 +142,7 @@ imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ApolloModule.forRoot(provideClient)
+    GraphQLModule
   ],
   providers: [],
   // ...

@@ -140,8 +140,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {provideClient} from './apollo.config';
-import {ApolloModule} from 'apollo-angular';
+
+import {GraphQLModule} from './apollo.config';
 import { LinkItemComponent } from './link-item/link-item.component';
 import { LinkListComponent } from './link-list/link-list.component';
 
@@ -154,7 +154,7 @@ import { LinkListComponent } from './link-list/link-list.component';
   ],
   imports: [
     BrowserModule,
-    ApolloModule.forRoot(provideClient)
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]
