@@ -208,16 +208,25 @@ Next, open `src/app/link-list/link-list.component.ts` and update `watchQuery` fu
       });
 
     // 5
-    const allLinkQuery: ApolloQueryObservable<AllLinkQueryResponse> = this.apollo.watchQuery<AllLinkQueryResponse>({
-      query: ALL_LINKS_QUERY,
-      variables: {
-        first: first$,
-        skip: skip$,
-        orderBy: orderBy$
-      }
-    });
+    const getQuery = (variables): Observable<ApolloQueryResult<AllLinkQueryResponse>> => {
+      const query = this.apollo.watchQuery<AllLinkQueryResponse>({
+        query: ALL_LINKS_QUERY,
+        variables
+      });
 
-    // 6
+      // Call .subscribeToMore on the query for NEW_LINKS_SUBSCRIPTION, NEW_VOTES_SUBSCRIPTION omitted
+
+      return query.valueChanges;
+    };
+
+
+    const allLinkQuery: Observable<ApolloQueryResult<AllLinkQueryResponse>> = Observable
+      // 6
+      .combineLatest(first$, skip$, orderBy$, (first, skip, orderBy) => ({ first, skip, orderBy }))
+      // 7
+      .switchMap((variables: any) =>  getQuery(variables));
+
+    // 8
     const querySubscription = allLinkQuery.subscribe((response) => {
       this.allLinks = response.data.allLinks;
       this.count = response.data._allLinksMeta.count;
@@ -234,8 +243,10 @@ Let's take close look again to understand what's going on:
 2. Now, we begin to create the first stream, that will be used as `variables` in the `watchQuery` function, `first$`. `first$` used to calculate the chunk of links that you retrieve.
 3. Then, we declare `skip$`, the second variable that will us to the chunk of links that you retrieve
 4. Afterwards, we provide `orderBy$` that will include the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
-5. We set the `variables` in the options. Instead of using just primitive values inside `options.variables`, you can specify an observable. This way watchQuery method will wait watchQuery waits for the first emitted value for all observable variables before it will do anything.
-6. In the end, We execute the query and save the `allLinks` and the `count`
+5. We create the `getQuery` function that will receive the variables (the values of `first$`, `skip$` and `orderBy$` ) in parameter, set it in the options and returns the `Observable` of `valueChanges`. Note, that we perform also the `subscribeToMore`.
+6. Now, we combine all observables of `first$`, `skip$` and `orderBy$`,  get their values  and create  an object having the property first, skip, orderBy
+7. Then we retrieve the object created by the combination of  `first$`, `skip$` and `orderBy$` to provide it to the `getQuery` function. Due the fact that `getQuery` returns an `Observable<ApolloQueryResult<AllLinkQueryResponse>>`, we will get an `Observable<Observable<ApolloQueryResult<AllLinkQueryResponse>>>` if we use the `.map` operator. Therefore, we use `switchMap` to "flatten" the `Observable<Observable<ApolloQueryResult<AllLinkQueryResponse>>>` to an `Observable<ApolloQueryResult<AllLinkQueryResponse>>`
+8. In the end, We execute the query and save the `allLinks` and the `count`
 
 You also need to define the `LINKS_PER_PAGE` constant and then import it into the `LinkListComponent` as well as the `LinkItemComponent`.
 
@@ -255,7 +266,7 @@ export const LINKS_PER_PAGE = 5;
 Now add an import statement from `../app/constants` in `src/app/link-list/link-list.component.ts`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
-import { LINKS_PER_PAGE } from '../app/constants'
+import { LINKS_PER_PAGE } from '../app/constants';
 ```
 
 </Instruction>
