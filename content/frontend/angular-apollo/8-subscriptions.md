@@ -24,9 +24,9 @@ Go ahead and add this dependency to your app first.
 Open a terminal and navigate to the project's root directory. Then execute the following command:
 
 ```bash(path=".../hackernews-angular-apollo/")
-npm install --save subscriptions-transport-ws@0.8.0
+npm install --save subscriptions-transport-ws@next apollo-link-ws apollo-link
 # or
-# yarn add subscriptions-transport-ws@0.8.0
+# yarn add subscriptions-transport-ws@next apollo-link-ws apollo-link
 
 ```
 
@@ -40,7 +40,11 @@ Next, make sure your `ApolloClient` instance knows about the subscription server
 Open `src/app/apollo.config.ts` and add the following import near the top of the file:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import {getOperationAST} from 'graphql';
+import {WebSocketLink} from 'apollo-link-ws';
+import {ApolloLink} from 'apollo-link';
+
 ```
 
 </Instruction>
@@ -50,43 +54,47 @@ import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-trans
 Now update the configuration code like so:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
-const networkInterface = createBatchingNetworkInterface({
-  uri: '__SIMPLE_API_ENDPOINT__'
-});
+constructor(apollo: Apollo,
+              httpLink: HttpLink) {
 
-const wsClient = new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
-  reconnect: true,
-  connectionParams: {
-    authToken: localStorage.getItem(GC_AUTH_TOKEN)
-  }
-});
-
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-  networkInterface,
-  wsClient
-);
-
-networkInterface.use([{
-  applyBatchMiddleware (req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
     const token = localStorage.getItem(GC_AUTH_TOKEN);
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
-    next()
-  }
-}]);
+    const authorization = token ? `Bearer ${token}` : null;
+    const headers = new HttpHeaders();
+    headers.append('Authorization', authorization);
 
-const apolloClient = new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions,
-  connectToDevTools: true
-});
+    const uri = '__SIMPLE_API_ENDPOINT__';
+    const http = httpLink.create({ uri, headers });
+
+    // 1
+    const ws = new WebSocketLink(new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
+      reconnect: true,
+      connectionParams: {
+        authToken: localStorage.getItem(GC_AUTH_TOKEN)
+      }
+    }));
+
+    apollo.create({
+      // 2
+      link: ApolloLink.split(
+        // 3
+        operation => {
+          const operationAST = getOperationAST(operation.query, operation.operationName);
+          return !!operationAST && operationAST.operation === 'subscription';
+        },
+        ws,
+        http,
+      ),
+      cache: new InMemoryCache()
+    });
+  }
 ```
+What's going on here?
+
+1. You're instantiating a `SubscriptionClient` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`. Then, we provide `SubscriptionClient` instance to `WebSocketLink` that will handle the subscription GraphQL operation.
+2. Due to the fact that Links represent small portions of how you want your GraphQL operation to be handled. They are designed to be composed with other links. In our case, we need to control which links are used depending on the operation ( i.e `directional composition`). Apollo Link provides and easy way to use different links depending on the operation by using `.split` method.
+3. `split` takes two required parameters and one optional one. The first argument to split is a function which receives the operation and returns true for the first link ( second argument) and false for the second link ( third argument). So, if the operation that are coming is 'subscription', we run the `WebSocketLink` else `HttpLink`
 
 </Instruction>
-
-
-You're instantiating a `SubscriptionClient` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`.
 
 Now you need to replace the placeholder `__SUBSCRIPTION_API_ENDPOINT__ ` with the endpoint for the subscriptions API.
 
@@ -165,7 +173,7 @@ Open `src/app/list-link/list-link.component.ts` and update the `watchQuery` impl
         document: NEW_LINKS_SUBSCRIPTION,
         updateQuery: (previous, { subscriptionData }) => {
           const newAllLinks = [
-            subscriptionData.data.Link.node,
+            subscriptionData.Link.node,
             ...previous.allLinks
           ];
           return {
@@ -175,7 +183,7 @@ Open `src/app/list-link/list-link.component.ts` and update the `watchQuery` impl
         }
       });
 
-    const querySubscription = allLinkQuery.subscribe((response) => {
+    const querySubscription = allLinkQuery.valueChanges.subscribe((response) => {
       this.allLinks = response.data.allLinks;
       this.loading = response.data.loading;
     });
@@ -213,7 +221,7 @@ Still in `src/app/list-link/list-link.component.ts` implement `updateQuery` like
 
 ```ts(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
           const newAllLinks = [
-            subscriptionData.data.Link.node,
+            subscriptionData.Link.node,
             ...previous.allLinks
           ];
           return {
@@ -225,7 +233,7 @@ Still in `src/app/list-link/list-link.component.ts` implement `updateQuery` like
 </Instruction>
 
 
-All you do here is retrieve the new link from the subscription data (` subscriptionData.data.Link.node`), merge it into the existing list of links and return the result of this operation.
+All you do here is retrieve the new link from the subscription data (` subscriptionData.Link.node`), merge it into the existing list of links and return the result of this operation.
 
 Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application running on `http://localhost:4200/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
 
@@ -293,8 +301,8 @@ Open `src/app/list-link/list-link.component.ts` and call again the `sunscribeToM
         document: NEW_VOTES_SUBSCRIPTION,
         updateQuery: (previous, { subscriptionData }) => {
           const votedLinkIndex = previous.allLinks.findIndex(link =>
-            link.id === subscriptionData.data.Vote.node.link.id);
-          const link = subscriptionData.data.Vote.node.link;
+            link.id === subscriptionData.Vote.node.link.id);
+          const link = subscriptionData.Vote.node.link;
           const newAllLinks = previous.allLinks.slice();
           newAllLinks[votedLinkIndex] = link;
           return {
