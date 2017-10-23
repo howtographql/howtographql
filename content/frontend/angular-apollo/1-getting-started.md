@@ -399,17 +399,19 @@ input {
 #### Installing Apollo
 
 <Instruction>
-ApolloClient 2.0 introduced two new features, Links and Cache. Links are for fetching and manipulating data using custom logic.
 
-To get back all the functionalities provided by the Apollo Client 1.0, we need to install `apollo-cache-inmemory` (for the caching), `apollo-angular-link-http` (for fetching and manipulating data), `apollo-client`, `@types/zen-observable`, `apollo-link-ws`, `graphql` and `apollo-angular`:
+ApolloClient 2.0 introduced two new features, Links and Cache. Links are for fetching and manipulating data using custom logic. The Cache API allow us to store and handle data in any way we want.
+
+To get back all the functionalities provided by the Apollo Client 1.0, we need to install `apollo-cache-inmemory` (for the caching), `apollo-angular-link-http` (for fetching and manipulating data), `apollo-client`, `@types/zen-observable`, `graphql` and `apollo-angular`:
 
 ```bash(path=".../hackernews-angular-apollo")
-npm install apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http --save
+npm install apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http @types/zen-observable graphql --save
 
 # or
-# yarn add  apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http
+# yarn add  apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http @types/zen-observable graphql
 
 ```
+Note, `apollo-angular-link-http` provides a similar `HttpLink` to Apollo's `HttpLink` with one difference, it uses Angular's `HttpClient`. `apollo-cache-inmemory` is a cache implementation that supports all of Apollo Client 1.0's features without the dependency on `Redux`.
 
 </Instruction>
 
@@ -425,24 +427,39 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/app/apollo.config.ts` and add the following contents :
 
-```ts{1-2,4-7,9-12,14-17}(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+```ts{3-7,11-14,18-19,21-24,25-30}(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
 // 1
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import {Apollo, ApolloModule} from 'apollo-angular';
+import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
+import {InMemoryCache} from 'apollo-cache-inmemory';
 
-// 2
-const networkInterface = createNetworkInterface({
-  uri: '__SIMPLE_API_ENDPOINT__'
-});
 
-// 3
-const client = new ApolloClient({
-  networkInterface
-});
+@NgModule({
+  exports: [
+    // 2
+    HttpClientModule,
+    ApolloModule,
+    HttpLinkModule
+  ]
+})
+export class GraphQLModule {
+  // 3
+  constructor(apollo: Apollo, httpLink: HttpLink) {
 
-// 4
-export function provideClient(): ApolloClient {
-  return client;
+    // 4
+    const uri = '__SIMPLE_API_ENDPOINT__';
+    const http = httpLink.create({ uri });
+
+    // 6
+    apollo.create({
+      link: http,
+      cache: new InMemoryCache()
+    });
+  }
 }
+
 
 ```
 
@@ -450,22 +467,24 @@ export function provideClient(): ApolloClient {
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the required dependencies from the `apollo-client` package
-2. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
-3. Now you instantiate the `ApolloClient` by passing in the `networkInterface`.
-4. Then we export the `ApolloClient` instance.
+1. You're importing the required dependencies from the `apollo-angular`, `apollo-angular-link-http`, `apollo-cache-inmemory` packages
+2. We export the `HttpClientModule`, `ApolloModule`, `HttpLinkModule` to make them "public" when `GraphQLModule` is imported in another module. In fact, if you don't export, it stays private, visible only to other component declared in this module. You can find more information in [NgModule FAQs](https://angular.io/guide/ngmodule-faq#what-should-i-export)
+3. We inject the `Apollo` and `HttpLink` to be able to configure them
+4. We create a `link` by providing the `uri` (i.e your actual GraphQL endpoint) to the `.create` method of the `HttpLink` instance
+3. Now you instantiate the `ApolloClient` by passing in the `link` created and a `InMemoryCache` cache instance. The `HttpLink` is a replacement for `createNetworkInterface` from Apollo Client 1.0
+
+Finally, we export the `GraphQLModule`.
 
 <Instruction>
 
-Open `src/app/app.module.ts` and connect your client instance to your app using the ApolloModule.forRoot :
+Open `src/app/app.module.ts` and import the GraphQLModule in AppModule:
 
 ```ts{14}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {provideClient} from './apollo.config';
-import {ApolloModule} from 'apollo-angular';
+import {GraphQLModule} from './apollo.config';
 
 @NgModule({
   declarations: [
@@ -474,7 +493,7 @@ import {ApolloModule} from 'apollo-angular';
   imports: [
     BrowserModule,
     // connection
-    ApolloModule.forRoot(provideClient)
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]
