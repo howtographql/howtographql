@@ -402,13 +402,13 @@ input {
 
 ApolloClient 2.0 introduced two new features, Links and Cache. Links are for fetching and manipulating data using custom logic. The Cache API allow us to store and handle data in any way we want.
 
-To get back all the functionalities provided by the Apollo Client 1.0, we need to install `apollo-cache-inmemory` (for the caching), `apollo-angular-link-http` (for fetching and manipulating data), `apollo-client`, `@types/zen-observable`, `graphql` and `apollo-angular`:
+To get back all the functionalities provided by the Apollo Client 1.0, we need to install `apollo-cache-inmemory` (for the caching), `apollo-angular-link-http` (for fetching and manipulating data), `@types/zen-observable`, `graphql` and `apollo-angular`:
 
 ```bash(path=".../hackernews-angular-apollo")
-npm install apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http @types/zen-observable graphql --save
+npm install apollo-angular apollo-cache-inmemory apollo-angular-link-http @types/zen-observable graphql --save
 
 # or
-# yarn add  apollo-client apollo-angular apollo-cache-inmemory apollo-angular-link-http @types/zen-observable graphql
+# yarn add apollo-angular apollo-cache-inmemory apollo-angular-link-http @types/zen-observable graphql
 
 ```
 Note, `apollo-angular-link-http` provides a similar `HttpLink` to Apollo's `HttpLink` with one difference, it uses Angular's `HttpClient`. `apollo-cache-inmemory` is a cache implementation that supports all of Apollo Client 1.0's features without the dependency on `Redux`.
