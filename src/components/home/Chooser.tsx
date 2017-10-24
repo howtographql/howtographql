@@ -27,10 +27,16 @@ interface State {
   selectedCategoryIndex: number
 }
 
+const FRONTEND_TUTORIALS_COUNT = 5
+const CATEGORIES = ['Frontend', 'Backend']
+const FRONTEND_INDEX = 0
+const BACKEND_INDEX = 1
+
+
 export default class Chooser extends React.Component<Props, State> {
   state = {
     selectedCategoryIndex: 0,
-    selectedIndex: 4,
+    selectedIndex: 5,
   }
 
   render() {
@@ -306,7 +312,7 @@ export default class Chooser extends React.Component<Props, State> {
             index={selectedCategoryIndex}
             onChangeIndex={this.handleChangeSelectedCategoryIndex}
           >
-            {['Frontend', 'Backend'].map((cat, index) =>
+            {CATEGORIES.map((cat, index) =>
               <div
                 className={cn('category', {
                   active: index === selectedCategoryIndex,
@@ -377,7 +383,7 @@ export default class Chooser extends React.Component<Props, State> {
     if (index < 0 || index > Object.keys(this.props.mds).length) {
       return
     }
-    const selectedCategoryIndex = index > 4 ? 1 : 0
+    const selectedCategoryIndex = index > 5 ? 1 : 0
     this.setState({ selectedIndex: index, selectedCategoryIndex })
   }
 
@@ -402,11 +408,11 @@ export default class Chooser extends React.Component<Props, State> {
   private handleChangeSelectedCategoryIndex = index => {
     this.setState(state => {
       let selectedIndex = 0
-      if (index === 0) {
-        selectedIndex = 4
+      if (index === FRONTEND_INDEX) {
+        selectedIndex = FRONTEND_TUTORIALS_COUNT
       }
-      if (index === 1) {
-        selectedIndex = 5
+      if (index === BACKEND_INDEX) {
+        selectedIndex = FRONTEND_TUTORIALS_COUNT+1
       }
       return { ...state, selectedCategoryIndex: index, selectedIndex }
     })

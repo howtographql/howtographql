@@ -52,10 +52,13 @@ The first thing you need to do to get subscriptions to work is add websocket sup
 In a terminal, navigate to the root directory of your project and execute the following command
 
 ```bash(path=".../hackernews-react-relay")
-yarn add subscriptions-transport-ws
+yarn add subscriptions-transport-ws@0.8.3
 ```
 
 </Instruction>
+
+> Note: We're using a version 0.8.3 of the `subscriptions-transport-ws` package to be able to use the `SubscriptionClient`. The tutorial will soon be updated to use the latest APIs.
+
 
 This package contains the `SubscriptionClient` that you need to setup subscriptions on the frontend. The `SubscriptionClient` is a good fit in this case as it implements the same [protocol](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) as the subscriptions API from Graphcool.
 

@@ -19,7 +19,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      selectedIndex: 4,
+      selectedIndex: 5,
     }
   }
 

@@ -34,7 +34,7 @@ import django_filters
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
-from links.models import Link
+from links.models import Link, Vote
 from users.schema import get_user
 
 

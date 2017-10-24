@@ -22,7 +22,7 @@ Of course, nothing stops you from using plain HTTP to fetch your data and then s
 
 ### Directly Sending Queries and Mutations
 
-A major benefit of GraphQL is that it allows you to fetch and update data in a _declarative_ manner. Put differently, we climb up one step higher on the API abstraction ladder and don't have to deal with low-level networking tasks ourselves any more.
+A major benefit of GraphQL is that it allows you to fetch and update data in a _declarative_ manner. Put differently, we climb up one step higher on the API abstraction ladder and don't have to deal with low-level networking tasks ourselves anymore.
 
 When you previously used plain HTTP (like `fetch` in Javascript or `NSURLSession` on iOS) to load data from an API, all you need to do with GraphQL is write a query where you declare your data requirements and let the system take care of sending the request and handling the response for you. This is precisely what a GraphQL client will do.
 
@@ -36,9 +36,9 @@ Taking React as an example, GraphQL clients use the concept of [higher-order com
 
 ### Caching Query Results: Concepts and Strategies
 
-In the majority of applications, you'll want to maintain a cache of the data that was previously fetched from the server. Having information cached locally is essential to provide a fluent user experience and takes load off your users' data plans.
+In the majority of applications, you'll want to maintain a cache of the data that was previously fetched from the server. Having information cached locally is essential to provide a fluent user experience and takes the load off your users' data plans.
 
-Generally when caching data, the intuition is to put information that's fetched remotely into a local _store_ from where it can be retrieved later on. With GraphQL, the naive approach would be to simply put the results of GraphQL queries into the store and whenever that exact same query is executed again, just return the previously stored data. It turns out that this approach is very inefficient for most applications. 
+Generally, when caching data, the intuition is to put information that's fetched remotely into a local _store_ from where it can be retrieved later on. With GraphQL, the naive approach would be to simply put the results of GraphQL queries into the store and whenever that exact same query is executed again, just return the previously stored data. It turns out that this approach is very inefficient for most applications. 
 
 A more beneficial approach is to _normalize_ the data beforehand. That means that the (potentially nested) query result gets flattened and the store will only contain individual records that can be referenced with a globally unique ID. If you want to learn more about this, the [Apollo blog](https://dev-blog.apollodata.com/the-concepts-of-graphql-bc68bd819be3) has a great write-up on the topic.
 
@@ -52,7 +52,7 @@ When the build environment has access to the schema, it can essentially parse al
 
 ### Colocating Views and Data Dependencies
 
-A powerful concept of GraphQL is that it allows you to have UI code and data requirements side-by-side. The tight coupling of views and their data dependencies greatly improves developer experience. The mental overhead of thinking about how the right data ends up in the right parts of the UI is eliminated.
+A powerful concept of GraphQL is that it allows you to have UI code and data requirements side-by-side. The tight coupling of views and their data dependencies greatly improves the developer experience. The mental overhead of thinking about how the right data ends up in the right parts of the UI is eliminated.
 
 How well colocation works depends on the platform you're developing on. For example in Javascript applications, it's possible to actually put data dependencies and UI code into the same file. In Xcode, the _Assistant Editor_ can be used to work on view controllers and graphql code at the same time. 
 

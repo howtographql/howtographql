@@ -96,6 +96,7 @@ Open `project.graphcool` and add the following type:
 
 ```graphql(path=".../hackernews-ember-apollo/project.graphcool")
 type Vote {
+  id: ID! @isUnique
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
 }
@@ -189,7 +190,7 @@ Time to move on and implement the upvote mutation!
 
 Open the component file for your `link-post` component and add the following import and actions:
 
-```js(path=".../hackernews-ember-apollo/app/components/link-post/component.js")
+```js(path=".../hackernews-ember-apollo/app/components/link-post.js")
 import Ember from 'ember';
 import createVote from 'hackernews-ember-apollo/gql/mutations/createVote';
 import allLinks from 'hackernews-ember-apollo/gql/queries/allLinks';
@@ -347,7 +348,7 @@ return this.get('apollo')
 
 Also be sure to import the `allLinks.graphql` query that you are using in the update method:
 
-```js(path=".../hackernews-ember-apollo/app/components/link-post.js")
+```js(path=".../hackernews-ember-apollo/app/controllers/create.js")
 import allLinks from 'hackernews-ember-apollo/gql/queries/allLinks';
 ```
 
