@@ -482,13 +482,14 @@ The `update` function that you're adding as an argument to the mutation will be 
 
 Notice that you're already _destructuring_ the server response and retrieving the `createVote` field from it.
 
-All right, so now you know what this `update` function is, next you will need to implement the `updateStoreAfterVote` method.
+All right, so now you know what this `update` function is,
+but the actual implementation of the `updateStoreAfterVote` will be done in the parent component of `LinkItemComponent`, which is `LinkListComponent`.
 
 <Instruction>
 
-Still in `src/app/link-item/link-item.component.ts`, add the following method:
+Open `src/app/link-list/link-list.component.ts` and add the following method inside the `LinkListComponent`:
 
-```ts{57-60,62-64,66-67}(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 updateStoreAfterVote (store, createVote, linkId) {
     // 1
     const data = store.readQuery({
@@ -503,8 +504,37 @@ updateStoreAfterVote (store, createVote, linkId) {
     store.writeQuery({ query: ALL_LINKS_QUERY, data })
   }
 ```
+</Instruction>
+
+What's going on here?
+
+1. You start by reading the current state of the cached data for the `ALL_LINKS_QUERY` from the `store`.
+2. Now you're retrieving the link that the user just voted for from that list. You're also manipulating that link by resetting its `votes` to the `votes` that were just returned by the server.
+3. Finally, you take the modified data and write it back into the store.
+
+<Instruction>
+
+Then in `src/app/link-item/link-item.component.ts`, don't forgot to add `@Input` for the `updateStoreAfterVote` callback :
+
+```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+@Input()
+updateStoreAfterVote: UpdateStoreAfterVoteCallback;
+```
 
 </Instruction>
+
+<Instruction>
+
+The `UpdateStoreAfterVoteCallback` interface is defined as following:
+
+```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+interface UpdateStoreAfterVoteCallback {
+  (proxy: DataProxy, mutationResult: FetchResult<CreateVoteMutationResponse>, linkId: string);
+}
+```
+
+</Instruction>
+
 
 <Instruction>
 
@@ -515,12 +545,6 @@ import { ALL_LINKS_QUERY, CREATE_VOTE_MUTATION } from '../app/graphql'
 ```
 
 </Instruction>
-
-What's going on here?
-
-1. You start by reading the current state of the cached data for the `ALL_LINKS_QUERY` from the `store`.
-2. Now you're retrieving the link that the user just voted for from that list. You're also manipulating that link by resetting its `votes` to the `votes` that were just returned by the server.
-3. Finally, you take the modified data and write it back into the store.
 
 That's it! The `update` method will now be executed and ensure that the store gets updated properly after a mutation is performed. The store update will trigger a re-render of the component and thus update the UI with the correct information!
 
