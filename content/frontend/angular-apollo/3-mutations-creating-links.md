@@ -1,14 +1,14 @@
 ---
 title: "Mutations: Creating Links"
 pageTitle: "GraphQL Mutations with React & Apollo Tutorial"
-description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's service inject in the component to define and send mutations."
+description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's service injected in the component to define and send mutations."
 question: Which of the following statements is true?
 // Todo : find a question
 answers: ["Only queries can be executed with the Apollo service ", "'gql' is a higher-order component from the apollo-angular package", "GraphQL mutations never take any arguments"]
 correctAnswer: 2
 ---
 
-In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows similar steps that were mentioned before with queries:
+In this section, you'll learn how you can send mutations with Apollo. It's not that different from creati queries and follows similar steps that were mentioned before with queries:
 
 1. write the mutation as a ts constant using the `gql` parser function
 2. use `Apollo` service to call the mutation through the `mutate` method
@@ -73,17 +73,17 @@ Then, add the following code in `create-link.component.html`:
 
 ```
 
-Note : `[(ngModel)]` is the Angular syntax to bind the `description` and `url` property to their textbox. Data flows in both directions: from the property to the textbox, and from the textbox back to the property. `NgModel` isn't available by default. It belongs to the optional `FormsModule`. You must import it in `src/app/app.module.ts` to be able to use.
+Note: `[(ngModel)]` is the Angular syntax to bind the `description` and `URL` property to their textbox. Data flows in both directions: from the property to the textbox, and from the textbox back to the property. `NgModel` isn't available by default. It belongs to the optional `FormsModule`. You must import it in `src/app/app.module.ts` to be able to use.
 
 </Instruction>
 
-This is a standard setup for a Angular component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is binded in the component's properties (`description` and `url`) and will be used in `createLink` when the mutation is sent.
+This is a standard setup for an Angular component with two `input` fields where users can provide the `URL` and `description` of the `Link` they want to create. The data that's typed into these fields is bound in the component's properties (`description` and `URL`) and will be used in `createLink` when the mutation is sent.
 
 ### Writing the Mutation
 
 But how can you now actually send the mutation? Let's follow the two steps from before.
 
-First you need to define the mutation in your `graphql` file and parse your query with `gql`. You'll do that in a similar way as with the query before.
+First, you need to define the mutation in your `graphql` file and parse your query with `gql`. You'll do that in a similar way as with the query before.
 
 <Instruction>
 
@@ -116,11 +116,11 @@ export interface CreateLinkMutationResponse {
 
 </Instruction>
 
-Let's take close look again to understand what's going on:
+Let's retake a close look to understand what's going on:
 
 1. You first create the typescript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
-2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.
-3. You declare also the response interface of `CreateLinkMutationResponse`
+2. Now you define the actual GraphQL mutation. It takes two arguments, `URL` and `description`, that you'll have to provide when calling the mutation.
+3. You also declare the response interface of `CreateLinkMutationResponse`
 
 <Instruction>
 
@@ -223,7 +223,7 @@ Enter some data into the fields, e.g.:
 - **Description**: `The best learning resource for GraphQL`
 - **URL**: `www.howtographql.com`
 
-Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
+Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query worked by checking the current list of links in a Playground.
 
 Type `graphcool playground` into a Terminal and send the following query:
 

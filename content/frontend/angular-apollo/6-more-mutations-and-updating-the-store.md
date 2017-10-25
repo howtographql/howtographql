@@ -99,7 +99,7 @@ Finally, add the following code in `login.component.css` :
 
 You're already preparing the `LinkItemComponent` to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what you're using the `isAuthenticated` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
 
-Notice that you're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user friendly, e.g. `"3 hours ago"`.
+Notice that you're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user-friendly, e.g. `"3 hours ago"`.
 
 Go ahead and implement the `timeDifferenceForDate` function next so you can import and use it in the `LinkItemComponent`.
 
@@ -158,7 +158,7 @@ import {timeDifferenceForDate} from '../utils';
 </Instruction>
 
 
-Finally, each `Link` element will also render its position inside the list, so you have to pass down an `index` from the `LinkListComponent` and know also if the user is authenticated through the `isAuthenticated` property passed down.
+Finally, each `Link` element will also render its position inside the list, so you have to pass down an `index` from the `LinkListComponent` and also know if the user is authenticated through the `isAuthenticated` property passed down.
 
 
 <Instruction>
@@ -293,7 +293,7 @@ $ graphcool deploy
 
 <Instruction>
 
-With these changes in the schema,you now need to make a couple more changes to `src/app/types.ts` to reflect these updates in your typescript types. We create the `Vote` class then update the `Link` and `User` class.
+With these changes in the schema, you now need to make a couple more changes to `src/app/types.ts` to reflect these updates in your typescript types. We create the `Vote` class then update the `Link` and `User` class.
 
 ```ts(path=".../hackernews-angular-apollo/src/app/types.ts")
 export class Link {
@@ -323,7 +323,7 @@ export class Vote {
 </Instruction>
 
 
-Awesome! Now that you updated the schema and the typescript types, you can fix the issue that currently prevents you from properly running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `/src/app/graphql.ts`.
+Awesome! Now that you updated the schema and the typescript types, you can fix the issue that currently prevents you from adequately running the app. It can be resolved by including the information about the links' votes in the `allLinks` query that's defined in `/src/app/graphql.ts`.
 
 <Instruction>
 
@@ -355,7 +355,7 @@ export const ALL_LINKS_QUERY = gql`
 </Instruction>
 
 
-All you do here is add information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed.
+All you do here is add information about the user who posted a link as well as information about the links' votes in the query's payload. You can now rerun the app, and the links will be displayed appropriately.
 
 ![](https://i.imgur.com/8WLXSIe.png)
 
@@ -443,17 +443,17 @@ voteForLink() {
 </Instruction>
 
 
-Notice that in the first part of the method, you're checking whether the current user already voted for that link. If that's the case, you return early from the method and do not actually execute the mutation.
+Notice that in the first part of the method, you're checking whether the current user already voted for that link. If that's the case, you return early from the method and do not execute the mutation.
 
-You can now go ahead and test the implementation! Click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page you'll see the added votes.
+You can now go ahead and test the implementation! Click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page, you'll see the added votes.
 
-There is still a flaw in the app. Since the `votes` on a `Link` don't get updated right away, a `User` currently can submit an indefinite number of votes until the page is refreshed. Only then will the protection mechanism be applied and instead of an upvote, the click on the voting button will simply result in the  following logging statement in the console: _User (cj42qfzwnugfo01955uasit8l) already voted for this link._
+There is still a flaw in the app. Since the `votes` on a `Link` don't get updated right away, a `User` currently can submit an indefinite number of votes until the page is refreshed. Only then will the protection mechanism be applied and instead of a upvote, the click on the voting button will simply result in the following logging statement in the console: _User (cj42qfzwnugfo01955uasit8l) already voted for this link._
 
 But at least you know that the mutation is working. In the next section, you'll fix the issue and make sure that the cache gets updated directly after each mutation!
 
 ### Updating the Cache
 
-One cool thing about Apollo is that you can manually control the contents of the cache. This is really handy, especially after a mutation was performed, since this allows you to determine precisely how you want the cache to be updated. Here, you'll use it to make sure the UI displays the correct number of votes right after the `createVote` mutation is performed.
+One cool thing about Apollo is that you can manually control the contents of the cache. This is handy, especially after a mutation was performed since this allows you to determine precisely how you want the cache to be updated. Here, you'll use it to make sure the UI displays the correct number of votes right after the `createVote` mutation is performed.
 
 You can implement this functionality by using Apollo's [imperative store API](https://dev-blog.apollodata.com/apollo-clients-new-imperative-store-api-6cb69318a1e3).
 
@@ -546,6 +546,6 @@ import { ALL_LINKS_QUERY, CREATE_VOTE_MUTATION } from '../app/graphql'
 
 </Instruction>
 
-That's it! The `update` method will now be executed and ensure that the store gets updated properly after a mutation is performed. The store update will trigger a re-render of the component and thus update the UI with the correct information!
+That's it! The `update` method will now be executed and ensure that the store gets appropriately updated after a mutation is performed. The store update will trigger a re-render of the component and thus update the UI with the correct information!
 
 Note that we already implemented this same "optimistic UI updating" within the `CreateLink` component in an earlier chapter. The app is rounding into shape! 🤓

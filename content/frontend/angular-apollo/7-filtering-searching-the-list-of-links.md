@@ -14,7 +14,7 @@ In this section, you'll implement a search feature and learn about the filtering
 
 ### Preparing the Angular Components
 
-The search will be available under a new route and implemented in a new Angular component.
+The search will be available on a new route and implemented in a new Angular component.
 
 <Instruction>
 
@@ -107,7 +107,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
 Let's review what you are doing here.
 
-1. First, you bind `searchText` to an input element and listen his change thanks to `ngModelChange` event
+1. First, you bind `searchText` to an input element and listen to his change thanks to `ngModelChange` event
 2. Next, you import the, soon to be created, `ALL_LINKS_SEARCH_QUERY`
 3. Finally, you define a `executeSearch` function that will executed each time `this.searchText` is updated. You also will not run it if there is no `searchText` to search.
 
@@ -165,7 +165,7 @@ const routes: Routes = [
 2. You render the `SearchComponent` when the `/search` route is reached
 
 
-For the user to be able to comfortably navigate to the search functionality, you should also add a new navigation item to the `HeaderComponent`.
+For the user to be able to navigate to the search functionality comfortably, you should also add a new navigation item to the `HeaderComponent`.
 
 <Instruction>
 
@@ -245,7 +245,7 @@ export interface AllLinksSearchQueryResponse {
 
 This query looks similar to the `allLinks` query that's used in `LinkListComponent`. However, this time it takes in an argument called `searchText` and specifies a `filter` object that will be used to specify conditions on the links that you want to retrieve.
 
-In this case, you're specifying two filters that account for the following two conditions: A link is only returned if either its `url` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
+In this case, you're specifying two filters that account for the following two conditions: A link is only returned if either its `URL` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
 
 
 The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` each time `searchText` changes, and binding the results to `allLinks`  so that they can be rendered.

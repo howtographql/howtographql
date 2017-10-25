@@ -1,7 +1,7 @@
 ---
 title: Authentication
 pageTitle: "Authentication with GraphQL, Angular & Apollo Tutorial"
-description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a Angular app with Graphcool."
+description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in an Angular app with Graphcool."
 question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
 answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
 correctAnswer: 1
@@ -91,15 +91,15 @@ Then, add the following code in `login.component.html`:
 </Instruction>
 
 
-Let's quickly gain an understanding of the structure of this new component which can have two major states.
+Let's quickly gain an understanding of the structure of this new component which can have two important states.
 
-One state is for users that already have an account and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `login` will be `true` in this case.
+One state is for users that already have an account and only need to login. In this state, the component will just render two `input` fields for the user to provide their `email` and `password`. Notice that `login` will be `true` in this case.
 
 The second state is for users that haven't created an account yet, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `login` will be `false`.
 
 The method `confirm`  will be used to implement the mutations that we need to send for the login functionality.
 
-Next you also need to provide the `src/app/constants.ts` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`.
+Next, you also need to provide the `src/app/constants.ts` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`.
 
 <Instruction>
 
@@ -217,16 +217,16 @@ export class AuthService {
 }
 ```
 
-Let's take close look again to understand what's going on:
+Let's take a close look again to understand what's going on:
 
 1. You first create the typescript class called `AuthService ` that will manage the authentication and be injected in the `src/app/app.module.ts`'s `providers`.
 2. Now you define the `userId` property where will save the user id received from the backend.
 3. Then you declare the `_isAuthenticated` stream where we will push the authentication state changes
 4. You provide next the `isAuthenticated` observable to listen to the `_isAuthenticated` stream
 5. Afterwards, you declare `saveUserData` method to save the data coming from the backend in the local storage and the service itself
-6. Then, you define `setUserId`, the actual method that will the user id in the service and dispatch to all listeners that the user is authenticated (through the `next` method in `_isAuthenticated`)
-7. Now, you provide the `logout` method to log out the user by removing user data from local storage ,  the service and dispatching to all listeners that the user is not authenticated
-7. In the end, you declare the `autoLogin` method to log automatically the user if a token is already stored in the localStorage.
+6. Then, you define `setUserId`, the actual method that will set the user id in the service and dispatch to all listeners that the user is authenticated (through the `next` method in `_isAuthenticated`)
+7. Now, you provide the `logout` method to log out the user by removing user data from local storage,  the service and dispatching to all listeners that the user is not authenticated
+7. In the end, you declare the `autoLogin` method to log the user automatically if a token is already stored in the localStorage.
 
 Note, don't forgot to inject `AuthService` in `app.module.ts`:
 
@@ -303,7 +303,7 @@ Then, update the following code in `header.component.html`:
 
 </Instruction>
 
-You first subscribe to the `isAuthenticated` stream from `authService` and update the `logged` property. If the `logged` is falsy, the _submit_-button won't be rendered anymore. That way you make sure only authenticated users can create new links.
+You first subscribe to the `isAuthenticated` stream from `authService` and update the `logged` property. If the `logged` is false, the _submit_-button won't be rendered anymore. That way you make sure only authenticated users can create new links.
 
 You're also adding a second button on the right side of the `HeaderComponent` that users can use to login and logout.
 
@@ -342,7 +342,7 @@ This will open the popup that allows you to enable Graphcool's email-based authe
 
 <Instruction>
 
-In the popup, simply click _Enable_.
+In the popup, merely click _Enable_.
 
 </Instruction>
 
@@ -391,7 +391,7 @@ type User implements Node {
 }
 ```
 
-Next you need to make one more modification to the schema. Generally, when updating the schema of a Graphcool project, you've got two ways of doing so:
+Next, you need to make one more modification to the schema. When updating the schema of a Graphcool project, you've got two ways of doing so:
 
 1. Use the web-based [Graphcool Console](https://console.graph.cool) and change the schema directly
 2. Use the Graphcool project file and the CLI to update the schema from your local machine
@@ -455,7 +455,7 @@ Your project file project.graphcool was updated. Reload it in your editor if nee
 
 > **Note**: You can also use the `graphcool status` command after having made changes to the schema to preview the potential changes that would be performed with `graphcool push`.
 
-Perfect, you're all set now to actually implement the authentication functionality inside your app.
+Perfect, you're all set now to implement the authentication functionality inside your app.
 
 
 ### Implementing the Login Mutations
@@ -532,9 +532,9 @@ export interface CreateUserMutationResponse {
 
 Now, let's gain a better understanding what's going on in the two mutations that you just added to the `src/app/graphql.ts` file.
 
-The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It simply takes the `email` and `password` as arguments and returns info about the `user` as well as a `token` that you can attach to subsequent requests to authenticate the user. You'll learn in a bit how to do so.
+The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It simply takes the `email` and `password` as arguments and returns info about the `user` as well as a `token` that you can attach to subsequent requests to authenticate the user. You'll learn a bit how to do so.
 
-The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always _from top to bottom_. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows you to sign up and login in a single request!
+The `CREATE_USER_MUTATION` however is a bit different! Here, we define _two_ mutations at once! When you're doing that, the execution order is always _from top to bottom_. So, in your case, the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allow you to sign up and login in a single request!
 
 All right, all that's left to do is to call the two mutations inside the `Login` component!
 
@@ -601,7 +601,7 @@ Open `src/app/login/login.component.ts` and implement `confirm` as follows:
 
 </Instruction>
 
-The code is pretty straightforward. If the user wants to only login, you're calling the `SIGNIN_USER_MUTATION` and pass the provided `email` and `password` as arguments. Otherwise you're using the `CREATE_USER_MUTATION` where you also pass the user's `name`. After the mutation is performed, you are calling the `authService` that will take care of storing the data and navigating back to the root route.
+The code is pretty straightforward. If the user wants to only login, you're calling the `SIGNIN_USER_MUTATION` and pass the provided `email` and `password` as arguments. Otherwise, you're using the `CREATE_USER_MUTATION` where you also pass the user's `name`. After the mutation is performed, you are calling the `authService` that will take care of storing the data and navigating back to the root route.
 
 <Instruction>
 

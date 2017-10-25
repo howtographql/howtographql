@@ -42,7 +42,7 @@ For starting out, you're not going to use the full data model that you saw above
 
 For now, you'll just use the `Link` type to create the backend.
 
-The first thing you need to do to get your GraphQL server is install the Graphcool CLI with npm.
+The first thing you need to do to get your GraphQL server, install the Graphcool CLI with npm.
 
 <Instruction>
 
@@ -86,11 +86,11 @@ Note that this command will create a `graphcool` directory
     ├── graphcool.yml
     └── types.graphql
 ```
-Each of the created files and directories have a dedicated purpose inside your Graphcool project:
+Each of the created files and directories has a dedicated purpose inside your Graphcool project:
 * `.graphcoolrc`: Contains information about the environments that you have configured for your project.
 * `code`: Contains the source code (and if necessary GraphQL queries) for the functions you've configured for your project.
 * `graphcool.yml`: Contains your project definition.
-* `types.graphql`: Contains all the type definitions for your project, written in the GraphQL Schema Definitiona Language (SDL).
+* `types.graphql`: Contains all the type definitions for your project, written in the GraphQL Schema Definition Language (SDL).
 
 </Instruction>
 
@@ -200,7 +200,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 ![](http://imgur.com/ZBgeq22.png)
 
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
+This creates two new `Link` records in the database. You can verify that the mutations worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
 ```graphql
 {
@@ -212,7 +212,7 @@ This creates two new `Link` records in the database. You can verify that the mut
 }
 ```
 
-If everything went well, the query will return the following data:
+If everything went well, the query would return the following data:
 
 ```graphql(nocopy)
 {
@@ -261,7 +261,7 @@ ng new hackernews-angular-apollo
 
 This will create a new directory called `hackernews-angular-apollo` that has all the basic configuration setup.
 
-Make sure everything works by navigating into the directory and starting the app:
+Make sure everything works by navigating to the directory and starting the app:
 
 ```bash
 cd hackernews-angular-apollo
@@ -269,7 +269,7 @@ npm install # or yarn
 npm start # or yarn start
 ```
 
-This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you'll see the following:
+This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you'd see the following:
 
 ![](http://i.imgur.com/9IUB9Qh.png)
 
@@ -327,7 +327,7 @@ Your project structure should now look as follows:
 
 #### Prepare Styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a Angular application, so we want to spend the least time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
+This tutorial is about the concepts of GraphQL and how you can use it from within an Angular application, so we want to spend the least time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides some CSS classes.
 
 <Instruction>
 
@@ -400,7 +400,7 @@ input {
 
 <Instruction>
 
-ApolloClient 2.0 introduced two new features, Links and Cache. Links are for fetching and manipulating data using custom logic. The Cache API allow us to store and handle data in any way we want.
+ApolloClient 2.0 introduced two new features, Links, and Cache. Links are for fetching and manipulating data using custom logic. The Cache API allows us to store and handle data in any way we want.
 
 To get back all the functionalities provided by the Apollo Client 1.0, we need to install `apollo-cache-inmemory` (for the caching), `apollo-angular-link-http` (for fetching and manipulating data), `@types/zen-observable`, `graphql` and `apollo-angular`:
 
@@ -415,13 +415,13 @@ Note, `apollo-angular-link-http` provides a similar `HttpLink` to Apollo's `Http
 
 </Instruction>
 
-That's it, you're ready to write some code! 🚀
+That's it; you're ready to write some code! 🚀
 
 #### Configuring the `ApolloClient`
 
-Apollo abstracts away all lower-lever networking logic and provides a nice interface to the GraphQL API. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests any more - instead you can simply write queries and mutations and send them using the `ApolloClient`.
+Apollo abstracts away all lower-lever networking logic and provides a friendly interface to the GraphQL API. In contrast to working with REST APIs, you don't have to deal with constructing your HTTP requests anymore - instead, you can just write queries and mutations and send them using the `ApolloClient`.
 
-The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the endpoint of your GraphQL API so it can deal with the network connections.
+The first thing you have to do when using Apollo is to configure your `ApolloClient` instance. It needs to know the endpoint of your GraphQL API so it can deal with the network connections.
 
 <Instruction>
 
@@ -470,8 +470,8 @@ Let's try to understand what's going on in that code snippet:
 1. You're importing the required dependencies from the `apollo-angular`, `apollo-angular-link-http`, `apollo-cache-inmemory` packages
 2. We export the `HttpClientModule`, `ApolloModule`, `HttpLinkModule` to make them "public" when `GraphQLModule` is imported in another module. In fact, if you don't export, it stays private, visible only to other component declared in this module. You can find more information in [NgModule FAQs](https://angular.io/guide/ngmodule-faq#what-should-i-export)
 3. We inject the `Apollo` and `HttpLink` to be able to configure them
-4. We create a `link` by providing the `uri` (i.e your actual GraphQL endpoint) to the `.create` method of the `HttpLink` instance
-3. Now you instantiate the `ApolloClient` by passing in the `link` created and a `InMemoryCache` cache instance. The `HttpLink` is a replacement for `createNetworkInterface` from Apollo Client 1.0
+4. We create a `link` by providing the `URI` (i.e. your actual GraphQL endpoint) to the `.create` method of the `HttpLink` instance
+3. Now you instantiate the `ApolloClient` by passing in the `link` created and an `InMemoryCache` cache instance. The `HttpLink` is a replacement for `createNetworkInterface` from Apollo Client 1.0
 
 Finally, we export the `GraphQLModule`.
 
@@ -505,13 +505,13 @@ export class AppModule {
 
 </Instruction>
 
-Next you need to replace the placeholder for the GraphQL endpoint with your actual endpoint. But where do you get your endpoint from?
+Next, you need to replace the placeholder for the GraphQL endpoint with your actual endpoint. But where do you get your endpoint from?
 
 There are two ways for you to get your endpoint. You can either open the [Graphcool Console](https://console.graph.cool) and click the _Endoints_-button in the bottom-left corner. The second option is to use the CLI.
 
 <Instruction>
 
-In the terminal, navigate into the directory where `types.graphql` is located and use the following command:
+In the terminal, navigate to the directory where `types.graphql` is located and use the following command:
 
 ```bash(path=".../hackernews-angular-apollo/graphcool")
 graphcool info
@@ -526,4 +526,4 @@ Copy the endpoint for the `Simple API` and paste it into `src/app/apollo.config.
 </Instruction>
 
 
-That's it, you're all set to start for loading some data into your app! 😎
+That's it; you're all set to start for loading some data into your app! 😎

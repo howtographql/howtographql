@@ -1,9 +1,9 @@
 ---
 title: Routing
 pageTitle: "Angular Routing with GraphQL & Apollo Tutorial"
-description: "Learn how to use Angular Router  together with GraphQL and Apollo Client to implement navigation in a Angular app."
-question: Where do you handle optimistic UI updates when executing a GraphQL mutation in a Angular component?
-answers: ["Within an optimisticUpdate method", "Within the .subscribe block of a mutation", "You can not optimistically update the UI in a Angular component", "Within the update option of a mutation"]
+description: "Learn how to use Angular Router  together with GraphQL and Apollo Client to implement navigation in an Angular app."
+question: Where do you handle optimistic UI updates when executing a GraphQL mutation in an Angular component?
+answers: ["Within an optimisticUpdate method", "Within the .subscribe block of a mutation", "You can not optimistically update the UI in an Angular component", "Within the update option of a mutation"]
 correctAnswer: 3
 ---
 
@@ -12,12 +12,12 @@ In this section, you'll learn how to use the [`Angular Router`](https://angular.
 
 ### Install Dependencies
 
-The Angular Router is an optional service that are already installed thanks to `angular-cli`.
+The Angular Router is an optional service that is already installed thanks to `angular-cli`.
 
 
 ### Create a Header
 
-Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
+Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the various parts of your app.
 
 <Instruction>
 
@@ -60,7 +60,7 @@ Then, add the following code in `header.component.html`:
 
 </Instruction>
 
-This simply renders two `router-link` that users can use to navigate between the `LinkListComponent` and the `CreateLinkComponent` components.
+This renders merely two `router-link` that users can use to navigate between the `LinkListComponent` and the `CreateLinkComponent` components.
 
 
 ### Setup routes
@@ -114,7 +114,7 @@ export class AppRoutingModule {
 
 </Instruction>
 
-Let's take a closer look to better understand what's going on:
+Let's take a closer look to understand better what's going on:
 
 1. Here you import the `CreateLinkComponent` and `LinkListComponent` components which will be rendered for different routes
 2. Here you map each route to the component that should be rendered

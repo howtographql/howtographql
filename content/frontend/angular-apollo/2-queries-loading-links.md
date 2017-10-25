@@ -59,7 +59,7 @@ export class LinkItemComponent implements OnInit {
 ```
 </Instruction>
 
-Note, we will be writing all our typings in a `./src/app/types.ts` file and simply importing these types into components as needed.
+Note, we will be writing all our typings in a `./src/app/types.ts` file and merely importing these types into components as needed.
 
 <Instruction>
 
@@ -77,7 +77,7 @@ export class Link {
 </Instruction>
 
 
-This is a simple Angular component that expects a `link` in its `Input` (`link-item.component.ts`) and renders the link's `description` and `url` (`link-item.component.html`). Easy as pie! 🍰
+This is a simple Angular component that expects a `link` in its `Input` (`link-item.component.ts`) and renders the link's `description` and `URL` (`link-item.component.html`). Easy as pie! 🍰
 
 Next, you'll implement the component that renders a list of link-items.
 
@@ -181,7 +181,7 @@ Run the app to check if everything works so far! The app should now display the 
 
 ### Writing the GraphQL Query
 
-You'll now load the actual link-items that are stored on the server. The first thing you need to do for that is define the GraphQL query that you want to send to the API.
+You'll now load the actual link-items stored on the server. The first thing you need to do is to define the GraphQL query that you want to send to the API.
 
 Here is what it looks like:
 
@@ -196,7 +196,7 @@ query AllLinks {
 }
 ```
 
-You could now simply execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
+You could now merely execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
 
 
 ### Queries with Apollo Client
@@ -212,7 +212,7 @@ In general, the process for you to add some data fetching logic will be very sim
 2. Use the `Apollo` service to fetch the results of your `graphql` query using Observable
 3. Access the query results in the observable subscribe and assign it to the property in your component
 
-You will be writing your queries and mutations in a `graphql.ts` file and simply importing these queries and mutations into components as needed.
+You will be writing your queries and mutations in a `graphql.ts` file and merely importing these queries and mutations into components as needed.
 
 <Instruction>
 
@@ -255,13 +255,13 @@ What's going on here?
 
 1. First, you import `gql` from the `graphql-tag` package. The `gql` function is used to parse the plain GraphQL code.
 2. Now you define the plain GraphQL query. The name `AllLinksQuery` is the _operation name_ and will be used by Apollo to refer to this query in its internals. You export this parsed query as `ALL_LINKS_QUERY` so you can easily import it into components.
-3. You declare also the response interface of `AllLinksQuery`
+3. You also declare the response interface of `AllLinksQuery`
 
 Next, you will inject the `Apollo` service to the `LinkList` component and call this newly created query to fetch data.
 
 <Instruction>
 
-Open up `src/app/link-list/link-list.component.html`, update the html template to display a loading indicator while data is being fetched using `*ngIf`:
+Open up `src/app/link-list/link-list.component.html`, update the HTML template to display a loading indicator while data is being fetched using `*ngIf`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
@@ -321,9 +321,9 @@ export class LinkListComponent implements OnInit {
 What's going on here?
 
 1. You import the `ALL_LINKS_QUERY` which you just created
-2. Next, you initialize the `allLinks` data property to an empty array, and `loading` to `false`. This will be set to false once data loads.
+2. Next, you initialize the `allLinks` data property to an empty array and `loading` to `false`. This will be set to false once data loads.
 3. Now you inject an `Apollo` service to your component
-4. You call the `query` method to it ( you can also use another method named `watchQuery`). This methode requires a `query` and you pass it the `ALL_LINKS_QUERY`. As you can see, there is a new property, `valueChanges`. To watch results you have to subscribe to `valueChanges` property.
+4. You call the `query` method to it ( you can also use another method named `watchQuery`). This method requires a `query, ` and you pass it the `ALL_LINKS_QUERY`. As you can see, there is a new property, `valueChanges`. To watch results you have to subscribe to `valueChanges` property.
 5. The `query` method gives back a observable where we subscribe to get the response that contains a `data` property with `loading` set to `true`  as long as the request is still ongoing and the response hasn't been received and `allLinks` which is the actual data that was received from the server.
 
 That's it! If you ran `npm start or yarn start` earlier, you should see your UI update and show the two links.

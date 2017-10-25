@@ -7,12 +7,12 @@ answers: ["A GraphQL query", "Import & use the router-info package", "By injecti
 correctAnswer: 2
 ---
 
-The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that users are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
+The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that users can view the links in smaller chunks rather than having an incredibly long list of `Link` elements.
 
 
 ## Preparing the Angular Components
 
-Once more, you first need to prepare the Angular components for this new functionality. In fact, we'll slightly adjust the current routing setup. Here's the idea: The `LinkListComponent`  will be used for two different use cases (and routes). The first one is to display the 10 top voted links. Its second use case is to display new links in a list separated into multiple pages that the user can navigate through.
+Once more, you first need to prepare the Angular components for this new functionality. In fact, we'll slightly adjust the current routing setup. Here's the idea: The `LinkListComponent`  will be used for two different use cases (and routes). The first one is to display the 10 top voted links. Its second use case is to present new links in a list separated into multiple pages that the user can navigate through.
 
 <Instruction>
 
@@ -61,7 +61,7 @@ routes: Routes = [
 </Instruction>
 
 
-You added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkListComponent`.
+You added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the URL so that this information is available inside the component that's rendered, here that's `LinkListComponent`.
 
 The root route `''` now redirects to the first page of the route where new posts are displayed.
 
@@ -135,7 +135,7 @@ export interface AllLinkQueryResponse {
 </Instruction>
 
 
-The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` to this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.
+The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of, e.g. `10` to this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements; you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.
 
 You need to update the references to this query in the `CreateLink` component.
 
@@ -167,7 +167,7 @@ update: (store, { data: { createLink } }) => {
       },
 ```
 
-Here you are simply adding the variables that this query now expects.
+Here you are merely adding the variables that this query now expects.
 
 </Instruction>
 
@@ -236,14 +236,14 @@ Next, open `src/app/link-list/link-list.component.ts` and update `watchQuery` fu
 
 </Instruction>
 
-Let's take close look again to understand what's going on:
+Let's retake a close look to understand what's going on:
 
-0. You define the the `pageParams$` observable based on the `this.route.paramMap` where we retrieve all the `params` and map it to get only the `page` param then we parse in `number`
-1. We perform kinds of the same thing for the `path$` observable that we create from `this.route.url`, a `SegmentUrl` converted in `string``
+0. You define the `pageParams$` observable based on the `this.route.paramMap` where we retrieve all the `params` and map it to get only the `page` param, then we parse in `number`
+1. We perform kinds of the same thing for the `path$` observable that we create from `this.route.url`, a `SegmentUrl` converted in `string`
 2. Now, we begin to create the first stream, that will be used as `variables` in the `watchQuery` function, `first$`. `first$` used to calculate the chunk of links that you retrieve.
-3. Then, we declare `skip$`, the second variable that will us to the chunk of links that you retrieve
+3. Then, we declare `skip$`, the second variable that will enable us to perform the chunk of links that you retrieve
 4. Afterwards, we provide `orderBy$` that will include the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
-5. We create the `getQuery` function that will receive the variables (the values of `first$`, `skip$` and `orderBy$` ) in parameter, set it in the options and returns the `Observable` of `valueChanges`. Note, that we perform also the `subscribeToMore`.
+5. We create the `getQuery` function that will receive the variables (the values of `first$`, `skip$` and `orderBy$` ) in parameter, set it in the options and returns the `Observable` of `valueChanges`. Note, that we also perform the `subscribeToMore`.
 6. Now, we combine all observables of `first$`, `skip$` and `orderBy$`,  get their values  and create  an object having the property first, skip, orderBy
 7. Then we retrieve the object created by the combination of  `first$`, `skip$` and `orderBy$` to provide it to the `getQuery` function. Due the fact that `getQuery` returns an `Observable<ApolloQueryResult<AllLinkQueryResponse>>`, we will get an `Observable<Observable<ApolloQueryResult<AllLinkQueryResponse>>>` if we use the `.map` operator. Therefore, we use `switchMap` to "flatten" the `Observable<Observable<ApolloQueryResult<AllLinkQueryResponse>>>` to an `Observable<ApolloQueryResult<AllLinkQueryResponse>>`
 8. In the end, We execute the query and save the `allLinks` and the `count`
@@ -297,7 +297,7 @@ Add a `linksPerPage` property to the `LinkListComponent`:
 
 ### Implementing Navigation
 
-Next, you need functionality for the user to switch between the pages. First add two `button` elements to the bottom of the `LinkListComponent`  that can be used to navigate back and forth.
+Next, you need functionality for the user to switch between the pages. First, add two `button` elements to the bottom of the `LinkListComponent`  that can be used to navigate back and forth.
 
 <Instruction>
 
@@ -478,11 +478,11 @@ previousPage () {
 </Instruction>
 
 
-The implementation of these is very simple. You're retrieving the current page from the url and implementing a sanity check to make sure that it makes sense to paginate back or forth. Then you simply calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the url that will be used to calculate the right chunk of links to load. Hop on over to the running app and use the new buttons to paginate through your list of links!
+The implementation of these is straightforward. You're retrieving the current page from the URL and implementing a sanity check to make sure that it makes sense to paginate back or forth. Then you merely calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the URL that will be used to calculate the right chunk of links to load. Hop on over to the running app and use the new buttons to paginate through your list of links!
 
 ### Final Adjustments
 
-Through the changes that we made to the `ALL_LINKS_QUERY`, you'll notice that the `update` functions of your mutations don't work any more. That's because `readQuery` now also expects to get passed the same variables that we defined before.
+Through the changes that we made to the `ALL_LINKS_QUERY`, you'll notice that the `update` functions of your mutations don't work anymore. That's because `readQuery` now also expects to get passed the same variables that we defined before.
 
 > **Note**: `readQuery` essentially works in the same way as the `query` method on the `ApolloClient` that you used to implement the search. However, instead of making a call to the server, it will simply resolve the query against the local store! If a query was fetched from the server with variables, `readQuery` also needs to know the variables to make sure it can deliver the right information from the cache.
 

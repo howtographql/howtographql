@@ -7,7 +7,7 @@ answers: ["WebSockets", "TCP", "UDP", "HTTP 2"]
 correctAnswer: 0
 ---
 
-This section is all about bringing realtime functionality into the app by using GraphQL subscriptions.
+This section is all about bringing real-time functionality into the app by using GraphQL subscriptions.
 
 ### What are GraphQL Subscriptions?
 
@@ -90,9 +90,9 @@ constructor(apollo: Apollo,
 ```
 What's going on here?
 
-1. You're instantiating a `SubscriptionClient` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`. Then, we provide `SubscriptionClient` instance to `WebSocketLink` that will handle the subscription GraphQL operation.
-2. Due to the fact that Links represent small portions of how you want your GraphQL operation to be handled. They are designed to be composed with other links. In our case, we need to control which links are used depending on the operation ( i.e `directional composition`). Apollo Link provides and easy way to use different links depending on the operation by using `.split` method.
-3. `split` takes two required parameters and one optional one. The first argument to split is a function which receives the operation and returns true for the first link ( second argument) and false for the second link ( third argument). So, if the operation that are coming is 'subscription', we run the `WebSocketLink` else `HttpLink`
+1. You're instantiating a `SubscriptionClient` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the WebSocket connection with the user's `token` that you retrieve from `localStorage`. Then, we provide `SubscriptionClient` instance to `WebSocketLink` that will handle the subscription GraphQL operation.
+2. Because Links represent small portions of how you want your GraphQL operation to be handled. They are designed to be composed with other links. In our case, we need to control which links are used depending on the operation ( i.e. `directional composition`). Apollo Link provides an easy way to use different links depending on the operation by using `.split` method.
+3. `split` takes two required parameters and one optional one. The first argument to split is a function which receives the operation and returns true for the first link ( second argument) and false for the second link ( third argument). So, if the operation that is coming is 'subscription', we run the `WebSocketLink` else the `HttpLink`
 
 </Instruction>
 
@@ -112,7 +112,7 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 
 ### Subscribing to new Links
 
-For the app to update in realtime when new links are created, you need to subscribe to events that are happening on the `Link` type. There generally are three kinds of events you can subscribe to:
+For the app to update in real-time when new links are created, you need to subscribe to events that are happening on the `Link` type. There are three kinds of events you can subscribe to:
 
 - a new `Link` is _created_
 - an existing `Link` is _updated_
@@ -204,14 +204,14 @@ import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION } from '../app/graphql'
 </Instruction>
 
 
-Let's understand what's going on here! You're using the `subscribeToMore` function in ` ApolloQueryObservable` returned by the `watchQuery`that will open up a websocket connection to the subscription server.
+Let's understand what's going on here! You're using the `subscribeToMore` function in ` ApolloQueryObservable` returned by the `watchQuery`that will open up a WebSocket connection to the subscription server.
 
 You're passing an array to `SubscribeToMoreOptions`:
 
-1. Each object within the array contains a `document` property: This represents the subscription itself. In your case, the subscription will fire for `CREATED` events on the `Link` type, i.e. every time a new link is created.
+1. Each object within the array contains a `document` property: This represents the subscription itself. In your case, the subscription will fire for `CREATED` events on the `Link` type, i.e., every time a new link is created.
 2. The other property is `updateQuery`: Similar to `update`, this function allows you to determine how the store should be updated with the information that was sent by the server.
 
-Go ahead and implement `updateQuery` next. This function works slightly differently than `update`. In fact, it follows exactly the same principle as a [Redux reducer](http://redux.ts.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that's sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated version.
+Go ahead and implement `updateQuery` next. This function works slightly differently than `update`. In fact, it follows the same principle as a [Redux reducer](http://redux.ts.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that are sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated version.
 
 Let's see what this looks like in action!
 
@@ -235,14 +235,11 @@ Still in `src/app/list-link/list-link.component.ts` implement `updateQuery` like
 
 All you do here is retrieve the new link from the subscription data (` subscriptionData.Link.node`), merge it into the existing list of links and return the result of this operation.
 
-Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application running on `http://localhost:4200/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
-
-**/!\ Actually, there are a bug that blocks the UI update. Indeed, if a subscription event comes, the store is updated, the observable emits, but the change detection is not run. The issue is tracked [here](https://github.com/apollographql/apollo-angular/issues/320) /!\**
-
+Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application running on `http://localhost:4200/`. The second window you use to open a Playground and send a `createLink` mutation. When you're sending the mutation, you'll see the app update in real-time! ⚡️
 
 ### Subscribing to new Votes
 
-Next you'll subscribe to new votes that are emitted by other users as well so that the latest vote count is always visible in the app.
+Next, you'll subscribe to new votes that are emitted by other users as well so that the latest vote count is always visible in the app.
 
 First, you need to add another subscription to `src/app/graphql.ts`:
 
@@ -325,9 +322,7 @@ import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION, NEW_VOTES_SUBSCRIPTION } from 
 
 </Instruction>
 
-Similar to before, you're calling `subscribeToMore` on the `allLinks` query. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and and then updating its `votes` with the `Vote` element that was sent from the server.
+Similar to before, you're calling `subscribeToMore` on the `allLinks` query. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and then updating its `votes` with the `Vote` element that was sent from the server.
 
-Fantastic! Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.
-
-**/!\ Actually, there are a bug that blocks the UI update. Indeed, if a subscription event comes, the store is updated, the observable emits, but the change detection is not run. The issue is tracked [here](https://github.com/apollographql/apollo-angular/issues/320) and another that blocks the [`subscribeToMore`](https://github.com/kamilkisiela/apollo-client-rxjs/issues/37) /!\**
+Fantastic! Your app is now ready for real-time and will immediately update links and votes whenever they're created by other users.
 
