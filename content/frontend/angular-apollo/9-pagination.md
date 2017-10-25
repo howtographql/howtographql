@@ -187,21 +187,21 @@ Next, open `src/app/link-list/link-list.component.ts` and update `watchQuery` fu
       .map((segments) => segments.toString());
 
     // 2
-    const first$: Observable<number> = path$
+    this.first$ = path$
       .map((path) => {
         const isNewPage = path.includes('new');
         return isNewPage ? this.linksPerPage : 100;
       });
 
     // 3
-    const skip$: Observable<number> = Observable.combineLatest(path$, pageParams$)
+    this.skip$ = Observable.combineLatest(path$, pageParams$)
       .map(([path, page]) => {
         const isNewPage = path.includes('new');
         return isNewPage ? (page - 1) * this.linksPerPage : 0;
       });
 
     // 4
-    const orderBy$: Observable<string | null> = path$
+    this.orderBy$ = path$
       .map((path) => {
         const isNewPage = path.includes('new');
         return isNewPage ? 'createdAt_DESC' : null;
@@ -260,6 +260,18 @@ export const LINKS_PER_PAGE = 5;
 
 </Instruction>
 
+<Instruction>
+
+Still in the `LinkListComponent`, add the following variables:
+
+```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+  first$: Observable<number>;
+  skip$: Observable<number>;
+  orderBy$: Observable<string | null>;
+```
+
+</Instruction>
+
 
 <Instruction>
 
@@ -271,23 +283,13 @@ import { LINKS_PER_PAGE } from '../app/constants';
 
 </Instruction>
 
-<Instruction>
-
-Add an import statement from `../app/constants` in `src/app/link-item/link-item.component.ts` as well:
-
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
-import { LINKS_PER_PAGE } from '../constants'
-```
-
-</Instruction>
-
-You also need to map `linksPerPage` to `LINKS_PER_PAGE` in `src/app/link-item/link-item.component.ts`.
+You also need to map `linksPerPage` to `LINKS_PER_PAGE` in `src/app/link-list/link-list.component.ts`.
 
 <Instruction>
 
-Add a `linksPerPage` property to the `LinkItemComponent`:
+Add a `linksPerPage` property to the `LinkListComponent`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
   linksPerPage = LINKS_PER_PAGE;
 ```
 
@@ -477,5 +479,116 @@ previousPage () {
 
 
 The implementation of these is very simple. You're retrieving the current page from the url and implementing a sanity check to make sure that it makes sense to paginate back or forth. Then you simply calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the url that will be used to calculate the right chunk of links to load. Hop on over to the running app and use the new buttons to paginate through your list of links!
+
+### Final Adjustments
+
+Through the changes that we made to the `ALL_LINKS_QUERY`, you'll notice that the `update` functions of your mutations don't work any more. That's because `readQuery` now also expects to get passed the same variables that we defined before.
+
+> **Note**: `readQuery` essentially works in the same way as the `query` method on the `ApolloClient` that you used to implement the search. However, instead of making a call to the server, it will simply resolve the query against the local store! If a query was fetched from the server with variables, `readQuery` also needs to know the variables to make sure it can deliver the right information from the cache.
+
+<Instruction>
+
+With that information, open `LinkListComponent` and update the `updateCacheAfterVote` method to look as follows:
+
+```js(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+updateStoreAfterVote = (store, createVote, linkId) => {
+    let variables;
+
+    Observable
+      .combineLatest(this.first$, this.skip$, this.orderBy$, (first, skip, orderBy) => ({ first, skip, orderBy }))
+      .take(1)
+      .subscribe(values => variables = values);
+    // 1
+    const data = store.readQuery({
+      query: ALL_LINKS_QUERY,
+      variables
+    });
+
+    // 2
+    const votedLink = data.allLinks.find(link => link.id === linkId);
+    votedLink.votes = createVote.link.votes;
+
+    // 3
+    store.writeQuery({ query: ALL_LINKS_QUERY, variables, data })
+  }
+```
+
+</Instruction>
+
+All that's happening here is the computation of the variables depending on whether the user currently is on the `/top` or `/new` route.
+
+Finally, you also need to adjust the implementation of `update` when new links are created.
+
+<Instruction>
+
+Open `CreateLinkComponent` and replace the current contents of `createLink` like so:
+
+```js(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+ createLink() {
+    const postedById = localStorage.getItem(GC_USER_ID);
+    if (!postedById) {
+      console.error('No user logged in');
+      return
+    }
+
+    const newDescription = this.description;
+    const newUrl = this.url;
+    this.description = '';
+    this.url = '';
+
+    const createMutationSubscription = this.apollo.mutate<CreateLinkMutationResponse>({
+      mutation: CREATE_LINK_MUTATION,
+      variables: {
+        description: newDescription,
+        url: newUrl,
+        postedById
+      },
+      update: (store, { data: { createLink } }) => {
+        const data: any = store.readQuery({
+          query: ALL_LINKS_QUERY,
+          variables: {
+            first: LINKS_PER_PAGE,
+            skip: 0,
+            orderBy: 'createdAt_DESC'
+          }
+        });
+        let allLinks = data.allLinks.slice();
+        allLinks.splice(0, 0, createLink);
+        allLinks.pop();
+        data.allLinks = allLinks;
+        store.writeQuery({
+          query: ALL_LINKS_QUERY,
+          variables: {
+            first: LINKS_PER_PAGE,
+            skip: 0,
+            orderBy: 'createdAt_DESC'
+          },
+          data
+        })
+      },
+    }).subscribe((response) => {
+      // We injected the Router service
+      this.router.navigate(['/']);
+    }, (error) => {
+      console.error(error);
+      this.description = newDescription;
+      this.url = newUrl;
+    });
+
+    this.subscriptions = [...this.subscriptions, createMutationSubscription];
+  }
+```
+
+</Instruction>
+
+<Instruction>
+
+Since you don't have the `LINKS_PER_PAGE` constant available in this component yet, make sure to import it on top of the file:
+
+```js(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+import { GC_USER_ID, LINKS_PER_PAGE } from '../constants'
+```
+
+</Instruction>
 
 You have now added a simple pagination system to the app, allowing users to load links in small chunks instead of loading them all up front.
