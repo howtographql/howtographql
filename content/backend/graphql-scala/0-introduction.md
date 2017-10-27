@@ -7,7 +7,7 @@ description: "Learn how to build a GraphQL server with Scala & Sangria and best 
 
 ### Motivation
 
-Scala is very popular language nowadays and it's often chosen to deliver efficient and distributed systems. It leverages the Java VM, known mostly for its efficiency. Support of Functional Programming and power of Java make able to deliver applications fast in either development or runtime.
+Scala is a very popular language nowadays and it's often chosen to deliver efficient and scalable systems. It leverages the Java VM, known for its reliability and robustness. Support for Functional Programming, rich ecosystem and stable foundation allow building fast applications, quickly.
 
 In the next chapters you'll learn how to build your own GraphQL server using Scala and the following technologies:
   * [Scala](https://www.scala-lang.org/) Scala language
@@ -29,7 +29,7 @@ A GraphQL server should be able to:
 {  "query": "query { allLinks { url } }" }
 ```
 
-* Connect to any necessary databases or other data management services.
+* Connect to one or more data sources, like data bases or other APIs, obtain the information and format it.
 * Return a GraphQL response with the requested data, such this one:
 
 ```graphql(nocopy)
@@ -46,17 +46,18 @@ A GraphQL server should be able to:
 }
 ```
 
-These are the basic features all GraphQL servers have for sure, but some of the implementation can do much more than this. In this tutorial I'll rather focus only on features which are part of GraphQL specifications.
+As you can see our server will be really simplistic, but real GraphQL implementation can do much more that this. (We will explore it more later on.)
 
 
 ### Schema-Driven Development
 
-The secret sauce of a GraphQL server is its schema. The schema gives you an unified type system for your specific domain and the tools to hook up code to those types to make things happen when people mutate or request them.
+
+Schema-first GraphQL development forces frontend and backend developers to agree on a strict contract up front, enabling them to work quickly and efficiently while staying on spec. It improves both your API’s performance and the performance of your team in general.
 
 Sensibly then, the experience of building a GraphQL server starts with working on its schema. You'll see in this chapter that the main steps you'll follow will be something like this:
 
 1. Define your types and the appropriate queries and mutations for them.
-2. Implement functions called **resolvers** to handle these types and their fields.
+2. Implement functions called **resolvers** to perform agreed upon queries in terms of defined types.
 3. As new requirements arrive, go back to step 1 to update the schema, and continue through the other steps.
 
 The schema is a contract agreed on between the frontend and backend, so keeping it at the center allows both sides of the development to evolve without going off the spec. This also makes it easier to parallelize the work, since the frontend can move on with full knowledge of the API from the start, using a simple mocking service (or even a full backend such as Graphcool) which can later be easily replaced with the final server.
@@ -64,7 +65,8 @@ The schema is a contract agreed on between the frontend and backend, so keeping 
 
 ### Goal of the turorial
 
-The goal of this tutorial is to make server able to run the following schema, :
+The most of HowToGraphQL tutorials are based on the same schema. In our tutorial we will try to run scala server which supports that schema. In this case you can take any frontend example and connect it to our server.
+The schema more or less look like this:
 
 
 ```graphql(nocopy)(https://github.com/howtographql/howtographql/blob/master/meta/structure.graphql)
@@ -172,3 +174,5 @@ type _QueryMeta {
 
 scalar DateTime
 ```
+
+When we know what to do, we go forward to the next chapter and begin tutorial.
