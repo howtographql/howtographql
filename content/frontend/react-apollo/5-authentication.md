@@ -5,6 +5,7 @@ description: "Learn best practices to implement authentication with GraphQL & Ap
 question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
 answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
 correctAnswer: 1
+videoAuthor: "Abhi Aiyer"
 videoId: MiNDIWK7Q1I
 duration: 12
 videoAuthor: "Abhi Aiyer"

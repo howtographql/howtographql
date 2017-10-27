@@ -5,6 +5,7 @@ description: "Learn how to use Apollo's imperative store API to update the cache
 question: "What does the 'graphcool push' command do?"
 answers: ["It uploads the local schema changes to the remote Graphcool project", "It pushes a git repository to Graphcool so you can manage your project and code together", "It tells the server to push its remote schema changes into the local project file", "There is no 'graphcool push' command"]
 correctAnswer: 0
+videoAuthor: "Abhi Aiyer"
 videoId: o0w0HS5vG5s
 duration: 8
 videoAuthor: "Abhi Aiyer"
