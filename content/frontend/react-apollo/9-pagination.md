@@ -47,7 +47,7 @@ Make sure to import the Redirect component, so you don't get any errors.
 
 <Instruction>
 
-Open `App.js` and update the router import on the top of the file:
+Also update the router import on the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import { Switch, Route, Redirect } from 'react-router-dom'
