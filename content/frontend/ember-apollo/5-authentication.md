@@ -156,7 +156,7 @@ graphcool pull
 This will bump the schema `version` and update the `User` type to now also include the `email` and `password` fields:
 
 ```graphql(nocopy)
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   email: String @isUnique
   id: ID! @isUnique
@@ -175,7 +175,7 @@ Next you need to make one more modification to the schema. Generally, when updat
 Open your project file `project.graphcool` and update the `User` and `Link` types as follows:
 
 ```graphql
-type Link implements Node {
+type Link @model {
   createdAt: DateTime!
   description: String!
   id: ID! @isUnique
@@ -184,7 +184,7 @@ type Link implements Node {
   postedBy: User @relation(name: "UsersLinks")
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   email: String @isUnique

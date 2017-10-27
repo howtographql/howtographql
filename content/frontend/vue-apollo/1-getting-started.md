@@ -16,7 +16,7 @@ Since this is a frontend track, you don't want to spend too much time setting up
 You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to generate the server based on the data model that you need for the app. Speaking of the data model, here is what the final version of it looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
 
 ```graphql(nocopy)
-type Link implements Node {
+type Link @model {
   url: String!
   description: String!
   createdAt: DateTime!
@@ -26,7 +26,7 @@ type Link implements Node {
   votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   email: String @isUnique
   id: ID! @isUnique
@@ -37,7 +37,7 @@ type User implements Node {
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Vote implements Node {
+type Vote @model {
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
   createdAt: DateTime!
@@ -100,7 +100,7 @@ Once the project has been created, you'll find the [Graphcool Project File](http
 # project: cj4k7j28p7ujs014860czx89p
 # version: 1
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -111,7 +111,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type Link implements Node {
+type Link @model {
   createdAt: DateTime!
   description: String!
   id: ID! @isUnique
@@ -119,7 +119,7 @@ type Link implements Node {
   url: String!
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!

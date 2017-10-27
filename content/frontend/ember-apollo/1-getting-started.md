@@ -74,7 +74,7 @@ Note that this command will open up a browser window first and ask you to authen
 The schema that’s stored at https://graphqlbin.com/hn-starter.graphql only defines the `Link` type for now:
 
 ```graphql(nocopy)
-type Link implements Node {
+type Link @model {
   description: String!
   url: String!
 }
@@ -86,7 +86,7 @@ Once the project is created, you’ll find the [Graphcool Project File](https://
 # project: cj4k7j28p7ujs014860czx89p
 # version: 2
 
-type Link implements Node {
+type Link @model {
   url: String!
   description: String!
   createdAt: DateTime!
@@ -94,7 +94,7 @@ type Link implements Node {
   updatedAt: DateTime!
 }
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -105,7 +105,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!

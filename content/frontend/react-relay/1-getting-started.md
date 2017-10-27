@@ -79,7 +79,7 @@ Once the project was created, you'll find the [Graphcool Project File](https://w
 # project: cj4liutcbackk01648jagrepi
 # version: 1
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -90,7 +90,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type Link implements Node {
+type Link @model {
   createdAt: DateTime!
   id: ID! @isUnique
   postedBy: User @relation(name: "UsersLinks")
@@ -99,7 +99,7 @@ type Link implements Node {
   votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   links: [Link!]! @relation(name: "UsersLinks")
@@ -108,7 +108,7 @@ type User implements Node {
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Vote implements Node {
+type Vote @model {
   createdAt: DateTime!
   id: ID! @isUnique
   link: Link @relation(name: "VotesOnLink")

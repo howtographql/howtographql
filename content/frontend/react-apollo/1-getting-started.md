@@ -107,7 +107,7 @@ Once the project was created, you'll find the [Graphcool Project File](https://w
 # project: cj4k7j28p7ujs014860czx89p
 # version: 1
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -118,7 +118,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type Link implements Node {
+type Link @model {
   createdAt: DateTime!
   description: String!
   id: ID! @isUnique
@@ -126,7 +126,7 @@ type Link implements Node {
   url: String!
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!
