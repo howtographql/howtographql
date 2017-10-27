@@ -50,3 +50,5 @@ cd howtographql
 yarn install
 yarn start # http://localhost:8000/ 
 ```
+
+> Note: If you're using Node 8, you might need to invoke `npm install -g node-gyp` before you're starting the app. More info [here](https://github.com/gatsbyjs/gatsby/issues/1754). 
