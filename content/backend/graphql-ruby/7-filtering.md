@@ -13,8 +13,8 @@ For this part of the tutorial, we are going to use [SearchObject::Plugin::GraphQ
 Add the following lines to your `Gemfile`:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'search_object'
-gem 'search_object_graphql'
+gem 'search_object', '1.2.0'
+gem 'search_object_graphql', '0.1'
 ```
 
 </Instruction>
