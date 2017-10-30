@@ -5,6 +5,7 @@ description: "Learn best practices to implement authentication with GraphQL & Ap
 question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
 answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
 correctAnswer: 1
+videoAuthor: "Abhi Aiyer"
 videoId: MiNDIWK7Q1I
 duration: 12
 videoAuthor: "Abhi Aiyer"
@@ -283,7 +284,7 @@ graphcool pull
 This will bump the schema `version` to `2` and update the `User` type to now also include the `email` and `password` fields:
 
 ```{3,5}graphql(nocopy)
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   email: String @isUnique
   id: ID! @isUnique
@@ -302,7 +303,7 @@ Next you need to make one more modification to the schema. Generally, when updat
 Open your project file `project.graphcool` and update the `User` and `Link` types as follows:
 
 ```{7,17}graphql
-type Link implements Node {
+type Link @model {
   createdAt: DateTime!
   description: String!
   id: ID! @isUnique
@@ -311,7 +312,7 @@ type Link implements Node {
   postedBy: User @relation(name: "UsersLinks")
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   email: String @isUnique

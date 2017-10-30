@@ -20,19 +20,30 @@ Since this is a frontend track, you don't want to spend too much time setting up
 You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to generate the server based on the data model that you need for the app. Speaking of the data model, here is what the final version of it looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
 
 ```graphql(nocopy)
-type User {
+type User @model {
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+
   name: String!
   links: [Link!]! @relation(name: "UsersLinks")
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Link { 
+type Link @model { 
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+
   url: String!
   postedBy: User! @relation(name: "UsersLinks")
   votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
-type Vote {
+type Vote @model {
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
 }
@@ -56,6 +67,8 @@ npm install -g graphcool
 
 </Instruction>
 
+> **NOTE**: This tutorial uses the [legacy](https://www.graph.cool/docs/reference/service-definition/legacy-console-projects-aemieb1aev) version of [Graphcool](https://www.graph.cool/) and will be updated soon to use the new [Graphcool Framework](https://blog.graph.cool/introducing-the-graphcool-framework-d9edab2a7816). The CLI commands mentioned in tutorial are outdated, you can read more about the new CLI [here](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). If you still want to go through this tutorial, you can install the old version of the CLI using `npm install -g graphcool@0.4`.
+
 Now you can go and create the server. 
 
 <Instruction>
@@ -78,7 +91,11 @@ Note that this command will open up a browser window first and ask you to authen
 The schema that's stored at [https://graphqlbin.com/hn-starter.graphql](https://graphqlbin.com/hn-starter.graphql) only defines the `Link` type for now:
 
 ```graphql(nocopy)
-type Link {
+type Link @model {
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+
   description: String!
   url: String!
 }
@@ -90,7 +107,7 @@ Once the project was created, you'll find the [Graphcool Project File](https://w
 # project: cj4k7j28p7ujs014860czx89p
 # version: 1
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -101,7 +118,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type Link implements Node {
+type Link @model {
   createdAt: DateTime!
   description: String!
   id: ID! @isUnique
@@ -109,7 +126,7 @@ type Link implements Node {
   url: String!
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!

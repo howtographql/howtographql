@@ -50,6 +50,8 @@ npm install -g graphcool
 
 </Instruction>
 
+> **NOTE**: This tutorial uses the [legacy](https://www.graph.cool/docs/reference/service-definition/legacy-console-projects-aemieb1aev) version of [Graphcool](https://www.graph.cool/) and will be updated soon to use the new [Graphcool Framework](https://blog.graph.cool/introducing-the-graphcool-framework-d9edab2a7816). The CLI commands mentioned in tutorial are outdated, you can read more about the new CLI [here](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). If you still want to go through this tutorial, you can install the old version of the CLI using `npm install -g graphcool@0.4`.
+
 Now you can go and create the server. 
 
 <Instruction>
@@ -72,7 +74,7 @@ Note that this command will open up a browser window first and ask you to authen
 The schema that’s stored at https://graphqlbin.com/hn-starter.graphql only defines the `Link` type for now:
 
 ```graphql(nocopy)
-type Link implements Node {
+type Link @model {
   description: String!
   url: String!
 }
@@ -84,7 +86,7 @@ Once the project is created, you’ll find the [Graphcool Project File](https://
 # project: cj4k7j28p7ujs014860czx89p
 # version: 2
 
-type Link implements Node {
+type Link @model {
   url: String!
   description: String!
   createdAt: DateTime!
@@ -92,7 +94,7 @@ type Link implements Node {
   updatedAt: DateTime!
 }
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -103,7 +105,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!

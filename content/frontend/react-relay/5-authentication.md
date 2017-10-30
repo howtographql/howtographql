@@ -278,7 +278,7 @@ graphcool pull
 This will bump the schema `version` to `2` and update the `User` type to look also include the `email` and `password` fields:
 
 ```{3,5}graphql(nocopy)
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   email: String @isUnique
   id: ID! @isUnique
