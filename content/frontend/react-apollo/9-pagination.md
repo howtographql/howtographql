@@ -21,7 +21,7 @@ Once more, you first need to prepare the React components for this new functiona
 
 Open `App.js` and adjust the render method like so:
 
-```js{4,8,9}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7,11,12}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
     return (
       <div className='center w85'>
@@ -60,7 +60,7 @@ You now added two new routes: `/top` and `/new/:page`. The second one reads the 
 
 The root route `/` now redirects to the first page of the route where new posts are displayed.
 
-We need to add quite some logic to the `LinkList` component to account for the two different responsibilities that it now has. 
+We need to add quite some logic to the `LinkList` component to account for the two different responsibilities that it now has.
 
 <Instruction>
 
@@ -140,7 +140,7 @@ export const LINKS_PER_PAGE = 5
 
 <Instruction>
 
-Now adjust the import statement from `../constants` in `LinkList.js` to also include the new constant: 
+Now adjust the import statement from `../constants` in `LinkList.js` to also include the new constant:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 import { GC_USER_ID, GC_AUTH_TOKEN, LINKS_PER_PAGE } from '../constants'
@@ -286,10 +286,10 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
 ```
 
 </Instruction>
- 
+
 All that's happening here is the computation of the variables depending on whether the user currently is on the `/top` or `/new` route.  
 
-Finally, you also need to adjust the implementation of `update` when new links are created. 
+Finally, you also need to adjust the implementation of `update` when new links are created.
 
 <Instruction>
 
@@ -328,7 +328,7 @@ _createLink = async () => {
   })
   this.props.history.push(`/new/1`)
 }
-``` 
+```
 
 </Instruction>
 
