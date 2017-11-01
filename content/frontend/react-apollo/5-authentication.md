@@ -463,7 +463,7 @@ async function createGraphcoolUser(api: GraphQLClient, email: string, password: 
 
 </Instruction>
 
-All that's left for you now is deploying these changes to make sure your running Graphcool service gets updated.
+All that's left for you now is deploying these changes to make sure your running Graphcool service gets updated and exposes the new functionality in its API.
 
 <Instruction>
 
