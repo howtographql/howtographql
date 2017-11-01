@@ -15,7 +15,7 @@ In this section, you'll learn how to use the [`react-router`](https://github.com
 
 ### Install Dependencies
 
-First add the dependency to the app. Open a Terminal, navigate to your project directory and and type: 
+First add the dependency to the app. Open a terminal, navigate to your project directory and type: 
 
 <Instruction>
 
@@ -24,7 +24,6 @@ yarn add react-router react-router-dom
 ```
 
 </Instruction>
-
 
 ### Create a Header
 
@@ -61,7 +60,6 @@ export default withRouter(Header)
 
 </Instruction>
 
-
 This simply renders two `Link` components that users can use to navigate between the `LinkList` and the `CreateLink` components. 
 
 > Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows you to navigate between routes inside of your application.
@@ -93,9 +91,7 @@ render() {
 
 </Instruction>
 
-
 For this code to work, you need to import the required dependencies of `react-router-dom`. 
-
 
 <Instruction>
 
@@ -108,9 +104,7 @@ import { Switch, Route } from 'react-router-dom'
 
 </Instruction>
 
-
 Now you need to wrap the `App` with with `BrowserRouter` so that all child components of `App` will get access to the routing functionality.
-
 
 <Instruction>
 
@@ -121,7 +115,6 @@ import { BrowserRouter } from 'react-router-dom'
 ```
 
 </Instruction>
-
 
 <Instruction>
 
@@ -140,11 +133,9 @@ ReactDOM.render(
 
 </Instruction>
 
-
 That's it. If you run `yarn start`, you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
 
 ![](http://imgur.com/I16JzwW.png)
-
 
 ### Implement navigation
 
@@ -169,6 +160,4 @@ _createLink = async () => {
 
 </Instruction>
 
-
 After the mutation was performed, `react-router-dom` will now navigate back to the `LinkList` component that's accessible on the root route: `/`.
-

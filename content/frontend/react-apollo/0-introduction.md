@@ -30,9 +30,9 @@ In this track, you'll use the following technologies for building the app:
 
 - Frontend:
     - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
-    - [Apollo Client](https://github.com/apollographql/apollo-client): Fully-featured, production ready caching GraphQL client
+    - [Apollo Client](https://github.com/apollographql/apollo-client): Fully-featured, production-ready, caching GraphQL client
 - Backend:
-    - [Graphcool](https://www.graph.cool/): Flexible backend platform combining GraphQL + Serverless
+    - [Graphcool Framework](https://www.graph.cool/): Flexible backend development framework combining GraphQL + Serverless
 
 You'll create the React project with [`create-react-app`](https://github.com/facebookincubator/create-react-app), a popular command-line tool that gives you a blank project with all required build configuration already setup.
 

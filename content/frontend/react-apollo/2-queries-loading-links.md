@@ -12,7 +12,7 @@ correctAnswer: 0
 
 ### Preparing the React components
 
-The first piece of functionality that you'll implement in the app is loading and displaying a list of `Link` elements. You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
+The first piece of functionality you'll implement in the app is loading and displaying a list of `Link` elements. You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
 
 <Instruction>
 
@@ -83,7 +83,6 @@ export default LinkList
 
 </Instruction>
 
-
 Here, you're using mock data for now to make sure the component setup works. You'll soon replace this with some actual data loaded from the server - patience, young Padawan!
 
 <Instruction>
@@ -106,7 +105,6 @@ export default App
 ```
 
 </Instruction>
-
 
 Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
@@ -132,7 +130,6 @@ query AllLinks {
 
 You could now simply execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
 
-
 ### Queries with Apollo Client
 
 When using Apollo, you've got two ways of sending queries to the server.
@@ -155,7 +152,7 @@ client.query({
 
 A more idiomatic way when using React however is to use Apollo's higher-order component [`graphql`](http://dev.apollodata.com/react/api-graphql.html) to wrap your React component with a query.
 
-With this approach, all you need to do when it comes to data fetching is write the GraphQL query and `graphql` will fetch the data for you under the hood and then make it available in your component's props. 
+With this approach, all you need to do when it comes to data fetching is write the GraphQL query and `graphql` will fetch the data for you under the hood and then make it available in your component's props.
 
 In general, the process for you to add some data fetching logic will be very similar every time:
 
@@ -190,7 +187,7 @@ export default graphql(ALL_LINKS_QUERY, { name: 'allLinksQuery' }) (LinkList)
 What's going on here?
 
 1. First, you create the JavaScript constant called `ALL_LINKS_QUERY` that stores the query. The `gql` function is used to parse the plain GraphQL code.
-2. Now you define the plain GraphQL query. The name `AllLinksQuery` is the _operation name_ and will be used by Apollo to refer to this query in its internals.  (Notice we're using a GraphQL comment here.) 
+2. Now you define the actual GraphQL query. The name `AllLinksQuery` is the _operation name_ and will be used by Apollo to refer to this query in its internals. (Notice we're using a GraphQL comment here.) 
 3. Finally, you're using the `graphql` container to combine the `LinkList` component with the `ALL_LINKS_QUERY`. Note that you're also passing an option to the function call where you specify a `name` to be `allLinksQuery`. This is the name of the `prop` that Apollo injects into the `LinkList`component. If you didn't specify it here, the injected prop would be called `data`.
 
 <Instruction>

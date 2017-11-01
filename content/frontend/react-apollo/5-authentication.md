@@ -15,7 +15,7 @@ In this section, you'll learn how you can implement authentication functionality
 
 ### Prepare the React components
 
-As in the sections before, you'll set the stage for the login functionality by preparing the React components that are needed for this feature. You'll start by implementing the `Login` component. 
+As in the sections before, you'll set the stage for the login functionality by preparing the React components that are needed for this feature. You'll start by implementing the `Login` component.
 
 <Instruction>
 
@@ -116,9 +116,7 @@ export const GC_AUTH_TOKEN = 'graphcool-auth-token'
 
 </Instruction>
 
-
 With that component in place, you can go and add a new route to your `react-router-dom` setup. 
-
 
 <Instruction>
 
@@ -143,7 +141,6 @@ render() {
 
 </Instruction>
 
-
 <Instruction>
 
 Also import the `Login` component on top of the same file: 
@@ -153,7 +150,6 @@ import Login from './Login'
 ```
 
 </Instruction>
-
 
 Finally, go ahead and add `Link` to the `Header` that allows the users to navigate to the `Login` page. 
 
@@ -194,7 +190,6 @@ render() {
 
 </Instruction>
 
-
 You first retrieve the `userId` from local storage. If the `userId` is not available, the _submit_-button won't be rendered any more. That way you make sure only authenticated users can create new links. 
 
 You're also adding a second button to the right of the `Header` that users can use to login and logout.
@@ -209,115 +204,108 @@ import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 
 </Instruction>
 
- 
 Here is what the ready component looks like:
 
 ![](http://imgur.com/tBxMVtb.png)
  
-Before you can implement the authentication functionality in `Login.js`, you need to prepare the Graphcool project and enable authentication on the server-side.
+Before you can implement the authentication functionality in `Login.js`, you need to update the running Graphcool service and add authentication on the server-side.
 
 ### Enabling Email-and-Password Authentication & Updating the Schema
 
+Authentication in the Graphcool Framework is based on [resolver](https://www.graph.cool/docs/reference/functions/resolvers-su6wu3yoo2) functions that deal with login-functionality by issuing and returning [node tokens](https://www.graph.cool/docs/reference/auth/authentication/authentication-tokens-eip7ahqu5o#node-tokens) that can be used to authenticate requests.
+
+Graphcool has a flexible [template](https://www.graph.cool/docs/reference/service-definition/templates-zeiv8phail) system that allows to conventiently pull in predefined functionality into a project. You'll use this template system to pull in the authentication functionality.
+
+You can use the CLI's [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command to use a template in your Graphcool service. This command will perform two tasks:
+
+- Download the files from Graphcool's [`templates` repository](https://github.com/graphcool/templates) that are required for the `email-password` template.
+- Add commented lines to `graphcool.yml` and `types.graphql` that allow you to "activate" the template's functionality by simply uncommenting them. 
 
 <Instruction>
 
-In the directory where `project.graphcool` is located, type the following into the terminal:
+Navigate into the `server` directory inside your project and run the following command:
 
-```bash(path="../hackernews-react-apollo")
-graphcool console
+```bash(path="../hackernews-react-apollo/server")
+graphcool add-template graphcool/templates/auth/email-password
 ```
 
 </Instruction>
 
-This will open up the Graphcool Console - the web UI that allows you to configure your Graphcool project.
+This now downloaded six new files and placed them in the `src/email-password` directory. It also added comments to `graphcool.yml` and `types.graphql`.
+
+Next, you have to actually "activate" the templates functionality by uncommenting these lines.
 
 <Instruction>
 
-Select the _Integrations_-tab in the left side-menu and then click on the _Email-Password-Auth_-integration.
+Open `graphcool.yml` and uncomment the definitions for the `signup`, `authenticate` and `loggedInUser` functions:
 
-</Instruction>
+```yml(path=".../hackernews-react-apollo/server/graphcool.yml)
+functions:
 
+# added by email-password template: (please uncomment)
 
-![](http://imgur.com/FkyzuuM.png)
+  signup:
+    type: resolver
+    schema: src/email-password/signup.graphql
+    handler:
+      code: src/email-password/signup.ts
 
-This will open the popup that allows you to enable the Graphcool's email-based authentication mechanism.
+  authenticate:
+    type: resolver
+    schema: src/email-password/authenticate.graphql
+    handler:
+      code: src/email-password/authenticate.ts
 
-<Instruction>
-
-In the popup, simply click _Enable_.
-
-</Instruction>
-
-
-![](http://imgur.com/HNdmas3.png)
-
-Having the `Email-and-Password` auth provider enabled adds two new mutations to the project's API:
-
-```graphql(nocopy)
-# 1. Create new user
-createUser(authProvider: { email: { email, password } }): User
-
-# 2. Login existing user
-signinUser(email: { email, password }): SignInUserPayload
-
-# SignInUserPayload bundles information about the `user` and `token`
-type SignInUserPayload {
-  user: User
-  token: String
-}
-```
-
-Next, you have to make sure that the changes introduced by the authentication provider are reflected in your local project file. You can use the `graphcool pull` to update your local schema file with changes that happened remotely.
-
-<Instruction>
-
-Open a terminal window and navigate to the directory where `project.graphcool` is located. Then run the following command:
-
-```bash(path="../hackernews-react-apollo")
-graphcool pull
+  loggedInUser:
+    type: resolver
+    schema: src/email-password/loggedInUser.graphql
+    handler:
+      code: src/email-password/loggedInUser.ts
 ```
 
 </Instruction>
 
-> Note: Before the remote schema gets fetched, you will be asked to confirm that you want to override the current project file. You can confirm by typing `y`. 
+If you take a look at the code for these functions, you'll notice that they're referencing a `User` type that still needs to be added to your data model. In fact, the `add-template` command already wrote this `User` type to `types.graphql` - except that it still has comments.
 
-This will bump the schema `version` to `2` and update the `User` type to now also include the `email` and `password` fields:
+<Instruction>
 
-```{3,5}graphql(nocopy)
+Open `types.graphql` and uncomment the `User` type:
+
+```graphql(path=".../hackernews-react-apollo/server/types.graphql)
+# added by email-password template: (please uncomment)
 type User @model {
+  id: ID! @isUnique   
   createdAt: DateTime!
-  email: String @isUnique
-  id: ID! @isUnique
-  password: String
   updatedAt: DateTime!
+  email: String! @isUnique
+  password: String!
 }
 ```
 
-Next you need to make one more modification to the schema. Generally, when updating the schema of a Graphcool project, you've got two ways of doing so:
+</Instruction>
 
-1. Use the web-based [Graphcool Console](https://console.graph.cool) and change the schema directly
-2. Use the Graphcool project file and the CLI to update the schema from your local machine
+Before you apply the changes to the running service, you'll make another modification to your data model by adding the _relation_ between the `Link` and the newly added `User` type as well as a new field `name` for the `User`.
 
 <Instruction>
 
-Open your project file `project.graphcool` and update the `User` and `Link` types as follows:
+Open your type definitions file `types.graphql` and update the `User` and `Link` types as follows:
 
-```{7,17}graphql
+```{7,14,17}graphql
 type Link @model {
-  createdAt: DateTime!
-  description: String!
   id: ID! @isUnique
+  createdAt: DateTime!
   updatedAt: DateTime!
+  description: String!
   url: String!
   postedBy: User @relation(name: "UsersLinks")
 }
 
 type User @model {
-  createdAt: DateTime!
   id: ID! @isUnique
-  email: String @isUnique
+  createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
+  email: String @isUnique
   password: String
   links: [Link!]! @relation(name: "UsersLinks")
 }
@@ -330,35 +318,164 @@ You added two things to the schema:
 - A new field on the `User` type to store the `name` of the user.
 - A new relation between the `User` and the `Link` type that represents a one-to-many relationship and expresses that one `User` can be associated with multiple links. The relation manifests itself in the two fields `postedBy` and `links`.
 
+Not it's time to apply the changes by deploying your service again.
+
 <Instruction>
 
-Save the file and execute the following command in the Terminal:
+Save the file and execute the following command in the `server` directory in a terminal:
 
-```bash(path="../hackernews-react-apollo")
-graphcool push
+```bash(path="../hackernews-react-apollo/server")
+graphcool deploy
 ```
 
 </Instruction>
 
+Your GraphQL API now includes three additional operations, as specified in `graphcool.yml`:
 
-Here is the Terminal output after you can the command:
+- `signup`: Create a new user based on `email` and `password`.
+- `authenticate`: Log in existing user with `email` and `password`.
+- `loggedInUser`: Checks whether a user is currently logged in.
 
-```sh(nocopy)
-$ graphcool push
- ✔ Your schema was successfully updated. Here are the changes: 
+### Adding an additional Argument to the `signup` Mutation
 
-  | (*)  The type `User` is updated.
-  ├── (+)  A new field with the name `name` and type `String!` is created.
-  |
-  | (+)  The relation `UsersLinks` is created. It connects the type `Link` with the type `User`.
+You can see the GraphQL interface for the newly added operations in the corresponding `.graphql`-files inside the `server/src/email-password` directory. Let's take a look at the interface of the `signup` function:
 
-Your project file project.graphcool was updated. Reload it in your editor if needed.
+```graphql(nocopy)
+type SignupUserPayload {
+  id: ID!
+  token: String!
+}
+
+extend type Mutation {
+  signupUser(email: String!, password: String!): SignupUserPayload
+}
 ```
 
-> **Note**: You can also use the `graphcool status` command after having made changes to the schema to preview the potential changes that would be performed with `graphcool push`.
+The `signupUser`-mutation is used to create a new `User` in the database. The problem right now is that our schema requires every `User` instance to have a `name`. However, the above `signupUser`-mutation only accepts `email` and `password` as arguments. You now need to adjust the `signup` resolver so it also accepts the `name` for the new `User` as an input argument and make sure it's saved when the `User` is created.
 
-Perfect, you're all set now to actually implement the authentication functionality inside your app.
+<Instruction>
 
+Open `server/src/email-password/signup.graphql` and update the extension of the `Mutation` type to look as follows:
+
+```graphql(path="../hackernews-react-apollo/server/src/email-password/signup.graphql")
+extend type Mutation {
+  signupUser(email: String!, password: String!, name: String!): SignupUserPayload
+}
+```
+
+</Instruction>
+
+For now you only adjusted the _interface_ of the `signup` resolver. Next, you also need to make sure to update the _implementation_. 
+
+> Note: The `signup` resolver is implemented as a _serverless function_. The input arguments for that function are determined by the input arguments of the corresponding GraphQL operation. In this case, this is the `signupUser`-mutation, so the function will received three string as input arguments: `email`, `password` and `name`. (Notice that these are wrapped in a single object called `event` though).
+
+The goal in the new implementation is to retrieve the `name` argument from the input `event` and send it along when creating the new `User`.
+
+<Instruction>
+
+Open `signup.ts` and update the definition of the `EventData` interface like so:
+
+```ts{4}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
+interface EventData {
+  email: string
+  password: string
+  name: string
+}
+```
+
+</Instruction>
+
+<Instruction>
+
+Still in `signup.ts`, adjust the implementation of the anonymous (and topmost) function to look as follows:
+
+```ts{8,26}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
+export default async (event: FunctionEvent<EventData>) => {
+  console.log(event)
+
+  try {
+    const graphcool = fromEvent(event)
+    const api = graphcool.api('simple/v1')
+
+    const { email, password, name } = event.data
+
+    if (!validator.isEmail(email)) {
+      return { error: 'Not a valid email' }
+    }
+
+    // check if user exists already
+    const userExists: boolean = await getUser(api, email)
+      .then(r => r.User !== null)
+    if (userExists) {
+      return { error: 'Email already in use' }
+    }
+
+    // create password hash
+    const salt = bcrypt.genSaltSync(SALT_ROUNDS)
+    const hash = await bcrypt.hash(password, SALT_ROUNDS)
+
+    // create new user
+    const userId = await createGraphcoolUser(api, email, hash, name)
+
+    // generate node token for new User node
+    const token = await graphcool.generateNodeToken(userId, 'User')
+
+    return { data: { id: userId, token } }
+  } catch (e) {
+    console.log(e)
+    return { error: 'An unexpected error occured during signup.' }
+  }
+}
+```
+
+</Instruction>
+
+All you do is also retrieve the `name` from the input `event` and then pass it to the `createGraphcoolUser` function a bit later.
+
+<Instruction>
+
+Still in `signup.ts`, update the `createGraphcoolUser` function like so:
+
+```ts{1,7,17}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
+async function createGraphcoolUser(api: GraphQLClient, email: string, password: string, name: string): Promise<string> {
+  const mutation = `
+    mutation createGraphcoolUser($email: String!, $password: String!, $name: String!) {
+      createUser(
+        email: $email,
+        password: $password,
+        name: $name
+      ) {
+        id
+      }
+    }
+  `
+
+  const variables = {
+    email,
+    password,
+    name
+  }
+
+  return api.request<{ createUser: User }>(mutation, variables)
+    .then(r => r.createUser.id)
+}
+```
+
+</Instruction>
+
+All that's left for you now is deploying these changes to make sure your running Graphcool service gets updated.
+
+<Instruction>
+
+In your terminal, navigate to the `server` directory and run:
+
+```bash(path=".../hackernews-react-apollo/server")
+graphcool deploy
+```
+
+</Instruction>  
+
+Perfect, you're all set now to actually implement the authentication functionality in the frontend as well.
 
 ### Implementing the Login Mutations
 
@@ -416,7 +533,6 @@ export default compose(
 ```
 
 </Instruction>
-
 
 Note that you're using `compose` for the export statement this time since there is more than one mutation that you want to wrap the component with.
 

@@ -74,7 +74,6 @@ export default CreateLink
 
 </Instruction>
 
-
 This is a standard setup for a React component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in the component's `state` and will be used in `_createLink` when the mutation is sent.
 
 ### Writing the Mutation
@@ -110,8 +109,7 @@ export default graphql(CREATE_LINK_MUTATION, { name: 'createLinkMutation' })(Cre
 
 </Instruction>
 
-
-Let's take close look again to understand what's going on:
+Let's take a closer look again to understand what's going on:
 
 1. You first create the JavaScript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
 2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.  
@@ -127,9 +125,7 @@ import { graphql, gql } from 'react-apollo'
 
 </Instruction>
 
-
 Let's see the mutation in action!
-
 
 <Instruction>
 
@@ -148,7 +144,6 @@ _createLink = async () => {
 ```
 
 </Instruction>
-
 
 As promised, all you need to do is call the function that Apollo injects into `CreateLink` and pass the variables that represent the user input. 
 
@@ -189,7 +184,7 @@ Enter some data into the fields, e.g.:
 
 Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
 
-Type `graphcool playground` into a Terminal and send the following query:
+Type `graphcool playground` into a terminal and send the following query:
 
 ```graphql
 {
@@ -202,7 +197,7 @@ Type `graphcool playground` into a Terminal and send the following query:
 
 You'll see the following server response:
 
-```js
+```js(nocopy)
 {
   "data": {
     "allLinks": [
