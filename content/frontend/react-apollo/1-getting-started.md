@@ -380,8 +380,12 @@ input {
 
 Next, you need to pull in the functionality of Apollo Client which is all bundled in the `react-apollo` package:
 
+> **NOTE**: This tutorial uses the legacy version of
+> [react-apollo](https://github.com/apollographql/react-apollo)
+> and will be updated soon to use the new one.
+
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-apollo
+yarn add react-apollo@1.4
 ```
 
 </Instruction>
