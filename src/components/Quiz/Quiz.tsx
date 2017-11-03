@@ -11,6 +11,7 @@ import { defaultReaction, QuizState } from '../../reducers/quiz'
 import {
   addAnswer,
   answerCorrectly,
+  markAsWatched,
   setRememberSkipped,
   skip,
 } from '../../actions/quiz'
@@ -27,9 +28,18 @@ interface Props {
   skip: (path: string) => void
   addAnswer: (path: string, answer: number) => void
   answerCorrectly: (path: string) => void
+  markAsWatched: (path: string) => void
 }
 
 class Quiz extends React.Component<Props & QuizState, {}> {
+  componentDidMount() {
+    this.markAsWatchedIfNoQuestion()
+  }
+
+  componentDidUpdate() {
+    this.markAsWatchedIfNoQuestion()
+  }
+
   render() {
     const {
       question,
@@ -192,6 +202,16 @@ class Quiz extends React.Component<Props & QuizState, {}> {
     )
   }
 
+  private markAsWatchedIfNoQuestion = () => {
+    const { question, quizReactions, markAsWatched, path } = this.props
+    const hasQuestion = Boolean(question)
+    const reaction = quizReactions[path]
+
+    if (!hasQuestion && !Boolean(reaction && reaction.watched)) {
+        markAsWatched(path)
+    }
+  }
+
   private toggleRememberSkip = () => {
     this.props.setRememberSkipped(!this.props.rememberSkipped)
   }
@@ -287,6 +307,7 @@ function Answer({ text, onClick, checked, correct }: AnswerProps) {
 export default connect(state => state.quiz, {
   addAnswer,
   answerCorrectly,
+  markAsWatched,
   setRememberSkipped,
   skip,
 })(Quiz)

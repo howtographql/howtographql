@@ -33,7 +33,7 @@ function Result({ steps, ...state }: Props & QuizState) {
     })
     .filter(
       (reaction: QuizReaction) =>
-        reaction.answerIndeces && reaction.answerIndeces.length > 0,
+        reaction.answerIndeces && reaction.answerIndeces.length > 0 || reaction.watched,
     )
 
   const groupedReactions = groupBy(filteredReactions, reaction =>
@@ -47,6 +47,9 @@ function Result({ steps, ...state }: Props & QuizState) {
       const scores = groupSteps.map(step => {
         const reaction = state.quizReactions[step.link]
         if (reaction) {
+          if (reaction.watched) {
+            return { score: 4, path: step.link }
+          }
           const score = reaction.answeredCorrectly && reaction.answerIndeces
             ? 5 - reaction.answerIndeces.length
             : 0

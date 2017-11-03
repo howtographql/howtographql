@@ -7,6 +7,7 @@ export interface QuizReaction {
   answerIndeces?: number[]
   skipped?: boolean
   answeredCorrectly?: boolean
+  watched?: boolean
 }
 
 export const defaultQuizState: QuizState = {
@@ -24,6 +25,7 @@ export const defaultReaction: QuizReaction = {
   answerIndeces: [],
   answeredCorrectly: false,
   skipped: false,
+  watched: false,
 }
 
 export default function quizReducer(
@@ -39,6 +41,9 @@ export default function quizReducer(
 
     case 'answer correctly':
       return updateReaction(state, action.path, { answeredCorrectly: true })
+
+    case 'mark as watched':
+      return updateReaction(state, action.path, { watched: true })
 
     case 'add answer':
       const currentReaction = action.path
