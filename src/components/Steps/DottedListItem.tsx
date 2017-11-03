@@ -30,8 +30,9 @@ const DottedListItem = ({
   last,
   skipped,
   answeredCorrectly,
+  watched,
 }: Props & QuizReaction) => {
-  const done = skipped || answeredCorrectly
+  const done = skipped || answeredCorrectly || watched
   return (
     <div
       className={cn('dotted-list-item', {

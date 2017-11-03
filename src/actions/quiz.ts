@@ -7,6 +7,10 @@ export const answerCorrectly = (path: string): Action => ({
   path,
   type: 'answer correctly',
 })
+export const markAsWatched = (path: string): Action => ({
+  path,
+  type: 'mark as watched',
+})
 export const addAnswer = (path: string, answer: number): Action => ({
   path,
   payload: answer,
