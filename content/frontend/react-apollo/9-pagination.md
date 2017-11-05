@@ -60,6 +60,31 @@ You now added two new routes: `/top` and `/new/:page`. The second one reads the 
 
 The root route `/` now redirects to the first page of the route where new posts are displayed.
 
+Now let's ensure that `/top` route is accessible.
+
+<Instruction>
+
+Open `Header.js` and put a new `Link` between `new` and `search`:
+
+```js{5,6}(path=".../hackernews-react-apollo/src/components/Header.js")
+<div className='flex flex-fixed black'>
+  <div className='fw7 mr1'>Hacker News</div>
+  <Link to='/' className='ml1 no-underline black'>new</Link>
+  <div className='ml1'>|</div>
+  <Link to='/top' className='ml1 no-underline black'>top</Link>
+  <div className='ml1'>|</div>
+  <Link to='/search' className='ml1 no-underline black'>search</Link>
+  {userId &&
+  <div className='flex'>
+    <div className='ml1'>|</div>
+    <Link to='/create' className='ml1 no-underline black'>submit</Link>
+  </div>
+  }
+</div>
+```
+
+</Instruction>
+
 We need to add quite some logic to the `LinkList` component to account for the two different responsibilities that it now has. 
 
 <Instruction>
