@@ -129,20 +129,20 @@ type SigninPayload {
 
 ```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 Mutation: {
-    // ...
+  // ...
 
-    signinUser: async (root, data, {mongo: {Users}}) => {
-        const user = await Users.findOne({email: data.email.email});
-        if (data.email.password === user.password) {
-          return {token: `token-${user.email}`, user};
-        }
-      },
+  signinUser: async (root, data, {mongo: {Users}}) => {
+      const user = await Users.findOne({email: data.email.email});
+      if (data.email.password === user.password) {
+        return {token: `token-${user.email}`, user};
+      }
     },
-
-    User: {
-      // Convert the "_id" field from MongoDB to "id" from the schema.
-      id: root => root._id || root.id,
-    },
+  },
+},
+User: {
+  // Convert the "_id" field from MongoDB to "id" from the schema.
+  id: root => root._id || root.id,
+},
 ```
 
 </Instruction>
