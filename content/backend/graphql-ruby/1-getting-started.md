@@ -25,7 +25,7 @@ Then follow these steps to create the project for your application:
 
 ```bash
 gem install bundler
-gem install rails
+gem install rails -v 5.1.4
 rails new graphql-tutorial
 cd graphql-tutorial
 rails db:create
@@ -49,7 +49,7 @@ Now, let's add GraphQL to the server. First, stop the server.
 Open `Gemfile` and add the following dependency to it:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'graphql'
+gem 'graphql', '1.7.4'
 ```
 
 </Instruction>
@@ -61,6 +61,28 @@ Then run:
 ```bash
 bundle update
 rails generate graphql:install
+```
+
+</Instruction>
+
+<Instruction>
+
+Open `Gemfile` and change the following line:
+
+```ruby(path=".../graphql-ruby/Gemfile")
+gem 'graphiql-rails', group: :development
+```
+
+To:
+
+```ruby(path=".../graphql-ruby/Gemfile")
+gem 'graphiql-rails', '1.4.4', group: :development
+```
+
+And run:
+
+```
+bundle update
 ```
 
 </Instruction>

@@ -92,24 +92,6 @@ end
 
 </Instruction>
 
-<Instruction>
-
-Also update the content in:
-
-```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
-Types::MutationType = GraphQL::ObjectType.define do
-  name "Mutation"
-
-  # queries are just represented as fields
-  field :allLinks, !types[Types::LinkType] do
-    # resolve would be called in order to fetch data for that field
-    resolve -> (obj, args, ctx) { Link.all }
-  end
-end
-```
-
-</Instruction>
-
 Resolvers can be either of two things:
 
 * object responding to call method accepting 3 arguments - obj, arg, ctx (like `lambda` or `Proc` objects)
