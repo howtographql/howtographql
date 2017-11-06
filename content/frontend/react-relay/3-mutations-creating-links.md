@@ -3,7 +3,7 @@ title: "Mutations: Creating Links"
 pageTitle: "GraphQL Mutations with React & Relay Tutorial"
 description: "Learn how to use Relay Modern's new Mutation API to send mutations to a GraphQL server. With Relay Modern you can also update the cache directly after the mutation."
 question: What's one of the major changes of Relay Modern compared to Relay Classic?
-answers: ["Detailled documentation and many code samples", "An imperative and more predictible mutation API", "Declaring data dependencies as fragments alongisde React components", "Relay Modern also includes a new server component"]
+answers: ["Detailed documentation and many code samples", "An imperative and more predictible mutation API", "Declaring data dependencies as fragments alongisde React components", "Relay Modern also includes a new server component"]
 correctAnswer: 1
 videoId: eIsctkVmq4Y
 duration: 10
