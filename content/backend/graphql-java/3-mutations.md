@@ -69,7 +69,7 @@ Finally, register this new resolver the same way you registered `Query` inside `
 
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndpoint.java")
 private static GraphQLSchema buildSchema(LinkRepository linkRepository) {
-    return SchemaParser.*newParser*()
+    return SchemaParser.newParser()
         .file("schema.graphqls")
         .resolvers(new Query(linkRepository), new Mutation(linkRepository))
         .build()
