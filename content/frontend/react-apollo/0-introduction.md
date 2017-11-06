@@ -10,7 +10,6 @@ answers: ["It makes it easy to use animations inside your app", "A GraphQL clien
 correctAnswer: 2
 ---
 
-
 ### Overview
 
 In the previous tutorials, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!
