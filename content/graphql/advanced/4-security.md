@@ -23,12 +23,12 @@ For example, a server configured with a 5 seconds timeout would stop the executi
 
 ### Timeout Pros
 
-  - Simple to implement
-  - Most strategies will still use a timeout as a final protection
+  - Simple to implement.
+  - Most strategies will still use a timeout as a final protection.
 
 ### Timeout Cons
 
-  - Damage can already be done even when the timeout kicks in
+  - Damage can already be done even when the timeout kicks in.
   - Sometimes hard to implement. Cutting connections after a certain time may result
     in strange behaviours.
 
@@ -58,7 +58,7 @@ query IAmEvil {
 
 What if we could prevent clients from abusing query depth like this? Knowing your schema might give you an idea of how deep a legitimate query can go. This is actually possible to implement and is often called Maximum Query Depth.
 
-By analyzing the query document's AST, a GraphQL server is able to reject or accept a request based on its depth.
+By analyzing the query document's abstract syntax tree (AST), a GraphQL server is able to reject or accept a request based on its depth.
 
 Take for example a server configured with a Maximum Query Depth of `3`, and the following query document. Everything within the red marker is considered too deep and the query is invalid.
 
@@ -103,7 +103,7 @@ query {
 
 A simple addition gives us a total of `3` for the complexity of this query. If we were to set a max complexity of `2` on our schema, this query would fail.
 
-What if the `posts` field is actually much more complex that the `author` field? We can set a different complexity to the field. We can even set a different complexity depending on arguments! Let's take a look at a similar query,
+What if the `posts` field is actually much more complex than the `author` field? We can set a different complexity to the field. We can even set a different complexity depending on arguments! Let's take a look at a similar query,
 where `posts` has a variable complexity depending on its arguments:
 
 
@@ -124,8 +124,8 @@ query {
 
 ### Query Complexity Cons
 
-  - Hard to implement perfectly
-  - If complexity is estimated by developers, how do we keep it up to date? how do we find the costs in the first place?
+  - Hard to implement perfectly.
+  - If complexity is estimated by developers, how do we keep it up to date? How do we find the costs in the first place?
   - Mutations are hard to estimate. What if they have a side effect that is hard to measure like queuing a background job?
 
 ## Throttling
