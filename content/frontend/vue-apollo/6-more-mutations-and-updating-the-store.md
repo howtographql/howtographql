@@ -160,6 +160,7 @@ Open `project.graphcool` and add the following type:
 
 ```graphql
 type Vote {
+  id: ID! @isUnique
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
 }

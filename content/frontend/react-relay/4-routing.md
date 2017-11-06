@@ -25,7 +25,7 @@ The first thing you need to do is install the corresponding dependency.
 
 <Instruction>
 
-Open a terminal, navigate to your project directory and and type: 
+Open a terminal, navigate to your project directory and type: 
 
 ```bash(path=".../hackernews-react-relay")
 yarn add react-router-dom
