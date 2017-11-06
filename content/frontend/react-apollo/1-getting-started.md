@@ -127,7 +127,7 @@ As mentioned above, we'll start with only a sub-part of the actual data model an
 
 Open a terminal and navigate into the `server` directory. Then deploy the server with the following command:
 
-```bash(path="server")
+```bash(path=".../hackernews-react-apollo/server")
 graphcool deploy
 ```
 
@@ -153,7 +153,7 @@ You'll do this by using a GraphQL [Playground](https://github.com/graphcool/grap
 
 Still in the `server` directory in your terminal, run the following command:
 
-```bash(path="server")
+```bash(path=".../hackernews-react-apollo/server")
 graphcool playground
 ```
 
