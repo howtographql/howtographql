@@ -13,7 +13,7 @@ draft: false
 
 ### Backend
 
-Since this is a frontend track, you don't want to spend too much time setting up the backend. This is why you use the [Graphcool Framework](https://www.graph.cool/) which provides a fast and easy way to build and deploy GraphQL backends (also called Graphcool _services_).
+Since this is a frontend track, you don't want to spend too much time setting up the backend. This is why you'll use the [Graphcool Framework](https://www.graph.cool/) for this tutorial. It provides a fast and easy way to build and deploy GraphQL backends (also called Graphcool _services_).
 
 #### The Data Model
 
@@ -65,9 +65,7 @@ In general, there are a few things to note about these type definitions:
 
 #### Creating the GraphQL Server
 
-For starting out, you're not going to use the full data model that you saw above. That's because we want to evolve the schema when it becomes necessary for the features that we implement.
-
-For now, you'll just use the `Link` type to create the backend.
+For starting out, you're not going to use the full data model that you saw above. That's because we want to evolve the schema when it becomes necessary for the features you're going to implement. For now, the data model will contain only the `Link` type.
 
 The first thing you need to do to get your GraphQL server is install the Graphcool CLI with npm.
 
@@ -123,7 +121,7 @@ type Link @model {
 
 </Instruction>
 
-As mentioned above, we'll start with only a sub-part of the actual data model and evolve our schema and API when necessary. This change is all you need to pur your GraphQL server into production.
+As mentioned above, we'll start with only a sub-part of the actual data model and evolve our schema and API when necessary. This change is all you need to put your GraphQL server into production.
 
 <Instruction>
 
@@ -209,7 +207,7 @@ This creates two new `Link` records in the database. You can verify that the mut
 }
 ``` 
 
-If everything went well, the query will return the following data:
+If everything went well, the query will return the following data (the `id`s will of course be different in your case):
 
 ```js(nocopy)
 {
@@ -384,13 +382,24 @@ input {
 
 <Instruction>
 
-Next, you need to pull in the functionality of Apollo Client which is all bundled in the `react-apollo` package:
+Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-apollo
+yarn add apollo-client-preset react-apollo graphql-tag graphql
 ```
 
 </Instruction>
+
+Here's an overview of the packages you just installed:
+
+- [`apollo-client-preset`](https://www.npmjs.com/package/apollo-client-preset) offers some convenience by bundling several packages you need when working with Apollo Client:
+  - `apollo-client`
+  - `apollo-cache-inmemory`
+  - `apollo-link`
+  - `apollo-link-http`
+- [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
+- [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function.
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
 
 That's it, you're ready to write some code! 🚀
 
@@ -404,23 +413,25 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{6-7,9-12,14-17,19-25}(path="src/index.js")
+```js{7-10,13,16-19,23-25}(path="src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
+import './styles/index.css'
 import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
-import './styles/index.css'
 // 1
-import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // 2
-const networkInterface = createNetworkInterface({
-  uri: '__SIMPLE_API_ENDPOINT__'
-})
+const httpLink = new HttpLink({ uri: '__SIMPLE_API_ENDPOINT__' })
 
 // 3
 const client = new ApolloClient({
-  networkInterface
+  link: httpLink,
+  cache: new InMemoryCache()
 })
 
 // 4
@@ -439,9 +450,9 @@ registerServiceWorker()
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the required dependencies from the `react-apollo` package
-2. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
-3. Now you instantiate the `ApolloClient` by passing in the `networkInterface`.
+1. You're importing the required dependencies from the installed npm packages.
+2. Here you create the `HttpLink` that will connect your `ApolloClient` instance with the GraphQL API; you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
+3. Now you instantiate the `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
 4. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
 Next you need to replace the placeholder for the GraphQL endpoint with your actual endpoint. But where do you get your endpoint from?
@@ -452,7 +463,7 @@ There are two ways for you to get your endpoint. You can either open the [Graphc
 
 In the terminal, navigate into the `server` directory and use the following command to get access to the API endpoints of your Graphcools service:
 
-```bash(path=".../hackernews-react-apollo")
+```bash(path=".../hackernews-react-apollo/server")
 graphcool info
 ```
 

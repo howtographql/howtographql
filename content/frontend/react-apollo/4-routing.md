@@ -12,7 +12,6 @@ correctAnswer: 2
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
-
 ### Install Dependencies
 
 First add the dependency to the app. Open a terminal, navigate to your project directory and type: 
@@ -71,7 +70,7 @@ You'll configure the different routes for the app in the project's root componen
 
 <Instruction>
 
-Open the corresponding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components in different routes:
+Open the corresponding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components under different routes:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
@@ -120,7 +119,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 Now update `ReactDOM.render` and wrap the whole app with the `BrowserRouter`:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js{2,6}(path=".../hackernews-react-apollo/src/index.js")
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>

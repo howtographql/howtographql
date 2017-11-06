@@ -12,10 +12,9 @@ correctAnswer: 2
 
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with a minor (but logical) difference in step 3:
 
-1. write the mutation as a JS constant using the `gql` parser function
+1. write the mutation as a JSava riptconstant using the `gql` parser function
 2. use the `graphql` container to wrap your component with the mutation
 3. use the mutation function that gets injected into the component's props
-
 
 ### Preparing the React components
 
@@ -113,14 +112,15 @@ Let's take a closer look again to understand what's going on:
 
 1. You first create the JavaScript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
 2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.  
-3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The `name` that's specified refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
+3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The specified `name` again refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
 
 <Instruction>
 
 Before moving on, you need to import the Apollo dependencies. Add the following to the top of `CreateLink.js`:
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-import { graphql, gql } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 ```
 
 </Instruction>
@@ -183,6 +183,8 @@ Enter some data into the fields, e.g.:
 - **URL**: `www.howtographql.com`
 
 Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
+
+> At this point, you'll only see the new link after refreshing the page. In chapter six you will take care of updating the UI properly after a mutation was performed.
 
 Type `graphcool playground` into a terminal and send the following query:
 

@@ -41,7 +41,6 @@ render() {
 
 </Instruction>
 
-
 You're already preparing the `Link` component to render the number of votes for each link and the name of the user that posted it. Plus you'll render the upvote button if a user is currently logged in - that's what you're using the `userId` for. If the `Link` is not associated with a `User`, the user's name will be rendered as `Unknown`.
 
 Notice that you're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user friendly, e.g. `"3 hours ago"`.
@@ -50,7 +49,7 @@ Go ahead and implement the `timeDifferenceForDate` function next so you can impo
 
 <Instruction>
 
-Create a new file called `utils.js` in the `/src` directory and paste the following code into it:
+Create a new file called `utils.js` in the `src` directory and paste the following code into it:
 
 ```js(path=".../hackernews-react-apollo/src/utils.js")
 function timeDifference(current, previous) {
@@ -113,9 +112,7 @@ import { timeDifferenceForDate } from '../utils'
 
 </Instruction>
 
-
 Finally, each `Link` element will also render its position inside the list, so you have to pass down an `index` from the `LinkList` component. 
-
 
 <Instruction>
 
@@ -129,7 +126,6 @@ Open `LinkList.js` and update the rendering of the `Link` components inside `ren
 
 </Instruction>
 
-
 Notice that the app won't run at the moment since the `votes` are not yet included in the query. You'll fix that next!
 
 ### Updating the Schema
@@ -138,9 +134,9 @@ For this new feature, you also need to update the schema again since votes on li
 
 <Instruction>
 
-Open `project.graphcool` and add the following type:
+Open `types.graphql` and add the following type definition:
 
-```graphql(path=".../hackernews-react-apollo/project.graphcool")
+```graphql(path=".../hackernews-react-apollo/server/types.graphql")
 type Vote @model {
   id: ID! @isUnique
   user: User! @relation(name: "UsersVotes")
@@ -154,9 +150,9 @@ Each `Vote` will be associated with the `User` who created it as well as the `Li
 
 <Instruction>
 
-Still in `project.graphcool`, add the following field to the `User` type:
+Still in `types.graphql`, add the following field to the `User` type:
 
-```graphql(path=".../hackernews-react-apollo/project.graphcool")
+```graphql(path=".../hackernews-react-apollo/server/types.graphql")
 votes: [Vote!]! @relation(name: "UsersVotes")
 ```  
 
@@ -166,7 +162,7 @@ votes: [Vote!]! @relation(name: "UsersVotes")
 
 Now add another field to the `Link` type:
 
-```graphql(path=".../hackernews-react-apollo/project.graphcool")
+```graphql(path=".../hackernews-react-apollo/types.graphql")
 votes: [Vote!]! @relation(name: "VotesOnLink")
 ```
 
@@ -174,31 +170,15 @@ votes: [Vote!]! @relation(name: "VotesOnLink")
 
 <Instruction>
 
-Next open up a terminal window and navigate to the directory where `project.graphcool` is located. Then apply your schema changes by typing the following command:
+Next open up a terminal window and navigate to the directory where `types.graphql` is located. Then apply your changes by typing the following command:
 
 ```bash(path=".../hackernews-react-apollo")
-graphcool push
+graphcool deploy
 ```
 
 </Instruction>
 
-
-Here is what the Terminal output looks like:
-
-```(nocopy)
-$ gc push
- ✔ Your schema was successfully updated. Here are the changes: 
-
-  | (+)  A new type with the name `Vote` is created.
-  |
-  | (+)  The relation `UsersVotes` is created. It connects the type `User` with the type `Vote`.
-  |
-  | (+)  The relation `VotesOnLink` is created. It connects the type `Link` with the type `Vote`.
-
-Your project file project.graphcool was updated. Reload it in your editor if needed.
-```
-
-Awesome! Now that you updated the schema, you can fix the issue that currently prevents you from properly running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
+Awesome! Now that you updated the data model, you can fix the issue that currently prevents you from properly running the app. It can be fixed by including the information about the links' votes in the `allLinks` query that's defined in `LinkList`.
 
 <Instruction>
 
@@ -228,7 +208,6 @@ const ALL_LINKS_QUERY = gql`
 ```
 
 </Instruction>
-
 
 All you do here is to also include information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed. 
 
@@ -276,7 +255,8 @@ This step should feel pretty familiar by now. You're adding the ability to call 
 As with the times before, you also need to import the `gql` and `graphql` functions on top of the `Link.js` file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
-import { gql, graphql } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 ```
 
 </Instruction>
@@ -306,8 +286,7 @@ _voteForLink = async () => {
 
 </Instruction>
 
-
-Notice that in the first part of the method, you're checking whether the current user already voted for that link. If that's the case, you return early from the method and not actually execute the mutation.
+Notice that in the first part of the method, you're checking whether the current user already voted for that link. If that's the case, you return early from the method and don't actually execute the mutation.
 
 You can now go and test the implementation! Run `yarn start` and click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page you'll see the added votes. 
 
@@ -380,7 +359,7 @@ Next you need to pass this function down to the `Link` so it can be called from 
 Still in `LinkList.js`, update the way how the `Link` components are rendered in `render`:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-<Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote}  index={index} link={link}/>
+<Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote} index={index} link={link}/>
 ```
 
 </Instruction>
@@ -413,19 +392,17 @@ await this.props.createLinkMutation({
 
 </Instruction>
 
-
 The `update` function works in a very similar way as before. You first read the current state of the results of the `ALL_LINKS_QUERY`. Then you insert the newest link to the top and write the query results back to the store.
 
 <Instruction>
 
-The last thing you need to do for this to work is add import the `ALL_LINKS_QUERY` into that file:
+The last thing you need to do for this to work is import the `ALL_LINKS_QUERY` into that file:
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { ALL_LINKS_QUERY } from './LinkList'
 ```
 
 </Instruction>
-
 
 Conversely, it also needs to be exported from where it is defined. 
 
@@ -438,6 +415,5 @@ export const ALL_LINKS_QUERY = ...
 ```
 
 </Instruction>
-
 
 Awesome, now the store also updates with the right information after new links are added. The app is getting into shape. 🤓

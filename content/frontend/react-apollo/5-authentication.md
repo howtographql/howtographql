@@ -19,7 +19,7 @@ As in the sections before, you'll set the stage for the login functionality by p
 
 <Instruction>
 
-Create a new file in `src/components` and call it `Login.js`. Then paste the following code inside of it:
+Create a new file in `src/components` and call it `Login.js`. Then paste the following code into it:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import React, { Component } from 'react'
@@ -95,15 +95,14 @@ export default Login
 </Instruction>
 
 
-Let's quickly understand the structure of this new component, which can have two major states.
+Let's quickly understand the structure of this new component, which can have two major states:
 
-One state is for users that already have an account and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `state.login` will be `true` in this case.
-
-The second state is for users that haven't created an account yet, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
+- One state is **for users that already have an account** and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `state.login` will be `true` in this case.
+- The second state is for **users that haven't created an account yet**, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
 
 The method `_confirm`  will be used to implement the mutations that we need to send for the login functionality.
 
-Next you also need to provide the `constants.js` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`. 
+Next you also need to provide the `constants.js` file that we use to define keys for the credentials that we're storing in the browser's `localStorage`.
 
 <Instruction>
 
@@ -212,14 +211,14 @@ Before you can implement the authentication functionality in `Login.js`, you nee
 
 ### Enabling Email-and-Password Authentication & Updating the Schema
 
-Authentication in the Graphcool Framework is based on [resolver](https://www.graph.cool/docs/reference/functions/resolvers-su6wu3yoo2) functions that deal with login-functionality by issuing and returning [node tokens](https://www.graph.cool/docs/reference/auth/authentication/authentication-tokens-eip7ahqu5o#node-tokens) that can be used to authenticate requests.
+Authentication in the Graphcool Framework is based on [resolver](https://www.graph.cool/docs/reference/functions/resolvers-su6wu3yoo2) functions that deal with login-functionality by issuing and returning [node tokens](https://www.graph.cool/docs/reference/auth/authentication/authentication-tokens-eip7ahqu5o#node-tokens) which are used to authenticate requests.
 
-Graphcool has a flexible [template](https://www.graph.cool/docs/reference/service-definition/templates-zeiv8phail) system that allows to conventiently pull in predefined functionality into a project. You'll use this template system to pull in the authentication functionality.
+Graphcool has a lightweight and flexible [template](https://www.graph.cool/docs/reference/service-definition/templates-zeiv8phail) system that allows to conventiently pull in predefined functionality into a service. You'll be using the `email-password` template for authentication.
 
-You can use the CLI's [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command to use a template in your Graphcool service. This command will perform two tasks:
+You can use the CLI's [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command to use a template in your Graphcool service. This command will perform two major tasks:
 
 - Download the files from Graphcool's [`templates` repository](https://github.com/graphcool/templates) that are required for the `email-password` template.
-- Add commented lines to `graphcool.yml` and `types.graphql` that allow you to "activate" the template's functionality by simply uncommenting them. 
+- Add commented lines to `graphcool.yml` and `types.graphql` that allow you to "activate" the template's functionality by uncommenting them and then invoking `graphcool deploy` again. 
 
 <Instruction>
 
@@ -318,7 +317,7 @@ You added two things to the schema:
 - A new field on the `User` type to store the `name` of the user.
 - A new relation between the `User` and the `Link` type that represents a one-to-many relationship and expresses that one `User` can be associated with multiple links. The relation manifests itself in the two fields `postedBy` and `links`.
 
-Not it's time to apply the changes by deploying your service again.
+Now it's time to apply the changes by deploying your service again.
 
 <Instruction>
 
@@ -367,7 +366,7 @@ extend type Mutation {
 
 For now you only adjusted the _interface_ of the `signup` resolver. Next, you also need to make sure to update the _implementation_. 
 
-> Note: The `signup` resolver is implemented as a _serverless function_. The input arguments for that function are determined by the input arguments of the corresponding GraphQL operation. In this case, this is the `signupUser`-mutation, so the function will received three string as input arguments: `email`, `password` and `name`. (Notice that these are wrapped in a single object called `event` though).
+> Note: The `signup` resolver is implemented as a [serverless function](https://www.graph.cool/docs/reference/functions/overview-aiw4aimie9) which will be deployed for you by the Graphcool Framework. The input arguments for that function are determined by the input arguments of the corresponding GraphQL operation. In this case, this is the `signupUser`-mutation, so the function will received three string as input arguments: `email`, `password` and `name`. (Notice that these are wrapped in a single object called `event` though.)
 
 The goal in the new implementation is to retrieve the `name` argument from the input `event` and send it along when creating the new `User`.
 
@@ -479,42 +478,29 @@ Perfect, you're all set now to actually implement the authentication functionali
 
 ### Implementing the Login Mutations
 
-`createUser` and `signinUser` are two regular GraphQL mutations that you can use in the same way as you did with the `createLink` mutation from before.
+`signupUser` and `authenticateUser` are two regular GraphQL mutations that you can use in the same way as you did with the `createLink` mutation from before.
 
 <Instruction>
 
 Open `Login.js` and add the following two definitions to the bottom of the file, also replacing the current `export Login` statement:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUserMutation($name: String!, $email: String!, $password: String!) {
-    createUser(
-      name: $name,
-      authProvider: {
-        email: {
-          email: $email,
-          password: $password
-        }
-      }
+const SIGNUP_USER_MUTATION = gql`
+  mutation SignupUserMutation($email: String!, $password: String!, $name: String!) {
+    signupUser(
+      email: $email,
+      password: $password,
+      name: $name
     ) {
       id
-    }
-
-    signinUser(email: {
-      email: $email,
-      password: $password
-    }) {
       token
-      user {
-        id
-      }
     }
   }
 `
 
-const SIGNIN_USER_MUTATION = gql`
-  mutation SigninUserMutation($email: String!, $password: String!) {
-    signinUser(email: {
+const AUTHENTICATE_USER_MUTATION = gql`
+  mutation AuthenticateUserMutation($email: String!, $password: String!) {
+    authenticateUser(email: {
       email: $email,
       password: $password
     }) {
@@ -527,8 +513,8 @@ const SIGNIN_USER_MUTATION = gql`
 `
 
 export default compose(
-  graphql(CREATE_USER_MUTATION, { name: 'createUserMutation' }),
-  graphql(SIGNIN_USER_MUTATION, { name: 'signinUserMutation' })
+  graphql(SIGNUP_USER_MUTATION, { name: 'signupUserMutation' }),
+  graphql(AUTHENTICATE_USER_MUTATION, { name: 'authenticateUserMutation' })
 )(Login)
 ```
 
@@ -543,17 +529,15 @@ Before we take a closer look at the two mutations, go ahead and add the required
 Still in `Login.js`, add the following statement to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
-import { gql, graphql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
 ```
 
 </Instruction>
 
-
 Now, let's understand what's going in the two mutations that you just added to the component.
 
-The `SIGNIN_USER_MUTATION` looks very similar to the mutations we saw before. It simply takes the `email` and `password` as arguments and returns info about the `user` as well as a `token` that you can attach to subsequent requests to authenticate the user. You'll learn in a bit how to do so.
-
-The `CREATE_USER_MUTATION` however is a bit different! Here, we actually define _two_ mutations at once! When you're doing that, the execution order is always _from top to bottom_. So, in your case the `createUser` mutation will be executed _before_ the `signinUser` mutation. Bundling two mutations like this allows you to sign up and login in a single request!
+Both mutations look very similar to the mutations you already saw before. They take a number of arguments returns info the user's `id` as well as a `token` that you can attach to subsequent requests to authenticate the user. You'll learn in a bit how to do so.
 
 All right, all that's left to do is call the two mutations inside the code!
 
@@ -562,37 +546,35 @@ All right, all that's left to do is call the two mutations inside the code!
 Open `Login.js` and implement `_confirm` as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
-_confirm = async () => {
-  const { name, email, password } = this.state
-  if (this.state.login) {
-    const result = await this.props.signinUserMutation({
-      variables: {
-        email,
-        password
-      }
-    })
-    const id = result.data.signinUser.user.id
-    const token = result.data.signinUser.token
-    this._saveUserData(id, token)
-  } else {
-    const result = await this.props.createUserMutation({
-      variables: {
-        name,
-        email,
-        password
-      }
-    })
-    const id = result.data.signinUser.user.id
-    const token = result.data.signinUser.token
-    this._saveUserData(id, token)
+  _confirm = async () => {
+    const { name, email, password } = this.state
+    if (this.state.login) {
+      const result = await this.props.authenticateUserMutation({
+        variables: {
+          email,
+          password
+        }
+      })
+      const { id, token } = result.data.authenticateUser
+      this._saveUserData(id, token)
+    } else {
+      const result = await this.props.signupUserMutation({
+        variables: {
+          name,
+          email,
+          password
+        }
+      })
+      const { id, token } = result.data.signupUser
+      this._saveUserData(id, token)
+    }
+    this.props.history.push(`/`)
   }
-  this.props.history.push(`/`)
-}
 ```
 
 </Instruction>
 
-The code is pretty straightforward. If the user wants to only login, you're calling the `signinUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `createUserMutation` where you also pass the user's `name`. After the mutation was performed, you're storing the `id` and `token` in `localStorage` and navigate back to the root route.
+The code is pretty straightforward. If the user wants to only login, you're calling the `authenticateUserMutation` and pass the provided `email` and `password` as arguments. Otherwise you're using the `signupUserMutation` where you additionally pass the user's `name`. After the mutation was performed, you're storing the returned `id` and `token` in `localStorage` and navigate back to the root route.
 
 You can now create an account by providing a `name`, `email` and `password`. Once you did that, the _submit_-button will be rendered again:
 
@@ -606,7 +588,7 @@ Since you're now able to authenticate users and also added a new relation betwee
 
 Open `CreateLink.js` and update the definition of `CREATE_LINK_MUTATION` as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{2,6,12-15}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 const CREATE_LINK_MUTATION = gql`
   mutation CreateLinkMutation($description: String!, $url: String!, $postedById: ID!) {
     createLink(
@@ -630,7 +612,7 @@ const CREATE_LINK_MUTATION = gql`
 </Instruction>
 
 
-There are two major changes. You first added another argument to the mutation that represents the `id` of the user that is posting the link. Secondly, you also include the `postedBy` information in the _payload_ of the mutation.
+There are two major changes. You first added another argument to the mutation that represents the `id` of the user that is posting the link. Secondly, you also include the `postedBy` information in the _selection set_ of the mutation.
 
 Now you need to make sure that the `id` of the posting user is included when you're calling the mutation in `_createLink`.
 
@@ -659,9 +641,7 @@ _createLink = async () => {
 
 </Instruction>
 
-
 For this to work, you also need to import the `GC_USER_ID` key. 
-
 
 <Instruction>
 
@@ -673,47 +653,63 @@ import { GC_USER_ID } from '../constants'
 
 </Instruction>
 
-
 Perfect! Before sending the mutation, you're now also retrieving the corresponding user id from `localStorage`. If that succeeds, you'll pass it to the call to `createLinkMutation` so that every new `Link` will from now on store information about the `User` who created it.
 
-If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're creating. Finally, click the _create Account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) or sending the `allUsers` query in a Playground.
+If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the _need to create an account?_-button and provide some user data for the user you're creating. Finally, click the _create account_-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by checking the _data browser_ in the [Graphcool Console](https://console.graph.cool) or sending the `allUsers` query in a Playground.
 
-### Configuring Apollo with the Auth Token
+### Configuring Apollo with the Authentication Token
 
-Now that users are able to login and obtain a token that authenticates them against the Graphcool backend, you actually need to make sure that the token gets attached to all requests that are sent to the API.
+Now that users are able to login and obtain a token that authenticates them against the Graphcool backend, you actually need to make sure that the token gets attached to all requests that are sent to your service's API.
 
-Since all the API requests are actually created and sent by the `ApolloClient` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all requests by using [middleware](http://dev.apollodata.com/react/auth.html#Header).
+Since all the API requests are actually created and sent by the `ApolloClient` instance in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all requests by using the concept of [middleware](http://dev.apollodata.com/react/auth.html#Header), implemented as an [Apollo Link](https://github.com/apollographql/apollo-link).
 
 <Instruction>
 
-Open `index.js` and put the following code _between_ the creation of the `networkInterface` and the instantiation of the `ApolloClient`:
+Open `index.js` and put the following code _between_ the creation of the `httpLink` and the instantiation of the `ApolloClient`:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
-networkInterface.use([{
-  applyMiddleware(req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
+const middlewareAuthLink = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem(GC_AUTH_TOKEN)
+  const authorizationHeader = token ? `Bearer ${token}` : null
+  operation.setContext({
+    headers: {
+      authorization: authorizationHeader
     }
-    const token = localStorage.getItem(GC_AUTH_TOKEN)
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
-    next()
-  }
-}])
+  })
+  return forward(operation)
+})
+
+const httpLinkWithAuthToken = middlewareAuthLink.concat(httpLink)
 ```
 
 </Instruction>
 
+This middleware will be invoked every time `ApolloClient` sends a request to the server. You can imagine the process of sending a request as a _chain_ of functions that are called. Each function gets passed the GraphQL `operation` and another function called `forward` which needs to be called when the middleware is finished with its task to passed the `operation` to the next function in the chain. 
 
 <Instruction>
 
-Then directly import the key that you need to retrieve the token from `localStorage` on top of the same file:
+Now you also need to make sure `ApolloClient` gets instantiated with the correct link - update the constructor call as follows:
+
+```js(path=".../hackernews-react-apollo/src/index.js")
+const client = new ApolloClient({
+  link: httpLinkWithAuthToken,
+  cache: new InMemoryCache()
+})
+```
+
+</Instruction>
+
+<Instruction>
+
+Then directly import the key you need to retrieve the token from `localStorage` as well as `ApolloLink` on top of the same file:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 import { GC_AUTH_TOKEN } from './constants'
+import { ApolloLink } from 'apollo-client-preset'
 ```
 
 </Instruction>
 
 That's it - now all your API requests will be authenticated if a `token` is available.
 
-> Note: In a real application you would now configure the [authorization rules](https://www.graph.cool/docs/reference/auth/authorization-iegoo0heez/) (permissions) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform.
+> **Note**: In a real application you would now configure the [permissions rules](https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez/) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform. See [this](https://github.com/graphcool/framework/tree/master/examples/permissions) Graphcool service definition for a practical example. 
