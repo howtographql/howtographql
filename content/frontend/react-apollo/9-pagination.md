@@ -266,7 +266,7 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
   const page = parseInt(this.props.match.params.page, 10)
   const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
   const first = isNewPage ? LINKS_PER_PAGE : 100
-  const orderBy = isNewPage ? "createdAt_DESC" : null
+  const orderBy = isNewPage ? 'createdAt_DESC' : null
   const data = store.readQuery({ query: ALL_LINKS_QUERY, variables: { first, skip, orderBy } })
 
   const votedLink = data.allLinks.find(link => link.id === linkId)
