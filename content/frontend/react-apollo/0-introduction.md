@@ -13,8 +13,6 @@ correctAnswer: 2
 
 ### Overview
 
-> **NOTE**: This tutorial uses the [legacy](https://www.graph.cool/docs/reference/service-definition/legacy-console-projects-aemieb1aev) version of [Graphcool](https://www.graph.cool/) and will be updated soon to use the new [Graphcool Framework](https://blog.graph.cool/introducing-the-graphcool-framework-d9edab2a7816). The CLI commands mentioned in tutorial are outdated, you can read more about the new CLI [here](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). If you still want to go through this tutorial, you can install the old version of the CLI using `npm install -g graphcool@0.4`.
-
 In the previous tutorials, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!
 
 You're going to build a simple clone of [Hackernews](https://news.ycombinator.com/). Here's a list of the features the app will have:
@@ -30,7 +28,7 @@ In this track, you'll use the following technologies for building the app:
 
 - Frontend:
     - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
-    - [Apollo Client](https://github.com/apollographql/apollo-client): Fully-featured, production-ready, caching GraphQL client
+    - [Apollo Client 2.0](https://github.com/apollographql/apollo-client): Fully-featured, production-ready, caching GraphQL client
 - Backend:
     - [Graphcool Framework](https://www.graph.cool/): Flexible backend development framework combining GraphQL + Serverless
 
@@ -39,7 +37,7 @@ You'll create the React project with [`create-react-app`](https://github.com/fac
 
 ### Why a GraphQL Client?
 
-In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get bit more concrete.
+In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get more concrete.
 
 In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality that you'll want in any frontend application that's talking to a GraphQL server - why build it yourself if you can use one of the amazing GraphQL clients out there?
 
