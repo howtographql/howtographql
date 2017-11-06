@@ -12,7 +12,6 @@ duration: 6
 
 The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that users are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.
 
-
 ## Preparing the React Components
 
 Once more, you first need to prepare the React components for this new functionality. In fact, we'll slightly adjust the current routing setup. Here's the idea: The `LinkList` component will be used for two different use cases (and routes). The first one is to display the 10 top voted links. Its second use case is to display new links in a list separated into multiple pages that the user can navigate through.
@@ -47,7 +46,7 @@ Make sure to import the Redirect component, so you don't get any errors.
 
 <Instruction>
 
-Open `App.js` and update the router import on the top of the file:
+Also update the router import on the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -55,12 +54,24 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 </Instruction>
 
-
-You now added two new routes: `/top` and `/new/:page`. The second one reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkList`.
+You now added two new routes: `/top` and `/new/:page`. The latter reads the value for `page` from the url so that this information is available inside the component that's rendered, here that's `LinkList`.
 
 The root route `/` now redirects to the first page of the route where new posts are displayed.
 
-We need to add quite some logic to the `LinkList` component to account for the two different responsibilities that it now has. 
+Before moving on, quickly add a new navigation item to the `Header` component that brings the user to the `/top` route.
+
+<Instruction>
+
+Open `Header.js` add the following lines _between_ the `/` and the `/search` routes:
+
+```js(path=".../hackernews-react-apollo/src/components/Header.js")
+<Link to='/top' className='ml1 no-underline black'>top</Link>
+<div className='ml1'>|</div>
+```
+
+</Instruction>
+
+You also need to add quite some logic to the `LinkList` component to account for the two different responsibilities it now has. 
 
 <Instruction>
 
@@ -94,10 +105,9 @@ export const ALL_LINKS_QUERY = gql`
 
 </Instruction>
 
+The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` for this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.   
 
-The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` to this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.   
-
- But how can we pass the variables when using the `graphql` container which is fetching the data under the hood? You need to provide the arguments right where you're wrapping your component with the query.
+But how can we pass the variables when using the `graphql` container which is fetching the data under the hood? You need to provide the arguments right where you're wrapping your component with the query.
 
 <Instruction>
 
@@ -116,7 +126,7 @@ export default graphql(ALL_LINKS_QUERY, {
       variables: { first, skip, orderBy }
     }
   }
-}) (LinkList)
+})(LinkList)
 ```
 
 </Instruction>
@@ -137,13 +147,12 @@ export const LINKS_PER_PAGE = 5
 
 </Instruction>
 
-
 <Instruction>
 
 Now adjust the import statement from `../constants` in `LinkList.js` to also include the new constant: 
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import { GC_USER_ID, GC_AUTH_TOKEN, LINKS_PER_PAGE } from '../constants'
+import { LINKS_PER_PAGE } from '../constants'
 ```
 
 </Instruction>
@@ -169,34 +178,19 @@ render() {
 
   const isNewPage = this.props.location.pathname.includes('new')
   const linksToRender = this._getLinksToRender(isNewPage)
-  const userId = localStorage.getItem(GC_USER_ID)
+  const page = parseInt(this.props.match.params.page, 10)
 
   return (
     <div>
-      {!userId ?
-        <button onClick={() => {
-          this.props.history.push('/login')
-        }}>Login</button> :
-        <div>
-          <button onClick={() => {
-            this.props.history.push('/create')
-          }}>New Post</button>
-          <button onClick={() => {
-            localStorage.removeItem(GC_USER_ID)
-            localStorage.removeItem(GC_AUTH_TOKEN)
-            this.forceUpdate() // doesn't work as it should :(
-          }}>Logout</button>
-        </div>
-      }
       <div>
         {linksToRender.map((link, index) => (
-          <Link key={link.id} updateStoreAfterVote={this._updateCacheAfterVote} link={link} index={index}/>
+            <Link key={link.id} index={page ? (page - 1) * LINKS_PER_PAGE + index : index} updateStoreAfterVote={this._updateCacheAfterVote} link={link}/>
         ))}
       </div>
       {isNewPage &&
-      <div>
-        <button onClick={() => this._previousPage()}>Previous</button>
-        <button onClick={() => this._nextPage()}>Next</button>
+      <div className='flex ml4 mv3 gray'>
+        <div className='pointer mr2' onClick={() => this._previousPage()}>Previous</div>
+        <div className='pointer' onClick={() => this._nextPage()}>Next</div>
       </div>
       }
     </div>
@@ -207,9 +201,7 @@ render() {
 
 </Instruction>
 
-
 Since the setup is slightly more complicated now, you are going to calculate the list of links to be rendered in a separate method.
-
 
 <Instruction>
 
@@ -227,7 +219,6 @@ _getLinksToRender = (isNewPage) => {
 ```
 
 </Instruction>
-
 
 For the `newPage`, you'll simply return all the links returned by the query. That's logical since here you don't have to make any manual modifications to the list that is to be rendered. If the user loaded the component from the `/top` route, you'll sort the list according to the number of votes and return the top 10 links.
 
@@ -256,7 +247,6 @@ _previousPage = () => {
 ```
 
 </Instruction>
-
 
 The implementation of these is very simple. You're retrieving the current page from the url and implement a sanity check to make sure that it makes sense to paginate back or forth. Then you simply calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the url that will be used to calculate the right chunk of links to load. Run the app by typing `yarn start` in a Terminal and use the new buttons to paginate through your list of links!
 

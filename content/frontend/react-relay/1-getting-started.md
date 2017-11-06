@@ -50,6 +50,8 @@ npm install -g graphcool
 
 </Instruction>
 
+> **NOTE**: This tutorial uses the [legacy](https://www.graph.cool/docs/reference/service-definition/legacy-console-projects-aemieb1aev) version of [Graphcool](https://www.graph.cool/) and will be updated soon to use the new [Graphcool Framework](https://blog.graph.cool/introducing-the-graphcool-framework-d9edab2a7816). The CLI commands mentioned in tutorial are outdated, you can read more about the new CLI [here](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). If you still want to go through this tutorial, you can install the old version of the CLI using `npm install -g graphcool@0.4`.
+
 Now you can go and create the server. 
 
 <Instruction>
@@ -77,7 +79,7 @@ Once the project was created, you'll find the [Graphcool Project File](https://w
 # project: cj4liutcbackk01648jagrepi
 # version: 1
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -88,7 +90,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type Link implements Node {
+type Link @model {
   createdAt: DateTime!
   id: ID! @isUnique
   postedBy: User @relation(name: "UsersLinks")
@@ -97,7 +99,7 @@ type Link implements Node {
   votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   links: [Link!]! @relation(name: "UsersLinks")
@@ -106,7 +108,7 @@ type User implements Node {
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Vote implements Node {
+type Vote @model {
   createdAt: DateTime!
   id: ID! @isUnique
   link: Link @relation(name: "VotesOnLink")

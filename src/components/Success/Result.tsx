@@ -87,9 +87,10 @@ function Result({ steps, ...state }: Props & QuizState) {
   // Object.keys(steps).filter(group => reactions[group])
 
   const score = Math.round(achievedScore / totalScore * 100) || 0
+  const chaptersLeft = totalChapters - doneChapters
 
   return (
-    <div className="result">
+    <div className={`${score === 100 ? 'perfect' : ''} result`}>
       <style jsx={true}>{`
         .result {
           @p: .pa60, .relative, .overflowHidden;
@@ -99,6 +100,9 @@ function Result({ steps, ...state }: Props & QuizState) {
           @p: .absolute;
           top: -70px;
           right: 60px;
+        }
+        .perfect.result .medal :global(svg) {
+          fill: #e00082;
         }
         h1 {
           @p: .fw6, .pink;
@@ -135,8 +139,10 @@ function Result({ steps, ...state }: Props & QuizState) {
       <p>
         You concluded {doneChapters} of {totalChapters} chapters. That’s
         impressive.
-        Only {totalChapters - doneChapters} chapters left to compete with the
-        very best.
+        {chaptersLeft
+          ? ` Only ${chaptersLeft} ${chaptersLeft === 1 ? 'chapter' : 'chapters'} left to compete with the very best. `
+          : ' '
+        }
         If you liked the tutorial, a Github star would be nice.
       </p>
       <div className="bars">
