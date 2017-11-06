@@ -90,7 +90,7 @@ function Result({ steps, ...state }: Props & QuizState) {
   const chaptersLeft = totalChapters - doneChapters
 
   return (
-    <div className="result">
+    <div className={`${score === 100 ? 'perfect' : ''} result`}>
       <style jsx={true}>{`
         .result {
           @p: .pa60, .relative, .overflowHidden;
@@ -100,6 +100,9 @@ function Result({ steps, ...state }: Props & QuizState) {
           @p: .absolute;
           top: -70px;
           right: 60px;
+        }
+        .perfect.result .medal :global(svg) {
+          fill: #e00082;
         }
         h1 {
           @p: .fw6, .pink;
