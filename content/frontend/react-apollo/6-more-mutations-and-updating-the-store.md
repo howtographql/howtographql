@@ -226,12 +226,7 @@ const CREATE_VOTE_MUTATION = gql`
     createVote(userId: $userId, linkId: $linkId) {
       id
       link {
-        votes {
-          id
-          user {
-            id
-          }
-        }
+        id
       }
       user {
         id
