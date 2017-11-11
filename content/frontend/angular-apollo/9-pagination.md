@@ -319,7 +319,7 @@ Open `src/app/link-list/link-list.component.html` and update the `template` to l
 ```
 
 Also note that we are rendering the `orderedLinks`, a new property (`getter`) in the `LinkListComponent` that we will add soon.
-Moreover, the `AsyncPipe` aka `async` subscribes to an Observable or Promise and returns the latest value it has emitted. Using async pipe more than once in your template will trigger the query for each pipe.
+Moreover, the `AsyncPipe` aka `async` subscribes to an Observable ‡or Promise and returns the latest value it has emitted. Using async pipe more than once in your template will trigger the query for each pipe.
 
 </Instruction>
 
@@ -338,25 +338,6 @@ Open `src/app/link-item/link-item.component.ts` and add the `pageNumber` `Input`
 
 
 Since the setup is slightly more complicated now, you are going to calculate the list of links to be rendered in a separate method.
-
-
-<Instruction>
-
-In `src/app/link-list/link-list.component.ts`, add the following method:
-
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
-getLinksToRender(isNewPage: boolean): Link[] {
-    if (isNewPage) {
-      return this.allLinks;
-    }
-    const rankedLinks = this.allLinks.slice();
-    rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length);
-    return rankedLinks
-  }
-```
-
-</Instruction>
-
 
 For the `isNewPage`, you'll simply return all the links returned by the query. That's logical since here you don't have to make any manual modifications to the list that is to be rendered. If the user loaded the component from the `/top` route, you'll sort the list according to the number of votes and return the top 10 links. This is accomplished through an `orderedLinks` computed property which you will implement next.
 

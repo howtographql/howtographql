@@ -24,9 +24,9 @@ Go ahead and add this dependency to your app first.
 Open a terminal and navigate to the project's root directory. Then execute the following command:
 
 ```bash(path=".../hackernews-angular-apollo/")
-npm install --save subscriptions-transport-ws@next apollo-link-ws apollo-link
+npm install --save apollo-link-ws apollo-link
 # or
-# yarn add subscriptions-transport-ws@next apollo-link-ws apollo-link
+# yarn add  apollo-link-ws apollo-link
 
 ```
 
@@ -40,7 +40,6 @@ Next, make sure your `ApolloClient` instance knows about the subscription server
 Open `src/app/apollo.config.ts` and add the following import near the top of the file:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
-import { SubscriptionClient } from 'subscriptions-transport-ws';
 import {getOperationAST} from 'graphql';
 import {WebSocketLink} from 'apollo-link-ws';
 import {ApolloLink} from 'apollo-link';
@@ -66,12 +65,15 @@ constructor(apollo: Apollo,
     const http = httpLink.create({ uri, headers });
 
     // 1
-    const ws = new WebSocketLink(new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
-      reconnect: true,
-      connectionParams: {
-        authToken: localStorage.getItem(GC_AUTH_TOKEN)
+    const ws = new WebSocketLink({
+      uri: `__SUBSCRIPTION_API_ENDPOINT__`,
+      options: {
+        reconnect: true,
+        connectionParams: {
+          authToken: localStorage.getItem(GC_AUTH_TOKEN),
+        }
       }
-    }));
+    });
 
     apollo.create({
       // 2
@@ -88,26 +90,28 @@ constructor(apollo: Apollo,
     });
   }
 ```
-What's going on here?
-
-1. You're instantiating a `SubscriptionClient` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the WebSocket connection with the user's `token` that you retrieve from `localStorage`. Then, we provide `SubscriptionClient` instance to `WebSocketLink` that will handle the subscription GraphQL operation.
-2. Because Links represent small portions of how you want your GraphQL operation to be handled. They are designed to be composed with other links. In our case, we need to control which links are used depending on the operation ( i.e. `directional composition`). Apollo Link provides an easy way to use different links depending on the operation by using `.split` method.
-3. `split` takes two required parameters and one optional one. The first argument to split is a function which receives the operation and returns true for the first link ( second argument) and false for the second link ( third argument). So, if the operation that is coming is 'subscription', we run the `WebSocketLink` else the `HttpLink`
-
 </Instruction>
 
-Now you need to replace the placeholder `__SUBSCRIPTION_API_ENDPOINT__ ` with the endpoint for the subscriptions API.
+You're instantiating a `WebSocketLink` that knows the endpoint for the Subscriptions API. Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`.
+
+[`split`](https://github.com/apollographql/apollo-link/blob/98eeb1deb0363384f291822b6c18cdc2c97e5bdb/packages/apollo-link/src/link.ts#L33) is used to "route" a request to a specific middleware link. It takes three arguments, the first one is a `test` function returning a boolean, the remaining two are again of type `ApolloLink`. If that boolean is true, the request will be forwarded to the link passed as the second argument. If false, to the third one.
+
+In your case, the `test` function is checking whether the requested operation is a _subscription_. If this is the case, it will be forwarded to the `wsLink`, otherwise (if it's a _query_ or _mutation_), the `httpLinkWithAuthToken` will take care of it:
+
+![](https://cdn-images-1.medium.com/max/720/1*KwnMO21k0d3UbyKWnlbeJg.png)
+*Picture taken from [Apollo Link: The modular GraphQL network stack](https://dev-blog.apollodata.com/apollo-link-the-modular-graphql-network-stack-3b6d5fcf9244) by [Evans Hauser](https://twitter.com/EvansHauser)*
+
+Now you need to replace the placeholder `__SUBSCRIPTION_API_ENDPOINT__ ` with the endpoint for the Subscriptions API.
+
+> The endpoints for the Subscriptions API generally are of the form: `wss://subscriptions.graph.cool/v1/__SERVICE_ID__`.
 
 <Instruction>
 
-To get access to this endpoint, open up a terminal and navigate to the directory where `types.graphql` is located. Then type the `graphcool endpoints` command. Now copy the endpoint for the `Subscriptions API` and replace the placeholder with it.
+To get access to this endpoint, open up a terminal and navigate to the `server` directory. Then type the `graphcool info` command and copy the endpoint for the `Subscriptions API` and replace the placeholder with it.
+
+Notice that if you service isn't running in the "default" Graphcool [region](https://blog.graph.cool/new-regions-and-improved-performance-7bbc0a35c880) (_EU West_), you need to add your service's region to the endpoint like so: `wss://subscriptions.ap-northeast-1.graph.cool/v1/__SERVICE_ID__` (for region _Asia Pacific_) or `wss://subscriptions.us-west-2.graph.cool/v1/__SERVICE_ID__` (for _US West_).
 
 </Instruction>
-
-
-> The endpoints for the Subscription API generally are of the form: `wss://subscriptions.graph.cool/v1/<project-id>`.
->
-> Notice that if your project is not running in the "default" Graphcool [region](https://blog.graph.cool/new-regions-and-improved-performance-7bbc0a35c880), you need to add the your project's region to the endpoint like so: `wss://subscriptions.ap-northeast-1.graph.cool/v1/<project-id>` (for regoin _Asia Pacific_) or `wss://subscriptions.us-west-2.graph.cool/v1/<project-id>` (for _US West_).
 
 
 ### Subscribing to new Links

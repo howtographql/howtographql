@@ -234,7 +234,7 @@ For this new feature, you also need to update the schema again since votes on li
 Open `types.graphql` and add the following type:
 
 ```graphql
-type Vote {
+type Vote @model {
   id: ID! @isUnique
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
@@ -274,22 +274,6 @@ graphcool deploy
 ```
 
 </Instruction>
-
-
-Here is what the Terminal output looks like:
-
-```(nocopy)
-$ graphcool deploy
- ✔ Your schema was successfully updated. Here are the changes:
-
-  | (+)  A new type with the name `Vote` is created.
-  |
-  | (+)  The relation `UsersVotes` is created. It connects the type `User` with the type `Vote`.
-  |
-  | (+)  The relation `VotesOnLink` is created. It connects the type `Link` with the type `Vote`.
-
-```
-
 
 <Instruction>
 
