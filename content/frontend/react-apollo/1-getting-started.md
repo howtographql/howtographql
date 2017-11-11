@@ -13,36 +13,59 @@ draft: false
 
 ### Backend
 
-Since this is a frontend track, you don't want to spend too much time setting up the backend. This is why you use [Graphcool](https://www.graph.cool/), a service that provides a production-ready GraphQL API out-of-the-box.
+Since this is a frontend track, you don't want to spend too much time setting up the backend. This is why you'll use the [Graphcool Framework](https://www.graph.cool/) for this tutorial. It provides a fast and easy way to build and deploy GraphQL backends (also called Graphcool _services_).
 
 #### The Data Model
 
-You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to generate the server based on the data model that you need for the app. Speaking of the data model, here is what the final version of it looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
+You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to build (and deploy) your GraphQL API based on the data model that you need for the app. 
+
+Speaking of the data model, here is what the final version looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
 
 ```graphql(nocopy)
-type User {
+type User @model {
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+
+  email: String! @isUnique # for authentication
+  password: String!        # for authentication
+
   name: String!
   links: [Link!]! @relation(name: "UsersLinks")
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Link { 
+type Link @model { 
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+
+  description: String!
   url: String!
   postedBy: User! @relation(name: "UsersLinks")
   votes: [Vote!]! @relation(name: "VotesOnLink")
 }
 
-type Vote {
+type Vote @model {
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+
   user: User! @relation(name: "UsersVotes")
   link: Link! @relation(name: "VotesOnLink")
 }
 ```
 
+As you can see from the comments, some fields on your model types are read-only. This means they will be managed for you by the Graphcool Framework.
+
+In general, there are a few things to note about these type definitions:
+
+- Every type annotated with the `@model`-directive will be _mapped_ to the database and corresponding CRUD-operations are added to the GraphQL API of your Graphcool service. 
+- The `@isUnique`-directive means that the annotated field can never have the same value for two different records of that type (also called _nodes_). Since this is a read-only field, the Graphcool Framework will take care of managing this constraint.
+- `createdAt` and `updatedAt` are special fields that are managed by the Graphcool Framework as well. `createdAt` will carry the date for when a node of that type was created, `updatedAt` when it was last updated. 
+
 #### Creating the GraphQL Server
 
-For starting out, you're not going to use the full data model that you saw above. That's because we want to evolve the schema when it becomes necessary for the features that we implement.
-
-For now, you'll just use the `Link` type to create the backend.
+For starting out, you're not going to use the full data model that you saw above. That's because we want to evolve the schema when it becomes necessary for the features you're going to implement. For now, the data model will contain only the `Link` type.
 
 The first thing you need to do to get your GraphQL server is install the Graphcool CLI with npm.
 
@@ -56,91 +79,87 @@ npm install -g graphcool
 
 </Instruction>
 
-Now you can go and create the server. 
+Now you can go and create the server. There are two steps involved in this:
+
+1. Creating the local file structure that contains all required configuration for your backend. This is done with the [`graphcool init`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-init) command.
+2. Configuring the data model and deploying the server with [`graphcool deploy`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-deploy).
 
 <Instruction>
 
-Type the following command into the terminal:
+Type the following command into the terminal to bootstrap your Graphcool service:
 
 ```bash
-graphcool init --schema https://graphqlbin.com/hn-starter.graphql --name Hackernews
+# Create the file structure for the backend in a directory called `server`
+graphcool init server
 ```
 
 </Instruction>
 
-This will execute the `graphcool init` command with two arguments:
+This will create a new directory called `server` and place the following files in there:
 
-- `--schema`: This option accepts a `.graphql`-schema that's either stored _locally_ or at a _remote URL_. In your case, you're using the starter schema stored at [https://graphqlbin.com/hn-starter.graphql](https://graphqlbin.com/hn-starter.graphql), we'll take a look at it in a bit.
-- `--name`: This is the name of the Graphcool project you're creating, here you're simply calling it `Hackernews`.
+- `graphcool.yml`: This is the [root configuration](https://www.graph.cool/docs/reference/service-definition/graphcool.yml-foatho8aip) file for your Graphcool service. It tells the Graphcool Framework where to find your data model (and other type definitions), specifies the [_permission rules_](https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez) and provides information about any integrated _serverless [functions](https://www.graph.cool/docs/reference/functions/overview-aiw4aimie9)_.
+- `types.graphql`: This specifies the data model for your application, all type definitions are written in GraphQL SDL. 
+- `package.json`: If you're integrating any serverless functions that are using dependencies from npm, you need to list those dependencies here. Note that this file is completely independent from the dependencies of your frontend which you'll create in a bit. Since this tutorial won't actually use any serverless functions, you can simply ignore it.
+- `src`: The `src` directory is used to for the code of the serverless functions you're integrating in your Graphcool service. It currently contains the setup for a simple "Hello World"-[resolver](https://www.graph.cool/docs/reference/functions/resolvers-su6wu3yoo2) function (which you can delete if you like). Again, you can ignore this directory since we're not going to use any functions in this tutorial.
 
-Note that this command will open up a browser window first and ask you to authenticate on the Graphcool platform.
+Next you need to make sure that the data model of the GraphQL server is correct, so you need to adjust the type definitions in `types.graphql`.
 
-The schema that's stored at [https://graphqlbin.com/hn-starter.graphql](https://graphqlbin.com/hn-starter.graphql) only defines the `Link` type for now:
+<Instruction>
 
-```graphql(nocopy)
-type Link {
+Open `types.graphql` and replace its current contents with the (not yet complete) definition of the `Link` type:
+
+```graphql(path=".../hackernews-react-apollo/server/types.graphql")
+type Link @model {
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+
   description: String!
   url: String!
 }
 ```
 
-Once the project was created, you'll find the [Graphcool Project File](https://www.graph.cool/docs/reference/cli/project-files-ow2yei7mew/) (`project.graphcool`) in the directory where you executed the command. It should look similar to this:
+</Instruction>
 
-```graphql(nocopy)
-# project: cj4k7j28p7ujs014860czx89p
-# version: 1
+As mentioned above, we'll start with only a sub-part of the actual data model and evolve our schema and API when necessary. This change is all you need to put your GraphQL server into production.
 
-type File implements Node {
-  contentType: String!
-  createdAt: DateTime!
-  id: ID! @isUnique
-  name: String!
-  secret: String! @isUnique
-  size: Int!
-  updatedAt: DateTime!
-  url: String! @isUnique
-}
+<Instruction>
 
-type Link implements Node {
-  createdAt: DateTime!
-  description: String!
-  id: ID! @isUnique
-  updatedAt: DateTime!
-  url: String!
-}
+Open a terminal and navigate into the `server` directory. Then deploy the server with the following command:
 
-type User implements Node {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  updatedAt: DateTime!
-}
+```bash(path=".../hackernews-react-apollo/server")
+graphcool deploy
 ```
 
-The top of the file contains some metadata about the project, namely the _project ID_ and the _version number of the schema_.
+</Instruction>
 
-The [`User`](https://www.graph.cool/docs/reference/schema/system-artifacts-uhieg2shio/#user-type) and [`File`](https://www.graph.cool/docs/reference/schema/system-artifacts-uhieg2shio/#file-type) types are generated by Graphcool and have some special characteristics. `User` can be used for _authentication_ and `File` for _file management_.
+<Instruction>
 
-Also notice that each type has three fields called `id`, `createdAt` and `updatedAt`. These are managed by the system and read-only for you.
+When prompted, select any of the **Shared Clusters** deployment options, e.g. `shared-eu-west`. 
+
+For any other prompt, you can just hit **Enter** to go with the suggested default value.
+
+</Instruction>
+
+> Note that this command will open up a browser window first and ask you to authenticate on the Graphcool platform (if you haven't done so before).
 
 #### Populate The Database & GraphQL Playgrounds
 
 Before you move on to setup the frontend, go ahead and create some initial data in the project so you've got something to see once you start rendering data in the app!
 
-You'll do this by using a GraphQL [Playground](https://www.graph.cool/docs/reference/console/playground-oe1ier4iej/) which is an interactive environment that allows you to send queries and mutations. It's a great way to explore the capabilities of an API.
+You'll do this by using a GraphQL [Playground](https://github.com/graphcool/graphql-playground) which is an interactive environment that allows you to send queries and mutations. It's a great way to explore the capabilities of a GraphQL API.
 
 <Instruction>
 
-Open up a terminal and navigate to the directory where `project.graphcool` is located. Then execute the following command:
+Still in the `server` directory in your terminal, run the following command:
 
-```bash
+```bash(path=".../hackernews-react-apollo/server")
 graphcool playground
 ```
 
 </Instruction>
 
-This command will read the project ID from the project file and open up a GraphQL Playground in a browser.
-
-The left pane of the Playground is the _editor_ that you can use to write your queries and mutations (and even subscriptions). Once you click the play button in the middle, the response to the request will be displayed in the _results_ pane on the right.
+The left pane of the Playground is the _editor_ that you can use to write your queries and mutations (and even realtime subscriptions). Once you click the play button in the middle, the response to the request will be displayed in the _results_ pane on the right.
 
 <Instruction>
 
@@ -176,7 +195,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 ![](http://imgur.com/ZBgeq22.png)
 
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
+This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://graph-cool.netlify.com/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
 ```graphql
 {
@@ -188,9 +207,9 @@ This creates two new `Link` records in the database. You can verify that the mut
 }
 ``` 
 
-If everything went well, the query will return the following data:
+If everything went well, the query will return the following data (the `id`s will of course be different in your case):
 
-```graphql(nocopy)
+```js(nocopy)
 {
   "data": {
     "allLinks": [
@@ -207,7 +226,6 @@ If everything went well, the query will return the following data:
     ]
   }
 ```
-
 
 ### Frontend
 
@@ -251,7 +269,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 <Instruction>
 
-Next, go ahead move `project.graphcool` into the `hackernews-react-apollo` directory to manage everything in one place.
+Next, go ahead and move the `server` directory that contains the definition of your Graphcool service into the `hackernews-react-apollo` directory to manage everything in one place.
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
@@ -259,19 +277,24 @@ Now clean up the existing files accordingly. Move `App.js` into `components` and
 
 </Instruction>
 
-
 Your project structure should now look as follows:
 
 ```bash(nocopy)
 .
 ├── README.md
 ├── node_modules
-├── project.graphcool
 ├── package.json
 ├── public
 │   ├── favicon.ico
 │   ├── index.html
 │   └── manifest.json
+├── server
+│   ├── graphcool.yml
+│   ├── package.json
+│   ├── types.graphql
+│   └── src
+│       ├── hello.js
+│       └── hello.graphql
 ├── src
 │   ├── App.test.js
 │   ├── components
@@ -287,7 +310,7 @@ Your project structure should now look as follows:
 
 #### Prepare Styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
+This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
 
 <Instruction>
 
@@ -355,19 +378,28 @@ input {
 
 </Instruction>
 
-
-
 #### Installing Apollo
 
 <Instruction>
 
-Next, you need to pull in the functionality of Apollo Client which is all bundled in the `react-apollo` package:
+Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-apollo
+yarn add apollo-client-preset react-apollo graphql-tag graphql
 ```
 
 </Instruction>
+
+Here's an overview of the packages you just installed:
+
+- [`apollo-client-preset`](https://www.npmjs.com/package/apollo-client-preset) offers some convenience by bundling several packages you need when working with Apollo Client:
+  - `apollo-client`
+  - `apollo-cache-inmemory`
+  - `apollo-link`
+  - `apollo-link-http`
+- [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
+- [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function.
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
 
 That's it, you're ready to write some code! 🚀
 
@@ -381,23 +413,25 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{6-7,9-12,14-17,19-25}(path="src/index.js")
+```js{7-10,13,16-19,23-25}(path="src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
+import './styles/index.css'
 import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
-import './styles/index.css'
 // 1
-import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // 2
-const networkInterface = createNetworkInterface({
-  uri: '__SIMPLE_API_ENDPOINT__'
-})
+const httpLink = new HttpLink({ uri: '__SIMPLE_API_ENDPOINT__' })
 
 // 3
 const client = new ApolloClient({
-  networkInterface
+  link: httpLink,
+  cache: new InMemoryCache()
 })
 
 // 4
@@ -412,14 +446,13 @@ registerServiceWorker()
 
 </Instruction>
 
-
-> Note: The project that was generated by `create-react-app` uses semicolons and double quotes for strings. All the code that you're going to add will use **no semicolons** and **single quotes**.
+> Note: The project that was generated by `create-react-app` uses semicolons and double quotes for strings. All the code that you're going to add will use **no semicolons** and **single quotes**. You're also free to delete any existing semicolons and replace double with single quotes 🔥
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the required dependencies from the `react-apollo` package
-2. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
-3. Now you instantiate the `ApolloClient` by passing in the `networkInterface`.
+1. You're importing the required dependencies from the installed npm packages.
+2. Here you create the `HttpLink` that will connect your `ApolloClient` instance with the GraphQL API; you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
+3. Now you instantiate the `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
 4. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
 Next you need to replace the placeholder for the GraphQL endpoint with your actual endpoint. But where do you get your endpoint from?
@@ -428,10 +461,10 @@ There are two ways for you to get your endpoint. You can either open the [Graphc
 
 <Instruction>
 
-In the terminal, navigate into the directory where `project.graphcool` is located and use the following command:
+In the terminal, navigate into the `server` directory and use the following command to get access to the API endpoints of your Graphcools service:
 
-```bash(path=".../hackernews-react-apollo")
-graphcool endpoints
+```bash(path=".../hackernews-react-apollo/server")
+graphcool info
 ```
 
 </Instruction>
@@ -441,6 +474,5 @@ graphcool endpoints
 Copy the endpoint for the `Simple API` and paste it into `src/index.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
 
 </Instruction>
-
 
 That's it, you're all set to start for loading some data into your app! 😎

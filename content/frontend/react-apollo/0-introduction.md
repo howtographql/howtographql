@@ -28,16 +28,16 @@ In this track, you'll use the following technologies for building the app:
 
 - Frontend:
     - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
-    - [Apollo Client](https://github.com/apollographql/apollo-client): Fully-featured, production ready caching GraphQL client
+    - [Apollo Client 2.0](https://github.com/apollographql/apollo-client): Fully-featured, production-ready, caching GraphQL client
 - Backend:
-    - [Graphcool](https://www.graph.cool/): Flexible backend platform combining GraphQL + Serverless
+    - [Graphcool Framework](https://www.graph.cool/): Flexible backend development framework combining GraphQL + Serverless
 
 You'll create the React project with [`create-react-app`](https://github.com/facebookincubator/create-react-app), a popular command-line tool that gives you a blank project with all required build configuration already setup.
 
 
 ### Why a GraphQL Client?
 
-In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get bit more concrete.
+In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get more concrete.
 
 In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality that you'll want in any frontend application that's talking to a GraphQL server - why build it yourself if you can use one of the amazing GraphQL clients out there?
 

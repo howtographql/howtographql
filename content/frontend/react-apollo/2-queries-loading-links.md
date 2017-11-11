@@ -12,7 +12,7 @@ correctAnswer: 0
 
 ### Preparing the React components
 
-The first piece of functionality that you'll implement in the app is loading and displaying a list of `Link` elements. You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
+The first piece of functionality you'll implement in the app is loading and displaying a list of `Link` elements. You'll walk up our way in the React component hierarchy and start with the component that'll render a single link. 
 
 <Instruction>
 
@@ -83,7 +83,6 @@ export default LinkList
 
 </Instruction>
 
-
 Here, you're using mock data for now to make sure the component setup works. You'll soon replace this with some actual data loaded from the server - patience, young Padawan!
 
 <Instruction>
@@ -106,7 +105,6 @@ export default App
 ```
 
 </Instruction>
-
 
 Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
@@ -132,12 +130,11 @@ query AllLinks {
 
 You could now simply execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
 
-
 ### Queries with Apollo Client
 
 When using Apollo, you've got two ways of sending queries to the server.
 
-The first one is to use the [`query`](http://dev.apollodata.com/core/apollo-client-api.html#ApolloClient\.query) method on the `ApolloClient` directly. This is a more _imperative_ way of fetching data and will allow you to process the response as a _promise_.
+The first one is to directly use the [`query`](https://www.apollographql.com/docs/react/reference/index.html#ApolloClient\.query) method on the `ApolloClient` directly. This is a more _imperative_ way of fetching data and will allow you to process the response as a _promise_.
 
 A practical example would look as follows:
 
@@ -153,13 +150,13 @@ client.query({
 }).then(response => console.log(response.data.allLinks))
 ```
 
-A more idiomatic way when using React however is to use Apollo's higher-order component [`graphql`](http://dev.apollodata.com/react/api-graphql.html) to wrap your React component with a query.
+A more idiomatic way when using React however is to use Apollo's higher-order component [`graphql`](https://www.apollographql.com/docs/react/basics/setup.html#graphql) to wrap your React component with a query.
 
-With this approach, all you need to do when it comes to data fetching is write the GraphQL query and `graphql` will fetch the data for you under the hood and then make it available in your component's props. 
+With this approach, all you need to do when it comes to data fetching is write the GraphQL query and `graphql` will fetch the data for you under the hood and then make it available in your component's props.
 
 In general, the process for you to add some data fetching logic will be very similar every time:
 
-1. write the query as a JS constant using the `gql` parser function
+1. write the query as a JavaScript constant using the `gql` parser function
 2. use the `graphql` container to wrap your component with the query
 3. access the query results in the component's `props`
 
@@ -189,20 +186,20 @@ export default graphql(ALL_LINKS_QUERY, { name: 'allLinksQuery' }) (LinkList)
 
 What's going on here?
 
-1. First, you create the JavaScript constant called `ALL_LINKS_QUERY` that stores the query. The `gql` function is used to parse the plain GraphQL code.
-2. Now you define the plain GraphQL query. The name `AllLinksQuery` is the _operation name_ and will be used by Apollo to refer to this query in its internals.  (Notice we're using a GraphQL comment here.) 
-3. Finally, you're using the `graphql` container to combine the `LinkList` component with the `ALL_LINKS_QUERY`. Note that you're also passing an option to the function call where you specify a `name` to be `allLinksQuery`. This is the name of the `prop` that Apollo injects into the `LinkList`component. If you didn't specify it here, the injected prop would be called `data`.
+1. First, you create the JavaScript constant called `ALL_LINKS_QUERY` that stores the query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamililar with the backtick-syntax, you can read up on JavaScript's [ tagged template literals](http://wesbos.com/tagged-template-literals/)).
+2. Now you define the actual GraphQL query. `AllLinksQuery` is the _operation name_ and will be used by Apollo to refer to this query in its internals. (Notice the `#` which denotes a GraphQL comment). 
+3. Finally, you're using the `graphql` container to combine the `LinkList` component with the `ALL_LINKS_QUERY`. Note that you're also passing an options object to the function call where you specify a `name` to be `allLinksQuery`. This is the name of the prop that Apollo injects into the `LinkList`component. If you didn't specify it here, the injected prop would be called `data`.
 
 <Instruction>
 
-For this code to work, you also need to import the corresponding dependencies. Add the following line to the top of the file below the other import statements:
+For this code to work, you also need to import the corresponding dependencies. Add the following two lines to the top of the file, right below the other import statements:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import { graphql, gql } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 ```
 
 </Instruction>
-
 
 Awesome, that's all your data fetching code, can you believe that?
 
@@ -246,5 +243,7 @@ Let's walk through what's happening in this code. As expected, Apollo injected a
 1. `loading`: Is `true` as long as the request is still ongoing and the response hasn't been received.
 2. `error`: In case the request fails, this field will contain information about what exactly went wrong.
 3. `allLinks`: This is the actual data that was received from the server. It's an array of `Link` elements.
+
+> In fact, the injected prop contains even more functionality. You can read more in the [documentation](https://www.apollographql.com/docs/react/basics/queries.html#graphql-query-data).
 
 That's it! Go ahead and run `yarn start` again. You should see the exact same screen as before.

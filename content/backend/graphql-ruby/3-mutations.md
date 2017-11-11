@@ -10,25 +10,28 @@ Setting up mutations is as easy as queries, following a very similar process.
 
 All [GraphQL mutations](http://graphql.org/learn/queries/#mutations) start from a root type called **Mutation**.
 
-This type is **not** auto generated.
-
-<Instruction>
-
-Create a file named `app/graphql/types/mutation_type.rb`:
+This type is auto generated in the file `app/graphql/types/mutation_type.rb`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
 Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
+
+  # TODO: Remove me
+  field :testField, types.String do
+    description "An example field added by the generator"
+    resolve ->(obj, args, ctx) {
+      "Hello World!"
+    }
+  end
 end
 ```
 
-</Instruction>
-
 This type is a placeholder for all GraphQL mutations.
 
-<Instruction>
+To prevent any error when you first start your GraphQL project, it is generated with a dummy `testField` field.  
+You will be able to remove it as soon as you add your own mutation below.
 
-Then expose this type as the mutation type by adding it to `app/graphql/graphql_tutorial_schema.rb`:
+The mutation type is automatically exposed in your schema:
 
 ```ruby(path=".../graphql-ruby/app/graphql/graphql_tutorial_schema.rb")
 GraphqlTutorialSchema = GraphQL::Schema.define do
@@ -36,9 +39,6 @@ GraphqlTutorialSchema = GraphQL::Schema.define do
   mutation(Types::MutationType)
 end
 ```
-
-</Instruction>
-
 
 ### Resolvers with Arguments
 

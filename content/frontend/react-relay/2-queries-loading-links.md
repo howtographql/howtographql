@@ -183,7 +183,7 @@ One important note here is that there is a [_naming convention_](https://faceboo
 
 In your case, the file is called `Link.js` and the prop in the component should be called `link`. So you end up with `Link_link ` for the name of the fragment.
 
-Great work so far! Go and add the the fragment container for `LinkList` as well.
+Great work so far! Go and add the fragment container for `LinkList` as well.
 
 <Instruction>
 

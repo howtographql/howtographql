@@ -67,7 +67,7 @@ export default function WhatWeBuild() {
         <h2>What you'll build: A Hackernews clone</h2>
         <p className="c">
           Start from scratch and build a fully-featured Hackernews clone with one of the 
-          detailled step-by-step tutorials. Use the programming language and framework of your choice!
+          detailed step-by-step tutorials. Use the programming language and framework of your choice!
         </p>
         <div className="preview">
           <img
@@ -81,7 +81,7 @@ export default function WhatWeBuild() {
             </div>
             <div className="point">
               <Checkmark />
-              <p>Detailled instructions &amp; explanations</p>
+              <p>Detailed instructions &amp; explanations</p>
             </div>
             <div className="point">
               <Checkmark />
