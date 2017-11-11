@@ -55,7 +55,7 @@ In fact, GraphQL is a technology that can be used everywhere a client communicat
 Today, GraphQL is used in production by [lots of different companies](http://graphql.org/users/) such as GitHub, Twitter, Yelp and Shopify - to name only a few.
 
 ![](http://imgur.com/YZHGCzJ.png)
-*Despite being such a young technology, GraphQL has already been widely adopted. Learn [who else](graphql.org/users/) is using GraphQL in production.*
+*Despite being such a young technology, GraphQL has already been widely adopted. Learn [who else](http://graphql.org/users/) is using GraphQL in production.*
 
 There are entire conferences dedicated to GraphQL such as [GraphQL Summit](https://summit.graphql.com/) or [GraphQL Europe](https://graphql-europe.org/) and more resources like the [GraphQL Radio](https://graphqlradio.com/) podcast and [GraphQL Weekly](https://graphqlweekly.com/) newsletter.
 

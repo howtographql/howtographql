@@ -51,7 +51,8 @@ export default function Chapter({ post, location, steps }: Props) {
   const showBonus = location.pathname.startsWith('/basics/3-big-picture/')
   const title = post.frontmatter.pageTitle || getTitle(group, post)
   const description = post.excerpt
-  const contentTitle = n === 0 ? `${getStackName(group)} Tutorial - ${post.frontmatter.title}` : post.frontmatter.title
+  const stackName = getStackName(group)
+  const contentTitle = (stackName && n === 0) ? `${stackName} Tutorial - ${post.frontmatter.title}` : post.frontmatter.title
 
   return (
     <div>

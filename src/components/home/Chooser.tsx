@@ -291,12 +291,6 @@ export default class Chooser extends React.Component<Props, State> {
                     Choose your favorite technology
                   </span>
                 </Link>
-                <Duration
-                  duration={2}
-                  total={false}
-                  dark={true}
-                  link={`/tutorials/choose`}
-                />
               </div>
             </DottedListItem>
           </div>

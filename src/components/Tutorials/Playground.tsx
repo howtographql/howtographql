@@ -411,12 +411,14 @@ class Playground extends React.Component<Props & PlaygroundState, State> {
   }
 }
 
-const schema = `type Post {
+const schema = `type Post @model {
+  id: ID! @isUnique
   title: String!
   author: Person! @relation(name: "UserPosts")
 }
 
-type Person {
+type Person @model {
+  id: ID! @isUnique
   name: String!
   age: Int!
   posts: [Post!]! @relation(name: "UserPosts")

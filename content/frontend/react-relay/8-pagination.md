@@ -88,7 +88,7 @@ To be more concrete, here is what the Relay server needs to provide so that a li
     - `before` and `after` each expect strings representing the cursor. 
 - Note that `Graphcool` also implements a `count` field on the connection itself that allows to retrieve the number of items that are currently in the list.
 
-> For the detailled requirements, take a look at the official [Relay Cursor Connections Specification](https://facebook.github.io/relay/graphql/connections.htm).
+> For the detailed requirements, take a look at the official [Relay Cursor Connections Specification](https://facebook.github.io/relay/graphql/connections.htm).
 
 The last point in the list in particular enables the pagination functionality since combining either `first` and `after` (_forward pagination_) or `last` and `before` (_backward pagination_) allows to retrieve concrete chunks from the list. In fact, Relay requires them to be included when retrieving data from a connection and the Relay Compiler will throw an error if you don't include at least `first` _or_ `last` (`before` and `after` are optional). These two GitHub issues have interesting discussions around this requirement: [facebook/relay #1201](https://github.com/facebook/relay/issues/1201) and [graphql/graphql-relay-js #20](https://github.com/graphql/graphql-relay-js/issues/20).
 
