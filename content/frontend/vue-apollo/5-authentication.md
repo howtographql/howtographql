@@ -421,6 +421,7 @@ confirm () {
       const id = result.data.signinUser.user.id
       const token = result.data.signinUser.token
       this.saveUserData(id, token)
+      this.$router.push({path: '/'})
     }).catch((error) => {
       alert(error)
     })
@@ -436,11 +437,12 @@ confirm () {
       const id = result.data.signinUser.user.id
       const token = result.data.signinUser.token
       this.saveUserData(id, token)
+      this.$router.push({path: '/'})
     }).catch((error) => {
       alert(error)
     })
   }
-  this.$router.push({path: '/'})
+  
 }
 ```
 
