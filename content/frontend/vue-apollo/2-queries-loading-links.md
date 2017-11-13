@@ -179,7 +179,7 @@ Vue.config.productionTip = false
 
 const apolloClient = new ApolloClient({
     link: new HttpLink({
-        uri: '__SIMPLE_API_ENDPOINT',
+        uri: '__SIMPLE_API_ENDPOINT__',
     }),
     cache: new InMemoryCache(),
     connectToDevTools: true,
