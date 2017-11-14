@@ -413,7 +413,7 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{7-10,13,16-19,23-25}(path="src/index.js")
+```js{7-8,11,14-17,21-23}(path="src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
@@ -421,9 +421,7 @@ import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
 // 1
 import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
 
 // 2
 const httpLink = new HttpLink({ uri: '__SIMPLE_API_ENDPOINT__' })
