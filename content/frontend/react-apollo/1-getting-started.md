@@ -399,7 +399,7 @@ Here's an overview of the packages you just installed:
   - `apollo-link-http`
   - [`graphql-tag`](https://github.com/apollographql/graphql-tag) (GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function)
 - [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. Required peer dependency of `react-apollo`.
 
 That's it, you're ready to write some code! 🚀
 
