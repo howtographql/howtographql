@@ -22,6 +22,9 @@ First add the dependency to the app. Open a terminal, navigate to your project d
 yarn add react-router-dom
 ```
 
+> Note: all of `react-router-*` packages re-export the base `react-router` package.
+
+
 </Instruction>
 
 ### Create a Header
