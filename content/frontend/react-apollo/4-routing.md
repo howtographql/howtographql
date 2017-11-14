@@ -92,7 +92,7 @@ render() {
 
 </Instruction>
 
-For this code to work, you need to import the required dependencies of `react-router-dom`. 
+For this code to work, you need to import the `Header` component and the required dependencies from `react-router-dom`.
 
 <Instruction>
 
