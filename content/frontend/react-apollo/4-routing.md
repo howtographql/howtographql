@@ -12,14 +12,14 @@ correctAnswer: 2
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
-### Install Dependencies
+### Install the Dependency
 
 First add the dependency to the app. Open a terminal, navigate to your project directory and type: 
 
 <Instruction>
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-router react-router-dom
+yarn add react-router-dom
 ```
 
 </Instruction>
@@ -34,8 +34,7 @@ Create a new file in `src/components` and call it `Header.js`. Then paste the fo
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { withRouter } from 'react-router'
+import { Link, withRouter } from 'react-router-dom'
 
 class Header extends Component {
 
