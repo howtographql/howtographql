@@ -308,6 +308,22 @@ Your project structure should now look as follows:
 └── yarn.lock
 ```
 
+#### Fixing Imports in App.js
+
+Just for the application to be working in the end of this chapter:
+
+<Instruction>
+
+Open `src/components/App.js` and update relative paths of imports:
+
+```js{2-3}(path="src/components/App.js")
+import React, { Component } from 'react';
+import logo from '../logo.svg';
+import '../styles/App.css';
+```
+
+</Instruction>
+
 #### Prepare Styling
 
 This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
