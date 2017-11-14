@@ -196,7 +196,7 @@ For this code to work, you also need to import the corresponding dependencies. A
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 ```
 
 </Instruction>

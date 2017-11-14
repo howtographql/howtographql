@@ -120,7 +120,7 @@ Before moving on, you need to import the Apollo dependencies. Add the following 
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 ```
 
 </Instruction>

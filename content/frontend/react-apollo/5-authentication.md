@@ -529,7 +529,7 @@ Still in `Login.js`, add the following statement to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 ```
 
 </Instruction>

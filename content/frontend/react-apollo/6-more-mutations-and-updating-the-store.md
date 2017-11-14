@@ -255,7 +255,7 @@ As with the times before, you also need to import the `gql` and `graphql` functi
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 ```
 
 </Instruction>

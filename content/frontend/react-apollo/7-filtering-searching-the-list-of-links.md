@@ -26,7 +26,7 @@ Start by creating a new file called `Search.js` in `src/components` and add the 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 import React, { Component } from 'react'
 import { withApollo } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 import Link from './Link'
 
 class Search extends Component {
