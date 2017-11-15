@@ -434,7 +434,7 @@ All you do is also retrieve the `name` from the input `event` and then pass it t
 
 Still in `signup.ts`, update the `createGraphcoolUser` function like so:
 
-```ts{1,7,17}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
+```ts{1,3,7,17}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
 async function createGraphcoolUser(api: GraphQLClient, email: string, password: string, name: string): Promise<string> {
   const mutation = `
     mutation createGraphcoolUser($email: String!, $password: String!, $name: String!) {
