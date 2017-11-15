@@ -288,7 +288,7 @@ Before you apply the changes to the running service, you'll make another modific
 
 Open your type definitions file `types.graphql` and update the `User` and `Link` types as follows:
 
-```{7,14,17}graphql
+```graphql{7,14,17}(path=".../hackernews-react-apollo/server/types.graphql)
 type Link @model {
   id: ID! @isUnique
   createdAt: DateTime!
