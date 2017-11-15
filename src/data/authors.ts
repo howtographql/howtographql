@@ -98,7 +98,7 @@ const authors: Author[] = [
   {
     avatar: require('../assets/graphics/contributors/bouba.jpg'),
     bio:
-      "Bouba is Open Source Engineer who passionate about new technologies. He spends most of his time on GraphQL, Angular, React, Vue.js, …",
+      "Bouba is Open Source Engineer who's passionate about new technologies. He spends most of his time on GraphQL, Angular, React, Vue.js, …",
     link: 'https://twitter.com/b_b4rry',
     job: 'Open Source Engineer @ Hackages',
     name: 'Boubacar Bouba'
