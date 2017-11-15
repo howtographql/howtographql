@@ -49,6 +49,21 @@ const data: Stack[] = [
     authorName: 'Devan Beitel',
   },
   {
+    title: 'Angular + Apollo',
+    type: 'frontend',
+    key: 'angular-apollo',
+    images: [
+      require('../assets/icons/angular.svg'),
+      require('../assets/icons/apollo.svg'),
+    ],
+    content: {
+      title: 'Angular + Apollo',
+      description:
+        "Learn how to get started with Angular and Apollo Client on the frontend",
+    },
+    authorName: 'Boubacar Bouba',
+  },
+  {
     title: 'Vue + Apollo',
     type: 'frontend',
     key: 'vue-apollo',

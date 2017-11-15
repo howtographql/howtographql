@@ -27,16 +27,15 @@ interface State {
   selectedCategoryIndex: number
 }
 
-const FRONTEND_TUTORIALS_COUNT = 5
+export const FRONTEND_TUTORIALS_COUNT = data.filter(tutorial => tutorial.type === 'frontend').length-1
 const CATEGORIES = ['Frontend', 'Backend']
 const FRONTEND_INDEX = 0
 const BACKEND_INDEX = 1
 
-
 export default class Chooser extends React.Component<Props, State> {
   state = {
-    selectedCategoryIndex: 0,
-    selectedIndex: 5,
+    selectedCategoryIndex: FRONTEND_INDEX,
+    selectedIndex: FRONTEND_TUTORIALS_COUNT,
   }
 
   render() {

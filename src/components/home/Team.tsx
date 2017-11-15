@@ -221,7 +221,7 @@ export default function Team() {
               <Company
                 src={require('../../assets/icons/companies/facebook.svg')}
                 color="#0068B3"
-                x={150}
+                x={125}
                 y={-20}
               />
               <Bubble
@@ -231,7 +231,13 @@ export default function Team() {
                 x={350}
                 y={-70}
               />
-
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/bouba.jpg')}
+                name="Boubacar Bouba"
+                description="angular-apollo"
+                x={0}
+                y={0}
+              />
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Step } from '../../types'
 import Link from 'gatsby-link'
 import NewsletterSignup from '../NewsletterSignup'
 import CustomHelmet from '../CustomHelmet'
+import { FRONTEND_TUTORIALS_COUNT } from '../home/Chooser'
 
 interface Props {
   markdownFiles: { [key: string]: Step[] }
@@ -19,7 +20,7 @@ export default class TutorialChooser extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      selectedIndex: 5,
+      selectedIndex: FRONTEND_TUTORIALS_COUNT,
     }
   }
 
