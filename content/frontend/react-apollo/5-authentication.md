@@ -387,7 +387,7 @@ interface EventData {
 
 Still in `signup.ts`, adjust the implementation of the anonymous (and topmost) function to look as follows:
 
-```ts{8,26}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
+```typescript{8,26}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
 
