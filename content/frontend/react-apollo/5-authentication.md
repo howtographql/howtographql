@@ -700,9 +700,9 @@ const client = new ApolloClient({
 
 Then directly import the key you need to retrieve the token from `localStorage` as well as `ApolloLink` on top of the same file:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js{2}(path=".../hackernews-react-apollo/src/index.js")
 import { GC_AUTH_TOKEN } from './constants'
-import { ApolloLink } from 'apollo-client-preset'
+import { ApolloClient, HttpLink, InMemoryCache, ApolloLink } from 'apollo-client-preset'
 ```
 
 </Instruction>
