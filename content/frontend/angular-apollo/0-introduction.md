@@ -1,14 +1,13 @@
 ---
 title: Introduction
-pageTitle: "Fullstack Tutorial with GraphQL, React & Apollo"
-description: "Learn how to build a Hackernews clone with GraphQL, React & Apollo Client. You'll use create-react-app for the frontend and Graphcool for the backend."
-videoId: lQDrREfapow
+pageTitle: "Fullstack Tutorial with GraphQL, Angular & Apollo"
+description: "Learn how to build a Hackernews clone with GraphQL, Angular & Apollo Client. You'll use angular-cli for the frontend and Graphcool for the backend."
 duration: 5
-videoAuthor: "Abhi Aiyer"
 question: What's a major benefit of using a GraphQL client library?
 answers: ["It makes it easy to use animations inside your app", "A GraphQL client is mainly used to improve security", "It saves you from writing infrastructure code for networking and caching", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
 correctAnswer: 2
 ---
+
 
 ### Overview
 
@@ -26,12 +25,12 @@ You're going to build a simple clone of [Hackernews](https://news.ycombinator.co
 In this track, you'll use the following technologies for building the app:
 
 - Frontend:
-    - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
-    - [Apollo Client 2.0](https://github.com/apollographql/apollo-client): Fully-featured, production-ready, caching GraphQL client
+    - [Angular](https://angular.io/): Frontend framework for building user interfaces
+    - [Apollo Client](https://github.com/apollographql/apollo-client): Fully-featured, production ready caching GraphQL client
 - Backend:
-    - [Graphcool Framework](https://www.graph.cool/): Flexible backend development framework combining GraphQL + Serverless
+    - [Graphcool](https://www.graph.cool/): Flexible backend platform combining GraphQL + Serverless
 
-You'll create the React project with [`create-react-app`](https://github.com/facebookincubator/create-react-app), a popular command-line tool that gives you a blank project with all required build configuration already setup.
+You'll create the Angular project with [`angular-cli`](https://github.com/angular/angular-cli), a popular command-line tool that gives you a blank project with all required build configuration already setup.
 
 
 ### Why a GraphQL Client?
