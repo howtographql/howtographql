@@ -155,7 +155,7 @@ Finally, go ahead and add `Link` to the `Header` that allows the users to naviga
 
 Open `Header.js` and update `render` to look as follows:
 
-```js{2,8,13,15-25}(path=".../hackernews-react-apollo/src/components/Header.js")
+```js{2,8-9,12-13,15-25}(path=".../hackernews-react-apollo/src/components/Header.js")
 render() {
   const userId = localStorage.getItem(GC_USER_ID)
   return (
