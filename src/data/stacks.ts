@@ -61,7 +61,7 @@ const data: Stack[] = [
       description:
         "Learn how to get started with Angular and Apollo Client on the frontend",
     },
-    authorName: 'Boubacar Bouba',
+    authorName: 'Boubacar Barry',
   },
   {
     title: 'Vue + Apollo',

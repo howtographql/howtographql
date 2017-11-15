@@ -233,7 +233,7 @@ export default function Team() {
               />
               <Bubble
                 avatar={require('../../assets/graphics/contributors/bouba.jpg')}
-                name="Boubacar Bouba"
+                name="Boubacar Barry"
                 description="angular-apollo"
                 x={0}
                 y={0}
