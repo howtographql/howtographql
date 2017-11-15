@@ -617,7 +617,7 @@ Now you need to make sure that the `id` of the posting user is included when you
 
 Still in `CreateLink.js`, update the implementation of `_createLink` like so:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{2-6,11}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const postedById = localStorage.getItem(GC_USER_ID)
   if (!postedById) {
@@ -628,8 +628,8 @@ _createLink = async () => {
   await this.props.createLinkMutation({
     variables: {
       description,
-      url,
-      postedById
+      postedById,
+      url
     }
   })
   this.props.history.push(`/`)
