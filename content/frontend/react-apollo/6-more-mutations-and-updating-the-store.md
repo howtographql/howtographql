@@ -303,7 +303,7 @@ You can implement this functionality by using Apollo's [imperative store API](ht
 
 Open `Link` and update the call to `createVoteMutation` inside the `_voteForLink` method as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{6-9}(path=".../hackernews-react-apollo/src/components/Link.js")
 const linkId = this.props.link.id
 await this.props.createVoteMutation({
   variables: {
@@ -371,7 +371,7 @@ While we're at it, let's also implement `update` for adding new links!
 
 Open `CreateLink.js` and update the call to `createLinkMutation` inside `_createLink` like so:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{6-15}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 await this.props.createLinkMutation({
   variables: {
     description,
