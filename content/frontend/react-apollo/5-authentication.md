@@ -120,16 +120,16 @@ With that component in place, you can go and add a new route to your `react-rout
 
 Open `App.js` and update `render` to include the new route:
 
-```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
       <Header />
       <div className='ph3 pv1 background-gray'>
         <Switch>
-          <Route exact path='/login' component={Login}/>
-          <Route exact path='/create' component={CreateLink}/>
           <Route exact path='/' component={LinkList}/>
+          <Route exact path='/create' component={CreateLink}/>
+          <Route exact path='/login' component={Login}/>
         </Switch>
       </div>
     </div>
