@@ -379,6 +379,7 @@ await this.props.createLinkMutation({
     postedById
   },
   update: (store, { data: { createLink } }) => {
+    createLink.votes = []
     const data = store.readQuery({ query: ALL_LINKS_QUERY })
     data.allLinks.splice(0,0,createLink)
     store.writeQuery({

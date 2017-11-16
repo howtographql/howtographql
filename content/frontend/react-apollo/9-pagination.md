@@ -300,6 +300,7 @@ _createLink = async () => {
       postedById
     },
     update: (store, { data: { createLink } }) => {
+      createLink.votes = []
       const first = LINKS_PER_PAGE
       const skip = 0
       const orderBy = 'createdAt_DESC'
