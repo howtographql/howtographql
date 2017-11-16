@@ -2,8 +2,8 @@
 title: Authentication
 pageTitle: "Authentication with GraphQL, React & Apollo Tutorial"
 description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Graphcool."
-question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
-answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
+question: "What are the default names of the two mutations that are added to the Graphcool project with the Email-and-Password auth template?"
+answers: ["authenticateUser & logoutUser", "authenticateUser & signupUser", "createUser & loginUser", "signinUser & logoutUser"]
 correctAnswer: 1
 videoId: MiNDIWK7Q1I
 duration: 12
