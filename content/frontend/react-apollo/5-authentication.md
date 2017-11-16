@@ -687,7 +687,7 @@ This middleware will be invoked every time `ApolloClient` sends a request to the
 
 Now you also need to make sure `ApolloClient` gets instantiated with the correct link - update the constructor call as follows:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js{2}(path=".../hackernews-react-apollo/src/index.js")
 const client = new ApolloClient({
   link: httpLinkWithAuthToken,
   cache: new InMemoryCache()
