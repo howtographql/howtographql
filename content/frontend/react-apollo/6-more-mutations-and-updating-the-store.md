@@ -161,7 +161,7 @@ votes: [Vote!]! @relation(name: "UsersVotes")
 
 Now add another field to the `Link` type:
 
-```graphql(path=".../hackernews-react-apollo/types.graphql")
+```graphql(path=".../hackernews-react-apollo/server/types.graphql")
 votes: [Vote!]! @relation(name: "VotesOnLink")
 ```
 
@@ -171,7 +171,7 @@ votes: [Vote!]! @relation(name: "VotesOnLink")
 
 Next open up a terminal window and navigate to the directory where `types.graphql` is located. Then apply your changes by typing the following command:
 
-```bash(path=".../hackernews-react-apollo")
+```bash(path=".../hackernews-react-apollo/server")
 graphcool deploy
 ```
 
