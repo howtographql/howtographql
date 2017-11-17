@@ -42,7 +42,7 @@ render() {
 
 </Instruction>
 
-Make sure to import the Redirect component, so you don't get any errors.
+Make sure to import the `Redirect` component, so you don't get any errors.
 
 <Instruction>
 
