@@ -96,7 +96,7 @@ Unlike the `Link` POJO, `Query` models behavior, as it contains the resolver for
 Create it as such:
 
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Query.java")
-public class Query implements GraphQLRootResolver {
+public class Query implements GraphQLQueryResolver {
     
     private final LinkRepository linkRepository;
 
