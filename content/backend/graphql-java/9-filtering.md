@@ -76,7 +76,7 @@ Remember that this exact approach is just an example. You might as well implemen
 	
 	Update `LinkRespository#getAllLinks` to accept an optional filter:
 	
-	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRespository.java")
+	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
 	public List<Link> getAllLinks(LinkFilter filter) {
 	    Optional<Bson> mongoFilter = Optional.ofNullable(filter).map(this::buildFilter);
 	    
