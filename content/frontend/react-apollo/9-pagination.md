@@ -231,7 +231,7 @@ In `LinkList.js`, add the following two methods that will be called when the but
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _nextPage = () => {
   const page = parseInt(this.props.match.params.page, 10)
-  if (page <= this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
+  if (page < this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
     const nextPage = page + 1
     this.props.history.push(`/new/${nextPage}`)
   }
