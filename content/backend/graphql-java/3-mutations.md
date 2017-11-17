@@ -43,7 +43,7 @@ schema {
 Next off, create the root mutation resolver class (similar to the `Query` class you already have):
 
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Mutation.java")
-public class Mutation implements GraphQLRootResolver {
+public class Mutation implements GraphQLMutationResolver {
     
     private final LinkRepository linkRepository;
 
