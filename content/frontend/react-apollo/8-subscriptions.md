@@ -36,10 +36,10 @@ Next, make sure your `ApolloClient` instance knows about the subscription server
 
 <Instruction>
 
-Open `index.js` and add the following import to the top of the file:
+Open `index.js` and add the following import to the top of the file (replacing the old imports from `'apollo-client-preset'`):
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
-import { ApolloLink, split } from 'apollo-client-preset'
+import { ApolloClient, HttpLink, InMemoryCache, ApolloLink, split } from 'apollo-client-preset'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 ```
