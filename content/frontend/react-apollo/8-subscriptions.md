@@ -20,14 +20,14 @@ Subscriptions are a GraphQL feature that allows the server to send data to the c
 
 When using Apollo, you need to configure your `ApolloClient` with information about the subscriptions endpoint. This is done by adding another `ApolloLink` to the Apollo middleware chain. This time, it's the `WebSocketLink` from the [`apollo-link-ws`](https://github.com/apollographql/apollo-link/tree/master/packages/apollo-link-ws) package.
 
-Go and add this dependency to your app first. 
+Go and add this dependency to your app first. This package, however, has required peer dependency - `subscriptions-transport-ws`. And for splitting zones of responsibility utilities package will be needed.
 
 <Instruction>
 
 Open a terminal and navigate to the project's root directory. Then execute the following command:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add apollo-link-ws
+yarn add apollo-link-ws subscriptions-transport-ws apollo-utilities
 ```
 
 </Instruction>
