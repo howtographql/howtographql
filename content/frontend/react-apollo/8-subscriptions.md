@@ -46,7 +46,7 @@ import { getMainDefinition } from 'apollo-utilities'
 
 </Instruction>
 
-Notice that you're now also importing the `split` function from 'apollo-client-preset'. 
+Notice that you're now also importing the `split` function from `'apollo-client-preset'`.
 
 <Instruction>
 
