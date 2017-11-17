@@ -266,7 +266,7 @@ Similar as before, you're calling `subscribeToMore` on the `allLinksQuery`. This
 
 Finally, go ahead and call `_subscribeToNewVotes` inside `componentDidMount` as well:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{3}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 componentDidMount() {
   this._subscribeToNewLinks()
   this._subscribeToNewVotes()
