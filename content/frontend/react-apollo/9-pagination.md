@@ -123,7 +123,8 @@ export default graphql(ALL_LINKS_QUERY, {
     const first = isNewPage ? LINKS_PER_PAGE : 100
     const orderBy = isNewPage ? 'createdAt_DESC' : null
     return {
-      variables: { first, skip, orderBy }
+      variables: { first, skip, orderBy },
+      fetchPolicy: isNewPage && page === 1 ? 'cache-first' : 'cache-and-network'
     }
   }
 })(LinkList)
@@ -134,6 +135,8 @@ export default graphql(ALL_LINKS_QUERY, {
 You're now passing a function to `graphql` that takes in the props of the component (`ownProps`) before the query is executed. This allows you to retrieve the information about the current page from the router (`ownProps.match.params.page`) and use it to calculate the chunk of links that you retrieve with `first` and `skip`.
 
 Also note that you're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
+
+Regarding fetch policy: `'cache-and-network'` is specified for every view/page for which we don't manually update cache. Thus the default `'cache-first'` fetch policy is applied to the first page only.
 
 You also need to define the `LINKS_PER_PAGE` constant and then import it into the `LinkList` component.
 
