@@ -169,7 +169,7 @@ Still in `LinkList.js` implement `updateQuery` like so:
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 updateQuery: (previous, { subscriptionData }) => {
   const newAllLinks = [
-    subscriptionData.Link.node,
+    subscriptionData.data.Link.node,
     ...previous.allLinks
   ]
   const result = {
@@ -244,8 +244,8 @@ _subscribeToNewVotes = () => {
       }
     `,
     updateQuery: (previous, { subscriptionData }) => {
-      const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.Vote.node.link.id)
-      const link = subscriptionData.Vote.node.link
+      const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.data.Vote.node.link.id)
+      const link = subscriptionData.data.Vote.node.link
       const newAllLinks = previous.allLinks.slice()
       newAllLinks[votedLinkIndex] = link
       const result = {
