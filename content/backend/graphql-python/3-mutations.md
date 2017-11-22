@@ -22,23 +22,22 @@ class CreateLink(graphene.Mutation):
     description = graphene.String()
 
     #2
-    class Input:
+    class Arguments:
         url = graphene.String()
         description = graphene.String()
 
     #3
-    @staticmethod
-    def mutate(root, input, context, info):
+    def mutate(root, info, url, description):
         link = Link(
-            url=input.get('url'),
-            description=input.get('description')
+            url = url,
+            description = description,
         )
         link.save()
 
         return CreateLink(
-            id=link.id,
-            url=link.url,
-            description=link.description,
+            id = link.id,
+            url = link.url,
+            description = link.description,
         )
 
 
@@ -53,7 +52,7 @@ Let me explain this snippet, piece by piece:
 
 * `#1`: Defines a mutation class. Right after, you define the *output* of the mutation, the data the server can send back to the client. The output is defined *field* by *field* for learning purposes. On the next mutation you'll define them as just one.
 * `#2`: Defines the data you can send to the server, in this case, the links' `url` and `description`.
-* `#3`: The mutation method: it creates a link on the database using the data sent by the user, through the `input` parameters. After, the server returns the `CreateLink` class with the data just created. See how this matches the parameters set on `#1`.
+* `#3`: The mutation method: it creates a link on the database using the data sent by the user, through the input parameters(`url`, `description`). After, the server returns the `CreateLink` class with the data just created. See how this matches the parameters set on `#1`.
 * `#4`: Creates a mutation class with a field to be resolved, which points to our mutation defined before.
 
 <Instruction>
