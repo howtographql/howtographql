@@ -136,7 +136,6 @@ Mutation: {
       if (data.email.password === user.password) {
         return {token: `token-${user.email}`, user};
       }
-    },
   },
 },
 User: {
