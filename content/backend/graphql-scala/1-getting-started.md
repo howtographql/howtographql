@@ -8,82 +8,67 @@ correctAnswer: 3
 ---
 
 In this chapter you will learn how to:
-* Initialize the SBT project,
-* Add all dependencies,
-* Setup basic HTTP server,
+* Initialize the SBT project from [giter8](http://www.foundweekends.org/giter8/) template.,
 * Setup Database schema and connection.
 
 ### Initialize new project
 
-First step will be preparation of SBT project.
-
-I assume you're familiar with any modern IDE which improves your productivity. But, if you don't know any, I recommend to try [IntelliJ IDEA CE](https://www.jetbrains.com/idea/download) which has an awesome plugin for Scala.
-
-Whether you use IDE or not, you have to start from preparing `build.sbt` configuration file.
+For purpose of this tutorial I've prepared a giter8 template you can use to easly bootstrap a project. All you need is SBT in the newest version.
 
 <Instruction>
 
-Create `build.sbt` file in empty folder with following content:
+Go to directory where you want to bootstrap project and run this command:
 
-```scala
-
-name := "howtograph-sangria"
-
-version := "1.0"
-
-description := "GraphQL server with akka-http and sangria"
-
-scalaVersion := "2.12.3"
-
-scalacOptions ++= Seq("-deprecation", "-feature")
-
-libraryDependencies ++= Seq(
-  "org.sangria-graphql" %% "sangria" % "1.3.0",
-  "org.sangria-graphql" %% "sangria-spray-json" % "1.0.0",
-  "com.typesafe.akka" %% "akka-http" % "10.0.10",
-  "com.typesafe.akka" %% "akka-http-spray-json" % "10.0.10",
-
-  "com.typesafe.slick" %% "slick" % "3.2.1",
-  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
-  "org.slf4j" % "slf4j-nop" % "1.6.6",
-  "com.h2database" % "h2" % "1.4.196",
-
-  "org.scalatest" %% "scalatest" % "3.0.4" % Test
-)
-
-Revolver.settings
-
+```bash
+sbt new marioosh/howtographql-scala-sangria.g8
 ```
 
 </Instruction>
 
-As you can see at the end of file, I'm using [Revolver Plugin](https://github.com/spray/sbt-revolver). This plugin is really helpful during development. It watches filesystem, recompiles changed files and after that reloads HTTP server. So we are able to see all the changes without restarting the server manually.
+You will be asked about name and port to use by the server but you can hit ENTER to keep default values.
 
-Let's add Revolver to the project:
-
-<Instruction>
-
-Create directory `project`. Inside of it create two files: `build.properties` and `plugins.sbt`
-In first place type `sbt.version=0.13.6` to define that we want to use the latest version of SBT.
-
-In the second of these files add dependency to the plugin:
-
-```scala
-
-addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
+After this process you will see simple project created in the directory with the structure like this:
 
 ```
 
-</Instruction>
+howtographql-sangria
+├── README.md
+├── build.sbt
+├── project
+│   ├── build.properties
+│   └── plugins.sbt
+└── src
+    └── main
+        ├── resources
+        │   └── application.conf
+        └── scala
+            └── com
+                └── howtographql
+                    └── scala
+                        └── sangria
+                            ├── DAO.scala
+                            ├── DBSchema.scala
+                            └── Server.scala
+```
+
+I will explain shortly the most important files here.
+
+  - `build.sbt`
+  - `project/plugins.sbt`
+  - `project/build.properties`
+
+Files above are for SBT itself. There you can find all dependencies to external libraries and plugins we will use in the project.
+I assume you're at least beginner in the scala and you understand what is going on in those files. One thing you could be unfamiliar with is `Revolver` plugin.
+This plugin is responsible for restarting server every time you save the files, so akka-http will server always updated version. It's very helpful during development process.
+
+
 
 ### HTTP Server
 
-Time to create HTTP Server
-
 <Instruction>
 
-Create `Server.scala` file which will be our HTTP server and entry point for the application.
-Use content as follows:
+Open `Server.scala` file. It will be our HTTP server and entry point for the application.
+You should see a content as follows:
 
 ```scala
 import akka.actor.ActorSystem
@@ -129,11 +114,11 @@ object Server extends App {
 
 </Instruction>
 
-Our server extends an `App` trait so SBT can find it and run when you'll use `sbt run` command. When there are more such files in your project, SBT will ask you which one you want to run.
+Our server extends an `App` trait so SBT can find it and run when you'll use `sbt run` command. All the an `App` does is implementing a `main` function which is default entry point when executed. In case there are more such files in your project, SBT will ask you which one you want to run.
 
-At point 2, there is defined port number we want to use, choose what you want if proposed `8080` doesn't work for you. The main point of the file is `val route` definitions. For now, in all cases, server responds with simple text to prove it's working, but no worries, you will change this value in the near future.
+At point 2, there is defined port number we want to use, you could choose it during project initialization.
 
-What is worth pointing out here: In our example I use [Spray JSON](https://github.com/spray/spray-json) library for marshalling and unmarshalling JSON objects, but it isn't obligatory for you. You can use whatever JSON library you want, but in such case you have to change dependencies. [On this page](http://sangria-graphql.org/download/) you can find what JSON libraries Sagria can play with.
+What is worth pointing out here: In our example I use [Spray JSON](https://github.com/spray/spray-json) library for marshalling and unmarshalling JSON objects, but it isn't obligatory for you. You can use whatever JSON library you want. [On this page](http://sangria-graphql.org/download/) you can find which JSON libraries Sagria can play with.
 
 ### Database configuration
 
@@ -141,7 +126,7 @@ In our project I chose to use H2 database. It's easy to configure and is able to
 
 <Instruction>
 
-Inside `src/main/resources` directory, create an `application.conf` file with the following content:
+Inside `src/main/resources` directory, find an `application.conf`, and confirm a database setup.
 
 ```
 h2mem = {
@@ -156,57 +141,14 @@ h2mem = {
 
 It's all we need to configure a database, now we're ready to use it. For the future purposes we will create two additional files.
 
-<Instruction>
-
-Create `DAO.scala`. It will be responsible for accessing database.
-
-```scala
-import slick.jdbc.H2Profile.api._
-
-class DAO(db: Database) {}
-```
-
-</Instruction>
+`DAO.scala` is almost empty for now. It will contain all the logic for database connection. In future updates.
 
 In the second class: `DBSchema`, we will put database schema configuration along with helper functions like populating data.
 
-<Instruction>
-
-Create `DBSchema.scala` file:
-```scala
-import slick.jdbc.H2Profile.api._
-
-import scala.concurrent.duration._
-import scala.concurrent.Await
-import scala.language.postfixOps
-
-
-object DBSchema {
-
-  //1
-  val databaseSetup = DBIO.seq(
-
-  )
-
-  //2
-  def createDatabase: DAO = {
-    val db = Database.forConfig("h2mem")
-
-    Await.result(db.run(databaseSetup), 10 seconds)
-
-    new DAO(db)
-
-  }
-
-}
-```
-
 </Instruction>
 
-The first function of this class will consist entire logic that should be executed during server start. Second function creates Database object based on loaded configuration. No worries about blocking logic, I wanted to keep it simple here.
+The object above will be useful in the future  We will use it to setup and configure the database. For the sake of simplicity we won't worry too much about blocking.
 
 To recap, in this chapter we learnt how to:
 * Initialize the SBT project,
-* Add all dependencies,
-* Setup basic HTTP server,
 * Setup Database schema and connection.
