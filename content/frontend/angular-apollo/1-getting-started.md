@@ -460,7 +460,7 @@ export class GraphQLModule {
     const uri = '__SIMPLE_API_ENDPOINT__';
     const http = httpLink.create({ uri });
 
-    // 6
+    // 5
     apollo.create({
       link: http,
       cache: new InMemoryCache()
@@ -479,7 +479,7 @@ Let's try to understand what's going on in that code snippet:
 2. We export the `HttpClientModule`, `ApolloModule`, `HttpLinkModule` to make them "public" when `GraphQLModule` is imported in another module. In fact, if you don't export, it stays private, visible only to other component declared in this module. You can find more information in [NgModule FAQs](https://angular.io/guide/ngmodule-faq#what-should-i-export)
 3. We inject the `Apollo` and `HttpLink` to be able to configure them
 4. We create a `link` by providing the `URI` (i.e. your actual GraphQL endpoint) to the `.create` method of the `HttpLink` instance. You'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit
-3. Now you instantiate the `ApolloClient` by passing in the `link` created and an `InMemoryCache` cache instance. The `HttpLink` is a replacement for `createNetworkInterface` from Apollo Client 1.0
+5. Now you instantiate the `ApolloClient` by passing in the `link` created and an `InMemoryCache` cache instance. You can also use `new InMemoryCache({ dataIdFromObject: o => (o as GraphCoolObject).id })` and have all your objects in `types.ts` extend a common interface names `GraphCoolObject` with an `id: string;` property to specify how Apollo will identify and de-duplicate the objects returned from the server. The `HttpLink` is a replacement for `createNetworkInterface` from Apollo Client 1.0
 
 Finally, we export the `GraphQLModule`.
 
