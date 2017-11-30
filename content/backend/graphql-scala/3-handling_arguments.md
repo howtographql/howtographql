@@ -2,9 +2,9 @@
 title: Handling Arguments
 pageTitle: "A query arguments"
 description: "In this chapter you will learn how to use arguments and how to handle them and pass to the business logic."
-question: "Does GraphQL needs HTTP Server?"
-answers: ["Yes. It needs HTTP server.", "Yes, it needs HTTP server but some of features can be used without that", "No, but it strictly recommended to use. Without HTTP layer, GraphQL is losing some of its features.","No, GraphQL is specification is far away from tranportation protocol. You can use HTTP, Websockets, sockets or even use it internally in you application." ]
-correctAnswer: 3
+question: "What type is query argument"
+answers: ["It's always a String type. You have to unmarshall it to type yo need", "You can define the type of argument in schema.", "It's one of basic types.", "Only numbers."]
+correctAnswer: 1
 ---
 
 
