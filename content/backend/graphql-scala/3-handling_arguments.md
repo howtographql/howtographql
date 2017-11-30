@@ -1,7 +1,7 @@
 ---
 title: Handling Arguments
-pageTitle: "Handling arguments which are provided in query"
-description: "In this chapter, at first you will learn how to use arguments."
+pageTitle: "A query arguments"
+description: "In this chapter you will learn how to use arguments and how to handle them and pass to the business logic."
 question: "Does GraphQL needs HTTP Server?"
 answers: ["Yes. It needs HTTP server.", "Yes, it needs HTTP server but some of features can be used without that", "No, but it strictly recommended to use. Without HTTP layer, GraphQL is losing some of its features.","No, GraphQL is specification is far away from tranportation protocol. You can use HTTP, Websockets, sockets or even use it internally in you application." ]
 correctAnswer: 3
@@ -10,10 +10,9 @@ correctAnswer: 3
 
 ### Arguments
 
-Let's assume, we want to fetch links for only one link (giving ID of it) or few links. We will need to manage parsing of arguments.
+Let's assume, we want to fetch selected links using their ids. We will need to parse arguments.
 
-For example such queries:
-
+For example such query:
 
 ```graphql
 
@@ -22,12 +21,13 @@ query {
     	id
     	name
   	}
-  	links(ids: [2,3]){
+  	links(ids: [2, 3]){
       id
       name
     }  
 }
 ```
+
 What must we do? Firstly add to DAO functions that gives us link by one or more ID's.
 
 <Instruction>
@@ -47,22 +47,22 @@ def getLink(id: Int): Future[Option[Link]] = db.run(
 
 </Instruction>
 
-Next we have to add fields to the main `Query` object with those functions as resolvers.
+Next we have to add fields to the main `Query` object and set functions above as resolvers.
 
 <Instruction>
 
-Now open `GraphQLSchema.scala` file, and in codeblock `fields[MyContext, Unit](...)` add two additional fields:
+Now open `GraphQLSchema.scala` file, and in fuction `fields` add two additional definitions:
 
 ```
-Field("link",//1
-  OptionType(LinkType),//2
-  arguments = List(Argument("id", IntType)),//3
-  resolve = c => c.ctx.dao.getLink(c.arg[Int]("id"))//4
+Field("link", //1
+  OptionType(LinkType), //2
+  arguments = List(Argument("id", IntType)), //3
+  resolve = c => c.ctx.dao.getLink(c.arg[Int]("id")) //4
 ),
-Field("links",//1
-  ListType(LinkType),//2
-  arguments = List(Argument("ids", ListInputType(IntType))),//3
-  resolve = c => c.ctx.dao.getLinks(c.arg[Seq[Int]]("ids"))//3
+Field("links", //1
+  ListType(LinkType), //2
+  arguments = List(Argument("ids", ListInputType(IntType))), //3
+  resolve = c => c.ctx.dao.getLinks(c.arg[Seq[Int]]("ids")) //3
 )
 
 ```
@@ -72,13 +72,13 @@ Field("links",//1
 Let's try to understand what is going on in there:
 
 1. As explained previously, we're adding new fields with these names (`link` and `links`)
-1. Second parameter is expected output type. In first query it's Optional Link, in second link of links.
-1. `arguments` is defined additinal parameter. It's a list of arguments we expects. In first field, we're expecting an `id` argument of type `Int`. In second case `ids` as list of ints. As you can see we didn't use `ListType` in that case. We've used `ListInputType` instead. The main difference is that all `InputType`s are using for parsing incoming data, and `ObjectType`s (mostly) are used as outgoing data.
-1. `arguments` defines which argumets are acceptable, in the resolver, those arguments have to be retrieved from query. `Context` available in resolver has a map of those arguments, is it's easily fetchable.
+1. Second parameter is expected output type. In first query it's Optional Link, in second list of links.
+1. `arguments` is a list of expected argumets defined by name and type. In first field, we're expecting an `id` argument of type `Int`. In second case `ids` as list of integers. As you can see we didn't use `ListType` in that case. We've used `ListInputType` instead. The main difference is that all `InputType`s are used to parse incoming data, and `ObjectType`s (mostly) are used for outgoing data.
+1. `arguments` defines which arguments we expect. Mostly such argument isn't forgotter and should be extracted and passed down to the resolver. `Context` object, reachable in `resolve` partial function, contains such information, so you have to fetch those arguments from there.
 
 ### DRY with arguments
 
-The code above could be a little simplified. You can extract an `Argument` as constant, and reuse this infield declaration. You can change the `link` declaration on the following:
+The code above could be a little simplified. You can extract an `Argument` as constant, and reuse this in field declaration. You can change the `link` declaration on the following:
 
 ```scala
 
@@ -90,10 +90,12 @@ Field("link",
       resolve = c => c.ctx.dao.getLink(c.arg(Id))
 )
 ```
+Similar chage you can make for `links` field too.
 
-Now we're able to fetch for single Link, or even a list of chosen links.
+Now, we have exposed few field. We're able to fetch for single Link, or even a list of chosen links.
 
 <Instruction>
+
 Open the graphiql console in the browser and execute following query:
 
 ```graphql
@@ -133,7 +135,7 @@ query {
 
 ### Defining a problem
 
-If you will debug DAO class (even by putting simple `println` in functions) you will find out that `getLink` is called twice for the same `id`. `resolve` function is calling that function directly, so it calls it's every time it needs a data in response. But there is the better way. Sangria provides mechanism which helps with optimizing queries or even uses cache when needed.
+If you will debug DAO class (even by putting simple `println` in functions) you will find out that `getLink` is called twice for the same `id`. `resolve` function is calling that function directly, so it's being called upon every id. But there is the better way. Sangria provides mechanism which helps to help with query optimization and caching. This is exactly what we need here.
 
 
 ### Next chapter
