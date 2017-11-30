@@ -1,7 +1,7 @@
 ---
 title: Deferred Resolvers
 pageTitle: "Usage of Deferred Resolvers for better performance"
-description: "In this chapter, at first you will learn how to use deferred resolvers for better performance."
+description: "In this chapter you will learn how to improve performance with deferred resolvers."
 question: "Check the correct statement about Deferred Resolvers"
 answers: ["Fetcher is higher level API for Deferred Resolver", "Deferred Resolver is of optimizing a query, Fetcher is for taking data from data source in batch","Fetcher is light version of Deferred Resolver without cache or support for relations", "Deferred Resolver and Fetcher are completely different, not related one to each other things" ]
 correctAnswer: 0
@@ -10,9 +10,9 @@ correctAnswer: 0
 
 ### Deferred Resolvers and Fetchers
 
-`Fetcher`s and `Deferred Resolver`s are mechanisms for batch retrieval of object from their sources like database or external API. `Deferred Resolver` provides low-level efficient API but, on the other hand, it’s more complicated in use and less secured. `Fetcher` is a specialized version of `Deferred Resolver`. It provides high-level API, it’s easier to use and usually provides all you need. It optimizes resolution of fetched entities based on its ID or relation, it deduplicates entities and caches the results, to name but a few possibilities.
+`Fetcher`s and `Deferred Resolver`s are mechanisms for batch retrieval of object from their sources like database or external API. `Deferred Resolver` provides efficient, low-level API but, on the other hand, it’s more complicated in use and less secured. `Fetcher` is a specialized version of `Deferred Resolver`. It provides high-level API, it’s easier to use and usually provides all you need. It optimizes resolution of fetched entities based on its ID or relation, it deduplicates entities and caches the results, and much more.
 
-Let's implement one for `Link`:
+Let's implement one for `Link` entity:
 
 <Instruction>
 
@@ -32,7 +32,7 @@ Now we have to change fields in `QueryType`:
 
 <Instruction>
 
-Change Fields definition for the `link` and `links` with the following code:
+Change fields definition for `link` and `links` with the following code:
 
 ```scala
 
@@ -51,13 +51,15 @@ Field("links",
 
 </Instruction>
 
-We're still using `dao.getLinks` to fetch links from database, but now it's wrapped in `Fetcher`. It optimizes the query **before** call. Firstly it gathers all data it should fetch and then it execuees the queries. Caching and deduplication mechanisms allow to avoid duplicated queries and give results faster.
+We're still using `dao.getLinks` to fetch links from database, but now it's wrapped in `Fetcher`. It optimizes the query **before** call. Firstly it gathers all data it should fetch and then it executes the queries. Caching and deduplication mechanisms allow to avoid duplicated queries and give results faster.
 
-ok, if we have our fetcher defined, we push it to lower level.
+As you can see, we use the same fetcher in two fields, in the first example we're providing only single id and expecting one, optional object (`deferOpt` function). In the second case we're providing a list of ids and expecting a sequence of objects (`deferSeq`).
+
+If we have our fetcher defined, let's push it to lower level.
 
 <Instruction>
 
-in `GraphQLSchema` create constant for deferred resolver.
+In `GraphQLSchema` create constant for deferred resolver.
 
 ```scala
 
@@ -67,7 +69,7 @@ val Resolver = DeferredResolver.fetchers(linksFetcher)
 
 </Instruction>
 
-Such resolver have to be passed into the `Executor` to make it available for use. As you can see, we use the same fetcher in two fields, in the first example we're providing only single id and expecting one, optional object (`deferOpt` function). In the second case we're providing a list of ids and expecting a sequence of objects (`deferSeq`).
+Such resolver have to be passed into the `Executor` to make it available for use.
 
 <Instruction>
 
@@ -82,7 +84,8 @@ Executor.execute(
   variables = vars,
   operationName = operation,
   deferredResolver = GraphQLSchema.Resolver
-).map( //the rest without changes
+).map(
+//the rest without changes
 
 ```
 
@@ -99,7 +102,7 @@ Open a `DAO` class and remove `getLink` function.
 
 ### HasId type class
 
-If you tried to execute a query, you get an error. Because there one more thing we have to do. `Fetcher` needs 'something' what extraxts id from entity. This thing is `HasId` type class. You have few choices how to provide usch class for your model. Firstly you can explicitly pass it, like this:
+If you tried to execute a query, you got an error at this point. The reason is that `Fetcher` needs 'something' what extracts ids from entities. This thing is `HasId` type class. You have few choices how to provide such class for your model. Firstly you can explicitly pass it, like this:
 
 ```scala
 
@@ -119,7 +122,6 @@ object Link {
 }
 
 ```
-There one more way, more generic, but to avoid a mess, I'll back to this in chapter about interfaces.
 
 <Instruction>
 
@@ -136,7 +138,7 @@ implicit val linkHasId = HasId[Link, Int](_.id)
 
 ### Test it
 
-You can debug `DAO.getLinks` function in any way, and execute following query:
+You can debug `DAO.getLinks` function in any way and execute following query:
 
 ```graphql
 
@@ -161,8 +163,8 @@ query {
 
 ```
 
-As you can see `getLinks` is called only once!
+Even the query want the same link twice, when you'll debug it, you can see `getLinks` is called only once!
 
 ### What's next?
 
-In the next chapter we will extern `Link` model about date fields. H2 doesn't support the type we need so we have to manage it somehow. You will learn about custom scalar types.
+In the next chapter we will add additional field to the `Link`. We need to add an information when link is added to the best type to cover such need is date-time. H2 doesn't support the type we need so we have to manage it somehow manually. In sangria you can define your own scalar types and this is what we will learn about. 
