@@ -1,10 +1,10 @@
 ---
-title: Preparing to first query
+title: The first query
 pageTitle: "The last steps of preparation to able run first GraphQL query."
 description: "In this chapter you will learn last steps of preparation, include graphiql console for easy debugging and at the end run your first query."
-question: "Does GraphQL needs HTTP Server?"
-answers: ["Yes. It needs HTTP server.", "Yes, it needs HTTP server but some of features can be used without that", "No, but it strictly recommended to use. Without HTTP layer, GraphQL is losing some of its features.","No, GraphQL is specification is far away from tranportation protocol. You can use HTTP, Websockets, sockets or even use it internally in you application." ]
-correctAnswer: 3
+question: "Which key doesn't exists in the root JSON object."
+answers: ["operationName", "variables", "fields","query" ]
+correctAnswer: 2
 ---
 
 ### Goal
@@ -21,7 +21,7 @@ query {
   }
 }
 ```
-The expected result is a list of few links.
+The expected result is a list of links.
 
 ### Define a model
 
@@ -29,7 +29,7 @@ Let's start from defining a really basic model
 
 <Instruction>
 
-Create class `Link`:
+Create file `Link.scala`:
 
 ```scala
 
@@ -50,7 +50,7 @@ Add following chanages to the `DBSchema.scala`:
 //1
 class LinksTable(tag: Tag) extends Table[Link](tag, "LINKS"){
 
-    def id = column[Int]("ID", O.PrimaryKey)
+    def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
     def url = column[String]("URL")
     def description = column[String]("DESCRIPTION")
 
@@ -65,10 +65,10 @@ val Links = TableQuery[LinksTable]
 val databaseSetup = DBIO.seq(
     Links.schema.create,
 
-    Links ++= Seq(
-      Link(0, "http://howtographql.com", "Awesome community driven GraphQL tutorial"),
-      Link(0, "http://graphql.org", "Official GraphQL webpage"),
-      Link(0, "https://facebook.github.io/graphql/", "GraphQL specification")
+    Links forceInsertAll Seq(
+      Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial"),
+      Link(2, "http://graphql.org", "Official GraphQL webpage"),
+      Link(3, "https://facebook.github.io/graphql/", "GraphQL specification")
     )
 )
 ```
@@ -77,12 +77,12 @@ val databaseSetup = DBIO.seq(
 
 We just added database definition of our first model.
 * **1** defines mapping to database table,
-* **2** gives us an helper we will use to accessing data in this table.
+* **2** gives us a helper we will use to accessing data in this table.
 * The last change, **3** is responsible for creating schema and adding three entities to the database.
 
 ### Context
 
-Context is an object that flows across the whole execution, in the most cases this object doesn't change at all. The main responsibility of the Context it's to provide all the things that helps with fulfilling. In our example we will put there `DAO` so all queries will have access to the database, in the future we will also put there authentication data.
+Context is an object that flows across the whole execution, in the most cases this object doesn't change at all. The main responsibility of the Context is providing data and utils needed to fulfill the query. In our example we will put there `DAO` so all queries will have access to the database. In the future we will also put there authentication data.
 
 <Instruction>
 
@@ -98,7 +98,7 @@ case class MyContext(dao: DAO)
 
 ### GraphQL Server
 
-Time to implement GraphQL Server. This Object will be in the second layer of architecture. Proper HTTP request will be converted into JSON object and send to this server. There, this object will be parsed, queries executed and sent response back to the client. It also will catch GraphQL parsing errors and converts it into the proper HTTP response.
+Time to implement GraphQL Server. This object will be in the second layer of architecture just after HTTP server. Proper HTTP request will be converted into JSON object and send to this server. GraphQL serve will parse that JSON as GraphQL query, executes it and through HTTP layer sends response back to the client. It also will catch GraphQL parsing errors and converts those into the proper HTTP responses.
 
 <Instruction>
 
@@ -177,9 +177,9 @@ object GraphQLServer {
 </Instruction>
 
 It's one of the most important files in entire backend server so let's analyze it step by step:
-* **1** We need access to the database, so it's the step where it's created.
-* **2** `endpoint` responds with `Route` type, so it will be used directly in the routing of HTTP server. It expects JSON object as parameter.
-* **3** There `fields` JsObject is extracted from the root object. The format of root JSON object expected by GraphQL implementation looks like this:
+* **1** We need access to the database, so it's the step where such connection is created.
+* **2** `endpoint` responds with `Route` type. It will be used directly in the routing of HTTP server. It expects JSON object as parameter.
+* **3** Main JSON Object is extracted from the root object. From this object will be extracted three children. The format of root JSON object expected by GraphQL implementation looks like this, and every from those 3 keys will be extracted and passed for execution.
 
   ```
   {
@@ -192,11 +192,11 @@ It's one of the most important files in entire backend server so let's analyze i
   `query` is a query itself, `variables` is additional data for that query. In GraphQL you can send the query and arguments separately. You can also set name for the query, it’s what the third object is for. Imagine that query is like a function, usually you’re using anonymous functions, but for logging or other purposes you could add names. It’s sent as `operationName`.
 
 * **4** We're extracting `query` from request at this point.
-* When we have the query, we have to parse it. Sangria provides `QueryParser.parse` (**5**) function we can use in this case. In case of failure, we're responding with status 400 and error description. In case of successful parsing, we're also trying to extract also `operationName`(**6**) and `variables`(**7**) and all those three object we're passing to the execution function (**8**).
-* **9** `Executor.execute` is the most important call in this class because it's the point where query is executed. If executor responds with success, the result is send back to the client, in the other case server will responds with status code 4xx and some kind of explanation what was wrong with the query. Executor needs some data to fulfil the request. Three of them are `query`(**11**), `operationName`(**13**) and `variables`(**14**) which are read from request.
+* When we have the query, we have to parse it. Sangria provides `QueryParser.parse` (**5**) function we can use in this case. When it failures, server will respond with status 400 and error description int he body of response. After successful parsing, we're also trying to extract other two keys `operationName`(**6**) and `variables`(**7**).At the end all those three object we're passing to the execution function (**8**).
+* **9** `Executor.execute` is the most important call in this class because it's the point where query is executed. If executor responds with success, the result is sent back to the client, in all other cases server will respond with status code 4xx and some kind of explanation what was wrong with the query. Executor needs some data to fulfill the request. Three of them are `query`(**11**), `operationName`(**13**) and `variables`(**14**) which are read from request.
 The last two are: `GraphQLSchema.SchemaDefinition` and `MyContext(dao)`.
-* **12** MyContext is a context object mentioned above. In this case we're building the context object with prepared DAO class.
-* `GraphQLSchema.SchemaDefinition` is the last object we have to explain here. It contains our Schema - what we are able to query for. It also interprets how data is fetched and from which data source (i.e. one or more databases, REST call to the other server…). In short our `SchemaDefinition` file defines what we want to expose. There are defined types (from GraphQL point of view) and shape of the schema a client is able to query for.
+* **12** MyContext is a context object mentioned above. In our exampleyou can see the context is built with DAO object within.
+* `GraphQLSchema.SchemaDefinition` is the last object we have to explain here. It contains our Schema - what we are able to query for. It also interprets how data is fetched and which data source it could use (i.e. one or more databases, REST call to the other server…). In short our `SchemaDefinition` file defines what we want to expose. There are defined types (from GraphQL point of view) and shape of the schema a client is able to query for.
 
 ### Define GraphQLSchema
 
@@ -205,7 +205,7 @@ The last two are: `GraphQLSchema.SchemaDefinition` and `MyContext(dao)`.
 Create GraphQLSchema object:
 
 ```scala
-import com.howtographql.scala.sangria.models.Link
+
 import sangria.schema.{Field, ListType, ObjectType}
 // #
 import sangria.schema._
@@ -214,7 +214,14 @@ import sangria.macros.derive._
 object GraphQLSchema {
 
   // 1
-  implicit val LinkType = deriveObjectType[Unit, Link]()
+  val LinkType = ObjectType[Unit, Link](
+       "Link",
+       fields[Unit, Link](
+         Field("id", IntType, resolve = _.value.id),
+         Field("url", StringType, resolve = _.value.url),
+         Field("description", StringType, resolve = _.value.description)
+       )
+     )
 
   // 2
   val QueryType = ObjectType(
@@ -231,20 +238,15 @@ object GraphQLSchema {
 
 </Instruction>
 
-Sangria cannot reuse case classes defied in our domain, it needs it's own object called of type `ObjectType`. On the other hand it no need to be 1-1 mapping between our Sangria and DB models. This abstraction allows us to freely hide, add or aggregate fields.
-* **1** is a definition of ObjectType for our `Link` class. `deriveObjectType` is a macro what will built an Object for us. But we can do it manually. For example `deriveObjectType[Unit, Link]()` is the same to
+Sangria cannot reuse case classes defined in our domain, it needs its own object of type `ObjectType`. On the other hand, it allows us to decouple API/Sangria models from database representation. This abstraction allows us to freely hide, add or aggregate fields.
+* **1** is a definition of ObjectType for our `Link` class. First (String) argument defines the name in the schema. If you want it could differ from name of case class. In `fields` you have to define all those fieds/functions you want to expose. Every field have to contain `resolve` function which tells Sangria how to retireve data for this field. As you can see there is also explicitly defined type for that field.
+Manuall mapping could be boring in many cases like you have to map couple of case classes. To avoid boilerplace you can use provided macro.
 
 ```scala
-val LinkType = ObjectType[Unit, Link](
-     "Link",
-     fields[Unit, Link](
-       Field("id", IntType, resolve = _.value.id),
-       Field("url", StringType, resolve = _.value.url),
-       Field("description", StringType, resolve = _.value.description)
-     )
-   )
+implicit val LinkType = deriveObjectType[Unit, Link]()
 ```
 
+will give the same result as example I used in the code above.
 When you want to use macro-way to define objects don't forget to import `sangria.macros.derive._`
 
 * **2** `val QueryType` is a top level object of our schema. Probably it also could be defined by macro but I decided to make it manually. As you can see, the top level object has name `Query` and it (along with nested object) will be available to see in the graphiql console what we will include farther in this chapter. In `fields` definition I've added only one `Field` at this moment.
@@ -255,7 +257,7 @@ When you want to use macro-way to define objects don't forget to import `sangria
 
 ```
 
-Means that we want to expose a field with name "allLinks", response is a list of `LinkType` objects. At the end we have to provide a function wich will resolve a result. In this case it's a `DAO`'s function `allLinks`. We have to implement it now.
+The snippet above defines a GraphQL field. It's name is "allLinks". It's a list (ListType) of link items (LinkType). At the end we have to provide a function wich will resolve a result. In this case it's a `DAO`'s function `allLinks`. We have to implement it now.
 
 <Instruction>
 
@@ -272,17 +274,9 @@ def allLinks = db.run(Links.result)
 
 ### GraphiQL console
 
-[Graphiql](https://github.com/graphql/graphiql) makes able to run queries against our server from the browser. Let's imlement it now.
+[Graphiql](https://github.com/graphql/graphiql) makes able to run queries against our server from the browser. Let's implement it now.
 
-<Instruction>
-
-All we need to do, is to copy `graphiql.html` file into the project folder. You can use original file, but I have a one that is slightly modified which works out-of-th-box so you can use it aswell.
-
-Download a graphiql.html file from [link](https://github.com/howtographql/sangria/blob/1_getting_started/src/main/resources/graphiql.html) 
-
-and save into the `/src/main/resources` directory
-
-</Instruction>
+Giter8 template I provided for this example also contains proper file. You can find it in `src/main/resources/graphiql.html`. All we need to do is to define the HTTP server is such way that this file will be exposed and available to be reached in the browser.
 
 ### Configure HTTP Server endpoints
 
@@ -369,9 +363,7 @@ The response should looks like that:
 
 ```
 
-</Instruction>
-
 
 ### Goal achieved
 
-In this chapter we've finished to configuring entire GraphQL server stuck and have defined very basic first query.
+In this chapter we've finished configuring entire GraphQL server stack and defined very basic first query.
