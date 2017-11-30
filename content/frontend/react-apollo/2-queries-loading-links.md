@@ -41,7 +41,7 @@ export default Link
 ```
 </Instruction>
 
-This is a simple React component that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie! 🍰
+This is a simple React component that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie! 🥧
 
 Next, you'll implement the component that renders a list of links.
 
