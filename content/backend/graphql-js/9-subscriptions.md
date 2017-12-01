@@ -149,7 +149,6 @@ const {SubscriptionServer} = require('subscriptions-transport-ws');
 After that, replace the call to `app.listen` in this same file with this:
 
 ```js(path=".../hackernews-graphql-js/src/index.js")
-const PORT = 3000;
 const server = createServer(app);
 server.listen(PORT, () => {
   SubscriptionServer.create(
@@ -164,9 +163,10 @@ server.listen(PORT, () => {
 
 <Instruction>
 
-To finish up, tell `graphiqlExpress` that the subscriptions endpoint is different from the regular GraphQL one:
+To finish up, tell `graphiqlExpress` that the subscriptions endpoint is different from the regular GraphQL one. Make sure to move the `PORT` initialization above `app.use` so it can be used in `subscriptionsEndpoint`:
 
 ```js{4-4}(path=".../hackernews-graphql-js/src/index.js")
+const PORT = 3000;
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
   passHeader: `'Authorization': 'bearer token-foo@bar.com'`,
