@@ -96,11 +96,10 @@ class LinkType(DjangoObjectType):
         model = Link
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     links = graphene.List(LinkType)
 
-    @graphene.resolve_only_args
-    def resolve_links(self):
+    def resolve_links(self, info, **kwargs):
         return Link.objects.all()
 ```
 
@@ -144,9 +143,8 @@ from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-
+    path('admin/', admin.site.urls),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]
 ```
 

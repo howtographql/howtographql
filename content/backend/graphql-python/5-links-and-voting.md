@@ -14,7 +14,7 @@ With sign in power, you can now create you *own* links, posted by you. To make i
 On the Link models file, add the `posted_by` field at the very end:
 
 ```python(path=".../graphql-python/hackernews/links/models.py")
-posted_by = models.ForeignKey('users.User', null=True)
+posted_by = models.ForeignKey('users.User', null=True, on_delete=models.deletion.CASCADE)
 ```
 
 </Instruction>
@@ -48,18 +48,16 @@ class CreateLink(graphene.Mutation):
     description = graphene.String()
     posted_by = graphene.Field(UserType)
 
-    class Input:
+    class Arguments:
         url = graphene.String()
         description = graphene.String()
 
-    @staticmethod
-    def mutate(root, input, context, info):
-
-        user = get_user(context) or None
+    def mutate(self, info, url, description):
+        user = get_user(info) or None
 
         link = Link(
-            url=input.get('url'),
-            description=input.get('description'),
+            url=url,
+            description=description,
             posted_by=user,
         )
         link.save()
@@ -89,8 +87,8 @@ Add the Vote model on the `links/models.py`:
 
 ```python(path=".../graphql-python/hackernews/links/schema.py")
 class Vote(models.Model):
-    user = models.ForeignKey('users.User')
-    link = models.ForeignKey('links.Link', related_name='votes')
+    user = models.ForeignKey('users.User', on_delete=models.deletion.CASCADE)
+    link = models.ForeignKey('links.Link', related_name='votes', on_delete=models.deletion.CASCADE)
 ```
 
 </Instruction>
@@ -122,16 +120,15 @@ class CreateVote(graphene.Mutation):
     user = graphene.Field(UserType)
     link = graphene.Field(LinkType)
 
-    class Input:
+    class Arguments:
         link_id = graphene.Int()
 
-    @staticmethod
-    def mutate(root, input, context, info):
-        user = get_user(context) or None
+    def mutate(self, info, link_id):
+        user = get_user(info) or None
         if not user:
             raise Exception('You must be logged to vote!')
 
-        link = Link.objects.filter(id=input.get('link_id')).first()
+        link = Link.objects.filter(id=link_id).first()
         if not link:
             raise Exception('Invalid Link!')
 
@@ -145,7 +142,7 @@ class CreateVote(graphene.Mutation):
 
 # ...code
 # Add the mutation to the Mutation class
-class Mutation(graphene.AbstractType):
+class Mutation(graphene.ObjectType):
     create_link = CreateLink.Field()
     create_vote = CreateVote.Field()
 ```
@@ -180,16 +177,14 @@ And add the `votes` field and the `resolve_links` method:
 ```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
 # Add the votes field
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     links = graphene.List(LinkType)
     votes = graphene.List(VoteType)
 
-    @graphene.resolve_only_args
-    def resolve_links(self):
+    def resolve_links(self, info, **kwargs):
         return Link.objects.all()
 
-    @graphene.resolve_only_args
-    def resolve_votes(self):
+    def resolve_votes(self, info, **kwargs):
         return Vote.objects.all()
 ```
 

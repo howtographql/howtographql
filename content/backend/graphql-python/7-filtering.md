@@ -19,17 +19,15 @@ Change your links query class to the following:
 # After the imports, add
 from django.db.models import Q
 
-
-class Query(graphene.AbstractType):
-    # Add the search parameter inside our link field
+# ...code
+class Query(graphene.ObjectType):
+    # Add the search parameter inside our links field
     links = graphene.List(LinkType, search=graphene.String())
     votes = graphene.List(VoteType)
 
-    # Remove the decorator from the resolver and change it
-    def resolve_links(self, args, context, info):
+    # Change the resolver
+    def resolve_links(self, info, search=None, **kwargs):
         # The value sent with the search parameter will be on the args variable
-        search = args.get('search')
-
         if search:
             filter = (
                 Q(url__icontains=search) | 
@@ -39,8 +37,7 @@ class Query(graphene.AbstractType):
 
         return Link.objects.all()
 
-    @graphene.resolve_only_args
-    def resolve_votes(self):
+    def resolve_votes(self, info, **kwargs):
         return Vote.objects.all()
 ```
 

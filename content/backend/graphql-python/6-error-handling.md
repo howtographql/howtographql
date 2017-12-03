@@ -34,17 +34,16 @@ class CreateVote(graphene.Mutation):
     user = graphene.Field(UserType)
     link = graphene.Field(LinkType)
 
-    class Input:
+    class Arguments:
         link_id = graphene.Int()
 
-    @staticmethod
-    def mutate(root, input, context, info):
-        user = get_user(context) or None
+    def mutate(self, info, link_id):
+        user = get_user(info) or None
         if not user:
             #1
             raise GraphQLError('You must be logged to vote!')
 
-        link = Link.objects.filter(id=input.get('link_id')).first()
+        link = Link.objects.filter(id=link_id).first()
         if not link:
             #2
             raise Exception('Invalid Link!')

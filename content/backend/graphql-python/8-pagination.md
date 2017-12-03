@@ -19,7 +19,7 @@ Let's implement it on the links query.
 Change your links query class to the following:
 
 ```python(path=".../graphql-python/hackernews/links/schema.py")
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     # Add the first and skip parameters
     links = graphene.List(
         LinkType,
@@ -30,11 +30,7 @@ class Query(graphene.AbstractType):
     votes = graphene.List(VoteType)
 
     # Use them to slice the Django queryset
-    def resolve_links(self, args, context, info):
-        search = args.get('search')
-        first = args.get('first')
-        skip = args.get('skip')
-
+    def resolve_links(self, info, search=None, first=None, skip=None, **kwargs):
         qs = Link.objects.all()
 
         if search:
@@ -52,8 +48,7 @@ class Query(graphene.AbstractType):
 
         return qs
 
-    @graphene.resolve_only_args
-    def resolve_votes(self):
+    def resolve_votes(self, info, **kwargs):
         return Vote.objects.all()
 
 ```
