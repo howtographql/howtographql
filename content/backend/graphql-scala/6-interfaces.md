@@ -1,10 +1,10 @@
 ---
 title: Interfaces
-pageTitle: "If there are more than one model in an app, part of them could be extracted as Interface"
-description: "In this chapter we will introduce two additional models. We show the most common parts and extract those as an interface. In this chapter, you will be mostly work alone."
+pageTitle: "Extracting common parts of models as an Interface"
+description: "In this chapter we will introduce two additional models. We show the most common parts and extract those as an interface. This time you will work alone."
 ---
 
-We're going forward with aligning to the schema you saw at the beginning. You know the basics and you're ready to make an exercise. I will explain what we need, please try to implement it yourself. Of course I also will ad a solution. At the end of this chapter You will learn about interfaces.
+ At this point you should know the basics, so it's a perfect time for some hands-on training. The following paragraph will give you hints on what needs to be done. Try implementing it yourself. At the end I will add an example solution in case you are stuck. Later in this chapter we will learn about interfaces and how they relate to the work you've done.
 
 ### Your DIY kit
 
@@ -13,20 +13,21 @@ Before you'll go further, try to do something. I think, at this point, you have 
 What you have to do:  
 
 1. Add `User` class with fields: `id`, `name`, `email`, `password` and `createdAt`
-1. Add `Vote` class with fields: `id`, `createdAt`, `userId`, `linkId`(you no need to define any relations for now)
-1. Create database tables for boths,
-1. Add object types for boths,
+1. Add `Vote` class with fields: `id`, `createdAt`, `userId`, `linkId`(you don't have to to define any relations for now)
+1. Create database tables for both,
+1. Add object types for both,
 1. Add fetchers for both,
 1. Implement `HasId` type class,
-1. Add fields in main `ObjectType` which allows for fetch list of entities like `users` and `votes`
+1. Add fields in main `ObjectType` which allows for fetching a list of entities like `users` and `votes`
 
-Try it...
+Please, go ahead with your implementation ... I will wait here
 
 ### User entity
 
 Let's start from user entity:
 
 <Instruction>
+
 Add `User.scala` class with content:
 
 ```scala
@@ -42,10 +43,9 @@ Database setup.
 Add following content to the `DBSchema` class:
 
 ```scala
-//val Links = TableQuery[LinksTable]
 
 class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
-  def id = column[Int]("ID", O.PrimaryKey)
+  def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
   def name = column[String]("NAME")
   def email = column[String]("EMAIL")
   def password = column[String]("PASSWORD")
@@ -67,7 +67,7 @@ In file DBSchema in function `databaseSetup`: Add an action `Users.schema.create
 add few users later in this function
 
 ```scala  
-Users ++= Seq(
+Users forceInsertAll Seq(
     User(1, "mario", "mario@example.com", "s3cr3t"),
     User(2, "Fred", "fred@flinstones.com", "wilmalove")
   )
@@ -75,7 +75,7 @@ Users ++= Seq(
 
 </Instruction>
 
-Add user retrieval function:
+Add functional responsible for user's retrieving:
 
 <Instruction>
 
@@ -127,7 +127,6 @@ Add fields to main ObjectType:
 Add to `QueryType.fields`:
 
 ```scala
-//val Ids = Argument("ids", ListInputType(IntType))
 Field("users",
         ListType(UserType),
         arguments = List(Ids),
@@ -137,13 +136,13 @@ Field("users",
 
 </Instruction>
 
-We're ready.. you can now execute query like this:
+We're ready... you can now execute query like this:
 
 ```graphql
 
 query {
 
-    users(ids: [1,2]){
+    users(ids: [1, 2]){
     	id
 			name
     	email
@@ -175,7 +174,7 @@ Add following content to the `DBSchema` class:
 
 ```scala
 class VotesTable(tag: Tag) extends Table[Vote](tag, "VOTES"){
-    def id = column[Int]("ID", O.PrimaryKey)
+    def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
     def userId = column[Int]("USER_ID")
     def linkId = column[Int]("LINK_ID")
     def createdAt = column[DateTime]("CREATED_AT")
@@ -188,23 +187,22 @@ class VotesTable(tag: Tag) extends Table[Vote](tag, "VOTES"){
 
 </Instruction>
 
-If you want to, you can add also foreign keys' definitions but to keep the code simple I decided to not doing it.
+The next step is creating relations.
 
 <Instruction>
 
 In file `DBSchema` in function databaseSetup: Add an action `Votes.schema.create` at beginning of the sentence and then add few users later in this function:
 
 ```scala
-Votes ++= Seq(
-  Vote(1, 1, 1),
-  Vote(2, 1, 2),
-  Vote(3, 1, 3),
-  Vote(4, 2, 2),
+Votes forceInsertAll Seq(
+  Vote(id = 1, userId = 1, linkId = 1),
+  Vote(id = 2, userId = 1, linkId = 2),
+  Vote(id = 3, userId = 1, linkId = 3),
+  Vote(id = 4, userId = 2, linkId = 2),
 )
 ```
 
 </Instruction>
-
 
 Add votes retrieval function.
 
@@ -274,7 +272,7 @@ Following query now should be able to execute:
 
 query {
 
-    votes(ids: [1,2]){
+    votes(ids: [1, 2]){
     	id
     	createdAt
   	}
@@ -283,7 +281,7 @@ query {
 
 ### Finding a common parts
 
-If you will see once again to the code, you will find out the parts that are very similar. Like `HasId` for all three types:
+As you can see parts that are very similar. Like `HasId` for all three types:
 
 ```scala
 implicit val linkHasId = HasId[Link, Int](_.id)
@@ -291,9 +289,9 @@ implicit val userHasId = HasId[User, Int](_.id)
 implicit val voteHasId = HasId[Vote, Int](_.id)
 ```
 
-What if you want to add more entities? You will spread those code even more.
+What if you want to add more entities? You will duplicate code even more.
 
-The solution for this is an interface. We can provide an interface that will be extended by any on the entities, and then you can make only one `HasId`, for example.
+The solution for this is an interface. We can provide an interface that will be extended by any of the entities. This way, for example, you will need just one HasId
 
 <Instrunction>
 
@@ -329,7 +327,7 @@ object Identifiable {
 
 </Instruction>
 
-When you will keep `implicit HasId` type converted in the companion object it will be accessible on need.
+When you will keep `implicit HasId` type converted in the companion object it will be accessible when needed.
 
 Now, let's create an interface from GraphQL point of view.
 
@@ -347,6 +345,6 @@ implicit val LinkType = deriveObjectType[Unit, Link](
 
 Add also such field to the object type for `User` and `Vote`.
 
-Now if will see on schema definition in graphiql console you will see there are provided three models with this common interface.
+Now if you will look into the schema definition in graphiql console you will see there are provided three models with this common interface.
 
 Ok, thats all for this chapter. In the next one you will learn about relations.
