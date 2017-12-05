@@ -119,25 +119,23 @@ class UserType(DjangoObjectType):
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
 
-    class Input:
+    class Arguments:
         username = graphene.String(required=True)
         password = graphene.String(required=True)
         email = graphene.String(required=True)
 
-    @staticmethod
-    def mutate(root, input, context, info):
-        username = input.get('username')
-        password = input.get('password')
-        email = input.get('email')
-
-        user = User(username=username, email=email)
+    def mutate(self, info, username, password, email):
+        user = User(
+            username=username,
+            email=email,
+        )
         user.set_password(password)
         user.save()
 
         return CreateUser(user=user)
 
 
-class Mutation(graphene.AbstractType):
+class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
 ```
 
@@ -184,11 +182,10 @@ On the `users/schema.py` file, add the following:
 
 ```python(path=".../graphql-python/hackernews/user/schema.py")
 # ...code
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     users = graphene.List(UserType)
 
-    @graphene.resolve_only_args
-    def resolve_users(self):
+    def resolve_users(self, info):
         return User.objects.all()
 ```
 
@@ -233,21 +230,17 @@ from django.contrib.auth import authenticate
 class LogIn(graphene.Mutation):
     user = graphene.Field(UserType)
 
-    class Input:
+    class Arguments:
         username = graphene.String()
         password = graphene.String()
 
-    @staticmethod
-    def mutate(root, input, context, info):
-        user = authenticate(
-            username=input.get('username'),
-            password=input.get('password'),
-        )
+    def mutate(self, info, username, password):
+        user = authenticate(username=username, password=password)
 
         if not user:
             raise Exception('Invalid username or password!')
 
-        context.session['token'] = user.token
+        info.context.session['token'] = user.token
         return LogIn(user=user)
 
 
@@ -271,8 +264,8 @@ Let's add a method to check the client's session and, on the `Query` class, a ne
 
 # Add this method after the imports 
 # It tries to get a user from the session content
-def get_user(context):
-    token = context.session.get('token')
+def get_user(info):
+    token = info.context.session.get('token')
 
     if not token:
         return
@@ -290,12 +283,11 @@ class Query(graphene.AbstractType):
     me = graphene.Field(UserType)
     users = graphene.List(UserType)
 
-    @graphene.resolve_only_args
-    def resolve_users(self):
+    def resolve_users(self, info):
         return User.objects.all()
 
-    def resolve_me(self, args, context, info):
-        user = get_user(context)
+    def resolve_me(self, info):
+        user = get_user(info)
         if not user:
             raise Exception('Not logged!')
 

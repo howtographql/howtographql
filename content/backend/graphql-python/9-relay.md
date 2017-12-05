@@ -59,7 +59,7 @@ class VoteNode(DjangoObjectType):
         interfaces = (graphene.relay.Node,)
 
 
-class RelayQuery(graphene.AbstractType):
+class RelayQuery(graphene.ObjectType):
     #4
     relay_link = graphene.relay.Node.Field(LinkNode)
     #5
@@ -91,7 +91,7 @@ class Query(
     users.schema.Query,
     links.schema.Query,
     links.schema_relay.RelayQuery,
-    graphene.ObjectType
+    graphene.ObjectType,
 ):
     pass
 ```
@@ -132,9 +132,8 @@ class RelayCreateLink(graphene.relay.ClientIDMutation):
         url = graphene.String()
         description = graphene.String()
 
-    @classmethod
-    def mutate_and_get_payload(cls, input, context, info):
-        user = get_user(context) or None
+    def mutate_and_get_payload(root, info, **input):
+        user = get_user(info) or None
 
         link = Link(
             url=input.get('url'),
