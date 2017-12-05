@@ -12,7 +12,7 @@ You're going to start by building out an empty Schema. The GraphQL API is how yo
 defmodule CommunityWeb.Schema do
   use Absinthe.Schema
 
-  alias CommunityWeb.News
+  alias CommunityWeb.NewsResolver
 
   query do
     # this is the query entry point to our app
