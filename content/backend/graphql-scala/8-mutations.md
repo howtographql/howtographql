@@ -1,7 +1,7 @@
 ---
 title: Mutations
-pageTitle: "Mutations are about adding data by the API, is like a POST query in the REST"
-description: "In this chapter you will learn how to add data to the database and the difference between ObjetType and InputType."
+pageTitle: "Mutations are about adding data by the API, is like a POST request in the REST"
+description: "In this chapter you will learn how to add data to the database."
 ---
 
 In last chapters you've learnt how to use GraphQL to read a data. Time to add some.
@@ -27,7 +27,7 @@ input AUTH_PROVIDER_EMAIL {
 }
 ```
 
-Now you know what `mutation` keyword means, so it isn't hard to imagine what this mutation does. Name suggests it's point of our interests - it creates a user, takes two paramaters of type `String` and `AuthProviderSignupData` and returns a `User`
+It isn't hard to imagine what this mutation does. Name suggests it's point of our interests - it creates an user, takes two paramaters of type `String` and `AuthProviderSignupData` and returns a `User`
 
 But wait... until now we've used `type` not `input`. So what is this? `input` is a type that can be used as parameter. You very often will see it along `mutation`s.
 
@@ -58,11 +58,11 @@ case class AuthProviderSignupData(email: AuthProviderEmail)
 ### Define ObjectInputType's
 
 `ObjectInputType` is the same for input what `ObjectType` to `type` keyword.
-It tells Sangria how to understand a data. In fact you can define `ObjetType` and `ObjectInputType` for the same case class, or even more than more of each. Good example is an `User` entity which could consist many fields. But when you register new user and during signup action you need a different amount of data so you can create different ObjectInputTypes.
+It tells Sangria how to understand a data. In fact you can define `ObjetType` and `ObjectInputType` for the same case class, or even more than one of each. Good example is an `User` entity which could consist many fields. But when you register new user and during signup action you need a different kind of data so you can create different ObjectInputTypes.
 
 <Instruction>
 
-In `GraphQLSchema.scala` file add following definitions:
+In `GraphQLSchema.scala` add following definitions:
 
 ```scala
 implicit val AuthProviderEmailInputType: InputObjectType[AuthProviderEmail] = deriveInputObjectType[AuthProviderEmail](
@@ -70,6 +70,7 @@ implicit val AuthProviderEmailInputType: InputObjectType[AuthProviderEmail] = de
 )
 
 implicit val AuthProviderSignupDataInputType: InputObjectType[AuthProviderSignupData] = deriveInputObjectType[AuthProviderSignupData]()
+
 ```
 
 </Instruction>
@@ -83,7 +84,7 @@ It would be really similar to the process you already know.
 In the same file add a following code:
 
 ```scala
-val NameArg = Argument("name", StringType)
+  val NameArg = Argument("name", StringType)
   val AuthProviderArg = Argument("authProvider", AuthProviderSignupDataInputType)
 
   val Mutation = ObjectType(
@@ -112,17 +113,17 @@ val SchemaDefinition = Schema(QueryType, Some(Mutation))
 
 All mutations are optional so you have to wrap it in `Some`.
 
-If you will try to run a server now you will get errors about not implement `FromInput`'s.
-Yes, it's additional step we have to do to able run a mutations above.
+If you will try to run a server now you will get errors about not implemented `FromInput`'s.
+It's additional step we have to do to able run a mutations above.
 
 ### Provide FromInput for input classes
 
-Sangria needs to read a part of JSON like structure and converts it to case classes. Thats the reason why we need such `FromInput` type classes. In fact you can implement it on your own. But there is another way: graphql syntax is JSON, to you can use any of JSON parsing libraries for this.
-In the first step we've added dependency to the `sangria-spray-json` library, but if you want you can use any other supported. Sangria uses this library JSON implementation to convert it into proper `FromInput` type. All we need to to is to define proper JSONReader for that case class.
+Sangria needs to read a part of JSON like structure and converts it to case classes. That's the reason why we need such `FromInput` type classes. In fact you can implement it on your own. But there is another way: graphql syntax is JSON, so you can use any of JSON parsing libraries for this.
+In the first step we've added dependency to the `sangria-spray-json` library, but if you want you can use any other supported. Sangria uses this library JSON implementation to convert it into proper `FromInput` type. All we need to do is to define proper JSONReader for that case class.
 
 <Instruction>
 
-In the same file, before definitions of objectInputTypes add followin code:
+In the same file, before definitions of objectInputTypes add following code:
 
 ```scala
 
@@ -136,7 +137,30 @@ implicit val authProviderSignupDataFormat = jsonFormat1(AuthProviderSignupData)
 
 </Instruction>  
 
-Now everything should work.
+Almost done.
+
+<Instruction>
+
+Add in `DAO` following function:
+
+```
+def createUser(name: String, authProvider: AuthProviderSignupData): Future[User] = {
+    val newUser = User(0, name, authProvider.email.email, authProvider.email.password )
+
+    val insertAndReturnUserQuery = (Users returning Users.map(_.id)) into {
+      (user, id) => user.copy(id = id)
+    }
+
+    db.run {
+      insertAndReturnUserQuery += newUser
+    }
+
+  }
+```
+
+</Instruction>  
+
+Now everything should works as expected.
 
 ### Test case
 
@@ -159,9 +183,9 @@ mutation addMe {
 }
 ```
 
-Of course you can use another data :D If everything work we can go forward to implement two more mutations
+Of course you can use another data :D If everything works we can go forward to implement two more mutations
 
-### Implement add Link mutation
+### AddLink mutation
 
 Implement a mutation to able run a following code:
 
@@ -169,8 +193,8 @@ Implement a mutation to able run a following code:
 createLink(description: String!, url: String!, postedById: ID): Link
 ```
 
-First try on your own, next check I have the same solution.
-Hint! You can skip creating case classes phase because we no need any of them. In this case parameters uses only `String` and `Integer` which are simple scalar available out-of-the-box.
+First try on your own, next check whther I have similar solution.
+Hint! You can skip creating case classes phase because we no need any of them. In this case parameters uses only `String` and `Integer` which are simple scalars available out-of-the-box.
 
 <Instruction>
 
@@ -207,6 +231,7 @@ Field("createLink",
 
 </Instruction>
 
+
 We're missing arguments definitions
 
 <Instruction>
@@ -230,7 +255,7 @@ mutation addLink {
   createLink(
     url: "howtographql.com",
     description: "Great tutorial page",
-    postedById:1
+    postedById: 1
   ){
     url
     description
@@ -272,7 +297,7 @@ val UserId = Argument("userId", IntType)
 
 </Instruction>
 
-Add mutation definition:
+Add mutation definition.
 
 <Instruction>
 
