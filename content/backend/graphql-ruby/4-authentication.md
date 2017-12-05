@@ -104,7 +104,7 @@ class Resolvers::CreateUser < GraphQL::Function
   AuthProviderInput = GraphQL::InputObjectType.define do
     name 'AuthProviderSignupData'
 
-    argument :email, Types::AuthProviderEmailInput
+    argument :auth_input, Types::AuthProviderEmailInput
   end
 
   argument :name, !types.String
@@ -115,8 +115,8 @@ class Resolvers::CreateUser < GraphQL::Function
   def call(_obj, args, _ctx)
     User.create!(
       name: args[:name],
-      email: args[:authProvider][:email][:email],
-      password: args[:authProvider][:email][:password]
+      email: args[:authProvider][:auth_input][:email],
+      password: args[:authProvider][:auth_input][:password]
     )
   end
 end
@@ -159,7 +159,7 @@ class Resolvers::CreateUserTest < ActiveSupport::TestCase
     user = perform(
       name: 'Test User',
       authProvider: {
-        email: {
+        auth_input: {
           email: 'email@example.com',
           password: '[omitted]'
         }
@@ -346,7 +346,7 @@ end
 
 <Instruction>
 
-We also need to update our `signinUser` resolver, so it also stores the `token` in `session`:
+We also need to update our `signinUser` resolver, so it also stores the `token` in `session`. Be sure to remove the `_` since the variable is now in use:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/sign_in_user.rb")
 class Resolvers::SignInUser < GraphQL::Function
@@ -391,6 +391,8 @@ class AddUserIdLink < ActiveRecord::Migration[5.1]
   end
 end
 ```
+
+Run `rails db:migrate`.
 
 </Instruction>
 
@@ -452,4 +454,3 @@ end
 Done! Now when you post links, they will be attached to your user, so you have to run  `signinUser` beforehand.
 
 ![](http://i.imgur.com/9ma8r8u.png)
-
