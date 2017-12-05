@@ -104,7 +104,7 @@ class Resolvers::CreateUser < GraphQL::Function
   AuthProviderInput = GraphQL::InputObjectType.define do
     name 'AuthProviderSignupData'
 
-    argument :auth_input, Types::AuthProviderEmailInput
+    argument :email, Types::AuthProviderEmailInput
   end
 
   argument :name, !types.String
@@ -115,8 +115,8 @@ class Resolvers::CreateUser < GraphQL::Function
   def call(_obj, args, _ctx)
     User.create!(
       name: args[:name],
-      email: args[:authProvider][:auth_input][:email],
-      password: args[:authProvider][:auth_input][:password]
+      email: args[:authProvider][:email][:email],
+      password: args[:authProvider][:email][:password]
     )
   end
 end
@@ -159,7 +159,7 @@ class Resolvers::CreateUserTest < ActiveSupport::TestCase
     user = perform(
       name: 'Test User',
       authProvider: {
-        auth_input: {
+        email: {
           email: 'email@example.com',
           password: '[omitted]'
         }
