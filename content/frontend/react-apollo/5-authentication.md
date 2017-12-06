@@ -499,10 +499,10 @@ const SIGNUP_USER_MUTATION = gql`
 
 const AUTHENTICATE_USER_MUTATION = gql`
   mutation AuthenticateUserMutation($email: String!, $password: String!) {
-    authenticateUser(email: {
+    authenticateUser(
       email: $email,
       password: $password
-    }) {
+    ) {
       token
       user {
         id
