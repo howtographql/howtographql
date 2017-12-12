@@ -365,7 +365,7 @@ extend type Mutation {
 
 For now you only adjusted the _interface_ of the `signup` resolver. Next, you also need to make sure to update the _implementation_. 
 
-> Note: The `signup` resolver is implemented as a [serverless function](https://www.graph.cool/docs/reference/functions/overview-aiw4aimie9) which will be deployed for you by the Graphcool Framework. The input arguments for that function are determined by the input arguments of the corresponding GraphQL operation. In this case, this is the `signupUser`-mutation, so the function will received three string as input arguments: `email`, `password` and `name`. (Notice that these are wrapped in a single object called `event` though.)
+> Note: The `signup` resolver is implemented as a [serverless function](https://www.graph.cool/docs/reference/functions/overview-aiw4aimie9) which will be deployed for you by the Graphcool Framework. The input arguments for that function are determined by the input arguments of the corresponding GraphQL operation. In this case, this is the `signupUser`-mutation, so the function will receive three strings as input arguments: `email`, `password` and `name`. (Notice that these are wrapped in a single object called `event` though.)
 
 The goal in the new implementation is to retrieve the `name` argument from the input `event` and send it along when creating the new `User`.
 
