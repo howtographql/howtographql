@@ -4,7 +4,7 @@ pageTitle: "Getting Started with GraphQL, React & Relay Tutorial"
 description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Graphcool.
 question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & User", "File & System", "Query & Mutation", "User & Group"]
-correctAnswer: 0
+correctAnswer: 3
 videoId: I6I2Y-t7tGI
 duration: 14
 ---
@@ -52,7 +52,7 @@ npm install -g graphcool
 
 > **NOTE**: This tutorial uses the [legacy](https://www.graph.cool/docs/reference/service-definition/legacy-console-projects-aemieb1aev) version of [Graphcool](https://www.graph.cool/) and will be updated soon to use the new [Graphcool Framework](https://blog.graph.cool/introducing-the-graphcool-framework-d9edab2a7816). The CLI commands mentioned in tutorial are outdated, you can read more about the new CLI [here](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). If you still want to go through this tutorial, you can install the old version of the CLI using `npm install -g graphcool@0.4`.
 
-Now you can go and create the server. 
+Now you can go and create the server.
 
 <Instruction>
 
@@ -207,7 +207,7 @@ If everything wen well, the query will return the following data:
       }
     ]
   }
-}  
+}
 ```
 
 ### Frontend
