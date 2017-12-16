@@ -24,7 +24,7 @@ First you'll need to get MongoDB up and running.
 
 <Instruction>
 
-**Step 2**: Install MongoDB's driver for NodeJS, via the command `npm i --save mongodb`.
+**Step 2**: Install MongoDB's driver for NodeJS, via the command `npm i --save mongodb@^2.2.33`.
 
 </Instruction>
 
