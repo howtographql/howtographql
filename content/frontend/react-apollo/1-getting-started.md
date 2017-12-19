@@ -308,6 +308,22 @@ Your project structure should now look as follows:
 └── yarn.lock
 ```
 
+#### Fixing Imports in App.js
+
+Just for the application to be working in the end of this chapter:
+
+<Instruction>
+
+Open `src/components/App.js` and update relative paths of imports:
+
+```js{2-3}(path="src/components/App.js")
+import React, { Component } from 'react';
+import logo from '../logo.svg';
+import '../styles/App.css';
+```
+
+</Instruction>
+
 #### Prepare Styling
 
 This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
@@ -385,7 +401,7 @@ input {
 Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add apollo-client-preset react-apollo graphql-tag graphql
+yarn add apollo-client-preset react-apollo graphql
 ```
 
 </Instruction>
@@ -397,9 +413,9 @@ Here's an overview of the packages you just installed:
   - `apollo-cache-inmemory`
   - `apollo-link`
   - `apollo-link-http`
+  - [`graphql-tag`](https://github.com/apollographql/graphql-tag) (GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function)
 - [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
-- [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. Required peer dependency of `react-apollo`.
 
 That's it, you're ready to write some code! 🚀
 
@@ -413,7 +429,7 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{7-10,13,16-19,23-25}(path="src/index.js")
+```js{7-8,11,14-17,21-23}(path="src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
@@ -421,9 +437,7 @@ import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
 // 1
 import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
 
 // 2
 const httpLink = new HttpLink({ uri: '__SIMPLE_API_ENDPOINT__' })

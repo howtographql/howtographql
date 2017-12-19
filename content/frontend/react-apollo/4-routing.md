@@ -12,15 +12,18 @@ correctAnswer: 2
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
-### Install Dependencies
+### Install the Dependency
 
 First add the dependency to the app. Open a terminal, navigate to your project directory and type: 
 
 <Instruction>
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-router react-router-dom
+yarn add react-router-dom
 ```
+
+> Note: all of `react-router-*` packages re-export the base `react-router` package.
+
 
 </Instruction>
 
@@ -34,8 +37,7 @@ Create a new file in `src/components` and call it `Header.js`. Then paste the fo
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { withRouter } from 'react-router'
+import { Link, withRouter } from 'react-router-dom'
 
 class Header extends Component {
 
@@ -90,7 +92,7 @@ render() {
 
 </Instruction>
 
-For this code to work, you need to import the required dependencies of `react-router-dom`. 
+For this code to work, you need to import the `Header` component and the required dependencies from `react-router-dom`.
 
 <Instruction>
 
@@ -144,7 +146,7 @@ To wrap up this section, you need to implement an automatic redirect from the `C
 
 Open `CreateLink.js` and update `_createLink` to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{9}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const { description, url } = this.state
   await this.props.createLinkMutation({

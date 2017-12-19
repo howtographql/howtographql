@@ -20,7 +20,7 @@ Once more, you first need to prepare the React components for this new functiona
 
 Open `App.js` and adjust the render method like so:
 
-```js{4,8,9}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7,11-12}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
     return (
       <div className='center w85'>
@@ -42,7 +42,7 @@ render() {
 
 </Instruction>
 
-Make sure to import the Redirect component, so you don't get any errors.
+Make sure to import the `Redirect` component, so you don't get any errors.
 
 <Instruction>
 
@@ -123,7 +123,8 @@ export default graphql(ALL_LINKS_QUERY, {
     const first = isNewPage ? LINKS_PER_PAGE : 100
     const orderBy = isNewPage ? 'createdAt_DESC' : null
     return {
-      variables: { first, skip, orderBy }
+      variables: { first, skip, orderBy },
+      fetchPolicy: isNewPage && page === 1 ? 'cache-first' : 'cache-and-network'
     }
   }
 })(LinkList)
@@ -134,6 +135,8 @@ export default graphql(ALL_LINKS_QUERY, {
 You're now passing a function to `graphql` that takes in the props of the component (`ownProps`) before the query is executed. This allows you to retrieve the information about the current page from the router (`ownProps.match.params.page`) and use it to calculate the chunk of links that you retrieve with `first` and `skip`.
 
 Also note that you're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
+
+Regarding fetch policy: `'cache-and-network'` is specified for every view/page for which we don't manually update cache. Thus the default `'cache-first'` fetch policy is applied to the first page only.
 
 You also need to define the `LINKS_PER_PAGE` constant and then import it into the `LinkList` component.
 
@@ -231,7 +234,7 @@ In `LinkList.js`, add the following two methods that will be called when the but
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _nextPage = () => {
   const page = parseInt(this.props.match.params.page, 10)
-  if (page <= this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
+  if (page < this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
     const nextPage = page + 1
     this.props.history.push(`/new/${nextPage}`)
   }
@@ -300,6 +303,7 @@ _createLink = async () => {
       postedById
     },
     update: (store, { data: { createLink } }) => {
+      createLink.votes = []
       const first = LINKS_PER_PAGE
       const skip = 0
       const orderBy = 'createdAt_DESC'

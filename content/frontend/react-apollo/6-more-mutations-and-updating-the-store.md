@@ -2,8 +2,8 @@
 title: More Mutations and Updating the Store
 pageTitle: "Mutations & Caching with GraphQL, React & Apollo Tutorial"
 description: "Learn how to use Apollo's imperative store API to update the cache after a GraphQL mutation. The updates will automatically end up in your React components."
-question: "What does the 'graphcool push' command do?"
-answers: ["It uploads the local schema changes to the remote Graphcool project", "It pushes a git repository to Graphcool so you can manage your project and code together", "It tells the server to push its remote schema changes into the local project file", "There is no 'graphcool push' command"]
+question: "What does the 'graphcool deploy' command do?"
+answers: ["It uploads the local schemas' and resolvers' changes to the remote Graphcool project", "It pushes a git repository to Graphcool so you can manage your project and code together", "It tells the server to push its remote schema changes into the local project file", "There is no 'graphcool push' command"]
 correctAnswer: 0
 videoId: o0w0HS5vG5s
 duration: 8
@@ -161,7 +161,7 @@ votes: [Vote!]! @relation(name: "UsersVotes")
 
 Now add another field to the `Link` type:
 
-```graphql(path=".../hackernews-react-apollo/types.graphql")
+```graphql(path=".../hackernews-react-apollo/server/types.graphql")
 votes: [Vote!]! @relation(name: "VotesOnLink")
 ```
 
@@ -171,7 +171,7 @@ votes: [Vote!]! @relation(name: "VotesOnLink")
 
 Next open up a terminal window and navigate to the directory where `types.graphql` is located. Then apply your changes by typing the following command:
 
-```bash(path=".../hackernews-react-apollo")
+```bash(path=".../hackernews-react-apollo/server")
 graphcool deploy
 ```
 
@@ -255,7 +255,7 @@ As with the times before, you also need to import the `gql` and `graphql` functi
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 ```
 
 </Instruction>
@@ -303,7 +303,7 @@ You can implement this functionality by using Apollo's [imperative store API](ht
 
 Open `Link` and update the call to `createVoteMutation` inside the `_voteForLink` method as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{6-9}(path=".../hackernews-react-apollo/src/components/Link.js")
 const linkId = this.props.link.id
 await this.props.createVoteMutation({
   variables: {
@@ -371,7 +371,7 @@ While we're at it, let's also implement `update` for adding new links!
 
 Open `CreateLink.js` and update the call to `createLinkMutation` inside `_createLink` like so:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{6-15}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 await this.props.createLinkMutation({
   variables: {
     description,
@@ -379,6 +379,7 @@ await this.props.createLinkMutation({
     postedById
   },
   update: (store, { data: { createLink } }) => {
+    createLink.votes = []
     const data = store.readQuery({ query: ALL_LINKS_QUERY })
     data.allLinks.splice(0,0,createLink)
     store.writeQuery({

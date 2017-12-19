@@ -26,7 +26,7 @@ Start by creating a new file called `Search.js` in `src/components` and add the 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 import React, { Component } from 'react'
 import { withApollo } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 import Link from './Link'
 
 class Search extends Component {
@@ -190,7 +190,8 @@ _executeSearch = async () => {
   const { searchText } = this.state
   const result = await this.props.client.query({
     query: ALL_LINKS_SEARCH_QUERY,
-    variables: { searchText }
+    variables: { searchText },
+    fetchPolicy: 'network-only'
   })
   const links = result.data.allLinks
   this.setState({ links })
@@ -200,5 +201,7 @@ _executeSearch = async () => {
 </Instruction>
 
 The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually and retrieving the `links` from the response that's returned by the server. Then these links are put into the component's `state` so that they can be rendered.
+
+Since all queries are cached by default and we're not planning to manually update the cache for this particular query, `network-only` fetch policy is applied in order to not end up with stale data.
 
 Go ahead and test the app by running `yarn start` in a terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, click the _search_-button and verify the links that are returned fit the filter conditions.

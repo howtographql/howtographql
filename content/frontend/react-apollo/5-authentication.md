@@ -2,8 +2,8 @@
 title: Authentication
 pageTitle: "Authentication with GraphQL, React & Apollo Tutorial"
 description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Graphcool."
-question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
-answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
+question: "What are the default names of the two mutations that are added to the Graphcool project with the Email-and-Password auth template?"
+answers: ["authenticateUser & logoutUser", "authenticateUser & signupUser", "createUser & loginUser", "signinUser & logoutUser"]
 correctAnswer: 1
 videoId: MiNDIWK7Q1I
 duration: 12
@@ -120,16 +120,16 @@ With that component in place, you can go and add a new route to your `react-rout
 
 Open `App.js` and update `render` to include the new route:
 
-```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
       <Header />
       <div className='ph3 pv1 background-gray'>
         <Switch>
-          <Route exact path='/login' component={Login}/>
-          <Route exact path='/create' component={CreateLink}/>
           <Route exact path='/' component={LinkList}/>
+          <Route exact path='/create' component={CreateLink}/>
+          <Route exact path='/login' component={Login}/>
         </Switch>
       </div>
     </div>
@@ -155,7 +155,7 @@ Finally, go ahead and add `Link` to the `Header` that allows the users to naviga
 
 Open `Header.js` and update `render` to look as follows:
 
-```js{2,8,13,15-25}(path=".../hackernews-react-apollo/src/components/Header.js")
+```js{2,8-9,12-13,15-25}(path=".../hackernews-react-apollo/src/components/Header.js")
 render() {
   const userId = localStorage.getItem(GC_USER_ID)
   return (
@@ -175,7 +175,7 @@ render() {
           <div className='ml1 pointer black' onClick={() => {
             localStorage.removeItem(GC_USER_ID)
             localStorage.removeItem(GC_AUTH_TOKEN)
-            this.props.history.push(`/new/1`)
+            this.props.history.push(`/`)
           }}>logout</div>
           :
           <Link to='/login' className='ml1 no-underline black'>login</Link>
@@ -288,7 +288,7 @@ Before you apply the changes to the running service, you'll make another modific
 
 Open your type definitions file `types.graphql` and update the `User` and `Link` types as follows:
 
-```{7,14,17}graphql
+```graphql{7,14,17}(path=".../hackernews-react-apollo/server/types.graphql)
 type Link @model {
   id: ID! @isUnique
   createdAt: DateTime!
@@ -387,7 +387,7 @@ interface EventData {
 
 Still in `signup.ts`, adjust the implementation of the anonymous (and topmost) function to look as follows:
 
-```ts{8,26}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
+```typescript{8,26}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
 
@@ -434,7 +434,7 @@ All you do is also retrieve the `name` from the input `event` and then pass it t
 
 Still in `signup.ts`, update the `createGraphcoolUser` function like so:
 
-```ts{1,7,17}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
+```ts{1,3,7,17}(path="../hackernews-react-apollo/server/src/email-password/signup.ts")
 async function createGraphcoolUser(api: GraphQLClient, email: string, password: string, name: string): Promise<string> {
   const mutation = `
     mutation createGraphcoolUser($email: String!, $password: String!, $name: String!) {
@@ -504,9 +504,7 @@ const AUTHENTICATE_USER_MUTATION = gql`
       password: $password
     ) {
       token
-      user {
-        id
-      }
+      id
     }
   }
 `
@@ -529,7 +527,7 @@ Still in `Login.js`, add the following statement to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-client-preset'
 ```
 
 </Instruction>
@@ -619,7 +617,7 @@ Now you need to make sure that the `id` of the posting user is included when you
 
 Still in `CreateLink.js`, update the implementation of `_createLink` like so:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{2-6,11}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const postedById = localStorage.getItem(GC_USER_ID)
   if (!postedById) {
@@ -630,8 +628,8 @@ _createLink = async () => {
   await this.props.createLinkMutation({
     variables: {
       description,
-      url,
-      postedById
+      postedById,
+      url
     }
   })
   this.props.history.push(`/`)
@@ -689,7 +687,7 @@ This middleware will be invoked every time `ApolloClient` sends a request to the
 
 Now you also need to make sure `ApolloClient` gets instantiated with the correct link - update the constructor call as follows:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js{2}(path=".../hackernews-react-apollo/src/index.js")
 const client = new ApolloClient({
   link: httpLinkWithAuthToken,
   cache: new InMemoryCache()
@@ -702,9 +700,9 @@ const client = new ApolloClient({
 
 Then directly import the key you need to retrieve the token from `localStorage` as well as `ApolloLink` on top of the same file:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js{2}(path=".../hackernews-react-apollo/src/index.js")
 import { GC_AUTH_TOKEN } from './constants'
-import { ApolloLink } from 'apollo-client-preset'
+import { ApolloClient, HttpLink, InMemoryCache, ApolloLink } from 'apollo-client-preset'
 ```
 
 </Instruction>
