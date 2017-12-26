@@ -573,7 +573,7 @@ All that's left for you now is deploying these changes to make sure your running
 In your terminal, navigate to the `server` directory and run:
 
 ```bash(path=".../hackernews-angular-apollo/server")
-graphcool deploy
+graphcool-framework deploy
 ```
 
 </Instruction>
