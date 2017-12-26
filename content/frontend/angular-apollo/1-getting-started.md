@@ -74,7 +74,7 @@ The first thing you need to do to get your GraphQL server, install the Graphcool
 Open up a terminal window and type the following:
 
 ```bash
-npm install -g graphcool
+npm install -g graphcool-framework
 ```
 
 </Instruction>
