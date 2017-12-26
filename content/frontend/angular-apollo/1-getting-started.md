@@ -79,10 +79,12 @@ npm install -g graphcool-framework
 
 </Instruction>
 
+To use the Graphcool CLI, you can either use the `graphcool-framework` command, or the shorter form: `gfc`.
+
 Now you can go and create the server. There are two steps involved in this:
 
-1. Creating the local file structure that contains all required configuration for your backend. This is done with the [`graphcool init`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-init) command.
-2. Configuring the data model and deploying the server with [`graphcool deploy`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-deploy).
+1. Creating the local file structure that contains all required configuration for your backend. This is done with the [`graphcool-framework init`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-init) command.
+2. Configuring the data model and deploying the server with [`graphcool-framework deploy`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-deploy).
 
 <Instruction>
 
@@ -90,7 +92,7 @@ Type the following command into the terminal:
 
 ```bash
 # Create the file structure for the backend in a directory called `server`
-graphcool init server
+graphcool-framework init server
 ```
 
 </Instruction>
@@ -128,7 +130,7 @@ As mentioned above, we'll start with only a sub-part of the actual data model an
 Open a terminal and navigate into the `server` directory. Then deploy the server with the following command:
 
 ```bash(path=".../hackernews-angular-apollo/server")
-graphcool deploy
+graphcool-framework deploy
 ```
 
 </Instruction>
@@ -155,7 +157,7 @@ You'll do this by using a GraphQL [Playground](https://github.com/graphcool/grap
 Still in the `server` directory in your terminal, run the following command:
 
 ```bash(path=".../hackernews-react-apollo/server")
-graphcool playground
+graphcool-framework playground
 ```
 
 </Instruction>
@@ -268,7 +270,6 @@ npm start # or yarn start
 This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you'd see the following:
 
 ![](http://i.imgur.com/9IUB9Qh.png)
-
 
 <Instruction>
 
@@ -522,7 +523,7 @@ There are two ways for you to get your endpoint. You can either open the [Graphc
 In the terminal, navigate into the `server` directory and use the following command to get access to the API endpoints of your Graphcools service:
 
 ```bash(path=".../hackernews-angular-apollo/graphcool")
-graphcool info
+graphcool-framework info
 ```
 
 </Instruction>

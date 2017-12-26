@@ -107,12 +107,11 @@ Now you need to replace the placeholder `__SUBSCRIPTION_API_ENDPOINT__ ` with th
 
 <Instruction>
 
-To get access to this endpoint, open up a terminal and navigate to the `server` directory. Then type the `graphcool info` command and copy the endpoint for the `Subscriptions API` and replace the placeholder with it.
+To get access to this endpoint, open up a terminal and navigate to the `server` directory. Then type the `graphcool-framework info` command and copy the endpoint for the `Subscriptions API` and replace the placeholder with it.
 
 Notice that if you service isn't running in the "default" Graphcool [region](https://blog.graph.cool/new-regions-and-improved-performance-7bbc0a35c880) (_EU West_), you need to add your service's region to the endpoint like so: `wss://subscriptions.ap-northeast-1.graph.cool/v1/__SERVICE_ID__` (for region _Asia Pacific_) or `wss://subscriptions.us-west-2.graph.cool/v1/__SERVICE_ID__` (for _US West_).
 
 </Instruction>
-
 
 ### Subscribing to new Links
 

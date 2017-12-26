@@ -224,7 +224,7 @@ Enter some data into the fields, e.g.:
 
 Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query worked by checking the current list of links in a Playground.
 
-Type `graphcool playground` into a Terminal and send the following query:
+Type `graphcool-framework playground` into a Terminal and send the following query:
 
 ```graphql
 {
