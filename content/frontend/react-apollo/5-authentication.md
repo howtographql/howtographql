@@ -217,14 +217,14 @@ Graphcool has a lightweight and flexible [template](https://www.graph.cool/docs/
 You can use the CLI's [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command to use a template in your Graphcool service. This command will perform two major tasks:
 
 - Download the files from Graphcool's [`templates` repository](https://github.com/graphcool/templates) that are required for the `email-password` template.
-- Add commented lines to `graphcool.yml` and `types.graphql` that allow you to "activate" the template's functionality by uncommenting them and then invoking `graphcool deploy` again. 
+- Add commented lines to `graphcool.yml` and `types.graphql` that allow you to "activate" the template's functionality by uncommenting them and then invoking `graphcool-framework deploy` again.
 
 <Instruction>
 
 Navigate into the `server` directory inside your project and run the following command:
 
 ```bash(path="../hackernews-react-apollo/server")
-graphcool add-template graphcool/templates/auth/email-password
+graphcool-framework add-template graphcool/templates/auth/email-password
 ```
 
 </Instruction>
@@ -323,7 +323,7 @@ Now it's time to apply the changes by deploying your service again.
 Save the file and execute the following command in the `server` directory in a terminal:
 
 ```bash(path="../hackernews-react-apollo/server")
-graphcool deploy
+graphcool-framework deploy
 ```
 
 </Instruction>
@@ -468,7 +468,7 @@ All that's left for you now is deploying these changes to make sure your running
 In your terminal, navigate to the `server` directory and run:
 
 ```bash(path=".../hackernews-react-apollo/server")
-graphcool deploy
+graphcool-framework deploy
 ```
 
 </Instruction>  

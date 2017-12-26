@@ -186,7 +186,7 @@ Then click the _submit_-button. You won't get any visual feedback in the UI, but
 
 > At this point, you'll only see the new link after refreshing the page. In chapter six you will take care of updating the UI properly after a mutation was performed.
 
-Type `graphcool playground` into a terminal and send the following query:
+Type `graphcool-framework playground` into a terminal and send the following query:
 
 ```graphql
 {
