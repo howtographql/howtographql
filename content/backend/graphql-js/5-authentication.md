@@ -136,9 +136,9 @@ Mutation: {
       if (data.email.password === user.password) {
         return {token: `token-${user.email}`, user};
       }
-    },
-  },
+   },
 },
+
 User: {
   // Convert the "_id" field from MongoDB to "id" from the schema.
   id: root => root._id || root.id,
