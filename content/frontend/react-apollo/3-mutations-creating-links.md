@@ -12,7 +12,7 @@ correctAnswer: 2
 
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with a minor (but logical) difference in step 3:
 
-1. write the mutation as a JSava riptconstant using the `gql` parser function
+1. write the mutation as a JavaSript constant using the `gql` parser function
 2. use the `graphql` container to wrap your component with the mutation
 3. use the mutation function that gets injected into the component's props
 
