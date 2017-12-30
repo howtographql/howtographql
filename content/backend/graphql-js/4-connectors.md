@@ -40,11 +40,14 @@ Create a file at `src/mongo-connector.js` like this:
 const {MongoClient} = require('mongodb');
 
 // 1
-const MONGO_URL = 'mongodb://localhost:27017/hackernews';
+const MONGO_URL = 'mongodb://localhost:27017/';
+const MONGO_DATABASE = 'hackernews';
 
 // 2
 module.exports = async () => {
-  const db = await MongoClient.connect(MONGO_URL);
+  const client = await MongoClient.connect(MONGO_URL);
+  const db = client.db(MONGO_DATABASE);
+  
   return {Links: db.collection('links')};
 }
 ```
