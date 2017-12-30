@@ -53,7 +53,9 @@ input AUTH_PROVIDER_EMAIL {
 
 ```js{5-5}(path=".../hackernews-graphql-js/src/mongo-connector.js")
 module.exports = async () => {
-    const db = await MongoClient.connect(MONGO_URL);
+    const client = await MongoClient.connect(MONGO_URL);
+    const db = client.db(MONGO_DATABASE);
+    
     return {
         Links: db.collection('links'),
         Users: db.collection('users'),
