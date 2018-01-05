@@ -76,6 +76,7 @@ module.exports = new PubSub();
 Make sure to include it at the top of your resolvers' file:
 
 ```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
+const {withFilter} = require('graphql-subscriptions');
 const pubsub = require('../pubsub');
 ```
 
@@ -88,7 +89,9 @@ You can now add the resolver for this subscription, like this:
 ```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
 Subscription: {
   Link: {
-    subscribe: () => pubsub.asyncIterator('Link'),
+    subscribe: withFilter(() => pubsub.asyncIterator('Link'), (payload, variables) => {
+        return variables.filter.mutation_in.indexOf(payload.Link.mutation) >= 0;
+    }),
   },
 },
 ```
