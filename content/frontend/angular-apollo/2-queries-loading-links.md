@@ -52,10 +52,9 @@ export class LinkItemComponent implements OnInit {
 </Instruction>
 
 <Instruction>
+  
 ```html(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.html")
-
 <div>{{link.description}} ({{link.url}})</div>
-
 ```
 </Instruction>
 
