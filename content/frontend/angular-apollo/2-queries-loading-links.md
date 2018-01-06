@@ -175,7 +175,7 @@ Then, open `app.component.html` and replace the current contents with the follow
 </Instruction>
 
 
-Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
+Run the app (by running the command `ng serve --open`) to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
 ![](https://i.imgur.com/R7YcAlj.png)
 
