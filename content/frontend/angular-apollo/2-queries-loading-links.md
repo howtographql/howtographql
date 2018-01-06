@@ -53,6 +53,8 @@ export class LinkItemComponent implements OnInit {
 
 <Instruction>
   
+Replace the code in `link-item.component.html` with the following:
+  
 ```html(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.html")
 <div>{{link.description}} ({{link.url}})</div>
 ```
@@ -61,8 +63,6 @@ export class LinkItemComponent implements OnInit {
 Note, we will be writing all our typings in a `./src/app/types.ts` file and merely importing these types into components as needed.
 
 <Instruction>
-
-This command will create a `link-item` folder containing several new files called `link-item.component.ts` , `link-item.component.spec.ts`, `link-item.component.html`, `link-item.component.css` in the `app` directory and add the following code in `link-item.component.ts`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/type.ts")
 export class Link {
