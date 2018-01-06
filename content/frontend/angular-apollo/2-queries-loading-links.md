@@ -97,11 +97,13 @@ export class LinkListComponent implements OnInit {
   linksToRender: Link[] = [{
     id: '1',
     description: 'The Coolest GraphQL Backend 😎',
-    url: 'https://www.graph.cool'
+    url: 'https://www.graph.cool',
+    createdAt: new Date().toISOString()
   }, {
     id: '2',
     description: 'The Best GraphQL Client',
-    url: 'http://dev.apollodata.com/'
+    url: 'http://dev.apollodata.com/',
+    createdAt: new Date().toISOString()
   }];
 
   constructor() {
