@@ -1,7 +1,7 @@
 ---
 title: Introduction
-pageTitle: "Building a GraphQL Sever with Javascript Backend Tutorial"
-description: "Learn how to build a GraphQL server with graphql-js, Node.JS, Express & MongoDB and best practices for filters, authentication, pagination and subscriptions."
+pageTitle: "Building a GraphQL Server with Node.js Backend Tutorial"
+description: "Learn how to build a GraphQL server with graphql-yoga, Node.JS, Express & Graphcool and best practices for filters, authentication, pagination and subscriptions."
 question: Which of these is a requirement for GraphQl servers?
 answers: ["Run in NodeJS", "Real time subscriptions support", "Validate incoming GraphQL requests", "Automatically generate queries and mutations from schema types"]
 correctAnswer: 2
@@ -10,22 +10,18 @@ description: Read about what you'll learn in the graphql.js tutorial
 
 ### Motivation
 
-Nowadays, serverless backends are getting more and more popular.  [Graphcool](https://www.graph.cool/), for example, lets you dive straight into your app's own logic, without worrying about this whole other layer of code as well. It's the perfect way to get started with GraphQL, and can even be used all the way to production for many use cases.
+GraphQL is the rising star of backend technologies. It replaces REST as an API design paradigm and is slowly becoming the new standard.
 
-Sometimes you may need to get your hands dirty and write server code as well though. For example: if your project requires a different set of features, or maybe you just like having full control over the backend. Whatever the reason, if you're interested in learning how it all works, this is the section for you!
-
-In this chapter you'll learn how to build your very own GraphQL server using the following technologies:
+In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server using the following technologies:
 
 * Server
-
-    * [Node.js](https://nodejs.org/en/): Runtime environment for building servers with JavaScript. GraphQL itself is language agnostic though, so check out the other tutorials in this section if you'd like to use a different one.
-    * [Express](https://expressjs.com/): One of the most popular web server frameworks for Node.js. Again, GraphQL doesn't require it, so you can use others like [Koa](http://koajs.com/), [Hapi](https://hapijs.com/) or even no framework at all instead.
-* Testing
-    * [GraphiQL](https://github.com/graphql/graphiql): Extremely useful tool for quickly testing GraphQL APIs. There's no need to build a whole frontend app just to test use cases, but it can also be a pain to build and send GraphQL requests manually using [Postman](https://www.getpostman.com/) or other similar tools. Among other things, GraphiQL:
-        * Generates a comprehensive documentation of all your available queries and mutations.
-        * Provides a text editor where you can build requests, with syntax highlighting and autocomplete.
-        * Displays the server's responses.
-        * Is really simple to setup!
+  * [Graphcool](https://www.graph.cool/): "GraphQL database" providing a powerful, realtime CRUD API for your data model.
+  * [`graphql-yoga`](https://github.com/graphcool/graphql-yoga/): Fully-featured GraphQL server with focus on easy setup, performance & great developer experience. Built on top of [Express](https://expressjs.com/), [`apollo-server`](https://github.com/apollographql/apollo-server), [`graphql-js`](https://github.com/graphql/graphql-js) and more.
+  * [Node.js](https://nodejs.org/en/): Runtime environment for building servers with JavaScript. GraphQL itself is _programming language agnostic_, so check out the other tutorials in this section if you prefer to use another language.
+  * [GraphQL Playgorund](https://github.com/graphql/graphiql): Extremely useful tool for quickly testing GraphQL APIs. There's no need to build a whole frontend app just to test use cases, but it can also be a pain to build and send GraphQL requests manually using [Postman](https://www.getpostman.com/) or other similar tools. Among other things, GraphQL Playgrounds:
+    * Auto-generate a comprehensive, multi-column documentation for all your available queries and mutations.
+    * Provide a text editor where you can write queries, mutations & subscriptions, with syntax highlighting and autocompletion.
+    * Let you specify HTTP headers for your queries and mutations.
 
 ### What is a GraphQL Server?
 
@@ -34,22 +30,22 @@ A GraphQL server should be able to:
 * Receive requests following the GraphQL format, for example:
 
 ```json
-{ "query": "query { allLinks { url } }" }
+{ "query": "query { feed { url } }" }
 ```
 
 * Connect to any necessary databases or services responsible for storing/fetching the actual data.
 * Return a GraphQL response with the requested data, such as this:
 
 ```json
-{ "data": { "allLinks": { "url": "http://graphql.org/" } } }
+{ "data": { "feed": { "url": "http://graphql.org/" } } }
 ```
 
-* Validate incoming requests against the schema definition and supported format. For example, if a query is made with an unknown field, the response should be something like:
+* Validate incoming requests against the schema definition and supported format. For example, if a query is made with an unknown field (e.g. `eifgnsdf`), the response should be something like:
 
 ```json
 {
   "errors": [{
-    "message": "Cannot query field \"unknown\" on type \"Link\"."
+    "message": "Cannot query field \"eifgnsdf\" on type \"Link\"."
   }]
 }
 ```
