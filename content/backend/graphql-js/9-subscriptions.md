@@ -149,11 +149,19 @@ const {SubscriptionServer} = require('subscriptions-transport-ws');
 After that, replace the call to `app.listen` in this same file with this:
 
 ```js(path=".../hackernews-graphql-js/src/index.js")
+const subscriptionBuildOptions = async (connectionParams,webSocket) =>
+{
+  return {
+    dataloaders: buildDataloaders(mongo),
+    mongo
+  }
+}
+
 const PORT = 3000;
 const server = createServer(app);
 server.listen(PORT, () => {
   SubscriptionServer.create(
-    {execute, subscribe, schema},
+    {execute, subscribe, schema, onConnect: subscriptionBuildOptions},
     {server, path: '/subscriptions'},
   );
   console.log(`Hackernews GraphQL server running on port ${PORT}.`)
