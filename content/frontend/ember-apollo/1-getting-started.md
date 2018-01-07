@@ -4,7 +4,7 @@ pageTitle: "Getting Started with GraphQL, Ember & Apollo Tutorial"
 description: "Start building a Hackernews clone. Create the frontend with ember-cli, ember-apollo-client, and the backend with Graphcool."
 question: "Which are the two types that you find in every Graphcool project file?"
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
-correctAnswer: 3
+correctAnswer: 1
 ---
 
 ### Backend
@@ -22,7 +22,7 @@ type User {
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Link { 
+type Link {
   url: String!
   postedBy: User! @relation(name: "UsersLinks")
   votes: [Vote!]! @relation(name: "VotesOnLink")
@@ -52,7 +52,7 @@ npm install -g graphcool
 
 > **NOTE**: This tutorial uses the [legacy](https://www.graph.cool/docs/reference/service-definition/legacy-console-projects-aemieb1aev) version of [Graphcool](https://www.graph.cool/) and will be updated soon to use the new [Graphcool Framework](https://blog.graph.cool/introducing-the-graphcool-framework-d9edab2a7816). The CLI commands mentioned in tutorial are outdated, you can read more about the new CLI [here](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). If you still want to go through this tutorial, you can install the old version of the CLI using `npm install -g graphcool@0.4`.
 
-Now you can go and create the server. 
+Now you can go and create the server.
 
 <Instruction>
 
@@ -207,7 +207,7 @@ If everything went well, the query will return the following data:
 
 ### Creating the App
 
-Next, you are going to create the Ember app! As mentioned in the beginning, you’ll use the `ember-cli` for that. 
+Next, you are going to create the Ember app! As mentioned in the beginning, you’ll use the `ember-cli` for that.
 
 <Instruction>
 
@@ -288,7 +288,7 @@ This tutorial is about the concepts of GraphQL and how you can use it from withi
 
 <Instruction>
 
-In your terminal add the `ember-cli-tachyons-shim` add-on: 
+In your terminal add the `ember-cli-tachyons-shim` add-on:
 
 ```bash(path=".../hackernews-ember-apollo")
 ember install ember-cli-tachyons-shim

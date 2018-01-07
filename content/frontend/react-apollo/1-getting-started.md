@@ -7,7 +7,7 @@ duration: 4
 videoAuthor: "Abhi Aiyer"
 question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
-correctAnswer: 3
+correctAnswer: 1
 draft: false
 ---
 
@@ -17,7 +17,7 @@ Since this is a frontend track, you don't want to spend too much time setting up
 
 #### The Data Model
 
-You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to build (and deploy) your GraphQL API based on the data model that you need for the app. 
+You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to build (and deploy) your GraphQL API based on the data model that you need for the app.
 
 Speaking of the data model, here is what the final version looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
 
@@ -35,7 +35,7 @@ type User @model {
   votes: [Vote!]! @relation(name: "UsersVotes")
 }
 
-type Link @model { 
+type Link @model {
   id: ID! @isUnique     # required system field (read-only)
   createdAt: DateTime!  # optional system field (read-only)
   updatedAt: DateTime!  # optional system field (read-only)
@@ -59,9 +59,9 @@ As you can see from the comments, some fields on your model types are read-only.
 
 In general, there are a few things to note about these type definitions:
 
-- Every type annotated with the `@model`-directive will be _mapped_ to the database and corresponding CRUD-operations are added to the GraphQL API of your Graphcool service. 
+- Every type annotated with the `@model`-directive will be _mapped_ to the database and corresponding CRUD-operations are added to the GraphQL API of your Graphcool service.
 - The `@isUnique`-directive means that the annotated field can never have the same value for two different records of that type (also called _nodes_). Since this is a read-only field, the Graphcool Framework will take care of managing this constraint.
-- `createdAt` and `updatedAt` are special fields that are managed by the Graphcool Framework as well. `createdAt` will carry the date for when a node of that type was created, `updatedAt` when it was last updated. 
+- `createdAt` and `updatedAt` are special fields that are managed by the Graphcool Framework as well. `createdAt` will carry the date for when a node of that type was created, `updatedAt` when it was last updated.
 
 #### Creating the GraphQL Server
 
@@ -100,7 +100,7 @@ graphcool-framework init server
 This will create a new directory called `server` and place the following files in there:
 
 - `graphcool.yml`: This is the [root configuration](https://www.graph.cool/docs/reference/service-definition/graphcool.yml-foatho8aip) file for your Graphcool service. It tells the Graphcool Framework where to find your data model (and other type definitions), specifies the [_permission rules_](https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez) and provides information about any integrated _serverless [functions](https://www.graph.cool/docs/reference/functions/overview-aiw4aimie9)_.
-- `types.graphql`: This specifies the data model for your application, all type definitions are written in GraphQL SDL. 
+- `types.graphql`: This specifies the data model for your application, all type definitions are written in GraphQL SDL.
 - `package.json`: If you're integrating any serverless functions that are using dependencies from npm, you need to list those dependencies here. Note that this file is completely independent from the dependencies of your frontend which you'll create in a bit. Since this tutorial won't actually use any serverless functions, you can simply ignore it.
 - `src`: The `src` directory is used to for the code of the serverless functions you're integrating in your Graphcool service. It currently contains the setup for a simple "Hello World"-[resolver](https://www.graph.cool/docs/reference/functions/resolvers-su6wu3yoo2) function (which you can delete if you like). Again, you can ignore this directory since we're not going to use any functions in this tutorial.
 
@@ -137,7 +137,7 @@ graphcool-framework deploy
 
 <Instruction>
 
-When prompted, select any of the **Shared Clusters** deployment options, e.g. `shared-eu-west`. 
+When prompted, select any of the **Shared Clusters** deployment options, e.g. `shared-eu-west`.
 
 For any other prompt, you can just hit **Enter** to go with the suggested default value.
 
@@ -207,7 +207,7 @@ This creates two new `Link` records in the database. You can verify that the mut
     url
   }
 }
-``` 
+```
 
 If everything went well, the query will return the following data (the `id`s will of course be different in your case):
 
@@ -255,7 +255,7 @@ create-react-app hackernews-react-apollo
 
 </Instruction>
 
-This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup. 
+This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup.
 
 Make sure everything works by navigating into the directory and starting the app:
 
@@ -401,7 +401,7 @@ Here's an overview of the packages you just installed:
   - `apollo-link-http`
 - [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
 - [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well.
 
 That's it, you're ready to write some code! 🚀
 
