@@ -7,13 +7,13 @@ answers: ["Building GraphQL requests with CURL", "Using playgrounds like GraphiQ
 correctAnswer: 1
 ---
 
-In this section, you'll learn how
+In this section, you'll learn how to implement the resolver for the `feed` query so your clients are able to retrieve a list of links from your server.
 
 ### Define a `Link` type for your data model
 
-In this section, you'll remove the default `Post` type that was generated for you by `graphql create` and replace it with the `Link` type we already mentioned above.
+The first thing to do is remove the default `Post` type that was generated for you by `graphql create` and replace it with the `Link` type we already mentioned before.
 
-Every link to be stored in the database should have a unique _id_, a _description_ and a _URL_ (just like in the real Hackernews app). Here is how you can translate that into SDL.
+Every link to be stored in the database should have a unique _id_, a _description_ and a _URL_ (just like the real Hackernews app). Here is how you can translate that requirement into SDL.
 
 <Instruction>
 
@@ -38,12 +38,14 @@ With the `Link` type in place, you can go ahead and deploy your Graphcool databa
 In your terminal, navigate to the root directory of your project and run the following command:
 
 ```bash(path=".../hackernews-node/")
-graphcool deploy
+yarn graphcool deploy
 ```
 
 </Instruction>
 
-The Graphcool API now exposes queries and mutations to create, read, update and delete elements of type `Link`. Here's a slightly simplified version of the generated operations (if you want to see what's actually generated, you can check the Graphcool schema in `src/generated/graphcool.graphql`):
+> Notice that you don't have to explicitly install the Graphcool CLI as it's listed as a _development dependency_ in your `package.json`.
+
+The Graphcool API now exposes queries and mutations to create, read, update and delete elements of type `Link`. Here's a slightly simplified version of the generated operations (if you want to see _everything_ that's generated, you can check the Graphcool schema in `src/generated/graphcool.graphql`):
 
 ```graphql(path=".../hackernews-node/src/generated/graphcool.graphql&nocopy)
 type Query {
@@ -62,15 +64,37 @@ type Mutation {
 
 The `links` and `link` queries allow to retrieve a list of links as well a single link. The different mutations allow to create, update and delete links.
 
+### Adjust the application schema
+
+At this point, your Graphcool database service already allows to perform CRUD operations for the `Link` type. You can test this in a GraphQL Playground if you like.
+
+The next step for you is now to update the application schema and define the `feed` query there.
+
+<Instruction>
+
+Open the application schema in `src/schema.graphql` and replace its contents with the following:
+
+```graphql(path=".../hackernews-node/src/schema.graphql)
+# import Link from "./generated/graphcool.graphql"
+
+type Query {
+  feed: [Link!]!
+}
+```
+
+</Instruction>
+
+Notice that you're _importing_ the `Link` type from the generated Graphcool schema rather than copying it over or entirely redefining it here. The import syntax is enabled by the [`graphql-import`](https://github.com/graphcool/graphql-import) package.
+
 ### Implement the `feed` resolver
 
-Every field on your `Query` and `Mutation` types will be backed by a resolver function responsible to fetch the corresponding data. The first resolver you'll implement is the one for the `feed` query.
+Every field on your `Query` and `Mutation` types will be backed by a resolver function which is responsible for fetching the corresponding data. The first resolver you'll implement is the one for `feed`.
 
 In terms of code organization, the resolvers for your queries, mutations and subscriptions will be written in dedicated files called `Query.js` and `Mutation.js` and `Subscription.js`. They'll then be referenced in `index.js` to instantiate your `GraphQLServer`.
 
 <Instruction>
 
-Create a new directory in `src` called `resolvers`. Then create a new file called `Query.js` in that new directory. Paste the following code into that file:
+Create a new directory in `src` called `resolvers`. Then create a new file called `Query.js` in that directory. Paste the following code into `src/resolvers/Query.js`:
 
 ```js(path=".../hackernews-node/src/resolvers/Query.js)
 function feed(parent, args, ctx, info) {
@@ -89,7 +113,7 @@ module.exports = {
 
 </Instruction>
 
-There are couple of things to note about this implementation:
+There are a couple of things to note about this implementation:
 
 - The name of the resolver function `feed` is identical to the name of the field on the `Query` type
 - The resolver receives 4 input arguments:
@@ -98,123 +122,114 @@ There are couple of things to note about this implementation:
   - `ctx`: The context (short: `ctx`) is an object that can hold custom data that's passed through the resolver chain, i.e. every resolver can read from and write to it.
   - `info`: Contains the [abstract syntax tree](https://medium.com/@cjoudrey/life-of-a-graphql-query-lexing-parsing-ca7c5045fad8) (AST) of the query and information about _where_ the execution in the resolver chain currently is.
 - The `search` argument is used to build a filter object (called `where`) to retrieve link elements where the `description` or the `url` contains that `search` string.
+- Finally, the resolver simply delegates the execution of the incoming query to the `links` field of the Graphcool API and returns the result of that execution.
 
-<!--
+Notice that in the line `ctx.db.query.links({ first, skip, where }, info)`, you're accessing the `Graphcool` instance which you previously attached to the `context` object when instantiating the `GraphQLServer`.
+
+To finalize the implementation, you need to make sure the `feed` resolver you just implemented is used when your `GraphQLServer` is instantiated.
 
 <Instruction>
 
-First, add the query definition for `allLinks` to the schema inside `src/schema/index.js.` 
+Open `index.js` and replace the definition of the `resolvers` object with the following:
 
-```js(path=".../hackernews-graphql-js/src/schema/index.js")
-const typeDefs = `
-  type Link {
-    id: ID!
-    url: String!
-    description: String!
+```js(path=".../hackernews-node/src/index.js")
+const resolvers = {
+  Query,
+}
+```
+
+</Instruction>
+
+For this work work, you of course need to import the `Query` object.
+
+<Instruction>
+
+Add the following import statement to the top of `index.js`:
+
+```js(path=".../hackernews-node/src/index.js")
+const Query = require('./resolvers/Query')
+```
+
+</Instruction>
+
+### Test the API
+
+You can now go ahead and test the `feed` query. Before you do so, you should store some dummy data in the database.
+
+<Instruction>
+
+In the root directory of your project, run the following command to start the server:
+
+```bash(path=".../hackernews-node/)
+yarn start
+```
+
+</Instruction>
+
+The server is now running on [`http://localhost:4000`](http://localhost:4000).
+
+<Instruction>
+
+Open a browser window and add navigate to [`http://localhost:4000`](http://localhost:4000).
+
+</Instruction>
+
+You now opened a GraphQL Playground which allows you to interact with two GraphQL APIs:
+
+- `app`: This is the API defined by your application schema, at the moment it only exposes the `feed` query.
+- `database`: This is the Graphcool API exposing all the CRUD operations for the `Link` type.
+
+![](https://imgur.com/vZ6fJVv.png)
+
+To create some initial data, you need to send a `createLink` mutation to the Graphcool API.
+
+<Instruction>
+
+In the left side-menu, select the `dev` Playground in the `database` section. Then add the following mutation to it and click the **Play**-button:
+
+```graphql
+mutation {
+  createLink(data: {
+    url: "https://www.graph.cool",
+    description: "A GraphQL Database"
+  }) {
+    id
   }
+}
+```
 
-  type Query {
-    allLinks: [Link!]!
+</Instruction>
+
+Awesome, you just created your first `Link` instance in the database 🎉  You can either retrieve it using the `links` query from the Graphcool API. In that case, you can use the same `dev` Playground in the `database` section.
+
+However, you can now also retrieve this new `Link` with the `feed` query from your application schema. 
+
+<Instruction>
+
+Switch to the `default` Playground in the `app` section from the left side-menu and send the following query:
+
+```graphql
+{
+  feed {
+    description
+    url
   }
-`;
+}
 ```
 
 </Instruction>
 
-No need to add any arguments right now, we'll do that once we start handling filtering and pagination.
+The server should return the following response:
 
-### Query resolver
-
-The query is now defined, but the server still doesn't know how to handle it. To do that you will now write your first **resolver**. Resolvers are just functions mapped to GraphQL fields, with their actual behavior.
-
-<Instruction>
-
-Start by creating a simple resolver that returns the fixed contents of a local array. Put the resolvers in a separate file, `src/schema/resolvers.js`, since they will grow as more fields are added:
-
-```js(path=".../hackernews-graphql-js/src/schema/resolvers.js")
-const links = [
-  {
-    id: 1,
-    url: 'http://graphql.org/',
-    description: 'The Best Query Language'
-  },
-  {
-    id: 2,
-    url: 'http://dev.apollodata.com',
-    description: 'Awesome GraphQL Client'
-  },
-];
-
-module.exports = {
-  Query: {
-    allLinks: () => links,
-  },
-};
+```json(nocopy)
+{
+  "data": {
+    "feed": [
+      {
+        "description": "A GraphQL Database",
+        "url": "https://www.graph.cool"
+      }
+    ]
+  }
+}
 ```
-
-</Instruction>
-
-<Instruction>
-
-Now you just have to pass these resolvers when building the schema object with `makeExecutableSchema`:
-
-```js(path=".../hackernews-graphql-js/src/schema/index.js")
-const {makeExecutableSchema} = require('graphql-tools');
-const resolvers = require('./resolvers');
-
-// ...
-
-module.exports = makeExecutableSchema({typeDefs, resolvers});
-```
-
-</Instruction>
-
-### Testing with playground
-
-It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), as was said before.
-
-It's super easy to setup. You're going to use the same `apollo-server-express` package for this.
-
-<Instruction>
-
-Just add these lines to `src/index.js`:
-
-```js(path=".../hackernews-graphql-js/src/index.js")
-const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
-
-// ...
-
-app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
-}));
-```
-
-</Instruction>
-
-<Instruction>
-
-That's it! Now restart the server again with `node ./src/index.js` and open your browser at [localhost:3000/graphiql](http://localhost:3000/graphiql). You'll see a nice IDE that looks like this:
-
-![](http://i.imgur.com/0s8NcWR.png)
-
-</Instruction>
-
-<Instruction>
-
-Click on the **Docs** link at the upper right to see a generated documentation of your schema. You'll see the `Query` type there, and clicking it will show you the new `allLinks` field, exactly as you've defined it.
-
-![](http://i.imgur.com/xTTcAZl.png)
-
-</Instruction>
-
-<Instruction>
-
-Try it out! On the left-most text box, type a simple query for listing all links and hit the **Play** button. This is what you'll see:
-
-![](http://i.imgur.com/LuALGY6.png)
-
-</Instruction>
-
-You can play around as much as you want with this tool. It makes testing GraphQL APIs so fun and easy, you'll never want to live without it again.
- -->
-

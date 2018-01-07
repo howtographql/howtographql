@@ -175,4 +175,4 @@ When instantiating `Graphcool`, you need to provide information about your Graph
 - `endpoint`: The HTTP endpoint of your Graphcool database service
 - `secret`: The secret which allows to access the Graphcool database service (this is defined in `graphcool.yml`)
 
-Because you provide this information, the `Graphcool` instance will get full access to your database service and can be used to resolve incoming request later on
+Because you provide this information, the `Graphcool` instance will get full access to your database service and can be used to resolve incoming request later on.
