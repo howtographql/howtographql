@@ -78,7 +78,7 @@ Open the application schema in `src/schema.graphql` and replace its contents wit
 # import Link from "./generated/graphcool.graphql"
 
 type Query {
-  feed: [Link!]!
+  feed(filter: String, skip: Int, first: Int): [Link!]!
 }
 ```
 
@@ -98,9 +98,9 @@ Create a new directory in `src` called `resolvers`. Then create a new file calle
 
 ```js(path=".../hackernews-node/src/resolvers/Query.js)
 function feed(parent, args, ctx, info) {
-  const { search, first, skip } = args // destructure input arguments
-  const where = search
-    ? { OR: [{ url_contains: search }, { description_contains: search }] }
+  const { filter, first, skip } = args // destructure input arguments
+  const where = filter
+    ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
     : {}
 
   return ctx.db.query.links({ first, skip, where }, info)
@@ -115,13 +115,13 @@ module.exports = {
 
 There are a couple of things to note about this implementation:
 
-- The name of the resolver function `feed` is identical to the name of the field on the `Query` type
+- The name of the resolver function `feed` is identical to the name of the field on the `Query` type. This is a requirement from `graphql-js` and `graphql-tools` which are used by `graphql-yoga`.
 - The resolver receives 4 input arguments:
   - `parent`: Contains an initial value for the resolver chain (you don't have to understand in detail what it's used for in this tutorial; if you're curios though, you can check [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#9d03) article).
-  - `args`: This object contains the input arguments for the query that are defined in the application schema. In your case that's `search`, `first` and `skip` for filtering and pagination.
+  - `args`: This object contains the input arguments for the query that are defined in the application schema. In your case that's `filter`, `first` and `skip` for filtering and pagination.
   - `ctx`: The context (short: `ctx`) is an object that can hold custom data that's passed through the resolver chain, i.e. every resolver can read from and write to it.
   - `info`: Contains the [abstract syntax tree](https://medium.com/@cjoudrey/life-of-a-graphql-query-lexing-parsing-ca7c5045fad8) (AST) of the query and information about _where_ the execution in the resolver chain currently is.
-- The `search` argument is used to build a filter object (called `where`) to retrieve link elements where the `description` or the `url` contains that `search` string.
+- The `filter` argument is used to build a filter object (called `where`) to retrieve link elements where the `description` or the `url` contains that `filter` string.
 - Finally, the resolver simply delegates the execution of the incoming query to the `links` field of the Graphcool API and returns the result of that execution.
 
 Notice that in the line `ctx.db.query.links({ first, skip, where }, info)`, you're accessing the `Graphcool` instance which you previously attached to the `context` object when instantiating the `GraphQLServer`.
@@ -230,6 +230,17 @@ The server should return the following response:
         "url": "https://www.graph.cool"
       }
     ]
+  }
+}
+```
+
+Notice that you can also provide the `filter`, `first` and `skip` arguments to the `feed` query. For example, you can try to retrieve only those links that contain the string "cool" in their `url` _or_ their `description`:
+
+```graphql
+{
+  feed(filter: "cool") {
+    description
+    url
   }
 }
 ```

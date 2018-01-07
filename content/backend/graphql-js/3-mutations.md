@@ -7,50 +7,52 @@ answers: ["They are how clients pass data to the server", "They must be included
 correctAnswer: 3
 ---
 
-### Mutation for creating links
+In this section, you'll learn how to implement a mutation to create new `Link` elements through your application schema.
 
-Setting up mutations is as easy as queries, following the same process.
+### Mutation for posting new links
+
+A nice thing about GraphQL is that despite the semantic difference between queries and mutation, on a technical level these two concepts are actually very similar. When adding a mutation to your API, you need to add a corresponding field to the `Mutation` type of your GraphQL schema and then implement the resolver for that field. Just like with queries!
 
 <Instruction>
 
-First, add the `createLink` mutation to that `typeDefs` variable in `src/schema/index.js`:
+Open your application schema in `src/schema.graphql` and the following code to it:
 
-```graphql(path=".../hackernews-graphql-js/src/schema/index.js")
+```graphql(path=".../hackernews-node/src/schema/index.js")
 type Mutation {
-  createLink(url: String!, description: String!): Link
+  post(url: String!, description: String!): Link!
 }
 ```
 
 </Instruction>
 
-### Resolvers with arguments
+This mutation allows to create (_post_) a new `Link` item. The next step is to implement the resolver for the new `post` field.
 
 <Instruction>
 
-Now add a resolver for `createLink` inside `src/schema/resolvers.js:`
+In the `src/resolvers` directory, create a new file called `Mutation.js` and add the following code to it:
 
-```js{5-11}(path=".../hackernews-graphql-js/src/schema/resolvers.js")
+```js(path=".../hackernews-node/src/resolvers/Mutation.js")
+function post(parent, args, ctx, info) {
+  const { url, description } = args
+  return ctx.db.mutation.createLink({ data: { url, description } }, info)
+}
+
 module.exports = {
-  Query: {
-    allLinks: () => links,
-  },
-  Mutation: {
-    createLink: (_, data) => {
-      const newLink = Object.assign({id: links.length + 1}, data);
-      links.push(newLink);
-      return newLink;
-    }
-  },
-};
+  post,
+}
 ```
 
 </Instruction>
 
-Note that in this case you need to access the arguments that were passed with the mutation. The second resolver parameter is exactly what you need for this, not only for mutations but for any other time you want to access this data (such as for queries with arguments, which you'll also build later).
+This implementation follows the same approach as the `feed` query from the previous chapter. You're retrieving the `url` and `description` input arguments and passing them on to the `createLink` mutation from the Graphcool API. Easy as pie! 🍰
 
-Since you're just using that local array for now, all that's needed is to add the new link to it with some generated id, and return it as the response.
+To test this mutation, you can run `yarn start` again and send the following mutation in the `default` Playground in the `app` section:
 
-### Testing with playground
+```graphql
+mutation {
+  post(url: "https://www.howtographql.com", description: "Fullstack tutorial website for GraphQL" {
+    id
+  }
+}
+```
 
-To test, just restart the server again and use the new mutation with GraphiQL:
-![](http://i.imgur.com/4pKJ9ji.png)
