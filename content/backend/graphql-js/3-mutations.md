@@ -46,7 +46,24 @@ module.exports = {
 
 This implementation follows the same approach as the `feed` query from the previous chapter. You're retrieving the `url` and `description` input arguments and passing them on to the `createLink` mutation from the Graphcool API. Easy as pie! 🍰
 
-To test this mutation, you can run `yarn start` again and send the following mutation in the `default` Playground in the `app` section:
+The last step is to also add the `Mutation` resolvers to the constructor of `GraphQLServer` in `index.js`.
+
+<Instruction>
+
+In `index.js`, add a new import statement and adjust the definition of the `resolvers` object like so:
+
+```js(path=".../hackernews-node/src/index.js")
+const Mutation = require('./resolvers/Mutation')
+
+const resolvers = {
+  Query,
+  Mutation,
+}
+```
+
+</Instruction>
+
+This is it. To test this mutation, you can run `yarn start` again and send the following mutation in the `default` Playground in the `app` section:
 
 ```graphql
 mutation {
@@ -55,4 +72,3 @@ mutation {
   }
 }
 ```
-
