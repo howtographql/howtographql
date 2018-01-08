@@ -48,6 +48,23 @@ module.exports = async () => {
   return {Links: db.collection('links')};
 }
 ```
+edit: as of npm mongodb >= v3.0, the connector should look like this:
+```
+const { MongoClient } = require('mongodb')
+
+// 1
+const MONGO_URL = 'mongodb://localhost:27017/hackernews'
+// 2
+module.exports = async () => {
+  try {
+    const client = await MongoClient.connect(MONGO_URL)
+    const db = client.db('hackernews')
+    return { Links: db.collection('links') }
+  } catch (e) {
+    console.log(e)
+  }
+}
+```
 
 </Instruction>
 
