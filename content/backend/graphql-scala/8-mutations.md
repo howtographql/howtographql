@@ -5,7 +5,7 @@ description: "In this chapter you will learn how to add data to the database."
 ---
 
 In last chapters you've learnt how to use GraphQL to read a data. Time to add some.
-When you want to add data, you have to use almost the same sytax. So, where server know from you want to write data instead of reading? You have to use `mutation` keyword instead of `query`. Thats all. Actually not all, but you will learn about differences in this chapter.
+When you want to add data, you have to use almost the same sytax. How server knows when you want to write data instead of reading? You have to use `mutation` keyword instead of `query`. That's all. Actually not all, but you will learn about differences in this chapter.
 
 ### Create an User
 
@@ -27,14 +27,14 @@ input AUTH_PROVIDER_EMAIL {
 }
 ```
 
-It isn't hard to imagine what this mutation does. Name suggests it's point of our interests - it creates an user, takes two paramaters of type `String` and `AuthProviderSignupData` and returns a `User`
+It isn't hard to imagine what this mutation does. Name suggests it's point of our interests - it creates an user, takes two paramaters of type `String` and `AuthProviderSignupData` and returns an `User` in response.
 
-But wait... until now we've used `type` not `input`. So what is this? `input` is a type that can be used as parameter. You very often will see it along `mutation`s.
+But wait... until now we've been using `type` not `input`. So what is this? `input` is a type that can be used as parameter. You will frequently see it among `mutation`s.
 
-Let's try to implement in order similar to creation of new query:
+Let's try to implement mutation in the following order:
 
 * Define case classes for inputs
-* Define ObjectInputType's for those classes,
+* Define InputObjectType's for those classes,
 * Define ObjectType responsible for all Mutations
 * Tell a Schema to use this object.
 
@@ -43,7 +43,7 @@ Let's try to implement in order similar to creation of new query:
 
 <Instruction>
 
-Create classes we will need for inputs
+Create classes needed for inputs.
 
 ```scala
 
@@ -55,10 +55,10 @@ case class AuthProviderSignupData(email: AuthProviderEmail)
 
 </Instruction>
 
-### Define ObjectInputType's
+### Define InputObjectType's
 
-`ObjectInputType` is the same for input what `ObjectType` to `type` keyword.
-It tells Sangria how to understand a data. In fact you can define `ObjetType` and `ObjectInputType` for the same case class, or even more than one of each. Good example is an `User` entity which could consist many fields. But when you register new user and during signup action you need a different kind of data so you can create different ObjectInputTypes.
+`InputObjectType` is the same for input what `ObjectType` to `type` keyword.
+It tells Sangria how to understand a data. In fact you can define `ObjectType` and `InputObjectType` for the same case class, or even more than one. Good example is an `User` entity which could consist many fields. But when you register new user and during signing in action you need a different kind of data, so you can create different InputObjectType's.
 
 <Instruction>
 
@@ -77,7 +77,7 @@ implicit val AuthProviderSignupDataInputType: InputObjectType[AuthProviderSignup
 
 ### Define Mutation Object
 
-It would be really similar to the process you already know.
+It will be similar to the process you already know.
 
 <Instruction>
 
@@ -113,17 +113,17 @@ val SchemaDefinition = Schema(QueryType, Some(Mutation))
 
 All mutations are optional so you have to wrap it in `Some`.
 
-If you will try to run a server now you will get errors about not implemented `FromInput`'s.
-It's additional step we have to do to able run a mutations above.
+If you will try to run a server,you will get errors about not implemented `FromInput`'s.
+It's additional step we have to do to able run those mutations.
 
 ### Provide FromInput for input classes
 
 Sangria needs to read a part of JSON like structure and converts it to case classes. That's the reason why we need such `FromInput` type classes. In fact you can implement it on your own. But there is another way: graphql syntax is JSON, so you can use any of JSON parsing libraries for this.
-In the first step we've added dependency to the `sangria-spray-json` library, but if you want you can use any other supported. Sangria uses this library JSON implementation to convert it into proper `FromInput` type. All we need to do is to define proper JSONReader for that case class.
+In the first step we've added dependency to the `sangria-spray-json` library, but if you want you can use any other supported. Sangria uses this to convert it into proper `FromInput` type. All we need to do is to define proper JSONReader for that case class.
 
 <Instruction>
 
-In the same file, before definitions of objectInputTypes add following code:
+In the same file, before definitions of InputObjectTypes add following code:
 
 ```scala
 
@@ -141,7 +141,7 @@ Almost done.
 
 <Instruction>
 
-Add in `DAO` following function:
+Add to `DAO` following function:
 
 ```
 def createUser(name: String, authProvider: AuthProviderSignupData): Future[User] = {
@@ -160,7 +160,7 @@ def createUser(name: String, authProvider: AuthProviderSignupData): Future[User]
 
 </Instruction>  
 
-Now everything should works as expected.
+Everything should works as expected now.
 
 ### Test case
 
@@ -193,8 +193,9 @@ Implement a mutation to able run a following code:
 createLink(description: String!, url: String!, postedById: ID): Link
 ```
 
-First try on your own, next check whther I have similar solution.
-Hint! You can skip creating case classes phase because we no need any of them. In this case parameters uses only `String` and `Integer` which are simple scalars available out-of-the-box.
+First try on your own, next compare to my solution.
+
+Hint! You can skip creating case classes phase because we don't need any of them. In this case parameters uses only `String` and `Integer` which are simple scalars available out-of-the-box.
 
 <Instruction>
 
@@ -248,7 +249,7 @@ val PostedByArg = Argument("postedById", IntType)
 
 </Instruction>
 
-That's all, now you should be able to run following command:
+That's all, now you should be able to run following query:
 
 ```graphql
 mutation addLink {
