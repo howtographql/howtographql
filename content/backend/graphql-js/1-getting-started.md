@@ -115,4 +115,8 @@ node ./src/index.js
 
 </Instruction>
 
-If you do this, you'll actually get an error saying: `Must provide schema definition with query type or a type named Query`. That's because you've defined a type in your schema, but no queries yet. 
+If everything was successful, you should see:
+
+```
+Hackernews GraphQL server running on port 3000.
+```
