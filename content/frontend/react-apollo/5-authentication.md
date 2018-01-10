@@ -356,5 +356,3 @@ import { ApolloLink } from 'apollo-client-preset'
 </Instruction>
 
 That's it - now all your API requests will be authenticated if a `token` is available.
-
-> **Note**: In a real application you would now configure the [permissions rules](https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez/) of your project to define what kind of operations authenticated and non-authenticated users should be allowed to perform. See [this](https://github.com/graphcool/framework/tree/master/examples/permissions) Graphcool service definition for a practical example.
