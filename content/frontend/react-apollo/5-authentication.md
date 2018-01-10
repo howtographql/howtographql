@@ -2,8 +2,8 @@
 title: Authentication
 pageTitle: "Authentication with GraphQL, React & Apollo Tutorial"
 description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Graphcool."
-question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
-answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
+question: "How are HTTP requests send by ApolloClient authenticated?"
+answers: ["The ApolloClient needs to be instantiated with an authentication token", "ApolloClient exposes an extra method called 'authenticate' where you can pass an authentication token", "By attaching an authentication token to the request with dedicated ApolloLink middleware", "ApolloClient has nothing to do with authentication"]
 correctAnswer: 1
 ---
 
