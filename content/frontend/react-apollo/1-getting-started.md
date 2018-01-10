@@ -2,9 +2,6 @@
 title: Getting Started
 pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
 description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Graphcool.
-videoId: JV0nLsdeMfo
-duration: 4
-videoAuthor: "Abhi Aiyer"
 question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
 correctAnswer: 3

@@ -2,9 +2,6 @@
 title: Introduction
 pageTitle: "Fullstack Tutorial with GraphQL, React & Apollo"
 description: "Learn how to build a Hackernews clone with GraphQL, React & Apollo Client. Use create-react-app for the frontend and graphql-yoga & Graphcool for the backend."
-videoId: lQDrREfapow
-duration: 5
-videoAuthor: "Abhi Aiyer"
 question: What's a major benefit of using a GraphQL client library?
 answers: ["It makes it easy to use animations inside your app", "A GraphQL client is mainly used to improve security", "It saves you from writing infrastructure code for networking and caching", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
 correctAnswer: 2

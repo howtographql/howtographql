@@ -2,9 +2,6 @@
 title: Routing
 pageTitle: "React Router with GraphQL & Apollo Tutorial"
 description: "Learn how to use react-router 4 together with GraphQL and Apollo Client to implement navigation in a React app. Each route will be represented as a `Link`."
-videoId: W-MJHNOdUOI
-duration: 4
-videoAuthor: "Abhi Aiyer"
 question: What's the role of the Link component that you added in this chapter?
 answers: ["It renders a link that was posted by a user", "It renders the input form for users to create new links", "It lets you navigate to a different URL", "It links your root component with all its children"]
 correctAnswer: 2

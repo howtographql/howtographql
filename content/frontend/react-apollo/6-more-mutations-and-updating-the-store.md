@@ -5,9 +5,6 @@ description: "Learn how to use Apollo's imperative store API to update the cache
 question: "What does the 'graphcool-framework push' command do?"
 answers: ["It uploads the local schema changes to the remote Graphcool project", "It pushes a git repository to Graphcool so you can manage your project and code together", "It tells the server to push its remote schema changes into the local project file", "There is no 'graphcool-framework push' command"]
 correctAnswer: 0
-videoId: o0w0HS5vG5s
-duration: 8
-videoAuthor: "Abhi Aiyer"
 ---
 
 The next piece of functionality you'll implement is the voting feature! Authenticated users are allowed to submit a vote for a link. The most upvoted links will later be displayed on a separate route!

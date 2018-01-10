@@ -5,9 +5,6 @@ description: "Learn how to use filters with GraphQL and Apollo Client. Graphcool
 question: "What's the purpose of the 'withApollo' function?"
 answers: ["You use it to send queries and mutations to a GraphQL server", "When wrapped around a component, it injects the 'ApolloClient' instance into the component's props", "You have to use it everywhere where you want to use Apollo functionality", "It parses GraphQL code"]
 correctAnswer: 1
-videoId: sycCQujmWzg
-duration: 3
-videoAuthor: "Abhi Aiyer"
 ---
 
 In this section, you'll implement a search feature and learn about the filtering capabilities of your GraphQL API.

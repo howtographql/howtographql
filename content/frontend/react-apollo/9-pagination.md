@@ -5,9 +5,6 @@ description: "Learn how to implement limit-offset pagination with GraphQL and Ap
 question: "What's the difference between the 'query' and 'readQuery' methods on the 'ApolloClient'?"
 answers: ["'readQuery' always fetches data over the network while 'query' can retrieve data either from the cache or remotely", "'readQuery' can only be used to reading data while 'query' can also be used to write data", "'readQuery' was formerly called 'query' and the functionality of both is identical", "'readQuery' always reads data from the local cache while 'query' might retrieve data either from the cache or remotely"]
 correctAnswer: 3
-videoId: iLVHY1kql7k
-videoAuthor: "Abhi Ayer"
-duration: 6
 ---
 
 The last topic that we'll cover in this tutorial is pagination. You'll implement a simple pagination approach so that users are able to view the links in smaller chunks rather than having an extremely long list of `Link` elements.

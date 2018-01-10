@@ -2,9 +2,6 @@
 title: Realtime Updates with GraphQL Subscriptions
 pageTitle: "Realtime with GraphQL Subscriptions, React & Apollo Tutorial"
 description: "Learn how to implement realtime functionality using GraphQL subscriptions with Apollo Client & React. The websockets will be handled by subscriptions-transport-ws."
-videoId: R-VLZ--sTzI
-duration: 6
-videoAuthor: "Abhi Ayer"
 question: "What transport does Apollo use to implement subscriptions?"
 answers: ["WebSockets", "TCP", "UDP", "HTTP 2"]
 correctAnswer: 0
