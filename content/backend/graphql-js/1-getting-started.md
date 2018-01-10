@@ -1,15 +1,15 @@
 ---
 title: Getting Started
-pageTitle: "Getting Started with GraphQL, Javascript and Node.js Tutorial"
-description: "Learn how to setup a GraphQL server with Javascript, Node.js & Express as well as best practices for defining the GraphQL schema."
-question: Which of the following packages allows converting a string in the GraphQL Schema Definition Language into a schema object?
-answers: ["body-parser", "graphql-tools", "apollo-server-express", "express"]
+pageTitle: "Getting Started with GraphQL, JavaScript and Node.js Tutorial"
+description: "Learn how to setup a GraphQL server with JavaScript, Node.js & Express as well as best practices for defining the GraphQL schema."
+question: Which of the following files does not define a "proper" GraphQL schema.
+answers: ["src/schema.graphql", "database/datamodel.graphql", "src/generated/graphcool.grahpql", "Trick question: All of them do"]
 correctAnswer: 1
 ---
 
 ### Defining the application's GraphQL API
 
-You'll start by defining the GraphQL schema for your application. We'll also refer to this as your **application schema**. As in previous sections on this website, you'll do that by using the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL), which is generally a much simpler and flexible approach than manually building the schema object yourself (though you can certainly do that if you want as well!).
+You'll start by defining the GraphQL schema for your application. We'll also refer to this as your **application schema**. Schemas are written in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL).
 
 > If you want to learn more about the GraphQL schema and its role in GraphQL servers, make sure to check out  this excellent [blog post](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e) which provides a comprehensive overview of everything you need to know regarding GraphQL schemas!
 
@@ -25,7 +25,7 @@ Here you're going to build the backend for a [Hackernews](https://news.ycombinat
 - Send realtime updates to subscribed clients when a new link element is _created_
 - Send realtime updates to subscribed clients when an existing link element is _upvoted_
 
-> **Bonus**: there's a super useful [GraphQL Cheat Sheet](https://github.com/sogko/graphql-schema-language-cheat-sheet) for building schemas. Check it out!
+> **Bonus**: There's a super useful [GraphQL Cheat Sheet](https://github.com/sogko/graphql-schema-language-cheat-sheet) for building schemas. Check it out!
 
 #### Defining the application schema
 
@@ -65,13 +65,14 @@ type AuthPayload {
 }
 ```
 
-Great! So this is the final application schema you want to implement. Notice that the `feed` query allows to send `filter` and pagination (`skip` and `first`) arguments to constrain the list of link elements to be returned by the server.
+Great! So this is the final application schema you want to have implemented in the end. Notice that the `feed` query allows to send `filter` and pagination (`skip` and `first`) arguments to constrain the list of link elements to be returned by the server.
 
-In the following, you'll gradually implement the defined queries, mutations and subscriptions one by one. The implementation process will look somewhat similar every time:
+In the following, you'll gradually implement the defined queries, mutations and subscriptions one by one. The implementation process will look somewhat similar every time - this is also referred to as **schema-driven development**:
 
 1. Adjust the data model of your Graphcool database service
 1. Deploy the Graphcool database service to apply your changes
-1. Implement the resolver from your application schema by _delegating_ it to corresponding Graphcool resolver
+1. Extend your application schema with a new root field
+1. Implement the resolver for the root field by [_delegating_](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405) the execution to the corresponding Graphcool resolver
 
 ### Bootstrap your GraphQL server
 
@@ -118,22 +119,22 @@ This now created a new directory called `hackernews-node` based on the [`node-ba
 
 Here's an overview of what the directories and files are used for:
 
-- `src`: This directory generally contains the JavaScript code for your application. It also holds the **application schema** (which is defined in `src/schema.graphql`) as well as the auto-generated **graphcool schema** (in `src/generated/graphcool.graphql`) which we'll discuss in a bit.
-- `database`: This directory stores everything related to your Graphcool database service. This includes the root configuration file `graphcool.yml` and the definitions of your application's _data model_ (in one or multiple files).
+- `src`: This directory generally contains the JavaScript code for your application. It also holds the **application schema** (which is defined in `src/schema.graphql`) as well as the auto-generated **Graphcool schema** (in `src/generated/graphcool.graphql`) which we'll discuss in a bit.
+- `database`: This directory stores everything related to your Graphcool database service. This includes the root configuration file `graphcool.yml` and the definitions of your application's _data model_ (in one or split across multiple files).
   - `graphcool.yml`: This is the root configuration file for your "Graphcool database" service. In here, you specify a _name_ for your service, _deployment information_ and your _data model_ which will be used to generate the Graphcool CRUD API.
   - `datamodel.graphql`: The data model is written in GraphQL SDL and provides the foundation for your database: The Graphcool API defined in `src/generated/graphcool.graphql` provides CRUD functionality which allows to easily **c**reate, **r**ead, **u**pdate and **d**elete instances of the types in your data model (e.g. a `Link` or a `User` type).
 
-> **Note**: At this point, you can go and send your first GraphQL queries and mutations if you like. To do so, you can follow the instructions in the output of the `graphql create` command. `graphql create` bootstraps a GraphQL server and Graphcool database service based on a simple `Post` model (which you can find in `database/datamodel.grapghql`). Feel free to use a GraphQL Playground to play around with the current version of the server. In the rest of the tutorial, we'll delete the `Post` model type and replace it with the datamodel we need for our Hackernews app.
-
 ### Background: Application schema vs Graphcool schema (CRUD)
 
-As you might have noticed, there are three different `.graphql`-files with certain SDL type definitions in your project. Let's take a moment to understand where they're coming from and what they're used for in our setup:
+As you might have noticed, there are three different `.graphql`-files with certain SDL type definitions in your project. Let's take a moment to understand where they're coming from and what they're used for in your setup:
 
-- `src/schema.graphql` (**Application schema**): Defines the GraphQL API that will be exposed to your client applications. For example, we'll use it later on to define a `feed` query that our client apps can access to retrieve a list of Hackernews links from our server.
+- `src/schema.graphql` (**Application schema**): Defines the GraphQL API that will be exposed to your client applications. For example, we'll use it later on to expose the `feed` query our client apps can access to retrieve a list of Hackernews links from our server.
 - `src/generated/graphcool.graphql` (**Graphcool schema**): Defines the Graphcool API with CRUD functionality for your database. This file is _auto-generated_ based on your data model and should never be manually altered. This also means that whenever you make changes to your data model, this file is (automatically) updated as well.
 - `database/datamodel.graphql`: The data model contains the type definitions for the entities in our application domain. For each type in the data model, Graphcool will generate queries and mutations allowing you to read and write database records (also called _nodes_) for that type.
 
-Why do you need two GraphQL schemas at all? The reason for that is simple, the Graphcool schema alone would give clients access to _all_ the data in your database. For the vast majority of applications however, you'll rather want to expose an API that's more tailored to the requirements of your clients.
+Notice that `datamodel.graphql` is not actually a GraphQL schema in the actual sense, as its missing the _root types_. The data model is only used as the foundation to generate the actual schema for the Graphcool API!
+
+Why do you need two GraphQL schemas at all? The reason for that is simple, the Graphcool schema alone would give clients read/write-access to _all_ the data in your database. For the vast majority of applications however, you'll rather want to expose an API that's more tailored to the requirements of your clients. Plus, if you were to use only the Graphcool schema, you wouldn't be able to implement any authentication workflows or other business logic.
 
 ### Understanding the initial setup
 
@@ -141,8 +142,8 @@ Before we continue with the implementation, let's go and understand the initial 
 
 If you check your `package.json`, you'll notice that the boilerplate comes with two dependencies:
 
-- `graphql-yoga`: The package that contains everything you need for your GraphQL server (basically a thin convenience wrapper on top of Express.js, `apollo-server`, `graphql-tools` and more)
-- `graphcool-binding`: This package allows to _bind_ the resolvers of your application schema to the auto-generated resolvers of your Graphcool database service
+- [`graphql-yoga`](https://github.com/graphcool/graphql-yoga/): The package that contains everything you need for your GraphQL server (basically a thin convenience wrapper on top of Express.js, `apollo-server`, `graphql-tools` and more)
+- [`graphcool-binding`](https://github.com/graphcool/graphcool-binding): This package allows to _bind_ the resolvers of your application schema to the auto-generated resolvers of your Graphcool database service. To learn more about schema bindings, you can read [this](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405#ec32) article.
 
 Both dependencies are used in `index.js`. The important part of that file is this:
 
@@ -167,7 +168,7 @@ Here you instantiate your `GraphQLServer` with the following arguments:
 - `resolvers`: This is a JavaScript object that mirrors the `Query`, `Mutation` and `Subscription` types and their fields from your application schema. Each field in the application schema is represented by a function with the same name in that object.
 - `context`: This is an object that get's passed through the resolver chain and every resolvers can read from or write to.
 
-Notice that the `context` object has the `db` field which contains an instance of `Graphcool` from the `graphcool-binding` package. This instance will allow your resolvers to simple _delegate_ the execution of an incoming request to an appropriate resolver from the Graphcool API.
+Notice that the `context` object has the `db` field which contains an instance of `Graphcool` from the `graphcool-binding` package. This instance will allow your resolvers to simply _delegate_ the execution of an incoming request to an appropriate resolver from the Graphcool API.
 
 When instantiating `Graphcool`, you need to provide information about your Graphcool database service:
 

@@ -2,12 +2,12 @@
 title: Authentication
 pageTitle: "Server-side Authentication with GraphQL, Javascript & Node.js Tutorial"
 description: "Learn best practices for implementing email-password authentication on a GraphQL Server with Javascript, Node.js & Express."
-question: What kind of authentication must a GraphQL server implement?
-answers: ["Username/password authentication", "Token authentication", "Any kind that uses the 'Authorization' header", "Any kind, there are no requirements regarding authentication"]
+question: What is the "connect" argument in a Graphcool mutation used for?
+answers: ["It connects your application schema with the Graphcool schema", "It creates a TCP connection", "It's used to connect two nodes in the database via a relation", "There is "connect" argument in Graphcool mutations"]
 correctAnswer: 3
 ---
 
-In the last section, you implemented a `signup` and `login` mutation which both return authentication token for your users. In this section, you'll learn how you can use these authentication tokens to associate an incoming request with a user of your application.
+In the last section, you implemented a `signup` and `login` mutation which both return authentication token for your users. In this section, you'll learn how you can _use_ authentication tokens to associate an incoming request with a user of your application.
 
 ### Creating a relation between `User` and `Link`
 
@@ -19,7 +19,7 @@ The first thing to do is update the data model again! You want to create a relat
 
 Open `database/datamodel.graphql` and adjust the `User` and `Link` types as follows:
 
-```graphql(path=".../hackernews-node/database/datamodel.graphql")
+```graphql{5,13}(path=".../hackernews-node/database/datamodel.graphql")
 type Link {
   id: ID! @unique
   description: String!
@@ -50,7 +50,7 @@ yarn graphcool deploy
 
 </Instruction>
 
-All right! With these changes you express that a `Link` node can be associated with a `User` node via the `postedBy` and `links` fields. However, you also need to make sure that this data is properly entered into the database when a `post` mutation is received, so you need to adjust the `post` resolver!
+All right! With these changes, you express that a `Link` node can be associated with a `User` node via the `postedBy` and `links` fields. However, you also need to make sure that this data is properly entered into the database when a `post` mutation is received, so you need to adjust the `post` resolver!
 
 ### Adjusting the `post` resolver
 
@@ -86,18 +86,18 @@ mutation {
 
 This mutation not only creates a new `Link` node, but it also sets the `postedBy` field of that new `Link` to the `User` who is identified by the email `johndoe@graph.cool`. As mentioned above, you can use both the `id` and the `email` field to uniquely identify a `User`.
 
-Note that this mutation will fail if no `User` with the provided `email` exists - in that case, no `Link` element will be created.
+Note that this mutation will fail if no `User` with the provided `email` exists - in that case, no `Link` element will be created either!
 
-Now it's time to actually make the required changes to your code!
+Now it's time to actually make the required changes to your code.
 
 <Instruction>
 
 Open `src/resolvers/Mutation.js` and adjust the `post` resolver so it looks as follows:
 
-```js(path=".../hackernews-node/src/resolvers/Mutation.js)
-function post(parent, { url, description }, ctx, info) {
-  const userId = getUserId(ctx)
-  return ctx.db.mutation.createLink(
+```js{2-4}(path=".../hackernews-node/src/resolvers/Mutation.js)
+function post(parent, { url, description }, context, info) {
+  const userId = getUserId(context)
+  return context.db.mutation.createLink(
     { data: { url, description, postedBy: { connect: { id: userId } } } },
     info,
   )
@@ -108,7 +108,7 @@ function post(parent, { url, description }, ctx, info) {
 
 The difference to the previous version is that this time you're first retrieving the user's `id` from the context (you'll implement `getUserId` in just a bit) and then pass it to the `createLink`-mutation as a value for the `connect` argument - just like in the sample mutation from above.
 
-To make this work, you still need a function called `getUserId` that's able to retrieve the `id` of a `User` from the `ctx` that's passed down the resolver chain.
+To make this work, you still need a function called `getUserId` that's able to retrieve the `id` of a `User` from the `context` that's passed down the resolver chain.
 
 <Instruction>
 
@@ -139,7 +139,7 @@ Finally, to make this work there are two small things left to. First, you need t
 
 Still in `src/utils.js`, add the following import statement to the very top of the file: `const jwt = require('jsonwebtoken')`. Then, adjust the export statement to now also include the `getUserId` function:
 
-```js(path=".../hackernews-node/src/utils.js)
+```{3}js(path=".../hackernews-node/src/utils.js)
 module.exports = {
   APP_SECRET,
   getUserId,
@@ -152,7 +152,7 @@ Fantastic! Let's go and test if the `post` mutation now actually works when crea
 
 ### Authenticating a `User`
 
-We already discussed how you can obtain an authentication token for a given `User` of your application but we haven' yet talked about how you can then make authenticated requests on behalf of a specific `User`.
+We already discussed how you can obtain an authentication token for a given `User` of your application but we haven' yet talked about how you can _use_ them in order to make authenticated requests on behalf of a specific `User`.
 
 Here is how it works:
 
@@ -174,7 +174,7 @@ yarn start
 
 <Instruction>
 
-Now open [`http://localhost:4000`](http://localhost:4000) in your browser to access your `app` GraphQL API. Send a `login` mutation for a `User` you previously created (or use the `signup` mutation to create an entirely new `User`):
+Now open [`http://localhost:4000`](http://localhost:4000) in your browser to access your `app` GraphQL API again. Send the `login` mutation for a `User` you previously created (or use the `signup` mutation to create an entirely new `User`):
 
 ```graphql
 mutation {
@@ -193,7 +193,7 @@ mutation {
 
 <Instruction>
 
-Now, copy the `token` from the JSON response of the server and use it to replace the `__TOKEN__` placeholder in the following HTTP header. This header needs to be written in **HTTP HEADERS** pane in the bottom-left corner of the Playground:
+Now, copy the `token` from the JSON response of the server and use it to replace the `__TOKEN__` placeholder in the following HTTP header. This header needs to be put into the **HTTP HEADERS** pane in the bottom-left corner of the Playground:
 
 ```json
 {
@@ -235,13 +235,14 @@ To verify that everything worked and the new `Link` was indeed `postedBy` the `U
 }
 ```
 
-If everything worked correctly, the `feed` query now returns this item:
+If everything worked correctly, the `feed` query now returns this item as part of the list:
 
 ```json(nocopy)
 {
   "description": "Weekly GraphQL Newsletter",
   "postedBy": {
     "email": "johndoe@graph.cool"
+  }
 }
 ```
 
@@ -339,10 +340,10 @@ Open `src/resolvers/Mutation.js` and add the following function to it:
 
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 
-async function vote(parent, args, ctx, info) {
-  const userId = getUserId(ctx)
+async function vote(parent, args, context, info) {
+  const userId = getUserId(context)
   const { linkId } = args
-  const linkExists = await ctx.db.exists.Vote({
+  const linkExists = await context.db.exists.Vote({
     user: { id: userId },
     link: { id: linkId },
   })
@@ -350,7 +351,7 @@ async function vote(parent, args, ctx, info) {
     throw new Error(`Already voted for link: ${linkId}`)
   }
 
-  return ctx.db.mutation.createVote(
+  return context.db.mutation.createVote(
     {
       data: {
         user: { connect: { id: userId } },

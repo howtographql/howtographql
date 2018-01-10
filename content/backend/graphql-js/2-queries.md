@@ -1,9 +1,9 @@
 ---
 title: Queries
-pageTitle: "Resolving Queries with a Javascript GraphQL Server Tutorial"
-description: "Learn how to define the GraphQL schema using graphql-js, implement query resolvers with Javascript & Node.js and test your queries in a GraphiQL Playground."
-question: What's the quickest way to test GraphQL apis?
-answers: ["Building GraphQL requests with CURL", "Using playgrounds like GraphiQL", "Using Postman or similar app for sending HTTP requests", "Building a frontend client app that sends requests"]
+pageTitle: "Resolving Queries with a JavaScript GraphQL Server Tutorial"
+description: "Learn how to define the GraphQL schema, implement query resolvers with JavaScript & Node.js and test your queries in a GraphQL Playground."
+question: What's the quickest way to test GraphQL APIs?
+answers: ["Building GraphQL requests with CURL", "Using GraphQL Playground", "Using Postman or similar app for sending HTTP requests", "Building a frontend client app that sends requests"]
 correctAnswer: 1
 ---
 
@@ -66,7 +66,7 @@ The `links` and `link` queries allow to retrieve a list of links as well a singl
 
 ### Adjust the application schema
 
-At this point, your Graphcool database service already allows to perform CRUD operations for the `Link` type. You can test this in a GraphQL Playground if you like.
+At this point, your Graphcool database service already allows to perform CRUD operations for the `Link` type. You can test this inside a GraphQL Playground if you like.
 
 The next step for you is now to update the application schema and define the `feed` query there.
 
@@ -97,13 +97,13 @@ In terms of code organization, the resolvers for your queries, mutations and sub
 Create a new directory in `src` called `resolvers`. Then create a new file called `Query.js` in that directory. Paste the following code into `src/resolvers/Query.js`:
 
 ```js(path=".../hackernews-node/src/resolvers/Query.js)
-function feed(parent, args, ctx, info) {
+function feed(parent, args, context, info) {
   const { filter, first, skip } = args // destructure input arguments
   const where = filter
     ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
     : {}
 
-  return ctx.db.query.links({ first, skip, where }, info)
+  return context.db.query.links({ first, skip, where }, info)
 }
 
 module.exports = {
@@ -116,15 +116,15 @@ module.exports = {
 There are a couple of things to note about this implementation:
 
 - The name of the resolver function `feed` is identical to the name of the field on the `Query` type. This is a requirement from `graphql-js` and `graphql-tools` which are used by `graphql-yoga`.
-- The resolver receives 4 input arguments:
-  - `parent`: Contains an initial value for the resolver chain (you don't have to understand in detail what it's used for in this tutorial; if you're curios though, you can check [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#9d03) article).
-  - `args`: This object contains the input arguments for the query that are defined in the application schema. In your case that's `filter`, `first` and `skip` for filtering and pagination.
-  - `ctx`: The context (short: `ctx`) is an object that can hold custom data that's passed through the resolver chain, i.e. every resolver can read from and write to it.
-  - `info`: Contains the [abstract syntax tree](https://medium.com/@cjoudrey/life-of-a-graphql-query-lexing-parsing-ca7c5045fad8) (AST) of the query and information about _where_ the execution in the resolver chain currently is.
+- The resolver receives four input arguments:
+  1. `parent`: Contains an initial value for the resolver chain (you don't have to understand in detail what it's used for in this tutorial; if you're curios though, you can check [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#9d03) article).
+  1. `args`: This object contains the input arguments for the query. These are defined in the application schema. In your case that's ``, `first` and `skip` for filtering and pagination.
+  1. `context`: The `context` is an object that can hold custom data that's passed through the resolver chain, i.e. every resolver can read from and write to it.
+  1. `info`: Contains the [abstract syntax tree](https://medium.com/@cjoudrey/life-of-a-graphql-query-lexing-parsing-ca7c5045fad8) (AST) of the query and information about _where_ the execution in the resolver chain currently is.
 - The `filter` argument is used to build a filter object (called `where`) to retrieve link elements where the `description` or the `url` contains that `filter` string.
-- Finally, the resolver simply delegates the execution of the incoming query to the `links` field of the Graphcool API and returns the result of that execution.
+- Finally, the resolver simply delegates the execution of the incoming query to the `links` resolver from the Graphcool API and returns the result of that execution.
 
-Notice that in the line `ctx.db.query.links({ first, skip, where }, info)`, you're accessing the `Graphcool` instance which you previously attached to the `context` object when instantiating the `GraphQLServer`.
+Notice that in the line `context.db.query.links({ first, skip, where }, info)`, you're accessing the `Graphcool` instance which you previously attached to the `context` object when instantiating the `GraphQLServer`.
 
 To finalize the implementation, you need to make sure the `feed` resolver you just implemented is used when your `GraphQLServer` is instantiated.
 
@@ -140,7 +140,7 @@ const resolvers = {
 
 </Instruction>
 
-For this work work, you of course need to import the `Query` object.
+For this to work, you of course need to import the `Query` object.
 
 <Instruction>
 
@@ -200,9 +200,9 @@ mutation {
 
 </Instruction>
 
-Awesome, you just created your first `Link` instance in the database 🎉  You can either retrieve it using the `links` query from the Graphcool API. In that case, you can use the same `dev` Playground in the `database` section.
+Awesome, you just created your first `Link` instance in the database 🎉  You can either retrieve it using the `links` query from the Graphcool API. In that case, you can simply use the same `dev` Playground in the `database` section again.
 
-However, you can now also retrieve this new `Link` with the `feed` query from your application schema. 
+However, you can now also retrieve this new `Link` with the `feed` query from your application schema.
 
 <Instruction>
 

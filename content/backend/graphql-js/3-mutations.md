@@ -11,7 +11,7 @@ In this section, you'll learn how to implement a mutation to create new `Link` e
 
 ### Mutation for posting new links
 
-A nice thing about GraphQL is that despite the semantic difference between queries and mutation, on a technical level these two concepts are actually very similar. When adding a mutation to your API, you need to add a corresponding field to the `Mutation` type of your GraphQL schema and then implement the resolver for that field. Just like with queries!
+A nice thing about GraphQL is that despite the semantic difference between queries and mutations, on a technical level these two concepts are actually almost identical. When adding a mutation to your API, you need to add a corresponding field to the `Mutation` type of your GraphQL schema and then implement the resolver for that field. Just like with queries!
 
 <Instruction>
 
@@ -32,9 +32,9 @@ This mutation allows to create (_post_) a new `Link` item. The next step is to i
 In the `src/resolvers` directory, create a new file called `Mutation.js` and add the following code to it:
 
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
-function post(parent, args, ctx, info) {
+function post(parent, args, context, info) {
   const { url, description } = args
-  return ctx.db.mutation.createLink({ data: { url, description } }, info)
+  return context.db.mutation.createLink({ data: { url, description } }, info)
 }
 
 module.exports = {
