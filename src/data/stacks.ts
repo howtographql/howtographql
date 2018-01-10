@@ -111,7 +111,7 @@ const data: Stack[] = [
   },
 
   {
-    title: 'Node.js',
+    title: 'graphql.js',
     type: 'backend',
     key: 'graphql-js',
     images: [
@@ -119,9 +119,9 @@ const data: Stack[] = [
       require('../assets/icons/graphql.svg'),
     ],
     content: {
-      title: 'Node.js',
+      title: 'graphql.js',
       description:
-        'Build your own GraphQL server with Node.js and Graphcool',
+        'Build your own GraphQL server with Node.js, Express and Graphcool',
     },
     authorName: 'Maira Bello',
   },
