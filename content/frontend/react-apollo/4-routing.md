@@ -14,7 +14,7 @@ In this section, you'll learn how to use the [`react-router`](https://github.com
 
 ### Install Dependencies
 
-First add the dependency to the app. Open a terminal, navigate to your project directory and type: 
+First add the dependency to the app. Open a terminal, navigate to your project directory and type:
 
 <Instruction>
 
@@ -24,7 +24,7 @@ yarn add react-router react-router-dom
 
 </Instruction>
 
-### Create a Header
+### Create a Hhader
 
 Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
 
@@ -59,14 +59,13 @@ export default withRouter(Header)
 
 </Instruction>
 
-This simply renders two `Link` components that users can use to navigate between the `LinkList` and the `CreateLink` components. 
+This simply renders two `Link` components that users can use to navigate between the `LinkList` and the `CreateLink` components.
 
 > Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows you to navigate between routes inside of your application.
 
-
 ### Setup routes
 
-You'll configure the different routes for the app in the project's root component: `App`. 
+You'll configure the different routes for the app in the project's root component: `App`.
 
 <Instruction>
 
@@ -90,7 +89,7 @@ render() {
 
 </Instruction>
 
-For this code to work, you need to import the required dependencies of `react-router-dom`. 
+For this code to work, you need to import the required dependencies of `react-router-dom`.
 
 <Instruction>
 
@@ -132,7 +131,7 @@ ReactDOM.render(
 
 </Instruction>
 
-That's it. If you run `yarn start`, you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
+That's it. If you run `yarn start` in the `hackernews-react-apollo` directory (not in `server`), you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
 
 ![](http://imgur.com/I16JzwW.png)
 
@@ -147,7 +146,7 @@ Open `CreateLink.js` and update `_createLink` to look as follows:
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const { description, url } = this.state
-  await this.props.createLinkMutation({
+  await this.props.postMutation({
     variables: {
       description,
       url

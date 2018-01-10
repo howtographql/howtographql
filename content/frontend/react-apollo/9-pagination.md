@@ -42,11 +42,11 @@ render() {
 
 </Instruction>
 
-Make sure to import the Redirect component, so you don't get any errors.
+Make sure to import the `Redirect` component, so you don't get any errors.
 
 <Instruction>
 
-Also update the router import on the top of the file:
+Update the router import on the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -71,41 +71,41 @@ Open `Header.js` add the following lines _between_ the `/` and the `/search` rou
 
 </Instruction>
 
-You also need to add quite some logic to the `LinkList` component to account for the two different responsibilities it now has. 
+You also need to add quite some logic to the `LinkList` component to account for the two different responsibilities it now has.
 
 <Instruction>
 
-Open `LinkList.js` and add three arguments to the `AllLinksQuery` by replacing the `ALL_LINKS_QUERY` definition with the following:
+Open `LinkList.js` and add three arguments to the `FeedQuery` by replacing the `FEED_QUERY` definition with the following:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-export const ALL_LINKS_QUERY = gql`
-  query AllLinksQuery($first: Int, $skip: Int, $orderBy: LinkOrderBy) {
-    allLinks(first: $first, skip: $skip, orderBy: $orderBy) {
-      id
-      createdAt
-      url
-      description
-      postedBy {
+export const FEED_QUERY = gql`
+  query FeedQuery($first: Int, $skip: Int, $orderBy: LinkOrderByInput) {
+    feed(first: $first, skip: $skip, orderBy: $orderBy) {
+      count
+      links {
         id
-        name
-      }
-      votes {
-        id
-        user {
+        createdAt
+        url
+        description
+        postedBy {
           id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
         }
       }
     }
-    _allLinksMeta {
-      count
-    }
   }
 `
-```  
+```
 
 </Instruction>
 
-The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` for this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.   
+The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` for this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.
 
 But how can we pass the variables when using the `graphql` container which is fetching the data under the hood? You need to provide the arguments right where you're wrapping your component with the query.
 
@@ -114,18 +114,18 @@ But how can we pass the variables when using the `graphql` container which is fe
 Still in `LinkList.js`, replace the current `export` statement with the following:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-export default graphql(ALL_LINKS_QUERY, {
-  name: 'allLinksQuery',
-  options: (ownProps) => {
+export default graphql(FEED_QUERY, {
+  name: 'feedQuery',
+  options: ownProps => {
     const page = parseInt(ownProps.match.params.page, 10)
     const isNewPage = ownProps.location.pathname.includes('new')
     const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
     const first = isNewPage ? LINKS_PER_PAGE : 100
     const orderBy = isNewPage ? 'createdAt_DESC' : null
     return {
-      variables: { first, skip, orderBy }
+      variables: { first, skip, orderBy },
     }
-  }
+  },
 })(LinkList)
 ```
 
@@ -277,9 +277,9 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
 
 </Instruction>
  
-All that's happening here is the computation of the variables depending on whether the user currently is on the `/top` or `/new` route.  
+All that's happening here is the computation of the variables depending on whether the user currently is on the `/top` or `/new` route.
 
-Finally, you also need to adjust the implementation of `update` when new links are created. 
+Finally, you also need to adjust the implementation of `update` when new links are created.
 
 <Instruction>
 
@@ -287,38 +287,32 @@ Open `CreateLink.js` and replace the current contents of `_createLink` like so:
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
-  const postedById = localStorage.getItem(GC_USER_ID)
-  if (!postedById) {
-    console.error('No user logged in')
-    return
-  }
   const { description, url } = this.state
-  await this.props.createLinkMutation({
+  await this.props.postMutation({
     variables: {
       description,
       url,
-      postedById
     },
-    update: (store, { data: { createLink } }) => {
+    update: (store, { data: { post } }) => {
       const first = LINKS_PER_PAGE
       const skip = 0
       const orderBy = 'createdAt_DESC'
       const data = store.readQuery({
-        query: ALL_LINKS_QUERY,
-        variables: { first, skip, orderBy }
+        query: FEED_QUERY,
+        variables: { first, skip, orderBy },
       })
-      data.allLinks.splice(0,0,createLink)
-      data.allLinks.pop()
+      data.feed.links.splice(0, 0, post)
+      data.feed.links.pop()
       store.writeQuery({
-        query: ALL_LINKS_QUERY,
+        query: FEED_QUERY,
         data,
-        variables: { first, skip, orderBy }
+        variables: { first, skip, orderBy },
       })
-    }
+    },
   })
   this.props.history.push(`/new/1`)
 }
-``` 
+```
 
 </Instruction>
 
@@ -327,7 +321,7 @@ _createLink = async () => {
 Since you don't have the `LINKS_PER_PAGE` constant available in this component yet, make sure to import it on top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-import { GC_USER_ID, LINKS_PER_PAGE } from '../constants'
+import { LINKS_PER_PAGE } from '../constants'
 ```
 
 </Instruction>

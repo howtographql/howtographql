@@ -13,8 +13,8 @@ correctAnswer: 2
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with a minor (but logical) difference in step 3:
 
 1. write the mutation as a JSava riptconstant using the `gql` parser function
-2. use the `graphql` container to wrap your component with the mutation
-3. use the mutation function that gets injected into the component's props
+1. use the `graphql` container to wrap your component with the mutation
+1. use the mutation function that gets injected into the component's props
 
 ### Preparing the React components
 
@@ -75,7 +75,7 @@ export default CreateLink
 
 This is a standard setup for a React component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in the component's `state` and will be used in `_createLink` when the mutation is sent.
 
-### Writing the Mutation
+### Writing the mutation
 
 But how can you now actually send the mutation? Let's follow the three steps from before.
 
@@ -87,10 +87,10 @@ In `CreateLink.js`, add the following statement to the bottom of the file (also 
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // 1
-const CREATE_LINK_MUTATION = gql`
+const POST_MUTATION = gql`
   # 2
-  mutation CreateLinkMutation($description: String!, $url: String!) {
-    createLink(
+  mutation PostMutation($description: String!, $url: String!) {
+    post(
       description: $description,
       url: $url,
     ) {
@@ -103,16 +103,16 @@ const CREATE_LINK_MUTATION = gql`
 `
 
 // 3
-export default graphql(CREATE_LINK_MUTATION, { name: 'createLinkMutation' })(CreateLink)
+export default graphql(POST_MUTATION, { name: 'postMutation' })(CreateLink)
 ```
 
 </Instruction>
 
 Let's take a closer look again to understand what's going on:
 
-1. You first create the JavaScript constant called `CREATE_LINK_MUTATION ` that stores the mutation.
-2. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.  
-3. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `CREATE_LINK_MUTATION `. The specified `name` again refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `createLinkMutation` and that you can call and pass in the required arguments. 
+1. You first create the JavaScript constant called `POST_MUTATION` that stores the mutation.
+1. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.
+1. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `POST_MUTATION`. The specified `name` again refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `postMutation` and that you can invoke and pass in the required arguments.
 
 <Instruction>
 
@@ -134,7 +134,7 @@ Still in `CreateLink.js`, implement the `_createLink` mutation as follows:
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const { description, url } = this.state
-  await this.props.createLinkMutation({
+  await this.props.postMutation({
     variables: {
       description,
       url
@@ -145,7 +145,7 @@ _createLink = async () => {
 
 </Instruction>
 
-As promised, all you need to do is call the function that Apollo injects into `CreateLink` and pass the variables that represent the user input. 
+As promised, all you need to do is call the function that Apollo injects into `CreateLink` and pass the variables that represent the user input.
 
 <Instruction>
 
@@ -157,7 +157,7 @@ render() {
     <CreateLink />
   )
 }
-```  
+```
 
 </Instruction>
 
@@ -173,24 +173,24 @@ import CreateLink from './CreateLink'
 
 Now, run `yarn start`, you'll see the following screen:
 
-![](http://imgur.com/AJNlEfj.png) 
+![](http://imgur.com/AJNlEfj.png)
 
-Two input fields and a _submit_-button - not very pretty but functional.
+Two input fields and a **submit**-button - not very pretty but functional.
 
 Enter some data into the fields, e.g.:
 
 - **Description**: `The best learning resource for GraphQL`
 - **URL**: `www.howtographql.com`
 
-Then click the _submit_-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
+Then click the **submit**-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
 
 > At this point, you'll only see the new link after refreshing the page. In chapter six you will take care of updating the UI properly after a mutation was performed.
 
-Type `graphcool-framework playground` into a terminal and send the following query:
+You can open a Playground again by navigating to `http://localhost:4000` in yout browser. Then send the following query in the **dev** playground in the **database** section:
 
 ```graphql
 {
-  allLinks {
+  links {
     description
     url
   }
@@ -202,7 +202,7 @@ You'll see the following server response:
 ```js(nocopy)
 {
   "data": {
-    "allLinks": [
+    "links": [
       {
         "description": "The best learning resource for GraphQL",
         "url": "www.howtographql.com"
