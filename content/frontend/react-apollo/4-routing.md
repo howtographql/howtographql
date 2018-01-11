@@ -21,7 +21,7 @@ yarn add react-router react-router-dom
 
 </Instruction>
 
-### Create a Hhader
+### Create a Header
 
 Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
 
