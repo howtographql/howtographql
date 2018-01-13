@@ -1,7 +1,7 @@
 ---
 title: Summary
 pageTitle: "Building a GraphQL Server with Javascript & Node.js Tutorial"
-description: "You learned how to build a GraphQL server with Node.js & MongoDB and best practices for filters, authentication, pagination and subscriptions."
+description: "You learned how to build a GraphQL server with Node.js and best practices for filters, authentication, pagination and subscriptions."
 ---
 
 In this tutorial you learned how to build your very own GraphQL server from scratch, using [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/) and [Graphcool](https://graph.cool) as a "GraphQL database" service.
