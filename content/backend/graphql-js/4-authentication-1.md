@@ -196,7 +196,7 @@ async function signup(parent, args, context, info) {
     data: { ...args, password },
   })
 
-  const token = jwt.sign({ userId: user.id }, APPS_SECRET)
+  const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
   return {
     token,
