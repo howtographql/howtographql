@@ -283,7 +283,7 @@ Open `src/resolvers/Mutation.js` and add the following function to it:
 async function login(parent, args, context, info) {
   const user = await context.db.query.user({ where: { email: args.email } })
   if (!user) {
-    throw new Error(`Could not find user with email: ${email}`)
+    throw new Error(`Could not find user with email: ${args.email}`)
   }
 
   const valid = await bcrypt.compare(args.password, user.password)
