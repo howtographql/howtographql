@@ -67,7 +67,7 @@ This is it. To test this mutation, you can run `yarn start` again and send the f
 
 ```graphql
 mutation {
-  post(url: "https://www.howtographql.com", description: "Fullstack tutorial website for GraphQL" {
+  post(url: "https://www.howtographql.com", description: "Fullstack tutorial website for GraphQL") {
     id
   }
 }
