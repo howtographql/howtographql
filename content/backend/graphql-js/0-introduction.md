@@ -5,7 +5,6 @@ description: "Learn how to build a GraphQL server with graphql-yoga, Node.JS, Ex
 question: Which of these is a requirement for GraphQL servers?
 answers: ["Run in NodeJS", "Real time subscriptions support", "Validate incoming GraphQL requests", "Automatically generate queries and mutations from schema types"]
 correctAnswer: 2
-description: Read about what you'll learn in the graphql.js tutorial
 ---
 
 ### Motivation
