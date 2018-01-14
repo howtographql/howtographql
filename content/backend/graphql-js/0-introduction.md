@@ -9,6 +9,6 @@ correctAnswer: 2
 
 # Note
 
-This tutorial is currently being updated and will be back online Tuesday, January 15.
+This tutorial is currently being updated and will be back online **Tuesday, January 15**.
 
-Follow us on [Twitter](https://www.twitter.com/graphcool) to get notified when it is available again!
+> Follow us on [Twitter](https://www.twitter.com/graphcool) to get notified when it is available again!
