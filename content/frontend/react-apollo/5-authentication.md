@@ -1,7 +1,7 @@
 ---
 title: Authentication
 pageTitle: "Authentication with GraphQL, React & Apollo Tutorial"
-description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Graphcool."
+description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Prisma."
 question: "How are HTTP requests send by ApolloClient authenticated?"
 answers: ["The ApolloClient needs to be instantiated with an authentication token", "ApolloClient exposes an extra method called 'authenticate' where you can pass an authentication token", "By attaching an authentication token to the request with dedicated ApolloLink middleware", "ApolloClient has nothing to do with authentication"]
 correctAnswer: 1
@@ -106,7 +106,7 @@ Next you also need to provide the `constants.js` file that we use to define keys
 In `src`, create a new file called `constants.js` and add the following two definition:
 
 ```js(path=".../hackernews-react-apollo/src/constants.js")
-export const AUTH_TOKEN = 'graphcool-auth-token'
+export const AUTH_TOKEN = 'auth-token'
 ```
 
 </Instruction>

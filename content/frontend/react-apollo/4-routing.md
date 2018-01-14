@@ -12,7 +12,7 @@ videoAuthor: ""
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
-### Install Dependencies
+### Install dependencies
 
 First add the dependency to the app. Open a terminal, navigate to your project directory and type:
 
@@ -24,7 +24,7 @@ yarn add react-router react-router-dom
 
 </Instruction>
 
-### Create a Hhader
+### Create a header
 
 Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
 
