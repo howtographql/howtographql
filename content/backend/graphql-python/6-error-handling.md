@@ -6,7 +6,7 @@ correctAnswer: 0
 description: Handling Errors on GraphQL
 ---
 
-All applications fail, and GraphQL it's no different. Some clients may ask for information that's not available or execute a forbidden action. In this chapter, you'll understand how GraphQL and Graphene address these issues.
+All applications fail, and GraphQL is no different. Some clients may ask for information that's not available or execute a forbidden action. In this chapter, you'll understand how GraphQL and Graphene address these issues.
 
 ### Schema Errors
 Being a language with a strong type system, GraphQL can predetermine if a query is valid. All the fields from queries and mutations have a strong type, so requesting and inputting wrong data will generate an error.
