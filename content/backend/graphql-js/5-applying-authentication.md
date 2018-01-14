@@ -3,7 +3,7 @@ title: Applying Authentication
 pageTitle: "Server-side Authentication with GraphQL, Javascript & Node.js Tutorial"
 description: "Learn best practices for implementing email-password authentication on a GraphQL Server with Javascript, Node.js & Express."
 question: What is the "connect" argument in a Graphcool mutation used for?
-answers: ["It connects your application schema with the Graphcool schema", "It creates a TCP connection", "It's used to connect two nodes in the database via a relation", "There is "connect" argument in Graphcool mutations"]
+answers: ["It connects your application schema with the Graphcool schema", "It creates a TCP connection", "It's used to connect two nodes in the database via a relation", "There is connect argument in Graphcool mutations"]
 correctAnswer: 3
 ---
 
