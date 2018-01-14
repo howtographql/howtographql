@@ -44,7 +44,7 @@ module.exports = {
 
 </Instruction>
 
-This implementation follows the same approach as the `feed` query from the previous chapter. You're retrieving the `url` and `description` input arguments and passing them on to the `createLink` mutation from the Graphcool API. Easy as pie! 🍰
+This implementation follows the same approach as the `feed` query from the previous chapter. You're retrieving the `url` and `description` input arguments and passing them on to the `createLink` mutation from the Prisma API. Easy as pie! 🍰
 
 The last step is to also add the `Mutation` resolvers to the constructor of `GraphQLServer` in `index.js`.
 

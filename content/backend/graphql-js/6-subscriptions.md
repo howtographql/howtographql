@@ -16,11 +16,11 @@ In this section, you'll learn how you can bring realtime functionality into your
 
 Subscriptions are a GraphQL feature that allows the server to send data to the clients when a specific event happens. Subscriptions are usually implemented with [WebSockets](https://en.wikipedia.org/wiki/WebSocket), where the server holds a steady connection to the client. This means you're not using the _Request-Response-Cycle_ that we used for all previous interactions with the API any more. Instead, the client initially opens up a steady connection to the server by specifying which event it is interested in. Every time this particular event happens, the server uses the connection to push the data that's related to the event to the client.
 
-### Subscriptions with Graphcool
+### Subscriptions with Prisma
 
-Luckily for us, Graphcool comes with out-of-the-box support for subscriptions. In fact, if you take a look at the Graphcool schema in `src/generated/graphcool.graphql`, you'll notice that the `Subscription` type is already there and looks as follows:
+Luckily for us, Prisma comes with out-of-the-box support for subscriptions. In fact, if you take a look at the Prisma schema in `src/generated/prisma.graphql`, you'll notice that the `Subscription` type is already there and looks as follows:
 
-```graphql(path=".../hackernews-node/src/generated/graphcool.graphql"&nocopy)
+```graphql(path=".../hackernews-node/src/generated/prisma.graphql"&nocopy)
 type Subscription {
   vote(where: VoteSubscriptionWhereInput): VoteSubscriptionPayload
   link(where: LinkSubscriptionWhereInput): LinkSubscriptionPayload
@@ -71,7 +71,7 @@ type Subscription {
 
 </Instruction>
 
-You now have the same issue as you had with `Vote` in the last chapter: You're referencing types, `LinkSubscriptionPayload` and `VoteSubscriptionPayload`, in the application schema without making them explicitly available (either by importing or redefining them). The solution of course is to import them from the Graphcool schema.
+You now have the same issue as you had with `Vote` in the last chapter: You're referencing types, `LinkSubscriptionPayload` and `VoteSubscriptionPayload`, in the application schema without making them explicitly available (either by importing or redefining them). The solution of course is to import them from the Prisma schema.
 
 <Instruction>
 
@@ -118,7 +118,7 @@ module.exports = {
 
 Subscription resolvers are implemented slightly differently than those for queries and mutations. Rather than directly writing the resolver function function, you define an object with a `subscribe` property. The value of this property is the actual subscription resolver.
 
-Just like with queries and mutations though, and thanks to the `graphcool-binding` package, all you need to do to actually implement the resolver functions is _delegate_ the subscription execution to the `Graphcool` instance you create in `index.js`.
+Just like with queries and mutations though, and thanks to the `prisma-binding` package, all you need to do to actually implement the resolver functions is _delegate_ the subscription execution to the `Prisma` instance you create in `index.js`.
 
 Talking about `index.js`, the last thing you need to do to make subscriptions work is adding the resolvers to the `resolvers` object which gets passed to the constructor of your `GraphQLServer`.
 
@@ -128,7 +128,7 @@ Open `src/index.js`, add the import statement for `Subscription` and include it 
 
 ```js{5,10}(path=".../hackernews-node/src/index.js")
 const { GraphQLServer } = require('graphql-yoga')
-const { Graphcool } = require('graphcool-binding')
+const { Prisma } = require('prisma-binding')
 const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation')
 const Subscription = require('./resolvers/Subscription')

@@ -1,7 +1,7 @@
 ---
 title: Introduction
-pageTitle: "Building a GraphQL Server with Node.js & Backend Tutorial"
-description: "Learn how to build a GraphQL server with graphql-yoga, Node.JS, Express & Graphcool and best practices for filters, authentication, pagination and subscriptions."
+pageTitle: "Building a GraphQL Server with Node.js & Prisma Backend Tutorial"
+description: "Learn how to build a GraphQL server with graphql-yoga, Node.JS, Express & Prisma and best practices for filters, authentication, pagination and subscriptions."
 question: Which of these is a requirement for GraphQL servers?
 answers: ["Run in NodeJS", "Real time subscriptions support", "Validate incoming GraphQL requests", "Automatically generate queries and mutations from schema types"]
 correctAnswer: 2
@@ -14,8 +14,8 @@ GraphQL is the rising star of backend technologies. It replaces REST as an API d
 In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server using the following technologies:
 
 * Server
-  * [`graphql-yoga`](https://github.com/graphcool/graphql-yoga/): Fully-featured GraphQL server with focus on easy setup, performance & great developer experience. Built on top of [Express](https://expressjs.com/), [`apollo-server`](https://github.com/apollographql/apollo-server), [`graphql-js`](https://github.com/graphql/graphql-js) and more.
-  * [Graphcool](https://www.graph.cool/): "GraphQL database" providing a powerful, realtime CRUD API for your data model.
+  * [`graphql-yoga`](https://github.com/prisma/graphql-yoga/): Fully-featured GraphQL server with focus on easy setup, performance & great developer experience. Built on top of [Express](https://expressjs.com/), [`apollo-server`](https://github.com/apollographql/apollo-server), [`graphql-js`](https://github.com/graphql/graphql-js) and more.
+  * [Prisma](https://www.prismagraphql.com/): GraphQL abstraction layer that turns your database into a GraphQL API which provides powerful, realtime CRUD operations for your data model.
   * [Node.js](https://nodejs.org/en/): Runtime environment for building servers with JavaScript. GraphQL itself is _programming language agnostic_, so check out the other tutorials in this section if you prefer to use another language.
   * [GraphQL Playground](https://github.com/graphql/graphiql): Extremely useful tool for quickly testing GraphQL APIs. There's no need to build a whole frontend app just to test use cases, but it can also be a pain to build and send GraphQL requests manually using [Postman](https://www.getpostman.com/) or other similar tools. Among other things, GraphQL Playgrounds...
     * ... auto-generate a comprehensive, multi-column documentation for all your available queries and mutations.

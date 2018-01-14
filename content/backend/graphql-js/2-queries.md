@@ -31,23 +31,23 @@ type Link {
 
 ### Deploy the database to apply changes
 
-With the `Link` type in place, you can go ahead and deploy your Graphcool database service.
+With the `Link` type in place, you can go ahead and deploy your Prisma database service.
 
 <Instruction>
 
 In your terminal, navigate to the root directory of your project and run the following command:
 
 ```bash(path=".../hackernews-node/")
-yarn graphcool deploy
+yarn prisma deploy
 ```
 
 </Instruction>
 
-> Notice that you don't have to explicitly install the Graphcool CLI as it's listed as a _development dependency_ in your `package.json`.
+> Notice that you don't have to explicitly install the Prisma CLI as it's listed as a _development dependency_ in your `package.json`.
 
-The Graphcool API now exposes queries and mutations to create, read, update and delete elements of type `Link`. Here's a slightly simplified version of the generated operations (if you want to see _everything_ that's generated, you can check the Graphcool schema in `src/generated/graphcool.graphql`):
+The Prisma API now exposes queries and mutations to create, read, update and delete elements of type `Link`. Here's a slightly simplified version of the generated operations (if you want to see _everything_ that's generated, you can check the Prisma schema in `src/generated/prisma.graphql`):
 
-```graphql(path=".../hackernews-node/src/generated/graphcool.graphql&nocopy)
+```graphql(path=".../hackernews-node/src/generated/prisma.graphql&nocopy)
 type Query {
   links(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Link]!
   link(where: LinkWhereUniqueInput!): Link
@@ -66,7 +66,7 @@ The `links` and `link` queries allow to retrieve a list of links as well a singl
 
 ### Adjust the application schema
 
-At this point, your Graphcool database service already allows to perform CRUD operations for the `Link` type. You can test this inside a GraphQL Playground if you like.
+At this point, your Prisma database service already allows to perform CRUD operations for the `Link` type. You can test this inside a GraphQL Playground if you like.
 
 The next step for you is now to update the application schema and define the `feed` query there.
 
@@ -75,7 +75,7 @@ The next step for you is now to update the application schema and define the `fe
 Open the application schema in `src/schema.graphql` and replace its contents with the following:
 
 ```graphql(path=".../hackernews-node/src/schema.graphql)
-# import Link from "./generated/graphcool.graphql"
+# import Link from "./generated/prisma.graphql"
 
 type Query {
   feed(filter: String, skip: Int, first: Int): [Link!]!
@@ -84,7 +84,7 @@ type Query {
 
 </Instruction>
 
-Notice that you're _importing_ the `Link` type from the generated Graphcool schema rather than copying it over or entirely redefining it here. The import syntax is enabled by the [`graphql-import`](https://github.com/graphcool/graphql-import) package.
+Notice that you're _importing_ the `Link` type from the generated Prisma schema rather than copying it over or entirely redefining it here. The import syntax is enabled by the [`graphql-import`](https://github.com/prisma/graphql-import) package.
 
 ### Implement the `feed` resolver
 
@@ -122,9 +122,9 @@ There are a couple of things to note about this implementation:
   1. `context`: The `context` is an object that can hold custom data that's passed through the resolver chain, i.e. every resolver can read from and write to it.
   1. `info`: Contains the [abstract syntax tree](https://medium.com/@cjoudrey/life-of-a-graphql-query-lexing-parsing-ca7c5045fad8) (AST) of the query and information about _where_ the execution in the resolver chain currently is.
 - The `filter` argument is used to build a filter object (called `where`) to retrieve link elements where the `description` or the `url` contains that `filter` string.
-- Finally, the resolver simply delegates the execution of the incoming query to the `links` resolver from the Graphcool API and returns the result of that execution.
+- Finally, the resolver simply delegates the execution of the incoming query to the `links` resolver from the Prisma API and returns the result of that execution.
 
-Notice that in the line `context.db.query.links({ first, skip, where }, info)`, you're accessing the `Graphcool` instance which you previously attached to the `context` object when instantiating the `GraphQLServer`.
+Notice that in the line `context.db.query.links({ first, skip, where }, info)`, you're accessing the `Prisma` instance which you previously attached to the `context` object when instantiating the `GraphQLServer`.
 
 To finalize the implementation, you need to make sure the `feed` resolver you just implemented is used when your `GraphQLServer` is instantiated.
 
@@ -177,11 +177,11 @@ Open a browser window and add navigate to [`http://localhost:4000`](http://local
 You now opened a GraphQL Playground which allows you to interact with two GraphQL APIs:
 
 - `app`: This is the API defined by your application schema, at the moment it only exposes the `feed` query.
-- `database`: This is the Graphcool API exposing all the CRUD operations for the `Link` type.
+- `database`: This is the Prisma API exposing all the CRUD operations for the `Link` type.
 
 ![](https://imgur.com/vZ6fJVv.png)
 
-To create some initial data, you need to send a `createLink` mutation to the Graphcool API.
+To create some initial data, you need to send a `createLink` mutation to the Prisma API.
 
 <Instruction>
 
@@ -200,7 +200,7 @@ mutation {
 
 </Instruction>
 
-Awesome, you just created your first `Link` instance in the database 🎉  You can either retrieve it using the `links` query from the Graphcool API. In that case, you can simply use the same `dev` Playground in the `database` section again.
+Awesome, you just created your first `Link` instance in the database 🎉  You can either retrieve it using the `links` query from the Prisma API. In that case, you can simply use the same `dev` Playground in the `database` section again.
 
 However, you can now also retrieve this new `Link` with the `feed` query from your application schema.
 

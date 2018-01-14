@@ -13,22 +13,22 @@ In this section, you'll learn how to implement authentication functionality for 
 
 Before diving into the implementation, you have to understand how and where authentication plays a role in your server-side setup. Most notably, there are two areas where authentication and data protection are important:
 
-- Securing access to your Graphcool database service
+- Securing access to your Prisma database service
 - Offering login functionality to your application's users
 
-#### Securing access to your Graphcool database service
+#### Securing access to your Prisma database service
 
-When accessing a Graphcool database service (over HTTP), you need to authenticate by attaching an authentication token to the `Authorization` field of your HTTP header. Otherwise, the request is going to fail.
+When accessing a Prisma database service (over HTTP), you need to authenticate by attaching an authentication token to the `Authorization` field of your HTTP header. Otherwise, the request is going to fail.
 
-> Note that you can temporarily disable the service's requirement for authentication by setting the `disableAuth` property in your `graphcool.yml` to `true`. Only then you can send requests to the service without providing the `Authorization` header field.
+> Note that you can temporarily disable the service's requirement for authentication by setting the `disableAuth` property in your `prisma.yml` to `true`. Only then you can send requests to the service without providing the `Authorization` header field.
 
-But where do you get this authentication token from? Well, you can actually generate it yourself, it's a [JSON web token](https://jwt.io) (JWT) that needs to be signed with the Graphcool **service secret** which is specified as the `secret` property in your `graphcool.yml`.
+But where do you get this authentication token from? Well, you can actually generate it yourself, it's a [JSON web token](https://jwt.io) (JWT) that needs to be signed with the Prisma **service secret** which is specified as the `secret` property in your `prisma.yml`.
 
-In most cases however (when using `graphcool-binding` or the Graphcool CLI) the JWT token is actually generated for you so you don't have to worry about that at all and all you need to do is initally provide the `secret`. This is also why the `Graphcool` instance in `index.js` receives the `secret` as a constructor argument, so it can generate JWTs under the hood. Another example is the `graphcool playground` command from the CLI. This will generate a token and set it as the `Authorization` header when the Playground is opened, so you can start sending queries and mutations right away.
+In most cases however (when using `prisma-binding` or the Prisma CLI) the JWT token is actually generated for you so you don't have to worry about that at all and all you need to do is initally provide the `secret`. This is also why the `Prisma` instance in `index.js` receives the `secret` as a constructor argument, so it can generate JWTs under the hood. Another example is the `prisma playground` command from the CLI. This will generate a token and set it as the `Authorization` header when the Playground is opened, so you can start sending queries and mutations right away.
 
 #### Offering login functionality to your application's users
 
-All right! So now you understand what the `secret` in `graphcool.yml` is actually used for and why it's passed as an argument when to the `Graphcool` constructor. This however only protects your database from unauthorized access, but it doesn't help in offering authentication functionality to the users of your application. This you need to implement yourself!
+All right! So now you understand what the `secret` in `prisma.yml` is actually used for and why it's passed as an argument when to the `Prisma` constructor. This however only protects your database from unauthorized access, but it doesn't help in offering authentication functionality to the users of your application. This you need to implement yourself!
 
 > Note that you can also try the [`node-advanced`](https://github.com/graphql-boilerplates/node-graphql-server/tree/master/advanced) GraphQL boilerplate project which comes with predefined authentication functionality.
 
@@ -140,14 +140,14 @@ This new `User` type represents the users of your application. The `password` fi
 To apply the changes, you need to deploy your database again. In the root directory of your project, run the following command:
 
 ```bash(path=".../hackernews-node/")
-yarn graphcool deploy
+yarn prisma deploy
 ```
 
 </Instruction>
 
-The Graphcool API now also exposes CRUD operations for the `User` type, similar to the `Link` before. Here's again a simplified version of the generated operations (check `graphcool.graphql` to see all generated operations):
+The Prisma API now also exposes CRUD operations for the `User` type, similar to the `Link` before. Here's again a simplified version of the generated operations (check `prisma.graphql` to see all generated operations):
 
-```graphql(path=".../hackernews-node/src/generated/graphcool.graphql&nocopy)
+```graphql(path=".../hackernews-node/src/generated/prisma.graphql&nocopy)
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   user(where: UserWhereUniqueInput!): User
@@ -163,7 +163,7 @@ type Mutation {
 }
 ```
 
-Great job! So now the `User` is part of our data model and of the Graphcool schema! However, it still needs to be part of the application schema as it's only referenced there but the application schema doesn't yet have access to the actual definition. So, there will be a `Couldn't find type User in any of the schemas.`-error when you're trying to start the server now.
+Great job! So now the `User` is part of our data model and of the Prisma schema! However, it still needs to be part of the application schema as it's only referenced there but the application schema doesn't yet have access to the actual definition. So, there will be a `Couldn't find type User in any of the schemas.`-error when you're trying to start the server now.
 
 You could now take the same approach as with the `Link` type from before and use the `import` syntax from `graphql-import`. However, this time you're actually going to _redefine_ the `User` type in the application schema. This is because you don't want to expose the `password` field through the application schema. If you were to import the `User` type like the `Link` type before, you wouldn't be able to control which fields should be exposed in your API.
 
@@ -181,7 +181,7 @@ type User {
 
 </Instruction>
 
-This definition of the `User` type is identical to the `User` definition in your generated Graphcool schema, except that it misses the `password` field so clients are not able to query it. Exactly what you wanted!
+This definition of the `User` type is identical to the `User` definition in your generated Prisma schema, except that it misses the `password` field so clients are not able to query it. Exactly what you wanted!
 
 Now you can go and implement the resolver for the `signup` mutation.
 
@@ -207,9 +207,9 @@ async function signup(parent, args, context, info) {
 
 </Instruction>
 
-In the `signup` resolver, you're first creating the hash of the password using `bcryptjs`. Next, you're using the `Graphcool` instance from `context` to create a new `User` node in the database. Finally, you're returning the `AuthPayload` which contains a `token` and the newly created `user` object.
+In the `signup` resolver, you're first creating the hash of the password using `bcryptjs`. Next, you're using the `Prisma` instance from `context` to create a new `User` node in the database. Finally, you're returning the `AuthPayload` which contains a `token` and the newly created `user` object.
 
-> **Note**: In case you wondered whether you should include a check for duplicate email addresses before invoking the `createUser` mutation in the `signup` resolver, this is not necessary. This requirement is already taken care of since the `email` field in your data model is annotated with the `@unique` directive. For fields that are annotated with this directive, Graphcool ensures that no two nodes with the same values for these fields exist.
+> **Note**: In case you wondered whether you should include a check for duplicate email addresses before invoking the `createUser` mutation in the `signup` resolver, this is not necessary. This requirement is already taken care of since the `email` field in your data model is annotated with the `@unique` directive. For fields that are annotated with this directive, Prisma ensures that no two nodes with the same values for these fields exist.
 
 For this function to work, you still need to import the corresponding dependencies.
 
@@ -302,7 +302,7 @@ async function login(parent, args, context, info) {
 
 </Instruction>
 
-Here's what's happening in this function: You first use the `email` that was provided as an input argument to the `login` mutation to try and retrieve a `User` node from the Graphcool database service. If this is not successful, you return an error indicating that a `User` with the provided `email` does not exist. If it does exist and was succesfully retrieved from the database, you're using `bcryptjs` to compare the password hashes. If the comparison fails, you're again returning an error. This time indicating that the provided password is invalid. Finally, if the password check succeeds, you're again generating an authentication `token` and return it along with the `user` object (as required by the `AuthPayload` type in your application schema).
+Here's what's happening in this function: You first use the `email` that was provided as an input argument to the `login` mutation to try and retrieve a `User` node from the Prisma database service. If this is not successful, you return an error indicating that a `User` with the provided `email` does not exist. If it does exist and was succesfully retrieved from the database, you're using `bcryptjs` to compare the password hashes. If the comparison fails, you're again returning an error. This time indicating that the provided password is invalid. Finally, if the password check succeeds, you're again generating an authentication `token` and return it along with the `user` object (as required by the `AuthPayload` type in your application schema).
 
 The last thing you need to do is export the `login` function from `Mutation.js`.
 

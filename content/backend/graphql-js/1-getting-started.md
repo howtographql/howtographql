@@ -3,7 +3,7 @@ title: Getting Started
 pageTitle: "Getting Started with GraphQL, JavaScript and Node.js Tutorial"
 description: "Learn how to setup a GraphQL server with JavaScript, Node.js & Express as well as best practices for defining the GraphQL schema."
 question: Which of the following files does not define a "proper" GraphQL schema.
-answers: ["src/schema.graphql", "database/datamodel.graphql", "src/generated/graphcool.grahpql", "Trick question: All of them do"]
+answers: ["src/schema.graphql", "database/datamodel.graphql", "src/generated/prisma.grahpql", "Trick question: All of them do"]
 correctAnswer: 1
 ---
 
@@ -69,10 +69,10 @@ Great! So this is the final application schema you want to have implemented in t
 
 In the following, you'll gradually implement the defined queries, mutations and subscriptions one by one. The implementation process will look somewhat similar every time - this is also referred to as **schema-driven development**:
 
-1. Adjust the data model of your Graphcool database service
-1. Deploy the Graphcool database service to apply your changes
+1. Adjust the data model of your Prisma database service
+1. Deploy the Prisma database service to apply your changes
 1. Extend your application schema with a new root field
-1. Implement the resolver for the root field by [_delegating_](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405) the execution to the corresponding Graphcool resolver
+1. Implement the resolver for the root field by [_delegating_](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405) the execution to the corresponding Prisma resolver
 
 ### Bootstrap your GraphQL server
 
@@ -89,6 +89,9 @@ npm install -g graphql-cli
 ```
 
 </Instruction>
+
+ > **Note**: For the purpose of this tutorial you don't explicitly have to install the Prisma CLI because `prisma-cli` is listed as a _development dependency_ in the boilerplate you'll use. This allows to run its commands by prefixing it with `yarn`, e.g. `yarn prisma deploy` or `yarn prisma playground`.
+ > If you have `prisma` installed globally on your machine (which you can do with `npm install -g prisma`), you don't need to use the `yarn` prefix throughout this tutorial.
 
 With the CLI installed, you can now use the `graphql create` command to setup your GraphQL server. Note that this command is based on several [GraphQL boilerplate](https://github.com/graphql-boilerplates/) projects that provide an initial set of features for various languages and technologies.
 
@@ -111,30 +114,30 @@ This now created a new directory called `hackernews-node` based on the [`node-ba
 │   ├── index.js
 │   ├── schema.graphql
 │   └── generated
-│       └── graphcool.graphql
+│       └── prisma.graphql
 └── database
-    ├── graphcool.yml
+    ├── prisma.yml
     └── datamodel.graphql
 ```
 
 Here's an overview of what the directories and files are used for:
 
-- `src`: This directory generally contains the JavaScript code for your application. It also holds the **application schema** (which is defined in `src/schema.graphql`) as well as the auto-generated **Graphcool schema** (in `src/generated/graphcool.graphql`) which we'll discuss in a bit.
-- `database`: This directory stores everything related to your Graphcool database service. This includes the root configuration file `graphcool.yml` and the definitions of your application's _data model_ (in one or split across multiple files).
-  - `graphcool.yml`: This is the root configuration file for your "Graphcool database" service. In here, you specify a _name_ for your service, _deployment information_ and your _data model_ which will be used to generate the Graphcool CRUD API.
-  - `datamodel.graphql`: The data model is written in GraphQL SDL and provides the foundation for your database: The Graphcool API defined in `src/generated/graphcool.graphql` provides CRUD functionality which allows to easily **c**reate, **r**ead, **u**pdate and **d**elete instances of the types in your data model (e.g. a `Link` or a `User` type).
+- `src`: This directory generally contains the JavaScript code for your application. It also holds the **application schema** (which is defined in `src/schema.graphql`) as well as the auto-generated **Prisma schema** (in `src/generated/prisma.graphql`) which we'll discuss in a bit.
+- `database`: This directory stores everything related to your Prisma database service. This includes the root configuration file `prisma.yml` and the definitions of your application's _data model_ (in one or split across multiple files).
+  - `prisma.yml`: This is the root configuration file for your "Prisma database" service. In here, you specify a _name_ for your service, _deployment information_ and your _data model_ which will be used to generate the Prisma CRUD API.
+  - `datamodel.graphql`: The data model is written in GraphQL SDL and provides the foundation for your database: The Prisma API defined in `src/generated/prisma.graphql` provides CRUD functionality which allows to easily **c**reate, **r**ead, **u**pdate and **d**elete instances of the types in your data model (e.g. a `Link` or a `User` type).
 
-### Background: Application schema vs Graphcool schema (CRUD)
+### Background: Application schema vs Prisma schema (CRUD)
 
 As you might have noticed, there are three different `.graphql`-files with certain SDL type definitions in your project. Let's take a moment to understand where they're coming from and what they're used for in your setup:
 
 - `src/schema.graphql` (**Application schema**): Defines the GraphQL API that will be exposed to your client applications. For example, we'll use it later on to expose the `feed` query our client apps can access to retrieve a list of Hackernews links from our server.
-- `src/generated/graphcool.graphql` (**Graphcool schema**): Defines the Graphcool API with CRUD functionality for your database. This file is _auto-generated_ based on your data model and should never be manually altered. This also means that whenever you make changes to your data model, this file is (automatically) updated as well.
-- `database/datamodel.graphql`: The data model contains the type definitions for the entities in our application domain. For each type in the data model, Graphcool will generate queries and mutations allowing you to read and write database records (also called _nodes_) for that type.
+- `src/generated/prisma.graphql` (**Prisma schema**): Defines the Prisma API with CRUD functionality for your database. This file is _auto-generated_ based on your data model and should never be manually altered. This also means that whenever you make changes to your data model, this file is (automatically) updated as well.
+- `database/datamodel.graphql`: The data model contains the type definitions for the entities in our application domain. For each type in the data model, Prisma will generate queries and mutations allowing you to read and write database records (also called _nodes_) for that type.
 
-Notice that `datamodel.graphql` is not actually a GraphQL schema in the actual sense, as its missing the _root types_. The data model is only used as the foundation to generate the actual schema for the Graphcool API!
+Notice that `datamodel.graphql` is not actually a GraphQL schema in the actual sense, as its missing the _root types_. The data model is only used as the foundation to generate the actual schema for the Prisma API!
 
-Why do you need two GraphQL schemas at all? The reason for that is simple, the Graphcool schema alone would give clients read/write-access to _all_ the data in your database. For the vast majority of applications however, you'll rather want to expose an API that's more tailored to the requirements of your clients. Plus, if you were to use only the Graphcool schema, you wouldn't be able to implement any authentication workflows or other business logic.
+Why do you need two GraphQL schemas at all? The reason for that is simple, the Prisma schema alone would give clients read/write-access to _all_ the data in your database. For the vast majority of applications however, you'll rather want to expose an API that's more tailored to the requirements of your clients. Plus, if you were to use only the Prisma schema, you wouldn't be able to implement any authentication workflows or other business logic.
 
 ### Understanding the initial setup
 
@@ -142,8 +145,8 @@ Before we continue with the implementation, let's go and understand the initial 
 
 If you check your `package.json`, you'll notice that the boilerplate comes with two dependencies:
 
-- [`graphql-yoga`](https://github.com/graphcool/graphql-yoga/): The package that contains everything you need for your GraphQL server (basically a thin convenience wrapper on top of Express.js, `apollo-server`, `graphql-tools` and more)
-- [`graphcool-binding`](https://github.com/graphcool/graphcool-binding): This package allows to _bind_ the resolvers of your application schema to the auto-generated resolvers of your Graphcool database service. To learn more about schema bindings, you can read [this](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405#ec32) article.
+- [`graphql-yoga`](https://github.com/prisma/graphql-yoga/): The package that contains everything you need for your GraphQL server (basically a thin convenience wrapper on top of Express.js, `apollo-server`, `graphql-tools` and more)
+- [`prisma-binding`](https://github.com/prisma/prisma-binding): This package allows to _bind_ the resolvers of your application schema to the auto-generated resolvers of your Prisma database service. To learn more about schema bindings, you can read [this](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405#ec32) article.
 
 Both dependencies are used in `index.js`. The important part of that file is this:
 
@@ -153,7 +156,7 @@ const server = new GraphQLServer({
   resolvers,
   context: req => ({
     ...req,
-    db: new Graphcool({
+    db: new Prisma({
       typeDefs: 'src/generated/database.graphql',
       endpoint: 'http://localhost:60000/hackernews-node/dev',
       secret: 'mysecret123',
@@ -168,12 +171,12 @@ Here you instantiate your `GraphQLServer` with the following arguments:
 - `resolvers`: This is a JavaScript object that mirrors the `Query`, `Mutation` and `Subscription` types and their fields from your application schema. Each field in the application schema is represented by a function with the same name in that object.
 - `context`: This is an object that get's passed through the resolver chain and every resolvers can read from or write to.
 
-Notice that the `context` object has the `db` field which contains an instance of `Graphcool` from the `graphcool-binding` package. This instance will allow your resolvers to simply _delegate_ the execution of an incoming request to an appropriate resolver from the Graphcool API.
+Notice that the `context` object has the `db` field which contains an instance of `Prisma` from the `prisma-binding` package. This instance will allow your resolvers to simply _delegate_ the execution of an incoming request to an appropriate resolver from the Prisma API.
 
-When instantiating `Graphcool`, you need to provide information about your Graphcool database service:
+When instantiating `Prisma`, you need to provide information about your Prisma database service:
 
-- `typeDefs`: The type definition from your Graphcool schema
-- `endpoint`: The HTTP endpoint of your Graphcool database service
-- `secret`: The secret which allows to access the Graphcool database service (this is defined in `graphcool.yml`)
+- `typeDefs`: The type definition from your Prisma schema
+- `endpoint`: The HTTP endpoint of your Prisma database service
+- `secret`: The secret which allows to access the Prisma database service (this is defined in `prisma.yml`)
 
-Because you provide this information, the `Graphcool` instance will get full access to your database service and can be used to resolve incoming request later on.
+Because you provide this information, the `Prisma` instance will get full access to your database service and can be used to resolve incoming request later on.

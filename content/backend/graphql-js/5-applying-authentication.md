@@ -2,8 +2,8 @@
 title: Applying Authentication
 pageTitle: "Server-side Authentication with GraphQL, Javascript & Node.js Tutorial"
 description: "Learn best practices for implementing email-password authentication on a GraphQL Server with Javascript, Node.js & Express."
-question: What is the "connect" argument in a Graphcool mutation used for?
-answers: ["It connects your application schema with the Graphcool schema", "It creates a TCP connection", "It's used to connect two nodes in the database via a relation", "There is connect argument in Graphcool mutations"]
+question: What is the "connect" argument in a Prisma mutation used for?
+answers: ["It connects your application schema with the Prisma schema", "It creates a TCP connection", "It's used to connect two nodes in the database via a relation", "There is connect argument in Prisma mutations"]
 correctAnswer: 3
 ---
 
@@ -38,14 +38,14 @@ type User {
 
 </Instruction>
 
-To apply these changes, you need to deploy the Graphcool database service again.
+To apply these changes, you need to deploy the Prisma database service again.
 
 <Instruction>
 
 In the root directory of your project, run the following command:
 
 ```bash(path=".../hackernews-node")
-yarn graphcool deploy
+yarn prisma deploy
 ```
 
 </Instruction>
@@ -54,7 +54,7 @@ All right! With these changes, you express that a `Link` node can be associated 
 
 ### Adjusting the `post` resolver
 
-If you're taking a look at the Graphcool schema (in `src/generated/graphcool.graphql`), in particular the `createLink` mutation, you'll notice that the `LinkCreateInput` (the type that wraps all input arguments for this mutation) now has an additional field:
+If you're taking a look at the Prisma schema (in `src/generated/prisma.graphql`), in particular the `createLink` mutation, you'll notice that the `LinkCreateInput` (the type that wraps all input arguments for this mutation) now has an additional field:
 
 ```graphql(nocopy)
 input LinkCreateInput {
@@ -253,7 +253,7 @@ The last feature you'll implement in this section is a `vote` mutation, allowing
 Recall the steps for creating adding a new feature to your GraphQL API:
 
 1. Adjust data model (if necessary)
-1. Deploy Graphcool database service to apply changes to data model (if necessary)
+1. Deploy Prisma database service to apply changes to data model (if necessary)
 1. Add new root field (on the `Query`, `Mutation` or `Subscription` field) to application schema
 1. Implement the resolver for the new root field
 
@@ -289,19 +289,19 @@ type User {
 
 </Instruction>
 
-To make sure the Graphcool database service is aware of these changes, you need to deploy them.
+To make sure the Prisma database service is aware of these changes, you need to deploy them.
 
 <Instruction>
 
 In the root directory of your project, run the following command:
 
 ```bash(path=".../hackernews-node")
-yarn graphcool deploy
+yarn prisma deploy
 ```
 
 </Instruction>
 
-The new type is now added and CRUD operations for `Vote` have been added to the Graphcool schema (you can check `src/generated/graphcool.graphql` to convince yourself of that).
+The new type is now added and CRUD operations for `Vote` have been added to the Prisma schema (you can check `src/generated/prisma.graphql` to convince yourself of that).
 
 The next step is to add the root field for the voting mutation.
 
@@ -320,7 +320,7 @@ type Mutation {
 
 </Instruction>
 
-Since you're now referencing the `Vote` type in the application schema without defining or importing it, the server won't work. So go ahead and import the `Vote` type into from the Graphcool schema into your application schema.
+Since you're now referencing the `Vote` type in the application schema without defining or importing it, the server won't work. So go ahead and import the `Vote` type into from the Prisma schema into your application schema.
 
 <Instruction>
 
@@ -365,6 +365,6 @@ async function vote(parent, args, context, info) {
 
 </Instruction>
 
-In the `vote` resolver, you're first retrieving the `userId` from the HTTP header again (using the familiar `getUserId` function you just implemented) so you can create the `Vote` on behalf of an actual `User`. What follows is a check to ensure the `Link` to be voted for actually exists. Lastly, the resolver invokes the `createVote` mutation from the Graphcool API to create a new `Vote` in the database connecting the given `User` and `Link` nodes.
+In the `vote` resolver, you're first retrieving the `userId` from the HTTP header again (using the familiar `getUserId` function you just implemented) so you can create the `Vote` on behalf of an actual `User`. What follows is a check to ensure the `Link` to be voted for actually exists. Lastly, the resolver invokes the `createVote` mutation from the Prisma API to create a new `Vote` in the database connecting the given `User` and `Link` nodes.
 
 That's it! You can now restart the server and send the `vote` mutation in your `app` Playground.
