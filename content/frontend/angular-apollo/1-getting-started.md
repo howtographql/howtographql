@@ -6,7 +6,6 @@ duration: 4
 question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
 correctAnswer: 3
-draft: false
 ---
 
 ### Backend
