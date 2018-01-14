@@ -246,8 +246,8 @@ As mentioned above, for the backend in this tutorial you'll simply use the final
 In your terminal, navigate to the `hackernews-react-apollo` directory and run the following commands:
 
 ```bash(path=".../hackernews-react-apollo")
-curl https://codeload.github.com/howtographql/graphql-js/tar.gz/master | tar -xz graphql-js-master
-mv graphql-js-master server # rename the downloaded directory to `server`
+curl https://codeload.github.com/howtographql/graphql-js/tar.gz/starter | tar -xz graphql-js-starter
+mv graphql-js-starter server # rename the downloaded directory to `server`
 ```
 
 </Instruction>

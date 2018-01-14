@@ -359,3 +359,27 @@ import { ApolloLink } from 'apollo-client-preset'
 </Instruction>
 
 That's it - now all your API requests will be authenticated if a `token` is available.
+
+### Requiring authentication on the server-side
+
+The last thing you're doing in this chapter is ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
+
+To implement this functionality, this time you need to make a change on the server side.
+
+<Instruction>
+
+Open `/server/src/resolvers/Mutation.js` and adjust the `post` resolver to look as follows:
+
+```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
+function post(parent, { url, description }, ctx, info) {
+  const userId = getUserId(ctx)
+  return ctx.db.mutation.createLink(
+    { data: { url, description, postedBy: { connect: { id: userId } } } },
+    info,
+  )
+}
+```
+
+</Instruction>
+
+With this change, you're extracting the `userId` from the `Authorization` header of the request. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
