@@ -5,6 +5,9 @@ description: "Learn how to use react-router 4 together with GraphQL and Apollo C
 question: What's the role of the Link component that you added in this chapter?
 answers: ["It renders a link that was posted by a user", "It renders the input form for users to create new links", "It lets you navigate to a different URL", "It links your root component with all its children"]
 correctAnswer: 2
+videoId: lQDrREfapow		
+duration: 5		
+videoAuthor: "Abhi Aiyer"
 ---
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!

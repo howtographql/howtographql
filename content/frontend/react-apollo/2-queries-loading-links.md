@@ -5,6 +5,9 @@ description: "Learn how you can use GraphQL queries with Apollo Client to load d
 question: What's the idiomatic way for loading data with React & Apollo?
 answers: ["Using a higher-order component called 'graphql'", "Using the 'query' method on ApolloClient", "Using 'fetch' and putting the query in the body of the request", "Using XMLHTTPRequest and putting the query in the body of the request"]
 correctAnswer: 0
+videoId: lQDrREfapow		
+duration: 5		
+videoAuthor: "Abhi Aiyer"
 ---
 
 ### Preparing the React components
