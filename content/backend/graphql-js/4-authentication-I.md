@@ -1,5 +1,5 @@
 ---
-title: Authentication
+title: Authentication (Part I)
 pageTitle: "Server-side Authentication with GraphQL, Javascript & Node.js Tutorial"
 description: "Learn best practices for implementing email-password authentication on a GraphQL Server with Javascript, Node.js & Express."
 question: What kind of authentication must a GraphQL server implement?
