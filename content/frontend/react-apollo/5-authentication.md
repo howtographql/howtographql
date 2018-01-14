@@ -5,9 +5,9 @@ description: "Learn best practices to implement authentication with GraphQL & Ap
 question: "How are HTTP requests send by ApolloClient authenticated?"
 answers: ["The ApolloClient needs to be instantiated with an authentication token", "ApolloClient exposes an extra method called 'authenticate' where you can pass an authentication token", "By attaching an authentication token to the request with dedicated ApolloLink middleware", "ApolloClient has nothing to do with authentication"]
 correctAnswer: 1
-videoId: lQDrREfapow		
-duration: 5		
-videoAuthor: "Abhi Aiyer"
+videoId: ""
+duration: 0		
+videoAuthor: ""
 ---
 
 In this section, you'll learn how you can implement authentication functionality with Apollo provide signup and login features for your users.

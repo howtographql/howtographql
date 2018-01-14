@@ -6,9 +6,9 @@ question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
 correctAnswer: 3
 draft: false
-videoId: lQDrREfapow		
-duration: 5		
-videoAuthor: "Abhi Aiyer"
+videoId: ""
+duration: 0		
+videoAuthor: ""
 ---
 
 Since this is a frontend track, you're not going to spend any time implementing the backend. Instead, you'll use the server from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
