@@ -382,4 +382,4 @@ function post(parent, { url, description }, ctx, info) {
 
 </Instruction>
 
-With this change, you're extracting the `userId` from the `Authorization` header of the request. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
+With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly `connect` it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
