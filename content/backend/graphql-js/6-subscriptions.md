@@ -5,6 +5,7 @@ description: "Learn how to implement server-side GraphQL subscriptions with grah
 question: Which of the following is true?
 answers: ["Real time support should be implemented via regular queries", "It's not currently possible to test subscriptions via GraphiQL", "Subscriptions can be implemented via web sockets", "The only way to implement subscriptions is by using the `subscriptions-transport-ws` package"]
 correctAnswer: 2
+draft: true
 ---
 
 In this section, you'll learn how you can bring realtime functionality into your app by implementing GraphQL subscriptions. Recalling our initial requiements, the goal is to implement two subscriptions:
