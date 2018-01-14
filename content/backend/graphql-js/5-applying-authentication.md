@@ -1,5 +1,5 @@
 ---
-title: Authentication (Part II)
+title: : Applying Authentication
 pageTitle: "Server-side Authentication with GraphQL, Javascript & Node.js Tutorial"
 description: "Learn best practices for implementing email-password authentication on a GraphQL Server with Javascript, Node.js & Express."
 question: What is the "connect" argument in a Graphcool mutation used for?
