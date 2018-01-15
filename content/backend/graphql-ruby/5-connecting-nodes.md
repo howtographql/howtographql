@@ -101,7 +101,7 @@ First, you need to add votes relationship to `Link` model:
 
 ```ruby(path=".../graphql-ruby/app/models/link.rb")
 class Link < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true # Prevent ActiveRecord::RecordInvalid
 
   has_many :votes
 end
