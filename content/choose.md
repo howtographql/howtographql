@@ -30,7 +30,7 @@ Choose your favorite programming language to get started with GraphQL on the ser
 - [**Java**](https://www.howtographql.com/graphql-java/0-introduction/): Learn how to build a GraphQL server in Java with this tutorial based on the [graphql-java](https://github.com/graphql-java/graphql-java) library.
 - [**Elixir**](https://www.howtographql.com/graphql-elixir/0-introduction/): Learn how to build a GraphQL server in Elixir with this tutorial based on the [Absinthe](https://github.com/absinthe-graphql/absinthe) library.
 - [**Python**](https://www.howtographql.com/graphql-python/0-introduction/): Learn how to build a GraphQL server in Python with this tutorial based on the [Graphene](https://github.com/graphql-python/graphene) library.
-- [**Graphcool**](https://www.howtographql.com/graphcool/0-introduction/): [Graphcool](https://www.graph.cool/docs/tutorials/graphcool-features-overview-ped6wohw0o/) is a powerful development framework combineing GraphQL and Serverless technologies to provide you with the best tools to build the backend for your next app. Learn how to leverage the features of Graphcool to build a production-ready GraphQL server.
+- [**Graphcool**](https://www.howtographql.com/graphcool/0-introduction/): [Graphcool](https://www.graph.cool/docs/tutorials/graphcool-features-overview-ped6wohw0o/) is a powerful development framework combining GraphQL and Serverless technologies to provide you with the best tools to build the backend for your next app. Learn how to leverage the features of Graphcool to build a production-ready GraphQL server.
 - **Scala** (_Coming Soon_): Learn how to build a GraphQL server in Scala with this tutorial based on the [Sangria](https://github.com/sangria-graphql/sangria) library.
 
 
