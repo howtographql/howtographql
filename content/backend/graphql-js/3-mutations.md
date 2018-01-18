@@ -17,7 +17,7 @@ A nice thing about GraphQL is that despite the semantic difference between queri
 
 Open your application schema in `src/schema.graphql` and the following code to it:
 
-```graphql(path=".../hackernews-node/src/schema/index.js")
+```graphql(path=".../hackernews-node/src/schema.graphql")
 type Mutation {
   post(url: String!, description: String!): Link!
 }
