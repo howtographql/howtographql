@@ -98,6 +98,7 @@ export const FEED_QUERY = gql`
           }
         }
       }
+      count
     }
   }
 `
@@ -168,11 +169,11 @@ Open `LinkList.js` and update `render` to look as follows:
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
 
-  if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
+  if (this.props.feedQuery && this.props.feedQuery.loading) {
     return <div>Loading</div>
   }
 
-  if (this.props.allLinksQuery && this.props.allLinksQuery.error) {
+  if (this.props.feedQuery && this.props.feedQuery.error) {
     return <div>Error</div>
   }
 
@@ -210,9 +211,9 @@ Still in `LinkList.js`, add the following method implementation:
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _getLinksToRender = (isNewPage) => {
   if (isNewPage) {
-    return this.props.allLinksQuery.allLinks
+    return this.props.feedQuery.feed.links
   }
-  const rankedLinks = this.props.allLinksQuery.allLinks.slice()
+  const rankedLinks = this.props.feedQuery.feed.links.slice()
   rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length)
   return rankedLinks
 }
@@ -231,7 +232,7 @@ In `LinkList.js`, add the following two methods that will be called when the but
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _nextPage = () => {
   const page = parseInt(this.props.match.params.page, 10)
-  if (page <= this.props.allLinksQuery._allLinksMeta.count / LINKS_PER_PAGE) {
+  if (page <= this.props.feedQuery.feed.count / LINKS_PER_PAGE) {
     const nextPage = page + 1
     this.props.history.push(`/new/${nextPage}`)
   }
@@ -252,7 +253,7 @@ The implementation of these is very simple. You're retrieving the current page f
 
 ### Final Adjustments
 
-Through the changes that we made to the `ALL_LINKS_QUERY`, you'll notice that the `update` functions of your mutations don't work any more. That's because `readQuery` now also expects to get passed the same variables that we defined before.
+Through the changes that we made to the `FEED_QUERY`, you'll notice that the `update` functions of your mutations don't work any more. That's because `readQuery` now also expects to get passed the same variables that we defined before.
 
 > **Note**: `readQuery` essentially works in the same way as the `query` method on the `ApolloClient` that you used to implement the search. However, instead of making a call to the server, it will simply resolve the query against the local store! If a query was fetched from the server with variables, `readQuery` also needs to know the variables to make sure it can deliver the right information from the cache.
 
@@ -267,11 +268,11 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
   const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
   const first = isNewPage ? LINKS_PER_PAGE : 100
   const orderBy = isNewPage ? 'createdAt_DESC' : null
-  const data = store.readQuery({ query: ALL_LINKS_QUERY, variables: { first, skip, orderBy } })
+  const data = store.readQuery({ query: FEED_QUERY, variables: { first, skip, orderBy } })
 
-  const votedLink = data.allLinks.find(link => link.id === linkId)
+  const votedLink = data.feed.links.find(link => link.id === linkId)
   votedLink.votes = createVote.link.votes
-  store.writeQuery({ query: ALL_LINKS_QUERY, data })
+  store.writeQuery({ query: FEED_QUERY, data })
 }
 ```
 
