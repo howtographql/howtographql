@@ -265,6 +265,7 @@ Open `database/datamodel.graphql`, add a new `Vote` type and adjust the `User` a
 
 ```graphql{1-4,11,20}(path=".../hackernews-node/database/datamodel.graphql")
 type Vote {
+  id: ID! @unique
   link: Link!
   user: User!
 }
