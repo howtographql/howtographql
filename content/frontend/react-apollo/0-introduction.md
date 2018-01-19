@@ -1,7 +1,7 @@
 ---
 title: Introduction
 pageTitle: "Fullstack Tutorial with GraphQL, React & Apollo"
-description: "Learn how to build a Hackernews clone with GraphQL, React & Apollo Client. Use create-react-app for the frontend and graphql-yoga & Graphcool for the backend."
+description: "Learn how to build a Hackernews clone with GraphQL, React & Apollo Client. Use create-react-app for the frontend and graphql-yoga & Prisma for the backend."
 question: What's a major benefit of using a GraphQL client library?
 answers: ["It makes it easy to use animations inside your app", "A GraphQL client is mainly used to improve security", "It saves you from writing infrastructure code for networking and caching", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
 correctAnswer: 2
@@ -30,7 +30,7 @@ In this track, you'll use the following technologies for building the app:
   - [Apollo Client 2.0](https://github.com/apollographql/apollo-client): Production-ready, caching GraphQL client
 - Backend:
   - [`graphql-yoga`](https://github.com/graphcool/graphql-yoga/): Fully-featured GraphQL Server with focus on easy setup, performance & great developer experience
-  - [Graphcool](https://www.graph.cool/): "GraphQL Database"
+  - [Prisma](https://www.prismagraphql.com/): Open-source GraphQL API layer that turns your database into a GraphQL API
 
 You'll create the React project with [`create-react-app`](https://github.com/facebookincubator/create-react-app), a popular command-line tool that gives you a blank project with all required build configuration already setup.
 
