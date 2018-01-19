@@ -91,7 +91,7 @@ In your case, the `test` function is checking whether the requested operation is
 
 ### Subscribing to new links
 
-For the app to update in realtime when new links are created, you need to subscribe to events that are happening on the `Link` type. There generally are three kinds of events you can subscribe to when using Graphcool:
+For the app to update in realtime when new links are created, you need to subscribe to events that are happening on the `Link` type. There generally are three kinds of events you can subscribe to when using Prisma:
 
 - a new `Link` is _created_
 - an existing `Link` is _updated_

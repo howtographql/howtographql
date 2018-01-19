@@ -2,8 +2,8 @@
 title: More Mutations and Updating the Store
 pageTitle: "Mutations & Caching with GraphQL, React & Apollo Tutorial"
 description: "Learn how to use Apollo's imperative store API to update the cache after a GraphQL mutation. The updates will automatically end up in your React components."
-question: "What does the 'graphcool-framework push' command do?"
-answers: ["It uploads the local schema changes to the remote Graphcool project", "It pushes a git repository to Graphcool so you can manage your project and code together", "It tells the server to push its remote schema changes into the local project file", "There is no 'graphcool-framework push' command"]
+question: "What does the 'update' function of Apollo Client do?"
+answers: ["It allows to update your Apollo Client dependency locally", "It allows to update the local Apollo store in a declarative fashion", "It allows to update the local Apollo store in an imperative fashion", "It updates the GraphQL schema locally so Apollo Client can verify your queries and mutations before they're sent to the server"]
 correctAnswer: 0
 videoId: ""
 duration: 0		
