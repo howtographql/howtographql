@@ -9,7 +9,7 @@ In this tutorial you learned how to build your very own GraphQL server from scra
 The main process you went through for each feature you implemented consisted of these steps:
 
 1. Adjust the Prisma data model to account for the data the new feature requires (e.g. adding a `User` type for implementing authentication).
-1. Deploy the the Prisma database service to apply the changes from the previous step, this will update your auto-generated **Prisma schema** which contains all the CRUD operations for the types in your data model.
+1. Deploy the Prisma database service to apply the changes from the previous step, this will update your auto-generated **Prisma schema** which contains all the CRUD operations for the types in your data model.
 1. Add a new root field to the **application schema** that represents the feature (e.g. `post(url: String!, description: String!): Link!` for posting new links).
 1. Implement the resolver for the root field by [delegating](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405) the execution to the Prisma database service using the [`prisma-binding`](https://github.com/prisma/prisma-binding) package.
 
