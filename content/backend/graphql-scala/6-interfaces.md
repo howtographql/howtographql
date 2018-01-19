@@ -1,6 +1,6 @@
 ---
 title: Interfaces
-pageTitle: "Extracting common parts of models as an Interface"
+pageTitle: "Extracting common parts as an Interface"
 description: "In this chapter we will introduce two additional models. We show the most common parts and extract those as an interface. This time you will work alone."
 ---
 

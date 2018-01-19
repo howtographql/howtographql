@@ -1,7 +1,7 @@
 ---
 title: The first query
 pageTitle: "The last steps of preparation to able run first GraphQL query."
-description: "In this chapter you will learn last steps of preparation, include graphiql console for easy debugging and at the end run your first query."
+description: "In this chapter you will learn last steps of preparation, add graphiql console for easy debugging and at the end, run your first query."
 question: "Which key doesn't exists in the root JSON object."
 answers: ["operationName", "variables", "fields","query" ]
 correctAnswer: 2

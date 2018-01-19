@@ -1,9 +1,9 @@
 ---
-title: Extending a Link model
-pageTitle: "Add Date to the link model, make the DB and Sangria to understand this type"
+title: Custom Scalars
+pageTitle: "Add Date to the Link model, make the DB and Sangria to understand this type"
 description: "In this chapter Link model will get additional field to store date and time. You will learn how to handle such custom types and use scalars."
 question: "What is a main advantage of defining custom scalar type?"
-answers: ["It add some bells and whistles to your code.", "It makes possible parse values to your type","It's only alias for basic types, there is nothing more than improving readability", "You can store data in type not supported by database." ]
+answers: ["It adds bells and whistles to your code.", "It makes possible parse values to your type","It's only alias for basic types, there is nothing more than improving readability", "You can store data in type not supported by database." ]
 correctAnswer: 1
 
 ---
@@ -157,4 +157,4 @@ You will get a response:
 }
 ```
 
-Now you know the basics. In the next chapter you will add additional models. We will extract some common parts as interface to keep common parts in one place.
+Now you know the basics. In the next chapter you will add additional models. We will extract some common parts as interface to keep them in one place.
