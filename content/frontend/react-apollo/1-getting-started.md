@@ -246,7 +246,7 @@ As mentioned above, for the backend in this tutorial you'll simply use the final
 In your terminal, navigate to the `hackernews-react-apollo` directory and run the following commands:
 
 ```bash(path=".../hackernews-react-apollo")
-https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar -xz --strip=1 react-apollo-starter/server
+curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar -xz --strip=1 react-apollo-starter/server
 ```
 
 </Instruction>
