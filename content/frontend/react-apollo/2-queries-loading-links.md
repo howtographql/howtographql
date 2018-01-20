@@ -22,11 +22,12 @@ Create a new file called `Link.js` in the `components` directory and add the fol
 import React, { Component } from 'react'
 
 class Link extends Component {
-
   render() {
     return (
       <div>
-        <div>{this.props.link.description} ({this.props.link.url})</div>
+        <div>
+          {this.props.link.description} ({this.props.link.url})
+        </div>
       </div>
     )
   }
@@ -34,7 +35,6 @@ class Link extends Component {
   _voteForLink = async () => {
     // ... you'll implement this in chapter 6
   }
-
 }
 
 export default Link
@@ -55,28 +55,24 @@ import React, { Component } from 'react'
 import Link from './Link'
 
 class LinkList extends Component {
-
   render() {
-
-    const linksToRender = [{
-      id: '1',
-      description: 'The coolest GraphQL backend 😎',
-      url: 'https://www.graph.cool'
-    }, {
-      id: '2',
-      description: 'The best GraphQL Client',
-      url: 'http://dev.apollodata.com/'
-    }]
+    const linksToRender = [
+      {
+        id: '1',
+        description: 'Prisma turns your database into a GraphQL API 😎 😎',
+        url: 'https://www.prismagraphql.com',
+      },
+      {
+        id: '2',
+        description: 'The best GraphQL client',
+        url: 'https://www.apollographql.com/docs/react/',
+      },
+    ]
 
     return (
-      <div>
-        {linksToRender.map(link => (
-          <Link key={link.id} link={link}/>
-        ))}
-      </div>
+      <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
     )
   }
-
 }
 
 export default LinkList
@@ -96,9 +92,7 @@ import LinkList from './LinkList'
 
 class App extends Component {
   render() {
-    return (
-      <LinkList />
-    )
+    return <LinkList />
   }
 }
 
@@ -109,11 +103,11 @@ export default App
 
 Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
-![](http://imgur.com/FlMveso.png)
+![](https://imgur.com/VJzRyjq.png)
 
 ### Writing the GraphQL query
 
-You'll now load the actual links that are stored on the server. The first thing you need to do for that is define the GraphQL query you want to send to the API.
+Next you'll load the actual links that are stored in the database. The first thing you need to do for that is define the GraphQL query you want to send to the API.
 
 Here is what it looks like:
 
@@ -193,7 +187,7 @@ export default graphql(FEED_QUERY, { name: 'feedQuery' }) (LinkList)
 What's going on here?
 
 1. First, you create the JavaScript constant called `FEED_QUERY` that stores the query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamililar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
-1. Now you define the actual GraphQL query. `FeedQuery` is the _operation name_ and will be used by Apollo to refer to this query under the hood. (Notice the `#` which denotes a GraphQL comment).
+1. Now you define the actual GraphQL query. `FeedQuery` is the _operation name_ and will be used by Apollo to refer to this query under the hood. (Also notice the `#` which denotes a GraphQL comment).
 1. Finally, you're using the `graphql` container to "wrap" the `LinkList` component with the `FEED_QUERY`. Note that you're also passing an options object to the function call where you specify the `name` to be `feedQuery`. This is the name of the prop that Apollo injects into the `LinkList` component. If you didn't specify it here, the injected prop would be called `data` by default.
 
 <Instruction>
@@ -217,7 +211,6 @@ Still in `LinkList.js`, update `render` as follows:
 
 ```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
-
   // 1
   if (this.props.feedQuery && this.props.feedQuery.loading) {
     return <div>Loading</div>
@@ -232,11 +225,7 @@ render() {
   const linksToRender = this.props.feedQuery.feed.links
 
   return (
-    <div>
-      {linksToRender.map(link => (
-        <Link key={link.id} link={link}/>
-      ))}
-    </div>
+    <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
   )
 }
 ```
@@ -252,3 +241,5 @@ Let's walk through what's happening in this code. As expected, Apollo injected a
 > In fact, the injected prop contains even more functionality. You can read more in the [documentation](https://www.apollographql.com/docs/react/basics/queries.html#graphql-query-data).
 
 That's it! Go ahead and run `yarn start` again. You should see the exact same screen as before.
+
+> **Note**: If the browser on `http://localhost:4000` only says error and is empty otherwise, you probably forgot to have your server running. Note that for the app to work the server needs to run as well - so you have two running processes in your terminal: One for the server and one for the React app. To start the server, navigate into the `server` directory and run `yarn start`.

@@ -12,7 +12,7 @@ videoAuthor: ""
 
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with a minor (but logical) difference in the third step:
 
-1. write the mutation as a Javascript constant using the `gql` parser function
+1. write the mutation as a JavaScript constant using the `gql` parser function
 1. use the `graphql` container to wrap your component with the mutation
 1. use the mutation function that gets injected into the component's props
 
@@ -28,36 +28,31 @@ Create a new file in the `src/components` directory and call it `CreateLink.js`.
 import React, { Component } from 'react'
 
 class CreateLink extends Component {
-
   state = {
     description: '',
-    url: ''
+    url: '',
   }
 
   render() {
     return (
       <div>
-        <div className='flex flex-column mt3'>
+        <div className="flex flex-column mt3">
           <input
-            className='mb2'
+            className="mb2"
             value={this.state.description}
-            onChange={(e) => this.setState({ description: e.target.value })}
-            type='text'
-            placeholder='A description for the link'
+            onChange={e => this.setState({ description: e.target.value })}
+            type="text"
+            placeholder="A description for the link"
           />
           <input
-            className='mb2'
+            className="mb2"
             value={this.state.url}
-            onChange={(e) => this.setState({ url: e.target.value })}
-            type='text'
-            placeholder='The URL for the link'
+            onChange={e => this.setState({ url: e.target.value })}
+            type="text"
+            placeholder="The URL for the link"
           />
         </div>
-        <button
-          onClick={() => this._createLink()}
-        >
-          Submit
-        </button>
+        <button onClick={() => this._createLink()}>Submit</button>
       </div>
     )
   }
@@ -65,7 +60,6 @@ class CreateLink extends Component {
   _createLink = async () => {
     // ... you'll implement this in a bit
   }
-
 }
 
 export default CreateLink
@@ -77,7 +71,7 @@ This is a standard setup for a React component with two `input` fields where use
 
 ### Writing the mutation
 
-But how can you now actually send the mutation? Let's follow the three steps from before.
+But how can you now actually send the mutation to your server? Let's follow the three steps from before.
 
 First you need to define the mutation in your JavaScript code and wrap your component with the `graphql` container. You'll do that in a similar way as with the query before.
 
@@ -90,10 +84,7 @@ In `CreateLink.js`, add the following statement to the bottom of the file (also 
 const POST_MUTATION = gql`
   # 2
   mutation PostMutation($description: String!, $url: String!) {
-    post(
-      description: $description,
-      url: $url,
-    ) {
+    post(description: $description, url: $url) {
       id
       createdAt
       url
@@ -111,7 +102,7 @@ export default graphql(POST_MUTATION, { name: 'postMutation' })(CreateLink)
 Let's take a closer look again to understand what's going on:
 
 1. You first create the JavaScript constant called `POST_MUTATION` that stores the mutation.
-1. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when calling the mutation.
+1. Now you define the actual GraphQL mutation. It takes two arguments, `url` and `description`, that you'll have to provide when invoking the mutation.
 1. Lastly, you're using the `graphql` container to combine the `CreateLink` component with the `POST_MUTATION`. The specified `name` again refers to the name of the prop that's injected into `CreateLink`. This time, a function will be injected that's called `postMutation` and that you can invoke and pass in the required arguments.
 
 <Instruction>
@@ -184,15 +175,16 @@ Enter some data into the fields, e.g.:
 
 Then click the **submit**-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
 
-> At this point, you'll only see the new link after refreshing the page. In chapter six you will take care of updating the UI properly after a mutation was performed.
-
-You can open a Playground again by navigating to `http://localhost:4000` in yout browser. Then send the following query in the **dev** playground in the **database** section:
+You can open a Playground again by navigating to `http://localhost:4000` in your browser. Then send the following query:
 
 ```graphql
+# Try to write your query here
 {
-  links {
-    description
-    url
+  feed {
+    links {
+      description
+      url
+    }
   }
 }
 ```
@@ -203,11 +195,11 @@ You'll see the following server response:
 {
   "data": {
     "links": [
+      // ...
       {
         "description": "The best learning resource for GraphQL",
         "url": "www.howtographql.com"
-      },
-      // ...
+      }
     ]
   }
 }

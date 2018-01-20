@@ -21,21 +21,33 @@ Once more, the first step to implement this new feature is to make your React co
 Open `Link.js` and update `render` to look as follows:
 
 ```js (path=".../hackernews-react-apollo/src/components/Link.js")
-render() {
-  const authToken = localStorage.getItem(AUTH_TOKEN)
-  return (
-    <div className='flex mt2 items-start'>
-      <div className='flex items-center'>
-        <span className='gray'>{this.props.index + 1}.</span>
-        {authToken && <div className='ml1 gray f11' onClick={() => this._voteForLink()}>▲</div>}
+  render() {
+    const authToken = localStorage.getItem(AUTH_TOKEN)
+    return (
+      <div className="flex mt2 items-start">
+        <div className="flex items-center">
+          <span className="gray">{this.props.index + 1}.</span>
+          {authToken && (
+            <div className="ml1 gray f11" onClick={() => this._voteForLink()}>
+              ▲
+            </div>
+          )}
+        </div>
+        <div className="ml1">
+          <div>
+            {this.props.link.description} ({this.props.link.url})
+          </div>
+          <div className="f6 lh-copy gray">
+            {this.props.link.votes.length} votes | by{' '}
+            {this.props.link.postedBy
+              ? this.props.link.postedBy.name
+              : 'Unknown'}{' '}
+            {timeDifferenceForDate(this.props.link.createdAt)}
+          </div>
+        </div>
       </div>
-      <div className='ml1'>
-        <div>{this.props.link.description} ({this.props.link.url})</div>
-        <div className='f6 lh-copy gray'>{this.props.link.votes.length} votes | by {this.props.link.postedBy ? this.props.link.postedBy.name : 'Unknown'} {timeDifferenceForDate(this.props.link.createdAt)}</div>
-      </div>
-    </div>
-  )
-}
+    )
+  }
 ```
 
 </Instruction>
@@ -117,9 +129,13 @@ Finally, each `Link` element will also render its position inside the list, so y
 Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also include the link's position:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-{linksToRender.map((link, index) => (
-  <Link key={link.id} index={index} link={link}/>
-))}
+return (
+  <div>
+    {linksToRender.map((link, index) => (
+      <Link key={link.id} index={index} link={link} />
+    ))}
+  </div>
+)
 ```
 
 </Instruction>
@@ -157,9 +173,9 @@ export const FEED_QUERY = gql`
 
 </Instruction>
 
-All you do here is to also include information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed.
+All you do here is include information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed.
 
-![](http://imgur.com/eHaPg3L.png)
+![](https://imgur.com/tKzj3b5.png)
 
 Let's now move on and implement the `vote` mutation!
 
@@ -241,15 +257,17 @@ You will implement this functionality by using Apollo's [imperative store API](h
 Open `Link` and update the call to `voteMutation` inside the `_voteForLink` method as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
-const linkId = this.props.link.id
-await this.props.voteMutation({
-  variables: {
-    linkId
-  },
-  update: (store, { data: { vote } }) => {
-    this.props.updateStoreAfterVote(store, vote, linkId)
-  }
-})
+_voteForLink = async () => {
+  const linkId = this.props.link.id
+  await this.props.voteMutation({
+    variables: {
+      linkId,
+    },
+    update: (store, { data: { vote } }) => {
+      this.props.updateStoreAfterVote(store, vote, linkId)
+    },
+  })
+}
 ```
 
 </Instruction>
@@ -310,16 +328,16 @@ Open `CreateLink.js` and update the call to `postMutation` inside `_createLink` 
 await this.props.postMutation({
   variables: {
     description,
-    url
+    url,
   },
   update: (store, { data: { post } }) => {
     const data = store.readQuery({ query: FEED_QUERY })
-    data.feed.links.splice(0,0,post)
+    data.feed.links.splice(0, 0, post)
     store.writeQuery({
       query: FEED_QUERY,
-      data
+      data,
     })
-  }
+  },
 })
 ```
 

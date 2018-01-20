@@ -12,9 +12,9 @@ videoAuthor: ""
 
 In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
-### Install Dependencies
+### Install dependencies
 
-First add the dependency to the app. Open a terminal, navigate to your project directory and type:
+First add the required dependencies to the app. Open a terminal, navigate to your project directory and type:
 
 <Instruction>
 
@@ -38,20 +38,22 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 class Header extends Component {
-
   render() {
     return (
-      <div className='flex pa1 justify-between nowrap orange'>
-        <div className='flex flex-fixed black'>
-          <div className='fw7 mr1'>Hacker News</div>
-          <Link to='/' className='ml1 no-underline black'>new</Link>
-          <div className='ml1'>|</div>
-          <Link to='/create' className='ml1 no-underline black'>submit</Link>
+      <div className="flex pa1 justify-between nowrap orange">
+        <div className="flex flex-fixed black">
+          <div className="fw7 mr1">Hacker News</div>
+          <Link to="/" className="ml1 no-underline black">
+            new
+          </Link>
+          <div className="ml1">|</div>
+          <Link to="/create" className="ml1 no-underline black">
+            submit
+          </Link>
         </div>
       </div>
     )
   }
-
 }
 
 export default withRouter(Header)
@@ -74,12 +76,12 @@ Open the corresponding file `App.js` and update `render` to include the `Header`
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
-    <div className='center w85'>
+    <div className="center w85">
       <Header />
-      <div className='ph3 pv1 background-gray'>
+      <div className="ph3 pv1 background-gray">
         <Switch>
-          <Route exact path='/' component={LinkList}/>
-          <Route exact path='/create' component={CreateLink}/>
+          <Route exact path="/" component={LinkList} />
+          <Route exact path="/create" component={CreateLink} />
         </Switch>
       </div>
     </div>
@@ -124,16 +126,16 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
-  </BrowserRouter>
-  , document.getElementById('root')
+  </BrowserRouter>,
+  document.getElementById('root'),
 )
 ```
 
 </Instruction>
 
-That's it. If you run `yarn start` in the `hackernews-react-apollo` directory (not in `server`), you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
+That's it. If you run the app again, you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
 
-![](http://imgur.com/I16JzwW.png)
+![](https://imgur.com/X9bmkQH.png)
 
 ### Implement navigation
 
@@ -149,8 +151,8 @@ _createLink = async () => {
   await this.props.postMutation({
     variables: {
       description,
-      url
-    }
+      url,
+    },
   })
   this.props.history.push(`/`)
 }

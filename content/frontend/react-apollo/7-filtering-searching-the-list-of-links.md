@@ -106,17 +106,23 @@ For the user to be able to comfortably navigate to the search functionality, you
 Open `Header.js` and put a new `Link` between `new` and `submit`:
 
 ```js{4-5}(path=".../hackernews-react-apollo/src/components/Header.js")
-<div className='flex flex-fixed black'>
-  <div className='fw7 mr1'>Hacker News</div>
-  <Link to='/' className='ml1 no-underline black'>new</Link>
-  <div className='ml1'>|</div>
-  <Link to='/search' className='ml1 no-underline black'>search</Link>
-  {authToken &&
-  <div className='flex'>
-    <div className='ml1'>|</div>
-    <Link to='/create' className='ml1 no-underline black'>submit</Link>
-  </div>
-  }
+<div className="flex flex-fixed black">
+  <div className="fw7 mr1">Hacker News</div>
+  <Link to="/" className="ml1 no-underline black">
+    new
+  </Link>
+  <div className="ml1">|</div>
+  <Link to="/search" className="ml1 no-underline black">
+    search
+  </Link>
+  {authToken && (
+    <div className="flex">
+      <div className="ml1">|</div>
+      <Link to="/create" className="ml1 no-underline black">
+        submit
+      </Link>
+    </div>
+  )}
 </div>
 ```
 
@@ -181,7 +187,7 @@ async function feed(parent, args, ctx, info) {
 }
 ```
 
-> **Note**: To understand what's going on in this resolver, take a look at the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
+> **Note**: To understand what's going on in this resolver, check out the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
 In this case, two `where` conditions are specified: A link is only returned if either its `url` contains the provided `filter` _or_ its `description` contains the provided `filter`. Both conditions are combined using Prisma's `OR` operator.
 
