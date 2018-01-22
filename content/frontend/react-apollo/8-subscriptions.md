@@ -14,7 +14,7 @@ This section is all about bringing realtime functionality into the app by using 
 
 ### What are GraphQL Subscriptions?
 
-Subscriptions are a GraphQL feature allowing the server to send data to its clients when a specific event happens. Subscriptions are usually implemented with [WebSockets](https://en.wikipedia.org/wiki/WebSocket), where the server holds a steady connection to the client. This means you're breaking the _Request-Response-Cycle_ that was used for all previous interactions with the API when working with subscriptions. The client now initiates a steady connection with the server by specifying which event it is interested in. Every time this particular event then happens, the server uses the connection to push the expected data to the client.
+Subscriptions are a GraphQL feature allowing the server to send data to its clients when a specific _event_ happens. Subscriptions are usually implemented with [WebSockets](https://en.wikipedia.org/wiki/WebSocket), where the server holds a steady connection to the client. This means when working with subscriptions, you're breaking the _Request-Response-Cycle_ that was used for all previous interactions with the API. The client now initiates a steady connection with the server by specifying which event it is interested in. Every time this particular event then happens, the server uses the connection to push the expected data to the client.
 
 ### Subscriptions with Apollo
 
@@ -50,7 +50,7 @@ Notice that you're now also importing the `split` function from 'apollo-client-p
 
 <Instruction>
 
-Now create a new link that represents the WebSocket connection, use `split` for proper "routing" of the requests and update the constructor call of `ApolloClient`:
+Now create a new `WebSocketLink` that represents the WebSocket connection. Use `split` for proper "routing" of the requests and update the constructor call of `ApolloClient` like so:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 const wsLink = new WebSocketLink({
@@ -80,9 +80,9 @@ const client = new ApolloClient({
 
 </Instruction>
 
-You're instantiating a `WebSocketLink` that knows the subscriptions endpoint. Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`.
+You're instantiating a `WebSocketLink` that knows the subscriptions endpoint. The subscriptions endpoint in this case is similar to the HTTP endpoint, except that it uses the `ws` instead of `http` protocol.  Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`.
 
-[`split`](https://github.com/apollographql/apollo-link/blob/98eeb1deb0363384f291822b6c18cdc2c97e5bdb/packages/apollo-link/src/link.ts#L33) is used to "route" a request to a specific middleware link. It takes three arguments, the first one is a `test` function returning a boolean, the remaining two are again of type `ApolloLink`. If that boolean is true, the request will be forwarded to the link passed as the second argument. If false, to the third one.
+[`split`](https://github.com/apollographql/apollo-link/blob/98eeb1deb0363384f291822b6c18cdc2c97e5bdb/packages/apollo-link/src/link.ts#L33) is used to "route" a request to a specific middleware link. It takes three arguments, the first one is a `test` function which returns a boolean. The remaining two arguments are again of type `ApolloLink`. If `test` returns `true`, the request will be forwarded to the link passed as the second argument. If `false`, to the third one.
 
 In your case, the `test` function is checking whether the requested operation is a _subscription_. If this is the case, it will be forwarded to the `wsLink`, otherwise (if it's a _query_ or _mutation_), the `httpLinkWithAuthToken` will take care of it:
 
@@ -141,7 +141,7 @@ Let's understand what's going on here! You're using the `feedQuery` that you hav
 
 You're passing two arguments to `subscribeToMore`:
 
-1. `document`: This represents the subscription itself. In your case, the subscription will fire for `CREATED` events on the `Link` type, i.e. every time a new link is created.
+1. `document`: This represents the subscription query itself. In your case, the subscription will fire every time a new link is created.
 1. `updateQuery`: Similar to `update`, this function allows you to determine how the store should be updated with the information that was sent by the server after the event occurred.
 
 Go ahead and implement `updateQuery` next. This function works slightly differently than `update`. In fact, it follows exactly the same principle as a [Redux reducer](http://redux.js.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that's sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated data.
