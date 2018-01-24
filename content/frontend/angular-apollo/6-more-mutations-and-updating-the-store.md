@@ -37,7 +37,7 @@ Open `src/app/link-item/link-item.component.html` and update it to look like the
 
 <Instruction>
 
-Then, update the code in `login.component.ts`:
+Then, update the code in `link-item.component.ts`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 // ...
