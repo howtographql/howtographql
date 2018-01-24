@@ -78,7 +78,7 @@ You now have the same issue as you had with `Vote` in the last chapter: You're r
 Still in `src/schema.graphql`, adjust the import statement to also import `LinkSubscriptionPayload` and `VoteSubscriptionPayload`:
 
 ```graphql(path=".../hackernews-node/src/schema.graphql")
-# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from './generated/database.graphql'
+# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from './generated/prisma.graphql'
 ```
 
 </Instruction>
