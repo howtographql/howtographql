@@ -333,7 +333,7 @@ For example, you can send the the following `feed` query to retrieve the first 1
 }
 ```
 
-Or the `sugnup` mutation to create a new user:
+Or the `signup` mutation to create a new user:
 
 ```graphql(nocopy)
 mutation {
