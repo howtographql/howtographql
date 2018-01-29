@@ -361,12 +361,13 @@ To deploy the service all you need to do is invoke the `prisma deploy` command i
 In your terminal, navigate to the `server` directory and execute the following command:
 
 ```sh(path=".../hackernews-react-apollo/server")
-yarn install && yarn prisma deploy
+yarn install
+yarn prisma deploy
 ```
 
 </Instruction>
 
-Note that you can also omit `yarn install` and `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
+Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
 
 <Instruction>
 
@@ -406,7 +407,6 @@ With the proper Prisma endpoint in place, you can now explore the server!
 Navigate into the `server` directory and run the following commands to start the server:
 
 ```bash(path=".../hackernews-react-apollo/server")
-yarn install
 yarn dev
 ```
 
