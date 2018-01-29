@@ -148,8 +148,8 @@ Open `LinkList.js` and update the definition of `FEED_QUERY` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 export const FEED_QUERY = gql`
-  query FeedQuery($first: Int, $skip: Int, $orderBy: LinkOrderByInput) {
-    feed(first: $first, skip: $skip, orderBy: $orderBy) {
+  query FeedQuery {
+    feed {
       links {
         id
         createdAt
