@@ -426,9 +426,9 @@ Another important thing to note about the Playground is that it actually allows 
 
 The first one is defined by your **application schema**, this is the one your React application will interact with. It can be opened by selecting the **default** Playground in the **app** project in the left side-menu.
 
-There also is the Prisma database API which provides full access to the data stored in the database. This one you can open by selecting the **dev** Playground in the **database** project in the left side-menu. This API is defined by the **Prisma schema** (in `server/src/generated/graphcool.graphql`).
+There also is the Prisma database API which provides full access to the data stored in the database. This one you can open by selecting the **dev** Playground in the **database** project in the left side-menu. This API is defined by the **Prisma schema** (in `server/src/generated/prisma.graphql`).
 
-> **Note**: The Playground receives the information about the two GraphQL APIs from the `.graphqlconfig.myl` file which lists the two projects **app** and **database**. That's why it can provide you access to both.
+> **Note**: The Playground receives the information about the two GraphQL APIs from the `.graphqlconfig.yml` file which lists the two projects **app** and **database**. That's why it can provide you access to both.
 
 Why do you need two GraphQL APIs at all? The answer is pretty straightforward, you can actually think of the two APIs as two _layers_.
 
