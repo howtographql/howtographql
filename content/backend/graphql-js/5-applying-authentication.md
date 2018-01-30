@@ -328,7 +328,7 @@ Since you're now referencing the `Vote` type in the application schema without d
 Still in `src/schema.graphql`, adjust the import statement to also  import `Vote`:
 
 ```graphql(path=".../hackernews-node/src/schema.graphql")
-# import Link, Vote from "./generated/database.graphql"
+# import Link, Vote from "./generated/prisma.graphql"
 ```
 
 </Instruction>
