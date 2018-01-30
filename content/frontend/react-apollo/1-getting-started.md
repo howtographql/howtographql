@@ -251,7 +251,7 @@ curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar 
 
 </Instruction>
 
-You now have a new directory called `server` inside your project that contains all the code you need for your backend.
+You now have a new directory called `server` inside your project that contains all the code you need for your backend. You need to run `yarn` from `server` directory to install its dependencies.
 
 Before we start the server, let's quickly understand the main components:
 
