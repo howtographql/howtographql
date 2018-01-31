@@ -93,7 +93,7 @@ In `src/resolvers`, create a new file called `Subscription.js`. Then add the fol
 const newLink = {
   subscribe: (parent, args, ctx, info) => {
     return ctx.db.subscription.link(
-      { where: { mutation_in: ['CREATED'] } },
+      { },
       info,
     )
   },
@@ -102,7 +102,7 @@ const newLink = {
 const newVote = {
   subscribe: (parent, args, ctx, info) => {
     return ctx.db.subscription.vote(
-      { where: { mutation_in: ['CREATED'] } },
+      { },
       info,
     )
   },
@@ -111,6 +111,19 @@ const newVote = {
 module.exports = {
   newLink,
   newVote,
+}
+```
+
+### Note:
+Subscriptions with 'where' filter do not currently work! For example the following code does not work:
+```
+const newVote = {
+  subscribe: (parent, args, ctx, info) => {
+    return ctx.db.subscription.vote(
+      { where: { mutation_in: ['CREATED'] } },
+      info,
+    )
+  },
 }
 ```
 
