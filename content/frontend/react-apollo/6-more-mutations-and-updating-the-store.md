@@ -20,7 +20,7 @@ Once more, the first step to implement this new feature is to make your React co
 
 Open `Link.js` and update `render` to look as follows:
 
-```js (path=".../hackernews-react-apollo/src/components/Link.js")
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
