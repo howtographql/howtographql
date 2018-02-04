@@ -30,6 +30,12 @@ Open a terminal and navigate to the project's root directory. Then execute the f
 yarn add apollo-link-ws
 ```
 
+> **Note**: For apollo-link-ws to work you also need to install subscriptions-transport-ws
+
+```
+yarn add subscriptions-transport-ws
+```
+
 </Instruction>
 
 Next, make sure your `ApolloClient` instance knows about the subscription server.
