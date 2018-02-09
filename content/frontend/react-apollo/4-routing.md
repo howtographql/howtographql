@@ -145,7 +145,7 @@ To wrap up this section, you need to implement an automatic redirect from the `C
 
 Open `CreateLink.js` and update `_createLink` to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{9}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const { description, url } = this.state
   await this.props.postMutation({
