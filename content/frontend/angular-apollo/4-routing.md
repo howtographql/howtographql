@@ -211,7 +211,7 @@ createLink() {
 
 <Instruction>
 
-Then import `Routger` and update the `constructor` method to look like the following:
+Then import `Router` and update the `constructor` method to look like the following:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 // ...
