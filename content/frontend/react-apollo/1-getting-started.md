@@ -354,13 +354,14 @@ mutation {
 
 There is one thing left to do before you can start your server and begin sending queries and mutations to it. The Prisma database service needs to be deployed so the server can access it.
 
-To deploy the service all you need to do is invoke the `prisma deploy` command inside the `server` directory.
+To deploy the service all you need to do is install the server's dependencies and invoke the `prisma deploy` command inside the `server` directory.
 
 <Instruction>
 
-In your terminal, navigate to the `server` directory and execute the following command:
+In your terminal, navigate to the `server` directory and execute the following commands:
 
 ```sh(path=".../hackernews-react-apollo/server")
+yarn install
 yarn prisma deploy
 ```
 
