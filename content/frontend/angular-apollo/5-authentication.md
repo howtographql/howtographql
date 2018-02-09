@@ -164,7 +164,7 @@ Let's continue by creating a new file in `src/app` called `auth.service.ts` and 
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {GC_AUTH_TOKEN, GC_USER_ID} from './constant';
+import {GC_AUTH_TOKEN, GC_USER_ID} from './constants';
 
 // 1
 @Injectable()
