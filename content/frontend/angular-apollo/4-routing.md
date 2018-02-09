@@ -127,7 +127,7 @@ You now need to make some small updates to `src/app/app.module.ts`.
 Open up `src/app/app.module.ts` and add the following import:
 
 ```js(path=".../hackernews-angular-apollo/src/app/app.module.ts")
-import {AppRoutingModule} from './app.routing.module';
+import {AppRoutingModule} from './app.routing';
 ```
 
 </Instruction>
