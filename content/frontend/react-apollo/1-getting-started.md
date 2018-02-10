@@ -247,6 +247,8 @@ In your terminal, navigate to the `hackernews-react-apollo` directory and run th
 
 ```bash(path=".../hackernews-react-apollo")
 curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar -xz --strip=1 react-apollo-starter/server
+cd server
+yarn install
 ```
 
 </Instruction>
