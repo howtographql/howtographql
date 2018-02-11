@@ -309,7 +309,7 @@ If you haven't done so before, go ahead and test the login functionality. Run `y
 
 ### Configuring Apollo with the authentication token
 
-Now that users are able to login and obtain a token that authenticates them against the GraphQL server, you actually need to make sure that the token gets attached to all requests that are sent to te API.
+Now that users are able to login and obtain a token that authenticates them against the GraphQL server, you actually need to make sure that the token gets attached to all requests that are sent to the API.
 
 Since all the API requests are actually created and sent by the `ApolloClient` instance in your app, you need to make sure it knows about the user's token! Luckily, Apollo provides a nice way for authenticating all requests by using the concept of [middleware](http://dev.apollodata.com/react/auth.html#Header), implemented as an [Apollo Link](https://github.com/apollographql/apollo-link).
 
