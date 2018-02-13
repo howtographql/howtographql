@@ -263,8 +263,9 @@ In this case, you need to start with adjusting the data model, since right now i
 
 Open `database/datamodel.graphql`, add a new `Vote` type and adjust the `User` and `Link` types to have a relation to `Vote`:
 
-```graphql{1-4,11,20}(path=".../hackernews-node/database/datamodel.graphql")
+```graphql{1-5,12,21}(path=".../hackernews-node/database/datamodel.graphql")
 type Vote {
+  id: ID! @unique
   link: Link!
   user: User!
 }
@@ -327,7 +328,7 @@ Since you're now referencing the `Vote` type in the application schema without d
 Still in `src/schema.graphql`, adjust the import statement to also  import `Vote`:
 
 ```graphql(path=".../hackernews-node/src/schema.graphql")
-# import Link, Vote from "./generated/database.graphql"
+# import Link, Vote from "./generated/prisma.graphql"
 ```
 
 </Instruction>

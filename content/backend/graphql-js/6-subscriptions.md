@@ -78,7 +78,7 @@ You now have the same issue as you had with `Vote` in the last chapter: You're r
 Still in `src/schema.graphql`, adjust the import statement to also import `LinkSubscriptionPayload` and `VoteSubscriptionPayload`:
 
 ```graphql(path=".../hackernews-node/src/schema.graphql")
-# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from './generated/database.graphql'
+# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from './generated/prisma.graphql'
 ```
 
 </Instruction>
@@ -93,7 +93,7 @@ In `src/resolvers`, create a new file called `Subscription.js`. Then add the fol
 const newLink = {
   subscribe: (parent, args, ctx, info) => {
     return ctx.db.subscription.link(
-      { where: { mutation_in: ['CREATED'] } },
+      { },
       info,
     )
   },
@@ -102,7 +102,7 @@ const newLink = {
 const newVote = {
   subscribe: (parent, args, ctx, info) => {
     return ctx.db.subscription.vote(
-      { where: { mutation_in: ['CREATED'] } },
+      { },
       info,
     )
   },
@@ -111,6 +111,19 @@ const newVote = {
 module.exports = {
   newLink,
   newVote,
+}
+```
+
+### Note:
+Subscriptions with 'where' filter do not currently work! For example the following code does not work:
+```
+const newVote = {
+  subscribe: (parent, args, ctx, info) => {
+    return ctx.db.subscription.vote(
+      { where: { mutation_in: ['CREATED'] } },
+      info,
+    )
+  },
 }
 ```
 

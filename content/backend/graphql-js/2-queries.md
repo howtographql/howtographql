@@ -158,19 +158,21 @@ You can now go ahead and test the `feed` query. Before you do so, you should sto
 
 <Instruction>
 
-In the root directory of your project, run the following command to start the server:
+In the root directory of your project, run the following command to start the server and open a GraphQL Playground:
 
 ```bash(path=".../hackernews-node/)
-yarn start
+yarn dev
 ```
 
 </Instruction>
+
+> **Note**: The `yarn` command starts two processes. First, the GraphQL server which will be running on `http://localhost:4000`. Second, a GraphQL Playground that can be opened on `http://localhost:3000`. The Playground is running against the server on `http://localhost:4000`.
 
 The server is now running on [`http://localhost:4000`](http://localhost:4000).
 
 <Instruction>
 
-Open a browser window and add navigate to [`http://localhost:4000`](http://localhost:4000).
+Open a browser window and add navigate to [`http://localhost:3000`](http://localhost:4000).
 
 </Instruction>
 
@@ -180,6 +182,8 @@ You now opened a GraphQL Playground which allows you to interact with two GraphQ
 - `database`: This is the Prisma API exposing all the CRUD operations for the `Link` type.
 
 ![](https://imgur.com/vZ6fJVv.png)
+
+> **Note**: You can also use the `yarn start` command which only starts the server on `http://localhost:4000` but won't allow you to access the `database` Playground.
 
 To create some initial data, you need to send a `createLink` mutation to the Prisma API.
 

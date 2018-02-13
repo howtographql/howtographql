@@ -105,7 +105,7 @@ For the user to be able to comfortably navigate to the search functionality, you
 
 Open `Header.js` and put a new `Link` between `new` and `submit`:
 
-```js{4-5}(path=".../hackernews-react-apollo/src/components/Header.js")
+```js{6-9}(path=".../hackernews-react-apollo/src/components/Header.js")
 <div className="flex flex-fixed black">
   <div className="fw7 mr1">Hacker News</div>
   <Link to="/" className="ml1 no-underline black">

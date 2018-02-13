@@ -75,7 +75,7 @@ export default class OptionalSteps extends React.Component<Props, State> {
             @p: .flex, .bl, .bw2, .bBlack20, .pb25, .relative, .bbox;
           }
           .optional-steps.mainPink::before {
-            @p: .absolute, .top0, .bottom0, .bgPink, .z999;
+            @p: .absolute, .top0, .bottom0, .bgPink, .z2;
             content: "";
             left: -2px;
             width: 2px;
