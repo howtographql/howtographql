@@ -111,18 +111,6 @@ const data: Stack[] = [
   },
 
   {
-    title: 'Graphcool',
-    type: 'backend',
-    key: 'graphcool',
-    images: [require('../assets/icons/graphcool.svg')],
-    content: {
-      title: 'Graphcool',
-      description:
-        'Learn everything you need to know to build your own GraphQL backend with Graphcool',
-    },
-    authorName: 'Nikolas Burk',
-  },
-  {
     title: 'graphql.js',
     type: 'backend',
     key: 'graphql-js',
@@ -133,7 +121,7 @@ const data: Stack[] = [
     content: {
       title: 'graphql.js',
       description:
-        'Build your own GraphQL server with node.js and the express framework',
+        'Build your own GraphQL server with Node.js, Express and Graphcool',
     },
     authorName: 'Maira Bello',
   },

@@ -1,237 +1,25 @@
 ---
 title: Getting Started
 pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
-description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Graphcool.
-videoId: JV0nLsdeMfo
-duration: 4
-videoAuthor: "Abhi Aiyer"
-question: Which are the two types that you find in every Graphcool project file?
+description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Prisma.
+question: Which are the two types that you find in every Prisma project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
 correctAnswer: 3
 draft: false
+videoId: ""
+duration: 0		
+videoAuthor: ""
 ---
 
-### Backend
+Since this is a frontend track, you're not going to spend any time implementing the backend. Instead, you'll use the server from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
-Since this is a frontend track, you don't want to spend too much time setting up the backend. This is why you'll use the [Graphcool Framework](https://www.graph.cool/) for this tutorial. It provides a fast and easy way to build and deploy GraphQL backends (also called Graphcool _services_).
-
-#### The Data Model
-
-You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to build (and deploy) your GraphQL API based on the data model that you need for the app. 
-
-Speaking of the data model, here is what the final version looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
-
-```graphql(nocopy)
-type User @model {
-  id: ID! @isUnique     # required system field (read-only)
-  createdAt: DateTime!  # optional system field (read-only)
-  updatedAt: DateTime!  # optional system field (read-only)
-
-  email: String! @isUnique # for authentication
-  password: String!        # for authentication
-
-  name: String!
-  links: [Link!]! @relation(name: "UsersLinks")
-  votes: [Vote!]! @relation(name: "UsersVotes")
-}
-
-type Link @model { 
-  id: ID! @isUnique     # required system field (read-only)
-  createdAt: DateTime!  # optional system field (read-only)
-  updatedAt: DateTime!  # optional system field (read-only)
-
-  description: String!
-  url: String!
-  postedBy: User! @relation(name: "UsersLinks")
-  votes: [Vote!]! @relation(name: "VotesOnLink")
-}
-
-type Vote @model {
-  id: ID! @isUnique     # required system field (read-only)
-  createdAt: DateTime!  # optional system field (read-only)
-
-  user: User! @relation(name: "UsersVotes")
-  link: Link! @relation(name: "VotesOnLink")
-}
-```
-
-As you can see from the comments, some fields on your model types are read-only. This means they will be managed for you by the Graphcool Framework.
-
-In general, there are a few things to note about these type definitions:
-
-- Every type annotated with the `@model`-directive will be _mapped_ to the database and corresponding CRUD-operations are added to the GraphQL API of your Graphcool service. 
-- The `@isUnique`-directive means that the annotated field can never have the same value for two different records of that type (also called _nodes_). Since this is a read-only field, the Graphcool Framework will take care of managing this constraint.
-- `createdAt` and `updatedAt` are special fields that are managed by the Graphcool Framework as well. `createdAt` will carry the date for when a node of that type was created, `updatedAt` when it was last updated. 
-
-#### Creating the GraphQL Server
-
-For starting out, you're not going to use the full data model that you saw above. That's because we want to evolve the schema when it becomes necessary for the features you're going to implement. For now, the data model will contain only the `Link` type.
-
-The first thing you need to do to get your GraphQL server is install the Graphcool CLI with npm.
-
-<Instruction>
-
-Open up a terminal window and type the following:
-
-```bash
-npm install -g graphcool
-```
-
-</Instruction>
-
-Now you can go and create the server. There are two steps involved in this:
-
-1. Creating the local file structure that contains all required configuration for your backend. This is done with the [`graphcool init`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-init) command.
-2. Configuring the data model and deploying the server with [`graphcool deploy`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-deploy).
-
-<Instruction>
-
-Type the following command into the terminal to bootstrap your Graphcool service:
-
-```bash
-# Create the file structure for the backend in a directory called `server`
-graphcool init server
-```
-
-</Instruction>
-
-This will create a new directory called `server` and place the following files in there:
-
-- `graphcool.yml`: This is the [root configuration](https://www.graph.cool/docs/reference/service-definition/graphcool.yml-foatho8aip) file for your Graphcool service. It tells the Graphcool Framework where to find your data model (and other type definitions), specifies the [_permission rules_](https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez) and provides information about any integrated _serverless [functions](https://www.graph.cool/docs/reference/functions/overview-aiw4aimie9)_.
-- `types.graphql`: This specifies the data model for your application, all type definitions are written in GraphQL SDL. 
-- `package.json`: If you're integrating any serverless functions that are using dependencies from npm, you need to list those dependencies here. Note that this file is completely independent from the dependencies of your frontend which you'll create in a bit. Since this tutorial won't actually use any serverless functions, you can simply ignore it.
-- `src`: The `src` directory is used to for the code of the serverless functions you're integrating in your Graphcool service. It currently contains the setup for a simple "Hello World"-[resolver](https://www.graph.cool/docs/reference/functions/resolvers-su6wu3yoo2) function (which you can delete if you like). Again, you can ignore this directory since we're not going to use any functions in this tutorial.
-
-Next you need to make sure that the data model of the GraphQL server is correct, so you need to adjust the type definitions in `types.graphql`.
-
-<Instruction>
-
-Open `types.graphql` and replace its current contents with the (not yet complete) definition of the `Link` type:
-
-```graphql(path=".../hackernews-react-apollo/server/types.graphql")
-type Link @model {
-  id: ID! @isUnique     # required system field (read-only)
-  createdAt: DateTime!  # optional system field (read-only)
-  updatedAt: DateTime!  # optional system field (read-only)
-
-  description: String!
-  url: String!
-}
-```
-
-</Instruction>
-
-As mentioned above, we'll start with only a sub-part of the actual data model and evolve our schema and API when necessary. This change is all you need to put your GraphQL server into production.
-
-<Instruction>
-
-Open a terminal and navigate into the `server` directory. Then deploy the server with the following command:
-
-```bash(path=".../hackernews-react-apollo/server")
-graphcool deploy
-```
-
-</Instruction>
-
-<Instruction>
-
-When prompted, select any of the **Shared Clusters** deployment options, e.g. `shared-eu-west`. 
-
-For any other prompt, you can just hit **Enter** to go with the suggested default value.
-
-</Instruction>
-
-> Note that this command will open up a browser window first and ask you to authenticate on the Graphcool platform (if you haven't done so before).
-
-#### Populate The Database & GraphQL Playgrounds
-
-Before you move on to setup the frontend, go ahead and create some initial data in the project so you've got something to see once you start rendering data in the app!
-
-You'll do this by using a GraphQL [Playground](https://github.com/graphcool/graphql-playground) which is an interactive environment that allows you to send queries and mutations. It's a great way to explore the capabilities of a GraphQL API.
-
-<Instruction>
-
-Still in the `server` directory in your terminal, run the following command:
-
-```bash(path=".../hackernews-react-apollo/server")
-graphcool playground
-```
-
-</Instruction>
-
-The left pane of the Playground is the _editor_ that you can use to write your queries and mutations (and even realtime subscriptions). Once you click the play button in the middle, the response to the request will be displayed in the _results_ pane on the right.
-
-<Instruction>
-
-Copy the following two mutations into the _editor_ pane:
-
-```graphql
-mutation CreateGraphcoolLink {
-  createLink(
-    description: "The coolest GraphQL backend 😎",
-    url: "https://graph.cool") {
-    id
-  }
-}
-
-mutation CreateApolloLink {
-  createLink(
-    description: "The best GraphQL client",
-    url: "http://dev.apollodata.com/") {
-    id
-  }
-}
-```
-
-</Instruction>
-
-Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreateGraphcoolLink` and `CreateApolloLink `.
-
-<Instruction>
-
-Click the _Play_-button in the middle of the two panes and select each mutation from the dropdown exactly once.
-
-</Instruction>
-
-![](http://imgur.com/ZBgeq22.png)
-
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://graph-cool.netlify.com/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
-
-```graphql
-{
-  allLinks {
-    id
-    description
-    url
-  }
-}
-``` 
-
-If everything went well, the query will return the following data (the `id`s will of course be different in your case):
-
-```js(nocopy)
-{
-  "data": {
-    "allLinks": [
-      {
-        "id": "cj4jo6xxat8o901420m0yy60i",
-        "description": "The coolest GraphQL backend 😎",
-        "url": "https://graph.cool"
-      },
-      {
-        "id": "cj4jo6z4it8on0142p7q015hc",
-        "description": "The best GraphQL client",
-        "url": "http://dev.apollodata.com/"
-      }
-    ]
-  }
-```
+Once you created your React application, you'll pull in the required code for the backend.
 
 ### Frontend
 
-#### Creating the App
+#### Creating the app
 
-Next, you are going to create the React project! As mentioned in the beginning, you'll use `create-react-app` for that.
+First, you are going to create the React project! As mentioned in the beginning, you'll use `create-react-app` for that.
 
 <Instruction>
 
@@ -253,7 +41,7 @@ create-react-app hackernews-react-apollo
 
 </Instruction>
 
-This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup. 
+This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup.
 
 Make sure everything works by navigating into the directory and starting the app:
 
@@ -266,10 +54,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 ![](http://imgur.com/Yujwwi6.png)
 
-
 <Instruction>
-
-Next, go ahead and move the `server` directory that contains the definition of your Graphcool service into the `hackernews-react-apollo` directory to manage everything in one place.
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
@@ -288,13 +73,6 @@ Your project structure should now look as follows:
 │   ├── favicon.ico
 │   ├── index.html
 │   └── manifest.json
-├── server
-│   ├── graphcool.yml
-│   ├── package.json
-│   ├── types.graphql
-│   └── src
-│       ├── hello.js
-│       └── hello.graphql
 ├── src
 │   ├── App.test.js
 │   ├── components
@@ -308,9 +86,9 @@ Your project structure should now look as follows:
 └── yarn.lock
 ```
 
-#### Prepare Styling
+#### Prepare styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
+This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
 
 <Instruction>
 
@@ -378,7 +156,7 @@ input {
 
 </Instruction>
 
-#### Installing Apollo
+#### Install Apollo Client
 
 <Instruction>
 
@@ -403,17 +181,17 @@ Here's an overview of the packages you just installed:
 
 That's it, you're ready to write some code! 🚀
 
-#### Configuring the `ApolloClient`
+#### Configure `ApolloClient`
 
-Apollo abstracts away all lower-lever networking logic and provides a nice interface to the GraphQL API. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests any more - instead you can simply write queries and mutations and send them using the `ApolloClient`.
+Apollo abstracts away all lower-lever networking logic and provides a nice interface to the GraphQL server. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests any more - instead you can simply write queries and mutations and send them using an `ApolloClient` instance.
 
-The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the endpoint of your GraphQL API so it can deal with the network connections.
+The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the _endpoint_ of your GraphQL API so it can deal with the network connections.
 
 <Instruction>
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{7-10,13,16-19,23-25}(path="src/index.js")
+```js{7-10,13,16-19,23-25}(path=".../hackernews-react-apollo/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
@@ -426,7 +204,7 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // 2
-const httpLink = new HttpLink({ uri: '__SIMPLE_API_ENDPOINT__' })
+const httpLink = new HttpLink({ uri: 'http://localhost:4000' })
 
 // 3
 const client = new ApolloClient({
@@ -446,33 +224,295 @@ registerServiceWorker()
 
 </Instruction>
 
-> Note: The project that was generated by `create-react-app` uses semicolons and double quotes for strings. All the code that you're going to add will use **no semicolons** and **single quotes**. You're also free to delete any existing semicolons and replace double with single quotes 🔥
+> Note: The project that was generated by `create-react-app` uses semicolons and double quotes for strings. All the code that you're going to add will use **no semicolons** and mostly **single quotes**. You're also free to delete any existing semicolons and replace double with single quotes 🔥
 
 Let's try to understand what's going on in that code snippet:
 
 1. You're importing the required dependencies from the installed npm packages.
-2. Here you create the `HttpLink` that will connect your `ApolloClient` instance with the GraphQL API; you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
-3. Now you instantiate the `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
-4. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
+1. Here you create the `HttpLink` that will connect your `ApolloClient` instance with the GraphQL API; your GraphQL server will be running on `http://localhost:4000`.
+1. Now you instantiate `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
+1. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
-Next you need to replace the placeholder for the GraphQL endpoint with your actual endpoint. But where do you get your endpoint from?
+That's it, you're all set to start for loading some data into your app! 😎
 
-There are two ways for you to get your endpoint. You can either open the [Graphcool Console](https://console.graph.cool) and click the _Endoints_-button in the bottom-left corner. The second option is to use the CLI.
+### Backend
+
+#### Downloading the server code
+
+As mentioned above, for the backend in this tutorial you'll simply use the final project from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
 <Instruction>
 
-In the terminal, navigate into the `server` directory and use the following command to get access to the API endpoints of your Graphcools service:
+In your terminal, navigate to the `hackernews-react-apollo` directory and run the following commands:
 
-```bash(path=".../hackernews-react-apollo/server")
-graphcool info
+```bash(path=".../hackernews-react-apollo")
+curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar -xz --strip=1 react-apollo-starter/server
 ```
 
 </Instruction>
 
+You now have a new directory called `server` inside your project that contains all the code you need for your backend.
+
+Before we start the server, let's quickly understand the main components:
+
+- `database`: This directory holds all the files that relate to your Prisma database service.
+  - `prisma.yml` is the root configuration file for the service.
+  - `datamodel.graphql` defines your data model in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). The data model is the foundation for the GraphQL API generated by Prisma which provides powerful CRUD operations for the types in the data model.
+- `src`: This directory holds the source files for your GraphQL server.
+  - `schema.graphql` contains your **application schema**. The application schema defines the GraphQL operations you can send from the frontend. We'll take a closer look at this file in just a bit.
+  - `generated/prisma.graphql` contains the auto-generated **Prism database schema**. The Prisma schmea defines the CRUD powerful operations for the types in your data model. Note that you should never edit this file manually since it gets automatically updated when the data model changes.
+  - `resolvers` contains the [_resolver functions_](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#1880) for the operations defined in the application schema.
+  - `index.js` is the entry point for your GraphQL server.
+
+From the mentioned files, only the application schema defined in `server/src/schema.graphql` is relevant for you as a frontend developer. This file contains the [GraphQL schema](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e) which defines all the operations (queries, mutations and subscriptions) you can send from your frontend app.
+
+Here is what it looks like:
+
+```graphql(path=".../hackernews-react-apollo/server/src/schema.graphql"&nocopy)
+# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from "./generated/prisma.graphql"
+
+type Query {
+  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
+}
+
+type Feed {
+  links: [Link!]!
+  count: Int!
+}
+
+type Mutation {
+  post(url: String!, description: String!): Link!
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  vote(linkId: ID!): Vote
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type Subscription {
+  newLink: LinkSubscriptionPayload
+  newVote: VoteSubscriptionPayload
+}
+```
+
+This schema allows for the following operations:
+
+- Queries:
+  - `feed`: Retrieves all links from the backend, note that this query also allows for filter, sorting and pagination arguments
+- Mutations:
+  - `post`: Allows authenticated users to create a new link
+  - `signup`: Create an account for a new user
+  - `login`: Login an existing user
+  - `vote`: Allows authenticated users to vote for an existing link
+- Subscriptions:
+  - `newLink`: Receive realtime updates when a new link is created
+  - `newVote`: Receive realtime updates when a vote was submitted
+
+For example, you can send the the following `feed` query to retrieve the first 10 links from the server:
+
+```graphql(nocopy)
+{
+  feed(skip: 0, first: 10) {
+    links {
+      description
+      url
+      postedBy {
+        name
+      }
+    }
+  }
+}
+```
+
+Or the `sugnup` mutation to create a new user:
+
+```graphql(nocopy)
+mutation {
+  signup(
+    name: "Sarah",
+    email: "sarah@graph.cool",
+    password: "graphql"
+  ) {
+    token
+    user {
+      id
+    }
+  }
+}
+```
+
+#### Deploying the Prisma database service
+
+There is one thing left to do before you can start your server and begin sending queries and mutations to it. The Prisma database service needs to be deployed so the server can access it.
+
+To deploy the service all you need to do is invoke the `prisma deploy` command inside the `server` directory.
+
 <Instruction>
 
-Copy the endpoint for the `Simple API` and paste it into `src/index.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
+In your terminal, navigate to the `server` directory and execute the following command:
+
+```sh(path=".../hackernews-react-apollo/server")
+yarn prisma deploy
+```
 
 </Instruction>
 
-That's it, you're all set to start for loading some data into your app! 😎
+Note that you can also omit `yarn` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
+
+<Instruction>
+
+When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the public clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
+
+</Instruction>
+
+<Instruction>
+
+From the output of the `deploy` command, copy the `HTTP` endpoint and paste it into `server/src/index.js`, replacing the current placeholder `__PRISMA_ENDPOINT__`:
+
+```js(path=".../hackernews-react-apollo/server/src/index.js")
+const server = new GraphQLServer({
+  typeDefs: './src/schema.graphql',
+  resolvers,
+  context: req => ({
+    ...req,
+    db: new Prisma({
+      typeDefs: 'src/generated/prisma.graphql',
+      endpoint: '__PRISMA_ENDPOINT__',
+      secret: 'mysecret123',
+    }),
+  }),
+})
+```
+
+</Instruction>
+
+> **Note**: If you ever loose the endpoint, you can get access to it again by running `yarn prisma info`.
+
+#### Exploring the server
+
+With the proper Prisma endpoint in place, you can now explore the server!
+
+<Instruction>
+
+Navigate into the `server` directory and run the following commands to start the server:
+
+```bash(path=".../hackernews-react-apollo/server")
+yarn install
+yarn dev
+```
+
+</Instruction>
+
+The `yarn dev` executes the `dev` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API. Note that if you only want to start the server without opening a Playground, you can do so by running `yarn start`.
+
+![](https://imgur.com/k2I7NJn.png)
+
+> A Playground is a "GraphQL IDE", providing an interactive environment that allows to send queries, mutations and subscriptions to your GraphQL API. It is similar to a tool like [Postman](https://www.getpostman.com) which you might know from working with REST APIs, but comes with a lot of additional benefits.
+
+The first thing to note about the Playground is that it has built-in documentation for its GraphQL API. This documentation is generated based on the GraphQL schema and can be openend by clicking the green **SCHEMA**-button on the right edge of the Playground. Consequently, it shows you the same information you saw in the application schema above:
+
+![](https://imgur.com/8xK81qt.png)
+
+Another important thing to note about the Playground is that it actually allows you to interact with two(!) GraphQL APIs.
+
+The first one is defined by your **application schema**, this is the one your React application will interact with. It can be opened by selecting the **default** Playground in the **app** project in the left side-menu.
+
+There also is the Prisma database API which provides full access to the data stored in the database. This one you can open by selecting the **dev** Playground in the **database** project in the left side-menu. This API is defined by the **Prisma schema** (in `server/src/generated/graphcool.graphql`).
+
+> **Note**: The Playground receives the information about the two GraphQL APIs from the `.graphqlconfig.myl` file which lists the two projects **app** and **database**. That's why it can provide you access to both.
+
+Why do you need two GraphQL APIs at all? The answer is pretty straightforward, you can actually think of the two APIs as two _layers_.
+
+The application schema defines the first layer, also called _application layer_. It defines the operations your client applications will be able to send to your API. This includes business logic as well as other common features and workflows (such as signup and login).
+
+The second layer is the _database layer_ defined by the Prisma schema. It provides powerful CRUD operations that allow you to perform _any_ kind of operation against the data in your database.
+
+> **Note**: It is of course possible to _only_ use the database API from the frontend. However, in most real-world applications you'll need at least a little bit of business logic which the API can not provide. If your app really only needs to perform CRUD operations and access a database, then it's totally fine to run against the Prisma database API directly.
+
+The left pane of the Playground is the _editor_ that you can use to write your queries, mutations and subscriptions. Once you click the play button in the middle, your request is sent and the server's response will be displayed in the _results_ pane on the right.
+
+<Instruction>
+
+Copy the following two mutations into the _editor_ pane - make sure to have the **default** Playground from the **app** project selected in the left side-menu:
+
+```graphql
+mutation CreatePrismaLink {
+  post(
+    description: "Prisma turns your database into a GraphQL API 😎",
+    url: "https://www.prismagraphql.com"
+  ) {
+    id
+  }
+}
+
+mutation CreateApolloLink {
+  post(
+    description: "The best GraphQL client for React",
+    url: "https://www.apollographql.com/docs/react/"
+  ) {
+    id
+  }
+}
+```
+
+</Instruction>
+
+Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreatePrismaLink` and `CreateApolloLink`.
+
+<Instruction>
+
+Click the **Play**-button in the middle of the two panes and select each mutation from the dropdown exactly once.
+
+</Instruction>
+
+![](https://imgur.com/2GViJwb.png)
+
+This creates two new `Link` records in the database. You can verify that the mutations actually worked by sending the following query in the already open Playground:
+
+```graphql
+{
+  feed {
+    links {
+      id
+      description
+      url
+    }
+  }
+}
+```
+
+> **Note**: You can also send the `feed` query in the **default** Playground in the **app** section.
+
+If everything went well, the query will return the following data (the `id`s will of course be different in your case since they were generated by Prisma and are globally unique):
+
+```json(nocopy)
+{
+  "data": {
+    "feed": {
+      "links": [
+        {
+          "id": "cjcnfwjeif1rx012483nh6utk",
+          "description": "The best GraphQL client",
+          "url": "https://www.apollographql.com/docs/react/"
+        },
+        {
+          "id": "cjcnfznzff1w601247iili50x",
+          "description": "Prisma turns your database into a GraphQL API 😎",
+          "url": "https://www.prismagraphql.com"
+        }
+      ]
+    }
+  }
+}
+```
+
+Fantastic, your server works! 👏

@@ -346,7 +346,7 @@ end
 
 <Instruction>
 
-We also need to update our `signinUser` resolver, so it also stores the `token` in `session`:
+We also need to update our `signinUser` resolver, so it also stores the `token` in `session`. Be sure to remove the `_` since the variable is now in use:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/sign_in_user.rb")
 class Resolvers::SignInUser < GraphQL::Function
@@ -391,6 +391,8 @@ class AddUserIdLink < ActiveRecord::Migration[5.1]
   end
 end
 ```
+
+Run `rails db:migrate`.
 
 </Instruction>
 
@@ -452,4 +454,3 @@ end
 Done! Now when you post links, they will be attached to your user, so you have to run  `signinUser` beforehand.
 
 ![](http://i.imgur.com/9ma8r8u.png)
-

@@ -1,21 +1,15 @@
 ---
 title: "Filtering: Searching the List of Links"
 pageTitle: "Filtering with GraphQL, React & Apollo Tutorial"
-description: "Learn how to use filters with GraphQL and Apollo Client. Graphcool provides a powerful filter and ordering API that you'll explore in this example."
+description: "Learn how to use filters with GraphQL and Apollo Client. Prisma provides a powerful filter and ordering API that you'll explore in this example."
 question: "What's the purpose of the 'withApollo' function?"
 answers: ["You use it to send queries and mutations to a GraphQL server", "When wrapped around a component, it injects the 'ApolloClient' instance into the component's props", "You have to use it everywhere where you want to use Apollo functionality", "It parses GraphQL code"]
 correctAnswer: 1
-videoId: sycCQujmWzg
-duration: 3
-videoAuthor: "Abhi Aiyer"
 ---
 
 In this section, you'll implement a search feature and learn about the filtering capabilities of your GraphQL API.
 
-> Note: If you're interested in all the filtering capabilities of Graphcool, you can check out the [documentation](https://www.graph.cool/docs/reference/simple-api/filtering-by-field-xookaexai0/) on it.
-
-
-### Preparing the React Components
+### Preparing the React components
 
 The search will be available under a new route and implemented in a new React component.
 
@@ -33,7 +27,7 @@ class Search extends Component {
 
   state = {
     links: [],
-    searchText: ''
+    filter: ''
   }
 
   render() {
@@ -43,7 +37,7 @@ class Search extends Component {
           Search
           <input
             type='text'
-            onChange={(e) => this.setState({ searchText: e.target.value })}
+            onChange={(e) => this.setState({ filter: e.target.value })}
           />
           <button
             onClick={() => this._executeSearch()}
@@ -67,7 +61,7 @@ export default withApollo(Search)
 
 </Instruction>
 
-Again, this is a pretty standard setup. You're rendering an `input` field where the user can type a search string. 
+Again, this is a pretty standard setup. You're rendering an `input` field where the user can type a search string.
 
 Notice that the `links` field in the component state will hold all the links to be rendered, so this time we're not accessing query results through the component props! We'll also talk about the `withApollo` function that you're using when exporting the component in a bit!
 
@@ -91,7 +85,7 @@ render() {
     </div>
   )
 }
-```  
+```
 
 </Instruction>
 
@@ -111,24 +105,30 @@ For the user to be able to comfortably navigate to the search functionality, you
 
 Open `Header.js` and put a new `Link` between `new` and `submit`:
 
-```js{4-5}(path=".../hackernews-react-apollo/src/components/Header.js")
-<div className='flex flex-fixed black'>
-  <div className='fw7 mr1'>Hacker News</div>
-  <Link to='/' className='ml1 no-underline black'>new</Link>
-  <div className='ml1'>|</div>
-  <Link to='/search' className='ml1 no-underline black'>search</Link>
-  {userId &&
-  <div className='flex'>
-    <div className='ml1'>|</div>
-    <Link to='/create' className='ml1 no-underline black'>submit</Link>
-  </div>
-  }
+```js{6-9}(path=".../hackernews-react-apollo/src/components/Header.js")
+<div className="flex flex-fixed black">
+  <div className="fw7 mr1">Hacker News</div>
+  <Link to="/" className="ml1 no-underline black">
+    new
+  </Link>
+  <div className="ml1">|</div>
+  <Link to="/search" className="ml1 no-underline black">
+    search
+  </Link>
+  {authToken && (
+    <div className="flex">
+      <div className="ml1">|</div>
+      <Link to="/create" className="ml1 no-underline black">
+        submit
+      </Link>
+    </div>
+  )}
 </div>
 ```
 
 </Instruction>
 
-You can now navigate to the search functionality using the new button in the `Header`:
+You can now navigate to the search feature using the new button in the `Header`:
 
 ![](http://imgur.com/XxPdUvo.png)
 
@@ -141,27 +141,23 @@ Great, let's now go back to the `Search` component and see how we can implement 
 Open `Search.js` and add the following query definition at the bottom of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
-const ALL_LINKS_SEARCH_QUERY = gql`
-  query AllLinksSearchQuery($searchText: String!) {
-    allLinks(filter: {
-      OR: [{
-        url_contains: $searchText
-      }, {
-        description_contains: $searchText
-      }]
-    }) {
-      id
-      url
-      description
-      createdAt
-      postedBy {
+const FEED_SEARCH_QUERY = gql`
+  query FeedSearchQuery($filter: String!) {
+    feed(filter: $filter) {
+      links {
         id
-        name
-      }
-      votes {
-        id
-        user {
+        url
+        description
+        createdAt
+        postedBy {
           id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
         }
       }
     }
@@ -171,11 +167,31 @@ const ALL_LINKS_SEARCH_QUERY = gql`
 
 </Instruction>
 
-This query looks similar to the `allLinks` query that's used in `LinkList`. However, this time it takes in an argument called `searchText` and specifies a `filter` object that will be used to specify conditions on the links that you want to retrieve.
+This query looks similar to the `feed` query that's used in `LinkList`. However, this time it takes in an argument called `filter` that will be used to constrain the list of links you want to retrieve.
 
-In this case, you're specifying two filters that account for the following two conditions: A link is only returned if either its `url` contains the provided `searchText` _or_ its `description` contains the provided `searchText`. Both conditions can be combined using Graphcool's `OR` operator.
+The actual filter is built and used in the `feed` resolver which is implemented in `server/src/resolvers/Query.js`:
 
-Perfect, the query is defined! But this time we actually want to load the data every time the user hits the _search_-button. 
+```js(path=".../hackernews-react-apollo/server/src/resolvers/Query.js"&nocopy)
+async function feed(parent, args, ctx, info) {
+  const { filter, first, skip } = args // destructure input arguments
+  const where = filter
+    ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
+    : {}
+
+  const queriedLinkes = await ctx.db.query.links({ first, skip, where })
+
+  return {
+    linkIds: queriedLinkes.map(link => link.id),
+    count
+  }
+}
+```
+
+> **Note**: To understand what's going on in this resolver, check out the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
+
+In this case, two `where` conditions are specified: A link is only returned if either its `url` contains the provided `filter` _or_ its `description` contains the provided `filter`. Both conditions are combined using Prisma's `OR` operator.
+
+Perfect, the query is defined! But this time we actually want to load the data every time the user hits the **search**-button - not upon the initial load of the component.
 
 That's the purpose of the [`withApollo`](http://dev.apollodata.com/react/higher-order-components.html#withApollo) function. This function injects the `ApolloClient` instance that you created in `index.js` into the `Search` component as a new prop called `client`.
 
@@ -187,18 +203,18 @@ Here's what the code looks like. Open `Search.js` and implement `_executeSearch`
 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 _executeSearch = async () => {
-  const { searchText } = this.state
+  const { filter } = this.state
   const result = await this.props.client.query({
-    query: ALL_LINKS_SEARCH_QUERY,
-    variables: { searchText }
+    query: FEED_SEARCH_QUERY,
+    variables: { filter },
   })
-  const links = result.data.allLinks
+  const links = result.data.feed.links
   this.setState({ links })
 }
 ```
 
 </Instruction>
 
-The implementation is almost trivial. You're executing the `ALL_LINKS_SEARCH_QUERY` manually and retrieving the `links` from the response that's returned by the server. Then these links are put into the component's `state` so that they can be rendered.
+The implementation is almost trivial. You're executing the `FEED_SEARCH_QUERY` manually and retrieving the `links` from the response that's returned by the server. Then these links are put into the component's `state` so that they can be rendered.
 
-Go ahead and test the app by running `yarn start` in a terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, click the _search_-button and verify the links that are returned fit the filter conditions.
+Go ahead and test the app by running `yarn start` in a terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, click the **search**-button and verify the links that are returned fit the filter conditions.

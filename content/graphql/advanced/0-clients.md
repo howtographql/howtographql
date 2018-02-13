@@ -5,7 +5,6 @@ description: "Learn about GraphQL clients, like Relay and Apollo Client, and the
 question: What does a GraphQL client usually do before caching the results of a query?
 answers: ["Validating the query results against the schema", "Normalizing the data", "Calling a resolver function", "Making the data available in the props of a React component"]
 correctAnswer: 1
-draft: false
 ---
 
 

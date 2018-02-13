@@ -1,6 +1,9 @@
 ---
 title: Summary
 description: Tutorial Summary
+question: Did you find this tutorial useful?
+answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what I knew before!", "Fish!"]
+correctAnswer: 1
 ---
 
 Congratulations, you've reached the end of the Python GraphQL tutorial! Here, you've learned about the most used Python library for developing a GraphQL server – [Graphene](http://graphene-python.org/) – together with [Django](https://www.djangoproject.com/) and [Graphene-Django](http://docs.graphene-python.org/projects/django/en/latest/).
