@@ -19,7 +19,7 @@ Here's an overview of the frontend tutorials we offer:
 - [**Angular & Apollo**](https://www.howtographql.com/angular-apollo/0-introduction/): [Angular](https://angularjs.org/) is a MVW (Model-View-Whatever) JavaScript framework for building web applications.
 - [**Ember & Apollo**](https://www.howtographql.com/ember-apollo/0-introduction/): [Ember](https://emberjs.com/) is a JavaScript framework for creating ambitious web application.
 - **React Native & Apollo** (_Coming Soon_): [Expo](https://expo.io/) is a  React Native toolchain to build native apps with JavaScript and React. In this tutorial, you'll learn how you can build a mobile app with GraphQL, based on Expo and [Apollo Client](http://dev.apollodata.com/).
-- **VulcanJS** (_Coming Soon_): [VulcanJS](http://docs.vulcanjs.org/) is a fullstack JavaScript framework that let's you build GraphQL apps with React, [Apollo Client](http://dev.apollodata.com/) and [Meteor](http://meteor.com/).
+- **VulcanJS** (_Coming Soon_): [VulcanJS](http://docs.vulcanjs.org/) is a fullstack JavaScript framework that lets you build GraphQL apps with React, [Apollo Client](http://dev.apollodata.com/) and [Meteor](http://meteor.com/).
 
 ### Build your own GraphQL Server
 
