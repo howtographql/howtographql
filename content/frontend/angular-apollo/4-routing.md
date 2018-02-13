@@ -209,5 +209,26 @@ createLink() {
 ```
 </Instruction>
 
+<Instruction>
+
+Then import `Router` and update the `constructor` method to look like the following:
+
+```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+// ...
+import {Router} from '@angular/router';
+
+export class CreateLinkComponent implements OnInit {
+  description = '';
+  url = '';
+
+  constructor(
+    public apollo: Apollo,
+    public router: Router,
+  ) {
+  }
+// ...
+```
+</Instruction>
+
 
 After the mutation is performed, the angular router (`Router` service) will now navigate back to the `LinkListComponent` component that's accessible on the root route: `/`.
