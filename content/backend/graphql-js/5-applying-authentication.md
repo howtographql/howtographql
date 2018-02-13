@@ -4,7 +4,7 @@ pageTitle: "Server-side Authentication with GraphQL, Javascript & Node.js Tutori
 description: "Learn best practices for implementing email-password authentication on a GraphQL Server with Javascript, Node.js & Express."
 question: What is the "connect" argument in a Prisma mutation used for?
 answers: ["It connects your application schema with the Prisma schema", "It creates a TCP connection", "It's used to connect two nodes in the database via a relation", "There is connect argument in Prisma mutations"]
-correctAnswer: 3
+correctAnswer: 2
 ---
 
 In the last section, you implemented a `signup` and `login` mutation which both return authentication token for your users. In this section, you'll learn how you can _use_ authentication tokens to associate an incoming request with a user of your application.
