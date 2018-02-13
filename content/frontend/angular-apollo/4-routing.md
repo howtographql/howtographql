@@ -157,7 +157,7 @@ You need to update one more file, `src/app/app.component.html`.
 
 In `src/app/app.component.html` update your template to the following (`router-outlet` is where the component for the current route will be rendered):
 
-```html{4}(path=".../hackernews-angular-apollo/src/App.vue")
+```html{4}(path=".../hackernews-angular-apollo/src/app/app.component.html")
 <div class="center w85">
   <hn-header></hn-header>
   <div class='ph3 pv1 background-gray'>
