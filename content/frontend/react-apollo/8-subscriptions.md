@@ -193,6 +193,8 @@ componentDidMount() {
 
 Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application running on `http://localhost:3000/`. The second window you use to open a Playground and send a `post` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
 
+> **ATTENTION**: There's a currently a [bug](https://github.com/apollographql/apollo-link/issues/428) in the `apollo-link-ws` package that will prevent your app from running due to the following error: `Module not found: Can't resolve 'subscriptions-transport-ws' in '/.../hackernews-react-apollo/node_modules/apollo-link-ws/lib'`. The workaround until it's fixed is to manually install the `subscriptions-transport-ws` package with `yarn add subscriptions-transport-ws`. There's also another [bug](https://github.com/graphcool/graphql-yoga/issues/101) in `graphql-yoga` which causes the subscription to fire multiple times (while the link is in fact only created once). After reloading the site, you'll see the correct number of links.
+
 ### Subscribing to new votes
 
 Next you'll subscribe to new votes that are submitted by other users so that the latest vote count is always visible in the app.

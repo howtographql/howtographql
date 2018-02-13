@@ -146,7 +146,7 @@ Notice that the app won't run at the moment since the `votes` are not yet includ
 
 Open `LinkList.js` and update the definition of `FEED_QUERY` to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{9-18}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 export const FEED_QUERY = gql`
   query FeedQuery {
     feed {

@@ -295,7 +295,7 @@ end
 
 ### Authenticating requests
 
-With the token that the `signinUser` mutation provides, apps can authenticate subsequent requests. There are couple of ways this can be done. In this tutorial we are just going to use the build-in **session**, since this doesn't add any requirements to the client application. The GraphQL server should be able to get the token from the session header on each request, detect what user it relates to, and pass this information down to the resolvers.
+With the token that the `signinUser` mutation provides, apps can authenticate subsequent requests. There are couple of ways this can be done. In this tutorial we are just going to use the built-in **session**, since this doesn't add any requirements to the client application. The GraphQL server should be able to get the token from the session header on each request, detect what user it relates to, and pass this information down to the resolvers.
 
 The best place to put data shared between resolvers is in the context object.
 You'll need that object to be different in every request now though, since each one may be from a different user.
@@ -346,7 +346,7 @@ end
 
 <Instruction>
 
-We also need to update our `signinUser` resolver, so it also stores the `token` in `session`:
+We also need to update our `signinUser` resolver, so it also stores the `token` in `session`. Be sure to remove the `_` since the variable is now in use:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/sign_in_user.rb")
 class Resolvers::SignInUser < GraphQL::Function
@@ -391,6 +391,8 @@ class AddUserIdLink < ActiveRecord::Migration[5.1]
   end
 end
 ```
+
+Run `rails db:migrate`.
 
 </Instruction>
 
@@ -452,4 +454,3 @@ end
 Done! Now when you post links, they will be attached to your user, so you have to run  `signinUser` beforehand.
 
 ![](http://i.imgur.com/9ma8r8u.png)
-
