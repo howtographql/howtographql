@@ -78,7 +78,7 @@ You now have the same issue as you had with `Vote` in the last chapter: You're r
 Still in `src/schema.graphql`, adjust the import statement to also import `LinkSubscriptionPayload` and `VoteSubscriptionPayload`:
 
 ```graphql(path=".../hackernews-node/src/schema.graphql")
-# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from './generated/database.graphql'
+# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from './generated/prisma.graphql'
 ```
 
 </Instruction>
@@ -93,7 +93,7 @@ In `src/resolvers`, create a new file called `Subscription.js`. Then add the fol
 const newLink = {
   subscribe: (parent, args, ctx, info) => {
     return ctx.db.subscription.link(
-      { where: { mutation_in: ['CREATED'] } },
+      { },
       info,
     )
   },
@@ -102,7 +102,7 @@ const newLink = {
 const newVote = {
   subscribe: (parent, args, ctx, info) => {
     return ctx.db.subscription.vote(
-      { where: { mutation_in: ['CREATED'] } },
+      { },
       info,
     )
   },
@@ -114,9 +114,22 @@ module.exports = {
 }
 ```
 
+### Note:
+Subscriptions with 'where' filter do not currently work! For example the following code does not work:
+```
+const newVote = {
+  subscribe: (parent, args, ctx, info) => {
+    return ctx.db.subscription.vote(
+      { where: { mutation_in: ['CREATED'] } },
+      info,
+    )
+  },
+}
+```
+
 </Instruction>
 
-Subscription resolvers are implemented slightly differently than those for queries and mutations. Rather than directly writing the resolver function function, you define an object with a `subscribe` property. The value of this property is the actual subscription resolver.
+Subscription resolvers are implemented slightly differently than those for queries and mutations. Rather than directly writing the resolver function, you define an object with a `subscribe` property. The value of this property is the actual subscription resolver.
 
 Just like with queries and mutations though, and thanks to the `prisma-binding` package, all you need to do to actually implement the resolver functions is _delegate_ the subscription execution to the `Prisma` instance you create in `index.js`.
 

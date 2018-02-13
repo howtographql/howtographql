@@ -22,22 +22,22 @@ Open `App.js` and adjust the render method like so:
 
 ```js{4,8,9}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
-    return (
-      <div className='center w85'>
-        <Header />
-        <div className='ph3 pv1 background-gray'>
-          <Switch>
-            <Route exact path='/' render={() => <Redirect to='/new/1' />} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/create' component={CreateLink} />
-            <Route exact path='/search' component={Search} />
-            <Route exact path='/top' component={LinkList} />
-            <Route exact path='/new/:page' component={LinkList} />
-          </Switch>
-        </div>
+  return (
+    <div className='center w85'>
+      <Header />
+      <div className='ph3 pv1 background-gray'>
+        <Switch>
+          <Route exact path='/' render={() => <Redirect to='/new/1' />} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/create' component={CreateLink} />
+          <Route exact path='/search' component={Search} />
+          <Route exact path='/top' component={LinkList} />
+          <Route exact path='/new/:page' component={LinkList} />
+        </Switch>
       </div>
-    )
-  }
+    </div>
+  )
+}
 ```
 
 </Instruction>
@@ -65,8 +65,10 @@ Before moving on, quickly add a new navigation item to the `Header` component th
 Open `Header.js` add the following lines _between_ the `/` and the `/search` routes:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
-<Link to='/top' className='ml1 no-underline black'>top</Link>
-<div className='ml1'>|</div>
+<Link to="/top" className="ml1 no-underline black">
+  top
+</Link>
+<div className="ml1">|</div>
 ```
 
 </Instruction>
@@ -106,7 +108,7 @@ export const FEED_QUERY = gql`
 
 </Instruction>
 
-The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` for this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.
+The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` for this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list. `orderBy` defines how the returned list should be sorted.
 
 But how can we pass the variables when using the `graphql` container which is fetching the data under the hood? You need to provide the arguments right where you're wrapping your component with the query.
 
@@ -158,7 +160,7 @@ import { LINKS_PER_PAGE } from '../constants'
 
 </Instruction>
 
-### Implementing Navigation
+### Implementing navigation
 
 Next, you need functionality for the user to switch between the pages. First add two `button` elements to the bottom of the `LinkList` component that can be used to navigate back and forth.
 
@@ -166,7 +168,7 @@ Next, you need functionality for the user to switch between the pages. First add
 
 Open `LinkList.js` and update `render` to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{11-13,26-31}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
 
   if (this.props.feedQuery && this.props.feedQuery.loading) {
@@ -185,7 +187,12 @@ render() {
     <div>
       <div>
         {linksToRender.map((link, index) => (
-            <Link key={link.id} index={page ? (page - 1) * LINKS_PER_PAGE + index : index} updateStoreAfterVote={this._updateCacheAfterVote} link={link}/>
+          <Link
+            key={link.id}
+            updateStoreAfterVote={this._updateCacheAfterVote}
+            index={index}
+            link={link}
+          />
         ))}
       </div>
       {isNewPage &&
@@ -249,9 +256,9 @@ _previousPage = () => {
 
 </Instruction>
 
-The implementation of these is very simple. You're retrieving the current page from the url and implement a sanity check to make sure that it makes sense to paginate back or forth. Then you simply calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the url that will be used to calculate the right chunk of links to load. Run the app by typing `yarn start` in a Terminal and use the new buttons to paginate through your list of links!
+The implementation of these is very simple. You're retrieving the current page from the url and implement a sanity check to make sure that it makes sense to paginate back or forth. Then you simply calculate the next page and tell the router where to navigate next. The router will then reload the component with a new `page` in the url that will be used to calculate the right chunk of links to load. Run the app by typing `yarn start` in a terminal and use the new buttons to paginate through your list of links!
 
-### Final Adjustments
+### Final adjustments
 
 Through the changes that we made to the `FEED_QUERY`, you'll notice that the `update` functions of your mutations don't work any more. That's because `readQuery` now also expects to get passed the same variables that we defined before.
 
@@ -277,7 +284,7 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
 ```
 
 </Instruction>
- 
+
 All that's happening here is the computation of the variables depending on whether the user currently is on the `/top` or `/new` route.
 
 Finally, you also need to adjust the implementation of `update` when new links are created.

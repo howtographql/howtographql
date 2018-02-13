@@ -20,7 +20,7 @@ Once more, the first step to implement this new feature is to make your React co
 
 Open `Link.js` and update `render` to look as follows:
 
-```js (path=".../hackernews-react-apollo/src/components/Link.js")
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
@@ -146,10 +146,10 @@ Notice that the app won't run at the moment since the `votes` are not yet includ
 
 Open `LinkList.js` and update the definition of `FEED_QUERY` to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{9-18}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 export const FEED_QUERY = gql`
-  query FeedQuery($first: Int, $skip: Int, $orderBy: LinkOrderByInput) {
-    feed(first: $first, skip: $skip, orderBy: $orderBy) {
+  query FeedQuery {
+    feed {
       links {
         id
         createdAt

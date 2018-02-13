@@ -102,7 +102,7 @@ To create a user data must be sent to the server through a mutation.
 
 <Instruction>
 
-Create the file `users/schema.py`, add the `UeserType` and the `CreateUser` mutation:
+Create the file `users/schema.py`, add the `UserType` and the `CreateUser` mutation:
 
 ```python(path=".../graphql-python/hackernews/user/schema.py")
 import graphene
