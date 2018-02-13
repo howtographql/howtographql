@@ -32,7 +32,7 @@ export class CreateLinkComponent implements OnInit {
   description: string = '';
   url: string = '';
 
-  constructor() {
+  constructor(public apollo: Apollo) {
   }
 
   ngOnInit() {
