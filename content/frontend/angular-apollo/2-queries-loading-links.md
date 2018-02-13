@@ -169,7 +169,7 @@ export class AppModule {
 Then, open `app.component.html` and replace the current contents with the following:
 
 ```html(path=".../hackernews-angular-apollo/src/app/app.component.html")
-  <hn-link-list></hn-link-item-list>
+  <hn-link-list></hn-link-list>
 ```
 
 </Instruction>
