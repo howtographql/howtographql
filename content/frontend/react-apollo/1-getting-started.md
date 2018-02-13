@@ -361,12 +361,13 @@ To deploy the service all you need to do is invoke the `prisma deploy` command i
 In your terminal, navigate to the `server` directory and execute the following command:
 
 ```sh(path=".../hackernews-react-apollo/server")
+yarn install
 yarn prisma deploy
 ```
 
 </Instruction>
 
-Note that you can also omit `yarn` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
+Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
 
 <Instruction>
 
@@ -406,7 +407,6 @@ With the proper Prisma endpoint in place, you can now explore the server!
 Navigate into the `server` directory and run the following commands to start the server:
 
 ```bash(path=".../hackernews-react-apollo/server")
-yarn install
 yarn dev
 ```
 
@@ -426,7 +426,7 @@ Another important thing to note about the Playground is that it actually allows 
 
 The first one is defined by your **application schema**, this is the one your React application will interact with. It can be opened by selecting the **default** Playground in the **app** project in the left side-menu.
 
-There also is the Prisma database API which provides full access to the data stored in the database. This one you can open by selecting the **dev** Playground in the **database** project in the left side-menu. This API is defined by the **Prisma schema** (in `server/src/generated/graphcool.graphql`).
+There also is the Prisma database API which provides full access to the data stored in the database. This one you can open by selecting the **dev** Playground in the **database** project in the left side-menu. This API is defined by the **Prisma schema** (in `server/src/generated/prisma.graphql`).
 
 > **Note**: The Playground receives the information about the two GraphQL APIs from the `.graphqlconfig.yml` file which lists the two projects **app** and **database**. That's why it can provide you access to both.
 
