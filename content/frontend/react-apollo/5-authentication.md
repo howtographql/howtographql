@@ -262,7 +262,7 @@ import gql from 'graphql-tag'
 
 Now, let's understand what's going in the two mutations you just added to the component.
 
-Both mutations look very similar to the mutations you already saw before. They take a number of arguments returns the `user`'s `id` as well as a `token` that you can attach to subsequent requests to authenticate the user (i.e. indicate that a request is made _on behalf_ of that user). You'll learn in a bit how to do so.
+Both mutations look very similar to the mutations you already saw before. They take a number of arguments and return the `user`'s `id` as well as a `token` that you can attach to subsequent requests to authenticate the user (i.e. indicate that a request is made _on behalf_ of that user). You'll learn in a bit how to do so.
 
 All right, all that's left to do is call the two mutations inside the code!
 
