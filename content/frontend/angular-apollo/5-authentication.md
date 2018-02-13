@@ -894,34 +894,42 @@ Since all the API requests are actually created and sent by the `HttpLink` in yo
 
 <Instruction>
 
-Open `src/app/apollo.config.ts`, put the following code _before_ the creation of the `httpLink`:
+Open `src/app/apollo.config.ts`, put the following code _after_ the creation of the `httpLink`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
-    const token = localStorage.getItem(GC_AUTH_TOKEN);
-    const authorization = token ? `Bearer ${token}` : null;
-    const headers = new HttpHeaders();
-    headers.append('Authorization', authorization);
+    const middleware = new ApolloLink((operation, forward) => {
+      const token = localStorage.getItem(GC_AUTH_TOKEN);
+      if (token) {
+        operation.setContext({
+          headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+        });
+      }
+      return forward(operation);
+    });
 ```
 
 </Instruction>
 
 <Instruction>
 
-Then, update the `httpLink` configuration by adding the headers:
+Then, update the `apollo.create` configuration by adding the middleware:
 ```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
-       const http = httpLink.create({ uri, headers });
+    apollo.create({
+      link: middleware.concat(http),
+      cache: new InMemoryCache()
+    });
 ```
 
 </Instruction>
 
 <Instruction>
 
-Finally, directly import the key that you need to retrieve the token from `localStorage` on top of the same file and `HttpHeaders` from `@angular/common/http`:
+Finally, directly import the key that you need to retrieve the token from `localStorage` on top of the same file, `HttpHeaders` from `@angular/common/http` and `ApolloLink` from `apollo-link`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/constants.ts")
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants';
-import {HttpClientModule, HttpHeaders} from '@angular/common/http';
-
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { ApolloLink } from 'apollo-link';
 ```
 
 </Instruction>
