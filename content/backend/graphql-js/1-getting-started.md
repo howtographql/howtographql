@@ -145,7 +145,7 @@ Before we continue with the implementation, let's go and understand the initial 
 
 If you check your `package.json`, you'll notice that the boilerplate comes with two dependencies:
 
-- [`graphql-yoga`](https://github.com/prisma/graphql-yoga/): The package that contains everything you need for your GraphQL server (basically a thin convenience wrapper on top of Express.js, `apollo-server`, `graphql-tools` and more)
+- [`graphql-yoga`](https://github.com/graphcool/graphql-yoga): The package that contains everything you need for your GraphQL server (basically a thin convenience wrapper on top of Express.js, `apollo-server`, `graphql-tools` and more)
 - [`prisma-binding`](https://github.com/prisma/prisma-binding): This package allows to _bind_ the resolvers of your application schema to the auto-generated resolvers of your Prisma database service. To learn more about schema bindings, you can read [this](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405#ec32) article.
 
 Both dependencies are used in `index.js`. The important part of that file is this:
