@@ -890,38 +890,46 @@ If you haven't done so before, go ahead and test the login functionality. Open `
 
 Now that users are able to login and obtain a token that authenticates them against the Graphcool backend, you actually need to make sure that the token gets attached to all requests that are sent to the API.
 
-Since all the API requests are actually created and sent by the `HttpLink` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all requests by using [headers](). // TODO : update link to the docs
+Since all the API requests are actually created and sent by the `HttpLink` in your app, you need to make sure it knows about the user's token. Luckily, Apollo provides a nice way for authenticating all requests by using [headers](). 
 
 <Instruction>
 
-Open `src/app/apollo.config.ts`, put the following code _before_ the creation of the `httpLink`:
+Open `src/app/apollo.config.ts`, put the following code _after_ the creation of the `httpLink`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
-    const token = localStorage.getItem(GC_AUTH_TOKEN);
-    const authorization = token ? `Bearer ${token}` : null;
-    const headers = new HttpHeaders();
-    headers.append('Authorization', authorization);
+    const middleware = new ApolloLink((operation, forward) => {
+      const token = localStorage.getItem(GC_AUTH_TOKEN);
+      if (token) {
+        operation.setContext({
+          headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+        });
+      }
+      return forward(operation);
+    });
 ```
 
 </Instruction>
 
 <Instruction>
 
-Then, update the `httpLink` configuration by adding the headers:
+Then, update the `apollo.create` configuration by adding the middleware:
 ```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
-       const http = httpLink.create({ uri, headers });
+    apollo.create({
+      link: middleware.concat(http),
+      cache: new InMemoryCache()
+    });
 ```
 
 </Instruction>
 
 <Instruction>
 
-Finally, directly import the key that you need to retrieve the token from `localStorage` on top of the same file and `HttpHeaders` from `@angular/common/http`:
+Finally, directly import the key that you need to retrieve the token from `localStorage` on top of the same file, `HttpHeaders` from `@angular/common/http` and `ApolloLink` from `apollo-link`:
 
 ```ts(path=".../hackernews-angular-apollo/src/app/constants.ts")
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants';
-import {HttpClientModule, HttpHeaders} from '@angular/common/http';
-
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { ApolloLink } from 'apollo-link';
 ```
 
 </Instruction>

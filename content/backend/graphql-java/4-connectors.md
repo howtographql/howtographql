@@ -203,7 +203,8 @@ SELECT * FROM Descriptions WHERE link_id IN (1,2,3) // fetch descriptions for 3 
 
 **DataLoader**
 
-In JavaScript and a few other languages, a popular way to implement this strategy is the [DataLoader](https://github.com/facebook/dataloader) utility. [The Java implementation of DataLoader](https://github.com/bbakerman/java-dataloader) is unfortunately still in the making.
+In JavaScript and a few other languages, a popular way to implement this strategy is the [DataLoader](https://github.com/facebook/dataloader) utility. [The Java implementation of DataLoader can be found here.](https://github.com/graphql-java/java-dataloader)
 
-As an alternative, `graphql-java` offers `BatchedExecutionStrategy`, which looks for resolvers (`DataFetcher`s in `graphql-java` lingo) annotated by `@Batched`. Such resolvers are expected to take a list of source objects and return a list of results. For the example above, that would mean taking a list of links (`List<Link>`) and returning a list of descriptions (`List<String>`). Again unfortunately, `graphql-java-tools` does not yet support batched data fetchers, but it hopefully [soon will](https://github.com/graphql-java/graphql-java-tools/issues/12).
+As an alternative, `graphql-java` offers `BatchedExecutionStrategy`, which looks for resolvers (`DataFetcher`s in `graphql-java` lingo) annotated by `@Batched`. Such resolvers are expected to take a list of source objects and return a list of results. For the example above, that would mean taking a list of links (`List<Link>`) and returning a list of descriptions (`List<String>`). 
+Update: `graphql-java-tools` now supports batched data fetchers as of [this commit](https://github.com/graphql-java/graphql-java-tools/commit/73d42e746ffdb55575b9e4d839ffc41fed70d99a)!
 

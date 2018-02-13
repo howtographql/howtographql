@@ -24,9 +24,9 @@ yarn add react-router react-router-dom
 
 </Instruction>
 
-### Create a Hhader
+### Create a Header
 
-Before you're moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
+Before moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
 
 <Instruction>
 
@@ -145,7 +145,7 @@ To wrap up this section, you need to implement an automatic redirect from the `C
 
 Open `CreateLink.js` and update `_createLink` to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{9}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 _createLink = async () => {
   const { description, url } = this.state
   await this.props.postMutation({
@@ -154,7 +154,7 @@ _createLink = async () => {
       url,
     },
   })
-  this.props.history.push(`/`)
+  this.props.history.push('/')
 }
 ```
 

@@ -102,7 +102,7 @@ To create a user data must be sent to the server through a mutation.
 
 <Instruction>
 
-Create the file `users/schema.py`, add the `UeserType` and the `CreateUser` mutation:
+Create the file `users/schema.py`, add the `UserType` and the `CreateUser` mutation:
 
 ```python(path=".../graphql-python/hackernews/user/schema.py")
 import graphene
@@ -214,7 +214,7 @@ In modern web applications – when clients and servers are different applicatio
 
 Unfortunately, neither Django or Graphene comes with the token approach builtin, so you are going to use *sessions* to accomplish the same task. Sessions are little pieces of information the server can store and retrieve from the client.
 
-But keep in mind this method may not be recommend for production systems! Take a loot at JWT if you need to go this way!
+But keep in mind this method may not be recommend for production systems! Take a look at JWT if you need to go this way!
 
 <Instruction>
 

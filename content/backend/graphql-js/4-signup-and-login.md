@@ -28,7 +28,7 @@ In most cases however (when using `prisma-binding` or the Prisma CLI) the JWT to
 
 #### Offering login functionality to your application's users
 
-All right! So now you understand what the `secret` in `prisma.yml` is actually used for and why it's passed as an argument when to the `Prisma` constructor. This however only protects your database from unauthorized access, but it doesn't help in offering authentication functionality to the users of your application. This you need to implement yourself!
+All right! So now you understand what the `secret` in `prisma.yml` is actually used for and why it's passed as an argument to the `Prisma` constructor. This however only protects your database from unauthorized access, but it doesn't help in offering authentication functionality to the users of your application. This you need to implement yourself!
 
 > Note that you can also try the [`node-advanced`](https://github.com/graphql-boilerplates/node-graphql-server/tree/master/advanced) GraphQL boilerplate project which comes with predefined authentication functionality.
 
