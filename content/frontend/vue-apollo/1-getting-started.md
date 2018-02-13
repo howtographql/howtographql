@@ -339,64 +339,6 @@ import 'tachyons'
 
 </Instruction>
 
-Since we still want to have a bit more custom styling here and there, we also prepared some styles for you that you need to include in the project.
-
-<Instruction>
-
-Open `src/App.vue` and replace the contents of the `style` block with the following:
-
-```css(path=".../hackernews-vue-apollo/src/App.vue")
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Verdana, Geneva, sans-serif;
-  }
-
-  input {
-    max-width: 500px;
-  }
-
-  .gray {
-    color: #828282;
-  }
-
-  .orange {
-    background-color: #ff6600;
-  }
-
-  .background-gray {
-    background-color: rgb(246,246,239);
-  }
-
-  .f11 {
-    font-size: 11px;
-  }
-
-  .w85 {
-    width: 85%;
-  }
-
-  .button {
-    font-family: monospace;
-    font-size: 10pt;
-    color: black;
-    background-color: buttonface;
-    text-align: center;
-    padding: 2px 6px 3px;
-    border-width: 2px;
-    border-style: outset;
-    border-color: buttonface;
-    cursor: pointer;
-    max-width: 250px;
-  }
-</style>
-```
-
-</Instruction>
-
-
-
 #### Installing Apollo
 
 <Instruction>
