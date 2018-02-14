@@ -168,15 +168,7 @@ yarn dev
 
 > **Note**: The `yarn` command starts two processes. First, the GraphQL server which will be running on `http://localhost:4000`. Second, a GraphQL Playground that can be opened on `http://localhost:3000`. The Playground is running against the server on `http://localhost:4000`.
 
-The server is now running on [`http://localhost:4000`](http://localhost:4000).
-
-<Instruction>
-
-Open a browser window and add navigate to [`http://localhost:3000`](http://localhost:4000).
-
-</Instruction>
-
-You now opened a GraphQL Playground which allows you to interact with two GraphQL APIs:
+You now opened a GraphQL Playground which allows you to interact with two GraphQL APIs side-by-side:
 
 - `app`: This is the API defined by your application schema, at the moment it only exposes the `feed` query.
 - `database`: This is the Prisma API exposing all the CRUD operations for the `Link` type.
