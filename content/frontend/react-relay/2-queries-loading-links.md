@@ -371,7 +371,17 @@ Failed to compile.
 Module not found: Can't resolve './__generated__/LinkListPageQuery.graphql' in '.../hackernews-react-relay/src/components'
 ```
 
-That's because we've skipped the _compilation_ of the GraphQL code that makes for much of Relay's actual power! You already installed the `relay-compiler`, so now you'll actually use it.
+That's because we've skipped the _compilation_ of the GraphQL code that makes for much of Relay's actual power! You already installed the `relay-compiler` as a dev dependency, this allows you to add it as a script to `package.json` as explained [here](https://facebook.github.io/relay/docs/en/installation-and-setup.html#set-up-relay-compiler). However, to keep things a bit more simple in this tutorial you'll just install it globally for now (feel free to choose the other setup described in the Relay docs).
+
+<Instruction>
+
+In your terminal, install the `relay-compiler` globally with the following command:
+
+```sh
+npm install -g relay-compiler
+```
+  
+</Instruction>
 
 The compiler can be invoked using the `relay-compiler` command in the terminal where you have to provide two arguments:
 
