@@ -63,7 +63,7 @@ const resolvers = {
 
 </Instruction>
 
-This is it. To test this mutation, you can run `yarn start` again and send the following mutation in the `default` Playground in the `app` section:
+This is it. To test this mutation, you can run `yarn dev` again and send the following mutation in the `default` Playground in the `app` section:
 
 ```graphql
 mutation {
