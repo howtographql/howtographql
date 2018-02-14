@@ -148,6 +148,18 @@ module.exports = {
 
 </Instruction>
 
+Now you can import them in `Mutation.js`.
+
+<Instruction>
+
+Add the following statement to the top of `Mutation.js`:
+
+```js(path=".../hackernews-node/src/resolvers/Mutation.js)
+const { APP_SECRET, getUserId } = require('../utils')
+```
+
+</Instruction>
+
 Fantastic! Let's go and test if the `post` mutation now actually works when creating a new `Link` on behalf of an authenticated `User`.
 
 ### Authenticating a `User`
