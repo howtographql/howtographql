@@ -52,34 +52,44 @@ export default function Steps({
           color: $pink !important;
         }
       `}</style>
-      {steps.map((step, index) =>
-        <Link to={step.link} onClick={onClickLink}>
-          <DottedListItem
-            key={step.title}
-            light={!dark}
-            first={index === 0 && steps.length > 1}
-            last={showLast ? index === steps.length - 1 : false}
-            small={small}
-            active={step.link === location.pathname || stepsActive}
-            highlightFirst={highlightFirst}
-            showLine={showLines}
-            path={step.link}
-          >
-            <div
-              className={cn('list-item', {
-                active: step.link === location.pathname,
-              })}
+      {steps.map((step, index) => {
+        let duration: any = null
+        if (showDuration && step.duration && step.duration > 0) {
+          duration = (
+            <Duration
+              duration={step.duration || 0}
+              link={step.link}
+              dark={dark}
+            />
+          )
+        }
+        return (
+          <Link to={step.link} onClick={onClickLink}>
+            <DottedListItem
+              key={step.title}
+              light={!dark}
+              first={index === 0 && steps.length > 1}
+              last={showLast ? index === steps.length - 1 : false}
+              small={small}
+              active={step.link === location.pathname || stepsActive}
+              highlightFirst={highlightFirst}
+              showLine={showLines}
+              path={step.link}
             >
-              <span className="title">
-                {step.title}
-              </span>
-              {showDuration &&
-                step.duration &&
-                <Duration duration={step.duration || 0} link={step.link} dark={dark} />}
-            </div>
-          </DottedListItem>
-        </Link>,
-      )}
+              <div
+                className={cn('list-item', {
+                  active: step.link === location.pathname,
+                })}
+              >
+                <span className="title">
+                  {step.title}
+                </span>
+                {duration}
+              </div>
+            </DottedListItem>
+          </Link>
+        )
+      })}
     </div>
   )
 }

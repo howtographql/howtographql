@@ -2,6 +2,9 @@
 title: Summary
 pageTitle: "Building a GraphQL Server with Ruby Backend Tutorial"
 description: "You learned how to build a GraphQL server with graphql-ruby & Ruby and best practices for filters, authentication, pagination and subscriptions."
+question: Did you find this tutorial useful?
+answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what I knew before!", "Fish!"]
+correctAnswer: 1
 ---
 
 In this tutorial you learn how to handle [GraphQL](http://graphql.org/) in a [Ruby](https://www.ruby-lang.org/en/) project via [GraphQL Ruby gem](http://graphql-ruby.org/).

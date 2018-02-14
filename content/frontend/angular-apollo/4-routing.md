@@ -127,7 +127,7 @@ You now need to make some small updates to `src/app/app.module.ts`.
 Open up `src/app/app.module.ts` and add the following import:
 
 ```js(path=".../hackernews-angular-apollo/src/app/app.module.ts")
-import {AppRoutingModule} from './app.routing.module';
+import {AppRoutingModule} from './app.routing';
 ```
 
 </Instruction>
@@ -157,7 +157,7 @@ You need to update one more file, `src/app/app.component.html`.
 
 In `src/app/app.component.html` update your template to the following (`router-outlet` is where the component for the current route will be rendered):
 
-```html{4}(path=".../hackernews-angular-apollo/src/App.vue")
+```html{4}(path=".../hackernews-angular-apollo/src/app/app.component.html")
 <div class="center w85">
   <hn-header></hn-header>
   <div class='ph3 pv1 background-gray'>
@@ -204,6 +204,27 @@ createLink() {
       // We injected the Router service
       this.router.navigate(['/']);
     });
+  }
+// ...
+```
+</Instruction>
+
+<Instruction>
+
+Then import `Router` and update the `constructor` method to look like the following:
+
+```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+// ...
+import {Router} from '@angular/router';
+
+export class CreateLinkComponent implements OnInit {
+  description = '';
+  url = '';
+
+  constructor(
+    public apollo: Apollo,
+    public router: Router,
+  ) {
   }
 // ...
 ```

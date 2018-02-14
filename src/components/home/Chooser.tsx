@@ -302,6 +302,9 @@ export default class Chooser extends React.Component<Props, State> {
               overflow: 'visible',
               width: 90,
             }}
+            slideStyle={{
+              overflow: 'hidden'
+            }}
             index={selectedCategoryIndex}
             onChangeIndex={this.handleChangeSelectedCategoryIndex}
           >

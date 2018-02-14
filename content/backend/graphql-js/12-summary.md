@@ -2,6 +2,9 @@
 title: Summary
 pageTitle: "Building a GraphQL Server with Javascript & Node.js Tutorial"
 description: "You learned how to build a GraphQL server with graphql-js, Node.js & MongoDB and best practices for filters, authentication, pagination and subscriptions."
+question: Did you find this tutorial useful?
+answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what I knew before!", "Fish!"]
+correctAnswer: 1
 ---
 
 In this tutorial you learned how to build your very own GraphQL server from scratch, using NodeJS and Express. By the end this server was capable of fetching and creating links, storing and fetching data from MongoDB, informing clients about new links in real time, authenticating users, filtering and paginating links, and much more.

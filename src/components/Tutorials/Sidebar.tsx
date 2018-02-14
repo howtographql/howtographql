@@ -64,7 +64,7 @@ export default class Sidebar extends React.Component<Props, {}> {
             -webkit-overflow-scrolling: touch;
           }
           .sidebar-container::before {
-            @p: .absolute, .top0, .right0, .z2;
+            @p: .absolute, .top0, .right0, .z3;
             left: 1px;
             content: "";
             background: linear-gradient(
