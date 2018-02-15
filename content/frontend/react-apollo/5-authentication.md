@@ -368,7 +368,7 @@ That's it - now all your API requests will be authenticated if a `token` is avai
 
 The last thing you're doing in this chapter is ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
 
-To implement this functionality, this time you need to make a change on the server-side.
+To implement this functionality, this time you need to make a small change on the server-side as well.
 
 <Instruction>
 
