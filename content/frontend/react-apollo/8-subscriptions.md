@@ -234,25 +234,13 @@ _subscribeToNewVotes = () => {
         }
       }
     `,
-    updateQuery: (previous, { subscriptionData }) => {
-      console.log(`NEW VOTE`)
-      const votedLinkIndex = previous.feed.links.findIndex(
-        link => link.id === subscriptionData.data.newVote.node.link.id,
-      )
-      const newAllLinks = previous.feed.links.slice()
-      const result = {
-        ...previous,
-        allLinks: newAllLinks,
-      }
-      return result
-    },
   })
 }
 ```
 
 </Instruction>
 
-Similar as before, you're calling `subscribeToMore` on the `feedQuery`. This time you're passing in a subscription that asks for newly created votes. In `updateQuery`, you're then adding the information about the new vote to the cache by first looking for the `Link` that was just voted on and then updating its `votes` with the `Vote` element that was sent by the server.
+Similar as before, you're calling `subscribeToMore` on the `feedQuery`. This time you're passing in a subscription that asks for newly created votes. When the subscription fires, Apollo Client automatically updates the link that was voted on.
 
 <Instruction>
 
