@@ -114,20 +114,9 @@ module.exports = {
 }
 ```
 
-### Note:
-Subscriptions with 'where' filter do not currently work! For example the following code does not work:
-```
-const newVote = {
-  subscribe: (parent, args, ctx, info) => {
-    return ctx.db.subscription.vote(
-      { where: { mutation_in: ['CREATED'] } },
-      info,
-    )
-  },
-}
-```
-
 </Instruction>
+
+> **Note**: Since you only are interested in `CREATED` events, normally you would pass the following filter to the `link` and `vote` subscription resolvers: `{ where: { mutation_in: ['CREATED'] } }`. However, there's currently a [bug](https://github.com/graphcool/prisma/issues/1734), so you're passing an empty object instead. More info [here](https://github.com/howtographql/graphql-js/issues/14).
 
 Subscription resolvers are implemented slightly differently than those for queries and mutations. Rather than directly writing the resolver function, you define an object with a `subscribe` property. The value of this property is the actual subscription resolver.
 
