@@ -85,7 +85,7 @@ One of the Hackernews' features is to vote on links, making ones more popular th
 
 Add the Vote model on the `links/models.py`:
 
-```python(path=".../graphql-python/hackernews/links/schema.py")
+```python(path=".../graphql-python/hackernews/links/models.py")
 class Vote(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.deletion.CASCADE)
     link = models.ForeignKey('links.Link', related_name='votes', on_delete=models.deletion.CASCADE)
