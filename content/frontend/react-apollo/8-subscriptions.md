@@ -175,7 +175,7 @@ updateQuery: (previous, { subscriptionData }) => {
 
 All you do here is retrieve the new link from the received `subscriptionData`, merge it into the existing list of links and return the result of this operation.
 
-The last thing here is to make sure that the component actually subscribes to the events by calling `subscribeToMore`.
+The last thing here is to make sure that the component actually subscribes to the events by calling `_subscribeToNewLinks`.
 
 <Instruction>
 
