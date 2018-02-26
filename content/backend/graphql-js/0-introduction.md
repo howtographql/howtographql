@@ -7,6 +7,9 @@ answers: ["Run in NodeJS", "Real time subscriptions support", "Validate incoming
 correctAnswer: 2
 ---
 
+> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters. 
+> Also note that each code block is annotated with a filename. These annonations directly link to the correpsonding file on GitHub so you can clearly see where to put the code and what the end result will look like.
+
 ### Motivation
 
 GraphQL is the rising star of backend technologies. It replaces REST as an API design paradigm and is becoming the new standard for exposing the functionality of a server.
