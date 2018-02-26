@@ -48,6 +48,7 @@
     "redux-localstorage-filter": "^0.1.1",
     "redux-logger": "^3.0.6",
     "relay-compiler": "^1.1.0",
+    "sharp": "^0.19.1",
     "sitemap": "^1.13.0",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",
