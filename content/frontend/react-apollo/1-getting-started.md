@@ -15,6 +15,9 @@ Since this is a frontend track, you're not going to spend any time implementing 
 
 Once you created your React application, you'll pull in the required code for the backend.
 
+> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters. 
+> Also note that each code block is annotated with a filename. These annonations directly link to the correpsonding file on GitHub so you can clearly see where to put the code and what the end result will look like.
+
 ### Frontend
 
 #### Creating the app
