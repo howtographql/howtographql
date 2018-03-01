@@ -36,7 +36,7 @@ On the `links/models.py` file, add the following content:
 ```python(path=".../graphql-python/hackernews/links/models.py")
 class Link(models.Model):
     url = models.URLField()
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(blank=True)
 ```
 
 </Instruction>
@@ -88,7 +88,7 @@ Create the `links/schema.py` file, with the content below:
 import graphene
 from graphene_django import DjangoObjectType
 
-from links.models import Link
+from .models import Link
 
 
 class LinkType(DjangoObjectType):
@@ -131,7 +131,7 @@ Why creating another query? This query just inherits the query defined before. T
 Wow, that's a lot, right? But now you can finally query some data!
 
 ### Introducing GraphiQL
-[GraphiQL](https://github.com/graphql/graphiql) is a graphical interactive in-browser GraphQL IDE. In other words, a playground. Note that you need to disable the [Django CSRF protection](https://docs.djangoproject.com/en/1.11/ref/csrf/).
+[GraphiQL](https://github.com/graphql/graphiql) is a graphical interactive in-browser GraphQL IDE. In other words, a playground. Note that you need to disable the [Django CSRF protection](https://docs.djangoproject.com/en/2.0/ref/csrf/).
 
 <Instruction>
 

@@ -59,4 +59,4 @@ The `skip` and `first` uses [Python Slicing](https://www.dotnetperls.com/slice-p
 
 Testing it on the GraphiQL interface:
 
-![](http://i.imgur.com/LtRMZrv.png)
+![](https://i.imgur.com/pcNvb8y.png)

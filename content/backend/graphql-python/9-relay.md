@@ -34,8 +34,7 @@ import django_filters
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
-from links.models import Link, Vote
-from users.schema import get_user
+from .models import Link, Vote
 
 
 #1
@@ -100,7 +99,7 @@ class Query(
 
 On the GraphiQL platform, try out the Relay query:
 
-![](http://i.imgur.com/QiBbyoD.png)
+![](https://i.imgur.com/JEg6jWG.png)
 
 Some differences from the last queries:
 
@@ -109,11 +108,11 @@ Some differences from the last queries:
 
 What about the pagination? Each field has some arguments for controlling it: `before`, `after,` `first` and `last`. On top of that, each edge has a `pageInfo` object, including the cursor for navigating between pages.
 
-![](http://i.imgur.com/iq8GpjN.png) 
+![](https://i.imgur.com/WdIl6GK.png) 
 
 The `first: 1` parameter limits the response for the first result. You also requested the `pageInfo`, which returned the navigation cursors.
 
-![](http://i.imgur.com/s25FQwu.png)
+![](https://i.imgur.com/54DLMs8.png)
 
 With `first: 1, after:"YXJyYXljb25uZWN0aW9uOjA="` the response returned is the first one after the last link.
 
@@ -133,7 +132,7 @@ class RelayCreateLink(graphene.relay.ClientIDMutation):
         description = graphene.String()
 
     def mutate_and_get_payload(root, info, **input):
-        user = get_user(info) or None
+        user = info.context.user or None
 
         link = Link(
             url=input.get('url'),
@@ -164,13 +163,15 @@ class Mutation(
     links.schema_relay.RelayMutation,
     graphene.ObjectType,
 ):
-    pass
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
 ```
 
 </Instruction>
 
 The changes here are mostly on classes and methods names. You can now create links!
 
-![](http://i.imgur.com/hNz7M9e.png)
+![](https://i.imgur.com/hPNzfb0.png)
 
 The variation here is the `input` argument, which accepts the defined `url` and `description` arguments as a dictionary.
