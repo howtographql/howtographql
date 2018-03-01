@@ -182,7 +182,7 @@ Field("login",
 
 At this point you should understand the most of the code above. But I have to explain how `resolve` work in this case.
 `UpdateCtx` is an action which takes two parameters. First is a function responsible for producing response. The output of first function is passed to the second function wich have to response with context type. This context is replaced and used in all subsequent queries.
-In our case I use `ctx.ctx.login(ctx.arg(EmailArg), ctx.arg(PasswordArg))` as first function because I want to get `User` type in resposnse. When the first function will succeed, this user will be passed the the second one and used to set in `currentUser` property.
+In our case I use `ctx.ctx.login(ctx.arg(EmailArg), ctx.arg(PasswordArg))` as first function because I want to get `User` type in resposnse. When the first function will succeed, this user will be passed the second one and used to set in `currentUser` property.
 
 At this point you can execute `login` mutation successfully. But executing `createLink` still could be passed without authorization.
 

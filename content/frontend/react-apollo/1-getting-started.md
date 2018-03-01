@@ -320,7 +320,7 @@ This schema allows for the following operations:
   - `newLink`: Receive realtime updates when a new link is created
   - `newVote`: Receive realtime updates when a vote was submitted
 
-For example, you can send the the following `feed` query to retrieve the first 10 links from the server:
+For example, you can send the following `feed` query to retrieve the first 10 links from the server:
 
 ```graphql(nocopy)
 {
