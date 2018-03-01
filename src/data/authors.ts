@@ -103,6 +103,14 @@ const authors: Author[] = [
     job: 'Open Source Engineer @ Hackages',
     name: 'Boubacar Barry'
   },
+  {
+    avatar: require('../assets/graphics/contributors/marioosh.jpg'),
+    bio:
+      "Scala Programmer who enjoys learning and using many other techs including other languages like ELixir or frontend related frameworks. Many years ago felt in love in Graph Databases now sharing this emotion with GraphQL.",
+    link: 'https://twitter.com/marioosh',
+    job: 'Fullstack Developer @ Scalac.io',
+    name: 'Mariusz Nosinski'
+  },
 ]
 
 export default keyBy(authors, 'name')
