@@ -6,114 +6,25 @@ correctAnswer: 2
 description: Authenticating on GraphQL
 ---
 
-### Creating the Users app
-> Quick note: The Django already comes with the whole Users concept, you will extend it to accept tokens.
+### Creating an User
+Django already comes with the concept of Users bult in. Before talking about authentication, let's create our first User.
+
+To do it so, we need to send data to thee server through a mutation.
 
 <Instruction>
 
-On the project's root, run the following command:
-
-```bash
-python manage.py startapp users
-```
-
-</Instruction>
-
-<Instruction>
-
-Configure Django to use the new `users` app on the `hackernews/settings.py` file:
-
-```python(path=".../graphql-python/hackernews/hackernews/settings.py")
-INSTALLED_APPS = (
-    # After the graphene_django app
-    'users',
-)
-```
-
-</Instruction>
-
-
-After creating the `users` app, define its model – the layer between Django and the database.
-
-<Instruction>
-
-On the `users/models.py` file, add the following content:
-
-```python(path=".../graphql-python/hackernews/users/models.py")
-import binascii
-import os
-
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-
-class User(AbstractUser):
-    token = models.CharField(max_length=40)
-
-    def save(self, *args, **kwargs):
-        if not self.token:
-            self.token = binascii.hexlify(os.urandom(20)).decode()
-        return super().save(*args, **kwargs)
-```
-
-</Instruction>
-
-<Instruction>
-
-Configure Django to use this `User` model instead of its builtin one by adding the following on the `hackernews/settings.py` file:
-
-```python(path=".../graphql-python/hackernews/hackernews/settings.py")
-# Our custom user model
-AUTH_USER_MODEL = 'users.User'
-```
-
-</Instruction>
-
-To reflect this changes on the database, create a [migration](https://docs.djangoproject.com/en/1.11/topics/migrations/) and run it. 
-
-Unfortunately, there's an issue here: since you initialized Django with its own `User` model, you need to flush the database.
-
-<Instruction>
-
-On your terminal, execute the migrations and add the links again:
-
-```bash
-rm db.sqlite3
-python manage.py makemigrations
-python manage.py migrate
-```
-
-</Instruction>
-
-<Instruction>
-
-Enter the Django shell with the command `python manage.py shell` and create some links:
-
-```bash
-from links.models import Link
-Link.objects.create(url='https://www.howtographql.com/', description='The Fullstack Tutorial for GraphQL')
-Link.objects.create(url='https://twitter.com/jonatasbaldin/', description='The Jonatas Baldin Twitter')
-```
-
-</Instruction>
-
-### Creating a User
-To create a user data must be sent to the server through a mutation.
-
-<Instruction>
-
-Create the file `users/schema.py`, add the `UserType` and the `CreateUser` mutation:
+Create a new folder under `hackersnews` called `users` and a new file called `schema.py`:
 
 ```python(path=".../graphql-python/hackernews/user/schema.py")
+from django.contrib.auth import get_user_model
+
 import graphene
 from graphene_django import DjangoObjectType
-
-from users.models import User
 
 
 class UserType(DjangoObjectType):
     class Meta:
-        model = User
+        model = get_user_model()
 
 
 class CreateUser(graphene.Mutation):
@@ -125,7 +36,7 @@ class CreateUser(graphene.Mutation):
         email = graphene.String(required=True)
 
     def mutate(self, info, username, password, email):
-        user = User(
+        user = get_user_model()(
             username=username,
             email=email,
         )
@@ -169,12 +80,12 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 
 Execute the following code on the GraphiQL interface:
 
-![](http://i.imgur.com/DHwqXxQ.png)
+![](https://i.imgur.com/dyRB15P.png)
 
 On the response, you already can see the new user. Hurray!
 
 ### Querying the Users
-Before authenticating, let's create a query for listing all users:
+Let's create a query for listing all users:
 
 <Instruction>
 
@@ -186,7 +97,7 @@ class Query(graphene.ObjectType):
     users = graphene.List(UserType)
 
     def resolve_users(self, info):
-        return User.objects.all()
+        return get_user_model().objects.all()
 ```
 
 </Instruction>
@@ -209,76 +120,89 @@ To test it, send a query to the server:
 
 ![](http://i.imgur.com/zqz6miO.png)
 
-### Authenticating a User
-In modern web applications – when clients and servers are different applications – authentication generally happens with *tokens*. The client gets a token during the authentication process and send it on all subsequent requests. One of the most used methods is [JWT](https://jwt.io/).
+### User Authentication
+The concept of authentication and authorization is enabled by default on Django using sessions. Since most of the web apps today are *stateless*, we are going to use the [django-graphql-jwt](https://github.com/flavors/django-graphql-jwt) library to implement [JWT Tokens](https://jwt.io/) in Graphene (thanks [mongkok](https://github.com/mongkok)!).
 
-Unfortunately, neither Django or Graphene comes with the token approach builtin, so you are going to use *sessions* to accomplish the same task. Sessions are little pieces of information the server can store and retrieve from the client.
+Basically, when a User sings up or logs in a token will be returned: a piece of data that identify the User. This token must be sent by the User in the HTTP Authorization header with *every request* when authentication is needed. If you want to know more about how the token is generated, take a look at the JTW site above.
 
-But keep in mind this method may not be recommend for production systems! Take a look at JWT if you need to go this way!
+Unfortunally, the GraphiQL web interface that we used before does not accept adding custom HTTP headers. From now on, we will be using the Insomnia desktop app. You can download and install it [here](https://insomnia.rest/download).
+
+### Configuring django-graphql-jwt
 
 <Instruction>
 
-Create the `LogIn` mutation on the `users/schema.py` file. It will accept a pair of `username`/`password` to authenticate the user. If the operation is successful, it'll store the token on the client session. If not, returns an error message.
+On the `hackernews/settings.py` file, add a new `MIDDLEWARE`:
 
-```python(path=".../graphql-python/hackernews/user/schema.py")
-# ...code
-# Import the authenticate method
-from django.contrib.auth import authenticate
-
-
-# ...code
-class LogIn(graphene.Mutation):
-    user = graphene.Field(UserType)
-
-    class Arguments:
-        username = graphene.String()
-        password = graphene.String()
-
-    def mutate(self, info, username, password):
-        user = authenticate(username=username, password=password)
-
-        if not user:
-            raise Exception('Invalid username or password!')
-
-        info.context.session['token'] = user.token
-        return LogIn(user=user)
-
-
-# ...code
-# Add the login mutation
-class Mutation(graphene.AbstractType):
-    create_user = CreateUser.Field()
-    login = LogIn.Field()
+```python(path=".../graphql-python/hackernews/hackernews/settings.py")
+MIDDLEWARE = [
+    # After django.contrib.auth.middleware.AuthenticationMiddleware...
+    'graphql_jwt.middleware.JSONWebTokenMiddleware',
+[
 ```
 
-</Instrution>
-
-Before testing the mutation, how would you really know that the authentication worked? For that, create a query called `me` to display the information about the logged user.
+</Instruction>
 
 <Instruction>
 
-Let's add a method to check the client's session and, on the `Query` class, a new field and resolver:
+On the same file, add the `AUTHENTICATION_BACKENDS` setting:
+
+```
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+```
+
+</Instruction>
+
+<Instruction>
+
+On the top of `hackernews/hackernews/schema.py`, import our library:
+
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
+import graphene
+import graphql_jwt
+
+# ...code
+```
+
+</Instruction>
+
+<Instruction>
+
+On the `hackernews/hackernews/schema.py`, change the `Mutation` class to have the following variables:
+
+```python(path=".../graphql-python/hackernews/hackernews/schema.py")
+class Mutation(users.schema.Mutation, links.schema.Mutation, graphene.ObjectType):
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
+```
+
+</Instruction>
+
+The library creates three Mutations for us, let's take a look at them.
+
+`TokenAuth` is used to authenticate the User with its username and password to obtain the JSON Web token.
+
+![](https://i.imgur.com/v8e8sjK.png)
+
+`VeriryToken` to confirm that the token is valid, passing it as an argument.
+
+![](https://i.imgur.com/d03jVtP.png)
+
+`RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enable to expire. Using it is outside the escope of this tutorial.
+
+Besides that, various aspects of the Mutations and JWT can be configured on the library. Please check the [documentation](https://github.com/flavors/django-graphql-jwt) for more information.
+
+### Testing the authentication
+To test if our authentication is working, let's create a Query called `me`, which should return the User's information if logged in or an error otherwise.
+
+<Instruction>
+
+Let's add a the `me` Query in the `user/schema.py` file within the `Query` class:
 
 ```python(path=".../graphql-python/hackernews/user/schema.py")
-# ...code
-
-# Add this method after the imports 
-# It tries to get a user from the session content
-def get_user(info):
-    token = info.context.session.get('token')
-
-    if not token:
-        return
-
-    try:
-        user = User.objects.get(token=token)
-        return user
-    except:
-        raise Exception('User not found!')
-
-
-# ...code
-# Add the `me` field and `resolve_me` resolver, it will look like this:
 class Query(graphene.AbstractType):
     me = graphene.Field(UserType)
     users = graphene.List(UserType)
@@ -287,8 +211,8 @@ class Query(graphene.AbstractType):
         return User.objects.all()
 
     def resolve_me(self, info):
-        user = get_user(info)
-        if not user:
+        user = info.context.user
+        if user.is_anonymous:
             raise Exception('Not logged!')
 
         return user
@@ -296,12 +220,16 @@ class Query(graphene.AbstractType):
 
 </Instruction>
 
-Now, let's authenticate and see if it worked by checking the `me` query:
+To test it out, we need to get a token using the `VerifyToken` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to the the Inmsonia client:
 
-![](http://i.imgur.com/wUcAtLY.png)
+![](https://i.imgur.com/VelVdDB.png)
 
-OK, looking good!
+Under the `Header` tab on Inmsonia, add the `AUTHORIZATION` HTTP header with your token content, prefixed by the word `JWT`:
 
-![](http://i.imgur.com/AQss82P.png)
+![](https://i.imgur.com/TyIN8zd.png)
 
-Awww yeah! You are now able to create users and sign in with them. Try to create a couple more and see how it goes!
+Finally, let's make the `me` query, which should identify our User:
+
+![](https://i.imgur.com/v5lSss5.png)
+
+Awww yeah! You are now able to create users and sign in with them. Try to make the query without the HTTP header and an error message should appear.
