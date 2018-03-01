@@ -155,6 +155,9 @@ public class UserRepository {
     }
     
     private User user(Document doc) {
+    if (doc == null) {
+        return null;
+    }
         return new User(
                 doc.get("_id").toString(),
                 doc.getString("name"),
