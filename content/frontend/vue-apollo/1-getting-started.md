@@ -404,7 +404,7 @@ Open `src/App.vue` and replace the contents of the `style` block with the follow
 Next, you need to pull in the functionality of Apollo Client by installing both `apollo-client` and `vue-apollo`:
 
 ```bash
-npm install --save vue-apollo apollo-client
+npm install --save vue-apollo graphql apollo-client apollo-link apollo-link-http apollo-cache-inmemory graphql-tag
 ```
 
 </Instruction>
@@ -423,7 +423,9 @@ Open `src/main.js` and replace the contents with the following:
 
 ```js{1-2,5-6,13-16,18-22,24-25,27-30,35-36}(path=".../hackernews-vue-apollo/src/main.js")
 // 1
-import { ApolloClient, createBatchingNetworkInterface } from 'apollo-client'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import 'tachyons'
 import Vue from 'vue'
 // 2
@@ -435,15 +437,17 @@ import router from './router'
 Vue.config.productionTip = false
 
 // 3
-const networkInterface = createBatchingNetworkInterface({
-  uri: '__SIMPLE_API_ENDPOINT__'
-})
+const httpLink = new HttpLink({
+  // You should use an absolute URL here
+  uri: '__SIMPLE_API_ENDPOINT__',
+});
 
 // 4
 const apolloClient = new ApolloClient({
-  networkInterface,
-  connectToDevTools: true
-})
+  link: httpLink,
+  cache: new InMemoryCache(),
+  connectToDevTools: true,
+});
 
 // 5
 Vue.use(VueApollo)
@@ -452,15 +456,15 @@ Vue.use(VueApollo)
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
   defaultOptions: {
-    $loadingKey: 'loading'
-  }
-})
+    $loadingKey: 'loading',
+  },
+});
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   // 7
-  apolloProvider,
+  provide: apolloProvider.provide(),
   router,
   render: h => h(App)
 })
