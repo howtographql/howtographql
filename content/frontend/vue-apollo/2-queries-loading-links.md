@@ -166,7 +166,9 @@ You need to make one more change before testing out the app.
 Open `src/main.js` and remove the two references to router for now. After removing them, `src/main.js` should look like this:
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
-import { ApolloClient, createBatchingNetworkInterface } from 'apollo-client'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import 'tachyons'
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
@@ -175,14 +177,16 @@ import App from './App'
 
 Vue.config.productionTip = false
 
-const networkInterface = createBatchingNetworkInterface({
-  uri: '__SIMPLE_API_ENDPOINT__'
-})
+const httpLink = new HttpLink({
+  // You should use an absolute URL here
+  uri: '__SIMPLE_API_ENDPOINT__',
+});
 
 const apolloClient = new ApolloClient({
-  networkInterface,
-  connectToDevTools: true
-})
+  link: httpLink,
+  cache: new InMemoryCache(),
+  connectToDevTools: true,
+});
 
 Vue.use(VueApollo)
 
@@ -196,7 +200,7 @@ const apolloProvider = new VueApollo({
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  apolloProvider,
+  provide: apolloProvider.provide(),
   render: h => h(App)
 })
 ```
