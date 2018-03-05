@@ -477,13 +477,13 @@ Let's try to understand what's going on in that code snippet:
 
 1. You're importing the required dependencies from the `apollo-client` package
 2. You're importing the `vue-apollo` package
-3. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit
-4. Now you instantiate the `ApolloClient` by passing in the `networkInterface`
+3. Here you create the `httpLink`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit
+4. Now you instantiate the `ApolloClient` by passing in the `httpLink`
 5. Here you install the vue plugin
 6. Next you create a new apollo client instance through `VueApollo` and set the `defaultClient` to the `apolloClient` we just created. You also set `$loadingKey` to 'loading' so that we can easily display a loading indicator in the UI.
-7. Finally you specify the `apolloProvider` object on your root component
+7. Finally you specify the `provide` object on your root component
 
-Next you need to replace the placeholder for the `networkInterface` `uri` with your actual endpoint. But where do you get your endpoint from?
+Next you need to replace the placeholder for the `httpLink` `uri` with your actual endpoint. But where do you get your endpoint from?
 
 There are two ways for you to get your endpoint. You can either open the [Graphcool Console](https://console.graph.cool) and click the _Endoints_-button in the bottom-left corner. The second option is to use the CLI.
 
