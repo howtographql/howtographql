@@ -604,19 +604,20 @@ Since all the API requests are actually created and sent by the `ApolloClient` i
 
 <Instruction>
 
-Open `src/main.js` and put the following code _between_ the creation of the `networkInterface` and the instantiation of the `ApolloClient`:
+Open `src/main.js` and put the following code _between_ the creation of the `httpLink` and the instantiation of the `ApolloClient`:
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
-networkInterface.use([{
-  applyBatchMiddleware (req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
-    const token = localStorage.getItem(GC_AUTH_TOKEN)
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
-    next()
-  }
-}])
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  const token = localStorage.getItem(GC_AUTH_TOKEN);
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null,
+    },
+  });
+
+  return forward(operation);
+});
 ```
 
 </Instruction>
@@ -628,6 +629,29 @@ Then directly import the key that you need to retrieve the token from `localStor
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants/settings'
+```
+
+</Instruction>
+
+<Instruction>
+
+Everything looks fine but there is no `ApolloLink` (1) and auth middleware is not connected yet (2) to the instance of `ApolloClient`. Let's fix this: 
+
+```js(path=".../hackernews-vue-apollo/src/main.js")
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+// 1
+import { ApolloLink, concat } from 'apollo-link';
+
+// ...
+
+const apolloClient = new ApolloClient({
+  // 2
+  link: concat(authMiddleware, httpLink),
+  cache: new InMemoryCache(),
+  connectToDevTools: true,
+});
 ```
 
 </Instruction>
