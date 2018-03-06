@@ -47,7 +47,7 @@ import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-trans
 Now update the configuration code like so:
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
-const networkInterface = createBatchingNetworkInterface({
+const httpLink = new HttpLink({
   uri: '__SIMPLE_API_ENDPOINT__'
 })
 
@@ -58,24 +58,25 @@ const wsClient = new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
   }
 })
 
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-  networkInterface,
+const authMiddleware = new ApolloLink((operation, forward) => {
+//add the authorization to the headers
+  const token = localStorage.getItem(GC_AUTH_TOKEN);
+  operation.setContext({
+  headers: {
+  		authorization: token ? `Bearer ${token}` : null
+  		},  
+  })
+   
+  return forward(operation);
+})
+
+const httpLinkWithSubscriptions = addGraphQLSubscriptions(
+  authMiddleware.concat(httpLink),
   wsClient
 )
 
-networkInterface.use([{
-  applyBatchMiddleware (req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
-    const token = localStorage.getItem(GC_AUTH_TOKEN)
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
-    next()
-  }
-}])
-
 const apolloClient = new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions,
+  link: httpLinkWithSubscriptions,
   connectToDevTools: true
 })
 ```
