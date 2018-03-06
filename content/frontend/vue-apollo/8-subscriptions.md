@@ -190,6 +190,8 @@ Still in `src/components/LinkList.vue` implement `updateQuery` like so:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 updateQuery: (previous, { subscriptionData }) => {
+if (!subscriptionData.data.Link) return
+
   const newAllLinks = [
     subscriptionData.data.Link.node,
     ...previous.allLinks
@@ -264,6 +266,8 @@ Open `src/components/LinkList.vue` and add the following object to the `sunscrib
 {
   document: NEW_VOTES_SUBSCRIPTION,
   updateQuery: (previous, { subscriptionData }) => {
+  	if (!subscriptionData.data.Vote) return
+  	 
     const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.data.Vote.node.link.id)
     const link = subscriptionData.data.Vote.node.link
     const newAllLinks = previous.allLinks.slice()
