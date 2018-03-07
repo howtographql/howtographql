@@ -252,6 +252,8 @@ In your terminal, navigate to the `hackernews-react-apollo` directory and run th
 curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar -xz --strip=1 react-apollo-starter/server
 ```
 
+> **Note**: If you are on Windows, you may want to install [Git CLI](https://git-scm.com/) to avoid potential problems with commands such as curl.
+
 </Instruction>
 
 You now have a new directory called `server` inside your project that contains all the code you need for your backend.
