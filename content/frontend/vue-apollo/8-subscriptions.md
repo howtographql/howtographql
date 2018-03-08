@@ -59,15 +59,14 @@ const wsClient = new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
 })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-//add the authorization to the headers
+  //add the authorization to the headers
   const token = localStorage.getItem(GC_AUTH_TOKEN);
   operation.setContext({
-  headers: 
-   {
-     authorization: token ? `Bearer ${token}` : null
-   },  
-  })
-   
+    headers: {
+      authorization: token ? `Bearer ${token}` : null
+    }
+  });
+
   return forward(operation);
 })
 
