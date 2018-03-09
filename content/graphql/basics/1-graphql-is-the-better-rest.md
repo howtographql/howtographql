@@ -64,7 +64,7 @@ GraphQL uses a strong type system to define the capabilities of an API. All the 
 
 Once the schema is defined, the teams working on frontend and backends can do their work without further communication since they both are aware of the definite structure of the data that's sent over the network. 
 
-Frontend teams can easily test their applications by mocking the required data structures. Once the server is ready, the flip can be switched for the client apps to load the data from the actual API.
+Frontend teams can easily test their applications by mocking the required data structures. Once the server is ready, the switch can be flipped for the client apps to load the data from the actual API.
 
 
 
