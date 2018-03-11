@@ -642,13 +642,13 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 // 1
-import { ApolloLink, concat } from 'apollo-link';
+import { ApolloLink } from 'apollo-link';
 
 // ...
 
 const apolloClient = new ApolloClient({
   // 2
-  link: concat(authMiddleware, httpLink),
+  link: authMiddleware.concat(httpLink),
   cache: new InMemoryCache(),
   connectToDevTools: true,
 });
