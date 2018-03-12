@@ -609,15 +609,15 @@ Open `src/main.js` and put the following code _between_ the creation of the `htt
 ```js(path=".../hackernews-vue-apollo/src/main.js")
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
-  const token = localStorage.getItem(GC_AUTH_TOKEN);
+  const token = localStorage.getItem(GC_AUTH_TOKEN)
   operation.setContext({
     headers: {
-      authorization: token ? `Bearer ${token}` : null,
-    },
-  });
+      authorization: token ? `Bearer ${token}` : null
+    }
+  })
 
-  return forward(operation);
-});
+  return forward(operation)
+})
 ```
 
 </Instruction>
@@ -638,11 +638,11 @@ import { GC_USER_ID, GC_AUTH_TOKEN } from './constants/settings'
 Everything looks fine but there is no `ApolloLink` (1) and auth middleware is not connected yet (2) to the instance of `ApolloClient`. Let's fix this: 
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 // 1
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink } from 'apollo-link'
 
 // ...
 
@@ -650,8 +650,8 @@ const apolloClient = new ApolloClient({
   // 2
   link: authMiddleware.concat(httpLink),
   cache: new InMemoryCache(),
-  connectToDevTools: true,
-});
+  connectToDevTools: true
+})
 ```
 
 </Instruction>
