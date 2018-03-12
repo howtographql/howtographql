@@ -439,15 +439,15 @@ Vue.config.productionTip = false
 // 3
 const httpLink = new HttpLink({
   // You should use an absolute URL here
-  uri: '__SIMPLE_API_ENDPOINT__',
-});
+  uri: '__SIMPLE_API_ENDPOINT__'
+})
 
 // 4
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
-  connectToDevTools: true,
-});
+  connectToDevTools: true
+})
 
 // 5
 Vue.use(VueApollo)
@@ -456,9 +456,9 @@ Vue.use(VueApollo)
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
   defaultOptions: {
-    $loadingKey: 'loading',
-  },
-});
+    $loadingKey: 'loading'
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
