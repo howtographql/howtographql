@@ -179,14 +179,14 @@ Vue.config.productionTip = false
 
 const httpLink = new HttpLink({
   // You should use an absolute URL here
-  uri: '__SIMPLE_API_ENDPOINT__',
-});
+  uri: '__SIMPLE_API_ENDPOINT__'
+})
 
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
-  connectToDevTools: true,
-});
+  connectToDevTools: true
+})
 
 Vue.use(VueApollo)
 
