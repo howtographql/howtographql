@@ -9,7 +9,7 @@ description: Authenticating on GraphQL
 ### Creating an User
 Django already comes with the concept of Users bult in. Before talking about authentication, let's create our first User.
 
-To do it so, we need to send data to thee server through a mutation.
+To do it so, we need to send data to the server through a mutation.
 
 <Instruction>
 
