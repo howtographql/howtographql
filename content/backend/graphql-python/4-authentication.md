@@ -191,7 +191,7 @@ The library creates three Mutations for us, let's take a look at them.
 
 ![](https://i.imgur.com/d03jVtP.png)
 
-`RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enable to expire. Using it is outside the escope of this tutorial.
+`RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enable to expire. Using it is outside the scope of this tutorial.
 
 Besides that, various aspects of the Mutations and JWT can be configured on the library. Please check the [documentation](https://github.com/flavors/django-graphql-jwt) for more information.
 
