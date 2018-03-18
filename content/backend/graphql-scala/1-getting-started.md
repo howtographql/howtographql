@@ -59,7 +59,7 @@ I will explain shortly the most important files here.
 
 Files above are for SBT itself. There you can find all dependencies to external libraries and plugins we will use in the project.
 I assume you're at least beginner in the scala and you understand what is going on in those files. One thing you could be unfamiliar with is `Revolver` plugin.
-This plugin is responsible for restarting server every time you save the files, so akka-http will server always updated version. It's very helpful during development process.
+This plugin is responsible for restarting server every time you save the files, so akka-http will always serve the updated version. It's very helpful during development.
 
 
 
