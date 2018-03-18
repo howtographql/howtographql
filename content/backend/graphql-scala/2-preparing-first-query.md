@@ -25,11 +25,11 @@ The expected result is a list of links.
 
 ### Define a model
 
-Let's start from defining a really basic model
+Let's start by defining a really basic model.
 
 <Instruction>
 
-Create file `Link.scala`:
+Create the file `Link.scala`:
 
 ```scala
 
@@ -39,11 +39,11 @@ case class Link(id: Int, url: String, description: String)
 
 </Instruction>
 
-As you can see, a `Link` model has less fields than in the Schema You saw in the first chapter, but no worries, we will improve the model in the future. Now we're focusing on completing execution stack so it would be better to keep this model simple.
+As you can see, a `Link` model has less fields than in the schema you saw in the first chapter, but no worries, we will improve the model in the future. Now we're focusing on completing execution stack so it would be better to keep this model simple.
 
 <Instruction>
 
-Add following chanages to the `DBSchema.scala`:
+Add following changes to the `DBSchema.scala`:
 
 ```scala
 
