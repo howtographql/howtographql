@@ -13,7 +13,7 @@ In this chapter you will learn how to:
 
 ### Initialize new project
 
-For purpose of this tutorial I've prepared a giter8 template you can use to easly bootstrap a project. All you need is SBT in the newest version.
+For purpose of this tutorial I've prepared a giter8 template you can use to easily bootstrap a project. All you need is the latest version of SBT.
 
 <Instruction>
 
