@@ -65,8 +65,8 @@ The schema is a contract agreed on between the frontend and backend, so keeping 
 
 ### Goal of the tutorial
 
-The most of HowToGraphQL tutorials are based on the same schema. In our tutorial we will try to run scala server which supports that schema. In this case you can take any frontend example and connect it to our server.
-The schema more or less look like this:
+Most of the HowToGraphQL tutorials are based on the same schema. In our tutorial we will try to run scala server which supports that schema. In this case you can take any frontend example and connect it to our server.
+The schema more or less looks like this:
 
 
 ```graphql(nocopy)(https://github.com/howtographql/howtographql/blob/master/meta/structure.graphql)
