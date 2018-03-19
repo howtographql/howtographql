@@ -239,17 +239,17 @@ object GraphQLSchema {
 </Instruction>
 
 Sangria cannot reuse case classes defined in our domain, it needs its own object of type `ObjectType`. On the other hand, it allows us to decouple API/Sangria models from database representation. This abstraction allows us to freely hide, add or aggregate fields.
-* **1** is a definition of ObjectType for our `Link` class. First (String) argument defines the name in the schema. If you want it could differ from name of case class. In `fields` you have to define all those fieds/functions you want to expose. Every field have to contain `resolve` function which tells Sangria how to retireve data for this field. As you can see there is also explicitly defined type for that field.
-Manuall mapping could be boring in many cases like you have to map couple of case classes. To avoid boilerplace you can use provided macro.
+* **1** is a definition of ObjectType for our `Link` class. First (String) argument defines the name in the schema. If you want it could differ from name of case class. In `fields` you have to define all those fieds/functions you want to expose. Every field has to contain a `resolve` function which tells Sangria how to retrieve data for this field. As you can see there is also an explicitly defined type for that field.
+Manual mapping could be boring in cases where you have to map many case classes. To avoid boilerplate code you can use the provided macro.
 
 ```scala
 implicit val LinkType = deriveObjectType[Unit, Link]()
 ```
 
-will give the same result as example I used in the code above.
+will give the same result as the example I used in the code above.
 When you want to use macro-way to define objects don't forget to import `sangria.macros.derive._`
 
-* **2** `val QueryType` is a top level object of our schema. Probably it also could be defined by macro but I decided to make it manually. As you can see, the top level object has name `Query` and it (along with nested object) will be available to see in the graphiql console what we will include farther in this chapter. In `fields` definition I've added only one `Field` at this moment.
+* **2** `val QueryType` is a top level object of our schema. Probably it could also be defined by a macro but I decided to make it manually. As you can see, the top level object has name `Query` and it (along with nested object) will be visible in the graphiql console that we will include later in this chapter. In `fields` definition I've added only one `Field` at the moment.
 
 ```scala
 
