@@ -1,9 +1,9 @@
 ---
 title: Handling Arguments
 pageTitle: "A query arguments"
-description: "In this chapter you will learn how to use arguments and how to handle them and pass to the business logic."
-question: "What type is query argument"
-answers: ["It's always a String type. You have to unmarshall it to type yo need", "You can define the type of argument in schema.", "It's one of basic types.", "Only numbers."]
+description: "In this chapter you will learn how to use arguments and how to handle them and pass them to the business logic."
+question: "What is the type of the query argument"
+answers: ["It's always a String type. You have to unmarshall it to the type you need", "You can define the type of the argument in the schema.", "It's one of the basic types.", "Only numbers."]
 correctAnswer: 1
 ---
 
