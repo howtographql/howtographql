@@ -10,18 +10,18 @@ correctAnswer: 1
 
 ### Arguments
 
-Let's assume, we want to fetch selected links using their ids. We will need to parse arguments.
+Let's assume, we want to fetch the selected links using their ids. We will need to parse the arguments.
 
-For example such query:
+Take this query for instance:
 
 ```graphql
 
 query {
     link(id: 1){
-    	id
-    	name
-  	}
-  	links(ids: [2, 3]){
+      id
+      name
+    }
+    links(ids: [2, 3]){
       id
       name
     }  
