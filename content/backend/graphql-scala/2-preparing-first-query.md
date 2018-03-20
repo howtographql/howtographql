@@ -246,10 +246,10 @@ Manual mapping could be boring in cases where you have to map many case classes.
 implicit val LinkType = deriveObjectType[Unit, Link]()
 ```
 
-will give the same result as the example I used in the code above.
+It will give the same result as the example I used in the code above.
 When you want to use macro-way to define objects don't forget to import `sangria.macros.derive._`
 
-* **2** `val QueryType` is a top level object of our schema. Probably it could also be defined by a macro but I decided to make it manually. As you can see, the top level object has name `Query` and it (along with nested object) will be visible in the graphiql console that we will include later in this chapter. In `fields` definition I've added only one `Field` at the moment.
+* **2** `val QueryType` is a top level object of our schema. Probably it could also be defined by a macro but I decided to make it manually. As you can see, the top level object has a name `Query` and it (along with nested object) will be visible in the graphiql console that we will include later in this chapter. In `fields` definition I've added only one `Field` at the moment.
 
 ```scala
 
@@ -257,7 +257,7 @@ When you want to use macro-way to define objects don't forget to import `sangria
 
 ```
 
-The snippet above defines a GraphQL field. It's name is "allLinks". It's a list (ListType) of link items (LinkType). At the end we have to provide a function wich will resolve a result. In this case it's a `DAO`'s function `allLinks`. We have to implement it now.
+The snippet above defines a GraphQL field. It's name is "allLinks". It's a list (ListType) of link items (LinkType). At the end we have to provide a function which will resolve a result. In this case it's a `DAO`'s function `allLinks`. We have to implement it now.
 
 <Instruction>
 
@@ -327,7 +327,7 @@ In graphiql console execute the following code:
 query {
   allLinks {
     id
-    name
+    url
     description
   }
 }
