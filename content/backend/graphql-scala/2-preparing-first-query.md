@@ -366,4 +366,4 @@ The response should looks like that:
 
 ### Goal achieved
 
-In this chapter we've finished configuring entire GraphQL server stack and defined very basic first query.
+In this chapter we've finished configuring the entire GraphQL server stack and defined a very basic first query.
