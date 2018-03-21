@@ -117,7 +117,7 @@ There are a couple of things to note about this implementation:
 
 - The name of the resolver function `feed` is identical to the name of the field on the `Query` type. This is a requirement from `graphql-js` and `graphql-tools` which are used by `graphql-yoga`.
 - The resolver receives four input arguments:
-  1. `parent`: Contains an initial value for the resolver chain (you don't have to understand in detail what it's used for in this tutorial; if you're curios though, you can check [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#9d03) article).
+  1. `parent`: Contains an initial value for the resolver chain (you don't have to understand in detail what it's used for in this tutorial; if you're curious though, you can check [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#9d03) article).
   1. `args`: This object contains the input arguments for the query. These are defined in the application schema. In your case that's `filter`, `first` and `skip` for filtering and pagination.
   1. `context`: The `context` is an object that can hold custom data that's passed through the resolver chain, i.e. every resolver can read from and write to it.
   1. `info`: Contains the [abstract syntax tree](https://medium.com/@cjoudrey/life-of-a-graphql-query-lexing-parsing-ca7c5045fad8) (AST) of the query and information about _where_ the execution in the resolver chain currently is.
