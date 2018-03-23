@@ -16,7 +16,7 @@ Since this is a frontend track, you're not going to spend any time implementing 
 Once you created your React application, you'll pull in the required code for the backend.
 
 > **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters. 
-> Also note that each code block is annotated with a filename. These annonations directly link to the correpsonding file on GitHub so you can clearly see where to put the code and what the end result will look like.
+> Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
 
 ### Frontend
 
@@ -91,7 +91,7 @@ Your project structure should now look as follows:
 
 #### Prepare styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
+This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling. To reduce the usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
 
 <Instruction>
 
