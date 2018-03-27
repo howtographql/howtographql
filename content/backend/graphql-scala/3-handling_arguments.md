@@ -118,7 +118,7 @@ query {
 
 </Instruction>
 
-You should see a proper output. But what if we will execute this query??
+You should see a proper output. But what if we execute this query?
 
 ```graphql
 
@@ -136,7 +136,7 @@ query {
 
 ### Defining a problem
 
-If you will debug DAO class (even by putting simple `println` in functions) you will find out that `getLink` is called twice for the same `id`. `resolve` function is calling that function directly, so it's being called upon every id. But there is the better way. Sangria provides mechanism which helps to help with query optimization and caching. This is exactly what we need here.
+If you debug the DAO class (even by putting simple `println` in functions) you will find out that `getLink` is called twice for the same `id`. `resolve` function is calling that function directly, so it's being called upon every id. But there is the better way. Sangria provides a mechanism which helps with query optimization and caching. This is exactly what we need here.
 
 
 ### Next chapter
