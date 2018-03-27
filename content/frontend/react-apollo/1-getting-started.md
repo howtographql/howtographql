@@ -399,7 +399,7 @@ const server = new GraphQLServer({
 
 </Instruction>
 
-> **Note**: If you ever loose the endpoint, you can get access to it again by running `yarn prisma info`.
+> **Note**: If you ever lose the endpoint, you can get access to it again by running `yarn prisma info`.
 
 #### Exploring the server
 
