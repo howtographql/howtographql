@@ -106,7 +106,7 @@ Still in `src/main.js`, add `router` to the Vue instance:
 ```js{4}(path=".../hackernews-vue-apollo/src/main.js")
 new Vue({
   el: '#app',
-  apolloProvider,
+  provide: apolloProvider.provide(),
   router,
   render: h => h(App)
 })
