@@ -104,11 +104,11 @@ Open the graphiql console in the browser and execute following query:
 query {
 
     link(id: 1){
-    	id
-    	url
-  	}
+      id
+      url
+    }
 
-  	links(ids: [2,3]){
+    links(ids: [2,3]){
       id
       url
     }
