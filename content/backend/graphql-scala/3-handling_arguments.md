@@ -28,11 +28,11 @@ query {
 }
 ```
 
-What must we do? Firstly add to DAO functions that gives us link by one or more ID's.
+What must we do? Firstly add to DAO the functions that give us a link by one or more ID's.
 
 <Instruction>
 
-Open `DAO.scala` file, and add following functions:
+Open the file `DAO.scala` and add the following functions:
 
 ```scala
 
@@ -47,13 +47,14 @@ def getLink(id: Int): Future[Option[Link]] = db.run(
 
 </Instruction>
 
-Next we have to add fields to the main `Query` object and set functions above as resolvers.
+Next we have to add the fields to the main `Query` object and set the functions above as resolvers.
 
 <Instruction>
 
-Now open `GraphQLSchema.scala` file, and in fuction `fields` add two additional definitions:
+Now open the file `GraphQLSchema.scala` and add two additional definitions in the `fields` function of the `QueryType` object:
 
-```
+```scala
+
 Field("link", //1
   OptionType(LinkType), //2
   arguments = List(Argument("id", IntType)), //3
@@ -62,7 +63,7 @@ Field("link", //1
 Field("links", //1
   ListType(LinkType), //2
   arguments = List(Argument("ids", ListInputType(IntType))), //3
-  resolve = c => c.ctx.dao.getLinks(c.arg[Seq[Int]]("ids")) //3
+  resolve = c => c.ctx.dao.getLinks(c.arg[Seq[Int]]("ids")) //4
 )
 
 ```
@@ -72,13 +73,13 @@ Field("links", //1
 Let's try to understand what is going on in there:
 
 1. As explained previously, we're adding new fields with these names (`link` and `links`)
-1. Second parameter is expected output type. In first query it's Optional Link, in second list of links.
-1. `arguments` is a list of expected argumets defined by name and type. In first field, we're expecting an `id` argument of type `Int`. In second case `ids` as list of integers. As you can see we didn't use `ListType` in that case. We've used `ListInputType` instead. The main difference is that all `InputType`s are used to parse incoming data, and `ObjectType`s (mostly) are used for outgoing data.
-1. `arguments` defines which arguments we expect. Mostly such argument isn't forgotter and should be extracted and passed down to the resolver. `Context` object, reachable in `resolve` partial function, contains such information, so you have to fetch those arguments from there.
+1. The second parameter is the expected output type. In the first query it's an Optional Link, in second it's a list of links.
+1. `arguments` is a list of expected arguments defined by name and type. In the first field, we're expecting an `id` argument of type `Int`. In the second case, we're expecting `ids` as a list of integers. As you can see we didn't use `ListType` in that case. We've used `ListInputType` instead. The main difference is that all `InputType`s are used to parse incoming data, and `ObjectType`s (mostly) are used for outgoing data.
+1. `arguments` defines which arguments we expect. Mostly such argument isn't forgotten and should be extracted and passed down to the resolver. `Context` object, reachable in `resolve` partial function, contains such information, so you have to fetch those arguments from there.
 
 ### DRY with arguments
 
-The code above could be a little simplified. You can extract an `Argument` as constant, and reuse this in field declaration. You can change the `link` declaration on the following:
+The code above could be a little simplified. You can extract an `Argument` as constant, and reuse this in the field declaration. You can change the `link` declaration as follows:
 
 ```scala
 
@@ -90,9 +91,9 @@ Field("link",
       resolve = c => c.ctx.dao.getLink(c.arg(Id))
 )
 ```
-Similar chage you can make for `links` field too.
+You can make a similar change for the `links` field too.
 
-Now, we have exposed few field. We're able to fetch for single Link, or even a list of chosen links.
+Now, we have exposed a few fields. We're able to fetch a single link or a list of chosen links.
 
 <Instruction>
 
