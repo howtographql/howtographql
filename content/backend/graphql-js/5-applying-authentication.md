@@ -164,7 +164,7 @@ Fantastic! Let's go and test if the `post` mutation now actually works when crea
 
 ### Authenticating a `User`
 
-We already discussed how you can obtain an authentication token for a given `User` of your application but we haven' yet talked about how you can _use_ them in order to make authenticated requests on behalf of a specific `User`.
+We already discussed how you can obtain an authentication token for a given `User` of your application but we haven't yet talked about how you can _use_ them in order to make authenticated requests on behalf of a specific `User`.
 
 Here is how it works:
 
