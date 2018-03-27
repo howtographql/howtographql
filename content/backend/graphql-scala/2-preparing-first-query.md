@@ -297,7 +297,7 @@ val route: Route =
       getFromResource("graphiql.html")
     }
 
-```    
+```
 
 </Instruction>
 
