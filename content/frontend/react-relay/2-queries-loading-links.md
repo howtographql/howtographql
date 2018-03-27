@@ -398,7 +398,7 @@ relay-compiler --src ./src --schema ./schema.graphql
 
 </Instruction>
 
-Now - when running the `relay-compiler` you'll actually see another error message. That's disappointing, but don't worry - it's not your fault this time. This happens because of a [bug in the Relay Compiler](https://github.com/facebook/relay/issues/1835) that breaks the compilation when there are non-nullable types on the connection types in the schema. You can work around the the issue by manually adjusting it, which is not something you should be doing under normal circumstances but for the purpose of this tutorial it will be fine. 
+Now - when running the `relay-compiler` you'll actually see another error message. That's disappointing, but don't worry - it's not your fault this time. This happens because of a [bug in the Relay Compiler](https://github.com/facebook/relay/issues/1835) that breaks the compilation when there are non-nullable types on the connection types in the schema. You can work around the issue by manually adjusting it, which is not something you should be doing under normal circumstances but for the purpose of this tutorial it will be fine.
 
 <Instruction>
 
