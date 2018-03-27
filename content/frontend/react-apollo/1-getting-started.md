@@ -254,6 +254,8 @@ curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar 
 
 </Instruction>
 
+> **Note**: If you are on Windows, you may want to install [Git CLI](https://git-scm.com/) to avoid potential problems with commands such as `curl`.
+
 You now have a new directory called `server` inside your project that contains all the code you need for your backend.
 
 Before we start the server, let's quickly understand the main components:
