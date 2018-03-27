@@ -63,10 +63,10 @@ Sensibly then, the experience of building a GraphQL server starts with working o
 The schema is a contract agreed on between the frontend and backend, so keeping it at the center allows both sides of the development to evolve without going off the spec. This also makes it easier to parallelize the work, since the frontend can move on with full knowledge of the API from the start, using a simple mocking service (or even a full backend such as Graphcool) which can later be easily replaced with the final server.
 
 
-### Goal of the turorial
+### Goal of the tutorial
 
-The most of HowToGraphQL tutorials are based on the same schema. In our tutorial we will try to run scala server which supports that schema. In this case you can take any frontend example and connect it to our server.
-The schema more or less look like this:
+Most of the HowToGraphQL tutorials are based on the same schema. In our tutorial we will try to run scala server which supports that schema. In this case you can take any frontend example and connect it to our server.
+The schema more or less looks like this:
 
 
 ```graphql(nocopy)(https://github.com/howtographql/howtographql/blob/master/meta/structure.graphql)
