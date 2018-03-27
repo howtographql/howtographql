@@ -2,8 +2,8 @@
 title: Getting Started
 pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
 description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Prisma.
-question: Which are the two types that you find in every Prisma project file?
-answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
+question: Why are there two GraphQL API layers in a backend architecture with Prisma?
+answers: ["To increase robustness and stability of the GraphQL server (if one layer fails, the server is backed by the second one).", "To increase performance of the GraphQL server (requests are accelerated  by going through multiple layers).", "Prisma provides the database layer which offers CRUD operations. The second layer is the application layer for business logic and common workflows (like authentication).", "Having two GraphQL layers is a hard requirement by the GraphQL specification."]
 correctAnswer: 3
 draft: false
 videoId: ""
@@ -15,7 +15,7 @@ Since this is a frontend track, you're not going to spend any time implementing 
 
 Once you created your React application, you'll pull in the required code for the backend.
 
-> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters. 
+> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
 > Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
 
 ### Frontend
@@ -374,7 +374,7 @@ Note that you can also omit `yarn prisma` in the above command if you have the `
 
 <Instruction>
 
-When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the public clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
+When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the development clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
 
 </Instruction>
 
@@ -438,6 +438,10 @@ Why do you need two GraphQL APIs at all? The answer is pretty straightforward, y
 The application schema defines the first layer, also called _application layer_. It defines the operations your client applications will be able to send to your API. This includes business logic as well as other common features and workflows (such as signup and login).
 
 The second layer is the _database layer_ defined by the Prisma schema. It provides powerful CRUD operations that allow you to perform _any_ kind of operation against the data in your database.
+
+Here is an overview of the architecture of the app:
+
+![](https://imgur.com/M8cbht4.png)
 
 > **Note**: It is of course possible to _only_ use the database API from the frontend. However, in most real-world applications you'll need at least a little bit of business logic which the API can not provide. If your app really only needs to perform CRUD operations and access a database, then it's totally fine to run against the Prisma database API directly.
 
