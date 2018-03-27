@@ -380,4 +380,19 @@ async function vote(parent, args, context, info) {
 
 In the `vote` resolver, you're first retrieving the `userId` from the HTTP header again (using the familiar `getUserId` function you just implemented) so you can create the `Vote` on behalf of an actual `User`. What follows is a check to ensure the `Link` to be voted for actually exists. Lastly, the resolver invokes the `createVote` mutation from the Prisma API to create a new `Vote` in the database connecting the given `User` and `Link` nodes.
 
+<Instruction>
+
+As a last step, be sure to include the the `vote` resolver in the export statement of the module:
+
+```js{5}(path=".../hackernews-node/src/resolvers/Mutation.js")
+module.exports = {
+  post,
+  signup,
+  login,
+  vote,
+}
+```
+
+</Instruction>
+
 That's it! You can now restart the server and send the `vote` mutation in your `app` Playground.
