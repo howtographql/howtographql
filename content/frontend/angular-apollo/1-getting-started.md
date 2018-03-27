@@ -16,7 +16,7 @@ Since this is a frontend track, you don't want to spend too much time setting up
 
 You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to build (and deploy) your GraphQL API based on the data model that you need for the app.
 
-Speaking of the data model, here is what the final version looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
+Speaking of the data model, here is what the final version looks like written in the [GraphQL Schema Definition Language](http://graphql.org/learn/schema/) (SDL):
 
 ```graphql(nocopy)
 type User @model {
