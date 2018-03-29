@@ -8,7 +8,7 @@ description: "In this chapter we will introduce two additional models. We show t
 
 ### Your DIY kit
 
-Before you'll go further, try to do something. I think, at this point, you have a knowledge that let you add `User` and `Vote` models. Of course, I'll show what to do later in this chapter, but before you will go there, try to implement it alone.
+Before you go further, try to do something. I think, at this point, you have a knowledge that let you add `User` and `Vote` models. Of course, I'll show what to do later in this chapter, but before you will go there, try to implement it alone.
 
 What you have to do:  
 
@@ -32,6 +32,7 @@ Add `User.scala` class with content:
 
 ```scala
 case class User(id: Int, name: String, email: String, password: String, createdAt: DateTime = DateTime.now)
+
 ```
 
 </Instruction>
@@ -40,10 +41,9 @@ Database setup.
 
 <Instruction>
 
-Add following content to the `DBSchema` class:
+Add the following content to the `DBSchema` class:
 
 ```scala
-
 class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
   def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
   def name = column[String]("NAME")
@@ -55,6 +55,7 @@ class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
 }
 
 val Users = TableQuery[UsersTable]
+
 ```
 
 </Instruction>
@@ -64,18 +65,19 @@ Sample entities:
 <Instruction>
 
 In file DBSchema in function `databaseSetup`: Add an action `Users.schema.create` at beginning of the sentence and then
-add few users later in this function
+add a few users later in this function
 
 ```scala  
 Users forceInsertAll Seq(
     User(1, "mario", "mario@example.com", "s3cr3t"),
     User(2, "Fred", "fred@flinstones.com", "wilmalove")
   )
+
 ```
 
 </Instruction>
 
-Add functional responsible for user's retrieving:
+Add a function responsible for user retrieval:
 
 <Instruction>
 
@@ -87,7 +89,7 @@ def getUsers(ids: Seq[Int]): Future[Seq[User]] = {
       Users.filter(_.id inSet ids).result
     )
 }
-```  
+```
 
 </Instruction>
 
@@ -136,25 +138,25 @@ Field("users",
 
 </Instruction>
 
-We're ready... you can now execute query like this:
+We're ready... you can now execute a query like this:
 
 ```graphql
 
 query {
 
     users(ids: [1, 2]){
-    	id
-			name
-    	email
-    	createdAt
-  	}
-}  
+      id
+      name
+      email
+      createdAt
+    }
+}
 ```
 
 
 ### Vote entity
 
-If you want, you can make similar step for `Vote` entity. And then follow instructions and check everything is ok.
+If you want, you can follow similar steps for the `Vote` entity. And then follow instructions and check everything is ok.
 
 <Instruction>
 
@@ -162,6 +164,7 @@ Create `Vote` class
 
 ```scala
 case class Vote(id: Int, userId: Int, linkId: Int, createdAt: DateTime = DateTime.now)
+
 ```
 
 </Instruction>
@@ -170,7 +173,7 @@ Database setup.
 
 <Instruction>
 
-Add following content to the `DBSchema` class:
+Add the following content to the `DBSchema` class:
 
 ```scala
 class VotesTable(tag: Tag) extends Table[Vote](tag, "VOTES"){
@@ -244,7 +247,7 @@ Add fetcher to resolvers.
 Add lastly created fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
 
 ```
-val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher)
+val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher, votesFetcher)
 ```
 
 </Instruction>
@@ -266,20 +269,20 @@ Field("votes",
 
 </Instruction>
 
-Following query now should be able to execute:
+The following query should now execute successfully:
 
 ```graphql
 
 query {
 
     votes(ids: [1, 2]){
-    	id
-    	createdAt
-  	}
+      id
+      createdAt
+    }
 }  
 ```
 
-### Finding a common parts
+### Finding common parts
 
 As you can see parts that are very similar. Like `HasId` for all three types:
 
@@ -298,7 +301,7 @@ The solution for this is an interface. We can provide an interface that will be 
 Create trait `Identifable`:
 
 ```scala
-trait Indentifable {
+trait Identifiable {
   val id: Int
 }
 ```
@@ -327,7 +330,7 @@ object Identifiable {
 
 </Instruction>
 
-When you will keep `implicit HasId` type converted in the companion object it will be accessible when needed.
+When you keep `implicit HasId` type converted in the companion object it will be accessible when needed.
 
 Now, let's create an interface from GraphQL point of view.
 
