@@ -298,7 +298,7 @@ The solution for this is an interface. We can provide an interface that will be 
 
 <Instrunction>
 
-Create trait `Identifable`:
+Create trait `Identifiable`:
 
 ```scala
 trait Identifiable {
@@ -335,6 +335,17 @@ When you keep `implicit HasId` type converted in the companion object it will be
 Now, let's create an interface from GraphQL point of view.
 
 <Instruction>
+
+Create an `IdentifiableType` as follows: 
+
+```scala
+  val IdentifiableType = InterfaceType(
+    "Identifiable",
+    fields[Unit, Identifiable](
+      Field("id", IntType, resolve = _.value.id)
+    )
+  )
+```
 
 Change the `LinkType` for the following:
 
