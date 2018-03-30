@@ -2,9 +2,9 @@
 title: "Queries: Loading Links"
 pageTitle: "Fetching Data using GraphQL Queries with React & Apollo Tutorial"
 description: "Learn how you can use GraphQL queries with Apollo Client to load data from a server and display it in your React components."
-question: What's the idiomatic way for loading data with React & Apollo?
-answers: ["Using a higher-order component called 'graphql'", "Using the 'query' method on ApolloClient", "Using 'fetch' and putting the query in the body of the request", "Using XMLHTTPRequest and putting the query in the body of the request"]
-correctAnswer: 0
+question: What's the declarative way for loading data with React & Apollo?
+answers: ["Using a higher-order component called 'graphql'", "Using the 'Query' component and passing query as prop", "Using 'fetch' and putting the query in the body of the request", "Using XMLHTTPRequest and putting the query in the body of the request"]
+correctAnswer: 1
 videoId: ""
 duration: 0		
 videoAuthor: ""
@@ -148,9 +148,9 @@ client.query({
 }).then(response => console.log(response.data.allLinks))
 ```
 
-A more idiomatic way when using React however is to use Apollo's higher-order component [`graphql`](https://www.apollographql.com/docs/react/basics/setup.html#graphql) to wrap your React component with a query.
+A more declarative way when using React however is to use new Apollo's [`render prop API`](https://www.apollographql.com/docs/react/react-apollo-migration.html) to manage your GraphQL data just using components.
 
-With this approach, all you need to do when it comes to data fetching is write the GraphQL query and `graphql` will fetch the data for you under the hood and then make it available in your component's props.
+With this approach, all you need to do when it comes to data fetching is pass the GraphQL query as prop and `<Query />` component will fetch the data for you under the hood and then make it available in the component's props.
 
 In general, the process for you to add some data fetching logic will be very similar every time:
 
@@ -176,10 +176,18 @@ const FEED_QUERY = gql`
       }
     }
   }
-`
+`;
 
-// 3
-export default graphql(FEED_QUERY, { name: 'feedQuery' }) (LinkList)
+class LinkList extends Component {
+  render() {
+    return (
+      // 3
+      <Query query={FEED_QUERY}>
+        ...
+      </Query>
+    )
+  }
+}
 ```
 
 </Instruction>
@@ -188,14 +196,14 @@ What's going on here?
 
 1. First, you create the JavaScript constant called `FEED_QUERY` that stores the query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamililar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
 1. Now you define the actual GraphQL query. `FeedQuery` is the _operation name_ and will be used by Apollo to refer to this query under the hood. (Also notice the `#` which denotes a GraphQL comment).
-1. Finally, you're using the `graphql` container to "wrap" the `LinkList` component with the `FEED_QUERY`. Note that you're also passing an options object to the function call where you specify the `name` to be `feedQuery`. This is the name of the prop that Apollo injects into the `LinkList` component. If you didn't specify it here, the injected prop would be called `data` by default.
+1. Finally, you're using the `<Query />` component passing `FEED_QUERY` as prop to fetch desired data.
 
 <Instruction>
 
 For this code to work, you also need to import the corresponding dependencies. Add the following two lines to the top of the file, right below the other import statements:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import { graphql } from 'react-apollo'
+import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 ```
 
@@ -209,36 +217,40 @@ You can now finally remove the mock data and render actual links that are fetche
 
 Still in `LinkList.js`, update `render` as follows:
 
-```js{3-6,8-11,13-14}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{5-6,8-9,11-12}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
-  // 1
-  if (this.props.feedQuery && this.props.feedQuery.loading) {
-    return <div>Loading</div>
-  }
-
-  // 2
-  if (this.props.feedQuery && this.props.feedQuery.error) {
-    return <div>Error</div>
-  }
-
-  // 3
-  const linksToRender = this.props.feedQuery.feed.links
-
   return (
-    <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
+    <Query query={FEED_QUERY}>
+      {({ loading, error, data }) => {
+        // 1
+        if (loading) return <div>Fetching</div>
+
+        // 2
+        if (error) return <div>Error</div>
+
+        // 3
+        const linksToRender = data.feed.links
+
+        return (
+          <div>
+            {linksToRender.map(link => <Link key={link.id} link={link} />)}
+          </div>
+        )
+      }}
+    </Query>
   )
 }
 ```
 
 </Instruction>
 
-Let's walk through what's happening in this code. As expected, Apollo injected a new prop into the component called `feedQuery`. This prop itself has 3 fields that provide information about the _state_ of the network request:
+Let's walk through what's happening in this code. As expected, Apollo injected several props into the component. These props itself provide information about the _state_ of the network request:
 
 1. `loading`: Is `true` as long as the request is still ongoing and the response hasn't been received.
 1. `error`: In case the request fails, this field will contain information about what exactly went wrong.
-1. `feed`: This is the actual data that was received from the server. It has the `links` property which represents a list of `Link` elements.
+1. `data`: This is the actual data that was received from the server. It has the `links` property which represents a list of `Link` elements.
 
-> In fact, the injected prop contains even more functionality. You can read more in the [documentation](https://www.apollographql.com/docs/react/basics/queries.html#graphql-query-data).
+> In fact, the injected props contains even more functionality. You can read more in the [documentation](https://www.apollographql.com/docs/react/essentials/queries.html#render-prop).
 
 That's it! Go ahead and run `yarn start` again. You should see the exact same screen as before.
 
