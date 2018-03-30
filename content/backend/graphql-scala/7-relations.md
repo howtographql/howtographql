@@ -1,10 +1,10 @@
 ---
 title: Relations
-pageTitle: "You have defined three separated models in the app, now we will connect them with relations"
+pageTitle: "You have defined three separate models in the app, now we will connect them with relations"
 description: "In this chapter you will learn how to connect models with relations. You will also learn how to prepare fetchers to use either relations or ids to get entities."
 ---
 
-Relations define how entities are connected one to each other. Probably you met those when you've been working with databases. In graphql (and sangria) relations are strictly connected with deferred resolvers and have similar role. When you want to find related entities, query could be optimized and fetched at once.
+Relations define how entities are connected with one another. You probably encountered those while working with databases. In graphql (and sangria) relations are strictly connected with deferred resolvers and have a similar role. When you want to find related entities, the query can be optimized and the data fetched at once.
 
 In other words: Relations expand Fetchers, allows for finding entities not only by their id field, by also by ids quite often stored in fields of another entity.
 
@@ -16,10 +16,10 @@ Lets try to define how many relations we have in our schema.
 
 `Vote` has `user` and `link`
 
-How those relations work?
-`Link` is a main entity, first created by us and the most important. `Link` is added by (single) user, on the other hand, user can have more than one link.
+How do those relations work?
+`Link` is a main entity, first created by us and the most important. `Link` is added by a (single) user. On the other hand, a user can have more than one link.
 
-`User` also can vote for link. He can vote for single link once, but link can has more than one votes.
+`User` also can vote for a link. He can vote for a single link once, but a link can have more than one vote.
 
 So, in our app we have 3 one-to-many relations.
 
@@ -29,7 +29,7 @@ First change slightly `Link` model:
 
 <Instruction>
 
-Add `postedBy` field to the `Link` case class, the class should looks like this:
+Add `postedBy` field to the `Link` case class, the class should look like this:
 
 ```scala
 
@@ -50,7 +50,7 @@ class LinksTable(tag: Tag) extends Table[Link](tag, "LINKS"){
     def * = (id, url, description, postedBy, createdAt).mapTo[Link]
 
 }
-  ```
+```
 
   </Instruction>
 
@@ -83,11 +83,11 @@ in `VotesTable` add:
 
 </Instruction>
 
-Change also sample links inserted into database:
+Change also the sample links inserted into the database:
 
-<Instrunction>
+<Instruction>
 
-`databaseSetup` should be changes in the following code:
+`databaseSetup` should be changed as in the following code:
 
 ```scala
 /**
@@ -121,18 +121,18 @@ val databaseSetup = DBIO.seq(
 
 </Instruction>
 
-Because of relations, some operations should be executed in proper order.
+Because of the relations, some operations should be executed in a specific order.
 
 
 ### Defining User->Link relation
 
-Lets begin with User-Link relation. In the first entity we have to add field `links` in the second `postedBy`, both defined by the same relation.
+Lets begin with User-Link relation. In the first entity we have to add the field `links`, in the second the field `postedBy`. Both are defined by the same relation.
 
-If you will look onto data flow you will find out we could try to find Link entity filtered by two fields. We can use `id` if we want to find this particular link, but also we could want to find link add by one author. In this case we will need filter by `postedBy` field.
+If you look into the data flow you will find out that we could try to find the `Link` entity filtered by two fields. We can use `id` if we want to find this particular link, but also we could want to find all links added by one author. In this case we will need to filter by `postedBy` field.
 
 <Instruction>
 
-Add relation to able to find `Link`s by userId.
+Add a relation to be able to find `Link`s by userId.
 
 ```scala
 
@@ -141,9 +141,9 @@ val linkByUserRel = Relation[Link, Int]("byUser", l => Seq(l.postedBy))
 
 </Instruction>
 
-This kind Relation is of type `SimpleRelation` and has only two arguments: the first is name, and the second is a function which somehow extracts sequence of user ids from link entity. Our case is super easy, because `postedBy` has such id. All we need to do is wrap it into the sequence.
+This relation is of type `SimpleRelation` and has only two arguments: the first is the name, the second is a function which extracts a sequence of user ids from the link entity. Our case is super easy, because `postedBy` has such id. All we need to do is wrap it into the sequence.
 
-Now we have to add this relation to the fetcher. To do this, we have to use `Fetcher.rel` function instead previously used `apply`
+Now we have to add this relation to the fetcher. To do this, we have to use `Fetcher.rel` function instead of the previously used `apply`
 
 <Instruction>
 
@@ -159,7 +159,7 @@ val linksFetcher = Fetcher.rel(
 
 </Instruction>
 
-What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our dao. `ids(linkByUserRel)` extracts user ids by the defined in relation way and passes it into the DAO function.
+What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our dao. `ids(linkByUserRel)` extracts user ids as defined in the relation and passes it into the DAO function.
 
 
 <Instruction>
@@ -176,13 +176,13 @@ def getLinksByUserIds(ids: Seq[Int]): Future[Seq[Link]] = {
 
 </Instruction>
 
-Actually we've simplified the code above a little. When you look into a part `ctx.dao.getLinksByUserIds(ids(linkByUserRel)` a but, you can wonder "And what if link has two relations? Does `getLinkByUserIds` could be replaced by another function?" Be patient, such case will be covered later in this chapter.
+Actually we've simplified the code above a little. When you look into the part `ctx.dao.getLinksByUserIds(ids(linkByUserRel))` a bit, you can wonder "And what if link has two relations? Could `getLinkByUserIds` be replaced by another function?" Be patient, such case will be covered later in this chapter.
 In our case we have only one relation, so we can retrieve all `userId`'s by calling `ids(linkByUserRel)` functions.
 
 ### Add fields to GraphQL Objects
 
-Let's begin from `LinkType`. `Link` already has `postedBy` field, but for now it's only an `Int` and we need entire user.
-To achieve this we have to replace entire field definition.
+Let's begin from `LinkType`. `Link` already has `postedBy` field, but for now it's only an `Int` and we need the entire user.
+To achieve this we have to replace the entire field definition.
 
 <Instruction>
 
@@ -204,15 +204,16 @@ In the same way we will change the `UserType` but we won't replace any existing 
 
 ```scala
 AddFields(
-      Field("links", ListType(LinkType), resolve = c =>  linksFetcher.deferRelSeq(linkByUserRel, c.value.id))
+      Field("links", ListType(LinkType), 
+      resolve = c =>  linksFetcher.deferRelSeq(linkByUserRel, c.value.id))
 )
 ```
 
 </Instruction>
 
-Now you can see, there is called another fetcher's function. All `.deferRel...` functions needs two arguments instead of one. We have to add relation object as first, second is function which will get mapping value from entity.
+Now you can see that another fetcher function is being called. All `.deferRel...` functions needs two arguments instead of one. We have to add the relation object as the first argument, the second is a function which will get a mapping value from entity.
 
-We just added two relations to both: `User` and `Link` object types. If you tried to run this, probably you've experienced some issues. It's because now we have circular reference in Object type declaration. There are two things we have to do to avoid this issue:
+We just added two relations to both `User` and `Link` object types. If you have tried to run this, probably you've experienced some issues. It's because now we have a circular reference in the Object type declaration. There are two things we have to do to avoid this issue:
 
 <Instruction>
 
