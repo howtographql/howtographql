@@ -27,7 +27,7 @@ In this track, you'll use the following technologies for building the app:
 
 - Frontend:
   - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
-  - [Apollo Client 2.0](https://github.com/apollographql/apollo-client): Production-ready, caching GraphQL client
+  - [Apollo Client 2.1](https://github.com/apollographql/apollo-client): Production-ready, caching GraphQL client
 - Backend:
   - [`graphql-yoga`](https://github.com/graphcool/graphql-yoga/): Fully-featured GraphQL Server with focus on easy setup, performance & great developer experience
   - [Prisma](https://www.prismagraphql.com/): Open-source GraphQL API layer that turns your database into a GraphQL API
