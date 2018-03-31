@@ -39,20 +39,22 @@ case class Link(id: Int, url: String, description: String, postedBy: Int, create
 
 </Instruction>
 
+Update `LinksTable`.
+<Instruction>
+
 Change the database schema. In the `DBSchema` change `LinksTable`, apply changes from the following code:
 
 ```scala
 class LinksTable(tag: Tag) extends Table[Link](tag, "LINKS"){
     // ...
     def postedBy = column[Int]("USER_ID")
-    //def createdAt = column[DateTime]("CREATED_AT")
 
     def * = (id, url, description, postedBy, createdAt).mapTo[Link]
 
 }
 ```
 
-  </Instruction>
+</Instruction>
 
 
 Add foreign keys.
@@ -72,7 +74,7 @@ Add for `Votes`:
 
 <Instruction>
 
-in `VotesTable` add:
+In `VotesTable` add:
 
 ```scala
 
@@ -83,7 +85,7 @@ in `VotesTable` add:
 
 </Instruction>
 
-Change also the sample links inserted into the database:
+Also change the sample links inserted into the database:
 
 <Instruction>
 
@@ -126,7 +128,7 @@ Because of the relations, some operations should be executed in a specific order
 
 ### Defining User->Link relation
 
-Lets begin with User-Link relation. In the first entity we have to add the field `links`, in the second the field `postedBy`. Both are defined by the same relation.
+Lets begin with User-Link relation. In the first entity we have to add the field `links` and in the second the field `postedBy`. Both are defined by the same relation.
 
 If you look into the data flow you will find out that we could try to find the `Link` entity filtered by two fields. We can use `id` if we want to find this particular link, but also we could want to find all links added by one author. In this case we will need to filter by `postedBy` field.
 
@@ -159,7 +161,7 @@ val linksFetcher = Fetcher.rel(
 
 </Instruction>
 
-What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our dao. `ids(linkByUserRel)` extracts user ids as defined in the relation and passes it into the DAO function.
+What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our DAO. `ids(linkByUserRel)` extracts user ids as defined in the relation and passes it into the DAO function.
 
 
 <Instruction>
@@ -181,7 +183,7 @@ In our case we have only one relation, so we can retrieve all `userId`'s by call
 
 ### Add fields to GraphQL Objects
 
-Let's begin from `LinkType`. `Link` already has `postedBy` field, but for now it's only an `Int` and we need the entire user.
+Let's begin with `LinkType`. `Link` already has a `postedBy` field, but for now it's only an `Int` and we need the entire user.
 To achieve this we have to replace the entire field definition.
 
 <Instruction>
@@ -204,8 +206,8 @@ In the same way we will change the `UserType` but we won't replace any existing 
 
 ```scala
 AddFields(
-      Field("links", ListType(LinkType), 
-      resolve = c =>  linksFetcher.deferRelSeq(linkByUserRel, c.value.id))
+  Field("links", ListType(LinkType), 
+  resolve = c =>  linksFetcher.deferRelSeq(linkByUserRel, c.value.id))
 )
 ```
 
@@ -213,39 +215,40 @@ AddFields(
 
 Now you can see that another fetcher function is being called. All `.deferRel...` functions needs two arguments instead of one. We have to add the relation object as the first argument, the second is a function which will get a mapping value from entity.
 
-We just added two relations to both `User` and `Link` object types. If you have tried to run this, probably you've experienced some issues. It's because now we have a circular reference in the Object type declaration. There are two things we have to do to avoid this issue:
+We just added two relations to both `User` and `Link` object types. If you have tried to run this, you have probably experienced some issues. It's because now we have a circular reference in the Object type declaration. There are two things we have to do to avoid this issue:
 
 <Instruction>
 
-Make `Link` and `User` lazy values. Aditionally define all types explicitly if you didn't it yet:
+Make `Link` and `User` lazy values. Additionally define all types explicitly if you haven't done it yet:
 
 ```scala
-implicit lazy val UserType: ObjectType[MyContext, User] = deriveObjectType[MyContext, User](//...
-implicit lazy val LinkType: ObjectType[MyContext, Link] = deriveObjectType[MyContext, Link](//...
+implicit lazy val UserType: ObjectType[MyContext, User] = deriveObjectType[MyContext, User]//...
+
+implicit lazy val LinkType: ObjectType[MyContext, Link] = deriveObjectType[MyContext, Link]//...
 ```
 
 </Instruction>
 
-Now open the `graphiql` console in browser and try to execute this query:
+Now open the `graphiql` console in browser and try to execute this query: (tip: if the autocomplete doesn't work for the new fields, try to restart the application)
 
-```
+```graphql
 query {
-
-link(id: 1){
-    	id
-    	url
-    	createdAt
-      postedBy {
-        name
-        links {
-          id
-          url
-        }
-      }  
+  link(id: 1){
+    id
+    url
+    createdAt
+    postedBy {
+      name
+      links {
+        id
+        url
+      }
+    }
+  }
 }
-```  
+```
 
-As you can both relations works perfectly.
+As you can see, both relations work perfectly.
 
 Time to add the rest of them.
 
@@ -275,7 +278,7 @@ The rest of the changes will be applied in the `GraphQLSchema` file.
 
 <Instruction>
 
-Add relation between `Vote` and `User`
+Add a relation between `Vote` and `User`
 
 ```scala
 val voteByUserRel = Relation[Vote, Int]("byUser", v => Seq(v.userId))
@@ -284,8 +287,8 @@ val voteByUserRel = Relation[Vote, Int]("byUser", v => Seq(v.userId))
 </Instruction>
 
 
-Don't forget in Relation we always have to return a sequence!
-Also we have to change fetcher definition.
+Don't forget in `Relation` we always have to return a sequence!
+Also we have to change the fetcher definition.
 
 <Instruction>
 
@@ -304,7 +307,7 @@ Change `UserType`:
 
 <Instruction>
 
-Inside `AddField` type class, add new field:
+Inside `AddField` type class, add a new field:
 
 ```scala
 Field("votes", ListType(VoteType), resolve = c =>  votesFetcher.deferRelSeq(voteByUserRel, c.value.id))
@@ -334,9 +337,9 @@ That's all. After this changes you should be able to execute the query like this
 query {
 
   link(id: 1){
-    	id
-    	url
-    	createdAt
+    id
+    url
+    createdAt
     postedBy {
       name
       links {
@@ -350,17 +353,16 @@ query {
         }
       }
     }
-
   }
 }
 ```
 
-As you can see we can ask for users that votes for links posted by author of current link. Simple like that.
+As you can see we can ask for users who vote for links posted by the author of the current link. Simple like that.
 
 ### Vote - Link Relation
 
-One relation is still missing in our example. In my opinion you have a lot of knowledge to try to write yourself.
-After that I'll do it step by step. For a reminder: case classes and database setup supports this relation, you no need to change anything there.
+One relation is still missing in our example. In my opinion you have enough knowledge to try and write it yourself.
+After that I'll do it step by step. Reminder: case classes and database setup support this relation, you do not need to change anything there.
 
 Lets start from defining relation object:
 
@@ -374,7 +376,11 @@ val voteByLinkRel = Relation[Vote, Int]("byLink", v => Seq(v.linkId))
 
 </Instruction>
 
-Now we can add `votes` field to the `LinkType`, add the following code after the existing `ReplaceField`.
+Now we can add the `votes` field to the `LinkType`.
+
+<Instruction>
+
+Add the following code after the existing `ReplaceField`.
 
 ```scala
 AddFields(
@@ -386,25 +392,25 @@ AddFields(
 
 Now you should be able to query for this field.
 
-The second part won't be such easy.
+The second part won't be as easy.
 
-Please look on the existing `votesFetcher` definition:
+Please look at the existing `votesFetcher` definition:
 
-```
+```scala
 val votesFetcher = Fetcher.rel(
     (ctx: MyContext, ids: Seq[Int]) => ctx.dao.getVotes(ids),
     (ctx: MyContext, ids: RelationIds[Vote]) => ctx.dao.getVotesByUserIds(ids(voteByUserRel))
 )
 ```
 
-The first function fetcher votes by their id. Nothing to comment here. The second function on the other hand, fetches votes by relation. Actually by `voteByUserRel` relation. There is no fetcher API that supports more than one relation function, so we have to reafctor it a little.
+The first function fetches votes by their id. Nothing to comment here. The second function on the other hand, fetches votes by relation. Actually by `voteByUserRel` relation. There is no fetcher API that supports more than one relation function, so we have to refactor it a little bit.
 
-In our case, we want to fetch Votes by any relation, either with `User` or with `Link`
-`ids(voteByUserRel)` extracts users' ids and passes those to the db function, we have to change it. It good idea to pass `ids` down to the repository, and there fuction will deceide which field it should use to filter.
+In our case, we want to fetch Votes by any relation, either with `User` or with `Link`.
+`ids(voteByUserRel)` extracts users' ids and passes those to the db function, we have to change it. It good idea to pass `ids` down to the repository, and there the function will decide which field it should use to filter.
 
 <Instruction>
 
-Replace second function of `votesFetcher` with the following one:
+Replace the second function of `votesFetcher` with the following one:
 
 ```scala
 (ctx: MyContext, ids: RelationIds[Vote]) => ctx.dao.getVotesByRelationIds(ids)
@@ -422,10 +428,10 @@ Field("votes", ListType(VoteType), resolve = c => votesFetcher.deferRelSeq(voteB
 Field("votes", ListType(VoteType), resolve = c => votesFetcher.deferRelSeq(voteByLinkRel, c.value.id))
 ```
 
-Both are almost the same, the only difference is a type of `Relation` we're using as the first argument.
+Both are almost the same, the only difference is the type of `Relation` we're using as the first argument.
 Actually in this way you can add any relation you want.
 
-There is one missing part: `DAO.getVotesByRelationIds` fuction, lets create it now. This function should match what kind of relation we're asking for, and filter by field depends of that relation.
+There is one missing part: `DAO.getVotesByRelationIds` function, let's create it now. This function should match the kind of relation we're asking for, and filter by field depends on that relation.
 
 <Instruction>
 
@@ -450,12 +456,12 @@ You can also delete `DAO.getVotesByUserIds` function, we won't need it anymore.
 
 ### Recap
 
-We achieved our goal for ths chapter, our models have new fuctions:
+We achieved our goal for this chapter, our models have new functions:
 
 `User` has `links` and `votes` fields.
 `Link` has `postedBy` and `votes` fields.
-`Vote` has `user` and `link`
+`Vote` has `user` and `link` fields.
 
-Now we can fetch for the related data...
+Now we can fetch the related data...
 
 In the next chapter you will learn how to add entities.
