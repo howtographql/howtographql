@@ -1,10 +1,10 @@
 ---
 title: "Mutations: Creating Links"
 pageTitle: "GraphQL Mutations with React & Apollo Tutorial"
-description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `graphql` higher-order component to define and send mutations."
+description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `<Mutation />` component to define and send mutations."
 question: Which of the following statements is true?
-answers: ["Only queries can be wrapped with the 'graphql' higher-order component", "'gql' is a higher-order component from the react-apollo package", "When wrapping a component with a mutation using 'graphql', Apollo injects a function into the component's props", "GraphQL mutations never take any arguments"]
-correctAnswer: 2
+answers: ["Only queries can be wrapped with the 'graphql' higher-order component", "'Mutation' component allow variables, optimisticResponse, refetchQueries, and update as props", "When wrapping a component with a mutation using 'graphql', Apollo only injects the mutation function into the render prop function", "GraphQL mutations never take any arguments"]
+correctAnswer: 1
 videoId: ""
 duration: 0		
 videoAuthor: ""
@@ -13,8 +13,8 @@ videoAuthor: ""
 In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with a minor (but logical) difference in the third step:
 
 1. write the mutation as a JavaScript constant using the `gql` parser function
-1. use the `graphql` container to wrap your component with the mutation
-1. use the mutation function that gets injected into the component's props
+1. use the `<Mutation />` component passing the mutation as prop
+1. use the mutation function that gets injected into the component's [render prop function](https://reactjs.org/docs/render-props.html)
 
 ### Preparing the React components
 
@@ -52,13 +52,9 @@ class CreateLink extends Component {
             placeholder="The URL for the link"
           />
         </div>
-        <button onClick={() => this._createLink()}>Submit</button>
+        <button onClick={`... you'll implement this in a bit`}>Submit</button>
       </div>
     )
-  }
-
-  _createLink = async () => {
-    // ... you'll implement this in a bit
   }
 }
 
@@ -67,7 +63,7 @@ export default CreateLink
 
 </Instruction>
 
-This is a standard setup for a React component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in the component's `state` and will be used in `_createLink` when the mutation is sent.
+This is a standard setup for a React component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in the component's `state` and will be used when the mutation is sent.
 
 ### Writing the mutation
 
@@ -77,7 +73,7 @@ First you need to define the mutation in your JavaScript code and wrap your comp
 
 <Instruction>
 
-In `CreateLink.js`, add the following statement to the bottom of the file (also replacing the current `export default CreateLink` statement):
+In `CreateLink.js`, add the following statement to the top of the file (also replacing the current `export default CreateLink` statement):
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // 1

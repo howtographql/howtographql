@@ -54,25 +54,23 @@ Again, in the `components` directory, go ahead and create a new file called `Lin
 import React, { Component } from 'react'
 import Link from './Link'
 
-class LinkList extends Component {
-  render() {
-    const linksToRender = [
-      {
-        id: '1',
-        description: 'Prisma turns your database into a GraphQL API 😎 😎',
-        url: 'https://www.prismagraphql.com',
-      },
-      {
-        id: '2',
-        description: 'The best GraphQL client',
-        url: 'https://www.apollographql.com/docs/react/',
-      },
-    ]
+const LinkList = () => {
+  const linksToRender = [
+    {
+      id: '1',
+      description: 'Prisma turns your database into a GraphQL API 😎 😎',
+      url: 'https://www.prismagraphql.com',
+    },
+    {
+      id: '2',
+      description: 'The best GraphQL client',
+      url: 'https://www.apollographql.com/docs/react/',
+    },
+  ]
 
-    return (
-      <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
-    )
-  }
+  return (
+    <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
+  )
 }
 
 export default LinkList
@@ -112,7 +110,7 @@ Next you'll load the actual links that are stored in the database. The first thi
 Here is what it looks like:
 
 ```graphql
-query FeedQuery {
+{
   feed {
     links {
       id
@@ -137,7 +135,7 @@ A practical example would look as follows:
 ```js(nocopy)
 client.query({
   query: gql`
-    query FeedQuery {
+    {
       feed {
         links {
           id
@@ -150,23 +148,21 @@ client.query({
 
 A more declarative way when using React however is to use new Apollo's [`render prop API`](https://www.apollographql.com/docs/react/react-apollo-migration.html) to manage your GraphQL data just using components.
 
-With this approach, all you need to do when it comes to data fetching is pass the GraphQL query as prop and `<Query />` component will fetch the data for you under the hood and then make it available in the component's props.
+With this approach, all you need to do when it comes to data fetching is pass the GraphQL query as prop and `<Query />` component will fetch the data for you under the hood, then make it available in the component's [render prop function](https://reactjs.org/docs/render-props.html).
 
 In general, the process for you to add some data fetching logic will be very similar every time:
 
 1. write the query as a JavaScript constant using the `gql` parser function
-1. use the `graphql` container to wrap your component with the query
-1. access the query results in the component's `props`
+1. use the `<Query />` component passing the query as prop
+1. access the query results in the component's `render prop function`
 
 <Instruction>
 
-Open up `LinkList.js` and add the query to the bottom of the file, also replacing the current `export LinkList` statement:
+Open up `LinkList.js` and add the query to the top of the file, also define `LinkList` component and return `<Query />` component passing GraphQL query as prop:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-// 1
 const FEED_QUERY = gql`
-  # 2
-  query FeedQuery {
+  {
     feed {
       links {
         id
@@ -178,16 +174,13 @@ const FEED_QUERY = gql`
   }
 `;
 
-class LinkList extends Component {
-  render() {
-    return (
-      // 3
-      <Query query={FEED_QUERY}>
-        ...
-      </Query>
-    )
-  }
-}
+const LinkList = () => (
+  <Query query={FEED_QUERY}>
+    // ... you'll implement this in a bit
+  </Query>
+)
+
+export default LinkList
 ```
 
 </Instruction>
@@ -195,8 +188,8 @@ class LinkList extends Component {
 What's going on here?
 
 1. First, you create the JavaScript constant called `FEED_QUERY` that stores the query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamililar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
-1. Now you define the actual GraphQL query. `FeedQuery` is the _operation name_ and will be used by Apollo to refer to this query under the hood. (Also notice the `#` which denotes a GraphQL comment).
-1. Finally, you're using the `<Query />` component passing `FEED_QUERY` as prop to fetch desired data.
+1. Now you define the `LinkList` functional component where you're returning the `<Query />` component passing `FEED_QUERY` as prop to fetch desired data.
+1. Finally, you export as default the component created.
 
 <Instruction>
 
@@ -244,7 +237,7 @@ render() {
 
 </Instruction>
 
-Let's walk through what's happening in this code. As expected, Apollo injected several props into the component. These props itself provide information about the _state_ of the network request:
+Let's walk through what's happening in this code. As expected, Apollo injected several props into the component's render prop function. These props itself provide information about the _state_ of the network request:
 
 1. `loading`: Is `true` as long as the request is still ongoing and the response hasn't been received.
 1. `error`: In case the request fails, this field will contain information about what exactly went wrong.
