@@ -33,28 +33,24 @@ Before moving on to configure the different routes for your application, you nee
 Create a new file in `src/components` and call it `Header.js`. Then paste the following code inside of it:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
-class Header extends Component {
-  render() {
-    return (
-      <div className="flex pa1 justify-between nowrap orange">
-        <div className="flex flex-fixed black">
-          <div className="fw7 mr1">Hacker News</div>
-          <Link to="/" className="ml1 no-underline black">
-            new
-          </Link>
-          <div className="ml1">|</div>
-          <Link to="/create" className="ml1 no-underline black">
-            submit
-          </Link>
-        </div>
-      </div>
-    )
-  }
-}
+const Header = () => (
+  <div className="flex pa1 justify-between nowrap orange">
+    <div className="flex flex-fixed black">
+      <div className="fw7 mr1">Hacker News</div>
+      <Link to="/" className="ml1 no-underline black">
+        new
+      </Link>
+      <div className="ml1">|</div>
+      <Link to="/create" className="ml1 no-underline black">
+        submit
+      </Link>
+    </div>
+  </div>
+)
 
 export default withRouter(Header)
 ```
@@ -71,22 +67,20 @@ You'll configure the different routes for the app in the project's root componen
 
 <Instruction>
 
-Open the corresponding file `App.js` and update `render` to include the `Header` as well as `LinkList` and the `CreateLink` components under different routes:
+Open the corresponding file `App.js` and update `export` to include the `Header` as well as `LinkList` and the `CreateLink` components under different routes:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
-render() {
-  return (
-    <div className="center w85">
-      <Header />
-      <div className="ph3 pv1 background-gray">
-        <Switch>
-          <Route exact path="/" component={LinkList} />
-          <Route exact path="/create" component={CreateLink} />
-        </Switch>
-      </div>
+export default () => (
+  <div className="center w85">
+    <Header />
+    <div className="ph3 pv1 background-gray">
+      <Switch>
+        <Route exact path="/" component={LinkList} />
+        <Route exact path="/create" component={CreateLink} />
+      </Switch>
     </div>
-  )
-}
+  </div>
+)
 ```
 
 </Instruction>
@@ -127,7 +121,7 @@ ReactDOM.render(
       <App />
     </ApolloProvider>
   </BrowserRouter>,
-  document.getElementById('root'),
+  document.getElementById('root')
 )
 ```
 
@@ -143,19 +137,16 @@ To wrap up this section, you need to implement an automatic redirect from the `C
 
 <Instruction>
 
-Open `CreateLink.js` and update `_createLink` to look as follows:
+Open `CreateLink.js` and update `<Mutation />` component to look as follows:
 
-```js{9}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-_createLink = async () => {
-  const { description, url } = this.state
-  await this.props.postMutation({
-    variables: {
-      description,
-      url,
-    },
-  })
-  this.props.history.push('/')
-}
+```js{4}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+<Mutation
+  mutation={POST_MUTATION}
+  variables={{ description, url }}
+  onCompleted={() => this.props.history.push('/')}
+>
+  {postMutation => <button onClick={postMutation}>Submit</button>}
+</Mutation>
 ```
 
 </Instruction>
