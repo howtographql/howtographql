@@ -341,7 +341,7 @@ Create an `IdentifiableType` as follows:
 ```scala
   val IdentifiableType = InterfaceType(
     "Identifiable",
-    fields[Unit, Identifiable](
+    fields[MyContext, Identifiable](
       Field("id", IntType, resolve = _.value.id)
     )
   )
@@ -350,14 +350,14 @@ Create an `IdentifiableType` as follows:
 Change the `LinkType` for the following:
 
 ```scala
-implicit val LinkType = deriveObjectType[Unit, Link](
-    Interfaces(IdentifiableType)
+implicit val LinkType = deriveObjectType[MyContext, Link](
+    Interfaces[MyContext,Link](IdentifiableType)
 )
 ```
 
 </Instruction>
 
-Add also such field to the object type for `User` and `Vote`.
+Make similar changes to `UserType` and `VoteType`.
 
 Now if you look into the schema definition in graphiql console you will see that all three models implement the `Identifiable` interface.
 
