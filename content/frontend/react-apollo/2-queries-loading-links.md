@@ -134,16 +134,13 @@ In general, the process for you to add some data fetching logic will be very sim
 
 1. write the query as a JavaScript constant using the `gql` parser function
 1. use the `<Query />` component passing the GraphQL query as prop
-1. access the query results in the component's `render prop function`
+1. access the query results that gets injected into the component's `render prop function`
 
 <Instruction>
 
-Open up `LinkList.js` and replace the current contents with the following:
+Open up `LinkList.js` and add the query to the top of the file:
 
-```js{4-14,32-34}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import React from 'react'
-import Link from './Link'
-
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const FEED_QUERY = gql`
   {
     feed {
@@ -156,27 +153,19 @@ const FEED_QUERY = gql`
     }
   }
 `
+```
 
-export default () => {
-  const linksToRender = [
-    {
-      id: '1',
-      description: 'Prisma turns your database into a GraphQL API 😎',
-      url: 'https://www.prismagraphql.com',
-    },
-    {
-      id: '2',
-      description: 'The best GraphQL client',
-      url: 'https://www.apollographql.com/docs/react/',
-    },
-  ]
+</Instruction>
+<Instruction>
 
-  return (
-    <Query query={FEED_QUERY}>
-      {() => linksToRender.map(link => <Link key={link.id} link={link} />)}
-    </Query>
-  )
-}
+Also replace the current `return` with the following:
+
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+return (
+  <Query query={FEED_QUERY}>
+    {() => linksToRender.map(link => <Link key={link.id} link={link} />)}
+  </Query>
+)
 ```
 
 </Instruction>
