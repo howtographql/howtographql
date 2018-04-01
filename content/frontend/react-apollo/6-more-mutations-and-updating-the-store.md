@@ -2,8 +2,8 @@
 title: More Mutations and Updating the Store
 pageTitle: "Mutations & Caching with GraphQL, React & Apollo Tutorial"
 description: "Learn how to use Apollo's imperative store API to update the cache after a GraphQL mutation. The updates will automatically end up in your React components."
-question: "What does the 'update' function of Apollo Client do?"
-answers: ["It allows to update your Apollo Client dependency locally", "It allows to update the local Apollo store in a declarative fashion", "It allows to update the local Apollo store in an imperative fashion", "It updates the GraphQL schema locally so Apollo Client can verify your queries and mutations before they're sent to the server"]
+question: "What does the 'update' prop of Apollo's <Mutation /> component do?"
+answers: ["It allows to update your Apollo Client dependency locally", "It allows to update the local Apollo store in a declarative fashion", "It allows to update your store based on your mutation’s result", "It updates the GraphQL schema locally so Apollo Client can verify your queries and mutations before they're sent to the server"]
 correctAnswer: 2
 videoId: ""
 duration: 0		
