@@ -24,10 +24,13 @@ import gql from 'graphql-tag'
 import Link from './Link'
 
 class Search extends Component {
-
   state = {
     links: [],
     filter: ''
+  }
+
+  _executeSearch = async () => {
+    // ... you'll implement this 🔜
   }
 
   render() {
@@ -36,24 +39,17 @@ class Search extends Component {
         <div>
           Search
           <input
-            type='text'
-            onChange={(e) => this.setState({ filter: e.target.value })}
+            type="text"
+            onChange={e => this.setState({ filter: e.target.value })}
           />
-          <button
-            onClick={() => this._executeSearch()}
-          >
-            OK
-          </button>
+          <button onClick={() => this._executeSearch()}>OK</button>
         </div>
-        {this.state.links.map((link, index) => <Link key={link.id} link={link} index={index}/>)}
+        {this.state.links.map((link, index) => (
+          <Link key={link.id} link={link} index={index} />
+        ))}
       </div>
     )
   }
-
-  _executeSearch = async () => {
-    // ... you'll implement this in a bit
-  }
-
 }
 
 export default withApollo(Search)
@@ -69,22 +65,20 @@ Notice that the `links` field in the component state will hold all the links to 
 
 Now add the `Search` component as a new route to the app. Open `App.js` and update render to look as follows:
 
-```js{10}(path=".../hackernews-react-apollo/src/components/App.js")
-render() {
-  return (
-    <div className='center w85'>
-      <Header />
-      <div className='ph3 pv1 background-gray'>
-        <Switch>
-          <Route exact path='/' component={LinkList}/>
-          <Route exact path='/create' component={CreateLink}/>
-          <Route exact path='/login' component={Login}/>
-          <Route exact path='/search' component={Search}/>
-        </Switch>
-      </div>
+```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
+export default () => (
+  <div className="center w85">
+    <Header />
+    <div className="ph3 pv1 background-gray">
+      <Switch>
+        <Route exact path="/" component={LinkList} />
+        <Route exact path="/create" component={CreateLink} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/search" component={Search} />
+      </Switch>
     </div>
-  )
-}
+  </div>
+)
 ```
 
 </Instruction>
@@ -138,7 +132,7 @@ Great, let's now go back to the `Search` component and see how we can implement 
 
 <Instruction>
 
-Open `Search.js` and add the following query definition at the bottom of the file:
+Open `Search.js` and add the following query definition at the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 const FEED_SEARCH_QUERY = gql`
