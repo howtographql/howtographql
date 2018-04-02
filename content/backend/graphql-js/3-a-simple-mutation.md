@@ -2,12 +2,12 @@
 title: A simple mutation
 pageTitle: "Mutations with a Javascript & Node.js GraphQL Server Tutorial"
 description: "Learn best practices for implementing GraphQL mutations with graphql-js, Javascript, Node.js & Express. Test your implementation in a GraphiQL Playground."
-question: Which of these is false about GraphQL field arguments?
-answers: ["They are how clients pass data to the server", "They must be included in the field schema definition", "They can be accessed inside resolvers", "Only mutation fields can have them"]
+question: What is the second argument of GraphQL resolvers used for?
+answers: ["It carries the return value of the previous resolver execution level", "It carries the arguments for the incoming GraphQL operation", "It is an object that all resolvers can write to and read from", "It carries the AST of the incoming GraphQL operation"]
 correctAnswer: 3
 ---
 
-In this section, you'll learn how to add a mutation to the GraphQL API that allows to post new links to the server.
+In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow to _post_ new links to the server.
 
 ### Extending the schema definition
 
@@ -77,9 +77,9 @@ With that new file in place, you can cleanup `index.js` a bit.
 
 <Instruction>
 
-First, entirely delete the definition of the `typeDefs` constant. Then, update the way how the `GraphQLServer` is instantiated at the bottom of the file:
+First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update the way how the `GraphQLServer` is instantiated at the bottom of the file:
 
-```js(path="../hackernews-node/src/index.js)
+```{2}js(path="../hackernews-node/src/index.js)
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
@@ -88,11 +88,11 @@ const server = new GraphQLServer({
 
 </Instruction>
 
-One convenient thing about the constructor of the `GraphQLServer` is that `typeDefs` can be provided either directly as a string (as you previously did) or by referencing a file that contains your schema definition. This is what you're doing now.
+One convenient thing about the constructor of the `GraphQLServer` is that `typeDefs` can be provided either directly as a string (as you previously did) or by referencing a file that contains your schema definition (this is what you're doing now).
 
 ### Implementing the resolver function
 
-The next step in the process of adding a new feature to the API is to implement the resolver function for the new fields.
+The next step in the process of adding a new feature to the API is to implement the resolver function for the new field.
 
 <Instruction>
 
@@ -128,16 +128,20 @@ const resolvers = {
 
 </Instruction>
 
-First off, note that you're entirely removing the `Link` resolvers (as explained before). Also, here's what's going on with the numbered comments:
+First off, note that you're entirely removing the `Link` resolvers (as explained before). They are not needed because the GraphQL server infers what they look like.
+
+Also, here's what's going on with the numbered comments:
 
 1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly creaded `Link` elements.
 1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
 
-Now let's discuss the second argument that's passed into all resolver functions, any guesses what it's used for? Correct! It carries the arguments for the operation - in this case the `url` and `description` of the post to be created. We didn't need it for the `feed` and `info` resolvers before because the corresponding root fields in don't specify any arguments in the schema definition.
+Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
+
+Correct! It carries the _arguments_ for the operation - in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
 
 ### Testing the mutation
 
-Go ahead an restart your server so you can test the new mutation. Here is a sample mutation you can send through the Playground:
+Go ahead an restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
 
 ```graphql
 mutation {
@@ -162,13 +166,13 @@ The server response will look as follows:
 }
 ```
 
-With every mutation you send, the `idCount` will increased and the next IDs for the links will be `link-2`, `link-3`, and so forth...
+With every mutation you send, the `idCount` will increase and the following IDs for created links will be `link-2`, `link-3`, and so forth...
 
-To verify that your mutation worked, you can send the `feed` query from before again - it now returns the additional posts that you created with the mutation:
+To verify that your mutation worked, you can send the `feed` query from before again - it now returns the additional post that you created with the mutation:
 
 ![](https://imgur.com/l5wOvFI.png)
 
-However, once you kill and restart the server, you'll notice that the previously added posts are now gone and you need to add them again. This is because the posts are only stored _in-memory_, in the `links` array. In the next sections, how to add a database layer to the GraphQL server to persists the data beyong the lifetime of the server.
+However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database layer_ to the GraphQL server in order to persists the data beyond the runtime of the server.
 
 ### Exercise
 
