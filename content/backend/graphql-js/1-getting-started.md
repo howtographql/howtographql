@@ -169,7 +169,7 @@ Here you instantiate your `GraphQLServer` with the following arguments:
 
 - `typeDefs`: These are the type definitions from your application schema imported from `src/schema.graphql`.
 - `resolvers`: This is a JavaScript object that mirrors the `Query`, `Mutation` and `Subscription` types and their fields from your application schema. Each field in the application schema is represented by a function with the same name in that object.
-- `context`: This is an object that get's passed through the resolver chain and every resolvers can read from or write to.
+- `context`: This is an object that gets passed through the resolver chain and every resolver can read from or write to.
 
 Notice that the `context` object has the `db` field which contains an instance of `Prisma` from the `prisma-binding` package. This instance will allow your resolvers to simply _delegate_ the execution of an incoming request to an appropriate resolver from the Prisma API.
 
