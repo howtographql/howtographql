@@ -37,8 +37,8 @@ Once you have the database connected, you are going to add more advanced feature
 
 You'll start by implementing signup/login functionality that enables users to authenticate against the API. This will also allow you to check the permissions of your users for certain API operations.
 
-Next, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding filtering and pagination capabalities to it.
+The next part of the tutorial is about adding realtime functionality to your API using GraphQL subscriptions.
 
-The last part of the tutorial is about adding realtime functionality to your API using GraphQL subscriptions.
+Lastly, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding filtering and pagination capabalities to it.
 
 Let's get started 🚀

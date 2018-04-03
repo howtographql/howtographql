@@ -248,11 +248,19 @@ Inside the `database` directory, run the following command to generate an authen
 prisma token
 ```
 
-Then copy the token that was printed by the CLI and use it to configure an HTTP header in the Playground. It will look similar to this (you need to replace the token in the code snippet your own token):
+Then copy the token that was printed by the CLI and use it to configure an HTTP header in the Playground. You can do so by opening the **HTTP HEADERS** pane in the bottom-left corner of the Playground - notice that you need to replace the `__TOKEN__` placeholder with the actual token that was printed:
+
+```json
+{
+  "Authorization": "Bearer __TOKEN__"
+}
+```
+
+ It will look similar to this:
 
 ```json(nocopy)
 {
-  "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJoYWNrZXJuZXdzLW5vZGVAZGV2Iiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTUyMjMxNjM2MCwiZXhwIjoxNTIyOTIxMTYwfQ.MUoHGvw61iIq45ZVInOoylcs6_q2ldfD_GjQOVBqEqY"
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJoYWNrZXJuZXdzLW5vZGVAZGV2Iiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTUyMjMxNjM2MCwiZXhwIjoxNTIyOTIxMTYwfQ.MUoHGvw61iIq45ZVInOoylcs6_q2ldfD_GjQOVBqEqY"
 }
 ```
 
