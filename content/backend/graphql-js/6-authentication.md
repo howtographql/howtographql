@@ -1,5 +1,5 @@
 ---
-title: Connecting server and database
+title: Authentication
 pageTitle: "Implementing Authentication in a GraphQL server with Node.js"
 description: "Learn best practices for implementing authentication and authorization with Node.js, Express & Prisma."
 question: Why was the 'User' type redefined in the application schema when it's already part of the Prisma database schema and could be imported from there?

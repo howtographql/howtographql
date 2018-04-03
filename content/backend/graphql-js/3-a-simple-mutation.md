@@ -1,5 +1,5 @@
 ---
-title: A simple mutation
+title: A Simple Mutation
 pageTitle: "Implementing Mutations in a GraphQL Server Tutorial"
 description: "Learn best practices for implementing GraphQL mutations with graphql-js, Node.js & Prisma. Test your implementation in a GraphQL Playground."
 question: What is the second argument that's passed into GraphQL resolvers used for?

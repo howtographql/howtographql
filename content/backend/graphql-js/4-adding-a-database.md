@@ -1,5 +1,5 @@
 ---
-title: Adding a database
+title: Adding a Database
 pageTitle: "Creating a Prisma Database Service Tutorial"
 description: "Learn how to add a database to your GraphQL server. The database is powered by Prisma and connected to the server via GraphQL bindings."
 question: Why is a second GraphQL API (defined by the application schema) needed in a GraphQL server architecture with Prisma?
