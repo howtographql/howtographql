@@ -1,10 +1,10 @@
 ---
 title: A simple mutation
-pageTitle: "Mutations with a Javascript & Node.js GraphQL Server Tutorial"
-description: "Learn best practices for implementing GraphQL mutations with graphql-js, Javascript, Node.js & Express. Test your implementation in a GraphiQL Playground."
-question: What is the second argument of GraphQL resolvers used for?
+pageTitle: "Implementing Mutations in a GraphQL Server Tutorial"
+description: "Learn best practices for implementing GraphQL mutations with graphql-js, Node.js & Prisma. Test your implementation in a GraphQL Playground."
+question: What is the second argument that's passed into GraphQL resolvers used for?
 answers: ["It carries the return value of the previous resolver execution level", "It carries the arguments for the incoming GraphQL operation", "It is an object that all resolvers can write to and read from", "It carries the AST of the incoming GraphQL operation"]
-correctAnswer: 3
+correctAnswer: 2
 ---
 
 In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow to _post_ new links to the server.

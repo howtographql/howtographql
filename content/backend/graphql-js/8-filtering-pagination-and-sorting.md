@@ -1,10 +1,10 @@
 ---
 title: Filtering, Pagination & Sorting
 pageTitle: "GraphQL Filtering, Pagination & Sorting Tutorial with JavaScript"
-description: "Learn how to add filtering and pagination capabilities to a GraphQL API with grahpql-js, Node.js, Express & Prisma."
-question: Which of the following is true?
-answers: ["Real time support should be implemented via regular queries", "It's not currently possible to test subscriptions via GraphiQL", "Subscriptions can be implemented via web sockets", "The only way to implement subscriptions is by using the `subscriptions-transport-ws` package"]
-correctAnswer: 2
+description: "Learn how to add filtering and pagination capabilities to a GraphQL API with Node.js, Express & Prisma."
+question: Which arguments are typically to paginate through a list in the Prisma API using limit-offset pagination?
+answers: ["skip & last", "skip & first", "first & last", "where & orderBy"]
+correctAnswer: 1
 ---
 
 This is the last section of the tutorial where you'll implemented the finishing touches on your API. The goal is to allow clients to constrain the list of `Link` elements returned by the `feed` query by providing filtering and pagination parameters.
@@ -13,7 +13,7 @@ This is the last section of the tutorial where you'll implemented the finishing 
 
 Thanks to Prisma, you'll be able to implement filtering capabilities to your API without major effort. Similar to the previous chapters, the heavy-lifting of query resolution will be performed by the powerful Prisma engine. All you need to do is delegate incoming queries to it.
 
-The first step is to think about the filters you want to expose through your API. In your case, the `feed` query in your API will accept a _filter string_. It then should only return the `Link` elements where the `url` _or_ the `description` _contains_ that filter string.
+The first step is to think about the filters you want to expose through your API. In your case, the `feed` query in your API will accept a _filter string_. The query then should only return the `Link` elements where the `url` _or_ the `description` _contain_ that filter string.
 
 <Instruction>
 

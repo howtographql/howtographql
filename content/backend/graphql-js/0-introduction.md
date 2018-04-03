@@ -1,7 +1,7 @@
 ---
 title: Introduction
-pageTitle: "Building a GraphQL Server with Node.js & Prisma Backend Tutorial"
-description: "Learn how to build a GraphQL server with graphql-yoga, Node.JS, Express & Prisma and best practices for filters, authentication, pagination and subscriptions."
+pageTitle: "Building a GraphQL Server with Node.js & Prisma Tutorial"
+description: "Learn how to build a GraphQL server with graphql-yoga, Node.js & Prisma and best practices for authentication, filtering, pagination and subscriptions."
 question: What is a GraphQL Playground?
 answers: ["A GraphQL IDE to work with a GraphQL API", "A tool to generate GraphQL operations", "A REST client", "The successor of Postman"]
 correctAnswer: 0

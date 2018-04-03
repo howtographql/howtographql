@@ -1,10 +1,10 @@
 ---
 title: Adding a database
-pageTitle: "Mutations with a Javascript & Node.js GraphQL Server Tutorial"
-description: "Learn best practices for implementing GraphQL mutations with graphql-js, Javascript, Node.js & Express. Test your implementation in a GraphiQL Playground."
+pageTitle: "Creating a Prisma Database Service Tutorial"
+description: "Learn how to add a database to your GraphQL server. The database is powered by Prisma and connected to the server via GraphQL bindings."
 question: Why is a second GraphQL API (defined by the application schema) needed in a GraphQL server architecture with Prisma?
 answers: ["To increase performance of the server", "When using two APIs, the GraphQL server can be scaled better", "The Prisma API only is an interface to the database, but doesn't allow for any sort of application logic which is needed in most apps", "It is required by the GraphQL specification"]
-correctAnswer: 3
+correctAnswer: 2
 ---
 
 In this section, you're going to setup a Prisma service along with a connected database to be used by the server.

@@ -1,10 +1,10 @@
 ---
 title: Connecting server and database
-pageTitle: "Mutations with a Javascript & Node.js GraphQL Server Tutorial"
-description: "Learn best practices for implementing GraphQL mutations with graphql-js, Javascript, Node.js & Express. Test your implementation in a GraphiQL Playground."
-question: Which of these is false about GraphQL field arguments?
-answers: ["They are how clients pass data to the server", "They must be included in the field schema definition", "They can be accessed inside resolvers", "Only mutation fields can have them"]
-correctAnswer: 3
+pageTitle: "Implementing Authentication in a GraphQL server with Node.js"
+description: "Learn best practices for implementing authentication and authorization with Node.js, Express & Prisma."
+question: Why was the 'User' type redefined in the application schema when it's already part of the Prisma database schema and could be imported from there?
+answers: ["A 'User' type can never be imported because of how graphql-import works", "To hide potentially sensitive information from client applications", "This is important so users can reset their passwords", "It's a requirement from the GraphQL specification"]
+correctAnswer: 1
 ---
 
 In this section, you're going to implement signup and login functionality that allows your users to authenticate against your GraphQL server.
@@ -440,6 +440,8 @@ mutation {
 
 </Instruction>
 
+![](https://imgur.com/jEToi1S.png)
+
 When your server receives this mutation, it invokes the `post` resolver and therefore validates the provided JWT. Additionally, the new `Link` that was created is now connected to the `User` for which you previously sent the `signup` mutation.
 
 To verify everything worked, you can send the following `login` mutation:
@@ -461,5 +463,3 @@ mutation {
   }
 }
 ```
-
-![](2)

@@ -1,7 +1,7 @@
 ---
 title: A simple Query
-pageTitle: "Resolving Queries with a JavaScript GraphQL Server Tutorial"
-description: "Learn how to define the GraphQL schema, implement query resolvers with JavaScript & Node.js and test your queries in a GraphQL Playground."
+pageTitle: "Resolving Queries with a GraphQL Server Tutorial"
+description: "Learn how to define a GraphQL schema, implement query resolvers with Node.js and test your queries in a GraphQL Playground."
 question: How are GraphQL queries resolved?
 answers: ["With schema-driven development", "By invoking all available resolver functions", "By invoking the resolver function of the root field", "By invoking the resolver functions for the fields contained in the query"]
 correctAnswer: 3

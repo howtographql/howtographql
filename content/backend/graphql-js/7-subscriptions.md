@@ -1,10 +1,10 @@
 ---
 title: Subscriptions
-pageTitle: "GraphQL Realtime Subscriptions with JavaScript Tutorial"
-description: "Learn how to implement server-side GraphQL subscriptions with grahpql-js, Node.js, Express & MongoDB to add realtime functionality to an app."
-question: Which of the following is true?
-answers: ["Real time support should be implemented via regular queries", "It's not currently possible to test subscriptions via GraphiQL", "Subscriptions can be implemented via web sockets", "The only way to implement subscriptions is by using the `subscriptions-transport-ws` package"]
-correctAnswer: 2
+pageTitle: "Realtime GraphQL Subscriptions with Node.JS Tutorial"
+description: "Learn how to implement GraphQL subscriptions with Node.js, Express & Prisma to add realtime functionality to an app."
+question: Which of the following statements is true?
+answers: ["The 'node' field of a subscription is always null for CREATED-mutations", "The 'previousValues' field of a subscription is always null for DELETED-mutations", "The 'previousValues' field of a subscription is always null for UPDATED-mutations", "The 'node' field of a subscription is always null for DELETED-mutations"]
+correctAnswer: 3
 ---
 
 In this section, you'll learn how you can bring realtime functionality into your app by implementing GraphQL subscriptions. The goal is to implement two subscriptions to be exposed by your GraphQL server:
@@ -342,7 +342,7 @@ Now observe the Playground where the subscription was running:
 
 ### Adding a voting feature
 
-The next feature to be added is a voting feature which allows to users to upvote certain links. The very first step here is to extend your Prisma data model to represent votes.
+The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma data model to represent votes.
 
 <Instruction>
 

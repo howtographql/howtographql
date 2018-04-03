@@ -1,10 +1,10 @@
 ---
 title: Connecting server and database
-pageTitle: "Mutations with a Javascript & Node.js GraphQL Server Tutorial"
-description: "Learn best practices for implementing GraphQL mutations with graphql-js, Javascript, Node.js & Express. Test your implementation in a GraphiQL Playground."
-question: Which of these is false about GraphQL field arguments?
-answers: ["They are how clients pass data to the server", "They must be included in the field schema definition", "They can be accessed inside resolvers", "Only mutation fields can have them"]
-correctAnswer: 3
+pageTitle: "Connecting a Database to a GraphQL Server with Prisma Tutorial"
+description: "Learn how to add a database to your GraphQL server. The database is powered by Prisma and connected to the server via GraphQL bindings."
+question: "What is the main responsibility of the Prisma binding instance that's attached to the 'context'?"
+answers: ["Expose the application schema to client applications", "Translate the GraphQL operations from the Prisma API into JavaScript functions", "Translate the GraphQL operations from the application layer into JavaScript functions", "Generate SQL queries"]
+correctAnswer: 1
 ---
 
 In this section, you're going to connect your GraphQL server with the [Prisma](https://www.prisma.io) database service which provides the interface to your database. The connection is implemented via [Prisma bindings](https://github.com/graphcool/prisma-binding).
