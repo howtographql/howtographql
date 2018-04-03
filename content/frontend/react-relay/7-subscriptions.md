@@ -57,8 +57,6 @@ yarn add subscriptions-transport-ws@0.8.3
 
 </Instruction>
 
-> Note: We're using a version 0.8.3 of the `subscriptions-transport-ws` package to be able to use the `SubscriptionClient`. The tutorial will soon be updated to use the latest APIs.
-
 
 This package contains the `SubscriptionClient` that you need to setup subscriptions on the frontend. The `SubscriptionClient` is a good fit in this case as it implements the same [protocol](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) as the subscriptions API from Graphcool.
 
@@ -91,10 +89,28 @@ const fetchQuery = (operation, variables) => {
 const setupSubscription = (config, variables, cacheConfig, observer) => {
   const query = config.text
 
-  const subscriptionClient = new SubscriptionClient('wss://subscriptions.__REGION__.graph.cool/v1/__PROJECT_ID__', {reconnect: true})
-  subscriptionClient.subscribe({query, variables}, (error, result) => {
-    observer.onNext({data: result})
-  })
+  const subscriptionClient = new SubscriptionClient(
+    'wss://subscriptions.__REGION__.graph.cool/v1/__PROJECT_ID__',
+    {reconnect: true}
+  )
+
+  const client = subscriptionClient
+    .request({query, variables})
+    .subscribe({
+      next: (result) => {
+        observer.onNext({data: result.data})
+      },
+      complete: () => {
+        observer.onCompleted()
+      },
+      error: (error) => {
+        observer.onError(error)
+      }
+    })
+
+  return {
+    dispose: client.unsubscribe
+  }
 }
 
 // 3
