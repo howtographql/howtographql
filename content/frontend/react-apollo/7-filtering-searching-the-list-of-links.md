@@ -63,7 +63,7 @@ Notice that the `links` field in the component state will hold all the links to 
 
 <Instruction>
 
-Now add the `Search` component as a new route to the app. Open `App.js` and update render to look as follows:
+Now add the `Search` component as a new route to the app. Open `App.js` and update `exported` functional component to look as follows:
 
 ```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
 export default () => (

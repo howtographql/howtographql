@@ -383,7 +383,7 @@ Then directly import the key you need to retrieve the token from `localStorage` 
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 import { AUTH_TOKEN } from './constants'
-import { ApolloLink } from 'apollo-client-preset'
+import { ApolloLink } from 'apollo-client'
 ```
 
 </Instruction>

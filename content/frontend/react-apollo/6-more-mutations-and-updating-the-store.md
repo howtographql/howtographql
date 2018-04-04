@@ -243,7 +243,7 @@ You will implement this functionality by using Apollo's [caching data](https://w
 
 <Instruction>
 
-Open `Link.js` and update `export` adding `updateStoreAfterVote` as follows:
+Open `Link.js` and update 1st line of the `exported` functional component adding `updateStoreAfterVote` as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
 export default ({ link, index, updateStoreAfterVote }) => {
@@ -333,7 +333,7 @@ Open `CreateLink.js` and following we did before, update `<Mutation />` componen
   onCompleted={() => this.props.history.push('/')}
   update={(cache, { data: { post } }) => {
     const data = cache.readQuery({ query: FEED_QUERY })
-    data.feed.links.splice(0, 0, post)
+    data.feed.links.unshift(post)
     cache.writeQuery({
       query: FEED_QUERY,
       data
@@ -346,7 +346,7 @@ Open `CreateLink.js` and following we did before, update `<Mutation />` componen
 
 </Instruction>
 
-The `update` function works in a very similar way as before. You first read the current state of the results of the `FEED_QUERY`. Then you insert the newest link at index `0` and write the query results back to the store.
+The `update` function works in a very similar way as before. You first read the current state of the results of the `FEED_QUERY`. Then you insert the newest link at beginning and write the query results back to the store.
 
 <Instruction>
 
