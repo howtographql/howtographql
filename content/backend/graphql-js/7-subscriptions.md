@@ -153,7 +153,7 @@ It basically is a helper type that mirrors the fields from `Link`.
 
 #### Putting everything together
 
-Consider the sampe `updateLink`-mutation from the previous section again. But let's now assume, the subscription query includes all the fields we just discussed:
+Consider the sample `updateLink`-mutation from the previous section again. But let's now assume, the subscription query includes all the fields we just discussed:
 
 ```graphql(nocopy)
 subscription {
@@ -271,6 +271,34 @@ As mentioned above, the `where` filter currently doesn't work in the Prisma API.
 Otherwise the code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a `subscribe` field inside a plain JavaScript object.
 
 The `Prisma` binding instance on the `context` also exposes a `subscription` object which proxies the subscriptions from the Prisma GraphQL API. This function is used to resolve subscriptions and push the event data to subscribed clients. Prisma is taking care of all the complexity of handling the realtime functionality under the hood.
+
+<Instruction>
+
+Open `index.js` and import the Subscription module at the top of the file:
+
+```js(path=".../hackernews-node/src/index.js")
+const Query = require('./resolvers/Query')
+const Mutation = require('./resolvers/Mutation')
+const AuthPayload = require('./resolvers/AuthPayload')
+const Subscription = require('./resolvers/Subscription')
+```
+
+</Instruction>
+
+<Instruction>
+
+Then, update the definition of the `resolvers` object to looks as follows:
+
+```js(path=".../hackernews-node/src/index.js")
+const resolvers = {
+  Query,
+  Mutation,
+  AuthPayload,
+  Subscription,
+}
+```
+
+</Instruction>
 
 ### Testing subscriptions
 
@@ -448,7 +476,7 @@ async function vote(parent, args, context, info) {
 
 Here is what's going on:
 
-1. Similar ot what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the `getUserId` helper function. If it's valid, the function will return the `userId` of the `User` who is making the requests. If the JWT is not valid, the function will throw an exception.
+1. Similar to what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the `getUserId` helper function. If it's valid, the function will return the `userId` of the `User` who is making the requests. If the JWT is not valid, the function will throw an exception.
 1. The `db.exists.Vote(...)` function call is new for you. The `Prisma` binding object not only exposes functions that mirror the queries, mutations and subscriptions from the Prisma database schema. It also generates one `exists` function per type from your data model. The `exists` function takes a `where` filter object that allows to specify certain conditions about elements of that type. Only if the condition applies to _at least_ one element in the database, the `exists` function returns `true`. In this case, you're using it to verify that the requesting `User` has not yet voted for the `Link` that's identified by `args.linkId`.
 1. If `exists` returns `false`, the `createVote` will be used to create a new `Vote` element that's _connected_ to the `User` and the `Link`.
 
