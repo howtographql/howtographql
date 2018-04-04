@@ -32,7 +32,7 @@ This creates a new directory called `hackernews-node` and initializes it with a 
 ### Creating a raw GraphQL server
 
 With the project directory in place, you can go ahead and create the entry point for your GraphQL server. This will be a file called `index.js`, located inside a directory called `src`.
-
+``
 <Instruction>
 
 In your terminal, first create the `src` directory and then the empty `index.js` file:

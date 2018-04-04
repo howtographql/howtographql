@@ -111,7 +111,7 @@ const data: Stack[] = [
   },
 
   {
-    title: 'graphql.js',
+    title: 'Node.js',
     type: 'backend',
     key: 'graphql-js',
     images: [
@@ -121,9 +121,10 @@ const data: Stack[] = [
     content: {
       title: 'graphql.js',
       description:
-        'Build your own GraphQL server with Node.js, Express and Graphcool',
+        'Build your own GraphQL server with Node.js, graphql-yoga and Prisma',
     },
     authorName: 'Maira Bello',
+    beginnersChoice: true,
   },
   {
     title: 'graphql-elixir',

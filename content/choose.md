@@ -8,7 +8,6 @@ In the following section, you can choose from one of the many hands-on tutorials
 
 <TutorialChooser></TutorialChooser>
 
-
 ### Learn how to use GraphQL on the Frontend
 
 Here's an overview of the frontend tutorials we offer:
@@ -25,13 +24,12 @@ Here's an overview of the frontend tutorials we offer:
 
 Choose your favorite programming language to get started with GraphQL on the server-side:
 
-- [**JavaScript**](https://www.howtographql.com/graphql-js/1-getting-started/): This tutorial uses the [graphql-js](https://github.com/graphql/graphql-js) reference implementation that's developed by Facebook. You'll build a web server using [Node.js](https://nodejs.org/en/), the [Express](https://expressjs.com/) framework as well as the [graphql-tools](https://github.com/apollographql/graphql-tools) library.
+- [**Node.js**](https://www.howtographql.com/graphql-js/1-getting-started/) (_Beginners Choice_): This tutorial uses the [graphql-js](https://github.com/graphql/graphql-js) reference implementation. You'll build a GraphQL server using [Node.js](https://nodejs.org/en/), the [graphql-yoga](https://github.com/graphcool/graphql-yoga) server library and [Prisma](https://www.prisma.io).
 - [**Ruby**](https://www.howtographql.com/graphql-ruby/0-introduction/): Learn how to build a GraphQL server in Ruby with this tutorial based on the [graphql-ruby](https://github.com/rmosolgo/graphql-ruby) library.
 - [**Java**](https://www.howtographql.com/graphql-java/0-introduction/): Learn how to build a GraphQL server in Java with this tutorial based on the [graphql-java](https://github.com/graphql-java/graphql-java) library.
 - [**Elixir**](https://www.howtographql.com/graphql-elixir/0-introduction/): Learn how to build a GraphQL server in Elixir with this tutorial based on the [Absinthe](https://github.com/absinthe-graphql/absinthe) library.
 - [**Python**](https://www.howtographql.com/graphql-python/0-introduction/): Learn how to build a GraphQL server in Python with this tutorial based on the [Graphene](https://github.com/graphql-python/graphene) library.
-- [**Scala** ](https://www.howtographql.com/graphql-scala/0-introduction): Learn how to build a GraphQL server in Scala with this tutorial based on the [Sangria](https://github.com/sangria-graphql/sangria) library.
-
+- [**Scala**](https://www.howtographql.com/graphql-scala/0-introduction): Learn how to build a GraphQL server in Scala with this tutorial based on the [Sangria](https://github.com/sangria-graphql/sangria) library.
 
 ### Contribute a Tutorial
 
