@@ -88,6 +88,7 @@ type User {
   id: ID!
   name: String!
   email: String!
+  links: [Link!]!
 }
 ```
 
@@ -182,6 +183,12 @@ async function login(parent, args, context, info) {
     user,
   }
 }
+
+module.exports = {
+    signup,
+    login,
+    post,
+}
 ```
 
 </Instruction>
@@ -253,7 +260,7 @@ Now let's go and finish up the implementation.
 First, add the required dependencies to the project:
 
 ```bash(path=".../hackernews-node/")
-yarn add jsonwebtoken bryptjs
+yarn add jsonwebtoken bcryptjs
 ```
 
 </Instruction>
@@ -343,7 +350,7 @@ function post(parent, args, context, info) {
 
 Two things have changed in the implementation compared to the previous implementation in `index.js`:
 
-1. You're now using the `getUserId` function to retrieve the ID of the `User` that is stored in the JWT that's set at the `Authorization` header of the incoming HTTP request. Therefore, you know which `User` is creating the `Link` here. Recall that an unsuccesfull retrieval of the `userId` will lead to an exception and the function scope is exited before the `createLink` mutation is invoked.
+1. You're now using the `getUserId` function to retrieve the ID of the `User` that is stored in the JWT that's set at the `Authorization` header of the incoming HTTP request. Therefore, you know which `User` is creating the `Link` here. Recall that an unsuccessfull retrieval of the `userId` will lead to an exception and the function scope is exited before the `createLink` mutation is invoked.
 1. You're then also using that `userId` to _connect_ the `Link` to be created with the `User` who is creating it. This is happening through the [`connect`](https://www.prisma.io/docs/reference/prisma-api/mutations-ol0yuoz6go#overview)-mutation.
 
 Awesome! The last thing you need to do now is using the new resolver implementations in `index.js`.
@@ -374,7 +381,7 @@ const resolvers = {
 
 </Instruction>
 
-That's it, you're ready to the authentication flow! 🔓
+That's it, you're ready to test the authentication flow! 🔓
 
 ### Testing the authentication flow
 
