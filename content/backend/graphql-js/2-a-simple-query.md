@@ -51,7 +51,7 @@ The next step is to implement the resolver function for the `feed` query. In fac
 
 In `index.js`, add a new list with dummy data as well and update the `resolvers` to look as follows
 
-```js{4, 6-10}(path="../hackernews-node/src/index.js")
+```js{2-6,12,15-19}(path="../hackernews-node/src/index.js")
 // 1
 let links = [{
   id: 'link-0',

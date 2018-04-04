@@ -25,7 +25,7 @@ Next, you need to update the implementation of the resolver functions because th
 
 Still in `index.js`, update the `resolvers` object to look as follows:
 
-```{4-6,8-18}js(path=".../hackernews-node/src/index.js")
+```js{4-6,8-17}(path=".../hackernews-node/src/index.js")
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
@@ -240,7 +240,7 @@ This file is the major source of information for the GraphQL CLI.
 
 Add the following contents to `.graphqlconfig.yml`:
 
-```bash(path=".../hackernews-node/.graphqlconfig.yml")
+```yml(path=".../hackernews-node/.graphqlconfig.yml")
 projects:
   app:
     schemaPath: src/schema.graphql
@@ -321,7 +321,7 @@ Let's now look at how you can leverage the information in `.graphqlconfig.yml` t
 <Instruction>
 
 First, go ahead and install the GraphQL CLI.:
-
+`
 ```bash
 yarn global add graphql-cli
 ```
@@ -332,7 +332,7 @@ Now you can run the `graphql playground` command to open both APIs at once. Befo
 
 <Instruction>
 
-First, start the GraphQL server:
+Next, start the GraphQL server:
 
 ```bash(path=".../hackernews-node")
 node src/index.js

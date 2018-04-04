@@ -19,7 +19,7 @@ The first step is to think about the filters you want to expose through your API
 
 Go ahead and add the `filter` string to the `feed` query in your application schema:
 
-```{3}graphql(path=".../hackernews-node/src/schema.graphql)
+```graphql{3}(path=".../hackernews-node/src/schema.graphql)
 type Query {
   info: String!
   feed(filter: String): [Link!]!
@@ -34,7 +34,7 @@ Next, you need to update the implementation of the `feed` resolver to account fo
 
 Open `src/resolvers/Query.js` and update the `feed` resolver to look as follows:
 
-```js(path=".../hackernews-node/src/resolvers/Query.js")
+```js{2-11}(path=".../hackernews-node/src/resolvers/Query.js")
 function feed(parent, args, context, info) {
   const where = args.filter
     ? {
@@ -99,7 +99,7 @@ Prisma supports both pagination approaches (read more in the [docs](https://www.
 
 Limit and offset are called differently in the Prisma API:
 
-- The _limit_ is called `first`, meaning you're grabbing the _first_ x elements after a provided start index. Note that you also have a `last` argument which correspondingly returns the _last_ x elements.
+- The _limit_ is called `first`, meaning you're grabbing the _first_ x elements after a provided start index. Note that you also have a `last` argument available which correspondingly returns the _last_ x elements.
 - The _start index_ is called `skip`, since you're skipping that many elements in the list before collecting the items to be returned. If `skip` is not provided, it's `0` by default. The pagination then always starts from the beginning of the list (or the end in case you're using `last`).
 
 So, go ahead and add the `skip` and `last` arguments to the `feed` query.
@@ -108,7 +108,7 @@ So, go ahead and add the `skip` and `last` arguments to the `feed` query.
 
 Open your application schema and adjust the `feed` query to accept `skip` and `first` arguments:
 
-```{3}graphql(path=".../hackernews-node/src/schema.graphql)
+```graphql{3}(path=".../hackernews-node/src/schema.graphql)
 type Query {
   info: String!
   feed(filter: String, skip: Int, first: Int): [Link!]!
@@ -195,7 +195,7 @@ Open your application schema and import the `LinkOrderByInput` enum from the Pri
 
 Then, adjust the `feed` query again to include the `orderBy` argument:
 
-```{3}graphql(path=".../hackernews-node/src/schema.graphql")
+```graphql{3}(path=".../hackernews-node/src/schema.graphql")
 type Query {
   info: String!
   feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): [Link!]!
@@ -250,7 +250,7 @@ The last thing you're going to implement for your Hackernews API is the informat
 
 Add the new `Feed` type to your application schema. Then also adjust the return type of the `feed` query accordingly:
 
-```{3,6-9}graphql(path=".../hackernews-node/src/schema.graphql")
+```graphql{3,6-9}(path=".../hackernews-node/src/schema.graphql")
 type Query {
   info: String!
   feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
@@ -268,7 +268,7 @@ type Feed {
 
 Now, go ahead and adjust the `feed` resolver again:
 
-```js{12}(path=".../hackernews-node/src/resolvers/Query.js")
+```js{12-15,18-25,29-30}(path=".../hackernews-node/src/resolvers/Query.js")
 async function feed(parent, args, context, info) {
   const where = args.filter
     ? {
@@ -315,7 +315,7 @@ The last step now is to implement the resolver for the `Feed` type.
 
 Create a new file inside `src/resolvers` and call it `Feed.js`:
 
-```bath(path=".../hackernews-node)
+```bash(path=".../hackernews-node)
 touch src/resolvers/Feed.js
 ```
 

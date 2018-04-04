@@ -17,7 +17,7 @@ Like before, you need to start by adding the new operation to your GraphQL schem
 
 In `index.js`, extend the `typeDefs` string as follows:
 
-```js{4,7-11}(path="../hackernews-node/src/index.js")
+```js{7-9}(path="../hackernews-node/src/index.js")
 const typeDefs = `
 type Query {
   info: String!
@@ -79,7 +79,7 @@ With that new file in place, you can cleanup `index.js` a bit.
 
 First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update the way how the `GraphQLServer` is instantiated at the bottom of the file:
 
-```{2}js(path="../hackernews-node/src/index.js)
+```js{2}(path="../hackernews-node/src/index.js)
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
@@ -98,7 +98,7 @@ The next step in the process of adding a new feature to the API is to implement 
 
 Next, update the `resolvers` functions to look as follows:
 
-```js{6,12-22}(path="../hackernews-node/src/index.js")
+```js{7,13-23}(path="../hackernews-node/src/index.js")
 let links = [{
   id: 'link-0',
   url: 'www.howtographql.com',

@@ -84,7 +84,7 @@ enum MutationType {
 
 The `mutation` field on the `LinkSubscriptionPayload` type therefore carries the information what kind of mutation happened.
 
-##### `node: Link`
+#### `node: Link`
 
 This field represents the `Link` element which was created, updated or deleted and allows to retrieve more information about it.
 
@@ -92,7 +92,7 @@ Notice that for `DELETED`-mutations, `node` will always be `null`! If you need t
 
 > **Note**: The terminology of a _node_ is sometimes used in GraphQL to refer to single elements. A node essentially corresponds to a record in the database.
 
-##### `updatedFields: [String!]`
+#### `updatedFields: [String!]`
 
 One piece of information you might be interested in for `UPDATED`-mutations is which _fields_ have been updated inside a mutation. That's what this field is used for.
 
@@ -135,7 +135,7 @@ The subscribed client will then receive the following payload:
 
 This is because the mutation only updated the `Link`'s `description` field - not the `url`.
 
-##### `previousValues: LinkPreviousValues`
+#### `previousValues: LinkPreviousValues`
 
 The `LinkPreviousValues` type looks very similar to `Link` itself:
 
@@ -151,7 +151,7 @@ It basically is a helper type that mirrors the fields from `Link`.
 
 `previousValues` is only used for `UPDATED`- and `DELETED`-mutations. For `CREATED`-mutations, it will always be `null` (for the same reason that `node` is null for `DELETED`-mutations).
 
-##### Putting everything together
+#### Putting everything together
 
 Consider the sampe `updateLink`-mutation from the previous section again. But let's now assume, the subscription query includes all the fields we just discussed:
 
@@ -348,7 +348,7 @@ The next feature to be added is a voting feature which lets users _upvote_ certa
 
 Open `database/datamodel.graphql` and addjust it to look as follows:
 
-```{6,14,17-21}graphql(path=".../hackernews-node/database/datamodel.graphql")
+```graphql{7,16,19-23}(path=".../hackernews-node/database/datamodel.graphql")
 type Link {
   id: ID! @unique
   createdAt: DateTime!
@@ -392,7 +392,7 @@ prisma deploy
 
 Now, with the process of schema-driven development in mind, go ahead and extend the schema definition of your application schema so that your GraphQL server also exposes a `vote` mutation:
 
-```{5}graphql(path=".../hackernews-node/src/schema.graphql")
+```graphql{5}(path=".../hackernews-node/src/schema.graphql")
 type Mutation {
   post(url: String!, description: String!): Link!
   signup(email: String!, password: String!, name: String!): AuthPayload
@@ -405,7 +405,7 @@ type Mutation {
 
 The referenced `Vote` type also needs to be imported from the Prisma database schema:
 
-```{5}graphql(path=".../hackernews-node/src/schema.graphql")
+```graphql(path=".../hackernews-node/src/schema.graphql")
 # import Link, LinkSubscriptionPayload, Vote from "./generated/prisma.graphql"
 ```
 

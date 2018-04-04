@@ -19,7 +19,7 @@ You also want to add a _relation_ between the `User` and the already existing `L
 
 Open `database/datamodel.graphql` and replace its current contents with the following:
 
-```{5,8-14}(path=".../hackernews-node/database/datamodel.graphql")
+```graphql{5,8-14}(path=".../hackernews-node/database/datamodel.graphql")
 type Link {
   id: ID! @unique
   description: String!
