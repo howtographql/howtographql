@@ -150,7 +150,7 @@ First, it's important to note that every GraphQL resolver function actually rece
 
 The first argument, commonly called `root` (or `parent`) is the result of the previous _resolver execution level_. But what does that mean? 🤔
 
-Well, as you already saw, GraphQL queries can be _nested_. Each level of nesting (i.e. nested curly braces) corresponds to one resolver execution level. The above query has therefore has two of these execution levels.
+Well, as you already saw, GraphQL queries can be _nested_. Each level of nesting (i.e. nested curly braces) corresponds to one resolver execution level. The above query therefore has two of these execution levels.
 
 On the first level, it invokes the `feed` resolver and returns the entire data stored in `links`. For the second execution level, the GraphQL server is smart enough to invoke the resolvers of the `Link` type (because thanks to the schema, it knows that `feed` returns a list of `Link` elements) for each element inside the list that was returned on the previous resolver level. Therefore, in every of the three `Link` resolvers, the incoming `root` object is the element inside the `links` list.
 
