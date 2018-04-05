@@ -297,7 +297,7 @@ module.exports = {
 
 </Instruction>
 
-The `APP_SECRET` is used to sign the JWTs which you're issuing for your users. It is completely independent `secret` that's specified in `prisma.yml`. In fact, it has nothing to do with Prisma at all, i.e. if oyu were to swap out the implementation of your database layer, the `APP_SECRET` would continue to be used in exactly the same way.
+The `APP_SECRET` is used to sign the JWTs which you're issuing for your users. It is completely independent to the `secret` that's specified in `prisma.yml`. In fact, it has nothing to do with Prisma at all, i.e. if you were to swap out the implementation of your database layer, the `APP_SECRET` would continue to be used in exactly the same way.
 
 The `getUserId` function is a helper function that you'll call in resolvers that require authentication (such as `post`). It first retrieves the `Authorization` header (which contains the `User`'s JWT) from the incoming HTTP request. If then verifies the JWT and retrieves the user's ID from it. Notice that if that process is not successful for any reason, the function will throw an _exception_. You can therefore use it to "protect" the resolvers which require authentication.
 
