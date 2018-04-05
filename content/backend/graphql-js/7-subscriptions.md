@@ -404,7 +404,7 @@ type Vote {
 
 </Instruction>
 
-As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the `Link` type. This expresses that one `User` can vote for the same `Link` exactly once.
+As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the `Link` type.
 
 To apply the changes and update your Prisma GraphQL API so it includes CRUD operations for the new `Vote` type, you need to deploy the service again.
 
