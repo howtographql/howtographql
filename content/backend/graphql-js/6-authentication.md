@@ -126,7 +126,7 @@ In `Query.js`, add the following function definition:
 
 ```js(path=".../hackernews-node/src/resolvers/Query.js")
 function feed(parent, args, context, info) {
-  return context.db.links({}, info)
+  return context.db.query.links({}, info)
 }
 
 module.exports = {
@@ -163,7 +163,7 @@ async function signup(parent, args, context, info) {
 
 async function login(parent, args, context, info) {
   // 1
-  const user = await context.db.query.user({ where: { email: args.email } }, ` { id } `)
+  const user = await context.db.query.user({ where: { email: args.email } }, ` { id password } `)
   if (!user) {
     throw new Error('No such user found')
   }
@@ -195,7 +195,7 @@ Let's use the good ol' numbered comments again to understand what's going on her
 
 Now on the `login` mutation:
 
-1. Instead of _creating_ a new `User` object, you're now using the `Prisma` binding instance to retrieve the existing `User` record by the `email` address that was sent along in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error. Notice again that you're only asking for the `id` in the selection set.
+1. Instead of _creating_ a new `User` object, you're now using the `Prisma` binding instance to retrieve the existing `User` record by the `email` address that was sent along in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error. Notice that this time you're asking for the `id` and the `password` in the selection set. The `password` is needed because it needs to be compared with the one provided in the `login` mutation.
 1. The next step is to compare the provided password with the one that is stored in the database. If the two don't match up, you're returning an error as well.
 1. In the end, you're returning `token` and `user` again.
 
