@@ -29,10 +29,12 @@ First, you are going to create the React project! As mentioned in the beginning,
 If you haven't already, you need to install `create-react-app` using npm:
 
 ```bash
-npm install -g create-react-app
+yarn global add create-react-app
 ```
 
 </Instruction>
+
+> **Note**: This tutorial uses [Yarn](https://yarnpkg.com/) for dependency management. Find instructions for how you can install it [here](https://yarnpkg.com/en/docs/install). If you prefer using `npm`, you can just run the equivalent commands. 
 
 <Instruction>
 
