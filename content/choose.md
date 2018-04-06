@@ -8,7 +8,7 @@ In the following section, you can choose from one of the many hands-on tutorials
 
 <TutorialChooser></TutorialChooser>
 
-### Learn how to use GraphQL on the Frontend
+### Learn how to use GraphQL on the frontend
 
 Here's an overview of the frontend tutorials we offer:
 
@@ -21,7 +21,7 @@ Here's an overview of the frontend tutorials we offer:
 <!-- - [**React & Relay**](https://www.howtographql.com/react-relay/0-introduction/): [Relay](https://facebook.github.io/relay/) is the GraphQL client that was developed by Facebook and is heavily optimized for performance. Using Relay requires an advanced understanding of GraphQL and React. Choose this tutorial to learn everything you need to know to get started with Facebook's data management framework. -->
 <!-- - [**Ember & Apollo**](https://www.howtographql.com/ember-apollo/0-introduction/): [Ember](https://emberjs.com/) is a JavaScript framework for creating ambitious web applications. -->
 
-### Build your own GraphQL Server
+### Build your own GraphQL server
 
 Choose your favorite programming language to get started with GraphQL on the server-side:
 
