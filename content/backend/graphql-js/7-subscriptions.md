@@ -556,7 +556,7 @@ module.exports = {
 
 </Instruction>
 
-All right, that's it! You can now test the implementation of your `newLink` subscription.
+All right, that's it! You can now test the implementation of your `newVote` subscription.
 
 You can use the following subscription for that:
 
