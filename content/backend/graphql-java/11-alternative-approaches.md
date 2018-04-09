@@ -37,7 +37,7 @@ Both of these blocks contain the exact same information. Worse yet, changing one
 
 ### Code-first style
 
-A common alternative to the schema-first style, known as code-first, is generating the schema from the existing model. This keeps the schema and the model in sync, easing refactoring. It also works well in projects where GraphQL is introduced on top of an existing codebase. The downside of this approach is that the schema doesn't exist until the some server code is written, introducing a dependency between the client-side and server-side work. One workaround would be using stubs on the server to generate the schema quickly, then developing the real server code in parallel with the client.
+A common alternative to the schema-first style, known as code-first, is generating the schema from the existing model. This keeps the schema and the model in sync, easing refactoring. It also works well in projects where GraphQL is introduced on top of an existing codebase. The downside of this approach is that the schema doesn't exist until some server code is written, introducing a dependency between the client-side and server-side work. One workaround would be using stubs on the server to generate the schema quickly, then developing the real server code in parallel with the client.
 
 The Java/GraphQL ecosystem spawned a few libraries that facilitate this style of development. You can find them listed [here](https://github.com/graphql-java/awesome-graphql-java#code-first). An example using [`graphql-spqr`](https://github.com/leangen/graphql-spqr), written by yours truly, follows below.
 
