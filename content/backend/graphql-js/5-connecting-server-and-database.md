@@ -161,7 +161,7 @@ mutation {
 
 So, to summarize, Prisma bindings let you invoke functions that correspond to operations that are defined in the GraphQL schema. The functions have the same names as the operations and the same structure with respect to the arguments they receive and the values they return.
 
-But, how do you make sure your resolvers actually get access to that magical and often-mentioned `Prisma` binding instance.
+But, how do you make sure your resolvers actually get access to that magical and often-mentioned `Prisma` binding instance?
 
 ### Creating the `Prisma` binding instance
 
@@ -205,7 +205,7 @@ So, here's the trick. You're instantiating `Prisma` with the following pieces of
 
 - `typeDefs`: This points to the Prisma database schema which defines the full CRUD GraphQL API of Prisma. Note that you actually don't have this file yet - we'll tell you in a bit how to get it.
 - `endpoint`: This is the endpoint of your Prisma API. Don't forget to replace it with the endpoint of your own Prisma service here!
-- `secret`: Recall that all requests against the Prisma API need to be authenticated by including a JWT in the `Authorization` header of the HTTP request. This JWT needs to be signed with the `secret` defined in `prisma.yml`. As you're not making any _direct_ requests against the Prisma API, but these requests are being made for you by the `Prisma` binding instance, you need to tell it what that secret is so it can generate a JWT which it attaches to the requests.
+- `secret`: Recall that all requests against the Prisma API need to be authenticated by including a JWT in the `Authorization` header of the HTTP request? This JWT needs to be signed with the `secret` defined in `prisma.yml`. As you're not making any _direct_ requests against the Prisma API, but these requests are being made for you by the `Prisma` binding instance, you need to tell it what that secret is so it can generate a JWT which it attaches to the requests.
 - `debug`: Setting the `debug` flag to `true` means that all requests, made by the `Prisma` binding instance to the Prisma API will be logged to the console. It's a convenient way to observe the actual GraphQL queries and mutations that are sent to Prisma.
 
 <Instruction>
