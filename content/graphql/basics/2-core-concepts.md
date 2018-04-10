@@ -300,3 +300,11 @@ type Post {
   author: Person!
 }
 ```
+
+### Learn more
+
+To learn more about the core concepts in GraphQL, be sure to check out the following article series:
+
+- [GraphQL Server Basics (Part I): GraphQL Schemas, TypeDefs & Resolvers Explained](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e)
+- [GraphQL Server Basics (Part II): The Network Layer](https://blog.graph.cool/graphql-server-basics-the-network-layer-51d97d21861)
+- [GraphQL Server Basics (Part III): Demystifying the `info` argument in GraphQL resolvers](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a)
