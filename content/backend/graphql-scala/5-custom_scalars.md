@@ -40,7 +40,7 @@ Add `createdAt` field in `Link` models for populated example data in `DBSchema`.
 ```scala
 Links forceInsertAll Seq(
       Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial", DateTime(2017,9,12)),
-      Link(2, "http://graphql.org", "Official GraphQL webpage",DateTime(2017,10,1)),
+      Link(2, "http://graphql.org", "Official GraphQL web page",DateTime(2017,10,1)),
       Link(3, "https://facebook.github.io/graphql/", "GraphQL specification",DateTime(2017,10,2))
     )
 ```

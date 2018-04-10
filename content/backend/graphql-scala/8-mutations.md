@@ -5,7 +5,7 @@ description: "In this chapter you will learn how to add data to the database."
 ---
 
 In the last chapters you've learnt how to use GraphQL to read data. Time to add some.
-When you want to add data, you use almost the same sytax. How does the server know when you want to write data instead of reading? You have to use the `mutation` keyword instead of `query`. That's all. Actually not all, but you will learn about the differences in this chapter.
+When you want to add data, you use almost the same syntax. How does the server know when you want to write data instead of reading? You have to use the `mutation` keyword instead of `query`. That's all. Actually not all, but you will learn about the differences in this chapter.
 
 ### Create a user
 
@@ -27,7 +27,7 @@ input AUTH_PROVIDER_EMAIL {
 }
 ```
 
-It isn't hard to imagine what this mutation does. The name suggests it matches our interest --it creates a user, takes two paramaters of type `String` and `AuthProviderSignupData` and returns an `User` in response.
+It isn't hard to imagine what this mutation does. The name suggests it matches our interest --it creates a user, takes two parameters of type `String` and `AuthProviderSignupData` and returns an `User` in response.
 
 But wait... until now we've been using `type` not `input`. So what is this? `input` is a type that can be used as a parameter. You will frequently see it among `mutation`s.
 
