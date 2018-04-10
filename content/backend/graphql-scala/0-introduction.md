@@ -1,7 +1,7 @@
 ---
 title: Introduction
 pageTitle: "Building a GraphQL Server with Scala Backend Tutorial"
-description: "Learn how to build a GraphQL server with Scala & Sangria and best practices for filters, authentication, pagination and subscriptions. "
+description: "Learn how to build a GraphQL server with Scala & Sangria and best practices for filters, authentication and pagination."
 
 ---
 
