@@ -3,7 +3,7 @@ title: Getting Started
 pageTitle: "Getting Started with GraphQL, Node.js and Prisma Tutorial"
 description: "Learn how to setup a GraphQL server with Node.js & Express as well as best practices for defining the GraphQL schema."
 question: "What role do the root fields play for a GraphQL API?"
-answers: ["The three root fields are: Query, Mutation and Subscription", "Root fields implement the available API operations", "Root fields define the available AP operations", "Root field is another term for resolver"]
+answers: ["The three root fields are: Query, Mutation and Subscription", "Root fields implement the available API operations", "Root fields define the available API operations", "Root field is another term for resolver"]
 correctAnswer: 2
 ---
 
