@@ -192,7 +192,7 @@ All right, you're finally ready to deploy your Prisma service and the database t
 
 Navigate into the `database` directory and run [`prisma deploy`](https://www.prisma.io/docs/reference/cli-command-reference/database-service/prisma-deploy-kee1iedaov):
 
-```bash(path=".../hackernews-node/")
+```bash(path=".../hackernews-node/database")
 cd database
 prisma deploy
 ```
