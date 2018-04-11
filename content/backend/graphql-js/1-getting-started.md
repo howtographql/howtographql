@@ -3,7 +3,7 @@ title: Getting Started
 pageTitle: "Getting Started with GraphQL, Node.js and Prisma Tutorial"
 description: "Learn how to setup a GraphQL server with Node.js & Express as well as best practices for defining the GraphQL schema."
 question: "What role do the root fields play for a GraphQL API?"
-answers: ["The three root fields are: Query, Mutation and Subscription", "Root fields implement the available API operations", "Root fields define the available AP operations", "Root field is another term for resolver"]
+answers: ["The three root fields are: Query, Mutation and Subscription", "Root fields implement the available API operations", "Root fields define the available API operations", "Root field is another term for resolver"]
 correctAnswer: 2
 ---
 
@@ -175,7 +175,7 @@ Now, send the query from before again. This time, it returns an error: `Error: C
 
 What happens here is that the underlying [`graphql-js`](https://github.com/graphql/graphql-js/) reference implementation ensures that the return types of your resolvers adhere to the type definitions from your GraphQL schema. Put differently, it protects you from making stupid mistakes!
 
-This is in fact one of the core benefits of GraphQL in general: It enforces that the API actually behaves in the way that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can alway be 100% sure about the API operations and data structures that are returned by the API.
+This is in fact one of the core benefits of GraphQL in general: It enforces that the API actually behaves in the way that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can always be 100% sure about the API operations and data structures that are returned by the API.
 
 ### A word on the GraphQL schema
 
@@ -254,7 +254,7 @@ There are a few things to note:
 - In these examples, we always query `id` and `name` of the returned `User` objects. We could potentially omit either of them. Note however when querying an object type, it is required that you query at least one of its field in a selection set.
 - For the fields in the selection set, it doesn't matter whether the type of the root field is _required_ or a _list_. In the examples schema above, the three root fields all have different [type modifiers](http://graphql.org/learn/schema/#lists-and-non-null) (i.e. different combinations of being a list and/or required) for the `User` type:
   - For the `users` field, the return type `[User!]!` means it returns a _list_ (which itself can not be `null`) of `User` elements. The list can also not contain elements that are `null`. So, you're always guaranteed to either receive an empty list or a list that only contains non-null `User` objects.
-  - For the `user(id: ID!)` field, the return type `User` means the the returned value could be `null` _or_ a `User` object.
+  - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
 
 Phew, enough theory 😠 Let's go and write some code again!
