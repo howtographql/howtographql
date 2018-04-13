@@ -325,7 +325,7 @@ touch src/resolvers/Feed.js
 
 Now, add the following code to it:
 
-```js(path=".../hackernews-node/src/resolvers/Query.js")
+```js(path=".../hackernews-node/src/resolvers/Feed.js")
 function links(parent, args, context, info) {
   return context.db.query.links({ where: { id_in: parent.linkIds } }, info)
 }
