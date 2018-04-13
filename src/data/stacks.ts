@@ -30,7 +30,7 @@ const data: Stack[] = [
       description:
         "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
     },
-    authorName: 'Bent Vatne',
+    authorName: 'Brent Vatne',
     comingSoon: true,
   },
 //   {
