@@ -154,6 +154,8 @@ query {
     skip: 1
   ) {
     id
+    description
+    url
   }
 }
 ```
