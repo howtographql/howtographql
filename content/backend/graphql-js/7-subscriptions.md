@@ -489,7 +489,7 @@ module.exports = {
 
 </Instruction>
 
-The last task in this chapter is to add a subscription that fires when new `Vote`s are being created. You'll use an analoguous approach as for the `newLink` query for that.
+The last task in this chapter is to add a subscription that fires when new `Vote`s are being created. You'll use an analogous approach as for the `newLink` query for that.
 
 <Instruction>
 

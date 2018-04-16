@@ -7,7 +7,7 @@ answers: ["skip & last", "skip & first", "first & last", "where & orderBy"]
 correctAnswer: 1
 ---
 
-This is the last section of the tutorial where you'll implemented the finishing touches on your API. The goal is to allow clients to constrain the list of `Link` elements returned by the `feed` query by providing filtering and pagination parameters.
+This is the last section of the tutorial where you'll implement the finishing touches on your API. The goal is to allow clients to constrain the list of `Link` elements returned by the `feed` query by providing filtering and pagination parameters.
 
 ### Filtering
 
