@@ -280,7 +280,7 @@ async function feed(parent, args, context, info) {
     : {}
 
   // 1
-  const queriedLinkes = await context.db.query.links(
+  const queriedLinks = await context.db.query.links(
     { where, skip: args.skip, first: args.first, orderBy: args.orderBy },
     `{ id }`,
   )
@@ -298,7 +298,7 @@ async function feed(parent, args, context, info) {
   // 3
   return {
     count: linksConnection.aggregate.count,
-    linkIds: queriedLinkes.map(link => link.id),
+    linkIds: queriedLinks.map(link => link.id),
   }
 }
 ```
