@@ -51,9 +51,9 @@ function feed(parent, args, context, info) {
 
 </Instruction>
 
-If not `filter` string is provided, then the `where` object will be just an empty object and no filtering conditions will be applied by the Prisma engine when it returns the response for the `links` query.
+If no `filter` string is provided, then the `where` object will be just an empty object and no filtering conditions will be applied by the Prisma engine when it returns the response for the `links` query.
 
-In case there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conidtions.
+In case there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions.
 
 Notice that the the `Prisma` binding object translates the above function call into a GraphQL query that will look somewhat similar to [this](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a). This query is sent by the Yoga server to the Prisma API and resolved there:
 
@@ -91,7 +91,7 @@ query {
 Pagination is a tricky topic in API design. On a high-level, there are two major approaches how it can be tackled:
 
 - **Limit-Offset**: Request a specific _chunk_ of the list by providing the indices of the items to be retrieved (in fact, you're mostly providing the start index (_offset_) as well as a count of items to be retrieved (_limit_)).
-- **Cursor-based**: This pagination model is a bit more advanced. Every element in the list is associated with a unique ID (the _cursor_). Clients paginating through the list then provid the cursor of the starting element as well as a count of items to be retrieved.
+- **Cursor-based**: This pagination model is a bit more advanced. Every element in the list is associated with a unique ID (the _cursor_). Clients paginating through the list then provide the cursor of the starting element as well as a count of items to be retrieved.
 
 Prisma supports both pagination approaches (read more in the [docs](https://www.prisma.io/docs/reference/prisma-api/queries-ahwee4zaey#pagination)). In this tutorial, you're going to implement limit-offset pagination.
 
@@ -181,7 +181,7 @@ enum LinkOrderByInput {
 }
 ```
 
-It represents the various ways how the list of `Link` elemenets can be sorted.
+It represents the various ways how the list of `Link` elements can be sorted.
 
 <Instruction>
 
@@ -369,7 +369,7 @@ const resolvers = {
 
 </Instruction>
 
-You can test now the revamped `feed` query as follows:
+You can now test the revamped `feed` query as follows:
 
 ```graphql
 query {
