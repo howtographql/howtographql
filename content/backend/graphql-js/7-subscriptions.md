@@ -226,7 +226,7 @@ Because you're referencing `LinkSubscriptionPayload` from the Prisma schema, you
 
 Next, go ahead and implement the resolver for the `newLink` field. Resolvers for subscriptions are slightly different than the ones for queries and mutations:
 
-1. Rather than returning any data directly, they returning an `AsyncIterator` which subsequently is used by the GraphQL server to push the event data to the client.
+1. Rather than returning any data directly, they return an `AsyncIterator` which subsequently is used by the GraphQL server to push the event data to the client.
 2. Subscription resolvers are wrapped inside an object and need to be provided as the value for a `subscribe` field.
 
 <Instruction>
