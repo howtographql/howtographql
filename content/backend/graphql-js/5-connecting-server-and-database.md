@@ -265,7 +265,7 @@ The `database` project on the other hand only points to the `prisma.yml` file. I
 
 There are two main benefits you now get from this setup:
 
-- You can interact with both GraphQL APIs in a Playgroundn side-by-side.
+- You can interact with both GraphQL APIs in a Playground side-by-side.
 - When deploying the Prisma service with `prisma deploy`, the Prisma CLI downloads the generated Prisma database schema into the specified location.
 
 The Prisma CLI also uses information that's provided in `.graphqlconfig.yml`. Therefore, you can now run `prisma` commands from the root directory rather than from the `database` directory.
