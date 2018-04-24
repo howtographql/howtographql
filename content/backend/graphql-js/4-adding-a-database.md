@@ -181,10 +181,12 @@ The next step is to install the Prisma CLI which is used to manage Prisma servic
 In your terminal, run the following command:
 
 ```bash
-yarn global add prisma
+yarn global add prisma@1.6.3
 ```
 
 </Instruction>
+
+> **Note**: You're pinning the version of the Prisma CLI to `1.6.3` as the [`1.7`](https://github.com/graphcool/prisma/releases/tag/1.7.0) version saw some major changes. This tutorial will be updated soon.  
 
 All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
 
