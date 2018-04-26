@@ -164,6 +164,7 @@ updateQuery: (previous, { subscriptionData }) => {
   const result = {
     ...previous,
     feed: {
+      ...previous.feed,
       links: newAllLinks
     },
   }
