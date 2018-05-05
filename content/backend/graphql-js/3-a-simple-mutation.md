@@ -141,7 +141,7 @@ Correct! It carries the _arguments_ for the operation - in this case the `url` a
 
 ### Testing the mutation
 
-Go ahead an restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
+Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
 
 ```graphql
 mutation {
