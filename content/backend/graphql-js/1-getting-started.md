@@ -109,7 +109,7 @@ server.start(() => console.log(`Server is running on http://localhost:4000`))
 </Instruction>
 
 > **Note**: This code block is annotated with a file name. It indicates into which file you need to put the code that's shown. The annotation also links to the corresponding file on GitHub to help you figure out _where_ in the file you need to put it in case you are not sure about that.
-> Also, while the code block has a button for copying the code, we encourage you to type everything out yourself since that drastically increases your learning experience.
+> Also, while the code block has a button for copying the code, we encourage you to type everything out yourself since that drastically improves your learning experience.
 
 All right, let's understand what's going on here by walking through the numbered comments:
 
