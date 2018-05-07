@@ -26,7 +26,7 @@ First, you are going to create the React project! As mentioned in the beginning,
 
 <Instruction>
 
-If you haven't already, you need to install `create-react-app` using npm:
+If you haven't already, you need to install `create-react-app` using yarn:
 
 ```bash
 yarn global add create-react-app
