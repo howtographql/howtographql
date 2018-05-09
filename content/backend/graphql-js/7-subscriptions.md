@@ -520,7 +520,7 @@ Finally, you need to add the subscription resolver function.
 
 Add the following code to `Subscription.js`:
 
-```js(path=".../hackernews-node/src/schema.graphql")
+```js(path=".../hackernews-node/src/resolvers/Subscription.js")
 function newVoteSubscribe (parent, args, context, info) {
   return context.db.subscription.vote(
     { where: { mutation_in: ['CREATED'] } },
