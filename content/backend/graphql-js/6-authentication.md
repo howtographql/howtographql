@@ -143,7 +143,7 @@ This is pretty straighforward. You're just reimplementing the same functionality
 
 Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add the `post` resolver afterwards):
 
-```js(path=".../hackernews-node/src/resolvers/Muation.js")
+```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function signup(parent, args, context, info) {
   // 1
   const password = await bcrypt.hash(args.password, 10)
