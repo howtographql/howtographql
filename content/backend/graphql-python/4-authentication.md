@@ -69,7 +69,7 @@ class Query(links.schema.Query, graphene.ObjectType):
     pass
 
 
-class Mutation(users.schema.Mutation, links.schema.Mutation, graphene.ObjectType,):
+class Mutation(hackernews.users.schema.Mutation, links.schema.Mutation, graphene.ObjectType,):
     pass
 
 
@@ -91,7 +91,7 @@ Let's create a query for listing all users:
 
 On the `users/schema.py` file, add the following:
 
-```python(path=".../graphql-python/hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/users/schema.py")
 # ...code
 class Query(graphene.ObjectType):
     users = graphene.List(UserType)
@@ -110,7 +110,7 @@ Enable the users query on the main query class:
 # ...code
 
 # Add the users.schema.Query
-class Query(users.schema.Query, links.schema.Query, graphene.ObjectType):
+class Query(hackernews.users.schema.Query, links.schema.Query, graphene.ObjectType):
     pass
 ```
 
