@@ -400,14 +400,15 @@ type Vote {
 
 As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the `Link` type.
 
-To apply the changes and update your Prisma GraphQL API so it includes CRUD operations for the new `Vote` type, you need to deploy the service again.
+To apply the changes and update your Prisma GraphQL API so it includes CRUD operations for the new `Vote` type, you need to deploy the service and download the Prisma database schema again.
 
 <Instruction>
 
-Run the following command in your terminal:
+Run the following commands in your terminal:
 
 ```bash(path=".../hackernews-node)
 prisma deploy
+graphql get-schema --project database
 ```
 
 </Instruction>
