@@ -244,7 +244,7 @@ Add fetcher to resolvers.
 Add lastly created fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
 
 ```
-val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher)
+val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher, votesFetcher)
 ```
 
 </Instruction>
@@ -295,10 +295,10 @@ The solution for this is an interface. We can provide an interface that will be 
 
 <Instrunction>
 
-Create trait `Identifable`:
+Create trait `Identifiable`:
 
 ```scala
-trait Indentifable {
+trait Identifiable {
   val id: Int
 }
 ```
@@ -333,9 +333,16 @@ Now, let's create an interface from GraphQL point of view.
 
 <Instruction>
 
-Change the `LinkType` for the following:
+Add a definition of the interface and change the `LinkType` for the following:
 
 ```scala
+val IdentifiableType = InterfaceType(
+  "Identifiable",
+  fields[Unit, Identifiable](
+    Field("id", IntType, resolve = _.value.id)
+  )
+)
+  
 implicit val LinkType = deriveObjectType[Unit, Link](
     Interfaces(IdentifiableType)
 )
