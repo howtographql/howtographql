@@ -143,7 +143,7 @@ This is pretty straighforward. You're just reimplementing the same functionality
 
 Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add the `post` resolver afterwards):
 
-```js(path=".../hackernews-node/src/resolvers/Muation.js")
+```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function signup(parent, args, context, info) {
   // 1
   const password = await bcrypt.hash(args.password, 10)
@@ -206,7 +206,7 @@ Now on the `login` mutation:
 1. The next step is to compare the provided password with the one that is stored in the database. If the two don't match up, you're returning an error as well.
 1. In the end, you're returning `token` and `user` again.
 
-The implementation of both resolvers is relatively straighforward - nothing too surpring. The only thing that's not clear right now is the hardcoded selection set containing only the `id` field. What happens if the incoming mutation requests more information about the `User`?
+The implementation of both resolvers is relatively straighforward - nothing too surprising. The only thing that's not clear right now is the hardcoded selection set containing only the `id` field. What happens if the incoming mutation requests more information about the `User`?
 
 ### Adding the `AuthPayload` resolver
 
