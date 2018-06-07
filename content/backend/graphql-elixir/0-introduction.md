@@ -21,8 +21,8 @@ In this chapter you'll learn how to build your very own GraphQL server using the
         * Generates a comprehensive documentation of all your available queries and mutations.
         * Provides a text editor where you can build requests, with syntax highlighting and autocomplete.
         * Displays the server's responses.
-
-If you have any questions along the way feel free to reach out via http://absinthe-graphql.org/community/
+ 
+You can find the maintainers and an active community of users and contributors in the #absinthe-graphql channel in the [Elixir](https://elixir-slackin.herokuapp.com/) Slack.
 
 ### What is a GraphQL Server?
 

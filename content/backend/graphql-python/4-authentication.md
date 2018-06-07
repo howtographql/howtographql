@@ -6,10 +6,10 @@ correctAnswer: 2
 description: Authenticating on GraphQL
 ---
 
-### Creating an User
-Django already comes with the concept of Users bult in. Before talking about authentication, let's create our first User.
+### Creating a User
+Django already comes with the concept of Users built in. Before talking about authentication, let's create our first User.
 
-To do it so, we need to send data to thee server through a mutation.
+To do it so, we need to send data to the server through a mutation.
 
 <Instruction>
 
@@ -191,7 +191,7 @@ The library creates three Mutations for us, let's take a look at them.
 
 ![](https://i.imgur.com/d03jVtP.png)
 
-`RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enable to expire. Using it is outside the escope of this tutorial.
+`RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enable to expire. Using it is outside the scope of this tutorial.
 
 Besides that, various aspects of the Mutations and JWT can be configured on the library. Please check the [documentation](https://github.com/flavors/django-graphql-jwt) for more information.
 
@@ -220,7 +220,7 @@ class Query(graphene.AbstractType):
 
 </Instruction>
 
-To test it out, we need to get a token using the `VerifyToken` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to the the Inmsonia client:
+To test it out, we need to get a token using the `VerifyToken` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to the Inmsonia client:
 
 ![](https://i.imgur.com/VelVdDB.png)
 

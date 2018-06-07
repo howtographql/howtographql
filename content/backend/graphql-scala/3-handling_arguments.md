@@ -15,7 +15,6 @@ Let's assume, we want to fetch the selected links using their ids. We will need 
 Take this query for instance:
 
 ```graphql
-
 query {
     link(id: 1){
       id
@@ -35,7 +34,6 @@ What must we do? Firstly add to DAO the functions that give us a link by one or 
 Open the file `DAO.scala` and add the following functions:
 
 ```scala
-
 def getLink(id: Int): Future[Option[Link]] = db.run(
    Links.filter(_.id === id).result.headOption
  )
@@ -54,7 +52,6 @@ Next we have to add the fields to the main `Query` object and set the functions 
 Now open the file `GraphQLSchema.scala` and add two additional definitions in the `fields` function of the `QueryType` object:
 
 ```scala
-
 Field("link", //1
   OptionType(LinkType), //2
   arguments = List(Argument("id", IntType)), //3
@@ -65,7 +62,6 @@ Field("links", //1
   arguments = List(Argument("ids", ListInputType(IntType))), //3
   resolve = c => c.ctx.dao.getLinks(c.arg[Seq[Int]]("ids")) //4
 )
-
 ```
 
 </Instruction>
@@ -91,6 +87,7 @@ Field("link",
       resolve = c => c.ctx.dao.getLink(c.arg(Id))
 )
 ```
+
 You can make a similar change for the `links` field too.
 
 Now, we have exposed a few fields. We're able to fetch a single link or a list of chosen links.
@@ -100,19 +97,15 @@ Now, we have exposed a few fields. We're able to fetch a single link or a list o
 Open the graphiql console in the browser and execute following query:
 
 ```graphql
-
 query {
-
     link(id: 1){
       id
       url
     }
-
     links(ids: [2,3]){
       id
       url
     }
-
 }
 ```
 
@@ -121,7 +114,6 @@ query {
 You should see a proper output. But what if we execute this query?
 
 ```graphql
-
 query {
   l1: link(id: 1){
     id
