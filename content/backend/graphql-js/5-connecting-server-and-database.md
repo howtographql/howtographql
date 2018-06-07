@@ -342,7 +342,7 @@ node src/index.js
 
 <Instruction>
 
-Now, open a new terminal tab (or window) and run the followign command to open both GraphQL APIs inside the same GraphQL Playground:
+Now, open a new terminal tab (or window) and run the following command to open both GraphQL APIs inside the same GraphQL Playground:
 
 ```bash(path="hackernews-node/")
 graphql playground
