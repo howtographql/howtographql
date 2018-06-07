@@ -8,7 +8,7 @@ description: "In this chapter we will introduce two additional models. We show t
 
 ### Your DIY kit
 
-Before you'll go further, try to do something. I think, at this point, you have a knowledge that let you add `User` and `Vote` models. Of course, I'll show what to do later in this chapter, but before you will go there, try to implement it alone.
+Before you go further, try to implement the changes yourself. I think, at this point, you have the necessary knowledge to add the `User` and `Vote` models. I'll show what to do later in this chapter, but try to implement it yourself first.
 
 What you have to do:  
 
@@ -24,7 +24,7 @@ Please, go ahead with your implementation ... I will wait here
 
 ### User entity
 
-Let's start from user entity:
+Let's start from the user entity:
 
 <Instruction>
 
@@ -63,8 +63,8 @@ Sample entities:
 
 <Instruction>
 
-In file DBSchema in function `databaseSetup`: Add an action `Users.schema.create` at beginning of the sentence and then
-add few users later in this function
+In DBSchema in the function `databaseSetup`: Add an action `Users.schema.create` at beginning of the function and then
+add a few users later in this function
 
 ```scala  
 Users forceInsertAll Seq(
@@ -75,7 +75,7 @@ Users forceInsertAll Seq(
 
 </Instruction>
 
-Add functional responsible for user's retrieving:
+Add a function responsible for retrieving user's:
 
 <Instruction>
 
@@ -112,7 +112,7 @@ Add fetcher to resolvers.
 
 <Instruction>
 
-Add lastly created fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
+And lastly add the new fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
 
 ```
 val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher)
@@ -136,7 +136,7 @@ Field("users",
 
 </Instruction>
 
-We're ready... you can now execute query like this:
+We're ready... you can now execute the query like this:
 
 ```graphql
 
@@ -154,7 +154,7 @@ query {
 
 ### Vote entity
 
-If you want, you can make similar step for `Vote` entity. And then follow instructions and check everything is ok.
+If you want, you can make similar changes for `Vote` entity. And then follow the instructions and check everything works.
 
 <Instruction>
 
@@ -241,10 +241,10 @@ Add fetcher to resolvers.
 
 <Instruction>
 
-Add lastly created fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
+Add the new fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
 
 ```
-val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher)
+val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher, votesFetcher)
 ```
 
 </Instruction>
@@ -266,7 +266,7 @@ Field("votes",
 
 </Instruction>
 
-Following query now should be able to execute:
+Run the following query:
 
 ```graphql
 
@@ -279,9 +279,9 @@ query {
 }  
 ```
 
-### Finding a common parts
+### Finding common parts
 
-As you can see parts that are very similar. Like `HasId` for all three types:
+As you can see some code is very similar. Like `HasId` for all three types:
 
 ```scala
 implicit val linkHasId = HasId[Link, Int](_.id)
@@ -289,16 +289,16 @@ implicit val userHasId = HasId[User, Int](_.id)
 implicit val voteHasId = HasId[Vote, Int](_.id)
 ```
 
-What if you want to add more entities? You will duplicate code even more.
+What if you want to add more entities? You will have to duplicate this code.
 
 The solution for this is an interface. We can provide an interface that will be extended by any of the entities. This way, for example, you will need just one HasId
 
-<Instrunction>
+<Instruction>
 
-Create trait `Identifable`:
+Create trait `Identifiable`:
 
 ```scala
-trait Indentifable {
+trait Identifiable {
   val id: Int
 }
 ```
@@ -333,9 +333,16 @@ Now, let's create an interface from GraphQL point of view.
 
 <Instruction>
 
-Change the `LinkType` for the following:
+Add a definition of the interface and change the `LinkType` for the following:
 
 ```scala
+val IdentifiableType = InterfaceType(
+  "Identifiable",
+  fields[Unit, Identifiable](
+    Field("id", IntType, resolve = _.value.id)
+  )
+)
+  
 implicit val LinkType = deriveObjectType[Unit, Link](
     Interfaces(IdentifiableType)
 )

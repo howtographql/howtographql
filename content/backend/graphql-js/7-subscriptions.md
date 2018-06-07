@@ -53,8 +53,6 @@ subscription {
 }
 ```
 
-> **WARNING**: There's currently a [bug](https://github.com/graphcool/prisma/issues/1734) in the Prisma subscription API where the `where` filter is broken. So, a subscription using it is not going to fire.
-
 This subscription fires everytime an existing `Link` is updated and the server would send along the (potentially updated) `url` and `description` values for the updated `Link`.
 
 Let's also quickly consider the `LinkSubscriptionPayload` type from `src/generated/prisma.graphql`:
@@ -228,7 +226,7 @@ Because you're referencing `LinkSubscriptionPayload` from the Prisma schema, you
 
 Next, go ahead and implement the resolver for the `newLink` field. Resolvers for subscriptions are slightly different than the ones for queries and mutations:
 
-1. Rather than returning any data directly, they returning an `AsyncIterator` which subsequently is used by the GraphQL server to push the event data to the client.
+1. Rather than returning any data directly, they return an `AsyncIterator` which subsequently is used by the GraphQL server to push the event data to the client.
 2. Subscription resolvers are wrapped inside an object and need to be provided as the value for a `subscribe` field.
 
 <Instruction>
@@ -248,9 +246,7 @@ Here's how you need to implement the subscription resolver in that new file:
 ```js
 function newLinkSubscribe (parent, args, context, info) {
   return context.db.subscription.link(
-    // https://github.com/graphcool/prisma/issues/1734
-    // { where: { mutation_in: ['CREATED'] } },
-    { },
+    { where: { mutation_in: ['CREATED'] } },
     info,
   )
 }
@@ -266,9 +262,7 @@ module.exports = {
 
 </Instruction>
 
-As mentioned above, the `where` filter currently doesn't work in the Prisma API. We're still including the code here as a comment to show you how it will work once the [bug](https://github.com/graphcool/prisma/issues/1734) is fixed.
-
-Otherwise the code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a `subscribe` field inside a plain JavaScript object.
+The code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a `subscribe` field inside a plain JavaScript object.
 
 The `Prisma` binding instance on the `context` also exposes a `subscription` object which proxies the subscriptions from the Prisma GraphQL API. This function is used to resolve subscriptions and push the event data to subscribed clients. Prisma is taking care of all the complexity of handling the realtime functionality under the hood.
 
@@ -495,7 +489,7 @@ module.exports = {
 
 </Instruction>
 
-The last task in this chapter is to add a subscription that fires when new `Vote`s are being created. You'll use an analoguous approach as for the `newLink` query for that.
+The last task in this chapter is to add a subscription that fires when new `Vote`s are being created. You'll use an analogous approach as for the `newLink` query for that.
 
 <Instruction>
 
@@ -526,12 +520,10 @@ Finally, you need to add the subscription resolver function.
 
 Add the following code to `Subscription.js`:
 
-```js(path=".../hackernews-node/src/schema.graphql")
+```js(path=".../hackernews-node/src/resolvers/Subscription.js")
 function newVoteSubscribe (parent, args, context, info) {
   return context.db.subscription.vote(
-    // https://github.com/graphcool/prisma/issues/1734
-    // { where: { mutation_in: ['CREATED'] } },
-    { },
+    { where: { mutation_in: ['CREATED'] } },
     info,
   )
 }
@@ -556,7 +548,7 @@ module.exports = {
 
 </Instruction>
 
-All right, that's it! You can now test the implementation of your `newLink` subscription.
+All right, that's it! You can now test the implementation of your `newVote` subscription.
 
 You can use the following subscription for that:
 

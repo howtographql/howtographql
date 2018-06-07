@@ -52,7 +52,7 @@ The second GraphQL API is the one that's provided by Prisma and provides the **d
 
 The Prisma API is mirroring a database API, so it allows you to perform CRUD operations for certain _data types_. What data types? Well, that's up to you - you are defining those data types using the familiar SDL. You'll learn in a bit how that works.
 
-Typically, these data types represent the _entities of your application domain_. For example, if you're building car dealership software, you're like going to have data types such as `Car`, `CarDealer`, `Customer` and so on... The entire collection of these data types is referred to as your _data model_.
+Typically, these data types represent the _entities of your application domain_. For example, if you're building car dealership software, you're likely going to have data types such as `Car`, `CarDealer`, `Customer` and so on... The entire collection of these data types is referred to as your _data model_.
 
 Once your data model is defined in SDL, Prisma translates it into an according database schema and sets up the underlying database accordingly. When you're then sending queries and mutations to the Prisma GraphQL API, it translates those into database operations and performs these operations for you. Neat, right?
 
@@ -102,7 +102,7 @@ Another potential concern of directly exposing the Prisma API to your client app
 
 ### Creating a Prisma service with a connected database
 
-In this tutorial, you're going to build everything entirely from scratch! For the Prisma database service, you're going to start with the most miminal setup that's possible.
+In this tutorial, you're going to build everything entirely from scratch! For the Prisma database service, you're going to start with the most minimal setup that's possible.
 
 The first thing you need to do is create two files, which you're going to put into a new directory called `database`.
 
@@ -181,10 +181,12 @@ The next step is to install the Prisma CLI which is used to manage Prisma servic
 In your terminal, run the following command:
 
 ```bash
-yarn global add prisma
+yarn global add prisma@1.6.3
 ```
 
 </Instruction>
+
+> **Note**: You're pinning the version of the Prisma CLI to `1.6.3` as the [`1.7`](https://github.com/graphcool/prisma/releases/tag/1.7.0) version saw some major changes. This tutorial will be updated soon.  
 
 All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
 

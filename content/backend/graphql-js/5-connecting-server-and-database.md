@@ -80,7 +80,7 @@ It accesses a `db` object on `context`. As you will see in a bit, this `db` obje
 
 This `Prisma` binding instance effectively turns the Prisma database schema into JavaScript functions which you can invoke. When invoking such a function, the `Prisma` binding instance will assemble a GraphQL query under the hood and send it to the Prisma API for you. But what are the two parameters you're passing to the function?
 
-The first paramater carries any variables you might want to submit along with the query. Since you don't need any variables for the `links` query right now, it's just an empty object.
+The first parameter carries any variables you might want to submit along with the query. Since you don't need any variables for the `links` query right now, it's just an empty object.
 
 The second parameter is used by the `Prisma` binding instance to generate the _selection set_ for the query it sends to the Prisma API. You learned before that the `info` object carries information about the selection set of the incoming query. What's happening here is that you're basically _forwarding_ (i.e. [delegating](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405)) the incoming query to the Prisma engine. The `info` object needs to be passed along so that Prisma knows what fields are being requested in an incoming query.
 
@@ -161,7 +161,7 @@ mutation {
 
 So, to summarize, Prisma bindings let you invoke functions that correspond to operations that are defined in the GraphQL schema. The functions have the same names as the operations and the same structure with respect to the arguments they receive and the values they return.
 
-But, how do you make sure your resolvers actually get access to that magical and often-mentioned `Prisma` binding instance.
+But, how do you make sure your resolvers actually get access to that magical and often-mentioned `Prisma` binding instance?
 
 ### Creating the `Prisma` binding instance
 
@@ -205,7 +205,7 @@ So, here's the trick. You're instantiating `Prisma` with the following pieces of
 
 - `typeDefs`: This points to the Prisma database schema which defines the full CRUD GraphQL API of Prisma. Note that you actually don't have this file yet - we'll tell you in a bit how to get it.
 - `endpoint`: This is the endpoint of your Prisma API. Don't forget to replace it with the endpoint of your own Prisma service here!
-- `secret`: Recall that all requests against the Prisma API need to be authenticated by including a JWT in the `Authorization` header of the HTTP request. This JWT needs to be signed with the `secret` defined in `prisma.yml`. As you're not making any _direct_ requests against the Prisma API, but these requests are being made for you by the `Prisma` binding instance, you need to tell it what that secret is so it can generate a JWT which it attaches to the requests.
+- `secret`: Recall that all requests against the Prisma API need to be authenticated by including a JWT in the `Authorization` header of the HTTP request? This JWT needs to be signed with the `secret` defined in `prisma.yml`. As you're not making any _direct_ requests against the Prisma API, but these requests are being made for you by the `Prisma` binding instance, you need to tell it what that secret is so it can generate a JWT which it attaches to the requests.
 - `debug`: Setting the `debug` flag to `true` means that all requests, made by the `Prisma` binding instance to the Prisma API will be logged to the console. It's a convenient way to observe the actual GraphQL queries and mutations that are sent to Prisma.
 
 <Instruction>
@@ -218,7 +218,7 @@ const { Prisma } = require('prisma-binding')
 
 </Instruction>
 
-You're almost done! There's is only one piece left to the puzzle, and that's downloading the Prisma database schema which referenced in the `Prisma` constructor call.
+You're almost done! There's is only one piece left to the puzzle, and that's downloading the Prisma database schema which is referenced in the `Prisma` constructor call.
 
 ### Downloading the Prisma database schema
 
@@ -265,7 +265,7 @@ The `database` project on the other hand only points to the `prisma.yml` file. I
 
 There are two main benefits you now get from this setup:
 
-- You can interact with both GraphQL APIs in a Playgroundn side-by-side.
+- You can interact with both GraphQL APIs in a Playground side-by-side.
 - When deploying the Prisma service with `prisma deploy`, the Prisma CLI downloads the generated Prisma database schema into the specified location.
 
 The Prisma CLI also uses information that's provided in `.graphqlconfig.yml`. Therefore, you can now run `prisma` commands from the root directory rather than from the `database` directory.
@@ -342,7 +342,7 @@ node src/index.js
 
 <Instruction>
 
-Now, open a new terminal tab (or window) and run the followign command to open both GraphQL APIs inside the same GraphQL Playground:
+Now, open a new terminal tab (or window) and run the following command to open both GraphQL APIs inside the same GraphQL Playground:
 
 ```bash(path="hackernews-node/")
 graphql playground

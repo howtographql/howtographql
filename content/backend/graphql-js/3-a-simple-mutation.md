@@ -4,7 +4,7 @@ pageTitle: "Implementing Mutations in a GraphQL Server Tutorial"
 description: "Learn best practices for implementing GraphQL mutations with graphql-js, Node.js & Prisma. Test your implementation in a GraphQL Playground."
 question: What is the second argument that's passed into GraphQL resolvers used for?
 answers: ["It carries the return value of the previous resolver execution level", "It carries the arguments for the incoming GraphQL operation", "It is an object that all resolvers can write to and read from", "It carries the AST of the incoming GraphQL operation"]
-correctAnswer: 2
+correctAnswer: 1
 ---
 
 In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow to _post_ new links to the server.
@@ -133,7 +133,7 @@ First off, note that you're entirely removing the `Link` resolvers (as explained
 Also, here's what's going on with the numbered comments:
 
 1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly created `Link` elements.
-2. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
+1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
 
 Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
 
@@ -141,7 +141,7 @@ Correct! It carries the _arguments_ for the operation - in this case the `url` a
 
 ### Testing the mutation
 
-Go ahead an restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
+Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
 
 ```graphql
 mutation {
@@ -176,7 +176,7 @@ However, once you kill and restart the server, you'll notice that the previously
 
 ### Exercise
 
-If you want to practice implementing GraphQL resolvers a bit more, here's a fun little challenge for you. Based on your current implementation, extend the GraphQL API with full CRUD funcionality for the `Link` type. In particular, implement the queries and mutations that have the following definitions:
+If you want to practice implementing GraphQL resolvers a bit more, here's a fun little challenge for you. Based on your current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular, implement the queries and mutations that have the following definitions:
 
 ```graphql(nocopy)
 type Query {

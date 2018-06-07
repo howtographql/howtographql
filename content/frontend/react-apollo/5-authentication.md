@@ -98,11 +98,11 @@ The method `_confirm`  will be used to implement the mutations that we need to s
 
 Next you also need to provide the `constants.js` file that we use to define the key for the credentials that we're storing in the browser's `localStorage`.
 
-> **Warning**: Storing JWTs in `localStorage` is not a safe approach to implemented authentication on the frontend. Because this tutorial is focussed on GraphQL, we want to keep things simple and therefore are using it here. You can read more about this topic [here](https://www.rdegges.com/2018/please-stop-using-local-storage/).
+> **Warning**: Storing JWTs in `localStorage` is not a safe approach to implement authentication on the frontend. Because this tutorial is focused on GraphQL, we want to keep things simple and therefore are using it here. You can read more about this topic [here](https://www.rdegges.com/2018/please-stop-using-local-storage/).
 
 <Instruction>
 
-In `src`, create a new file called `constants.js` and add the following two definition:
+In `src`, create a new file called `constants.js` and add the following definition:
 
 ```js(path=".../hackernews-react-apollo/src/constants.js")
 export const AUTH_TOKEN = 'auth-token'

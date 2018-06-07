@@ -2,12 +2,12 @@
 title: Filtering, Pagination & Sorting
 pageTitle: "GraphQL Filtering, Pagination & Sorting Tutorial with JavaScript"
 description: "Learn how to add filtering and pagination capabilities to a GraphQL API with Node.js, Express & Prisma."
-question: Which arguments are typically to paginate through a list in the Prisma API using limit-offset pagination?
+question: Which arguments are typically used to paginate through a list in the Prisma API using limit-offset pagination?
 answers: ["skip & last", "skip & first", "first & last", "where & orderBy"]
 correctAnswer: 1
 ---
 
-This is the last section of the tutorial where you'll implemented the finishing touches on your API. The goal is to allow clients to constrain the list of `Link` elements returned by the `feed` query by providing filtering and pagination parameters.
+This is the last section of the tutorial where you'll implement the finishing touches on your API. The goal is to allow clients to constrain the list of `Link` elements returned by the `feed` query by providing filtering and pagination parameters.
 
 ### Filtering
 
@@ -51,9 +51,9 @@ function feed(parent, args, context, info) {
 
 </Instruction>
 
-If not `filter` string is provided, then the `where` object will be just an empty object and no filtering conditions will be applied by the Prisma engine when it returns the response for the `links` query.
+If no `filter` string is provided, then the `where` object will be just an empty object and no filtering conditions will be applied by the Prisma engine when it returns the response for the `links` query.
 
-In case there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conidtions.
+In case there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions.
 
 Notice that the the `Prisma` binding object translates the above function call into a GraphQL query that will look somewhat similar to [this](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a). This query is sent by the Yoga server to the Prisma API and resolved there:
 
@@ -91,7 +91,7 @@ query {
 Pagination is a tricky topic in API design. On a high-level, there are two major approaches how it can be tackled:
 
 - **Limit-Offset**: Request a specific _chunk_ of the list by providing the indices of the items to be retrieved (in fact, you're mostly providing the start index (_offset_) as well as a count of items to be retrieved (_limit_)).
-- **Cursor-based**: This pagination model is a bit more advanced. Every element in the list is associated with a unique ID (the _cursor_). Clients paginating through the list then provid the cursor of the starting element as well as a count of items to be retrieved.
+- **Cursor-based**: This pagination model is a bit more advanced. Every element in the list is associated with a unique ID (the _cursor_). Clients paginating through the list then provide the cursor of the starting element as well as a count of items to be retrieved.
 
 Prisma supports both pagination approaches (read more in the [docs](https://www.prisma.io/docs/reference/prisma-api/queries-ahwee4zaey#pagination)). In this tutorial, you're going to implement limit-offset pagination.
 
@@ -102,7 +102,7 @@ Limit and offset are called differently in the Prisma API:
 - The _limit_ is called `first`, meaning you're grabbing the _first_ x elements after a provided start index. Note that you also have a `last` argument available which correspondingly returns the _last_ x elements.
 - The _start index_ is called `skip`, since you're skipping that many elements in the list before collecting the items to be returned. If `skip` is not provided, it's `0` by default. The pagination then always starts from the beginning of the list (or the end in case you're using `last`).
 
-So, go ahead and add the `skip` and `last` arguments to the `feed` query.
+So, go ahead and add the `skip` and `first` arguments to the `feed` query.
 
 <Instruction>
 
@@ -154,6 +154,8 @@ query {
     skip: 1
   ) {
     id
+    description
+    url
   }
 }
 ```
@@ -179,7 +181,7 @@ enum LinkOrderByInput {
 }
 ```
 
-It represents the various ways how the list of `Link` elemenets can be sorted.
+It represents the various ways how the list of `Link` elements can be sorted.
 
 <Instruction>
 
@@ -280,7 +282,7 @@ async function feed(parent, args, context, info) {
     : {}
 
   // 1
-  const queriedLinkes = await context.db.query.links(
+  const queriedLinks = await context.db.query.links(
     { where, skip: args.skip, first: args.first, orderBy: args.orderBy },
     `{ id }`,
   )
@@ -298,7 +300,7 @@ async function feed(parent, args, context, info) {
   // 3
   return {
     count: linksConnection.aggregate.count,
-    linkIds: queriedLinkes.map(link => link.id),
+    linkIds: queriedLinks.map(link => link.id),
   }
 }
 ```
@@ -325,7 +327,7 @@ touch src/resolvers/Feed.js
 
 Now, add the following code to it:
 
-```js(path=".../hackernews-node/src/resolvers/Query.js")
+```js(path=".../hackernews-node/src/resolvers/Feed.js")
 function links(parent, args, context, info) {
   return context.db.query.links({ where: { id_in: parent.linkIds } }, info)
 }
@@ -367,7 +369,7 @@ const resolvers = {
 
 </Instruction>
 
-You can test now the revamped `feed` query as follows:
+You can now test the revamped `feed` query as follows:
 
 ```graphql
 query {

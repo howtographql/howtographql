@@ -26,7 +26,7 @@ First, you are going to create the React project! As mentioned in the beginning,
 
 <Instruction>
 
-If you haven't already, you need to install `create-react-app` using npm:
+If you haven't already, you need to install `create-react-app` using yarn:
 
 ```bash
 yarn global add create-react-app
@@ -63,9 +63,16 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
-Now clean up the existing files accordingly. Move `App.js` into `components` and `App.css` as well as `index.css` into `styles`.
+`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in `index.js` accordingly:
 
 </Instruction>
+
+```js{4}(path=".../hackernews-react-apollo/src/index.js")
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './styles/index.css'
+import App from './components/App'
+```
 
 Your project structure should now look as follows:
 

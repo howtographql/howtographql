@@ -3,7 +3,7 @@ title: Getting Started
 pageTitle: "Getting Started with GraphQL, Node.js and Prisma Tutorial"
 description: "Learn how to setup a GraphQL server with Node.js & Express as well as best practices for defining the GraphQL schema."
 question: "What role do the root fields play for a GraphQL API?"
-answers: ["The three root fields are: Query, Mutation and Subscription", "Root fields implement the available API operations", "Root fields define the available AP operations", "Root field is another term for resolver"]
+answers: ["The three root fields are: Query, Mutation and Subscription", "Root fields implement the available API operations", "Root fields define the available API operations", "Root field is another term for resolver"]
 correctAnswer: 2
 ---
 
@@ -109,7 +109,7 @@ server.start(() => console.log(`Server is running on http://localhost:4000`))
 </Instruction>
 
 > **Note**: This code block is annotated with a file name. It indicates into which file you need to put the code that's shown. The annotation also links to the corresponding file on GitHub to help you figure out _where_ in the file you need to put it in case you are not sure about that.
-> Also, while the code block has a button for copying the code, we encourage you to type everything out yourself since that drastically increases your learning experience.
+> Also, while the code block has a button for copying the code, we encourage you to type everything out yourself since that drastically improves your learning experience.
 
 All right, let's understand what's going on here by walking through the numbered comments:
 
@@ -175,7 +175,7 @@ Now, send the query from before again. This time, it returns an error: `Error: C
 
 What happens here is that the underlying [`graphql-js`](https://github.com/graphql/graphql-js/) reference implementation ensures that the return types of your resolvers adhere to the type definitions from your GraphQL schema. Put differently, it protects you from making stupid mistakes!
 
-This is in fact one of the core benefits of GraphQL in general: It enforces that the API actually behaves in the way that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can alway be 100% sure about the API operations and data structures that are returned by the API.
+This is in fact one of the core benefits of GraphQL in general: It enforces that the API actually behaves in the way that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can always be 100% sure about the API operations and data structures that are returned by the API.
 
 ### A word on the GraphQL schema
 
@@ -183,7 +183,7 @@ At the core of every GraphQL API, there is a GraphQL schema. So, let's quickly t
 
 > **Note**: In this tutorial, we'll only scratch the surface of this topic. If you want to go a bit more in-depth and learn more about the GraphQL schema as well as its role in a GraphQL API, be sure to check out [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e) excellent article.
 
-GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). The SDL has a type system that allows to define data structures (just like other strongly type programming languages such as Java, TypeScript, Swift, Go, ...).
+GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). The SDL has a type system that allows to define data structures (just like other strongly typed programming languages such as Java, TypeScript, Swift, Go, ...).
 
 But how does that help in defining the API for a GraphQL server? Every GraphQL schema has three special _root types_, these are called `Query`, `Mutation` and `Subscription`. The root types correspond to the three operation types offered by GraphQL: queries, mutations and subscriptions. The fields on these root types are called _root field_ and define the available API operations.
 
@@ -254,7 +254,7 @@ There are a few things to note:
 - In these examples, we always query `id` and `name` of the returned `User` objects. We could potentially omit either of them. Note however when querying an object type, it is required that you query at least one of its field in a selection set.
 - For the fields in the selection set, it doesn't matter whether the type of the root field is _required_ or a _list_. In the examples schema above, the three root fields all have different [type modifiers](http://graphql.org/learn/schema/#lists-and-non-null) (i.e. different combinations of being a list and/or required) for the `User` type:
   - For the `users` field, the return type `[User!]!` means it returns a _list_ (which itself can not be `null`) of `User` elements. The list can also not contain elements that are `null`. So, you're always guaranteed to either receive an empty list or a list that only contains non-null `User` objects.
-  - For the `user(id: ID!)` field, the return type `User` means the the returned value could be `null` _or_ a `User` object.
+  - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
 
 Phew, enough theory 😠 Let's go and write some code again!

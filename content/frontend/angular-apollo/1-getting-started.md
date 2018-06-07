@@ -78,7 +78,7 @@ npm install -g graphcool-framework
 
 </Instruction>
 
-To use the Graphcool CLI, you can either use the `graphcool-framework` command, or the shorter form: `gfc`.
+To use the Graphcool CLI, you can either use the `graphcool-framework` command, or the shorter form: `gcf`.
 
 Now you can go and create the server. There are two steps involved in this:
 
