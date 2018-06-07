@@ -106,7 +106,7 @@ Now we can tag a field. In our example we will make `addLink` mutation secured. 
 
 <Instruction>
 
-Add `Authorised` fieldtag to the `createLink` mutation field. Entire mutation definition should looks like the following one:
+Add `Authorised` field's tag to the `createLink` mutation field. Entire mutation definition should looks like the following one:
 
 ```scala
 Field("createLink",
@@ -144,7 +144,7 @@ case class MyContext(dao: DAO, currentUser: Option[User] = None){
 
 </Instruction>
 
-The `currentUser` is a property to keep information about the signed in user. `login` function is a helper function for authorisation, it responds with user when credential fits an existing user, in the other case it will throw an exception we've defined at the begining of this chapter. Just note I've used `Duration.Inf` you should avoid it in production code, but I wanted to keep it simple. `ensureAuthenticated` checks the `currentUser` property and throws an exception in case it's empty.
+The `currentUser` is a property to keep information about the signed in user. `login` function is a helper function for authorisation, it responds with user when credential fits an existing user, in the other case it will throw an exception we've defined at the beginning of this chapter. Just note I've used `Duration.Inf` you should avoid it in production code, but I wanted to keep it simple. `ensureAuthenticated` checks the `currentUser` property and throws an exception in case it's empty.
 
 <Instruction>
 

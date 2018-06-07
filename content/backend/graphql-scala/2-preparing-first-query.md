@@ -67,7 +67,7 @@ val databaseSetup = DBIO.seq(
 
     Links forceInsertAll Seq(
       Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial"),
-      Link(2, "http://graphql.org", "Official GraphQL webpage"),
+      Link(2, "http://graphql.org", "Official GraphQL web page"),
       Link(3, "https://facebook.github.io/graphql/", "GraphQL specification")
     )
 )
@@ -239,7 +239,7 @@ object GraphQLSchema {
 </Instruction>
 
 Sangria cannot reuse case classes defined in our domain, it needs its own object of type `ObjectType`. On the other hand, it allows us to decouple API/Sangria models from database representation. This abstraction allows us to freely hide, add or aggregate fields.
-* **1** is a definition of ObjectType for our `Link` class. First (String) argument defines the name in the schema. If you want it could differ from name of case class. In `fields` you have to define all those fieds/functions you want to expose. Every field has to contain a `resolve` function which tells Sangria how to retrieve data for this field. As you can see there is also an explicitly defined type for that field.
+* **1** is a definition of ObjectType for our `Link` class. First (String) argument defines the name in the schema. If you want it could differ from name of case class. In `fields` you have to define all those fields/functions you want to expose. Every field has to contain a `resolve` function which tells Sangria how to retrieve data for this field. As you can see there is also an explicitly defined type for that field.
 Manual mapping could be boring in cases where you have to map many case classes. To avoid boilerplate code you can use the provided macro.
 
 ```scala
@@ -280,7 +280,7 @@ Giter8 template I provided for this example also contains proper file. You can f
 
 ### Configure HTTP Server endpoints
 
-The last thing we have to do to fulfill this chapter goal is to configure HTTP server. We have to expose our freshly downloaded `graphiql.html` file and open an endpoint where graphql queries would be sent.
+The last thing we have to do to fulfill this chapter goal is to configure HTTP server. We have to expose our freshly downloaded `graphiql.html` file and open an endpoint where graphQl queries would be sent.
 
 <Instruction>
 
@@ -350,7 +350,7 @@ The response should looks like that:
       {
         "id": 2,
         "url": "http://graphql.org",
-        "description": "Official GraphQL webpage"
+        "description": "Official GraphQL web page"
       },
       {
         "id": 3,

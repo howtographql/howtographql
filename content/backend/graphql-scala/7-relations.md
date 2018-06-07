@@ -105,7 +105,7 @@ val databaseSetup = DBIO.seq(
 
   Links forceInsertAll Seq(
     Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial",1, DateTime(2017,9,12)),
-    Link(2, "http://graphql.org", "Official GraphQL webpage",1, DateTime(2017,10,1)),
+    Link(2, "http://graphql.org", "Official GraphQL web page",1, DateTime(2017,10,1)),
     Link(3, "https://facebook.github.io/graphql/", "GraphQL specification",2, DateTime(2017,10,2))
   ),
 
@@ -159,7 +159,7 @@ val linksFetcher = Fetcher.rel(
 
 </Instruction>
 
-What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our dao. `ids(linkByUserRel)` extracts user ids by the defined in relation way and passes it into the DAO function.
+What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from a datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our dao. `ids(linkByUserRel)` extracts user ids by the defined in relation way and passes it into the DAO function.
 
 
 <Instruction>
@@ -216,7 +216,7 @@ We just added two relations to both: `User` and `Link` object types. If you trie
 
 <Instruction>
 
-Make `Link` and `User` lazy values. Aditionally define all types explicitly if you didn't it yet:
+Make `Link` and `User` lazy values. Additionally define all types explicitly if you didn't it yet:
 
 ```scala
 implicit lazy val UserType: ObjectType[MyContext, User] = deriveObjectType[MyContext, User](//...
@@ -399,7 +399,7 @@ val votesFetcher = Fetcher.rel(
 The first function fetcher votes by their id. Nothing to comment here. The second function on the other hand, fetches votes by relation. Actually by `voteByUserRel` relation. There is no fetcher API that supports more than one relation function, so we have to reafctor it a little.
 
 In our case, we want to fetch Votes by any relation, either with `User` or with `Link`
-`ids(voteByUserRel)` extracts users' ids and passes those to the db function, we have to change it. It good idea to pass `ids` down to the repository, and there fuction will deceide which field it should use to filter.
+`ids(voteByUserRel)` extracts users' ids and passes those to the db function, we have to change it. It good idea to pass `ids` down to the repository, and there function will decide which field it should use to filter.
 
 <Instruction>
 
@@ -424,7 +424,7 @@ Field("votes", ListType(VoteType), resolve = c => votesFetcher.deferRelSeq(voteB
 Both are almost the same, the only difference is a type of `Relation` we're using as the first argument.
 Actually in this way you can add any relation you want.
 
-There is one missing part: `DAO.getVotesByRelationIds` fuction, lets create it now. This function should match what kind of relation we're asking for, and filter by field depends of that relation.
+There is one missing part: `DAO.getVotesByRelationIds` function, lets create it now. This function should match what kind of relation we're asking for, and filter by field depends of that relation.
 
 <Instruction>
 
@@ -449,7 +449,7 @@ You can also delete `DAO.getVotesByUserIds` function, we won't need it anymore.
 
 ### Recap
 
-We achieved our goal for ths chapter, our models have new fuctions:
+We achieved our goal for ths chapter, our models have new functions:
 
 `User` has `links` and `votes` fields.
 `Link` has `postedBy` and `votes` fields.

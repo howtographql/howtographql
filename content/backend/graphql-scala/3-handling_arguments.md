@@ -51,7 +51,7 @@ Next we have to add fields to the main `Query` object and set functions above as
 
 <Instruction>
 
-Now open `GraphQLSchema.scala` file, and in fuction `fields` add two additional definitions:
+Now open `GraphQLSchema.scala` file, and in function `fields` add two additional definitions:
 
 ```
 Field("link", //1
@@ -73,8 +73,8 @@ Let's try to understand what is going on in there:
 
 1. As explained previously, we're adding new fields with these names (`link` and `links`)
 1. Second parameter is expected output type. In first query it's Optional Link, in second list of links.
-1. `arguments` is a list of expected argumets defined by name and type. In first field, we're expecting an `id` argument of type `Int`. In second case `ids` as list of integers. As you can see we didn't use `ListType` in that case. We've used `ListInputType` instead. The main difference is that all `InputType`s are used to parse incoming data, and `ObjectType`s (mostly) are used for outgoing data.
-1. `arguments` defines which arguments we expect. Mostly such argument isn't forgotter and should be extracted and passed down to the resolver. `Context` object, reachable in `resolve` partial function, contains such information, so you have to fetch those arguments from there.
+1. `arguments` is a list of expected arguments defined by name and type. In first field, we're expecting an `id` argument of type `Int`. In second case `ids` as list of integers. As you can see we didn't use `ListType` in that case. We've used `ListInputType` instead. The main difference is that all `InputType`s are used to parse incoming data, and `ObjectType`s (mostly) are used for outgoing data.
+1. `arguments` defines which arguments we expect. Mostly such argument isn't forgotten and should be extracted and passed down to the resolver. `Context` object, reachable in `resolve` partial function, contains such information, so you have to fetch those arguments from there.
 
 ### DRY with arguments
 
@@ -90,7 +90,7 @@ Field("link",
       resolve = c => c.ctx.dao.getLink(c.arg(Id))
 )
 ```
-Similar chage you can make for `links` field too.
+Similar change you can make for `links` field too.
 
 Now, we have exposed few field. We're able to fetch for single Link, or even a list of chosen links.
 

@@ -354,4 +354,4 @@ Add also such field to the object type for `User` and `Vote`.
 
 Now if you will look into the schema definition in graphiql console you will see there are provided three models with this common interface.
 
-Ok, thats all for this chapter. In the next one you will learn about relations.
+Ok, that's all for this chapter. In the next one you will learn about relations.
