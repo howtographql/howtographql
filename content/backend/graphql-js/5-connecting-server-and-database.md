@@ -272,10 +272,10 @@ The Prisma CLI also uses information that's provided in `.graphqlconfig.yml`. Th
 
 <Instruction>
 
-Inside the root directory of your project, run `prisma deploy` to download the Prisma database schema into location that's specified in `.graphqlconfig.yml`:
+Inside the root directory of your project, run `graphql get-schema --project database` to download the Prisma database schema into location that's specified in `.graphqlconfig.yml`:
 
 ```bash(path=".../hackernews-node")
-prisma deploy
+graphql get-schema --project database
 ```
 
 </Instruction>
