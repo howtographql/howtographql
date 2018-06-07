@@ -52,7 +52,7 @@ The second GraphQL API is the one that's provided by Prisma and provides the **d
 
 The Prisma API is mirroring a database API, so it allows you to perform CRUD operations for certain _data types_. What data types? Well, that's up to you - you are defining those data types using the familiar SDL. You'll learn in a bit how that works.
 
-Typically, these data types represent the _entities of your application domain_. For example, if you're building car dealership software, you're like going to have data types such as `Car`, `CarDealer`, `Customer` and so on... The entire collection of these data types is referred to as your _data model_.
+Typically, these data types represent the _entities of your application domain_. For example, if you're building car dealership software, you're likely going to have data types such as `Car`, `CarDealer`, `Customer` and so on... The entire collection of these data types is referred to as your _data model_.
 
 Once your data model is defined in SDL, Prisma translates it into an according database schema and sets up the underlying database accordingly. When you're then sending queries and mutations to the Prisma GraphQL API, it translates those into database operations and performs these operations for you. Neat, right?
 
