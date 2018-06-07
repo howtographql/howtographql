@@ -218,7 +218,7 @@ const { Prisma } = require('prisma-binding')
 
 </Instruction>
 
-You're almost done! There's is only one piece left to the puzzle, and that's downloading the Prisma database schema which referenced in the `Prisma` constructor call.
+You're almost done! There's is only one piece left to the puzzle, and that's downloading the Prisma database schema which is referenced in the `Prisma` constructor call.
 
 ### Downloading the Prisma database schema
 
