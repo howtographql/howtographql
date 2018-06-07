@@ -91,7 +91,7 @@ end
 
 </Instruction>
 
-This resolver contains all logic related to find links. Over time you can more rules.
+This resolver contains all logic related to find links. Over time you can add more rules.
 
 [SearchObject](https://github.com/rstankov/SearchObjectGraphQL) can be used as a [GraphQL::Function](http://graphql-ruby.org/fields/function.html).
 

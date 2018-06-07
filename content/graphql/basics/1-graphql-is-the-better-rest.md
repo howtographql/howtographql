@@ -16,6 +16,8 @@ GraphQL was developed to cope with the need for more flexibility and efficiency!
 
 To illustrate the major differences between REST and GraphQL when it comes to fetching data from an API, let's consider a simple example scenario: In a blogging application, an app needs to display the titles of the posts of a specific user. The same screen also displays the names of the last 3 followers of that user. How would that situation be solved with REST and GraphQL?
 
+> 💡 Check out [this](https://blog.graph.cool/b60cfa683511) article to learn more about why developers love GraphQL.
+
 ### Data Fetching with REST vs GraphQL
 
 With a REST API, you would typically gather the data by accessing multiple endpoints. In the example, these could be `/users/<id>` endpoint to fetch the initial user data. Secondly, there's likely to be a `/users/<id>/posts` endpoint that returns all the posts for a user. The third endpoint will then be the `/users/<id>/followers` that returns a list of followers per user.

@@ -4,7 +4,7 @@ pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
 description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Prisma.
 question: Why are there two GraphQL API layers in a backend architecture with Prisma?
 answers: ["To increase robustness and stability of the GraphQL server (if one layer fails, the server is backed by the second one).", "To increase performance of the GraphQL server (requests are accelerated  by going through multiple layers).", "Prisma provides the database layer which offers CRUD operations. The second layer is the application layer for business logic and common workflows (like authentication).", "Having two GraphQL layers is a hard requirement by the GraphQL specification."]
-correctAnswer: 3
+correctAnswer: 2
 draft: false
 videoId: ""
 duration: 0		
@@ -26,13 +26,15 @@ First, you are going to create the React project! As mentioned in the beginning,
 
 <Instruction>
 
-If you haven't already, you need to install `create-react-app` using npm:
+If you haven't already, you need to install `create-react-app` using yarn:
 
 ```bash
-npm install -g create-react-app
+yarn global add create-react-app
 ```
 
 </Instruction>
+
+> **Note**: This tutorial uses [Yarn](https://yarnpkg.com/) for dependency management. Find instructions for how you can install it [here](https://yarnpkg.com/en/docs/install). If you prefer using `npm`, you can just run the equivalent commands. 
 
 <Instruction>
 
@@ -61,9 +63,16 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
-Now clean up the existing files accordingly. Move `App.js` into `components` and `App.css` as well as `index.css` into `styles`.
+`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in `index.js` accordingly:
 
 </Instruction>
+
+```js{4}(path=".../hackernews-react-apollo/src/index.js")
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './styles/index.css'
+import App from './components/App'
+```
 
 Your project structure should now look as follows:
 
