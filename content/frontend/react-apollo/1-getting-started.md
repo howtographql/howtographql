@@ -2,9 +2,9 @@
 title: Getting Started
 pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
 description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Prisma.
-question: Which are the two types that you find in every Prisma project file?
-answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
-correctAnswer: 3
+question: Why are there two GraphQL API layers in a backend architecture with Prisma?
+answers: ["To increase robustness and stability of the GraphQL server (if one layer fails, the server is backed by the second one).", "To increase performance of the GraphQL server (requests are accelerated  by going through multiple layers).", "Prisma provides the database layer which offers CRUD operations. The second layer is the application layer for business logic and common workflows (like authentication).", "Having two GraphQL layers is a hard requirement by the GraphQL specification."]
+correctAnswer: 2
 draft: false
 videoId: ""
 duration: 0		
@@ -15,8 +15,8 @@ Since this is a frontend track, you're not going to spend any time implementing 
 
 Once you created your React application, you'll pull in the required code for the backend.
 
-> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters. 
-> Also note that each code block is annotated with a filename. These annonations directly link to the correpsonding file on GitHub so you can clearly see where to put the code and what the end result will look like.
+> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
+> Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
 
 ### Frontend
 
@@ -26,13 +26,15 @@ First, you are going to create the React project! As mentioned in the beginning,
 
 <Instruction>
 
-If you haven't already, you need to install `create-react-app` using npm:
+If you haven't already, you need to install `create-react-app` using yarn:
 
 ```bash
-npm install -g create-react-app
+yarn global add create-react-app
 ```
 
 </Instruction>
+
+> **Note**: This tutorial uses [Yarn](https://yarnpkg.com/) for dependency management. Find instructions for how you can install it [here](https://yarnpkg.com/en/docs/install). If you prefer using `npm`, you can just run the equivalent commands. 
 
 <Instruction>
 
@@ -61,9 +63,16 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
-Now clean up the existing files accordingly. Move `App.js` into `components` and `App.css` as well as `index.css` into `styles`.
+`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in `index.js` accordingly:
 
 </Instruction>
+
+```js{4}(path=".../hackernews-react-apollo/src/index.js")
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './styles/index.css'
+import App from './components/App'
+```
 
 Your project structure should now look as follows:
 
@@ -91,7 +100,7 @@ Your project structure should now look as follows:
 
 #### Prepare styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
+This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling. To reduce the usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
 
 <Instruction>
 
@@ -254,6 +263,8 @@ curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar 
 
 </Instruction>
 
+> **Note**: If you are on Windows, you may want to install [Git CLI](https://git-scm.com/) to avoid potential problems with commands such as `curl`.
+
 You now have a new directory called `server` inside your project that contains all the code you need for your backend.
 
 Before we start the server, let's quickly understand the main components:
@@ -320,7 +331,7 @@ This schema allows for the following operations:
   - `newLink`: Receive realtime updates when a new link is created
   - `newVote`: Receive realtime updates when a vote was submitted
 
-For example, you can send the the following `feed` query to retrieve the first 10 links from the server:
+For example, you can send the following `feed` query to retrieve the first 10 links from the server:
 
 ```graphql(nocopy)
 {
@@ -374,7 +385,7 @@ Note that you can also omit `yarn prisma` in the above command if you have the `
 
 <Instruction>
 
-When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the public clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
+When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the development clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
 
 </Instruction>
 
@@ -399,7 +410,7 @@ const server = new GraphQLServer({
 
 </Instruction>
 
-> **Note**: If you ever loose the endpoint, you can get access to it again by running `yarn prisma info`.
+> **Note**: If you ever lose the endpoint, you can get access to it again by running `yarn prisma info`.
 
 #### Exploring the server
 
@@ -438,6 +449,10 @@ Why do you need two GraphQL APIs at all? The answer is pretty straightforward, y
 The application schema defines the first layer, also called _application layer_. It defines the operations your client applications will be able to send to your API. This includes business logic as well as other common features and workflows (such as signup and login).
 
 The second layer is the _database layer_ defined by the Prisma schema. It provides powerful CRUD operations that allow you to perform _any_ kind of operation against the data in your database.
+
+Here is an overview of the architecture of the app:
+
+![](https://imgur.com/M8cbht4.png)
 
 > **Note**: It is of course possible to _only_ use the database API from the frontend. However, in most real-world applications you'll need at least a little bit of business logic which the API can not provide. If your app really only needs to perform CRUD operations and access a database, then it's totally fine to run against the Prisma database API directly.
 

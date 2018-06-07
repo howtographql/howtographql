@@ -61,7 +61,7 @@ _loadMore() {
 
 You already know about Relay's `FragmentContainer` API that allows you to wrap a React component along with a GraphQL fragment that represents the component's data dependencies and then lets Relay figure out how and when to fetch the needed data.
 
-In this chapter, you'll get to know a new API that's called `PaginationContainer` and that provides a nice abstraction for implementing pagination in a Rely app.
+In this chapter, you'll get to know a new API that's called `PaginationContainer` and that provides a nice abstraction for implementing pagination in a Relay app.
 
 #### Relay Connections
 

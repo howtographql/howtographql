@@ -107,7 +107,7 @@ val databaseSetup = DBIO.seq(
 
   Links forceInsertAll Seq(
     Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial",1, DateTime(2017,9,12)),
-    Link(2, "http://graphql.org", "Official GraphQL webpage",1, DateTime(2017,10,1)),
+    Link(2, "http://graphql.org", "Official GraphQL web page",1, DateTime(2017,10,1)),
     Link(3, "https://facebook.github.io/graphql/", "GraphQL specification",2, DateTime(2017,10,2))
   ),
 
@@ -161,8 +161,7 @@ val linksFetcher = Fetcher.rel(
 
 </Instruction>
 
-What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our DAO. `ids(linkByUserRel)` extracts user ids as defined in the relation and passes it into the DAO function.
-
+What do we have here? As I mentioned above, now we're using `.rel` function. It needs the second function to be passed as the argument. This function is for fetching related data from a datasource. In our case it uses a function `getLinksByUserIds` that we have to add to our dao. `ids(linkByUserRel)` extracts user ids by the defined in relation way and passes it into the DAO function.
 
 <Instruction>
 
@@ -219,7 +218,7 @@ We just added two relations to both `User` and `Link` object types. If you have 
 
 <Instruction>
 
-Make `Link` and `User` lazy values. Additionally define all types explicitly if you haven't done it yet:
+Make `Link` and `User` lazy values. Additionally define all types explicitly if you haven't done so yet:
 
 ```scala
 implicit lazy val UserType: ObjectType[MyContext, User] = deriveObjectType[MyContext, User]//...
@@ -335,7 +334,6 @@ That's all. After this changes you should be able to execute the query like this
 
 ```
 query {
-
   link(id: 1){
     id
     url
@@ -405,8 +403,9 @@ val votesFetcher = Fetcher.rel(
 
 The first function fetches votes by their id. Nothing to comment here. The second function on the other hand, fetches votes by relation. Actually by `voteByUserRel` relation. There is no fetcher API that supports more than one relation function, so we have to refactor it a little bit.
 
-In our case, we want to fetch Votes by any relation, either with `User` or with `Link`.
-`ids(voteByUserRel)` extracts users' ids and passes those to the db function, we have to change it. It good idea to pass `ids` down to the repository, and there the function will decide which field it should use to filter.
+In our case, we want to fetch votes by any relation, either with `User` or with `Link`.
+
+`ids(voteByUserRel)` extracts the users' ids and passes those to the db function, we have to change it. It is a  good idea to pass `ids` down to the repository, and there the function will decide which field it should use to filter.
 
 <Instruction>
 

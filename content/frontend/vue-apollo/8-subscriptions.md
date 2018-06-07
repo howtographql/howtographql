@@ -47,7 +47,7 @@ import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-trans
 Now update the configuration code like so:
 
 ```js(path=".../hackernews-vue-apollo/src/main.js")
-const networkInterface = createBatchingNetworkInterface({
+const httpLink = new HttpLink({
   uri: '__SIMPLE_API_ENDPOINT__'
 })
 
@@ -58,24 +58,26 @@ const wsClient = new SubscriptionClient('__SUBSCRIPTION_API_ENDPOINT__', {
   }
 })
 
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-  networkInterface,
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  const token = localStorage.getItem(GC_AUTH_TOKEN)
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null
+    }
+  })
+
+  return forward(operation)
+})
+
+const httpLinkWithSubscriptions = addGraphQLSubscriptions(
+  authMiddleware.concat(httpLink),
   wsClient
 )
 
-networkInterface.use([{
-  applyBatchMiddleware (req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
-    const token = localStorage.getItem(GC_AUTH_TOKEN)
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
-    next()
-  }
-}])
-
 const apolloClient = new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions,
+  link: httpLinkWithSubscriptions,
+  cache: new InMemoryCache(),
   connectToDevTools: true
 })
 ```
@@ -189,6 +191,8 @@ Still in `src/components/LinkList.vue` implement `updateQuery` like so:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 updateQuery: (previous, { subscriptionData }) => {
+  if (!subscriptionData.data.Link) return
+
   const newAllLinks = [
     subscriptionData.data.Link.node,
     ...previous.allLinks
@@ -263,6 +267,8 @@ Open `src/components/LinkList.vue` and add the following object to the `sunscrib
 {
   document: NEW_VOTES_SUBSCRIPTION,
   updateQuery: (previous, { subscriptionData }) => {
+    if (!subscriptionData.data.Vote) return
+  	 
     const votedLinkIndex = previous.allLinks.findIndex(link => link.id === subscriptionData.data.Vote.node.link.id)
     const link = subscriptionData.data.Vote.node.link
     const newAllLinks = previous.allLinks.slice()

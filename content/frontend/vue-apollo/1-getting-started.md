@@ -404,7 +404,7 @@ Open `src/App.vue` and replace the contents of the `style` block with the follow
 Next, you need to pull in the functionality of Apollo Client by installing both `apollo-client` and `vue-apollo`:
 
 ```bash
-npm install --save vue-apollo apollo-client
+npm install --save vue-apollo graphql apollo-client apollo-link apollo-link-http apollo-cache-inmemory graphql-tag
 ```
 
 </Instruction>
@@ -423,7 +423,9 @@ Open `src/main.js` and replace the contents with the following:
 
 ```js{1-2,5-6,13-16,18-22,24-25,27-30,35-36}(path=".../hackernews-vue-apollo/src/main.js")
 // 1
-import { ApolloClient, createBatchingNetworkInterface } from 'apollo-client'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import 'tachyons'
 import Vue from 'vue'
 // 2
@@ -435,13 +437,15 @@ import router from './router'
 Vue.config.productionTip = false
 
 // 3
-const networkInterface = createBatchingNetworkInterface({
+const httpLink = new HttpLink({
+  // You should use an absolute URL here
   uri: '__SIMPLE_API_ENDPOINT__'
 })
 
 // 4
 const apolloClient = new ApolloClient({
-  networkInterface,
+  link: httpLink,
+  cache: new InMemoryCache(),
   connectToDevTools: true
 })
 
@@ -460,7 +464,7 @@ const apolloProvider = new VueApollo({
 new Vue({
   el: '#app',
   // 7
-  apolloProvider,
+  provide: apolloProvider.provide(),
   router,
   render: h => h(App)
 })
@@ -473,13 +477,13 @@ Let's try to understand what's going on in that code snippet:
 
 1. You're importing the required dependencies from the `apollo-client` package
 2. You're importing the `vue-apollo` package
-3. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit
-4. Now you instantiate the `ApolloClient` by passing in the `networkInterface`
+3. Here you create the `httpLink`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit
+4. Now you instantiate the `ApolloClient` by passing in the `httpLink`
 5. Here you install the vue plugin
 6. Next you create a new apollo client instance through `VueApollo` and set the `defaultClient` to the `apolloClient` we just created. You also set `$loadingKey` to 'loading' so that we can easily display a loading indicator in the UI.
-7. Finally you specify the `apolloProvider` object on your root component
+7. Finally you specify the `provide` object on your root component
 
-Next you need to replace the placeholder for the `networkInterface` `uri` with your actual endpoint. But where do you get your endpoint from?
+Next you need to replace the placeholder for the `httpLink` `uri` with your actual endpoint. But where do you get your endpoint from?
 
 There are two ways for you to get your endpoint. You can either open the [Graphcool Console](https://console.graph.cool) and click the _Endoints_-button in the bottom-left corner. The second option is to use the CLI.
 
