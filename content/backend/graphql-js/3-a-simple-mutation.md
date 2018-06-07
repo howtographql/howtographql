@@ -132,7 +132,7 @@ First off, note that you're entirely removing the `Link` resolvers (as explained
 
 Also, here's what's going on with the numbered comments:
 
-1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly creaded `Link` elements.
+1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly created `Link` elements.
 1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
 
 Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
