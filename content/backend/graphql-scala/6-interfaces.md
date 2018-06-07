@@ -40,10 +40,9 @@ Database setup.
 
 <Instruction>
 
-Add following content to the `DBSchema` class:
+Add the following content to the `DBSchema` class:
 
 ```scala
-
 class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
   def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
   def name = column[String]("NAME")
@@ -55,6 +54,7 @@ class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
 }
 
 val Users = TableQuery[UsersTable]
+
 ```
 
 </Instruction>
@@ -63,8 +63,7 @@ Sample entities:
 
 <Instruction>
 
-In DBSchema in the function `databaseSetup`: Add an action `Users.schema.create` at beginning of the function and then
-add a few users later in this function
+In DBSchema in the function `databaseSetup`, add an action `Users.schema.create` at beginning of the function and then add a few users later in this function:
 
 ```scala  
 Users forceInsertAll Seq(
@@ -75,7 +74,7 @@ Users forceInsertAll Seq(
 
 </Instruction>
 
-Add a function responsible for retrieving user's:
+Add a function responsible for user retrieval:
 
 <Instruction>
 
@@ -87,7 +86,7 @@ def getUsers(ids: Seq[Int]): Future[Seq[User]] = {
       Users.filter(_.id inSet ids).result
     )
 }
-```  
+```
 
 </Instruction>
 
@@ -136,19 +135,17 @@ Field("users",
 
 </Instruction>
 
-We're ready... you can now execute the query like this:
+We're ready... you can now execute a query like this:
 
 ```graphql
-
 query {
-
     users(ids: [1, 2]){
-    	id
-			name
-    	email
-    	createdAt
-  	}
-}  
+      id
+      name
+      email
+      createdAt
+    }
+}
 ```
 
 
@@ -162,6 +159,7 @@ Create `Vote` class
 
 ```scala
 case class Vote(id: Int, userId: Int, linkId: Int, createdAt: DateTime = DateTime.now)
+
 ```
 
 </Instruction>
@@ -170,7 +168,7 @@ Database setup.
 
 <Instruction>
 
-Add following content to the `DBSchema` class:
+Add the following content to the `DBSchema` class:
 
 ```scala
 class VotesTable(tag: Tag) extends Table[Vote](tag, "VOTES"){
@@ -266,16 +264,15 @@ Field("votes",
 
 </Instruction>
 
-Run the following query:
+The following query should now execute successfully:
 
 ```graphql
 
 query {
-
-    votes(ids: [1, 2]){
-    	id
-    	createdAt
-  	}
+  votes(ids: [1, 2]){
+    id
+    createdAt
+  }
 }  
 ```
 
@@ -327,7 +324,7 @@ object Identifiable {
 
 </Instruction>
 
-When you will keep `implicit HasId` type converted in the companion object it will be accessible when needed.
+When you keep `implicit HasId` type converted in the companion object it will be accessible when needed.
 
 Now, let's create an interface from GraphQL point of view.
 
@@ -350,8 +347,8 @@ implicit val LinkType = deriveObjectType[Unit, Link](
 
 </Instruction>
 
-Add also such field to the object type for `User` and `Vote`.
+Make similar changes to `UserType` and `VoteType`.
 
-Now if you will look into the schema definition in graphiql console you will see there are provided three models with this common interface.
+Now if you look into the schema definition in graphiql console you will see that all three models implement the `Identifiable` interface.
 
 Ok, that's all for this chapter. In the next one you will learn about relations.
