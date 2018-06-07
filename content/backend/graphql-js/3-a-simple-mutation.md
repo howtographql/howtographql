@@ -81,7 +81,7 @@ First, entirely delete the definition of the `typeDefs` constant - it's not need
 
 ```js{2}(path="../hackernews-node/src/index.js)
 const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
+  typeDefs: './schema.graphql',
   resolvers,
 })
 ```
