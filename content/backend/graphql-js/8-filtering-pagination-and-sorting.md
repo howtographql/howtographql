@@ -102,7 +102,7 @@ Limit and offset are called differently in the Prisma API:
 - The _limit_ is called `first`, meaning you're grabbing the _first_ x elements after a provided start index. Note that you also have a `last` argument available which correspondingly returns the _last_ x elements.
 - The _start index_ is called `skip`, since you're skipping that many elements in the list before collecting the items to be returned. If `skip` is not provided, it's `0` by default. The pagination then always starts from the beginning of the list (or the end in case you're using `last`).
 
-So, go ahead and add the `skip` and `last` arguments to the `feed` query.
+So, go ahead and add the `skip` and `first` arguments to the `feed` query.
 
 <Instruction>
 

@@ -199,7 +199,6 @@ const data: Stack[] = [
         'Build your own GraphQL server with the Scala programming language',
     },
     authorName: 'Oleg Ilyenko',
-    comingSoon: true,
     darkenGreyLogo: true,
   }
 ]

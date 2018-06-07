@@ -132,7 +132,7 @@ First off, note that you're entirely removing the `Link` resolvers (as explained
 
 Also, here's what's going on with the numbered comments:
 
-1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly creaded `Link` elements.
+1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly created `Link` elements.
 1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
 
 Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
@@ -141,7 +141,7 @@ Correct! It carries the _arguments_ for the operation - in this case the `url` a
 
 ### Testing the mutation
 
-Go ahead an restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
+Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
 
 ```graphql
 mutation {
@@ -176,7 +176,7 @@ However, once you kill and restart the server, you'll notice that the previously
 
 ### Exercise
 
-If you want to practice implementing GraphQL resolvers a bit more, here's a fun little challenge for you. Based on your current implementation, extend the GraphQL API with full CRUD funcionality for the `Link` type. In particular, implement the queries and mutations that have the following definitions:
+If you want to practice implementing GraphQL resolvers a bit more, here's a fun little challenge for you. Based on your current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular, implement the queries and mutations that have the following definitions:
 
 ```graphql(nocopy)
 type Query {

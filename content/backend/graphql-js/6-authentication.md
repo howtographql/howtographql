@@ -143,7 +143,7 @@ This is pretty straighforward. You're just reimplementing the same functionality
 
 Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add the `post` resolver afterwards):
 
-```js(path=".../hackernews-node/src/resolvers/Muation.js")
+```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function signup(parent, args, context, info) {
   // 1
   const password = await bcrypt.hash(args.password, 10)
@@ -206,7 +206,7 @@ Now on the `login` mutation:
 1. The next step is to compare the provided password with the one that is stored in the database. If the two don't match up, you're returning an error as well.
 1. In the end, you're returning `token` and `user` again.
 
-The implementation of both resolvers is relatively straighforward - nothing too surpring. The only thing that's not clear right now is the hardcoded selection set containing only the `id` field. What happens if the incoming mutation requests more information about the `User`?
+The implementation of both resolvers is relatively straighforward - nothing too surprising. The only thing that's not clear right now is the hardcoded selection set containing only the `id` field. What happens if the incoming mutation requests more information about the `User`?
 
 ### Adding the `AuthPayload` resolver
 
@@ -350,7 +350,7 @@ function post(parent, args, context, info) {
 
 Two things have changed in the implementation compared to the previous implementation in `index.js`:
 
-1. You're now using the `getUserId` function to retrieve the ID of the `User` that is stored in the JWT that's set at the `Authorization` header of the incoming HTTP request. Therefore, you know which `User` is creating the `Link` here. Recall that an unsuccessfull retrieval of the `userId` will lead to an exception and the function scope is exited before the `createLink` mutation is invoked.
+1. You're now using the `getUserId` function to retrieve the ID of the `User` that is stored in the JWT that's set at the `Authorization` header of the incoming HTTP request. Therefore, you know which `User` is creating the `Link` here. Recall that an unsuccessful retrieval of the `userId` will lead to an exception and the function scope is exited before the `createLink` mutation is invoked.
 1. You're then also using that `userId` to _connect_ the `Link` to be created with the `User` who is creating it. This is happening through the [`connect`](https://www.prisma.io/docs/reference/prisma-api/mutations-ol0yuoz6go#overview)-mutation.
 
 Awesome! The last thing you need to do now is using the new resolver implementations in `index.js`.

@@ -80,7 +80,7 @@ It accesses a `db` object on `context`. As you will see in a bit, this `db` obje
 
 This `Prisma` binding instance effectively turns the Prisma database schema into JavaScript functions which you can invoke. When invoking such a function, the `Prisma` binding instance will assemble a GraphQL query under the hood and send it to the Prisma API for you. But what are the two parameters you're passing to the function?
 
-The first paramater carries any variables you might want to submit along with the query. Since you don't need any variables for the `links` query right now, it's just an empty object.
+The first parameter carries any variables you might want to submit along with the query. Since you don't need any variables for the `links` query right now, it's just an empty object.
 
 The second parameter is used by the `Prisma` binding instance to generate the _selection set_ for the query it sends to the Prisma API. You learned before that the `info` object carries information about the selection set of the incoming query. What's happening here is that you're basically _forwarding_ (i.e. [delegating](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405)) the incoming query to the Prisma engine. The `info` object needs to be passed along so that Prisma knows what fields are being requested in an incoming query.
 
@@ -218,7 +218,7 @@ const { Prisma } = require('prisma-binding')
 
 </Instruction>
 
-You're almost done! There's is only one piece left to the puzzle, and that's downloading the Prisma database schema which referenced in the `Prisma` constructor call.
+You're almost done! There's is only one piece left to the puzzle, and that's downloading the Prisma database schema which is referenced in the `Prisma` constructor call.
 
 ### Downloading the Prisma database schema
 
@@ -342,7 +342,7 @@ node src/index.js
 
 <Instruction>
 
-Now, open a new terminal tab (or window) and run the followign command to open both GraphQL APIs inside the same GraphQL Playground:
+Now, open a new terminal tab (or window) and run the following command to open both GraphQL APIs inside the same GraphQL Playground:
 
 ```bash(path="hackernews-node/")
 graphql playground

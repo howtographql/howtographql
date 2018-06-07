@@ -13,7 +13,7 @@ In this chapter, you'll learn about some fundamental language constructs of Grap
 
 ### The Schema Definition Language (SDL)
 
-GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL).
+GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL).
 
 Here is an example how we can use the SDL to define a simple type called `Person`:
 
