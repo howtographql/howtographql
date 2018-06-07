@@ -215,6 +215,8 @@ class Resolvers::SignInUser < GraphQL::Function
     return unless user.authenticate(input[:password])
 
     # use Ruby on Rails - ActiveSupport::MessageEncryptor, to build a token
+    # For Ruby on Rails >=5.2.x use:
+    # crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
     token = crypt.encrypt_and_sign("user-id:#{ user.id }")
 
@@ -327,6 +329,8 @@ class GraphqlController < ApplicationController
     # if we want to change the sign-in strategy, this is the place todo it
     return unless session[:token]
 
+    # For Ruby on Rails >=5.2.x use:
+    # crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
     token = crypt.decrypt_and_verify session[:token]
     user_id = token.gsub('user-id:', '').to_i
