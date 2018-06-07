@@ -219,7 +219,12 @@ In this case, we have three root fields: `users` and `user` on `Query` as well a
 
 What are the API operations that can be derived from this schema definition? Well, we know that each API operation always needs to start with a root field. However, we haven't learned yet what it looks like when the _type_ of a root field is itself another [object type](http://graphql.org/learn/schema/#object-types-and-fields). This is the case here, where the types of the root fields are `[User!]!`, `User` and `User!`. In the `info` example from before, the type of the root field was a `String`, which is a [scalar type](http://graphql.org/learn/schema/#scalar-types).
 
+- `typeDefs`: These are the type definitions from your application schema imported from `src/schema.graphql`.
+- `resolvers`: This is a JavaScript object that mirrors the `Query`, `Mutation` and `Subscription` types and their fields from your application schema. Each field in the application schema is represented by a function with the same name in that object.
+- `context`: This is an object that gets passed through the resolver chain and every resolver can read from or write to.
+
 When the type of a root field is an object type, you can further expand the query (or mutation/subscription) with fields of that object type. The expanded part is called _selection set_.
+
 
 Here are the operations that are accepted by a GraphQL API that implements the above schema:
 
@@ -257,4 +262,7 @@ There are a few things to note:
   - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
 
+As you provide this information, the `Prisma` instance will get full access to your database service and can be used to resolve incoming request later on.
+
 Phew, enough theory 😠 Let's go and write some code again!
+
