@@ -102,7 +102,7 @@ Another potential concern of directly exposing the Prisma API to your client app
 
 ### Creating a Prisma service with a connected database
 
-In this tutorial, you're going to build everything entirely from scratch! For the Prisma database service, you're going to start with the most miminal setup that's possible.
+In this tutorial, you're going to build everything entirely from scratch! For the Prisma database service, you're going to start with the most minimal setup that's possible.
 
 The first thing you need to do is create two files, which you're going to put into a new directory called `database`.
 
