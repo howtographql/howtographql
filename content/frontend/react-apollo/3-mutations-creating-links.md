@@ -194,13 +194,15 @@ You'll see the following server response:
 ```js(nocopy)
 {
   "data": {
-    "links": [
-      // ...
-      {
-        "description": "The best learning resource for GraphQL",
-        "url": "www.howtographql.com"
-      }
-    ]
+    "feed": {
+      "links": [
+        // ...
+        {
+          "description": "The best learning resource for GraphQL",
+          "url": "www.howtographql.com"
+        }
+      ]
+    }
   }
 }
 ```
