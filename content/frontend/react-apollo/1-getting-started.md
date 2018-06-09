@@ -41,7 +41,7 @@ yarn global add create-react-app
 Next, you can use it to bootstrap your React application:
 
 ```bash
-create-react-app hackernews-react-apollo
+npx create-react-app hackernews-react-apollo
 ```
 
 </Instruction>
