@@ -160,7 +160,7 @@ Still in `LinkList.js` implement `updateQuery` like so:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 updateQuery: (previous, { subscriptionData }) => {
-  const newAllLinks = [subscriptionData.data.newLink.node, ...previous.feed.links]
+  const newAllLinks = [...previous.feed.links, subscriptionData.data.newLink.node]
   const result = {
     ...previous,
     feed: {
