@@ -64,7 +64,7 @@ bundle update
 
 <Instruction>
 
-Now, lets create GraphQL type for representing an user:
+Now, lets create GraphQL type for representing a user:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/user_type.rb")
 Types::UserType = GraphQL::ObjectType.define do
@@ -97,7 +97,7 @@ end
 
 <Instruction>
 
-Then create a mutation for creating an user:
+Then create a mutation for creating a user:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_user.rb")
 class Resolvers::CreateUser < GraphQL::Function
