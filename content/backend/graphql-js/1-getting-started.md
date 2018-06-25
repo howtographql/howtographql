@@ -46,7 +46,7 @@ touch src/index.js
 
 > **Note**: The above code block is annotated with a directory name. It indicates _where_ you need to execute the terminal command.
 
-To start the app, you can now execute `node src/index.js` inside the `hackernews-node` directory. At the moment, this won't do anything because `index.js` is still empty  ¯\_(ツ)_/¯
+To start the app, you can now execute `node src/index.js` inside the `hackernews-node` directory. At the moment, this won't do anything because `index.js` is still empty  ¯\\\_(ツ)_/¯
 
 Let's go and start building the GraphQL server! The first thing you need to is - surprise - add a dependency to the project.
 
