@@ -169,7 +169,7 @@ The server response for the above mutation would look as follows:
 ```js(nocopy)
 "createPerson": {
   "name": "Bob",
-  "age": "36",
+  "age": 36,
 }
 ```
 
