@@ -170,7 +170,7 @@ With every mutation you send, the `idCount` will increase and the following IDs 
 
 To verify that your mutation worked, you can send the `feed` query from before again - it now returns the additional post that you created with the mutation:
 
-![](https://imgur.com/l5wOvFI.png)
+![](https://i.imgur.com/l5wOvFI.png)
 
 However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database layer_ to the GraphQL server in order to persists the data beyond the runtime of the server.
 
