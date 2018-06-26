@@ -274,7 +274,6 @@ object AuthMiddleware extends Middleware[MyContext] with MiddlewareBeforeField[M
 The main logic you can see in the `beforeField` function body. Firstly (*1*) it tryies to read `Authorized` FieldTag and if it exists
 run `ensureAuthenticated` function from our context (*2*). If nothing bad happens Sangria will continue execution of a query (*3*)
 
-
 </Instruction>
 
 The last step is to add this middleware to the executor.
