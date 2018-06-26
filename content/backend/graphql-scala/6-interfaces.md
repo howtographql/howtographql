@@ -1,7 +1,10 @@
 ---
 title: Interfaces
-pageTitle: "Extracting common parts as an Interface"
+pageTitle: "GraphQL Scala - Interfaces"
 description: "In this chapter we will introduce two additional models. We show the most common parts and extract those as an interface. This time you will work alone."
+question: "Do interfaces are part of GraphQL specification?"
+answers: ["No", "No, but it's recommended to use it", "No it's forced to implement by Scala and its traits", "Yes"]
+correctAnswer: 3
 ---
 
  At this point you should know the basics, so it's a perfect time for some hands-on training. The following paragraph will give you hints on what needs to be done. Try implementing it yourself. At the end I will add an example solution in case you are stuck. Later in this chapter we will learn about interfaces and how they relate to the work you've done.
@@ -28,7 +31,7 @@ Let's start from the user entity:
 
 <Instruction>
 
-Add `User.scala` class with content:
+Add `User.scala`class to `models` package object with the following content:
 
 ```scala
 case class User(id: Int, name: String, email: String, password: String, createdAt: DateTime = DateTime.now)
@@ -40,7 +43,7 @@ Database setup.
 
 <Instruction>
 
-Add the following content to the `DBSchema` class:
+Add the following content to the `DBSchema` class (after `Links` definition):
 
 ```scala
 class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
@@ -90,6 +93,8 @@ def getUsers(ids: Seq[Int]): Future[Seq[User]] = {
 
 </Instruction>
 
+Dont' forget about `import com.howtographql.scala.sangria.models.User`...
+
 GraphQL part:
 
 <Instruction>
@@ -97,7 +102,7 @@ GraphQL part:
 In `GraphQLSchema` add :
 
 ```scala
-implicit val UserType = deriveObjectType[Unit, User]() //ObjectType for user
+val UserType = deriveObjectType[Unit, User]() //ObjectType for user
 implicit val userHasId = HasId[User, Int](_.id) //HasId type class
 val usersFetcher = Fetcher(
     (ctx: MyContext, ids: Seq[Int]) => ctx.dao.getUsers(ids)
@@ -292,7 +297,7 @@ The solution for this is an interface. We can provide an interface that will be 
 
 <Instruction>
 
-Create trait `Identifiable`:
+Create trait `Identifiable` int he `models` package object:
 
 ```scala
 trait Identifiable {
@@ -305,18 +310,26 @@ trait Identifiable {
 And then extend this trait by all of those classes like:
 
 ```scala
+case class Link(...) extends Identifiable
 case class User(...) extends Identifiable
+case class Vote(...) extends Identifiable
+
 ```
 
 </Instruction>
 
-Now we can replace all above `HasId` type classes with the single one:
+Now we can replace all above `HasId` type classes with the single one. But now we will move it into companion object so it will be accessible whenever
+we import the trait.
 
 <Instruction>
 
-Remove `linkHasId`, `userHasId` and `voteHasId`, and add companion object to the Identifiable trait:
+Remove `linkHasId`, `userHasId` and `voteHasId`, and add companion object to the `Identifiable` trait:
 
 ```scala
+//add to imports:
+import sangria.execution.deferred.HasId
+
+//add int he body
 object Identifiable {
     implicit def hasId[T <: Identifiable]: HasId[T, Int] = HasId(_.id)
 }
@@ -324,9 +337,7 @@ object Identifiable {
 
 </Instruction>
 
-When you keep `implicit HasId` type converted in the companion object it will be accessible when needed.
-
-Now, let's create an interface from GraphQL point of view.
+The next step is providing GraphQL's interface type for that trait.
 
 <Instruction>
 
@@ -350,5 +361,15 @@ implicit val LinkType = deriveObjectType[Unit, Link](
 Make similar changes to `UserType` and `VoteType`.
 
 Now if you look into the schema definition in graphiql console you will see that all three models implement the `Identifiable` interface.
+
+So far so good. We made many changes in this chapter, so if you like you can compare current state o files with the following snippets.
+
+[GraphQLSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-graphqlschema-scala)  
+[models/package.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-models_package-scala)  
+[DAO.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dao-scala)  
+[DBSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dbschema-scala)  
+
+
+---
 
 Ok, that's all for this chapter. In the next one you will learn about relations.

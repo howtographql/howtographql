@@ -2,7 +2,9 @@
 title: Introduction
 pageTitle: "Building a GraphQL Server with Scala Backend Tutorial"
 description: "Learn how to build a GraphQL server with Scala & Sangria and the best practices for filters, authentication and pagination."
-
+question: "What is a GraphQL?"
+answers: ["Protocol", "Library", "Language", "Specification" ]
+correctAnswer: 3
 ---
 
 ### Motivation
@@ -16,6 +18,7 @@ In the next chapters you'll learn how to build your own GraphQL server using Sca
   * [Slick](http://slick.lightbend.com/) A Database query and access library.
   * [H2 Database](http://www.h2database.com/html/main.html) In-memory database.
   * [Graphiql](https://github.com/graphql/graphiql) A simple GraphQL console to play with.
+  * [Giter8](https://github.com/foundweekends/giter8) A project templating tool for Scala.
 
 I assume you're familiar with GraphQL concepts, but if not, you can visit [GraphQL site](http://graphql.org/) to learn more about that.
 
