@@ -238,6 +238,13 @@ export default function Team() {
                 x={0}
                 y={0}
               />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/marioosh.jpg')}
+                name="Mariusz Nosiński"
+                description={"Sangria - Scala"}
+                x={170}
+                y={-10}
+              />
             </div>
           </div>
         </div>

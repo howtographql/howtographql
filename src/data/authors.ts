@@ -106,10 +106,10 @@ const authors: Author[] = [
   {
     avatar: require('../assets/graphics/contributors/marioosh.jpg'),
     bio:
-      "Scala Programmer who enjoys learning and using many other techs including other languages like ELixir or frontend related frameworks. Many years ago felt in love in Graph Databases now sharing this emotion with GraphQL.",
+      "Experienced Scala Developer who enjoys learning and using many other techs. Years ago fell in love in Graph Databases now sharing this emotion with GraphQL.",
     link: 'https://twitter.com/marioosh',
     job: 'Fullstack Developer @ Scalac.io',
-    name: 'Mariusz Nosinski'
+    name: 'Mariusz Nosiński'
   },
 ]
 
