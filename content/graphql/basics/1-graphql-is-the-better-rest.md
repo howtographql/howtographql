@@ -16,7 +16,7 @@ GraphQL was developed to cope with the need for more flexibility and efficiency!
 
 To illustrate the major differences between REST and GraphQL when it comes to fetching data from an API, let's consider a simple example scenario: In a blogging application, an app needs to display the titles of the posts of a specific user. The same screen also displays the names of the last 3 followers of that user. How would that situation be solved with REST and GraphQL?
 
-> 💡 Check out [this](https://blog.graph.cool/b60cfa683511) article to learn more about why developers love GraphQL.
+> 💡 Check out [this](https://www.prisma.io/blog/top-5-reasons-to-use-graphql-b60cfa683511) article to learn more about why developers love GraphQL.
 
 ### Data Fetching with REST vs GraphQL
 
