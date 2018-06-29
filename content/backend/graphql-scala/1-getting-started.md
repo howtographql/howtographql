@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-pageTitle: "Prepare development stack to build GraphQL server"
+pageTitle: "GraphQL Scala - Getting Started"
 description: "In this chapter will be described how to setup the HTTP server, install all dependencies and setup the database."
 question: "Does GraphQL needs HTTP Server?"
 answers: ["Yes. It needs HTTP server.", "Yes, it needs HTTP server but some of features can be used without that", "No, but it strictly recommended to use. Without HTTP layer, GraphQL is losing some of its features.","No, GraphQL is a specification and it's far from transport protocol. You can use HTTP, Websockets, sockets or even use it internally in you application." ]
@@ -41,6 +41,7 @@ howtographql-sangria
     └── main
         ├── resources
         │   └── application.conf
+        |   └── graphiql.html
         └── scala
             └── com
                 └── howtographql
@@ -144,7 +145,7 @@ It's all we need to configure a database. Now we're ready to use it. For the fut
 
 `DAO.scala` is almost empty for now. It will be responsible for managing database connection.
 
-In the second class: `DBSchema`, we will put database schema configuration. There will be also helper functions like populating data.
+In the second class: `DBSchema`, we will put database schema configuration and some helper functions related with managing data.
 
 </Instruction>
 

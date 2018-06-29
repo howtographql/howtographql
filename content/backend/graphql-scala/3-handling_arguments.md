@@ -1,7 +1,7 @@
 ---
 title: Handling Arguments
-pageTitle: "A query arguments"
-description: "In this chapter you will learn how to use arguments and how to handle them and pass them to the business logic."
+pageTitle: "GraphQL Scala - Arguments"
+description: "In this chapter you will learn how to use arguments and how to handle them and pass to the business logic."
 question: "What is the type of the query argument"
 answers: ["It's always a String type. You have to unmarshall it to the type you need", "You can define the type of the argument in the schema.", "It's one of the basic types.", "Only numbers."]
 correctAnswer: 1
@@ -10,7 +10,7 @@ correctAnswer: 1
 
 ### Arguments
 
-Let's assume, we want to fetch the selected links using their ids. We will need to parse the arguments.
+Let's assume, we want to fetch the selected links using their ids. 
 
 Take this query for instance:
 
@@ -45,11 +45,19 @@ def getLink(id: Int): Future[Option[Link]] = db.run(
 
 </Instruction>
 
-Next we have to add the fields to the main `Query` object and set the functions above as resolvers.
+Also don't forget to add the following imports:
+
+```scala
+import com.howtographql.scala.sangria.models.Link
+import scala.concurrent.Future 
+```
+
+
+Next, we have to add the fields to the main `Query` object and set the functions above as resolvers.
 
 <Instruction>
 
-Now open the file `GraphQLSchema.scala` and add two additional definitions in the `fields` function of the `QueryType` object:
+Now open the file `GraphQLSchema.scala` and add two additional definitions in the `fields` function of the `QueryType` object (just after `allLinks` field definition):
 
 ```scala
 Field("link", //1
@@ -75,7 +83,8 @@ Let's try to understand what is going on in there:
 
 ### DRY with arguments
 
-The code above could be a little simplified. You can extract an `Argument` as constant, and reuse this in the field declaration. You can change the `link` declaration as follows:
+The code above could be a little simplified. You can extract an `Argument` as constant and reuse this in the field declaration. 
+You can change the `link` declaration as follows:
 
 ```scala
 
@@ -88,9 +97,48 @@ Field("link",
 )
 ```
 
-You can make a similar change for the `links` field too.
+You can make a similar change for the `links` field too. After these changes `GraphQlSchema` file should looks like this:
 
-Now, we have exposed a few fields. We're able to fetch a single link or a list of chosen links.
+```scala
+package com.howtographql.scala.sangria
+
+import sangria.schema.{ListType, ObjectType}
+import models._
+import sangria.schema._
+import sangria.macros.derive._
+
+object GraphQLSchema {
+
+  implicit val LinkType = deriveObjectType[Unit, Link]()
+
+  
+  val Id = Argument("id", IntType)
+  val Ids = Argument("ids", ListInputType(IntType))
+  
+  val QueryType = ObjectType(
+    "Query",
+    fields[MyContext, Unit](
+      Field("allLinks", ListType(LinkType), resolve = c => c.ctx.dao.allLinks),
+      Field("link", 
+        OptionType(LinkType),
+        arguments = Id :: Nil,
+        resolve = c => c.ctx.dao.getLink(c.arg(Id))
+      ),
+      Field("links",
+        ListType(LinkType),
+        arguments = Ids :: Nil,
+        resolve = c => c.ctx.dao.getLinks(c.arg(Ids))
+      )
+    )
+  )
+
+  val SchemaDefinition = Schema(QueryType)
+}
+
+```
+
+
+Now, we have exposed few fields. We're able to fetch either a single link or a list of chosen links.
 
 <Instruction>
 
@@ -111,7 +159,10 @@ query {
 
 </Instruction>
 
-You should see a proper output. But what if we execute this query?
+As a result you should see a proper output. 
+
+
+But what if we execute such query?
 
 ```graphql
 query {
@@ -126,10 +177,9 @@ query {
 }
 ```
 
-### Defining a problem
-
-If you debug the DAO class (even by putting simple `println` in functions) you will find out that `getLink` is called twice for the same `id`. `resolve` function is calling that function directly, so it's being called upon every id. But there is the better way. Sangria provides a mechanism which helps with query optimization and caching. This is exactly what we need here.
-
+If you debug the DAO class you will find out that `getLink` is called twice for the same `id`. `resolve` function calls that function directly, so it's being called upon every `id`. 
+But there is the better way. Sangria provides a mechanism which helps to optimize or cache queries. 
+This is exactly what we need here. So, after defining a problem you can switch to the next chapter and learn how to fix it.
 
 ### Next chapter
 

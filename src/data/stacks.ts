@@ -189,16 +189,16 @@ const data: Stack[] = [
     color2: '#db594c',
   },
   {
-    title: 'Sangria',
+    title: 'GraphQL Scala',
     type: 'backend',
-    key: 'sangria',
+    key: 'graphql-scala',
     images: [require('../assets/icons/sangria.svg')],
     content: {
-      title: 'Sangria',
+      title: 'Graphql Scala',
       description:
         'Build your own GraphQL server with the Scala programming language',
     },
-    authorName: 'Oleg Ilyenko',
+    authorName: 'Mariusz Nosiński',
     darkenGreyLogo: true,
   }
 ]
