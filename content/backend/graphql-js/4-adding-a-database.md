@@ -186,10 +186,12 @@ prisma deploy
 The `deploy` command starts an interactive process: 
 
 <Instruction>
+  
 - Select **Demo server** from the options provided
 - When the browser opens, **register with Prisma Cloud** and go back to your terminal
 - Select the **region** for your demo server
 - Use the suggested values for **service** and **stage** by hitting Enter twice
+
 </Instruction>
 
 > **Note**: Prisma is open-source. It is based on [Docker](http://docker.com/) which means you can deploy it to any cloud provider of your choice (such as Digital Ocean, AWS, Google Cloud, ...). If you don't want to deal with DevOps and the manual configuration of Docker, you can also use [Prisma Cloud](https://blog.graph.cool/introducing-prisma-cloud-a-graphql-database-platform-ed591baa8737) to easily spin up a private cluster to which you can deploy your services. Watch this short [video](https://www.youtube.com/watch?v=jELE4KXJPn4) to learn more about how that works.
