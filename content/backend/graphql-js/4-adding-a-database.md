@@ -189,6 +189,10 @@ The `deploy` command starts an interactive process:
   
 First select the **Demo server** from the options provided. When the browser opens, **register with Prisma Cloud** and go back to your terminal.
 
+</Instruction>
+
+<Instruction>
+
 Then you need to select the **region** for your demo server. Once that's done, you can just hit enter twice to use the suggested values for **service** and **stage**.
 
 </Instruction>
