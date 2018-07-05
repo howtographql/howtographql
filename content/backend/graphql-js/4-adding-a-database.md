@@ -183,10 +183,10 @@ prisma deploy
 
 </Instruction>
 
-The `deploy` command starts an interactive process: 
+The `prisma deploy` command starts an interactive process: 
 
 <Instruction>
-  
+
 First select the **Demo server** from the options provided. When the browser opens, **register with Prisma Cloud** and go back to your terminal.
 
 </Instruction>
