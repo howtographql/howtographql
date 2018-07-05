@@ -192,7 +192,6 @@ const server = new GraphQLServer({
     db: new Prisma({
       typeDefs: 'src/generated/prisma.graphql',
       endpoint: 'https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev',
-      secret: 'mysecret123',
       debug: true,
     }),
   }),
@@ -205,7 +204,6 @@ So, here's the trick. You're instantiating `Prisma` with the following pieces of
 
 - `typeDefs`: This points to the Prisma database schema which defines the full CRUD GraphQL API of Prisma. Note that you actually don't have this file yet - we'll tell you in a bit how to get it.
 - `endpoint`: This is the endpoint of your Prisma API. Don't forget to replace it with the endpoint of your own Prisma service here!
-- `secret`: Recall that all requests against the Prisma API need to be authenticated by including a JWT in the `Authorization` header of the HTTP request? This JWT needs to be signed with the `secret` defined in `prisma.yml`. As you're not making any _direct_ requests against the Prisma API, but these requests are being made for you by the `Prisma` binding instance, you need to tell it what that secret is so it can generate a JWT which it attaches to the requests.
 - `debug`: Setting the `debug` flag to `true` means that all requests, made by the `Prisma` binding instance to the Prisma API will be logged to the console. It's a convenient way to observe the actual GraphQL queries and mutations that are sent to Prisma.
 
 <Instruction>
@@ -272,6 +270,37 @@ The Prisma CLI also uses information that's provided in `.graphqlconfig.yml`. Th
 
 <Instruction>
 
+Update `prisma.yml` to include a deploy hook:
+
+```bash(path=".../hackernews-node/database/prisma.yml")
+endpoint: `https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev
+datamodel: datamodel.graphql
+
+# Deploy hook
+hooks:
+  post-deploy:
+    - graphql get-schema --project database
+```
+</Instruction>
+
+A deploy hook is invoked when Prisma is done with deploying. In this case, we want to download the schema using the `get-schema` command and pointing to the `database` project that was configured in `.graphqlconfig.yml`.
+
+The deploy hook invokes a `graphql` CLI command, therefore, we need to install this globally:
+
+<Instruction>
+
+Install the GraphQL CLI:
+
+```bash
+yarn global add graphql-cli
+```
+
+</Instruction>
+
+With the CLI tool installed, you can initiate the deploy process again:
+
+<Instruction>
+
 Inside the root directory of your project, run `prisma deploy` to download the Prisma database schema into location that's specified in `.graphqlconfig.yml`:
 
 ```bash(path=".../hackernews-node")
@@ -318,17 +347,7 @@ Great, that's it! You can finally start the server now and test the API now!
 
 Let's now look at how you can leverage the information in `.graphqlconfig.yml` to work with both GraphQL APIs side-by-side.
 
-<Instruction>
-
-First, go ahead and install the GraphQL CLI.:
-`
-```bash
-yarn global add graphql-cli
-```
-
-</Instruction>
-
-Now you can run the `graphql playground` command to open both APIs at once. Before that, you need to start the GraphQL server (otherwise the Playground for the `app` project won't work).
+Run the `graphql playground` command to open both APIs at once. Before that, you need to start the GraphQL server (otherwise the Playground for the `app` project won't work).
 
 <Instruction>
 

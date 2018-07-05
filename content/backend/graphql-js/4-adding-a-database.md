@@ -150,11 +150,8 @@ Now, let's see what you need to do with `prisma.yml`.
 Add the following contents to `prisma.yml`:
 
 ```graphql(path=".../hackernews-node/database/prisma.yml")
-# The service name, this will be part of the endpoint of the Prisma API
-service: hackernews-node
-
-# The deployment stage, this will also be part of the API endpoint
-stage: dev
+# The HTTP endpoint for your Prisma API
+endpoint: ''
 
 # Points to the file that holds your data model
 datamodel: datamodel.graphql
@@ -169,24 +166,9 @@ To learn more about the structure of `prisma.yml`, feel free to check out the [d
 
 Here's a quick explanation of each property you see in that file:
 
-- `service`: This can be anything you deem appropriate as a _service name_.
-- `stage`: This property is used to distinguish between different _deployment stages_ of your service. The value can be any string, but it's common to use values such as `dev`, `staging`, or `prod`.
+- `endpoint`: The HTTP endpoint for your Prisma API. It is actually required to deploy your Prisma API. It will be gerated when we deploy.
 - `datamodel`: This simply points to the _data model_ which is the foundation for the Prisma CRUD API.
 - `secret`: You want to protect your Prisma service and require requests against your Prisma API to be authenticated. This _secret is used to sign JWTs_ which need to be included in the `Authorization` header of any HTTP requests made against the API. Read more about that [here](https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication).
-
-The next step is to install the Prisma CLI which is used to manage Prisma services.
-
-<Instruction>
-
-In your terminal, run the following command:
-
-```bash
-yarn global add prisma@1.6.3
-```
-
-</Instruction>
-
-> **Note**: You're pinning the version of the Prisma CLI to `1.6.3` as the [`1.7`](https://github.com/graphcool/prisma/releases/tag/1.7.0) version saw some major changes. This tutorial will be updated soon.  
 
 All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
 
@@ -201,15 +183,16 @@ prisma deploy
 
 </Instruction>
 
-The CLI will now prompt you to select a [cluster](https://www.prisma.io/docs/reference/clusters/overview-eu2ood0she) to which it should deploy the Prisma service. For the purpose of this tutorial, you're going to use a _development cluster_ which is completely free to use.
-
-> **Note**: Prisma is open-source. It is based on [Docker](http://docker.com/) which means you can deploy it to any cloud provider of your choice (such as Digital Ocean, AWS, Google Cloud, ...). If you don't want to deal with DevOps and the manual configuration of Docker, you can also use [Prisma Cloud](https://blog.graph.cool/introducing-prisma-cloud-a-graphql-database-platform-ed591baa8737) to easily spin up a private cluster to which you can deploy your services. Watch this short [video](https://www.youtube.com/watch?v=jELE4KXJPn4) to learn more about how that works.
+The `deploy` command starts an interactive process: 
 
 <Instruction>
-
-From the CLI prompt, select any of the **Development cluster** options and hit **Enter**. (If you have Docker installed, you can also deploy locally.)
-
+- Select **Demo server** from the options provided
+- When the browser opens, **register with Prisma Cloud** and go back to your terminal
+- Select the **region** for your demo server
+- Use the suggested values for **service** and **stage** by hitting Enter twice
 </Instruction>
+
+> **Note**: Prisma is open-source. It is based on [Docker](http://docker.com/) which means you can deploy it to any cloud provider of your choice (such as Digital Ocean, AWS, Google Cloud, ...). If you don't want to deal with DevOps and the manual configuration of Docker, you can also use [Prisma Cloud](https://blog.graph.cool/introducing-prisma-cloud-a-graphql-database-platform-ed591baa8737) to easily spin up a private cluster to which you can deploy your services. Watch this short [video](https://www.youtube.com/watch?v=jELE4KXJPn4) to learn more about how that works.
 
 Once the command has finished running, the CLI outputs the endpoint for the Prisma GraphQL API. It will look somewhat similar to this: `https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev`.
 
@@ -220,7 +203,7 @@ Here's how the URL is composed:
 - `hackernews-node`: The service name from `prisma.yml`
 - `dev`: The deployment stage from `prisma.yml`
 
-Notice that the CLI now also added a `cluster` property to `prisma.yml`. In future deploys (e.g. after you made changes to the data model), you therefore won't be prompted where to deploy the service any more - the CLI will read the cluster from `prisma.yml`. If you remove this property, the CLI will prompt you again.
+In future deploys (e.g. after you made changes to the data model), you won't be prompted where to deploy the service any more - the CLI will read the endpoint URL from `prisma.yml`.
 
 ### Exploring the Prisma service
 
