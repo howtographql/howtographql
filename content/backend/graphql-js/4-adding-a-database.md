@@ -155,6 +155,9 @@ endpoint: ''
 
 # Points to the file that holds your data model
 datamodel: datamodel.graphql
+
+# You can only access the API when providing JWTs that are signed with this secret
+secret: mysecret123
 ```
 
 </Instruction>
@@ -207,7 +210,45 @@ To explore the Prisma database API, open the URL that was printed by the CLI.
 
 > **Note**: If you ever lose the endpoint, you can get access to it again by running `prisma info` in the terminal.
 
-This opens the GraphQL Playground and you can explore the structure by clicking the **Schema** tab on the right:
+Unfortunately, if you do so you will be greeted by an error:
+
+```json(nocopy)
+{
+  "errors": [
+    {
+      "message": " Your token is invalid. It might have expired or you might be using a token from a different project.",
+      "code": 3015,
+      "requestId": "api:api:cjfcbpal10t6w0b91idqif941"
+    }
+  ]
+}
+```
+
+Remember how we said that your Prisma API is protected by the `secret` from `prisma.yml`? Well, this is precisely the reason why you're getting the error right now. The Playground is trying to load the GraphQL schema from the endpoint, but its request is not authenticated. Let's go ahead and change that.
+
+Inside the `database` directory, run the following command to generate an authentication token (JWT) that's signed with the `secret` from `prisma.yml`:
+
+```bash(path=".../hackernews-node/database")
+prisma token
+```
+
+Then copy the token that was printed by the CLI and use it to configure an HTTP header in the Playground. You can do so by opening the **HTTP HEADERS** pane in the bottom-left corner of the Playground - notice that you need to replace the `__TOKEN__` placeholder with the actual token that was printed:
+
+```json
+{
+  "Authorization": "Bearer __TOKEN__"
+}
+```
+
+ It will look similar to this:
+
+```json(nocopy)
+{
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJoYWNrZXJuZXdzLW5vZGVAZGV2Iiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTUyMjMxNjM2MCwiZXhwIjoxNTIyOTIxMTYwfQ.MUoHGvw61iIq45ZVInOoylcs6_q2ldfD_GjQOVBqEqY"
+}
+```
+
+After a few seconds, the Playground is going to load the schema and you're able to send authenticated requests to the Prisma API. Open the documentation to check the available API operations.
 
 ![](https://imgur.com/CK1xXWq.png)
 
