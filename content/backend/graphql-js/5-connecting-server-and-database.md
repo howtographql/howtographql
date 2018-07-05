@@ -285,6 +285,20 @@ hooks:
 
 A deploy hook is invoked when Prisma is done with deploying. In this case, we want to download the schema using the `get-schema` command and pointing to the `database` project that was configured in `.graphqlconfig.yml`.
 
+The deploy hook invokes a `graphql` CLI command, therefore, we need to install this globally:
+
+<Instruction>
+
+Install the GraphQL CLI:
+
+```bash
+yarn global add graphql-cli
+```
+
+</Instruction>
+
+With the CLI tool installed, you can initiate the deploy process again:
+
 <Instruction>
 
 Inside the root directory of your project, run `prisma deploy` to download the Prisma database schema into location that's specified in `.graphqlconfig.yml`:
@@ -333,17 +347,7 @@ Great, that's it! You can finally start the server now and test the API now!
 
 Let's now look at how you can leverage the information in `.graphqlconfig.yml` to work with both GraphQL APIs side-by-side.
 
-<Instruction>
-
-First, go ahead and install the GraphQL CLI.:
-`
-```bash
-yarn global add graphql-cli
-```
-
-</Instruction>
-
-Now you can run the `graphql playground` command to open both APIs at once. Before that, you need to start the GraphQL server (otherwise the Playground for the `app` project won't work).
+Run the `graphql playground` command to open both APIs at once. Before that, you need to start the GraphQL server (otherwise the Playground for the `app` project won't work).
 
 <Instruction>
 
