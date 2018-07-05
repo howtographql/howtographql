@@ -168,6 +168,7 @@ Here's a quick explanation of each property you see in that file:
 
 - `endpoint`: The HTTP endpoint for your Prisma API. It is actually required to deploy your Prisma API. It will be gerated when we deploy.
 - `datamodel`: This simply points to the _data model_ which is the foundation for the Prisma CRUD API.
+- `secret`: You want to protect your Prisma service and require requests against your Prisma API to be authenticated. This _secret is used to sign JWTs_ which need to be included in the `Authorization` header of any HTTP requests made against the API. Read more about that [here](https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication).
 
 All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
 
