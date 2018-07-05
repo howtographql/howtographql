@@ -218,32 +218,42 @@ export default function Team() {
                 x={0}
                 y={-50}
               />
+              <Bubble
+                  avatar={require('../../assets/graphics/contributors/codebeast.jpg')}
+                  name="Christian Nwamba"
+                  description="graphql-js"
+                  x={0}
+                  y={20}
+                  diameter={130}
+              />
               <Company
                 src={require('../../assets/icons/companies/facebook.svg')}
                 color="#0068B3"
-                x={125}
+                x={0}
                 y={-20}
+              />
+              <Bubble
+                  avatar={require('../../assets/graphics/contributors/bouba.jpg')}
+                  name="Boubacar Barry"
+                  description="angular-apollo"
+                  x={30}
+                  y={0}
               />
               <Bubble
                 avatar={require('../../assets/graphics/contributors/devan.jpg')}
                 name="Devan Beitel"
                 description="ember-apollo"
-                x={350}
+                x={40}
                 y={-70}
               />
-              <Bubble
-                avatar={require('../../assets/graphics/contributors/bouba.jpg')}
-                name="Boubacar Barry"
-                description="angular-apollo"
-                x={0}
-                y={0}
-              />
+
               <Bubble
                 avatar={require('../../assets/graphics/contributors/marioosh.jpg')}
                 name="Mariusz Nosiński"
                 description={"Sangria - Scala"}
-                x={170}
+                x={30}
                 y={-10}
+                diameter={150}
               />
             </div>
           </div>
