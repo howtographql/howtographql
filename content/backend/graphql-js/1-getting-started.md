@@ -256,7 +256,7 @@ mutation {
 
 There are a few things to note:
 
-- In these examples, we always query `id` and `name` of the returned `User` objects. We could potentially omit either of them. Note however when querying an object type, it is required that you query at least one of its field in a selection set.
+- In these examples, we always query `id` and `name` of the returned `User` objects. We could potentially omit either of them. Note however when querying an object type, it is required that you query at least one of its fields in a selection set.
 - For the fields in the selection set, it doesn't matter whether the type of the root field is _required_ or a _list_. In the examples schema above, the three root fields all have different [type modifiers](http://graphql.org/learn/schema/#lists-and-non-null) (i.e. different combinations of being a list and/or required) for the `User` type:
   - For the `users` field, the return type `[User!]!` means it returns a _list_ (which itself can not be `null`) of `User` elements. The list can also not contain elements that are `null`. So, you're always guaranteed to either receive an empty list or a list that only contains non-null `User` objects.
   - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
