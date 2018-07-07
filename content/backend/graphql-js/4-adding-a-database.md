@@ -44,7 +44,7 @@ What's important to understand about this architecture that you're dealing with 
 
 #### The application layer
 
-The first GraphQL API is the one that you already started building in the previous sections of this tutorial. This is the GraphQL API for the **application layer**. It defines the API your client applications are going to talk to. Here is where you implement _business logic_, common workflows like _authentication_ and _authorization_ or integrate with _3rd-party services_ (such as Stripe if you want to need to implement a payment process). The API of the application layer is defined by the GraphQL schema in `src/schema.graphql` - we'll therefore from now on refer to this schema as the **application schema**.
+The first GraphQL API is the one that you already started building in the previous sections of this tutorial. This is the GraphQL API for the **application layer**. It defines the API your client applications are going to talk to. Here is where you implement _business logic_, common workflows like _authentication_ and _authorization_ or integrate with _3rd-party services_ (such as Stripe if you want to implement a payment process). The API of the application layer is defined by the GraphQL schema in `src/schema.graphql` - we'll therefore from now on refer to this schema as the **application schema**.
 
 #### The database layer
 
@@ -168,7 +168,7 @@ Here's a quick explanation of each property you see in that file:
 
 - `endpoint`: The HTTP endpoint for your Prisma API. It is actually required to deploy your Prisma API. It will be gerated when we deploy.
 - `datamodel`: This simply points to the _data model_ which is the foundation for the Prisma CRUD API.
-- `secret`: You want to protect your Prisma service and require requests against your Prisma API to be authenticated. This _secret is used to sign JWTs_ which need to be included in the `Authorization` header of any HTTP requests made against the API. Read more about that [here](https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication).
+- `secret`: You want to protect your Prisma service and require requests against your Prisma API to be authenticated. This _secret is used to sign [JWT](https://en.wikipedia.org/wiki/JSON_Web_Token)s_ which need to be included in the `Authorization` header of any HTTP requests made against the API. Read more about that [here](https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication).
 
 All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
 
