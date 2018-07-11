@@ -63,7 +63,7 @@ export default function Team() {
                 y={0}
               />
               <Company
-                src={require('../../assets/icons/companies/graphcool.svg')}
+                src={require('../../assets/icons/companies/prisma.svg')}
                 color={$v.green}
                 y={90}
               />

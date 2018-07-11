@@ -46,7 +46,7 @@ You can run a local instance of How to GraphQL by executing the following comman
 git clone git@github.com:howtographql/howtographql.git
 cd howtographql
 yarn install
-yarn start # http://localhost:8000/ 
+yarn start # http://localhost:8000/
 ```
 
 > Note: If you're using Node 8, you might need to invoke `npm install -g node-gyp` before you're starting the app. More info [here](https://github.com/gatsbyjs/gatsby/issues/1754).
