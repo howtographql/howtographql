@@ -64,7 +64,7 @@ export default function Team() {
               />
               <Company
                 src={require('../../assets/icons/companies/prisma.svg')}
-                color={$v.green}
+                color={$v.white}
                 y={90}
               />
               <Bubble
