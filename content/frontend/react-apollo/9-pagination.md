@@ -190,7 +190,7 @@ render() {
           <Link
             key={link.id}
             updateStoreAfterVote={this._updateCacheAfterVote}
-            index={index}
+            index={page ? (page - 1) * LINKS_PER_PAGE + index : index}
             link={link}
           />
         ))}
