@@ -18,35 +18,35 @@ Once more, the first step to implement this new feature is to make your React co
 
 </Instruction>
 
-Open `Link.js` and replace the current contents with the following:
+Open `Link.js` and update `render` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
-import React from 'react'
-
-export default ({ link, index }) => {
+render() {
   const authToken = localStorage.getItem(AUTH_TOKEN)
-    return (
-      <div className="flex mt2 items-start">
-        <div className="flex items-center">
-          <span className="gray">{index + 1}.</span>
-          {authToken && (
-            <div className="ml1 gray f11" onClick={`... you'll implement this 🔜`}>
-              ▲
-            </div>
-          )}
+  return (
+    <div className="flex mt2 items-start">
+      <div className="flex items-center">
+        <span className="gray">{this.props.index + 1}.</span>
+        {authToken && (
+          <div className="ml1 gray f11" onClick={() => this._voteForLink()}>
+            ▲
+          </div>
+        )}
+      </div>
+      <div className="ml1">
+        <div>
+          {this.props.link.description} ({this.props.link.url})
         </div>
-        <div className="ml1">
-          <div>
-            {link.description} ({link.url})
-          </div>
-          <div className="f6 lh-copy gray">
-            {`${link.votes.length} votes | by
-            ${link.postedBy ? link.postedBy.name : 'Unknown'}
-            ${timeDifferenceForDate(link.createdAt)}`}
-          </div>
+        <div className="f6 lh-copy gray">
+          {this.props.link.votes.length} votes | by{' '}
+          {this.props.link.postedBy
+            ? this.props.link.postedBy.name
+            : 'Unknown'}
+          {timeDifferenceForDate(this.props.link.createdAt)}
         </div>
       </div>
-    )
+    </div>
+  )
 }
 ```
 
@@ -203,9 +203,9 @@ Once more, also replace the current `flex items-center` class names `div` elemen
 
 ```js{4-10}(path=".../hackernews-react-apollo/src/components/Link.js")
 <div className="flex items-center">
-  <span className="gray">{index + 1}.</span>
+  <span className="gray">{this.props.index + 1}.</span>
   {authToken && (
-    <Mutation mutation={VOTE_MUTATION} variables={{ linkId: link.id }}>
+    <Mutation mutation={VOTE_MUTATION} variables={{ linkId: this.props.link.id }}>
       {voteMutation => (
         <div className="ml1 gray f11" onClick={voteMutation}>
           ▲
@@ -243,23 +243,14 @@ You will implement this functionality by using Apollo's [caching data](https://w
 
 <Instruction>
 
-Open `Link.js` and update 1st line of the `exported` functional component adding `updateStoreAfterVote` as follows:
-
-```js(path=".../hackernews-react-apollo/src/components/Link.js")
-export default ({ link, index, updateStoreAfterVote }) => {
-```
-
-</Instruction>
-<Instruction>
-
-Also add the `update` prop into the `<Mutation />` component like so:
+Open `Link.js` and replace `<Mutation />` component adding the `update` prop like so:
 
 ```js{4-6}(path=".../hackernews-react-apollo/src/components/Link.js")
 <Mutation
   mutation={VOTE_MUTATION}
-  variables={{ linkId: link.id }}
+  variables={{ linkId: this.props.link.id }}
   update={(cache, { data: { vote } }) =>
-    updateStoreAfterVote(cache, vote, link.id)
+    this.props.updateStoreAfterVote(cache, vote, this.props.link.id)
   }
 >
   {voteMutation => (
@@ -280,10 +271,11 @@ All right, so now you know what this `update` function is, but the actual implem
 
 <Instruction>
 
-Open `LinkList.js` and put the following code between `FEED_QUERY` and `export`:
+Open `LinkList.js` and add the following method inside the scope of the `LinkList` component:
+
 
 ```js{2-2,4-5,7-7}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-const updateCacheAfterVote = (store, createVote, linkId) => {
+_updateCacheAfterVote = (store, createVote, linkId) => {
   const data = store.readQuery({ query: FEED_QUERY })
 
   const votedLink = data.feed.links.find(link => link.id === linkId)
@@ -312,7 +304,7 @@ Still in `LinkList.js`, update the way how the `Link` components are returned:
   key={link.id}
   link={link}
   index={index}
-  updateStoreAfterVote={updateCacheAfterVote}
+  updateStoreAfterVote={this._updateCacheAfterVote}
 />
 ```
 
