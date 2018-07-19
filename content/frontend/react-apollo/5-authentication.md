@@ -113,21 +113,23 @@ With that component in place, you can go and add a new route to your `react-rout
 
 <Instruction>
 
-Open `App.js` and update `export` to include the new route:
+Open `App.js` and update `render` to include the new route:
 
-```js{8}(path=".../hackernews-react-apollo/src/components/App.js")
-export default () => (
-  <div className="center w85">
-    <Header />
-    <div className="ph3 pv1 background-gray">
-      <Switch>
-        <Route exact path="/" component={LinkList} />
-        <Route exact path="/create" component={CreateLink} />
-        <Route exact path="/login" component={Login} />
-      </Switch>
+```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
+render() {
+  return (
+    <div className="center w85">
+      <Header />
+      <div className="ph3 pv1 background-gray">
+        <Switch>
+          <Route exact path="/" component={LinkList} />
+          <Route exact path="/create" component={CreateLink} />
+          <Route exact path="/login" component={Login} />
+        </Switch>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 ```
 
 </Instruction>
@@ -146,10 +148,10 @@ Finally, go ahead and add `Link` to the `Header` that allows the users to naviga
 
 <Instruction>
 
-Open `Header.js` and update `Header` functional component to look as follows:
+Open `Header.js` and update `render` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
-const Header = props => {
+render() {
   const authToken = localStorage.getItem(AUTH_TOKEN)
   return (
     <div className="flex pa1 justify-between nowrap orange">
@@ -173,7 +175,7 @@ const Header = props => {
             className="ml1 pointer black"
             onClick={() => {
               localStorage.removeItem(AUTH_TOKEN)
-              props.history.push(`/`)
+              this.props.history.push(`/`)
             }}
           >
             logout
@@ -243,7 +245,7 @@ Both mutations look very similar to the mutations you already saw before. They t
 
 <Instruction>
 
-Also replace `flex mt3` class names `div` element with the following:
+Also replace `flex mt3` classname `div` element with the following:
 
 ```js{2-12}(path=".../hackernews-react-apollo/src/components/Login.js")
 <div className="flex mt3">
@@ -296,7 +298,7 @@ Open `Login.js` and update `_confirm` as follows:
 _confirm = async data => {
   const { token } = this.state.login ? data.login : data.signup
   this._saveUserData(token)
-  props.history.push(`/`)
+  this.props.history.push(`/`)
 }
 ```
 
@@ -379,11 +381,10 @@ const client = new ApolloClient({
 
 <Instruction>
 
-Then directly import the key you need to retrieve the token from `localStorage` as well as `ApolloLink` on top of the same file:
+Then directly import the key you need to retrieve the token from `localStorage` on top of the same file:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 import { AUTH_TOKEN } from './constants'
-import { ApolloLink } from 'apollo-client'
 ```
 
 </Instruction>
