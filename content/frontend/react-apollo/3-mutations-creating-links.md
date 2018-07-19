@@ -143,10 +143,14 @@ As promised, all you need to do is call the function that Apollo injects into `<
 
 <Instruction>
 
-Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change `exported` functional component to looks as follows:
+Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change `render` to looks as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
-export default () => <CreateLink />
+render() {
+  return (
+    <CreateLink />
+  )
+}
 ```
 
 </Instruction>
