@@ -19,18 +19,26 @@ The first piece of functionality you'll implement in the app is loading and disp
 Create a new file called `Link.js` in the `components` directory and add the following code:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
-import React from 'react'
+import React, { Component } from 'react'
 
-export default ({ link }) => (
-  <div>
-    {link.description} ({link.url})
-  </div>
-)
+class Link extends Component {
+  render() {
+    return (
+      <div>
+        <div>
+          {this.props.link.description} ({this.props.link.url})
+        </div>
+      </div>
+    )
+  }
+}
+
+export default Link
 ```
 
 </Instruction>
 
-This is a simple [React functional component](https://reactjs.org/docs/components-and-props.html#functional-and-class-components) that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie! 🍰
+This is a simple React component that expects a `link` in its `props` and renders the link's `description` and `url`. Easy as pie! 🍰
 
 Next, you'll implement the component that renders a list of links.
 
@@ -39,27 +47,31 @@ Next, you'll implement the component that renders a list of links.
 Again, in the `components` directory, go ahead and create a new file called `LinkList.js`. Then add the following code:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import React from 'react'
+import React, { Component } from 'react'
 import Link from './Link'
 
-export default () => {
-  const linksToRender = [
-    {
-      id: '1',
-      description: 'Prisma turns your database into a GraphQL API 😎',
-      url: 'https://www.prismagraphql.com'
-    },
-    {
-      id: '2',
-      description: 'The best GraphQL client',
-      url: 'https://www.apollographql.com/docs/react/'
-    }
-  ]
+class LinkList extends Component {
+  render() {
+    const linksToRender = [
+      {
+        id: '1',
+        description: 'Prisma turns your database into a GraphQL API 😎 😎',
+        url: 'https://www.prismagraphql.com',
+      },
+      {
+        id: '2',
+        description: 'The best GraphQL client',
+        url: 'https://www.apollographql.com/docs/react/',
+      },
+    ]
 
-  return (
-    <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
-  )
+    return (
+      <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
+    )
+  }
 }
+
+export default LinkList
 ```
 
 </Instruction>
@@ -71,10 +83,16 @@ Here, you're using local mock data for now to make sure the component setup work
 To complete the setup, open `App.js` and replace the current contents with the following:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
-import React from 'react'
+import React, { Component } from 'react'
 import LinkList from './LinkList'
 
-export default () => <LinkList />
+class App extends Component {
+  render() {
+    return <LinkList />
+  }
+}
+
+export default App
 ```
 
 </Instruction>
@@ -194,30 +212,34 @@ You can now finally remove the mock data and render actual links that are fetche
 
 <Instruction>
 
-Still in `LinkList.js`, update `return` as follows:
+Still in `LinkList.js`, update the `component` as follows:
 
-```js{4,5,7}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-return (
-  <Query query={FEED_QUERY}>
-    {({ loading, error, data }) => {
-      if (loading) return <div>Fetching</div>
-      if (error) return <div>Error</div>
-
-      const linksToRender = data.feed.links
-
-      return (
-        <div>
-          {linksToRender.map(link => <Link key={link.id} link={link} />)}
-        </div>
-      )
-    }}
-  </Query>
-)
+```js{6,7,9}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+class LinkList extends Component {
+  render() {
+    return (
+      <Query query={FEED_QUERY}>
+        {({ loading, error, data }) => {
+          if (loading) return <div>Fetching</div>
+          if (error) return <div>Error</div>
+    
+          const linksToRender = data.feed.links
+    
+          return (
+            <div>
+              {linksToRender.map(link => <Link key={link.id} link={link} />)}
+            </div>
+          )
+        }}
+      </Query>
+    )
+  }
+}
 ```
 
 </Instruction>
 
-Let's walk through what's happening in this code. As expected, Apollo injected several props into the component's `render prop function`. These props itself provide information about the _state_ of the network request:
+Let's walk through what's happening in this code. As expected, Apollo injected several props into the component's `render prop function`. These props themselves provide information about the _state_ of the network request:
 
 1. `loading`: Is `true` as long as the request is still ongoing and the response hasn't been received.
 1. `error`: In case the request fails, this field will contain information about what exactly went wrong.
