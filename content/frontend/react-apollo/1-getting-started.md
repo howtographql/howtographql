@@ -15,7 +15,7 @@ Since this is a frontend track, you're not going to spend any time implementing 
 
 Once you created your React application, you'll pull in the required code for the backend.
 
-> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters. 
+> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
 > Also note that each code block is annotated with a filename. These annonations directly link to the correpsonding file on GitHub so you can clearly see where to put the code and what the end result will look like.
 
 ### Frontend
@@ -26,10 +26,10 @@ First, you are going to create the React project! As mentioned in the beginning,
 
 <Instruction>
 
-If you haven't already, you need to install `create-react-app` using npm:
+If you haven't already, you need to install `create-react-app` using yarn:
 
 ```bash
-npm install -g create-react-app
+yarn global add create-react-app
 ```
 
 </Instruction>
@@ -181,7 +181,7 @@ Here's an overview of the packages you just installed:
   - `apollo-link-state`: An Apollo Link for local state management
   - `graphql-tag`: Exports the `gql` function for your queries & mutations
 - [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well.
 
 That's it, you're ready to write some code! 🚀
 
@@ -218,8 +218,8 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
-  </ApolloProvider>
-  , document.getElementById('root')
+  </ApolloProvider>,
+  document.getElementById('root')
 )
 registerServiceWorker()
 ```
@@ -230,8 +230,8 @@ registerServiceWorker()
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the required dependencies from the installed npm packages.
-1. Here you create the `httpLink` that will connect your `ApolloClient` instance with the GraphQL API; your GraphQL server will be running on `http://localhost:4000`.
+1. You're importing the required dependencies from the installed packages.
+1. Here you create the `httpLink` that will connect your `ApolloClient` instance with the GraphQL API, your GraphQL server will be running on `http://localhost:4000`.
 1. Now you instantiate `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
 1. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
@@ -369,7 +369,7 @@ yarn prisma deploy
 
 </Instruction>
 
-Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
+Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `yarn global add prisma`). In that case, you can simply run `prisma deploy`.
 
 <Instruction>
 
@@ -458,7 +458,7 @@ mutation CreatePrismaLink {
 
 mutation CreateApolloLink {
   post(
-    description: "The best GraphQL client for React",
+    description: "The best GraphQL client for React"
     url: "https://www.apollographql.com/docs/react/"
   ) {
     id
