@@ -458,7 +458,7 @@ mutation CreatePrismaLink {
 
 mutation CreateApolloLink {
   post(
-    description: "The best GraphQL client for React"
+    description: "The best GraphQL client for React",
     url: "https://www.apollographql.com/docs/react/"
   ) {
     id
