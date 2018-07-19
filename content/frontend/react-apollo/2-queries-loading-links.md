@@ -245,7 +245,7 @@ Let's walk through what's happening in this code. As expected, Apollo injected s
 1. `error`: In case the request fails, this field will contain information about what exactly went wrong.
 1. `data`: This is the actual data that was received from the server. It has the `links` property which represents a list of `Link` elements.
 
-> In fact, the injected props contains even more functionality. You can read more in the [API overview](https://www.apollographql.com/docs/react/essentials/queries.html#render-prop).
+> In fact, the injected props contain even more functionality. You can read more in the [API overview](https://www.apollographql.com/docs/react/essentials/queries.html#render-prop).
 
 That's it! You should see the exact same screen as before.
 
