@@ -249,8 +249,8 @@ Open `Link.js` and replace `<Mutation />` component adding the `update` prop lik
 <Mutation
   mutation={VOTE_MUTATION}
   variables={{ linkId: this.props.link.id }}
-  update={(cache, { data: { vote } }) =>
-    this.props.updateStoreAfterVote(cache, vote, this.props.link.id)
+  update={(store, { data: { vote } }) =>
+    this.props.updateStoreAfterVote(store, vote, this.props.link.id)
   }
 >
   {voteMutation => (
@@ -323,10 +323,10 @@ Open `CreateLink.js` and following we did before, update `<Mutation />` componen
   mutation={POST_MUTATION}
   variables={{ description, url }}
   onCompleted={() => this.props.history.push('/')}
-  update={(cache, { data: { post } }) => {
-    const data = cache.readQuery({ query: FEED_QUERY })
+  update={(store, { data: { post } }) => {
+    const data = store.readQuery({ query: FEED_QUERY })
     data.feed.links.unshift(post)
-    cache.writeQuery({
+    store.writeQuery({
       query: FEED_QUERY,
       data
     })
