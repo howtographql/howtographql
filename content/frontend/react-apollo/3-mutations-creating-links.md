@@ -147,9 +147,7 @@ Go ahead and see if the mutation works. To be able to test the code, open `App.j
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
-  return (
-    <CreateLink />
-  )
+  return <CreateLink />
 }
 ```
 
