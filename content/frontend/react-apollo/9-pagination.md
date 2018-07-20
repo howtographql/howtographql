@@ -156,16 +156,6 @@ export const LINKS_PER_PAGE = 5
 
 </Instruction>
 
-<Instruction>
-
-Now adjust the import statement from `../constants` in `LinkList.js` to also include the new constant: 
-
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import { LINKS_PER_PAGE } from '../constants'
-```
-
-</Instruction>
-
 ### Implementing navigation
 
 Next, you need functionality for the user to switch between the pages. First add two `button` elements to the bottom of the `LinkList` component that can be used to navigate back and forth.
