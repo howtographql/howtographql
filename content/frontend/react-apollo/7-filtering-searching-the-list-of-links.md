@@ -24,6 +24,7 @@ import gql from 'graphql-tag'
 import Link from './Link'
 
 class Search extends Component {
+
   state = {
     links: [],
     filter: ''
@@ -68,14 +69,14 @@ Now add the `Search` component as a new route to the app. Open `App.js` and upda
 ```js{10}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
-    <div className="center w85">
+    <div className='center w85'>
       <Header />
-      <div className="ph3 pv1 background-gray">
+      <div className='ph3 pv1 background-gray'>
         <Switch>
-          <Route exact path="/" component={LinkList} />
-          <Route exact path="/create" component={CreateLink} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/search" component={Search} />
+          <Route exact path='/' component={LinkList} />
+          <Route exact path='/create' component={CreateLink} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/search' component={Search} />
         </Switch>
       </div>
     </div>
