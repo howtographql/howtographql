@@ -83,7 +83,6 @@ Open `LinkList.js` and add three arguments to the `FeedQuery` by replacing the `
 export const FEED_QUERY = gql`
   query FeedQuery($first: Int, $skip: Int, $orderBy: LinkOrderByInput) {
     feed(first: $first, skip: $skip, orderBy: $orderBy) {
-      count
       links {
         id
         createdAt
