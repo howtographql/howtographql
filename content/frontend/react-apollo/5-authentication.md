@@ -245,7 +245,7 @@ Both mutations look very similar to the mutations you already saw before. They t
 
 <Instruction>
 
-Also replace `flex mt3` classname `div` element with the following:
+Also replace `flex mt3` class names `div` element with the following:
 
 ```js{2-12}(path=".../hackernews-react-apollo/src/components/Login.js")
 <div className="flex mt3">
