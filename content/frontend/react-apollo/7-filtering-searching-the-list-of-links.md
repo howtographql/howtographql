@@ -29,17 +29,13 @@ class Search extends Component {
     filter: ''
   }
 
-  _executeSearch = async () => {
-    // ... you'll implement this 🔜
-  }
-
   render() {
     return (
       <div>
         <div>
           Search
           <input
-            type="text"
+            type='text'
             onChange={e => this.setState({ filter: e.target.value })}
           />
           <button onClick={() => this._executeSearch()}>OK</button>
@@ -49,6 +45,10 @@ class Search extends Component {
         ))}
       </div>
     )
+  }
+
+  _executeSearch = async () => {
+    // ... you'll implement this 🔜
   }
 }
 
@@ -63,22 +63,24 @@ Notice that the `links` field in the component state will hold all the links to 
 
 <Instruction>
 
-Now add the `Search` component as a new route to the app. Open `App.js` and update `exported` functional component to look as follows:
+Now add the `Search` component as a new route to the app. Open `App.js` and update render to look as follows:
 
-```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
-export default () => (
-  <div className="center w85">
-    <Header />
-    <div className="ph3 pv1 background-gray">
-      <Switch>
-        <Route exact path="/" component={LinkList} />
-        <Route exact path="/create" component={CreateLink} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/search" component={Search} />
-      </Switch>
+```js{10}(path=".../hackernews-react-apollo/src/components/App.js")
+render() {
+  return (
+    <div className="center w85">
+      <Header />
+      <div className="ph3 pv1 background-gray">
+        <Switch>
+          <Route exact path="/" component={LinkList} />
+          <Route exact path="/create" component={CreateLink} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/search" component={Search} />
+        </Switch>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 ```
 
 </Instruction>
