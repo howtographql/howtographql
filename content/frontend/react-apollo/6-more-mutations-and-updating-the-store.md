@@ -41,7 +41,7 @@ render() {
           {this.props.link.votes.length} votes | by{' '}
           {this.props.link.postedBy
             ? this.props.link.postedBy.name
-            : 'Unknown'}
+            : 'Unknown'}{' '}
           {timeDifferenceForDate(this.props.link.createdAt)}
         </div>
       </div>
