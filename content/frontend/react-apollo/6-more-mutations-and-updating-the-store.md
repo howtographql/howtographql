@@ -274,7 +274,7 @@ All right, so now you know what this `update` function is, but the actual implem
 Open `LinkList.js` and add the following method inside the scope of the `LinkList` component:
 
 
-```js{2-2,4-5,7-7}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _updateCacheAfterVote = (store, createVote, linkId) => {
   const data = store.readQuery({ query: FEED_QUERY })
 
@@ -362,4 +362,4 @@ export const FEED_QUERY = ...
 
 </Instruction>
 
-Awesome, now the store also updates with the right information after new links are added. The app is getting into shape. 🤓
+Awesome, now the store also updates with the right information after new links are added. The app is getting into shape 🤓
