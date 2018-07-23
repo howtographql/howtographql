@@ -17,7 +17,7 @@ Working with a GraphQL API on the frontend is a great opportunity to develop new
 
 Of course, nothing stops you from using plain HTTP to fetch your data and then shifting all the bits yourself until the right information ends up in your UI. But GraphQL provides the ability to abstract away a lot of the manual work you'd usually have to do during that process and lets you focus on the real important parts of your app! In the following, we'll discuss in a bit more detail what these tasks are.
 
-> There are two major GraphQL clients available at the moment. The first one is [Apollo Client](http://dev.apollodata.com/), which is a community-driven effort to build a powerful and flexible GraphQL client for all major development platforms. The second one is called [Relay](https://facebook.github.io/relay/) and it is Facebook's homegrown GraphQL client that heavily optimizes for performance and is only available on the web.  
+> There are two major GraphQL clients available at the moment. The first one is [Apollo Client](https://github.com/apollographql/apollo-client), which is a community-driven effort to build a powerful and flexible GraphQL client for all major development platforms. The second one is called [Relay](https://facebook.github.io/relay/) and it is Facebook's homegrown GraphQL client that heavily optimizes for performance and is only available on the web.  
 
 ### Directly Sending Queries and Mutations
 

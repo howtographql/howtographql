@@ -99,9 +99,11 @@ The method `_confirm`  will be used to implement the mutations that we need to s
 
 Next you also need to provide the `constants.js` file that we use to define the key for the credentials that we're storing in the browser's `localStorage`.
 
+> **Warning**: Storing JWTs in `localStorage` is not a safe approach to implement authentication on the frontend. Because this tutorial is focused on GraphQL, we want to keep things simple and therefore are using it here. You can read more about this topic [here](https://www.rdegges.com/2018/please-stop-using-local-storage/).
+
 <Instruction>
 
-In `src`, create a new file called `constants.js` and add the following two definition:
+In `src`, create a new file called `constants.js` and add the following definition:
 
 ```js(path=".../hackernews-react-apollo/src/constants.js")
 export const AUTH_TOKEN = 'auth-token'
@@ -413,6 +415,6 @@ function post(parent, { url, description }, ctx, info) {
 
 </Instruction>
 
-With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly `connect` it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
+With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
 
 > **Note**: Stop the server and run it again executing `yarn dev` to apply the changes made.

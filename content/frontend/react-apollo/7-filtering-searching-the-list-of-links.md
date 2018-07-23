@@ -175,10 +175,10 @@ async function feed(parent, args, ctx, info) {
     ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
     : {}
 
-  const queriedLinkes = await ctx.db.query.links({ first, skip, where })
+  const queriedLinks = await ctx.db.query.links({ first, skip, where })
 
   return {
-    linkIds: queriedLinkes.map(link => link.id),
+    linkIds: queriedLinks.map(link => link.id),
     count
   }
 }

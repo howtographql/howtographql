@@ -1,14 +1,17 @@
 ---
 title: Interfaces
-pageTitle: "Extracting common parts as an Interface"
+pageTitle: "GraphQL Scala - Interfaces"
 description: "In this chapter we will introduce two additional models. We show the most common parts and extract those as an interface. This time you will work alone."
+question: "Do interfaces are part of GraphQL specification?"
+answers: ["No", "No, but it's recommended to use it", "No it's forced to implement by Scala and its traits", "Yes"]
+correctAnswer: 3
 ---
 
  At this point you should know the basics, so it's a perfect time for some hands-on training. The following paragraph will give you hints on what needs to be done. Try implementing it yourself. At the end I will add an example solution in case you are stuck. Later in this chapter we will learn about interfaces and how they relate to the work you've done.
 
 ### Your DIY kit
 
-Before you'll go further, try to do something. I think, at this point, you have a knowledge that let you add `User` and `Vote` models. Of course, I'll show what to do later in this chapter, but before you will go there, try to implement it alone.
+Before you go further, try to implement the changes yourself. I think, at this point, you have the necessary knowledge to add the `User` and `Vote` models. I'll show what to do later in this chapter, but try to implement it yourself first.
 
 What you have to do:  
 
@@ -24,11 +27,11 @@ Please, go ahead with your implementation ... I will wait here
 
 ### User entity
 
-Let's start from user entity:
+Let's start from the user entity:
 
 <Instruction>
 
-Add `User.scala` class with content:
+Add `User.scala`class to `models` package object with the following content:
 
 ```scala
 case class User(id: Int, name: String, email: String, password: String, createdAt: DateTime = DateTime.now)
@@ -40,10 +43,9 @@ Database setup.
 
 <Instruction>
 
-Add following content to the `DBSchema` class:
+Add the following content to the `DBSchema` class (after `Links` definition):
 
 ```scala
-
 class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
   def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
   def name = column[String]("NAME")
@@ -55,6 +57,7 @@ class UsersTable(tag: Tag) extends Table[User](tag, "USERS"){
 }
 
 val Users = TableQuery[UsersTable]
+
 ```
 
 </Instruction>
@@ -63,8 +66,7 @@ Sample entities:
 
 <Instruction>
 
-In file DBSchema in function `databaseSetup`: Add an action `Users.schema.create` at beginning of the sentence and then
-add few users later in this function
+In DBSchema in the function `databaseSetup`, add an action `Users.schema.create` at beginning of the function and then add a few users later in this function:
 
 ```scala  
 Users forceInsertAll Seq(
@@ -75,7 +77,7 @@ Users forceInsertAll Seq(
 
 </Instruction>
 
-Add functional responsible for user's retrieving:
+Add a function responsible for user retrieval:
 
 <Instruction>
 
@@ -87,9 +89,11 @@ def getUsers(ids: Seq[Int]): Future[Seq[User]] = {
       Users.filter(_.id inSet ids).result
     )
 }
-```  
+```
 
 </Instruction>
+
+Dont' forget about `import com.howtographql.scala.sangria.models.User`...
 
 GraphQL part:
 
@@ -98,7 +102,7 @@ GraphQL part:
 In `GraphQLSchema` add :
 
 ```scala
-implicit val UserType = deriveObjectType[Unit, User]() //ObjectType for user
+val UserType = deriveObjectType[Unit, User]() //ObjectType for user
 implicit val userHasId = HasId[User, Int](_.id) //HasId type class
 val usersFetcher = Fetcher(
     (ctx: MyContext, ids: Seq[Int]) => ctx.dao.getUsers(ids)
@@ -112,7 +116,7 @@ Add fetcher to resolvers.
 
 <Instruction>
 
-Add lastly created fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
+And lastly add the new fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
 
 ```
 val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher)
@@ -136,25 +140,23 @@ Field("users",
 
 </Instruction>
 
-We're ready... you can now execute query like this:
+We're ready... you can now execute a query like this:
 
 ```graphql
-
 query {
-
     users(ids: [1, 2]){
-    	id
-			name
-    	email
-    	createdAt
-  	}
-}  
+      id
+      name
+      email
+      createdAt
+    }
+}
 ```
 
 
 ### Vote entity
 
-If you want, you can make similar step for `Vote` entity. And then follow instructions and check everything is ok.
+If you want, you can make similar changes for `Vote` entity. And then follow the instructions and check everything works.
 
 <Instruction>
 
@@ -162,6 +164,7 @@ Create `Vote` class
 
 ```scala
 case class Vote(id: Int, userId: Int, linkId: Int, createdAt: DateTime = DateTime.now)
+
 ```
 
 </Instruction>
@@ -170,7 +173,7 @@ Database setup.
 
 <Instruction>
 
-Add following content to the `DBSchema` class:
+Add the following content to the `DBSchema` class:
 
 ```scala
 class VotesTable(tag: Tag) extends Table[Vote](tag, "VOTES"){
@@ -241,10 +244,10 @@ Add fetcher to resolvers.
 
 <Instruction>
 
-Add lastly created fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
+Add the new fetcher to the resolvers list. In the same file, replace constant `Resolver` with:
 
 ```
-val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher)
+val Resolver = DeferredResolver.fetchers(linksFetcher, usersFetcher, votesFetcher)
 ```
 
 </Instruction>
@@ -266,22 +269,21 @@ Field("votes",
 
 </Instruction>
 
-Following query now should be able to execute:
+The following query should now execute successfully:
 
 ```graphql
 
 query {
-
-    votes(ids: [1, 2]){
-    	id
-    	createdAt
-  	}
+  votes(ids: [1, 2]){
+    id
+    createdAt
+  }
 }  
 ```
 
-### Finding a common parts
+### Finding common parts
 
-As you can see parts that are very similar. Like `HasId` for all three types:
+As you can see some code is very similar. Like `HasId` for all three types:
 
 ```scala
 implicit val linkHasId = HasId[Link, Int](_.id)
@@ -289,16 +291,16 @@ implicit val userHasId = HasId[User, Int](_.id)
 implicit val voteHasId = HasId[Vote, Int](_.id)
 ```
 
-What if you want to add more entities? You will duplicate code even more.
+What if you want to add more entities? You will have to duplicate this code.
 
 The solution for this is an interface. We can provide an interface that will be extended by any of the entities. This way, for example, you will need just one HasId
 
-<Instrunction>
+<Instruction>
 
-Create trait `Identifable`:
+Create trait `Identifiable` int he `models` package object:
 
 ```scala
-trait Indentifable {
+trait Identifiable {
   val id: Int
 }
 ```
@@ -308,18 +310,26 @@ trait Indentifable {
 And then extend this trait by all of those classes like:
 
 ```scala
+case class Link(...) extends Identifiable
 case class User(...) extends Identifiable
+case class Vote(...) extends Identifiable
+
 ```
 
 </Instruction>
 
-Now we can replace all above `HasId` type classes with the single one:
+Now we can replace all above `HasId` type classes with the single one. But now we will move it into companion object so it will be accessible whenever
+we import the trait.
 
 <Instruction>
 
-Remove `linkHasId`, `userHasId` and `voteHasId`, and add companion object to the Identifiable trait:
+Remove `linkHasId`, `userHasId` and `voteHasId`, and add companion object to the `Identifiable` trait:
 
 ```scala
+//add to imports:
+import sangria.execution.deferred.HasId
+
+//add int he body
 object Identifiable {
     implicit def hasId[T <: Identifiable]: HasId[T, Int] = HasId(_.id)
 }
@@ -327,15 +337,20 @@ object Identifiable {
 
 </Instruction>
 
-When you will keep `implicit HasId` type converted in the companion object it will be accessible when needed.
-
-Now, let's create an interface from GraphQL point of view.
+The next step is providing GraphQL's interface type for that trait.
 
 <Instruction>
 
-Change the `LinkType` for the following:
+Add a definition of the interface and change the `LinkType` for the following:
 
 ```scala
+val IdentifiableType = InterfaceType(
+  "Identifiable",
+  fields[Unit, Identifiable](
+    Field("id", IntType, resolve = _.value.id)
+  )
+)
+  
 implicit val LinkType = deriveObjectType[Unit, Link](
     Interfaces(IdentifiableType)
 )
@@ -343,8 +358,18 @@ implicit val LinkType = deriveObjectType[Unit, Link](
 
 </Instruction>
 
-Add also such field to the object type for `User` and `Vote`.
+Make similar changes to `UserType` and `VoteType`.
 
-Now if you will look into the schema definition in graphiql console you will see there are provided three models with this common interface.
+Now if you look into the schema definition in graphiql console you will see that all three models implement the `Identifiable` interface.
 
-Ok, thats all for this chapter. In the next one you will learn about relations.
+So far so good. We made many changes in this chapter, so if you like you can compare current state o files with the following snippets.
+
+[GraphQLSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-graphqlschema-scala)  
+[models/package.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-models_package-scala)  
+[DAO.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dao-scala)  
+[DBSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dbschema-scala)  
+
+
+---
+
+Ok, that's all for this chapter. In the next one you will learn about relations.

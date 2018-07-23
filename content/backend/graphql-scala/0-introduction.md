@@ -1,8 +1,10 @@
 ---
 title: Introduction
 pageTitle: "Building a GraphQL Server with Scala Backend Tutorial"
-description: "Learn how to build a GraphQL server with Scala & Sangria and best practices for filters, authentication, pagination and subscriptions. "
-
+description: "Learn how to build a GraphQL server with Scala & Sangria and the best practices for filters, authentication and pagination."
+question: "What is a GraphQL?"
+answers: ["Protocol", "Library", "Language", "Specification" ]
+correctAnswer: 3
 ---
 
 ### Motivation
@@ -16,6 +18,7 @@ In the next chapters you'll learn how to build your own GraphQL server using Sca
   * [Slick](http://slick.lightbend.com/) A Database query and access library.
   * [H2 Database](http://www.h2database.com/html/main.html) In-memory database.
   * [Graphiql](https://github.com/graphql/graphiql) A simple GraphQL console to play with.
+  * [Giter8](https://github.com/foundweekends/giter8) A project templating tool for Scala.
 
 I assume you're familiar with GraphQL concepts, but if not, you can visit [GraphQL site](http://graphql.org/) to learn more about that.
 
@@ -29,14 +32,14 @@ A GraphQL server should be able to:
 {  "query": "query { allLinks { url } }" }
 ```
 
-* Connect to one or more data sources, like data bases or other APIs, obtain the information and format it.
-* Return a GraphQL response with the requested data, such this one:
+* Connect to one or more data sources, like databases or other APIs and format obtained information.
+* Response with the requested data, such as this one:
 
 ```graphql(nocopy)
 { "data": { "allLinks": { "url": "http://graphql.org/" } } }
 ```
 
-* Validate incoming requests against the schema definition and supported formats. For example, if a query is made with an unknown field, the response should be something like:
+* Validate incoming requests accordingly to the schema definition and supported formats. For example, if a query is made with an unknown field, the response should be something like:
 
 ```graphql(nocopy)
 {
@@ -46,28 +49,24 @@ A GraphQL server should be able to:
 }
 ```
 
-As you can see our server will be really simplistic, but real GraphQL implementation can do much more that this. (We will explore it more later on.)
-
+As you can see our server will be really simple, but real GraphQL implementation can do much more than this. (We will explore it more later on.)
 
 ### Schema-Driven Development
 
-
 Schema-first GraphQL development forces frontend and backend developers to agree on a strict contract up front, enabling them to work quickly and efficiently while staying on spec. It improves both your API’s performance and the performance of your team in general.
 
-Sensibly then, the experience of building a GraphQL server starts with working on its schema. You'll see in this chapter that the main steps you'll follow will be something like this:
+Sensibly then, the experience of building a GraphQL server starts with working on its schema. You'll see in this chapter that the main steps you follow will be something like this:
 
 1. Define your types and the appropriate queries and mutations for them.
-2. Implement functions called **resolvers** to perform agreed upon queries in terms of defined types.
-3. As new requirements arrive, go back to step 1 to update the schema, and continue through the other steps.
+2. Implement functions (called **resolvers**) to perform agreed upon queries in terms of defined types.
+3. As new requirements arrive, go back to step 1 to update the schema and go through the other steps.
 
-The schema is a contract agreed on between the frontend and backend, so keeping it at the center allows both sides of the development to evolve without going off the spec. This also makes it easier to parallelize the work, since the frontend can move on with full knowledge of the API from the start, using a simple mocking service (or even a full backend such as Graphcool) which can later be easily replaced with the final server.
+The schema is a contract between the frontend and backend, so keeping it at the center allows both sides of the development to evolve without going off the spec. This also makes it easier to parallelize the work. Since the frontend can move on with full knowledge of the API from the start, using a simple mocking service (or even a full backend such as Graphcool) which can later be easily replaced with the final server.
 
+### Goal of the tutorial
 
-### Goal of the turorial
-
-The most of HowToGraphQL tutorials are based on the same schema. In our tutorial we will try to run scala server which supports that schema. In this case you can take any frontend example and connect it to our server.
-The schema more or less look like this:
-
+Most of the HowToGraphQL tutorials are based on the same schema. In our tutorial we will try to run scala server which supports that schema. In this case you can take any frontend example and connect it to our server.
+The schema more or less looks like this:
 
 ```graphql(nocopy)(https://github.com/howtographql/howtographql/blob/master/meta/structure.graphql)
 type Query {
@@ -175,4 +174,4 @@ type _QueryMeta {
 scalar DateTime
 ```
 
-When we know what to do, we go forward to the next chapter and begin tutorial.
+When we know what to do, we move on to the next chapter and begin the tutorial.

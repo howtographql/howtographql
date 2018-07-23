@@ -52,6 +52,8 @@ export class LinkItemComponent implements OnInit {
 </Instruction>
 
 <Instruction>
+
+Add the following code in `link-item.component.html`:
   
 ```html(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.html")
 
@@ -225,9 +227,9 @@ Create a file within `src/app` called `graphql.ts`. This is where all of your qu
 
 <Instruction>
 
-Open up `src/constants/graphql.js` and add your first query:
+Open up `src/app/graphql.ts` and add your first query:
 
-```ts{2-3,5-15,17-21}(path=".../hackernews-vue-apollo/src/app/graphql.ts")
+```ts{2-3,5-15,17-21}(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 import {Link} from './types';
 // 1
 import gql from 'graphql-tag'

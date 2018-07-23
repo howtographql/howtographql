@@ -29,7 +29,7 @@ In this track, you’ll use the following technologies for building the app:
 * Backend:
     * [Graphcool](https://www.graph.cool/): Flexible backend platform combining GraphQL + Serverless
 
-You’ll create the Ember project with `[ember-cli](http://ember-cli.com/)`, the command line interface for ambitious web applications. `ember-cli` will start you off with a blank project with all required build configuration already setup.
+You’ll create the Ember project with [ember-cli](http://ember-cli.com/), the command line interface for ambitious web applications. `ember-cli` will start you off with a blank project with all required build configuration already setup.
 
 ### Why a GraphQL Client?
 

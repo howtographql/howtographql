@@ -30,69 +30,69 @@ const data: Stack[] = [
       description:
         "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
     },
-    authorName: 'Bent Vatne',
+    authorName: 'Brent Vatne',
     comingSoon: true,
   },
-  {
-    title: 'Ember + Apollo',
-    type: 'frontend',
-    key: 'ember-apollo',
-    images: [
-      require('../assets/icons/ember.svg'),
-      require('../assets/icons/apollo.svg'),
-    ],
-    content: {
-      title: 'Ember + Apollo',
-      description:
-        "Learn how to get started with Ember.js and Apollo Client on the frontend",
-    },
-    authorName: 'Devan Beitel',
-  },
-  {
-    title: 'Angular + Apollo',
-    type: 'frontend',
-    key: 'angular-apollo',
-    images: [
-      require('../assets/icons/angular.svg'),
-      require('../assets/icons/apollo.svg'),
-    ],
-    content: {
-      title: 'Angular + Apollo',
-      description:
-        "Learn how to get started with Angular and Apollo Client on the frontend",
-    },
-    authorName: 'Boubacar Barry',
-  },
-  {
-    title: 'Vue + Apollo',
-    type: 'frontend',
-    key: 'vue-apollo',
-    images: [
-      require('../assets/icons/vue.svg'),
-      require('../assets/icons/apollo.svg'),
-    ],
-    content: {
-      title: 'Vue + Apollo',
-      description:
-        "Learn how to get started with VueJS and Apollo Client on the frontend",
-    },
-    authorName: 'Matt Dionis',
-  },
-  {
-    title: 'React + Relay',
-    type: 'frontend',
-    key: 'react-relay',
-    images: [
-      require('../assets/icons/react.svg'),
-      require('../assets/icons/relay.svg'),
-    ],
-    content: {
-      title: 'React + Relay',
-      description:
-        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
-    },
-    authorName: 'Nikolas Burk',
-  },
+//   {
+//     title: 'Ember + Apollo',
+//     type: 'frontend',
+//     key: 'ember-apollo',
+//     images: [
+//       require('../assets/icons/ember.svg'),
+//       require('../assets/icons/apollo.svg'),
+//     ],
+//     content: {
+//       title: 'Ember + Apollo',
+//       description:
+//         "Learn how to get started with Ember.js and Apollo Client on the frontend",
+//     },
+//     authorName: 'Devan Beitel',
+//   },
+//   {
+//     title: 'Angular + Apollo',
+//     type: 'frontend',
+//     key: 'angular-apollo',
+//     images: [
+//       require('../assets/icons/angular.svg'),
+//       require('../assets/icons/apollo.svg'),
+//     ],
+//     content: {
+//       title: 'Angular + Apollo',
+//       description:
+//         "Learn how to get started with Angular and Apollo Client on the frontend",
+//     },
+//     authorName: 'Boubacar Barry',
+//   },
+//   {
+//     title: 'Vue + Apollo',
+//     type: 'frontend',
+//     key: 'vue-apollo',
+//     images: [
+//       require('../assets/icons/vue.svg'),
+//       require('../assets/icons/apollo.svg'),
+//     ],
+//     content: {
+//       title: 'Vue + Apollo',
+//       description:
+//         "Learn how to get started with VueJS and Apollo Client on the frontend",
+//     },
+//     authorName: 'Matt Dionis',
+//   },
+//   {
+//     title: 'React + Relay',
+//     type: 'frontend',
+//     key: 'react-relay',
+//     images: [
+//       require('../assets/icons/react.svg'),
+//       require('../assets/icons/relay.svg'),
+//     ],
+//     content: {
+//       title: 'React + Relay',
+//       description:
+//         "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+//     },
+//     authorName: 'Nikolas Burk',
+//   },
   {
     title: 'React + Apollo',
     type: 'frontend',
@@ -111,7 +111,7 @@ const data: Stack[] = [
   },
 
   {
-    title: 'graphql.js',
+    title: 'Node.js',
     type: 'backend',
     key: 'graphql-js',
     images: [
@@ -121,9 +121,10 @@ const data: Stack[] = [
     content: {
       title: 'graphql.js',
       description:
-        'Build your own GraphQL server with Node.js, Express and Graphcool',
+        'Build your own GraphQL server with Node.js, graphql-yoga and Prisma',
     },
     authorName: 'Maira Bello',
+    beginnersChoice: true,
   },
   {
     title: 'graphql-elixir',
@@ -188,17 +189,16 @@ const data: Stack[] = [
     color2: '#db594c',
   },
   {
-    title: 'Sangria',
+    title: 'GraphQL Scala',
     type: 'backend',
-    key: 'sangria',
+    key: 'graphql-scala',
     images: [require('../assets/icons/sangria.svg')],
     content: {
-      title: 'Sangria',
+      title: 'Graphql Scala',
       description:
         'Build your own GraphQL server with the Scala programming language',
     },
-    authorName: 'Oleg Ilyenko',
-    comingSoon: true,
+    authorName: 'Mariusz Nosiński',
     darkenGreyLogo: true,
   }
 ]
