@@ -175,21 +175,22 @@ input {
 Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add apollo-client-preset react-apollo graphql-tag graphql
+yarn add apollo-boost react-apollo graphql
 ```
 
 </Instruction>
 
 Here's an overview of the packages you just installed:
 
-- [`apollo-client-preset`](https://www.npmjs.com/package/apollo-client-preset) offers some convenience by bundling several packages you need when working with Apollo Client:
-  - `apollo-client`
-  - `apollo-cache-inmemory`
-  - `apollo-link`
-  - `apollo-link-http`
+- [`apollo-boost`](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) offers some convenience by bundling several packages you need when working with Apollo Client:
+  - `apollo-client`: Where all the magic happens
+  - `apollo-cache-inmemory`: Our recommended cache
+  - `apollo-link-http`: An Apollo Link for remote data fetching
+  - `apollo-link-error`: An Apollo Link for error handling
+  - `apollo-link-state`: An Apollo Link for local state management
+  - `graphql-tag`: Exports the `gql` function for your queries & mutations
 - [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
-- [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well.
 
 That's it, you're ready to write some code! 🚀
 
@@ -203,33 +204,31 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{3-4,7-10,13,16-19,23-25}(path=".../hackernews-react-apollo/src/index.js")
+```js{6-9,11-13,15-18,21-23}(path=".../hackernews-react-apollo/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
-// 1
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
+import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-// 2
-const httpLink = new HttpLink({ uri: 'http://localhost:4000' })
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000'
+})
 
-// 3
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache()
 })
 
-// 4
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
-  </ApolloProvider>
-  , document.getElementById('root')
+  </ApolloProvider>,
+  document.getElementById('root')
 )
 registerServiceWorker()
 ```
@@ -240,8 +239,8 @@ registerServiceWorker()
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the required dependencies from the installed npm packages.
-1. Here you create the `HttpLink` that will connect your `ApolloClient` instance with the GraphQL API; your GraphQL server will be running on `http://localhost:4000`.
+1. You're importing the required dependencies from the installed packages.
+1. Here you create the `httpLink` that will connect your `ApolloClient` instance with the GraphQL API, your GraphQL server will be running on `http://localhost:4000`.
 1. Now you instantiate `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
 1. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
@@ -381,7 +380,7 @@ yarn prisma deploy
 
 </Instruction>
 
-Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
+Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `yarn global add prisma`). In that case, you can simply run `prisma deploy`.
 
 <Instruction>
 
