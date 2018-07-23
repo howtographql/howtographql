@@ -115,9 +115,11 @@ Finally, each `Link` element will also render its position inside the list, so y
 
 <Instruction>
 
-Open `LinkList.js` and update the rendering of the `Link` components inside `render` to also include the link's position:
+Open `LinkList.js` and update the rendering of the `Link` components inside the `<Query>` component in `render` to also include the link's position:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+// <Query query={FEED_QUERY}>
+// ...
 return (
   <div>
     {linksToRender.map((link, index) => (
@@ -125,6 +127,8 @@ return (
     ))}
   </div>
 )
+// ...
+// </Query>
 ```
 
 </Instruction>
