@@ -7,11 +7,11 @@ answers: ["It carries the return value of the previous resolver execution level"
 correctAnswer: 1
 ---
 
-In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow to _post_ new links to the server.
+In this section, you'll learn how to add a mutation to the GraphQL API allowing you to _post_ new links to the server.
 
 ### Extending the schema definition
 
-Like before, you need to start by adding the new operation to your GraphQL schema definition.
+Start by adding the Mutation operation to `typeDefs` which is your GraphQL schema definition.
 
 <Instruction>
 
@@ -38,7 +38,7 @@ type Link {
 
 </Instruction>
 
-At this point, the schema definition already has grown to be quite large. Let's refactor the app a bit and pull the schema out into its own file!
+At this point, the schema definition is getting quite large. Let's refactor it a bit by pulling the schema out into its own file!
 
 <Instruction>
 
@@ -77,7 +77,7 @@ With that new file in place, you can cleanup `index.js` a bit.
 
 <Instruction>
 
-First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update the way how the `GraphQLServer` is instantiated at the bottom of the file:
+First, entirely delete `typeDefs` - it's not needed any more because the schema definition now lives in its own file. Then, update the typeDefs property in the options object passed to the `GraphQLServer` constructor:
 
 ```js{2}(path="../hackernews-node/src/index.js)
 const server = new GraphQLServer({
@@ -88,11 +88,11 @@ const server = new GraphQLServer({
 
 </Instruction>
 
-One convenient thing about the constructor of the `GraphQLServer` is that `typeDefs` can be provided either directly as a string (as you previously did) or by referencing a file that contains your schema definition (this is what you're doing now).
+The `GraphQLServer` constructor provides a convenient option to either set the `typeDefs` property to be a string value of your schema definition (as you did earlier) or a file path to a .graphql file (as you're doing now).
 
 ### Implementing the resolver function
 
-The next step in the process of adding a new feature to the API is to implement the resolver function for the new field.
+The next step to adding a new feature to the API is to implement the resolver function for the new field.
 
 <Instruction>
 
@@ -128,14 +128,14 @@ const resolvers = {
 
 </Instruction>
 
-First off, note that you're entirely removing the `Link` resolvers (as explained before). They are not needed because the GraphQL server infers what they look like.
+First, note that the Link resolvers can be removed entirely and maintain the same functionality (as explained in the last section **The query resolution process**). They are not needed because GraphQLServer infers what they look like as the follow a general format.
 
 Also, here's what's going on with the numbered comments:
 
-1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly created `Link` elements.
-1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
+1. Initialize an integer variable `idCount` which serves as a way to create unique IDs for a new `link` element.
+2. The `post` resolver creates a new `link` object, then adds it to the existing `links` array and finally returns it.
 
-Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
+Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Can you guess what it's used for?
 
 Correct! It carries the _arguments_ for the operation - in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
 
