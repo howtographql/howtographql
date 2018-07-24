@@ -17,7 +17,7 @@ So, what's then the difficulty in building GraphQL servers?
 
 Well, in real-world applications you're likely to encounter many scenarios where implementing the resolvers can become extremely complex. Especially because GraphQL queries can be nested multiple levels deep, the implementation often becomes tricky and can easily lead to performance problems.
 
-Most of the time, you also need to take care of many additional workflows such as authentication, authorization (permissions), pagination, filtering, realtime, integrating with 3rd-party services or legacy systems...
+Most of the time, you also need to take care of many additional workflows such as authentication, authorization (permissions), pagination, filtering, realtime, integration with 3rd-party services or legacy systems...
 
 Typically, when implementing resolvers and connecting to the database, you have two options - both of which are not very compelling:
 
@@ -26,9 +26,9 @@ Typically, when implementing resolvers and connecting to the database, you have 
 
 The first option is problematic since dealing with SQL in resolvers is complex and quickly gets out-of-hand. Another issue is that SQL queries are commonly submitted to the database as plain _strings_. Strings don't adhere to any structure, they're just raw sequences of characters. Therefore, your tooling won't be able to help you finding any issues with them or provide additional perks like autocompletion in editors. Writing SQL queries is thus tedious and error-prone.
 
-The second option is to use an ORM which might seem like a good solution at first. However, this approach usually falls short as well. ORMs typically have the problem that they're implementing rather simple solutions for database access, which when using GraphQL won't work due to the complexities of queries and the various edge cases that can arise.
+The second option is to use an ORM which might seem like a good solution at first. However, this approach usually falls short as well. ORMs typically have the problem that they are implementing rather simple solutions for database access, which when used with GraphQL won't work due to the complexities of queries and the various edge cases that can arise.
 
-Prisma solves this problem by providing you with a _GraphQL query engine_ which is taking care of resolving queries for you. When using Prisma, you're implementing your resolvers such that they're simply _delegating_ incoming queries to the underlying Prisma engine. Thanks to [Prisma bindings](https://github.com/graphcool/prisma-binding), query delegation is a simple process where most resolvers can be implemented as simple one-liners.
+Prisma solves this problem by providing you with a _GraphQL query engine_ which is takes care of resolving queries for you. When using Prisma, you're implementing your resolvers such that they are simply _delegating_ incoming queries to the underlying Prisma engine. Thanks to [Prisma bindings](https://github.com/graphcool/prisma-binding), query delegation is a simple process where most resolvers can be implemented as simple one-liners.
 
 > **Note**: Prisma bindings are based on the idea of schema stitching and schema delegation. We're not going to cover these techniques in detail in this tutorial. If you want to learn more about them, you can check out the following two articles:
 > - [GraphQL Schema Stitching explained: Schema Delegation](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405)
@@ -40,11 +40,11 @@ Here's an overview of the architecture that's used when building GraphQL servers
 
 ![](https://imgur.com/ik5P7RO.png)
 
-What's important to understand about this architecture that you're dealing with two(!) GraphQL API layers.
+What's important to understand about this architecture is that you are dealing with two(!) GraphQL API layers.
 
 #### The application layer
 
-The first GraphQL API is the one that you already started building in the previous sections of this tutorial. This is the GraphQL API for the **application layer**. It defines the API your client applications are going to talk to. Here is where you implement _business logic_, common workflows like _authentication_ and _authorization_ or integrate with _3rd-party services_ (such as Stripe if you want to need to implement a payment process). The API of the application layer is defined by the GraphQL schema in `src/schema.graphql` - we'll therefore from now on refer to this schema as the **application schema**.
+The first GraphQL API is the one that you already started building in the previous sections of this tutorial. This is the GraphQL API for the **application layer**. It defines the API that your client applications are going to talk to. Here is where you implement _business logic_, common workflows like _authentication_ and _authorization_ or integrate with _3rd-party services_ (such as Stripe if you need to implement a payment process). The API of the application layer is defined by the GraphQL schema in `src/schema.graphql` - we'll therefore from now on refer to this schema as the **application schema**.
 
 #### The database layer
 
@@ -54,7 +54,7 @@ The Prisma API is mirroring a database API, so it allows you to perform CRUD ope
 
 Typically, these data types represent the _entities of your application domain_. For example, if you're building car dealership software, you're likely going to have data types such as `Car`, `CarDealer`, `Customer` and so on... The entire collection of these data types is referred to as your _data model_.
 
-Once your data model is defined in SDL, Prisma translates it into an according database schema and sets up the underlying database accordingly. When you're then sending queries and mutations to the Prisma GraphQL API, it translates those into database operations and performs these operations for you. Neat, right?
+Once your data model is defined in SDL, Prisma translates it into an according database schema and sets up the underlying database accordingly. Then, when you're sending queries and mutations to the Prisma GraphQL API, it translates those into database operations and performs these operations for you. Neat, right?
 
 Previously you learned that all GraphQL APIs are backed by a GraphQL schema. So, who is writing the schema for the Prisma GraphQL API? The answer is that it is _automatically generated_ based on the data model you provide. By the way, this schema is called the **Prisma database schema**.
 
@@ -88,21 +88,21 @@ type Subscription {
 }
 ```
 
-In fact, the actual schema is quite a bit bigger - for brevity we've only included the three root types and the simple CRUD operations here. But the API also allows for a variety of other operations (such as batched updates and deletes). If you're curious, you can check out the entire schema [here](https://gist.github.com/gc-codesnippets/3f4178ad93c51d03195c92ce119d444c).
+In fact, the actual schema is quite a bit longer - for brevity we've only included the three root types and the simple CRUD operations here. But the API also allows for a variety of other operations (such as batched updates and deletes). If you're curious, you can check out the entire schema [here](https://gist.github.com/gc-codesnippets/3f4178ad93c51d03195c92ce119d444c).
 
 #### Why not just use the Prisma GraphQL API directly?
 
-Prisma really only is an interface to a database. If you consumed the Prisma API directly from your frontend or mobile applications, this would be similar as _directly accessing a database_.
+Prisma is really only just an interface to a database. If you consumed the Prisma API directly from your frontend or mobile applications, this would be similar to _directly accessing a database_.
 
 In very, very rare cases, this might be an option - but the vast majority of applications do need additional logic that is not covered by CRUD operations (data validation and transformation, authentication, permissions, integration of 3rd-party services or any other sort of custom functionality...).
 
-Another potential concern of directly exposing the Prisma API to your client applications is _security_. GraphQL works in the way that everyone who has access to the endpoint of a GraphQL API can retrieve the _entire_ GraphQL schema from it - this is called [introspection](http://graphql.org/learn/introspection/). If your clients were talking directly to Prisma, it would be simply a matter of checking the network requests to get access to the endpoint of the Prisma API and everyone would be able to see your entire database schema.
+Another potential concern of directly exposing the Prisma API to your client applications is _security_. GraphQL works in a way that everyone who has access to the endpoint of a GraphQL API can retrieve the _entire_ GraphQL schema from it - this is called [introspection](http://graphql.org/learn/introspection/). If your clients were talking directly to Prisma, it would be a simple matter of checking the network requests to get access to the endpoint of the Prisma API and everyone would be able to see your entire database schema.
 
 > **Note**: It is currently debated whether it should be possible to limit introspection capabilities, but so far it doesn't seem a priority in the development of the GraphQL spec. See [this](https://github.com/graphql/graphql-js/issues/113) GitHub issue for more info.
 
 ### Creating a Prisma service with a connected database
 
-In this tutorial, you're going to build everything entirely from scratch! For the Prisma database service, you're going to start with the most minimal setup that's possible.
+In this tutorial, you're going to build everything entirely from scratch! For the Prisma database service, you're going to start with the most minimal setup possible.
 
 The first thing you need to do is create two files, which you're going to put into a new directory called `database`.
 
@@ -137,7 +137,7 @@ type Link {
 
 </Instruction>
 
-There are two main differences compared to the previous `Link` version from `schema.graphql`.
+There are two main differences compared from the previous `Link` version to `schema.graphql`.
 
 First, you're adding the `@unique` directive to the `id: ID!` field. This directive generally tells Prisma that you never want any two `Link` elements in the database that have the same value for that field. In fact, `id: ID!` is a special field in the Prisma data model since Prisma will auto-generate globally unique IDs for the types that have this field.
 
@@ -182,7 +182,7 @@ npm install -g prisma
 
 </Instruction>
 
-All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
+All right, you're finally ready to deploy your Prisma service and the database that comes along with it! 🙌
 
 <Instruction>
 
@@ -228,7 +228,7 @@ To explore the Prisma database API, open the URL that was printed by the CLI.
 
 > **Note**: If you ever lose the endpoint, you can get access to it again by running `prisma info` in the terminal.
 
-Unfortunately, if you do so you will be greeted by an error:
+After opening the URL, if you try entering a query, it will return the error:
 
 ```json(nocopy)
 {
@@ -242,7 +242,7 @@ Unfortunately, if you do so you will be greeted by an error:
 }
 ```
 
-Remember how we said that your Prisma API is protected by the `secret` from `prisma.yml`? Well, this is precisely the reason why you're getting the error right now. The Playground is trying to load the GraphQL schema from the endpoint, but its request is not authenticated. Let's go ahead and change that.
+Remember how we said that your Prisma API is protected by the `secret` from `prisma.yml`? Well, this is precisely the reason why you're getting the error right now. The Playground is trying to load the GraphQL schema from the endpoint, but it's request is not authenticated. Let's go ahead and change that.
 
 Inside the `database` directory, run the following command to generate an authentication token (JWT) that's signed with the `secret` from `prisma.yml`:
 
@@ -250,7 +250,7 @@ Inside the `database` directory, run the following command to generate an authen
 prisma token
 ```
 
-Then copy the token that was printed by the CLI and use it to configure an HTTP header in the Playground. You can do so by opening the **HTTP HEADERS** pane in the bottom-left corner of the Playground - notice that you need to replace the `__TOKEN__` placeholder with the actual token that was printed:
+Then copy the token that was printed by the CLI and use it to configure an HTTP header in the Playground. You can do so by opening the **HTTP HEADERS** pane in the bottom-left corner of the Playground - copy the headers object below and replace the `__TOKEN__` placeholder with the actual token that was printed:
 
 ```json
 {
