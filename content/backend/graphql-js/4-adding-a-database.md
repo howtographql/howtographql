@@ -44,7 +44,7 @@ What's important to understand about this architecture that you're dealing with 
 
 #### The application layer
 
-The first GraphQL API is the one that you already started building in the previous sections of this tutorial. This is the GraphQL API for the **application layer**. It defines the API your client applications are going to talk to. Here is where you implement _business logic_, common workflows like _authentication_ and _authorization_ or integrate with _3rd-party services_ (such as Stripe if you want to need to implement a payment process). The API of the application layer is defined by the GraphQL schema in `src/schema.graphql` - we'll therefore from now on refer to this schema as the **application schema**.
+The first GraphQL API is the one that you already started building in the previous sections of this tutorial. This is the GraphQL API for the **application layer**. It defines the API your client applications are going to talk to. Here is where you implement _business logic_, common workflows like _authentication_ and _authorization_ or integrate with _3rd-party services_ (such as Stripe if you need to implement a payment process). The API of the application layer is defined by the GraphQL schema in `src/schema.graphql` - we'll therefore from now on refer to this schema as the **application schema**.
 
 #### The database layer
 
