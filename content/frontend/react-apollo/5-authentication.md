@@ -146,7 +146,7 @@ import Login from './Login'
 
 </Instruction>
 
-Finally, go ahead and add `Link` to the `Header` that allows the users to navigate to the `Login` page.
+Finally, go ahead and add a `Link` to the `Header` that allows the users to navigate to the `Login` page.
 
 <Instruction>
 
@@ -247,7 +247,7 @@ Both mutations look very similar to the mutations you already saw before. They t
 
 <Instruction>
 
-Also replace `flex mt3` class names `div` element with the following:
+Next, find the `div` element that has the class names `flex mt3` and replace it with the following:
 
 ```js{2-12}(path=".../hackernews-react-apollo/src/components/Login.js")
 <div className="flex mt3">
@@ -288,9 +288,9 @@ import gql from 'graphql-tag'
 
 Now, let's understand what's going with the `<Mutation />` component you just added.
 
-The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, thus mutation will be triggered on the div `onClick` event. GraphQL mutations receive `email`, `password` and `name` state values as params passed on `variables` prop. Lastly, after the mutation was completed, we call `_confirm` function passing as argument the mutation returned `data`.
+The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, and the mutation will be triggered on the div's `onClick` event. GraphQL mutations receive the `email`, `password` and `name` state values as params passed on the `variables` prop. Lastly, after the mutation has finished, we call the `_confirm` function, passing the `data` returned by the mutation as an argument.
 
-All right, all that's left to do is implement `_confirm` function!
+All right, all that's left to do is implement the `_confirm` function!
 
 <Instruction>
 
@@ -306,7 +306,7 @@ _confirm = async data => {
 
 </Instruction>
 
-After the mutation was performed, you're storing the returned `token` in `localStorage` and navigate back to the root route.
+After the mutation was performed, you're storing the returned `token` in `localStorage` and navigating back to the root route.
 
 > **Note**: Mutation returned `data` relies on GraphQL mutation definition, that's why we need to get the `token` depending on which mutation is triggered.
 
@@ -356,15 +356,15 @@ const authLink = setContext((_, { headers }) => {
 
 Before moving on, you need to import the Apollo dependencies. Add the following to the top of `index.js`:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js(path=".../hackernews-react-apollo/src/index.js")
 import { setContext } from 'apollo-link-context'
 ```
 
 </Instruction>
 
-This middleware will be invoked every time `ApolloClient` sends a request to the server. Apollo Links allow to create `middlewares` that let you modify requests before they are sent to the server.
+This middleware will be invoked every time `ApolloClient` sends a request to the server. Apollo Links allow you to create `middlewares` that let you modify requests before they are sent to the server.
 
-Let's see how it works in our code, first, we get the authentication `token` from `local storage` if it exists, after that we return the `headers` to the `context` so httpLink can read them.
+Let's see how it works in our code: first, we get the authentication `token` from `localStorage` if it exists; after that, we return the `headers` to the `context` so `httpLink` can read them.
 
 > **Note**: You can read more about Apollo's authentication [here](https://www.apollographql.com/docs/react/recipes/authentication.html).
 
@@ -395,7 +395,7 @@ That's it - now all your API requests will be authenticated if a `token` is avai
 
 ### Requiring authentication on the server-side
 
-The last thing you're doing in this chapter is ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
+The last thing you're doing in this chapter is ensuring that only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
 
 To implement this functionality, this time you need to make a small change on the server-side as well.
 
@@ -415,6 +415,6 @@ function post(parent, { url, description }, ctx, info) {
 
 </Instruction>
 
-With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
+With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or a valid token could not be extracted.
 
 > **Note**: Stop the server and run it again executing `yarn dev` to apply the changes made.
