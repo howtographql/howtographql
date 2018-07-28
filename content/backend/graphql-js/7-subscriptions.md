@@ -368,7 +368,7 @@ The next feature to be added is a voting feature which lets users _upvote_ certa
 
 <Instruction>
 
-Open `database/datamodel.graphql` and addjust it to look as follows:
+Open `database/datamodel.graphql` and adjust it to look as follows:
 
 ```graphql{7,16,19-23}(path=".../hackernews-node/database/datamodel.graphql")
 type Link {
