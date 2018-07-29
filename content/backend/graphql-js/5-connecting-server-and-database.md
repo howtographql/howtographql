@@ -249,7 +249,7 @@ projects:
   database:
     schemaPath: src/generated/prisma.graphql
     extensions:
-      prisma: database/prisma.yml
+      prisma: src/database/prisma.yml
 ```
 
 </Instruction>
