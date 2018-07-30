@@ -20,7 +20,7 @@ Once more, you first need to prepare the React components for this new functiona
 
 Open `App.js` and adjust the render method like so:
 
-```js{4,8,9}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7,11,12}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
