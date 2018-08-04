@@ -316,7 +316,7 @@ While we're at it, let's also implement `update` for adding new links!
 
 <Instruction>
 
-Open `CreateLink.js` and following we did before, update `<Mutation />` component passing `update` as prop like so:
+Open `CreateLink.js` and following what we did before, update `<Mutation />` component passing `update` as prop like so:
 
 ```js{5-12}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 <Mutation
