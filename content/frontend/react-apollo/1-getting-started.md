@@ -384,7 +384,7 @@ Note that you can also omit `yarn prisma` in the above command if you have the `
 
 <Instruction>
 
-When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the development clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
+When prompted where you want to set/deploy your service, select `Demo server` (it requires login, you could sign in with your GitHub account), then choose any of the development clusters, e.g. `demo-us1` or `demo-eu1`. (If you have Docker installed, you can also deploy locally.)
 
 </Instruction>
 
