@@ -28,7 +28,7 @@ render() {
       <div className="flex items-center">
         <span className="gray">{this.props.index + 1}.</span>
         {authToken && (
-          <div className="ml1 gray f11" onClick={() => this._voteForLink()}>
+          <div className="ml1 pointer gray f11" onClick={() => this._voteForLink()}>
             ▲
           </div>
         )}
@@ -207,7 +207,7 @@ Once more, also replace the current `flex items-center` class names `div` elemen
   {authToken && (
     <Mutation mutation={VOTE_MUTATION} variables={{ linkId: this.props.link.id }}>
       {voteMutation => (
-        <div className="ml1 gray f11" onClick={voteMutation}>
+        <div className="ml1 pointer gray f11" onClick={voteMutation}>
           ▲
         </div>
       )}
@@ -254,7 +254,7 @@ Open `Link.js` and replace `<Mutation />` component adding the `update` prop lik
   }
 >
   {voteMutation => (
-    <div className="ml1 gray f11" onClick={voteMutation}>
+    <div className="ml1 pointer gray f11" onClick={voteMutation}>
       ▲
     </div>
   )}
