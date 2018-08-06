@@ -43,7 +43,7 @@ As the whole project is open-source, you're more than welcome to fix typos and o
 You can run a local instance of How to GraphQL by executing the following commands in a terminal:
 
 ```sh
-git clone git@github.com:howtographql/howtographql.git
+git clone https://github.com/howtographql/howtographql
 cd howtographql
 yarn install
 yarn start # http://localhost:8000/
