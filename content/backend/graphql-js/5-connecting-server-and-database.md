@@ -298,6 +298,18 @@ yarn global add graphql-cli
 
 </Instruction>
 
+Note: if after installing graphql-cli per instructions above with yarn global the "graphql" command is not executed successfully during "prisma deploy" resulting in the database schema being downloaded, try the following install command from the graphql-cli github page:
+
+<Instruction>
+
+Install the GraphQL CLI:
+
+```bash
+npm install -g graphql-cli
+```
+
+</Instruction>
+
 With the CLI tool installed, you can initiate the deploy process again:
 
 <Instruction>
