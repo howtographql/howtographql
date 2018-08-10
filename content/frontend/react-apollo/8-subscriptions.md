@@ -287,7 +287,7 @@ const NEW_VOTES_SUBSCRIPTION = gql`
 
 <Instruction>
 
-Finally, go ahead and call `_subscribeToNewVotes` inside `render` as well you did with `_subscribeToNewLinks`:
+Finally, go ahead and call `_subscribeToNewVotes` inside `render` as you did with `_subscribeToNewLinks`:
 
 ```js{2}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 this._subscribeToNewLinks(subscribeToMore)
