@@ -220,7 +220,7 @@ import { LINKS_PER_PAGE } from '../constants'
 
 </Instruction>
 
-Before you continue, you can read some more about [React Fragments](https://reactjs.org/docs/fragments.html) - a common pattern for a component to return multiple elements without adding extra nodes to the DOM ✨
+Before we continue, you can read some more about [React Fragments](https://reactjs.org/docs/fragments.html) - a common pattern for a component to return multiple elements without adding extra nodes to the DOM ✨
 
 <Instruction>
 
