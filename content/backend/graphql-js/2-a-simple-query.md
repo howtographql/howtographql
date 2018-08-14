@@ -134,7 +134,7 @@ query {
 
 All four fields specified in the query, `feed`, `id`, `url` and `description` can also be found inside the schema definition. Now, you also learned that _every_ field inside the schema definition is backed by one resolver function whose responsibility it is to return the data for precisely that field.
 
-Can you imagine what the query resolution process now looks like? Effectively, everything the GraphQL server has to do is invoke all resolver functions for the fields that are contained in the query and then package up the response according to the query's shape. Query resolution thus merely becomes a process of orchestrating the invokation of resolver functions!
+Can you imagine what the query resolution process now looks like? Effectively, everything the GraphQL server has to do is invoke all resolver functions for the fields that are contained in the query and then package up the response according to the query's shape. Query resolution thus merely becomes a process of orchestrating the invocation of resolver functions!
 
 One thing that's still a bit weird in the implementation right now are the resolvers for the `Link` type that all seem to follow a very simple and trivial pattern:
 

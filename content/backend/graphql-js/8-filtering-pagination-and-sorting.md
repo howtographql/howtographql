@@ -143,7 +143,7 @@ function feed(parent, args, context, info) {
 
 </Instruction>
 
-Really all that's changing here is that the invokation of the `links` query now receives two additional arguments which might be carried by the incoming `args` object. Again, Prisma will do the hard work for us 🙏
+Really all that's changing here is that the invocation of the `links` query now receives two additional arguments which might be carried by the incoming `args` object. Again, Prisma will do the hard work for us 🙏
 
 You can test the pagination API with the following query which returns the second `Link` from the list:
 
