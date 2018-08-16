@@ -48,12 +48,12 @@ Change fields definition for `link` and `links` with the following code:
 Field("link",
   OptionType(LinkType),
   arguments = Id :: Nil,
-  resolve = c => linksFetcher.defer(Id)
+  resolve = c => linksFetcher.deferOpt(c.arg(Id))
 ),
 Field("links",
   ListType(LinkType),
-  arguments = List(Argument("ids", ListInputType(IntType))),
-  resolve = c => linksFetcher.deferSeq(Ids)
+  arguments = Ids :: Nil,
+  resolve = c => linksFetcher.deferSeq(c.arg(Ids))
 )
 
 ```
