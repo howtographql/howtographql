@@ -39,7 +39,7 @@ case class AuthorizationException(message: String) extends Exception(message)
 Now we have to implement a custom exception handler.
 
 A custom `ExceptionHandler` needs a partial function which converts the type of an exception into a `HandledException`. 
-Next this exception is internally converted into proper JSON response adn sent back to the client.
+Next this exception is internally converted into proper JSON response and sent back to the client.
 
 <Instruction>
 
@@ -58,8 +58,8 @@ val ErrorHandler = EHandler {
 
 ```
 
-We've changed the name of imported `ExecutionHandler` because there another such class in the scope, but of course you can
-manage this conflict in a way you prefer.
+We've changed the name of imported `ExecutionHandler` because there is another such class in the scope, but of course you can
+manage this conflict in the way you prefer.
 
 </Instruction>
 
@@ -126,11 +126,11 @@ case object Authorized extends FieldTag
 
 Now we can tag a field. 
 In our example we will make `addLink` mutation secured. 
-To do so, add `tags` property with above implemented tag.
+To do so, add `tags` property with the above implemented tag.
 
 <Instruction>
 
-Add `Authoried` field's tag to the `createLink` mutation field. Entire mutation's definition should looks like the following one:
+Add `Authoried` field's tag to the `createLink` mutation field. Entire mutation's definition should look like the following one:
 
 ```scala
 Field("createLink",
@@ -223,7 +223,7 @@ Field("login",
 </Instruction>
 
 At this point you should understand most of the code above. But I have to explain how `resolve` works in this case.
-`UpdateCtx` is an action which takes two parameters. First is a function responsible for producing a response. The output of first function is passed to the second function which has to respond with a context type. This context is replaced and used in all subsequent queries.
+`UpdateCtx` is an action which takes two parameters. The first is a function responsible for producing a response. The output of first function is passed to the second function which has to respond with a context type. This context is replaced and used in all subsequent queries.
 In our case I use `ctx.ctx.login(ctx.arg(EmailArg), ctx.arg(PasswordArg))` as a first function because I want to get `User` type in response. When the first function succeeds, this user will be passed to the second one and used to set the `currentUser` property.
 
 At this point you can execute `login` mutation successfully. But `createLink` can still be accessible to anyone.
@@ -233,9 +233,9 @@ At this point you can execute `login` mutation successfully. But `createLink` ca
 
 Sangria provides a solution for middleware during execution. 
 `Middleware` classes are executed during query execution.
- If there more than one `Middleware` classes, all are executed one by one.
+ If there is more than one `Middleware` class, all of them will be executed one by one.
  In this way you can add logic which will be executed around a field or even around an entire query. 
- The main advantage of such solutions is to keep this logic completely separate from the business code. 
+ The main advantage of such solution is to keep this logic completely separate from the business code. 
  For example you can use it for benchmarking and turn it off on production environment. 
  But in our case we will use `Middleware` to catch secured fields.
 
@@ -271,7 +271,7 @@ object AuthMiddleware extends Middleware[MyContext] with MiddlewareBeforeField[M
 }
 ```
 
-The main logic you can see in the `beforeField` function body. Firstly (*1*) it tryies to read `Authorized` FieldTag and if it exists
+The main logic you can see in the `beforeField` function body. Firstly (*1*) it tries to read `Authorized` FieldTag and if it exists
 run `ensureAuthenticated` function from our context (*2*). If nothing bad happens Sangria will continue execution of a query (*3*)
 
 </Instruction>
