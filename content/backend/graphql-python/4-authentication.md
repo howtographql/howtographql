@@ -15,7 +15,7 @@ To do it so, we need to send data to the server through a mutation.
 
 Create a new folder under `hackersnews` called `users` and a new file called `schema.py`:
 
-```python(path=".../graphql-python/hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/users/schema.py")
 from django.contrib.auth import get_user_model
 
 import graphene
