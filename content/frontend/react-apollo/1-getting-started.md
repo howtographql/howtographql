@@ -367,14 +367,24 @@ mutation {
 
 There is one thing left to do before you can start your server and begin sending queries and mutations to it. The Prisma database service needs to be deployed so the server can access it.
 
-To deploy the service all you need to do is install the server's dependencies and invoke the `prisma deploy` command inside the `server` directory.
+To deploy the app to a free demo server in Prisma cloud, you need to set up a Prisma account and configure the app using `prisma init`. You can then deploy the app to the cloud using `prisma deploy`. 
 
 <Instruction>
+
+If you want to run the server locally, install Docker and `docker-compose`. If not, you will see an error during `init` that `docker-compose` is not found, but you can ignore this and deploy straight to the hosted demo server
 
 In your terminal, navigate to the `server` directory and execute the following commands:
 
 ```sh(path=".../hackernews-react-apollo/server")
 yarn install
+yarn prisma init
+```
+This will begin an interactive dialog to configure your remote service. Choose to deploy to a Demo Prisma server. This will launch your default browser and ask you to authenticate or create a new Prisma account. When that is complete, you will be prompted to Grant Permission to your app. Click Grant Permission and return to your terminal, where you will be able to choose a newly-created regional Prisma Cloud server. Choose the region closest to you.
+
+`prisma init` will update your `prisma.yml` and `datamodel.graphql` files and now you can `deploy`:
+
+
+```sh(path=".../hackernews-react-apollo/server")
 yarn prisma deploy
 ```
 
