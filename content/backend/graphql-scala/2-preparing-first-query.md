@@ -149,7 +149,7 @@ For sure we will back to this file in the future.
 Time to implement the GraphQL Server. This object will be in the second layer of architecture, just after HTTP server. 
 Proper HTTP request will be converted into JSON object and sent to this server. 
 GraphQL Server will parse that JSON as GraphQL query, execute it and through HTTP layer send response back to the client. 
-It will also catche GraphQL parsing errors and convert those into the proper HTTP responses.
+It will also catch GraphQL parsing errors and convert those into the proper HTTP responses.
 
 <Instruction>
 
