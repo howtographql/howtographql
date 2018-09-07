@@ -111,7 +111,7 @@ const data: Stack[] = [
   },
 
   {
-    title: 'Node.js',
+    title: 'graphql-node',
     type: 'backend',
     key: 'graphql-js',
     images: [
@@ -189,7 +189,7 @@ const data: Stack[] = [
     color2: '#db594c',
   },
   {
-    title: 'GraphQL Scala',
+    title: 'graphql-scala',
     type: 'backend',
     key: 'graphql-scala',
     images: [require('../assets/icons/sangria.svg')],
