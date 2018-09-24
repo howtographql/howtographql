@@ -123,7 +123,7 @@ To test it, send a query to the server:
 ### User Authentication
 The concept of authentication and authorization is enabled by default on Django using sessions. Since most of the web apps today are *stateless*, we are going to use the [django-graphql-jwt](https://github.com/flavors/django-graphql-jwt) library to implement [JWT Tokens](https://jwt.io/) in Graphene (thanks [mongkok](https://github.com/mongkok)!).
 
-Basically, when a User sings up or logs in a token will be returned: a piece of data that identify the User. This token must be sent by the User in the HTTP Authorization header with *every request* when authentication is needed. If you want to know more about how the token is generated, take a look at the JTW site above.
+Basically, when a User signs up or logs in a token will be returned: a piece of data that identify the User. This token must be sent by the User in the HTTP Authorization header with *every request* when authentication is needed. If you want to know more about how the token is generated, take a look at the JTW site above.
 
 Unfortunally, the GraphiQL web interface that we used before does not accept adding custom HTTP headers. From now on, we will be using the Insomnia desktop app. You can download and install it [here](https://insomnia.rest/download).
 
