@@ -13,7 +13,7 @@ To do it so, we need to send data to the server through a mutation.
 
 <Instruction>
 
-Create a new folder under `hackersnews` called `users` and a new file called `schema.py`:
+Create a new folder under `hackernews` called `users` and a new file called `schema.py`:
 
 ```python(path=".../graphql-python/hackernews/user/schema.py")
 from django.contrib.auth import get_user_model
