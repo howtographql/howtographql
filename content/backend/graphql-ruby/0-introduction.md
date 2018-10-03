@@ -8,7 +8,7 @@ description: "Learn how to build a GraphQL server with graphql-ruby and best pra
 
 [Ruby](https://www.ruby-lang.org/en/) is general purpose programming language optimized for programmer happiness. One of its most popular frameworks for building web applications is called [Ruby on Rails](http://rubyonrails.org/).
 
-The Ruby ecosystem was one of the first to adopt [GraphQL](http://graphql.org/). A couple of popular Ruby on Rails applications like [Github](https://github.com/) and [Shopify](https://www.shopify.com/) are using it production already.
+The Ruby ecosystem was one of the first to adopt [GraphQL](http://graphql.org/). A couple of popular Ruby on Rails applications like [Github](https://github.com/) and [Shopify](https://www.shopify.com/) are using it in production already.
 
 In this chapter you'll learn how to build your very own [GraphQL](http://graphql.org/) server using the following technologies:
 
