@@ -11,7 +11,7 @@ With sign in power, you can now create you *own* links, posted by you. To make i
 
 <Instruction>
 
-On the Link models file, import the Django settings:
+In the Link models file, import the Django settings:
 
 ```python(path=".../graphql-python/hackernews/links/models.py")
 from django.conf import settings
@@ -32,7 +32,7 @@ posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=mod
 
 <Instruction>
 
-Run the Django commands to reflect the changes on the database:
+Run the Django commands to reflect the changes in the database:
 
 ```bash
 python manage.py makemigrations
@@ -43,7 +43,7 @@ python manage.py migrate
 
 <Instruction>
 
-On the `CreateLink` mutation, return the User in the new created field:
+In the `CreateLink` mutation, return the User in the new created field:
 
 ```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
@@ -94,7 +94,7 @@ One of the Hackernews' features is to vote on links, making ones more popular th
 
 <Instruction>
 
-Add the Vote model on the `links/models.py`:
+Add the Vote model in `links/models.py`:
 
 ```python(path=".../graphql-python/hackernews/links/models.py")
 class Vote(models.Model):
@@ -106,7 +106,7 @@ class Vote(models.Model):
 
 <Instruction>
 
-And reflect the changes on the database:
+And reflect the changes in the database:
 
 ```bash
 python manage.py makemigrations

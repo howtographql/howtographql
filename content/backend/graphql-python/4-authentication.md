@@ -56,7 +56,7 @@ In this mutation the server will receive a `username`, `password` and `email`, r
 
 <Instruction>
 
-Before executing it, you need to put the new mutation on the root schema file, `hackernews/schema.py`. It will look like this:
+Before executing it, you need to put the new mutation in the root schema file, `hackernews/schema.py`. It will look like this:
 
 ```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 import graphene
@@ -78,18 +78,18 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 
 </Instruction>
 
-Execute the following code on the GraphiQL interface:
+Execute the following code in the GraphiQL interface:
 
 ![](https://i.imgur.com/dyRB15P.png)
 
-On the response, you already can see the new user. Hurray!
+In the response, you already can see the new user. Hurray!
 
 ### Querying the Users
 Let's create a query for listing all users:
 
 <Instruction>
 
-On the `users/schema.py` file, add the following:
+In the `users/schema.py` file, add the following:
 
 ```python(path=".../graphql-python/hackernews/user/schema.py")
 # ...code
@@ -104,7 +104,7 @@ class Query(graphene.ObjectType):
 
 <Instruction>
 
-Enable the users query on the main query class:
+Enable the users query in the main query class:
 
 ```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 # ...code
@@ -131,7 +131,7 @@ Unfortunally, the GraphiQL web interface that we used before does not accept add
 
 <Instruction>
 
-On the `hackernews/settings.py` file, add a new `MIDDLEWARE`:
+In the `hackernews/settings.py` file, add a new `MIDDLEWARE`:
 
 ```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 MIDDLEWARE = [
@@ -144,7 +144,7 @@ MIDDLEWARE = [
 
 <Instruction>
 
-On the same file, add the `AUTHENTICATION_BACKENDS` setting:
+In the same file, add the `AUTHENTICATION_BACKENDS` setting:
 
 ```
 AUTHENTICATION_BACKENDS = [
@@ -157,7 +157,7 @@ AUTHENTICATION_BACKENDS = [
 
 <Instruction>
 
-On the top of `hackernews/hackernews/schema.py`, import our library:
+At the top of `hackernews/hackernews/schema.py`, import our library:
 
 ```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 import graphene
@@ -170,7 +170,7 @@ import graphql_jwt
 
 <Instruction>
 
-On the `hackernews/hackernews/schema.py`, change the `Mutation` class to have the following variables:
+In `hackernews/hackernews/schema.py`, change the `Mutation` class to have the following variables:
 
 ```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 class Mutation(users.schema.Mutation, links.schema.Mutation, graphene.ObjectType):
@@ -193,7 +193,7 @@ The library creates three Mutations for us, let's take a look at them.
 
 `RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enable to expire. Using it is outside the scope of this tutorial.
 
-Besides that, various aspects of the Mutations and JWT can be configured on the library. Please check the [documentation](https://github.com/flavors/django-graphql-jwt) for more information.
+Besides that, various aspects of the Mutations and JWT can be configured in the library. Please check the [documentation](https://github.com/flavors/django-graphql-jwt) for more information.
 
 ### Testing the authentication
 To test if our authentication is working, let's create a Query called `me`, which should return the User's information if logged in or an error otherwise.
