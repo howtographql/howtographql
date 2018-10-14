@@ -213,14 +213,14 @@ class Query(graphene.AbstractType):
     def resolve_me(self, info):
         user = info.context.user
         if user.is_anonymous:
-            raise Exception('Not logged!')
+            raise Exception('Not logged in!')
 
         return user
 ```
 
 </Instruction>
 
-To test it out, we need to get a token using the `VerifyToken` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to the Inmsonia client:
+To test it out, we need to get a token using the `VerifyToken` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to the Insomnia client:
 
 ![](https://i.imgur.com/VelVdDB.png)
 
