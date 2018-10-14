@@ -220,11 +220,11 @@ class Query(graphene.AbstractType):
 
 </Instruction>
 
-To test it out, we need to get a token using the `VerifyToken` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to the Insomnia client:
+To test it out, we need to get a token using the `VerifyToken` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to use the Insomnia client:
 
 ![](https://i.imgur.com/VelVdDB.png)
 
-Under the `Header` tab on Inmsonia, add the `AUTHORIZATION` HTTP header with your token content, prefixed by the word `JWT`:
+Under the `Header` tab on Insomnia, add the `AUTHORIZATION` HTTP header with your token content, prefixed by the word `JWT`:
 
 ![](https://i.imgur.com/TyIN8zd.png)
 
