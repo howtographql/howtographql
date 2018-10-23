@@ -52,7 +52,7 @@ prisma deploy
 
 </Instruction>
 
-The Prisma database schema in `src/generated/prisma.graphql` and along with it the API of the Prisma service have been updated. The API now also exposes CRUD operations for the `User` type as well operations to connect and disconnect `User` and `Link` elements according to the specified relation.
+The Prisma database schema in `src/generated/prisma.graphql` and along with it the API of the Prisma service have been updated. The API now also exposes CRUD operations for the `User` type as well as operations to connect and disconnect `User` and `Link` elements according to the specified relation.
 
 ### Extending the application schema
 
