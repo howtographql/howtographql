@@ -74,9 +74,9 @@ const authors: Author[] = [
   },
   {
     avatar: require('../assets/graphics/contributors/jonatas.jpg'),
-    bio: "Software developer @ Cheesecake Labs. Speaker, contributor and conferences organizer. Loves open source communities.",
+    bio: "Software Developer, speaker, contributor and conferences organizer. Loves open source communities.",
     link: 'https://twitter.com/jonatasbaldin',
-    job: 'Developer @ Cheesecake Labs',
+    job: 'Software Developer',
     name: 'Jonatas Baldin'
   },
   {
