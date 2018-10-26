@@ -9,13 +9,13 @@ description: Authenticating on GraphQL
 ### Creating a User
 Django already comes with the concept of Users built in. Before talking about authentication, let's create our first User.
 
-To do it so, we need to send data to the server through a mutation.
+To do so, we need to send data to the server through a mutation.
 
 <Instruction>
 
 Create a new folder under `hackersnews` called `users` and a new file called `schema.py`:
 
-```python(path=".../graphql-python/hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/users/schema.py")
 from django.contrib.auth import get_user_model
 
 import graphene
@@ -91,7 +91,7 @@ Let's create a query for listing all users:
 
 On the `users/schema.py` file, add the following:
 
-```python(path=".../graphql-python/hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/users/schema.py")
 # ...code
 class Query(graphene.ObjectType):
     users = graphene.List(UserType)
@@ -121,11 +121,11 @@ To test it, send a query to the server:
 ![](http://i.imgur.com/zqz6miO.png)
 
 ### User Authentication
-The concept of authentication and authorization is enabled by default on Django using sessions. Since most of the web apps today are *stateless*, we are going to use the [django-graphql-jwt](https://github.com/flavors/django-graphql-jwt) library to implement [JWT Tokens](https://jwt.io/) in Graphene (thanks [mongkok](https://github.com/mongkok)!).
+The concept of authentication and authorization is enabled by default in Django using sessions. Since most of the web apps today are *stateless*, we are going to use the [django-graphql-jwt](https://github.com/flavors/django-graphql-jwt) library to implement [JWT Tokens](https://jwt.io/) in Graphene (thanks [mongkok](https://github.com/mongkok)!).
 
-Basically, when a User sings up or logs in a token will be returned: a piece of data that identify the User. This token must be sent by the User in the HTTP Authorization header with *every request* when authentication is needed. If you want to know more about how the token is generated, take a look at the JTW site above.
+Basically, when a User signs up or logs in a token will be returned: a piece of data that identifies the User. This token must be sent by the User in the HTTP Authorization header with *every request* when authentication is needed. If you want to know more about how the token is generated, take a look at the JWT site above.
 
-Unfortunally, the GraphiQL web interface that we used before does not accept adding custom HTTP headers. From now on, we will be using the Insomnia desktop app. You can download and install it [here](https://insomnia.rest/download).
+Unfortunately, the GraphiQL web interface that we used before does not accept adding custom HTTP headers. From now on, we will be using the Insomnia desktop app. You can download and install it [here](https://insomnia.rest/download).
 
 ### Configuring django-graphql-jwt
 
@@ -187,22 +187,22 @@ The library creates three Mutations for us, let's take a look at them.
 
 ![](https://i.imgur.com/v8e8sjK.png)
 
-`VeriryToken` to confirm that the token is valid, passing it as an argument.
+`VerifyToken` to confirm that the token is valid, passing it as an argument.
 
 ![](https://i.imgur.com/d03jVtP.png)
 
-`RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enable to expire. Using it is outside the scope of this tutorial.
+`RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enabled to expire. Using it is outside the scope of this tutorial.
 
 Besides that, various aspects of the Mutations and JWT can be configured on the library. Please check the [documentation](https://github.com/flavors/django-graphql-jwt) for more information.
 
-### Testing the authentication
+### Testing the Authentication
 To test if our authentication is working, let's create a Query called `me`, which should return the User's information if logged in or an error otherwise.
 
 <Instruction>
 
-Let's add a the `me` Query in the `user/schema.py` file within the `Query` class:
+Let's add the `me` Query in the `users/schema.py` file within the `Query` class:
 
-```python(path=".../graphql-python/hackernews/user/schema.py")
+```python(path=".../graphql-python/hackernews/users/schema.py")
 class Query(graphene.AbstractType):
     me = graphene.Field(UserType)
     users = graphene.List(UserType)
@@ -224,7 +224,7 @@ To test it out, we need to get a token using the `VerifyToken` Mutation and use 
 
 ![](https://i.imgur.com/VelVdDB.png)
 
-Under the `Header` tab on Inmsonia, add the `AUTHORIZATION` HTTP header with your token content, prefixed by the word `JWT`:
+Under the `Header` tab on Insomnia, add the `AUTHORIZATION` HTTP header with your token content, prefixed by the word `JWT`:
 
 ![](https://i.imgur.com/TyIN8zd.png)
 
