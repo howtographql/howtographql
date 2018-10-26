@@ -41,7 +41,7 @@ class Query(graphene.ObjectType):
             qs = qs.filter(filter)
 
         if skip:
-            qs = qs[skip::]
+            qs = qs[skip:]
 
         if first:
             qs = qs[:first]
