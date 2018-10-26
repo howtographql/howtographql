@@ -27,10 +27,10 @@ class Query(graphene.ObjectType):
 
     # Change the resolver
     def resolve_links(self, info, search=None, **kwargs):
-        # The value sent with the search parameter will be on the args variable
+        # The value sent with the search parameter will be in the args variable
         if search:
             filter = (
-                Q(url__icontains=search) | 
+                Q(url__icontains=search) |
                 Q(description__icontains=search)
             )
             return Link.objects.filter(filter)
