@@ -147,7 +147,7 @@ You're also able to highlight individual lines inside of a code block to put emp
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
+import * as serviceWorker from './serviceWorker'
 import './index.css'
 // 1
 import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
