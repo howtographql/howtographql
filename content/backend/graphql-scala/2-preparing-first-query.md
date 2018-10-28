@@ -25,7 +25,7 @@ The expected response is a list of links fetched from database.
 
 ### Define a model
 
-before we will add the first model, please decide where all models will be stored. I have one recomandation but of course you can place all
+before we will add the first model, please decide where all models will be stored. I have one recommendation but of course you can place all
 models in the place you want.
 
 <Instruction>
@@ -43,10 +43,9 @@ package object models {
 
 </Instruction>
 
-Until now all the domain specific models will be places in this file, so will be easy to find them and in case of tutorial easy
-compare versions and recognize if something will change.
+From now on all the domain specific models will be placed in this file, so it will be easy to find them and in the case of this tutorial, easy to compare versions and recognize if something will need to change.
 
-Now we can back to creating our first model.
+Now we can go back to creating our first model.
 
 Let's start by defining a really basic model `Link`.
 
@@ -62,13 +61,13 @@ case class Link(id: Int, url: String, description: String)
 
 </Instruction>
 
-As you can see, a `Link` model has less fields than in the schema you saw in the first chapter, but no worries, we will improve the model in the future. 
+As you can see, a `Link` model has fewer fields than in the schema you saw in the first chapter, but no worries, we will improve the model in the future. 
 Now we're focusing on completing execution stack so it would be better to keep this model simple.
 
 
 #### Add `Link` support to database
 
-Our simple database have to support this model and provide some data aswell.
+Our simple database has to support this model and provide some data as well.
 
 <Instruction>
 
@@ -142,15 +141,15 @@ case class MyContext(dao: DAO) {
 
 </Instruction>
 
-For now we don't do anything with this file, but we had to create it to make the server working. 
+For now we don't do anything with this file, but we had to create it to get the server working. 
 For sure we will back to this file in the future.
 
 ### GraphQL Server
 
-Time to implement GraphQL Server. This object will be in the second layer of architecture, just after HTTP server. 
+Time to implement the GraphQL Server. This object will be in the second layer of architecture, just after HTTP server. 
 Proper HTTP request will be converted into JSON object and sent to this server. 
 GraphQL Server will parse that JSON as GraphQL query, execute it and through HTTP layer send response back to the client. 
-It will also catches GraphQL parsing errors and convert those into the proper HTTP responses.
+It will also catch GraphQL parsing errors and convert those into the proper HTTP responses.
 
 <Instruction>
 
@@ -256,7 +255,7 @@ If the executor responds with success, the result is sent back to the client. In
 with status code 4xx and some kind of explanation of what was wrong with the query. The Executor needs some data to fulfill 
 the request. Three of them are `query`(**11**), `operationName`(**13**) and `variables`(**14**) which are read from the request.
 The last two are: `GraphQLSchema.SchemaDefinition` and `MyContext(dao)`.
-* **12** `MyContext` is a context object mentioned inn the section above. In our example you can see that the context is 
+* **12** `MyContext` is a context object mentioned in the section above. In our example you can see that the context is 
 built with the DAO object within.
 * `GraphQLSchema.SchemaDefinition` is the last object we have to explain here. It contains our Schema - what we are able 
 to query for. It also interprets how data is fetched and which data source it could use (i.e. one or more databases, 
