@@ -196,7 +196,7 @@ module.exports = {
 Let's use the good ol' numbered comments again to understand what's going on here - starting with `signup`.
 
 1. In the `signup` mutation, the first thing to do is encrypting the `User`'s password using the `bcryptjs` library which you'll install later.
-1. The next step is to use the `Prisma` binding instance to store the new `User` in the database. Notice that you're hardcoding the `id` in the selection set - nothing else. We'll discuss this in more in detail soon.
+1. The next step is to use the `Prisma` binding instance to store the new `User` in the database. Notice that you're hardcoding the `id` in the selection set - nothing else. We'll discuss this in more detail soon.
 1. You're then generating a JWT which is signed with an `APP_SECRET`. You still need to create this `APP_SECRET` and also install the `jwt` library that's used here.
 1. Finally, you return the `token` and the `user`.
 
