@@ -7,7 +7,7 @@ description: Enable Users to create Links and to Vote on them
 ---
 
 ### Attaching Users to Links
-With sign in power, you can now create you *own* links, posted by you. To make it possible, let's integrate the Links and Users models:
+With sign in power, you can now create your *own* links, posted by you. To make it possible, let's integrate the Links and Users models:
 
 <Instruction>
 
