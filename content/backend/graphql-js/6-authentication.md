@@ -52,7 +52,7 @@ prisma deploy
 
 </Instruction>
 
-The Prisma database schema in `src/generated/prisma.graphql` and along with it the API of the Prisma service have been updated. The API now also exposes CRUD operations for the `User` type as well operations to connect and disconnect `User` and `Link` elements according to the specified relation.
+The Prisma database schema in `src/generated/prisma.graphql` and along with it the API of the Prisma service have been updated. The API now also exposes CRUD operations for the `User` type as well as operations to connect and disconnect `User` and `Link` elements according to the specified relation.
 
 ### Extending the application schema
 
@@ -196,7 +196,7 @@ module.exports = {
 Let's use the good ol' numbered comments again to understand what's going on here - starting with `signup`.
 
 1. In the `signup` mutation, the first thing to do is encrypting the `User`'s password using the `bcryptjs` library which you'll install later.
-1. The next step is to use the `Prisma` binding instance to store the new `User` in the database. Notice that you're hardcoding the `id` in the selection set - nothing else. We'll discuss this in more in detail soon.
+1. The next step is to use the `Prisma` binding instance to store the new `User` in the database. Notice that you're hardcoding the `id` in the selection set - nothing else. We'll discuss this in more detail soon.
 1. You're then generating a JWT which is signed with an `APP_SECRET`. You still need to create this `APP_SECRET` and also install the `jwt` library that's used here.
 1. Finally, you return the `token` and the `user`.
 

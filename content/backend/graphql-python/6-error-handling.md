@@ -11,7 +11,7 @@ All applications fail, and GraphQL it's no different. Some clients may ask for i
 ### Schema Errors
 Being a language with a strong type system, GraphQL can predetermine if a query is valid. All the fields from queries and mutations have a strong type, so requesting and inputting wrong data will generate an error.
 
-Try it out! On the links query, ask for the `cheese` field and see how GraphQL returns back an error:
+Try it out! In the links query, ask for the `cheese` field and see how GraphQL returns back an error:
 
 ![](https://i.imgur.com/Y00Dk0k.png)
 
@@ -22,7 +22,7 @@ You already used the `raise Exception('message')` through the code, for example,
 
 <Instruction>
 
-On the `links/schema.py` change the exception to use the `GraphQLError`:
+In `links/schema.py` change the exception to use the `GraphQLError`:
 
 ```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code

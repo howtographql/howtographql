@@ -88,7 +88,7 @@ query {
 
 ### Pagination
 
-Pagination is a tricky topic in API design. On a high-level, there are two major approaches how it can be tackled:
+Pagination is a tricky topic in API design. On a high-level, there are two major approaches regarding how it can be tackled:
 
 - **Limit-Offset**: Request a specific _chunk_ of the list by providing the indices of the items to be retrieved (in fact, you're mostly providing the start index (_offset_) as well as a count of items to be retrieved (_limit_)).
 - **Cursor-based**: This pagination model is a bit more advanced. Every element in the list is associated with a unique ID (the _cursor_). Clients paginating through the list then provide the cursor of the starting element as well as a count of items to be retrieved.
