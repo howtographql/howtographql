@@ -297,7 +297,7 @@ The solution for this is an interface. We can provide an interface that will be 
 
 <Instruction>
 
-Create trait `Identifiable` int he `models` package object:
+Create trait `Identifiable` into the `models` package object:
 
 ```scala
 trait Identifiable {
