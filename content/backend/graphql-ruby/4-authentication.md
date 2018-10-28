@@ -64,7 +64,7 @@ bundle update
 
 <Instruction>
 
-Now, lets create GraphQL type for representing an user:
+Now, lets create GraphQL type for representing a user:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/user_type.rb")
 Types::UserType = GraphQL::ObjectType.define do
@@ -97,7 +97,7 @@ end
 
 <Instruction>
 
-Then create an mutation for creating an user:
+Then create a mutation for creating a user:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_user.rb")
 class Resolvers::CreateUser < GraphQL::Function
@@ -297,7 +297,7 @@ end
 
 ### Authenticating requests
 
-With the token that the `signinUser` mutation provides, apps can authenticate subsequent requests. There are couple of ways this can be done. In this tutorial we are just going to use the built-in **session**, since this doesn't add any requirements to the client application. The GraphQL server should be able to get the token from the session header on each request, detect what user it relates to, and pass this information down to the resolvers.
+With the token that the `signinUser` mutation provides, apps can authenticate subsequent requests. There are a couple of ways this can be done. In this tutorial, we are just going to use the built-in **session**, since this doesn't add any requirements to the client application. The GraphQL server should be able to get the token from the session header on each request, detect what user it relates to, and pass this information down to the resolvers.
 
 The best place to put data shared between resolvers is in the context object.
 You'll need that object to be different in every request now though, since each one may be from a different user.
@@ -324,9 +324,9 @@ class GraphqlController < ApplicationController
 
   private
 
-  # gets current user from token stored in session
+  # gets current user from token stored in the session
   def current_user
-    # if we want to change the sign-in strategy, this is the place todo it
+    # if we want to change the sign-in strategy, this is the place to do it
     return unless session[:token]
 
     # For Ruby on Rails >=5.2.x use:
@@ -371,7 +371,7 @@ end
 
 </Instruction>
 
-This is pretty straightforward since the generated token is so simple. Like was said before, make sure to check out a different token method out there when building a real world application though, such as [JWT](https://jwt.io/).
+This is pretty straightforward since the generated token is so simple. Like was said before, make sure to check out a different token method out there when building a real-world application though, such as [JWT](https://jwt.io/).
 
 
 ### Linking User to Created Links
