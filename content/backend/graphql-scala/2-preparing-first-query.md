@@ -16,7 +16,7 @@ Our goal for this chapter is to run following query:
 query {
   allLinks {
     id
-    name
+    url
     description
   }
 }
