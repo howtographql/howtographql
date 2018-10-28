@@ -6,13 +6,13 @@ description: "Learn how to build a GraphQL server with graphql-ruby and best pra
 
 ### Motivation
 
-[Ruby](https://www.ruby-lang.org/en/) is general purpose programming language optimized for programmer happiness. One of its most popular frameworks for building web applications is called [Ruby On Rails](http://rubyonrails.org/).
+[Ruby](https://www.ruby-lang.org/en/) is general purpose programming language optimized for programmer happiness. One of its most popular frameworks for building web applications is called [Ruby on Rails](http://rubyonrails.org/).
 
-The Ruby ecosystem was one of the first to adopt [GraphQL](http://graphql.org/). A couple of popular Ruby on Rails applications like [Github](https://github.com/) and [Shopify](https://www.shopify.com/) are using it production already.
+The Ruby ecosystem was one of the first to adopt [GraphQL](http://graphql.org/). A couple of popular Ruby on Rails applications like [Github](https://github.com/) and [Shopify](https://www.shopify.com/) are using it in production already.
 
 In this chapter you'll learn how to build your very own [GraphQL](http://graphql.org/) server using the following technologies:
 
-* [Ruby On Rails](http://rubyonrails.org/): the most popular library for building applications in [Ruby](https://www.ruby-lang.org/en/)
+* [Ruby on Rails](http://rubyonrails.org/): the most popular library for building applications in [Ruby](https://www.ruby-lang.org/en/)
 * [GraphQL Gem](http://graphql-ruby.org/): the most popular library for building [GraphQL](http://graphql.org/) applications
 * [GraphiQL](https://github.com/graphql/graphiql): An in-browser IDE for exploring [GraphQL](http://graphql.org/), which comes bundled with [GraphQL Gem](http://graphql-ruby.org/)
 

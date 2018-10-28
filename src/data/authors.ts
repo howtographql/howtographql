@@ -12,8 +12,8 @@ const authors: Author[] = [
   {
     avatar: require('../assets/graphics/contributors/nikolas.jpg'),
     bio:
-      "Nikolas is a developer and head of content at Graphcool. He is excited about GraphQL as a new API technology and has a passion for learning and sharing knowledge.",
-    job: 'Developer @ Graphcool',
+      "Nikolas is a developer and head of content at Prisma. He is excited about GraphQL as a new API technology and has a passion for learning and sharing knowledge.",
+    job: 'Developer @ Prisma',
     link: 'https://twitter.com/nikolasburk',
     name: 'Nikolas Burk',
   },
@@ -74,9 +74,9 @@ const authors: Author[] = [
   },
   {
     avatar: require('../assets/graphics/contributors/jonatas.jpg'),
-    bio: "Software developer @ Cheesecake Labs. Speaker, contributor and conferences organizer. Loves open source communities.",
+    bio: "Software Developer, speaker, contributor and conferences organizer. Loves open source communities.",
     link: 'https://twitter.com/jonatasbaldin',
-    job: 'Developer @ Cheesecake Labs',
+    job: 'Software Developer',
     name: 'Jonatas Baldin'
   },
   {
@@ -106,10 +106,10 @@ const authors: Author[] = [
   {
     avatar: require('../assets/graphics/contributors/marioosh.jpg'),
     bio:
-      "Scala Programmer who enjoys learning and using many other techs including other languages like ELixir or frontend related frameworks. Many years ago felt in love in Graph Databases now sharing this emotion with GraphQL.",
+      "Experienced Scala Developer who enjoys learning and using many other techs. Years ago fell in love in Graph Databases now sharing this emotion with GraphQL.",
     link: 'https://twitter.com/marioosh',
     job: 'Fullstack Developer @ Scalac.io',
-    name: 'Mariusz Nosinski'
+    name: 'Mariusz Nosiński'
   },
 ]
 

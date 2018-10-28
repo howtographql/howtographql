@@ -32,7 +32,7 @@ This creates a new directory called `hackernews-node` and initializes it with a 
 ### Creating a raw GraphQL server
 
 With the project directory in place, you can go ahead and create the entry point for your GraphQL server. This will be a file called `index.js`, located inside a directory called `src`.
-``
+
 <Instruction>
 
 In your terminal, first create the `src` directory and then the empty `index.js` file:
@@ -46,7 +46,7 @@ touch src/index.js
 
 > **Note**: The above code block is annotated with a directory name. It indicates _where_ you need to execute the terminal command.
 
-To start the app, you can now execute `node src/index.js` inside the `hackernews-node` directory. At the moment, this won't do anything because `index.js` is still empty  ¯\_(ツ)_/¯
+To start the app, you can now execute `node src/index.js` inside the `hackernews-node` directory. At the moment, this won't do anything because `index.js` is still empty  ¯\\\_(ツ)_/¯
 
 Let's go and start building the GraphQL server! The first thing you need to is - surprise - add a dependency to the project.
 
@@ -109,7 +109,7 @@ server.start(() => console.log(`Server is running on http://localhost:4000`))
 </Instruction>
 
 > **Note**: This code block is annotated with a file name. It indicates into which file you need to put the code that's shown. The annotation also links to the corresponding file on GitHub to help you figure out _where_ in the file you need to put it in case you are not sure about that.
-> Also, while the code block has a button for copying the code, we encourage you to type everything out yourself since that drastically increases your learning experience.
+> Also, while the code block has a button for copying the code, we encourage you to type everything out yourself since that drastically improves your learning experience.
 
 All right, let's understand what's going on here by walking through the numbered comments:
 
@@ -183,7 +183,7 @@ At the core of every GraphQL API, there is a GraphQL schema. So, let's quickly t
 
 > **Note**: In this tutorial, we'll only scratch the surface of this topic. If you want to go a bit more in-depth and learn more about the GraphQL schema as well as its role in a GraphQL API, be sure to check out [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e) excellent article.
 
-GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). The SDL has a type system that allows to define data structures (just like other strongly type programming languages such as Java, TypeScript, Swift, Go, ...).
+GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). The SDL has a type system that allows to define data structures (just like other strongly typed programming languages such as Java, TypeScript, Swift, Go, ...).
 
 But how does that help in defining the API for a GraphQL server? Every GraphQL schema has three special _root types_, these are called `Query`, `Mutation` and `Subscription`. The root types correspond to the three operation types offered by GraphQL: queries, mutations and subscriptions. The fields on these root types are called _root field_ and define the available API operations.
 
@@ -219,7 +219,12 @@ In this case, we have three root fields: `users` and `user` on `Query` as well a
 
 What are the API operations that can be derived from this schema definition? Well, we know that each API operation always needs to start with a root field. However, we haven't learned yet what it looks like when the _type_ of a root field is itself another [object type](http://graphql.org/learn/schema/#object-types-and-fields). This is the case here, where the types of the root fields are `[User!]!`, `User` and `User!`. In the `info` example from before, the type of the root field was a `String`, which is a [scalar type](http://graphql.org/learn/schema/#scalar-types).
 
+- `typeDefs`: These are the type definitions from your application schema imported from `src/schema.graphql`.
+- `resolvers`: This is a JavaScript object that mirrors the `Query`, `Mutation` and `Subscription` types and their fields from your application schema. Each field in the application schema is represented by a function with the same name in that object.
+- `context`: This is an object that gets passed through the resolver chain and every resolver can read from or write to.
+
 When the type of a root field is an object type, you can further expand the query (or mutation/subscription) with fields of that object type. The expanded part is called _selection set_.
+
 
 Here are the operations that are accepted by a GraphQL API that implements the above schema:
 
@@ -257,4 +262,7 @@ There are a few things to note:
   - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
 
+As you provide this information, the `Prisma` instance will get full access to your database service and can be used to resolve incoming request later on.
+
 Phew, enough theory 😠 Let's go and write some code again!
+

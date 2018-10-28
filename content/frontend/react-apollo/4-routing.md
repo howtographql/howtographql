@@ -10,7 +10,7 @@ duration: 0
 videoAuthor: ""
 ---
 
-In this section, you'll learn how to use the [`react-router`](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
+In this section, you'll learn how to use the [react-router](https://github.com/ReactTraining/react-router) library with Apollo to implement some navigation functionality!
 
 ### Install dependencies
 
@@ -63,7 +63,7 @@ export default withRouter(Header)
 
 This simply renders two `Link` components that users can use to navigate between the `LinkList` and the `CreateLink` components.
 
-> Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows you to navigate between routes inside of your application.
+> Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [Link](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows you to navigate between routes inside of your application.
 
 ### Setup routes
 
@@ -127,7 +127,7 @@ ReactDOM.render(
       <App />
     </ApolloProvider>
   </BrowserRouter>,
-  document.getElementById('root'),
+  document.getElementById('root')
 )
 ```
 
@@ -143,19 +143,16 @@ To wrap up this section, you need to implement an automatic redirect from the `C
 
 <Instruction>
 
-Open `CreateLink.js` and update `_createLink` to look as follows:
+Open `CreateLink.js` and update `<Mutation />` component to look as follows:
 
-```js{9}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-_createLink = async () => {
-  const { description, url } = this.state
-  await this.props.postMutation({
-    variables: {
-      description,
-      url,
-    },
-  })
-  this.props.history.push('/')
-}
+```js{4}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+<Mutation
+  mutation={POST_MUTATION}
+  variables={{ description, url }}
+  onCompleted={() => this.props.history.push('/')}
+>
+  {postMutation => <button onClick={postMutation}>Submit</button>}
+</Mutation>
 ```
 
 </Instruction>

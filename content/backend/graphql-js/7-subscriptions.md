@@ -368,7 +368,7 @@ The next feature to be added is a voting feature which lets users _upvote_ certa
 
 <Instruction>
 
-Open `database/datamodel.graphql` and addjust it to look as follows:
+Open `database/datamodel.graphql` and adjust it to look as follows:
 
 ```graphql{7,16,19-23}(path=".../hackernews-node/database/datamodel.graphql")
 type Link {
@@ -520,7 +520,7 @@ Finally, you need to add the subscription resolver function.
 
 Add the following code to `Subscription.js`:
 
-```js(path=".../hackernews-node/src/schema.graphql")
+```js(path=".../hackernews-node/src/resolvers/Subscription.js")
 function newVoteSubscribe (parent, args, context, info) {
   return context.db.subscription.vote(
     { where: { mutation_in: ['CREATED'] } },

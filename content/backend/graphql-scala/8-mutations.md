@@ -1,13 +1,17 @@
 ---
 title: Mutations
-pageTitle: "Mutations are about adding data by the API, is like a POST request in the REST"
+pageTitle: "GraphQL Scala - Mutations"
 description: "In this chapter you will learn how to add data to the database."
+question: "What is a mutation?"
+answers: ["It's a function which modify a context", "It's a function responsible for authentication", 
+"It's a function executed before and after field", "It's a complementor to Query but to update/put data instead of reading it"]
+correctAnswer: 3
 ---
 
 In the last chapters you've learnt how to use GraphQL to read data. Time to add some.
-When you want to add data, you use almost the same sytax. How does the server know when you want to write data instead of reading? You have to use the `mutation` keyword instead of `query`. That's all. Actually not all, but you will learn about the differences in this chapter.
+When you want to add data, you use almost the same syntax. How does the server know when you want to write data instead of reading? You have to use the `mutation` keyword instead of `query`. That's all. Actually not all, but you will learn about the differences in this chapter.
 
-### Create a user
+### Create an user
 
 Let's start with the mutation which adds a new user to the database, like in the [howtographql.com common schema](https://github.com/howtographql/howtographql/blob/master/meta/structure.graphql)
 
@@ -27,9 +31,11 @@ input AUTH_PROVIDER_EMAIL {
 }
 ```
 
-It isn't hard to imagine what this mutation does. The name suggests it matches our interest --it creates a user, takes two paramaters of type `String` and `AuthProviderSignupData` and returns an `User` in response.
+It isn't hard to imagine what this mutation does. The name suggests it matches our interest - it creates an user, 
+takes two parameters of type `String` and `AuthProviderSignupData` and returns an `User` in response.
 
-But wait... until now we've been using `type` not `input`. So what is this? `input` is a type that can be used as a parameter. You will frequently see it among `mutation`s.
+But wait... until now we've been using `type` not `input`. So what is this? `input` is a type that can be used as a parameter. 
+You will frequently see it among `mutation`s.
 
 Let's try to implement mutation in the following order:
 
@@ -69,11 +75,16 @@ implicit val AuthProviderEmailInputType: InputObjectType[AuthProviderEmail] = de
    InputObjectTypeName("AUTH_PROVIDER_EMAIL")
 )
 
-implicit val AuthProviderSignupDataInputType: InputObjectType[AuthProviderSignupData] = deriveInputObjectType[AuthProviderSignupData]()
+lazy val AuthProviderSignupDataInputType: InputObjectType[AuthProviderSignupData] = deriveInputObjectType[AuthProviderSignupData]()
 
 ```
 
 </Instruction>
+
+To avoid circular dependencies of types, like we've experiences in the last chapter ther a suggestion to use `lazy` keyword for every type.
+But in case above, `AuthProviderEmail` is nested object in `AuthProviderSignupData` which is built by macro. Thats why we had to add `implicit`
+we have to have this nested object type in the scope in the time of macro executing.
+
 
 ### Define Mutation Object
 
@@ -101,6 +112,34 @@ In the same file add the following code:
 
 </Instruction>
 
+As you can see, we're missing one function in `DAO`
+
+<Instruction>
+
+Add to `DAO` the following function:
+
+```scala
+//add to imports
+import com.howtographql.scala.sangria.models.{AuthProviderSignupData
+
+//add in body
+def createUser(name: String, authProvider: AuthProviderSignupData): Future[User] = {
+    val newUser = User(0, name, authProvider.email.email, authProvider.email.password )
+
+    val insertAndReturnUserQuery = (Users returning Users.map(_.id)) into {
+      (user, id) => user.copy(id = id)
+    }
+
+    db.run {
+      insertAndReturnUserQuery += newUser
+    }
+
+  }
+  
+```
+
+</Instruction>  
+
 ### Add Mutation to Schema
 
 <Instruction>
@@ -115,17 +154,22 @@ val SchemaDefinition = Schema(QueryType, Some(Mutation))
 
 All mutations are optional so you have to wrap it in `Some`.
 
-If you will try to run a server,you will get errors about unimplemented `FromInput`'s.
+If you will try to run a server, you will get errors about unimplemented `FromInput`'s.
 It's an additional step we have to do to able run those mutations.
 
 ### Provide FromInput for input classes
 
-Sangria needs to read a part of JSON like structure and convert it to case classes. That's the reason why we need such `FromInput` type classes. In fact you can implement it on your own. But there is another way: graphql syntax is JSON, so you can use any JSON parsing libraries for this.
-In the first step we've added a dependency to the `sangria-spray-json` library, but if you want you can use any other library. Sangria uses this to convert it into proper `FromInput` type. All we need to do is to define a proper JSONReader for that case class.
+Sangria needs to read a part of JSON-like structure and convert it to case classes. 
+That's the reason why we need such `FromInput` type classes. 
+There are two ways to do it, you can write your own mapper, but you can also use any JSON library to help with this process.
+In the first step we've added a dependency to the `sangria-spray-json` library, 
+but if you want you can use any other library. 
+Sangria uses this to convert it into proper `FromInput` type. 
+All we need to do is to define a proper JSONReader for that case class and import some converting functions.
 
 <Instruction>
 
-In the same file, add the following code before the definitions of InputObjectTypes:
+In the `GraphQLSchema` file, add the following code before the definitions of InputObjectTypes:
 
 ```scala
 
@@ -135,29 +179,6 @@ import spray.json.DefaultJsonProtocol._
 implicit val authProviderEmailFormat = jsonFormat2(AuthProviderEmail)
 implicit val authProviderSignupDataFormat = jsonFormat1(AuthProviderSignupData)
 
-```
-
-</Instruction>  
-
-Almost done.
-
-<Instruction>
-
-Add to `DAO` the following function:
-
-```
-def createUser(name: String, authProvider: AuthProviderSignupData): Future[User] = {
-    val newUser = User(0, name, authProvider.email.email, authProvider.email.password )
-
-    val insertAndReturnUserQuery = (Users returning Users.map(_.id)) into {
-      (user, id) => user.copy(id = id)
-    }
-
-    db.run {
-      insertAndReturnUserQuery += newUser
-    }
-
-  }
 ```
 
 </Instruction>  
@@ -185,7 +206,8 @@ mutation addMe {
 }
 ```
 
-Of course you can use different data :D If everything works we can move forward and implement two more mutations.
+Of course you can use different data :)  
+If everything works, we can move forward and implement two more mutations.
 
 ### AddLink mutation
 
@@ -197,7 +219,8 @@ createLink(description: String!, url: String!, postedById: ID): Link
 
 First try on your own, next compare to my solution.
 
-Hint! You can skip creating case classes phase because we don't need any of them. In this case parameters uses only `String` and `Integer` which are simple scalars available out-of-the-box.
+Hint! You can skip creating case classes phase because we don't need any of them. 
+In this case parameters uses only `String` and `Int` which are simple scalars available out-of-the-box.
 
 <Instruction>
 
@@ -223,7 +246,7 @@ Also add a mutation's definition inside the `Mutation.fields` sequence.
 
 <Instruction>
 
-In `Mutation` definition add the following field:
+In `GraphQLSchema` file, inside `Mutation` definition, add the following field:
 
 ```scala
 Field("createLink",
@@ -291,6 +314,8 @@ def createVote(linkId: Int, userId: Int): Future[Vote] = {
 
 </Instruction>
 
+Add arguments needed by the next mutation and this mutation itself.
+
 <Instruction>
 
 Add argument definitions:
@@ -317,4 +342,15 @@ Field("createVote",
 
 </Instruction>
 
-Now you know how to send data to the server. You will use this knowledge when we implement authentication and authorization logic in the next chapter.
+We are done! You can test all those mutations in Graphiql console.
+
+The current state of files changed in this chapter:
+
+[models/package.scala](https://gist.github.com/marioosh/316468a9ac5e1179e226a3191f03fab8#file-models_package-scala)  
+[DAO.scala](https://gist.github.com/marioosh/316468a9ac5e1179e226a3191f03fab8#file-dao-scala)  
+[GraphQLSchema.scala](https://gist.github.com/marioosh/316468a9ac5e1179e226a3191f03fab8#file-graphqlschema-scala)  
+
+---
+
+Now you know how to send data to the server. 
+You will use this knowledge when we implement authentication and authorization logic in the next chapter.

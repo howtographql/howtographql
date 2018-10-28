@@ -11,7 +11,7 @@ In this section, you are going to implement the first API operation that provide
 
 ### Extending the schema definition
 
-Let's start by implementing a `feed` query which allows to retrieve a list of `Link` elements. In general, when adding a new feature to the API, the process will look pretty similar every time:
+Let's start by implementing a `feed` query which allows you to retrieve a list of `Link` elements. In general, when adding a new feature to the API, the process will look pretty similar every time:
 
 1. Extend the GraphQL schema definition with a new _root field_ (and new _data types_, if needed)
 1. Implement corresponding _resolver functions_ for the added fields
@@ -41,7 +41,7 @@ type Link {
 
 </Instruction>
 
-Pretty straightforward. You're defining a new `Link` type that represents the links that can be posted to Hacker News. Each `Link` has an `id`, a `description` and `url`. You're then adding another root field to the `Query` type that allows to retrieve a list of `Link` elements. This list is guaranteed to never be `null` (if anything, it will be empty) and never contain any elements that are `null` - that's what the two exclamation marks are for.
+Pretty straightforward. You're defining a new `Link` type that represents the links that can be posted to Hacker News. Each `Link` has an `id`, a `description` and `url`. You're then adding another root field to the `Query` type that allows you to retrieve a list of `Link` elements. This list is guaranteed to never be `null` (if anything, it will be empty) and never contain any elements that are `null` - that's what the two exclamation marks are for.
 
 ### Implement resolver functions
 
@@ -49,7 +49,7 @@ The next step is to implement the resolver function for the `feed` query. In fac
 
 <Instruction>
 
-In `index.js`, add a new list with dummy data as well and update the `resolvers` to look as follows
+In `index.js`, add a new list with dummy data as well and update the `resolvers` to look as follows:
 
 ```js{2-6,12,15-19}(path="../hackernews-node/src/index.js")
 // 1

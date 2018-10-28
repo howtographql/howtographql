@@ -28,8 +28,8 @@ render() {
       <div className='ph3 pv1 background-gray'>
         <Switch>
           <Route exact path='/' render={() => <Redirect to='/new/1' />} />
-          <Route exact path='/login' component={Login} />
           <Route exact path='/create' component={CreateLink} />
+          <Route exact path='/login' component={Login} />
           <Route exact path='/search' component={Search} />
           <Route exact path='/top' component={LinkList} />
           <Route exact path='/new/:page' component={LinkList} />
@@ -83,7 +83,6 @@ Open `LinkList.js` and add three arguments to the `FeedQuery` by replacing the `
 export const FEED_QUERY = gql`
   query FeedQuery($first: Int, $skip: Int, $orderBy: LinkOrderByInput) {
     feed(first: $first, skip: $skip, orderBy: $orderBy) {
-      count
       links {
         id
         createdAt
@@ -110,31 +109,37 @@ export const FEED_QUERY = gql`
 
 The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` for this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list. `orderBy` defines how the returned list should be sorted.
 
-But how can we pass the variables when using the `graphql` container which is fetching the data under the hood? You need to provide the arguments right where you're wrapping your component with the query.
+But how can we pass the variables when using the `<Query />` component which is fetching the data under the hood? You need to provide the arguments into `variables` prop right where you're declaring the component.
 
 <Instruction>
 
-Still in `LinkList.js`, replace the current `export` statement with the following:
+Still in `LinkList.js`, add the following method inside the scope of the LinkList component:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-export default graphql(FEED_QUERY, {
-  name: 'feedQuery',
-  options: ownProps => {
-    const page = parseInt(ownProps.match.params.page, 10)
-    const isNewPage = ownProps.location.pathname.includes('new')
-    const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
-    const first = isNewPage ? LINKS_PER_PAGE : 100
-    const orderBy = isNewPage ? 'createdAt_DESC' : null
-    return {
-      variables: { first, skip, orderBy },
-    }
-  },
-})(LinkList)
+_getQueryVariables = () => {
+  const isNewPage = this.props.location.pathname.includes('new')
+  const page = parseInt(this.props.match.params.page, 10)
+
+  const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
+  const first = isNewPage ? LINKS_PER_PAGE : 100
+  const orderBy = isNewPage ? 'createdAt_DESC' : null
+  return { first, skip, orderBy }
+}
 ```
 
 </Instruction>
 
-You're now passing a function to `graphql` that takes in the props of the component (`ownProps`) before the query is executed. This allows you to retrieve the information about the current page from the router (`ownProps.match.params.page`) and use it to calculate the chunk of links that you retrieve with `first` and `skip`.
+<Instruction>
+
+And update the `<Query />` component definition like so:
+
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+<Query query={FEED_QUERY} variables={this._getQueryVariables()}>
+```
+
+</Instruction>
+
+You're now passing `first, skip, orderBy` values as `variables` based on the current page (`this.props.match.params.page`) which it's used to calculate the chunk of links that you retrieve.
 
 Also note that you're including the ordering attribute `createdAt_DESC` for the `new` page to make sure the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes for each link.
 
@@ -150,6 +155,61 @@ export const LINKS_PER_PAGE = 5
 
 </Instruction>
 
+### Implementing navigation
+
+Next, you need functionality for the user to switch between the pages. First add two `button` elements to the bottom of the `LinkList` component that can be used to navigate back and forth.
+
+<Instruction>
+
+Open `LinkList.js` and update `render` to look as follows:
+
+```js{11-15,27-36}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+render() {
+  return (
+    <Query query={FEED_QUERY} variables={this._getQueryVariables()}>
+      {({ loading, error, data, subscribeToMore }) => {
+        if (loading) return <div>Fetching</div>
+        if (error) return <div>Error</div>
+
+        this._subscribeToNewLinks(subscribeToMore)
+        this._subscribeToNewVotes(subscribeToMore)
+
+        const linksToRender = this._getLinksToRender(data)
+        const isNewPage = this.props.location.pathname.includes('new')
+        const pageIndex = this.props.match.params.page
+          ? (this.props.match.params.page - 1) * LINKS_PER_PAGE
+          : 0
+
+        return (
+          <Fragment>
+            {linksToRender.map((link, index) => (
+              <Link
+                key={link.id}
+                link={link}
+                index={index + pageIndex}
+                updateStoreAfterVote={this._updateCacheAfterVote}
+              />
+            ))}
+            {isNewPage && (
+              <div className="flex ml4 mv3 gray">
+                <div className="pointer mr2" onClick={this._previousPage}>
+                  Previous
+                </div>
+                <div className="pointer" onClick={() => this._nextPage(data)}>
+                  Next
+                </div>
+              </div>
+            )}
+          </Fragment>
+        )
+      }}
+    </Query>
+  )
+}
+```
+
+</Instruction>
+
 <Instruction>
 
 Now adjust the import statement from `../constants` in `LinkList.js` to also include the new constant: 
@@ -160,54 +220,18 @@ import { LINKS_PER_PAGE } from '../constants'
 
 </Instruction>
 
-### Implementing navigation
-
-Next, you need functionality for the user to switch between the pages. First add two `button` elements to the bottom of the `LinkList` component that can be used to navigate back and forth.
+Before continue, discover [React Fragments](https://reactjs.org/docs/fragments.html) a common pattern for a component to return multiple elements without adding extra nodes to the DOM ✨
 
 <Instruction>
 
-Open `LinkList.js` and update `render` to look as follows:
+Don't forget to add `Fragment` to the top of the file:
 
-```js{11-13,26-31}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-render() {
-
-  if (this.props.feedQuery && this.props.feedQuery.loading) {
-    return <div>Loading</div>
-  }
-
-  if (this.props.feedQuery && this.props.feedQuery.error) {
-    return <div>Error</div>
-  }
-
-  const isNewPage = this.props.location.pathname.includes('new')
-  const linksToRender = this._getLinksToRender(isNewPage)
-  const page = parseInt(this.props.match.params.page, 10)
-
-  return (
-    <div>
-      <div>
-        {linksToRender.map((link, index) => (
-          <Link
-            key={link.id}
-            updateStoreAfterVote={this._updateCacheAfterVote}
-            index={index}
-            link={link}
-          />
-        ))}
-      </div>
-      {isNewPage &&
-      <div className='flex ml4 mv3 gray'>
-        <div className='pointer mr2' onClick={() => this._previousPage()}>Previous</div>
-        <div className='pointer' onClick={() => this._nextPage()}>Next</div>
-      </div>
-      }
-    </div>
-  )
-
-}
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+import React, { Component, Fragment } from 'react'
 ```
 
 </Instruction>
+
 
 Since the setup is slightly more complicated now, you are going to calculate the list of links to be rendered in a separate method.
 
@@ -216,11 +240,12 @@ Since the setup is slightly more complicated now, you are going to calculate the
 Still in `LinkList.js`, add the following method implementation:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-_getLinksToRender = (isNewPage) => {
+_getLinksToRender = data => {
+  const isNewPage = this.props.location.pathname.includes('new')
   if (isNewPage) {
-    return this.props.feedQuery.feed.links
+    return data.feed.links
   }
-  const rankedLinks = this.props.feedQuery.feed.links.slice()
+  const rankedLinks = data.feed.links.slice()
   rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length)
   return rankedLinks
 }
@@ -230,16 +255,16 @@ _getLinksToRender = (isNewPage) => {
 
 For the `newPage`, you'll simply return all the links returned by the query. That's logical since here you don't have to make any manual modifications to the list that is to be rendered. If the user loaded the component from the `/top` route, you'll sort the list according to the number of votes and return the top 10 links.
 
-Next, you'll implement the functionality for the _Previous_- and _Next_-buttons.
+Next, you'll implement the functionality for the _Previous_ and _Next_ buttons.
 
 <Instruction>
 
 In `LinkList.js`, add the following two methods that will be called when the buttons are pressed:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-_nextPage = () => {
+_nextPage = data => {
   const page = parseInt(this.props.match.params.page, 10)
-  if (page <= this.props.feedQuery.feed.count / LINKS_PER_PAGE) {
+  if (page <= data.feed.count / LINKS_PER_PAGE) {
     const nextPage = page + 1
     this.props.history.push(`/new/${nextPage}`)
   }
@@ -268,14 +293,18 @@ Through the changes that we made to the `FEED_QUERY`, you'll notice that the `up
 
 With that information, open `LinkList.js` and update the `_updateCacheAfterVote` method to look as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{2-11}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _updateCacheAfterVote = (store, createVote, linkId) => {
   const isNewPage = this.props.location.pathname.includes('new')
   const page = parseInt(this.props.match.params.page, 10)
+
   const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
   const first = isNewPage ? LINKS_PER_PAGE : 100
   const orderBy = isNewPage ? 'createdAt_DESC' : null
-  const data = store.readQuery({ query: FEED_QUERY, variables: { first, skip, orderBy } })
+  const data = store.readQuery({
+    query: FEED_QUERY,
+    variables: { first, skip, orderBy }
+  })
 
   const votedLink = data.feed.links.find(link => link.id === linkId)
   votedLink.votes = createVote.link.votes
@@ -291,35 +320,31 @@ Finally, you also need to adjust the implementation of `update` when new links a
 
 <Instruction>
 
-Open `CreateLink.js` and replace the current contents of `_createLink` like so:
+Open `CreateLink.js` and replace the current `<Mutation />` component like so:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-_createLink = async () => {
-  const { description, url } = this.state
-  await this.props.postMutation({
-    variables: {
-      description,
-      url,
-    },
-    update: (store, { data: { post } }) => {
-      const first = LINKS_PER_PAGE
-      const skip = 0
-      const orderBy = 'createdAt_DESC'
-      const data = store.readQuery({
-        query: FEED_QUERY,
-        variables: { first, skip, orderBy },
-      })
-      data.feed.links.splice(0, 0, post)
-      data.feed.links.pop()
-      store.writeQuery({
-        query: FEED_QUERY,
-        data,
-        variables: { first, skip, orderBy },
-      })
-    },
-  })
-  this.props.history.push(`/new/1`)
-}
+```js{4-19}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+<Mutation
+  mutation={POST_MUTATION}
+  variables={{ description, url }}
+  onCompleted={() => this.props.history.push('/new/1')}
+  update={(store, { data: { post } }) => {
+    const first = LINKS_PER_PAGE
+    const skip = 0
+    const orderBy = 'createdAt_DESC'
+    const data = store.readQuery({
+      query: FEED_QUERY,
+      variables: { first, skip, orderBy }
+    })
+    data.feed.links.unshift(post)
+    store.writeQuery({
+      query: FEED_QUERY,
+      data,
+      variables: { first, skip, orderBy }
+    })
+  }}
+>
+  {postMutation => <button onClick={postMutation}>Submit</button>}
+</Mutation>
 ```
 
 </Instruction>
