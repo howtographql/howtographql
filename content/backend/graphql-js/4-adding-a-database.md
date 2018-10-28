@@ -24,7 +24,7 @@ Typically, when implementing resolvers and connecting to the database, you have 
 - Access the database directly (by writing SQL or using another NoSQL database API)
 - Use an [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping) that provides an abstraction for your database and lets you access it directly from your programming language
 
-The first option is problematic since dealing with SQL in resolvers is complex and quickly gets out-of-hand. Another issue is that SQL queries are commonly submitted to the database as plain _strings_. Strings don't adhere to any structure, they're just raw sequences of characters. Therefore, your tooling won't be able to help you finding any issues with them or provide additional perks like autocompletion in editors. Writing SQL queries is thus tedious and error-prone.
+The first option is problematic since dealing with SQL in resolvers is complex and quickly gets out-of-hand. Another issue is that SQL queries are commonly submitted to the database as plain _strings_. Strings don't adhere to any structure, they're just raw sequences of characters. Therefore, your tooling won't be able to help you find any issues with them or provide additional perks like autocompletion in editors. Writing SQL queries is thus tedious and error-prone.
 
 The second option is to use an ORM which might seem like a good solution at first. However, this approach usually falls short as well. ORMs typically have the problem that they're implementing rather simple solutions for database access, which when using GraphQL won't work due to the complexities of queries and the various edge cases that can arise.
 
@@ -32,7 +32,7 @@ Prisma solves this problem by providing you with a _GraphQL query engine_ which 
 
 > **Note**: Prisma bindings are based on the idea of schema stitching and schema delegation. We're not going to cover these techniques in detail in this tutorial. If you want to learn more about them, you can check out the following two articles:
 > - [GraphQL Schema Stitching explained: Schema Delegation](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405)
-> - [Reusing & Composing GraphQL APIs with GraphQL Bindings](https://blog.graph.cool/reusing-composing-graphql-apis-with-graphql-bindings-80a4aa37cff5)
+> - [Reusing & Composing GraphQL APIs with GraphQL Bindings](https://www.prisma.io/blog/reusing-and-composing-graphql-apis-with-graphql-bindings-80a4aa37cff5/)
 
 ### Architecture
 
@@ -166,9 +166,21 @@ To learn more about the structure of `prisma.yml`, feel free to check out the [d
 
 Here's a quick explanation of each property you see in that file:
 
-- `endpoint`: The HTTP endpoint for your Prisma API. It is actually required to deploy your Prisma API. It will be gerated when we deploy.
+- `endpoint`: The HTTP endpoint for your Prisma API. It is actually required to deploy your Prisma API. It will be generated when we deploy.
 - `datamodel`: This simply points to the _data model_ which is the foundation for the Prisma CRUD API.
 - `secret`: You want to protect your Prisma service and require requests against your Prisma API to be authenticated. This _secret is used to sign [JWT](https://en.wikipedia.org/wiki/JSON_Web_Token)s_ which need to be included in the `Authorization` header of any HTTP requests made against the API. Read more about that [here](https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication).
+
+Before deploying the service, you need to install the Prisma CLI which is used to manage the Prisma service.
+
+<Instruction>
+
+To install the Prisma CLI globally with NPM, use the following command:
+
+```bash
+npm install -g prisma
+```
+
+</Instruction>
 
 All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
 

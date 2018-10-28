@@ -55,7 +55,7 @@ If no `filter` string is provided, then the `where` object will be just an empty
 
 In case there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions.
 
-Notice that the the `Prisma` binding object translates the above function call into a GraphQL query that will look somewhat similar to [this](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a). This query is sent by the Yoga server to the Prisma API and resolved there:
+Notice that the `Prisma` binding object translates the above function call into a GraphQL query that will look somewhat similar to [this](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a). This query is sent by the Yoga server to the Prisma API and resolved there:
 
 ```graphql(nocopy)
 query ($filter: String) {
@@ -88,7 +88,7 @@ query {
 
 ### Pagination
 
-Pagination is a tricky topic in API design. On a high-level, there are two major approaches how it can be tackled:
+Pagination is a tricky topic in API design. On a high-level, there are two major approaches regarding how it can be tackled:
 
 - **Limit-Offset**: Request a specific _chunk_ of the list by providing the indices of the items to be retrieved (in fact, you're mostly providing the start index (_offset_) as well as a count of items to be retrieved (_limit_)).
 - **Cursor-based**: This pagination model is a bit more advanced. Every element in the list is associated with a unique ID (the _cursor_). Clients paginating through the list then provide the cursor of the starting element as well as a count of items to be retrieved.
@@ -143,7 +143,7 @@ function feed(parent, args, context, info) {
 
 </Instruction>
 
-Really all that's changing here is that the invokation of the `links` query now receives two additional arguments which might be carried by the incoming `args` object. Again, Prisma will do the hard work for us 🙏
+Really all that's changing here is that the invocation of the `links` query now receives two additional arguments which might be carried by the incoming `args` object. Again, Prisma will do the hard work for us 🙏
 
 You can test the pagination API with the following query which returns the second `Link` from the list:
 

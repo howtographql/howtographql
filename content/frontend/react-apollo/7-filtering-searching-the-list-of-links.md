@@ -37,23 +37,20 @@ class Search extends Component {
           Search
           <input
             type='text'
-            onChange={(e) => this.setState({ filter: e.target.value })}
+            onChange={e => this.setState({ filter: e.target.value })}
           />
-          <button
-            onClick={() => this._executeSearch()}
-          >
-            OK
-          </button>
+          <button onClick={() => this._executeSearch()}>OK</button>
         </div>
-        {this.state.links.map((link, index) => <Link key={link.id} link={link} index={index}/>)}
+        {this.state.links.map((link, index) => (
+          <Link key={link.id} link={link} index={index} />
+        ))}
       </div>
     )
   }
 
   _executeSearch = async () => {
-    // ... you'll implement this in a bit
+    // ... you'll implement this 🔜
   }
-
 }
 
 export default withApollo(Search)
@@ -76,10 +73,10 @@ render() {
       <Header />
       <div className='ph3 pv1 background-gray'>
         <Switch>
-          <Route exact path='/' component={LinkList}/>
-          <Route exact path='/create' component={CreateLink}/>
-          <Route exact path='/login' component={Login}/>
-          <Route exact path='/search' component={Search}/>
+          <Route exact path='/' component={LinkList} />
+          <Route exact path='/create' component={CreateLink} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/search' component={Search} />
         </Switch>
       </div>
     </div>
@@ -138,7 +135,7 @@ Great, let's now go back to the `Search` component and see how we can implement 
 
 <Instruction>
 
-Open `Search.js` and add the following query definition at the bottom of the file:
+Open `Search.js` and add the following query definition at the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 const FEED_SEARCH_QUERY = gql`

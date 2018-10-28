@@ -35,15 +35,15 @@ export default function Footer() {
       `}</style>
       <span>
         Made with <span className="love"> ♥ </span> by{' '}
-        <a href="https://www.graph.cool" target="_blank">Graphcool</a> and the
+        <a href="https://www.prisma.io" target="_blank">Prisma</a> and the
         amazing
         GraphQL community
       </span>
       <div className="logos">
-        <a href="https://slack.graph.cool" target="_blank">
+        <a href="https://slack.prisma.io" target="_blank">
           <img src={require('../../assets/icons/slack.svg')} alt="" />
         </a>
-        <a href="https://twitter.com/graphcool" target="_blank">
+        <a href="https://twitter.com/prisma" target="_blank">
           <img src={require('../../assets/icons/twitter.svg')} alt="" />
         </a>
         <a href="https://github.com/howtographql/howtographql" target="_blank">

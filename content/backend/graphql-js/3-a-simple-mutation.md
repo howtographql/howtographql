@@ -98,7 +98,7 @@ The next step in the process of adding a new feature to the API is to implement 
 
 Next, update the `resolvers` functions to look as follows:
 
-```js{7,13-23}(path="../hackernews-node/src/index.js")
+```js{7,13-24}(path="../hackernews-node/src/index.js")
 let links = [{
   id: 'link-0',
   url: 'www.howtographql.com',
