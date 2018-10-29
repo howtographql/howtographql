@@ -274,7 +274,7 @@ The Prisma CLI also uses information that's provided in `.graphqlconfig.yml`. Th
 Update `prisma.yml` to include a deploy hook:
 
 ```bash(path=".../hackernews-node/database/prisma.yml")
-endpoint: `https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev
+endpoint: https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev
 datamodel: datamodel.graphql
 
 # Deploy hook
