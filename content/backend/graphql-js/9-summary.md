@@ -8,7 +8,7 @@ In this tutorial, you learned how to build a GraphQL server from scratch. The st
 
 `graphql-yoga` is a fast and simple GraphQL server library built on top of [Express.js](https://expressjs.com/). It comes with several features, such as out-of-the-box support for [GraphQL Playgrounds](https://github.com/graphcool/graphql-playground) and realtime GraphQL subscriptions.
 
-The Yoga server is consuming a database layer that's provided by Prisma. The connection between Prisma and the Yoga server is implemented via [Prisma bindings](github.com/graphcool/prisma-binding).
+The Yoga server is consuming a database layer that's provided by Prisma. The connection between Prisma and the Yoga server is implemented via [Prisma bindings](https://github.com/prisma/prisma-binding).
 
 You also learned how to leverage additional tools to improve your development workflows, such as [`graphql-config`](https://github.com/graphcool/graphql-config) or the [GraphQL CLI](https://github.com/graphql-cli/graphql-cli).
 
