@@ -169,7 +169,9 @@ _subscribeToNewLinks = subscribeToMore => {
     updateQuery: (prev, { subscriptionData }) => {
       if (!subscriptionData.data) return prev
       const newLink = subscriptionData.data.newLink.node
-
+      // To ensure there's are no duplicate links due to existing graphql-yoga bug
+      const exists = prev.feed.links.find(({ id }) => id === newLink.id);
+      if (exists) return prev;
       return Object.assign({}, prev, {
         feed: {
           links: [newLink, ...prev.feed.links],
