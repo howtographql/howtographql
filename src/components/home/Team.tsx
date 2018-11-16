@@ -245,6 +245,15 @@ export default function Team() {
                 x={170}
                 y={-10}
               />
+
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/robsontenorio.jpg')}
+                name="Robson Tenório"
+                description={"graphql-php"}
+                x={-670}
+                y={80}
+                diameter={120}
+              />
             </div>
           </div>
         </div>

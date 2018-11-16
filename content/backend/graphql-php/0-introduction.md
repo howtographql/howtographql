@@ -4,7 +4,7 @@ pageTitle: "Building a GraphQL Server with PHP using Laravel Framework"
 description: "Learn how to build a GraphQL server with PHP using Laravel Framework."
 ---
 
-This is an introductory tutorial for building a GraphQL server with PHP using [Laravel Framework](http:://www.laravel.com) and [Lighthouse](https://github.com/nuwave/lighthouse) package.
+This is an introductory tutorial for building a GraphQL server with PHP using [Laravel](https://www.laravel.com) framework and [Lighthouse](https://github.com/nuwave/lighthouse) package.
 While we try to keep it beginner friendly, we recommend familiarizing yourself
 with [GraphQL](https://graphql.org/) and [Laravel](https://laravel.com/) first.
 
@@ -15,14 +15,7 @@ GraphQL provides a complete and understandable description of the data in your A
 gives clients the power to ask for exactly what they need and nothing more,
 makes it easier to evolve APIs over time, and enables powerful developer tools.
 
-<br />
-
-<div align="center">
-  <img src="assets/playground.png">  
-  <small>GraphQL Playground</small>
-</div>
-
-<br />
+<img src="https://raw.githubusercontent.com/nuwave/lighthouse-docs/master/docs/assets/tutorial/playground.png">  
 
 GraphQL has been released only as a [*specification*](https://facebook.github.io/graphql/).
 This means that GraphQL is in fact not more than a long document that describes in detail
@@ -52,20 +45,18 @@ The type `Person` has a field `posts` that returns a list of `Post` types.
 
 We also defined the inverse relationship from `Post` to `Person` through the `author` field.
 
-<br />
 
 > This short intro is a compilation from many sources, all credits goes to the original authors.
 > - https://graphql.org
 > - https://howtographql.com
 
-<br />
-
 ## What is Lighthouse?
 
-Lighthouse is a PHP package that allows you to serve a GraphQL endpoint from your Laravel application.
+Lighthouse is a PHP package that allows you to serve a GraphQL endpoint from your Laravel application. It is built on top of very solid package [webonyx/graphql-php](https://github.com/webonyx/graphql-php)
+
 
 It greatly reduces the boilerplate required to create a schema, integrates well with any Laravel project,
-and is highly customizable giving you full control over your data.
+and is highly customizable giving you full control over your data. 
 
 The whole process of building your own GraphQL server can be described in 3 steps:
 
@@ -73,15 +64,8 @@ The whole process of building your own GraphQL server can be described in 3 step
 1. Use pre-built directives to bring your schema to life
 1. Extend Lighthouse with custom functionality where you need it
 
-<br />
-... and you are done!
+<b>... and you are done!</b>
 
-<br />
+<img src="https://raw.githubusercontent.com/nuwave/lighthouse-docs/master/docs/assets/tutorial/flow.png">  
 
-<div align="center">
-  <img src="assets/flow.png">  
-  <small>The role of GraphQL in your application</small>
-</div>
-
-<br />
-
+On the next chapter we will setup our project and start building our GraphQL API.

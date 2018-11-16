@@ -11,26 +11,43 @@ In this tutorial we will create a GraphQL API for a simple Blog from scratch wit
 - Laravel GraphQL Playground
 - MySQL
 
-<br />
-
 > You can download the source code for this tutorial at https://github.com/nuwave/lighthouse-tutorial
-
-<br />
 
 ## Installation
 
 Create a new Laravel project. You can use an existing project if you like,
 but you may have to adapt as we go along. Read more about [installing Laravel](https://laravel.com/docs/#installing-laravel).
 
-    laravel new lighthouse-tutorial
+<Instruction>
+
+Create a new Laravel project from scratch
+
+```bash
+laravel new lighthouse-tutorial
+```
+
+</Instruction>
 
 In this tutorial we will use [Laravel GraphQL Playground](https://github.com/mll-lab/laravel-graphql-playground)
 as an IDE for GraphQL queries. It's like Postman for GraphQL, but with super powers. Of course, we will use Lighthouse as the GraphQL Server.
 
-    composer require nuwave/lighthouse mll-lab/laravel-graphql-playground
+<Instruction>
 
-Then publish the configuration and the default schema.
+Install basic packages:
 
+```bash
+# lighthouse 
+composer require nuwave/lighthouse 
+
+# playground
+composer mll-lab/laravel-graphql-playground
+```
+
+</Instruction>    
+
+<Instruction>    
+
+Then publish the configuration and the default schema:
 
 ```bash
 # lighthouse
@@ -40,8 +57,12 @@ php artisan vendor:publish --provider="Nuwave\Lighthouse\Providers\LighthouseSer
 php artisan vendor:publish --provider="MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider"
 ```
 
+</Instruction>
+
 The default schema was published to `routes/graphql/schema.graphql`.
 Let's make sure everything is working.
+
+<Instruction>    
 
 Change the default namespaces for Models in  `config/lighthouse.php` to the Laravel default.
 
@@ -52,21 +73,46 @@ Change the default namespaces for Models in  `config/lighthouse.php` to the Lara
 ],
 ```
 
+</Instruction>    
+
 Consult the [Laravel docs on database configuration](https://laravel.com/docs/5.7/database#configuration)
 and ensure you have a working database set up.
 
-Run database migrations to create the `users` table:
+<Instruction>  
 
-    php artisan migrate
+Run database migrations to create the default built-in `users` table:
 
-Seed the database with some fake users:
+```bash
+php artisan migrate
+```    
 
-    php artisan tinker
-    factory('App\User', 10)->create();
+</Instruction>  
 
-Now you are ready to start your server. Use [Homestead](https://laravel.com/docs/5.7/homestead), [Valet](https://laravel.com/docs/5.7/valet) or:
 
-    php artisan serve
+<Instruction>  
+
+Then, seed the database with some fake users:
+
+```bash
+# open tinker
+php artisan tinker
+
+# seed with fake data, then exit
+factory('App\User', 10)->create();
+```
+</Instruction>  
+
+<Instruction>  
+
+Finally you are ready to start your server. You can use [Homestead](https://laravel.com/docs/5.7/homestead), [Valet](https://laravel.com/docs/5.7/valet) or the Laravel buit-in server:
+
+```bash
+php artisan serve
+```    
+
+</Instruction>      
+
+<Instruction>      
 
 To make sure everything is working, access Laravel GraphQL Playground on http://127.0.0.1:8000/graphql-playground
 and try the following query:
@@ -80,5 +126,7 @@ and try the following query:
   }
 }
 ```
+
+</Instruction>      
 
 Now, let's move on and create a GraphQL API for our Blog.

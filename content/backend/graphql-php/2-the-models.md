@@ -4,18 +4,38 @@ pageTitle: "Building a GraphQL Server with PHP using Laravel Framework"
 description: "Learn how to build a GraphQL server with PHP using Laravel Framework. Setup the models."
 ---
 
-One user can publish many posts, and each post has many comments from anonymous users.
+On the previous chapter we have create a project from scratch. Now it is time to setup our classes.
 
-<div align="center">
-  <img src="assets/model.png">  
-  <p><small>Database relations diagram</small></p>
-</div>
+For our simple blog API, one user can publish many posts, and each post has many comments from anonymous users.
 
-This first part is pure Laravel, we will add the GraphQL part afterwards.
+<img src="https://raw.githubusercontent.com/nuwave/lighthouse-docs/master/docs/assets/tutorial/model.png">  
 
-Begin by defining models and migrations for your posts and comments
+This first part is pure Laravel, we will add the GraphQL part afterwards. We will define models and migrations 
 
-    php artisan make:model -m Post
+<Instruction>      
+
+Create the `Post` model:
+
+```bash
+php artisan make:model -m Post
+```
+
+</Instruction>      
+
+<Instruction>      
+
+Create the `Comment` model:
+
+```bash
+php artisan make:model -m Comment
+```
+
+</Instruction>
+
+
+<Instruction>
+
+Setup the relationships for `Post` model:
 
 ```php
 <?php
@@ -37,6 +57,36 @@ class Post extends Model
     }
 }
 ```
+
+</Instruction>
+
+
+<Instruction>       
+
+Setup relationships for `Comment` model:
+
+```php
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Comment extends Model
+{
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+}
+```
+
+</Instruction>
+
+
+<Instruction>
+
+Setup the migration file for `Post`:
 
 ```php
 <?php
@@ -65,23 +115,12 @@ class CreatePostsTable extends Migration
 }
 ```
 
-    php artisan make:model -m Comment
+</Instruction>          
 
-```php
-<?php
 
-namespace App;
+<Instruction>
 
-use Illuminate\Database\Eloquent\Model;
-
-class Comment extends Model
-{
-    public function post()
-    {
-        return $this->belongsTo(Post::class);
-    }
-}
-```
+Setup the migration file for `Comment`:
 
 ```php
 <?php
@@ -109,9 +148,19 @@ class CreateCommentsTable extends Migration
 }
 ```
 
+</Instruction>          
+
+<Instruction>          
+
 Remember to run the migrations:
 
-    php artisan migrate
+```bash
+php artisan migrate
+```
+
+</Instruction>      
+
+<Instruction>          
 
 Finally, add the `posts` relation to `app/Users.php`
 
@@ -142,3 +191,8 @@ class User extends Authenticatable
     }
 }
 ```
+
+</Instruction>          
+
+
+On the next chappter we will setup the GraphQL schema and wire it up with the app.

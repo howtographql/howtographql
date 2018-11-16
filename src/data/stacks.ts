@@ -207,7 +207,7 @@ const data: Stack[] = [
     key: 'graphql-php',
     images: [
       require('../assets/icons/php.svg'),
-      require('../assets/icons/graphql-php.svg'),
+      require('../assets/icons/graphql.svg'),
     ],
     content: {
       title: 'Graphql PHP',
@@ -216,6 +216,7 @@ const data: Stack[] = [
     },
     authorName: 'Robson Tenório',
     darkenGreyLogo: true,
+    color2: '#a5152a',
   }
 ]
 
