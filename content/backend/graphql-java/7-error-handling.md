@@ -1,7 +1,7 @@
 ---
 title: Error Handling
-pageTitle: "Error Handling with GraphQL & Javascript Tutorial"
-description: "Learn best practices for validation of input arguments and implementing error handling in GraphQL with Javascript, Node.js & Express."
+pageTitle: "Error Handling with GraphQL & Java Tutorial"
+description: "Learn best practices for validation of input arguments and implementing error handling in GraphQL with Java, Node.js & Express."
 question: How does a GraphQL server signal an error to the client?
 answers: ["It sends errors together with the partial result", "It sends errors instead of the result", "It sends an HTTP error code", "It sends null as the result"]
 correctAnswer: 0
