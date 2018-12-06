@@ -1,6 +1,6 @@
 ---
 title: Error Handling
-pageTitle: "Error Handling with GraphQL & Java Tutorial"
+pageTitle: "Error Handling with GraphQL & Ruby Tutorial"
 description: "Learn best practices for validation of input arguments and implementing error handling in GraphQL with Ruby."
 ---
 
