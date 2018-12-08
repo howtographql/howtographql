@@ -208,7 +208,7 @@ class Query(graphene.AbstractType):
     users = graphene.List(UserType)
 
     def resolve_users(self, info):
-        return User.objects.all()
+        return get_user_model().objects.all()
 
     def resolve_me(self, info):
         user = info.context.user
