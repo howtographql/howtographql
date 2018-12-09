@@ -72,7 +72,7 @@ Let's go over the essential changes:
 * `#1`: Relay allows you to use [django-filter](https://github.com/carltongibson/django-filter/) for filtering data. Here, you've defined a *FilterSet*, with the `url` and `description` fields.
 * `#2`: The data is exposed in *Nodes*, so you must create one for the links.
 * `#3`: Each node implements an interface with an unique ID (you'll see the result of this in a bit).
-* `#4`: Uses the `LinkNode` with the `relay_link` field inside the your new query.
+* `#4`: Uses the `LinkNode` with the `relay_link` field inside your new query.
 * `#5`: Defines the `relay_links` field as a *Connection*, which implements the pagination structure.
 
 <Instruction>
@@ -97,7 +97,7 @@ class Query(
 
 </Instruction>
 
-On the GraphiQL platform, try out the Relay query:
+In Insomnia, try out the Relay query:
 
 ![](https://i.imgur.com/JEg6jWG.png)
 
