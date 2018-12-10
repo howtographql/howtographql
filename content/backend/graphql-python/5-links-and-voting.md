@@ -201,7 +201,7 @@ class Query(graphene.ObjectType):
 
 </Instruction>
 
-Awesome! On GraphiQL, try to fetch the list of votes:
+Awesome! On Insomnia, try to fetch the list of votes:
 
 ![](https://i.imgur.com/LJ0CMn6.png)
 

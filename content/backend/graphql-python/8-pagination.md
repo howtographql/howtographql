@@ -57,6 +57,6 @@ class Query(graphene.ObjectType):
 
 The `skip` and `first` uses [Python Slicing](https://www.dotnetperls.com/slice-python).
 
-Testing it in the GraphiQL interface:
+Testing it in the Insomnia interface:
 
 ![](https://i.imgur.com/pcNvb8y.png)
