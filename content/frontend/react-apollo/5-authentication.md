@@ -356,7 +356,7 @@ const authLink = setContext((_, { headers }) => {
 
 Before moving on, you need to import the Apollo dependencies. Add the following to the top of `index.js`:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js(path=".../hackernews-react-apollo/src/index.js")
 import { setContext } from 'apollo-link-context'
 ```
 
