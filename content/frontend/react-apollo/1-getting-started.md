@@ -384,7 +384,11 @@ Note that you can also omit `yarn prisma` in the above command if you have the `
 
 <Instruction>
 
-When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the development clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
+The prisma deploy command starts an interactive process:
+
+First select the Demo server from the options provided. When the browser opens, register with Prisma Cloud and go back to your terminal.
+
+Then you need to select the region for your demo server. Once that’s done, you can just hit enter twice to use the suggested values for service and stage.
 
 </Instruction>
 
