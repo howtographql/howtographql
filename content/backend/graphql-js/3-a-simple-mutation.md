@@ -113,7 +113,7 @@ const resolvers = {
   },
   Mutation: {
     // 2
-    post: (root, args) => {
+    post: (parent, args) => {
        const link = {
         id: `link-${idCount++}`,
         description: args.description,
@@ -147,7 +147,7 @@ Go ahead and restart your server so you can test the new API operations. Here is
 mutation {
   post(
     url: "www.prisma.io"
-    description: "Prisma turns your database into a GraphQL API"
+    description: "Prisma replaces traditional ORMs"
   ) {
     id
   }
@@ -170,13 +170,13 @@ With every mutation you send, the `idCount` will increase and the following IDs 
 
 To verify that your mutation worked, you can send the `feed` query from before again - it now returns the additional post that you created with the mutation:
 
-![](https://i.imgur.com/l5wOvFI.png)
+![](https://imgur.com/ZfJQwdB.png)
 
 However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database layer_ to the GraphQL server in order to persists the data beyond the runtime of the server.
 
 ### Exercise
 
-If you want to practice implementing GraphQL resolvers a bit more, here's a fun little challenge for you. Based on your current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular, implement the queries and mutations that have the following definitions:
+If you want to practice implementing GraphQL resolvers a bit more, here's an _optional_ challenge for you. Based on your current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular, implement the queries and mutations that have the following definitions:
 
 ```graphql(nocopy)
 type Query {

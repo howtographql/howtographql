@@ -67,9 +67,9 @@ const resolvers = {
   },
   // 3
   Link: {
-    id: (root) => root.id,
-    description: (root) => root.description,
-    url: (root) => root.url,
+    id: (parent) => parent.id,
+    description: (parent) => parent.description,
+    url: (parent) => parent.url,
   }
 }
 ```
@@ -80,7 +80,7 @@ Let's walk through the numbered comments again:
 
 1. The `links` variable is used to store the links at runtime. For now, everything is stored only _in-memory_ rather than being persisted in a database.
 1. You're adding a new resolver for the `feed` root field. Notice that a resolver always has to be named after the corresponding field from the schema definition.
-1. Finally, you're adding three more resolvers for the fields on the `Link` type from the schema definition. We'll discuss in a bit what the `root` argument is that's passed into the resolver here.
+1. Finally, you're adding three more resolvers for the fields on the `Link` type from the schema definition. We'll discuss in a bit what the `parent` argument is that's passed into the resolver here.
 
 Go ahead and test the implementation by restarting the server (first use **CTRL+C** to stop the server if it is still running, then execute `node src/index.js` again) and navigate to `http://localhost:4000` in your browser. If you expand the documentation of the Playground, you'll notice that another query called `feed` is now available:
 
@@ -140,19 +140,19 @@ One thing that's still a bit weird in the implementation right now are the resol
 
 ```js(nocopy)
 Link: {
-  id: (root) => root.id,
-  description: (root) => root.description,
-  url: (root) => root.url,
+  id: (parent) => parent.id,
+  description: (parent) => parent.description,
+  url: (parent) => parent.url,
 }
 ```
 
 First, it's important to note that every GraphQL resolver function actually receives _four_ input arguments. As the remaining three are not needed in our scenario right now, we're simply omitting them. Don't worry, you'll get to know them soon.
 
-The first argument, commonly called `root` (or `parent`) is the result of the previous _resolver execution level_. But what does that mean? 🤔
+The first argument, commonly called `parent` (or sometimes `root`) is the result of the previous _resolver execution level_. But what does that mean? 🤔
 
 Well, as you already saw, GraphQL queries can be _nested_. Each level of nesting (i.e. nested curly braces) corresponds to one resolver execution level. The above query therefore has two of these execution levels.
 
-On the first level, it invokes the `feed` resolver and returns the entire data stored in `links`. For the second execution level, the GraphQL server is smart enough to invoke the resolvers of the `Link` type (because thanks to the schema, it knows that `feed` returns a list of `Link` elements) for each element inside the list that was returned on the previous resolver level. Therefore, in every of the three `Link` resolvers, the incoming `root` object is the element inside the `links` list.
+On the first level, it invokes the `feed` resolver and returns the entire data stored in `links`. For the second execution level, the GraphQL server is smart enough to invoke the resolvers of the `Link` type (because thanks to the schema, it knows that `feed` returns a list of `Link` elements) for each element inside the list that was returned on the previous resolver level. Therefore, in every of the three `Link` resolvers, the incoming `parent` object is the element inside the `links` list.
 
 > **Note**: To learn more about this, check out [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#9d03) article.
 

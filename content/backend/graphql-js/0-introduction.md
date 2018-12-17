@@ -17,7 +17,7 @@ GraphQL is the rising star of backend technologies. It replaces REST as an API d
 In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server entirely from scratch. You are going to use the following technologies:
 
 * [`graphql-yoga`](https://github.com/graphcool/graphql-yoga): Fully-featured GraphQL server with focus on easy setup, performance & great developer experience. It is built on top of [Express](https://expressjs.com/), [`apollo-server`](https://github.com/apollographql/apollo-server), [`graphql-js`](https://github.com/graphql/graphql-js) and more.
-* [Prisma](https://www.prisma.io/): GraphQL database proxy that turns your database into a GraphQL API. This API provides powerful, realtime CRUD operations for your data model.
+* [Prisma](https://www.prisma.io/): GraphQL database proxy that turns your database into a GraphQL API. This API provides powerful, realtime CRUD operations for your datamodel.
 * [`graphql-config`](https://github.com/graphcool/graphql-config) & [GraphQL CLI](https://github.com/graphql-cli/graphql-cli): Tooling to improve various GraphQL-related worfklows.
 * [GraphQL bindings](https://www.prisma.io/blog/reusing-and-composing-graphql-apis-with-graphql-bindings-80a4aa37cff5/): A convenient way of working with a GraphQL API. The binding generates dedicated JavaScript functions for each API operation.
 * [GraphQL Playground](https://github.com/graphcool/graphql-playground): "GraphQL IDE" that allows to interactively explore the functionality of a GraphQL API by sending queries and mutations to it. It's somewhat similar to [Postman](https://www.getpostman.com/) which offers comparable functionality for REST APIs. Among other things, a GraphQL Playground...
