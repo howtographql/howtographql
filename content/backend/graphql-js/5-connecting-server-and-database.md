@@ -7,9 +7,9 @@ answers: ["Expose the application schema to client applications", "Translate the
 correctAnswer: 1
 ---
 
-In this section, you're going to connect your GraphQL server with the [Prisma](https://www.prisma.io) database service which provides the interface to your database. The connection is implemented via [Prisma bindings](https://github.com/graphcool/prisma-binding).
+In this section, you're going to connect your GraphQL server with the [Prisma](https://www.prisma.io) API which provides the interface to your database. The connection is implemented via the [Prisma client](https://www.prisma.io/docs/prisma-client/).
 
-### Updating the resolver functions to use Prisma bindings
+### Updating the resolver functions to use Prisma client
 
 You're going to start this section with a bit of cleanup and refactoring.
 
@@ -19,7 +19,7 @@ Open `index.js` and entirely remove the `links` array as well as the `idCount` v
 
 </Instruction>
 
-Next, you need to update the implementation of the resolver functions because they're now accessing variables that don't exist. Plus, you now want to return actual data from the database instead of local dummy data.
+Next, you need to update the implementation of the resolver functions because they're still accessing the variables that were just deleted. Plus, you now want to return actual data from the database instead of local dummy data.
 
 <Instruction>
 
@@ -30,17 +30,15 @@ const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: (root, args, context, info) => {
-      return context.db.query.links({}, info)
+      return context.prisma.links()
     },
   },
   Mutation: {
-    post: (root, args, context, info) => {
-      return context.db.mutation.createLink({
-        data: {
-          url: args.url,
-          description: args.description,
-        },
-      }, info)
+    post: (root, args, context) => {
+      return context.prisma.createLink({
+        url: args.url,
+        description: args.description,
+      })
     },
   },
 }
@@ -50,17 +48,15 @@ const resolvers = {
 
 Wow, that looks weird! There's a bunch of new stuff happening, let's try to understand what's going on, starting with the `feed` resolver.
 
-#### The `context` and `info` arguments
+#### The `context` argument
 
-Previously, the `feed` resolver didn't take any arguments - now it receives _four_. In fact, the first two are not needed. But `context` and `info` are.
+Previously, the `feed` resolver didn't take any arguments - now it receives _three_. In fact, the first two are not needed for this particular resolver. But the third one, called `context`, is.
 
-Remember how we said earlier that all GraphQL resolver functions _always_ receive four arguments. Now you know what the last two are called - but what are they used for?
+Remember how we said earlier that all GraphQL resolver functions _always_ receive four arguments. Now you're getting to know another one, so what is `context` used for?
 
-The `context` argument is a JavaScript object that every resolver in the resolver chain can read from and write to - it thus basically is a means for resolvers to communicate. As you'll see in a bit, it's also possible to already write to it at the moment when the GraphQL server itself is being initialized. So, it's also a way for _you_ to pass arbitrary data or functions to the resolvers. In this case, you're going to attach this `db` object to the `context` - more about that soon.
+The `context` argument is a plain JavaScript object that every resolver in the resolver chain can read from and write to - it thus basically is a means for resolvers to communicate. As you'll see in a bit, it's also possible to already write to it at the moment when the GraphQL server itself is being initialized. So, it's also a way for _you_ to pass arbitrary data or functions to the resolvers. In this case, you're going to attach this `prisma` client instance to the `context` - more about that soon.
 
-The `info` object carries information about the incoming GraphQL query (in the form of a [query AST](https://medium.com/@cjoudrey/life-of-a-graphql-query-lexing-parsing-ca7c5045fad8)). For example, it knows what fields are being requested in the selection set of the query.
-
-> **Note**: To learn more in-depth about the resolver arguments, read the following two articles:
+> **Note**: This tutorial actually doesn't cover the fourth resolver argument. To learn more about this topic, check out these two articles:
 > - [GraphQL Server Basics: The Schema](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e)
 > - [GraphQL Server Basics: Demystifying the `info` Argument in GraphQL Resolvers](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a)
 
@@ -72,152 +68,78 @@ The `feed` resolver is implemented as follows:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
 feed: (root, args, context, info) => {
-  return context.db.query.links({}, info)
+  return context.prisma.links()
 },
 ```
 
-It accesses a `db` object on `context`. As you will see in a bit, this `db` object actually is a `Prisma` binding instance from the [`prisma-binding`](https://github.com/graphcool/prisma-binding) NPM package.
+It accesses a `prisma` object on `context`. As you will see in a bit, this `prisma` object actually is a `Prisma` client instance that's imported from the generated `prisma-client` library.
 
-This `Prisma` binding instance effectively turns the Prisma database schema into JavaScript functions which you can invoke. When invoking such a function, the `Prisma` binding instance will assemble a GraphQL query under the hood and send it to the Prisma API for you. But what are the two parameters you're passing to the function?
-
-The first parameter carries any variables you might want to submit along with the query. Since you don't need any variables for the `links` query right now, it's just an empty object.
-
-The second parameter is used by the `Prisma` binding instance to generate the _selection set_ for the query it sends to the Prisma API. You learned before that the `info` object carries information about the selection set of the incoming query. What's happening here is that you're basically _forwarding_ (i.e. [delegating](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405)) the incoming query to the Prisma engine. The `info` object needs to be passed along so that Prisma knows what fields are being requested in an incoming query.
-
-In fact, the second argument could also be a _string_ containing a selection set for the query. Consider this exemplary function call:
-
-```js(nocopy)
-const selectionSet = `
-{
-  id
-  description
-  url
-}
-`
-context.db.query.links({}, selectionSet)
-```
-
-This would correspond to the following GraphQL query being sent to the Prisma API:
-
-```graphql(nocopy)
-query {
-  links {
-    id
-    description
-    url
-  }
-}
-```
+This `Prisma` client instance effectively lets you access your database through the Prisma API. It exposes a number of methods that let you perform CRUD operations for your models. 
 
 #### Understanding the `post` resolver
 
 The `post` resolver now looks like this:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
-post: (root, args, context, info) => {
-  return context.db.mutation.createLink({
-    data: {
-      url: args.url,
-      description: args.description,
-    },
-  }, info)
+post: (root, args, context) => {
+  return context.prisma.createLink({
+    url: args.url,
+    description: args.description,
+  })
 },
 ```
 
-Similar to the `feed` resolver, you're simply invoking a function on the `Prisma` binding instance which is attached to the `context`.
+Similar to the `feed` resolver, you're simply invoking a function on the `prisma` client instance which is attached to the `context`.
 
-Recall that the `Prisma` binding instance essentially translates the Prisma database schema into functions which you can invoke from JavaScript. Invoking these functions will send the corresponding query/mutation to the underlying Prisma API.
+You're sending the `createLink` method from the Prisma client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
 
-In this case, you're sending the `createLink` mutation from Prisma's GraphQL schema. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
+So, to summarize, Prisma client exposes a CRUD API for the models in your datamodel for your to read and write in your database. These methods are auto-generated based on your model definitions in `datamodel.prisma`.  
 
-Again, the second argument to the function call is the `info` object which contains the selection set of the incoming mutation - and again, this _could_ be replaced by a string:
+But, how do you make sure your resolvers actually get access to that magical and often-mentioned `prisma` client instance?
 
-```js(nocopy)
-const selectionSet = `
-{
-  id
-}
-`
-context.db.mutation.createLink({
-  data: {
-    url: "www.prisma.io"
-    description: "Prisma turns your database into a GraphQL API"
-  }
-}, selectionSet)
-```
-
-This would correspond to the following mutation being sent to the API:
-
-```graphql(nocopy)
-mutation {
-  createLink(data: {
-    url: "www.prisma.io"
-    description: "Prisma turns your database into a GraphQL API"
-  }) {
-    id
-  }
-}
-```
-
-So, to summarize, Prisma bindings let you invoke functions that correspond to operations that are defined in the GraphQL schema. The functions have the same names as the operations and the same structure with respect to the arguments they receive and the values they return.
-
-But, how do you make sure your resolvers actually get access to that magical and often-mentioned `Prisma` binding instance?
-
-### Creating the `Prisma` binding instance
+### Using the generated Prisma client
 
 Before doing anything else, go ahead and do what JavaScript developers love most: Add a new dependency to your project 😑
 
 <Instruction>
 
-In the root directory of your project (not inside `database`), run the following command:
+In the root directory of your project (not inside `prisma`), run the following command:
 
 ```bash(path=".../hackernews-node")
-yarn add prisma-binding
+yarn add prisma-client-lib
 ```
 
 </Instruction>
 
-Cool! Now you can attach the `Prisma` binding instance to the `context` so that your resolvers get access to it.
+This dependency is required to make the auto-generated Prisma client work.
+
+Cool! Now you can attach the generated `prisma` client instance to the `context` so that your resolvers get access to it.
 
 <Instruction>
 
-In `index.js`, update the instantiation of the `GraphQLServer` to look as follows (note that you need to replace the value for `endpoint` with your own Prisma endpoint!):
+First, import the `prisma` client instance into `index.js`. At the top of the file, add the following import statement:
+
+```js(path=".../hackernews-node/src/index.js")
+const { prisma } = require('./generated/prisma-client')
+```
+
+</Instruction>
+
+Now you can attach it to the `context` when the `GraphQLServer` is being initialized.
+
+<Instruction>
+
+In `index.js`, update the instantiation of the `GraphQLServer` to look as follows:
 
 ```js{4-12}(path=".../hackernews-node/src/index.js")
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: 'https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev',
-      secret: 'mysecret123',
-      debug: true,
-    }),
-  }),
+  context: { prisma },
 })
 ```
 
 </Instruction>
-
-So, here's the trick. You're instantiating `Prisma` with the following pieces of information:
-
-- `typeDefs`: This points to the Prisma database schema which defines the full CRUD GraphQL API of Prisma. Note that you actually don't have this file yet - we'll tell you in a bit how to get it.
-- `endpoint`: This is the endpoint of your Prisma API. Don't forget to replace it with the endpoint of your own Prisma service here!
-- `debug`: Setting the `debug` flag to `true` means that all requests, made by the `Prisma` binding instance to the Prisma API will be logged to the console. It's a convenient way to observe the actual GraphQL queries and mutations that are sent to Prisma.
-
-<Instruction>
-
-Finally, to make this work you need to import `Prisma` into `index.js`. At the top of the file, add the following import statement:
-
-```js(path=".../hackernews-node/src/index.js")
-const { Prisma } = require('prisma-binding')
-```
-
-</Instruction>
-
-You're almost done! There's is only one piece left to the puzzle, and that's downloading the Prisma database schema which is referenced in the `Prisma` constructor call.
 
 ### Downloading the Prisma database schema
 
@@ -273,9 +195,9 @@ The Prisma CLI also uses information that's provided in `.graphqlconfig.yml`. Th
 
 Update `prisma.yml` to include a deploy hook:
 
-```bash(path=".../hackernews-node/database/prisma.yml")
+```bash(path=".../hackernews-node/prisma/prisma.yml")
 endpoint: https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev
-datamodel: datamodel.graphql
+datamodel: datamodel.prisma
 
 # Deploy hook
 hooks:

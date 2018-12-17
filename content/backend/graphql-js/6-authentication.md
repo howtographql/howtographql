@@ -9,17 +9,17 @@ correctAnswer: 1
 
 In this section, you're going to implement signup and login functionality that allows your users to authenticate against your GraphQL server.
 
-### Adding a `User` type to your data model
+### Adding a `User` type to your datamodel
 
-The first thing you need is a way to represent user data in the database. You can achieve that by adding a `User` type to the data model.
+The first thing you need is a way to represent user data in the database. You can achieve that by adding a `User` type to the datamodel.
 
 You also want to add a _relation_ between the `User` and the already existing `Link` type to express that `Link`s are _posted_ by `User`s.
 
 <Instruction>
 
-Open `database/datamodel.graphql` and replace its current contents with the following:
+Open `database/datamodel.prisma` and replace its current contents with the following:
 
-```graphql{5,8-14}(path=".../hackernews-node/database/datamodel.graphql")
+```graphql{5,8-14}(path=".../hackernews-node/prisma/datamodel.prisma")
 type Link {
   id: ID! @unique
   description: String!
@@ -40,7 +40,7 @@ type User {
 
 You're adding a new _relation field_ called `postedBy` to the `Link` type that points to a `User` instance. The `User` type then has a `links` field that's a list of `Link`s. This is how you express a one-to-many relationship using SDL.
 
-After every change you're making to the data model, you need to redeploy the Prisma service to apply your changes.
+After every change you're making to the datamodel, you need to redeploy the Prisma service to apply your changes.
 
 <Instruction>
 

@@ -364,13 +364,13 @@ Now observe the Playground where the subscription was running:
 
 ### Adding a voting feature
 
-The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma data model to represent votes.
+The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma datamodel to represent votes.
 
 <Instruction>
 
-Open `database/datamodel.graphql` and adjust it to look as follows:
+Open `database/datamodel.prisma` and adjust it to look as follows:
 
-```graphql{7,16,19-23}(path=".../hackernews-node/database/datamodel.graphql")
+```graphql{7,16,19-23}(path=".../hackernews-node/prisma/datamodel.prisma")
 type Link {
   id: ID! @unique
   createdAt: DateTime!
@@ -398,7 +398,7 @@ type Vote {
 
 </Instruction>
 
-As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the `Link` type.
+As you can see, you added a new `Vote` type to the datamodel. It has one-to-many relationships to the `User` and the `Link` type.
 
 To apply the changes and update your Prisma GraphQL API so it includes CRUD operations for the new `Vote` type, you need to deploy the service again.
 
@@ -471,7 +471,7 @@ async function vote(parent, args, context, info) {
 Here is what's going on:
 
 1. Similar to what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the `getUserId` helper function. If it's valid, the function will return the `userId` of the `User` who is making the requests. If the JWT is not valid, the function will throw an exception.
-1. The `db.exists.Vote(...)` function call is new for you. The `Prisma` binding object not only exposes functions that mirror the queries, mutations and subscriptions from the Prisma database schema. It also generates one `exists` function per type from your data model. The `exists` function takes a `where` filter object that allows to specify certain conditions about elements of that type. Only if the condition applies to _at least_ one element in the database, the `exists` function returns `true`. In this case, you're using it to verify that the requesting `User` has not yet voted for the `Link` that's identified by `args.linkId`.
+1. The `db.exists.Vote(...)` function call is new for you. The `Prisma` binding object not only exposes functions that mirror the queries, mutations and subscriptions from the Prisma database schema. It also generates one `exists` function per type from your datamodel. The `exists` function takes a `where` filter object that allows to specify certain conditions about elements of that type. Only if the condition applies to _at least_ one element in the database, the `exists` function returns `true`. In this case, you're using it to verify that the requesting `User` has not yet voted for the `Link` that's identified by `args.linkId`.
 1. If `exists` returns `false`, the `createVote` will be used to create a new `Vote` element that's _connected_ to the `User` and the `Link`.
 
 <Instruction>
