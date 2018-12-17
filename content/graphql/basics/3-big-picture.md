@@ -11,8 +11,6 @@ duration: 10
 
 GraphQL has been released only as a *specification*. This means that GraphQL is in fact not more than a [long document](https://facebook.github.io/graphql/) that describes in detail the behaviour of a *GraphQL server.*
 
-If you want to use GraphQL yourself, you'll have to go and build that GraphQL server yourself. You can do that in any programming language of your choice (e.g. based on one of the [available reference implementations](http://graphql.org/code/)) or by using a service like [Graphcool](http://www.graph.cool/) that provides a powerful GraphQL API out-of-the-box.
-
 ### Use Cases
 
 In this section, we'll walk you through 3 different kinds of architectures that include a GraphQL server:

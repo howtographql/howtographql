@@ -67,39 +67,29 @@ export default function CheckoutGraphcool() {
           <h1>Next step: Build something in production.</h1>
           <p>
             Use your new knowledge and start building a production app.
-            Graphcool
+            Prisma
             provides everything you need to build the backend for your next
             project.
           </p>
           <a
             className="btn green small"
-            href="https://www.graph.cool"
+            href="https://www.prisma.io"
             target="_blank"
           >
             <Icon
-              src={require('../../assets/icons/companies/graphcool.svg')}
+              src={require('../../assets/icons/companies/prisma.svg')}
               width={24}
               height={24}
             />
-            <span>Get started with Graphcool</span>
+            <span>Get started with Prisma</span>
           </a>
         </div>
         <div className="right">
-          <h3>Graphcool Tutorials</h3>
-          <Tutorial
-            title="Exploring Graphcool: The Serverless GraphQL Backend"
-            description="Get an overview over all major features of Graphcool"
-            link="https://www.graph.cool/docs/tutorials/graphcool-features-overview-ped6wohw0o/"
-          />
-          <Tutorial
-            title="Freecom Fullstack Tutorial"
-            description="Learn how to build an Intercom clone with Graphcool, React & Apollo"
-            link="https://www.graph.cool/docs/tutorials/freecom-overview-intercom-tutorial-e8a6ajt8ax/"
-          />
+          <h3>Prisma Tutorials</h3>
           <Tutorial
             title="Quickstart"
-            description="Get started with Graphcool and your favorite frontend technology"
-            link="https://www.graph.cool/docs/quickstart/"
+            description="Get started with Prisma and"
+            link="https://www.prisma.io/docs/get-started/"
           />
         </div>
       </div>
