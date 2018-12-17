@@ -97,7 +97,7 @@ So, to summarize, Prisma client exposes a CRUD API for the models in your datamo
 
 But, how do you make sure your resolvers actually get access to that magical and often-mentioned `prisma` client instance?
 
-### Using the generated Prisma client
+### Attaching the generated Prisma client to `context`
 
 Before doing anything else, go ahead and do what JavaScript developers love most: Add a new dependency to your project 😑
 
@@ -113,7 +113,7 @@ yarn add prisma-client-lib
 
 This dependency is required to make the auto-generated Prisma client work.
 
-Cool! Now you can attach the generated `prisma` client instance to the `context` so that your resolvers get access to it.
+Now you can attach the generated `prisma` client instance to the `context` so that your resolvers get access to it.
 
 <Instruction>
 
@@ -141,163 +141,17 @@ const server = new GraphQLServer({
 
 </Instruction>
 
-### Downloading the Prisma database schema
+The `context` object that's passed into all your GraphQL resolvers is being initialized right here. Because you're attaching the `prisma` client instance to it when the `GraphQLServer` is instantiated, you can access `context.prisma` in your resolvers.
 
-There are various ways how to get access to the schema of a GraphQL API. In this tutorial. you'll use the [GraphQL CLI](https://github.com/graphql-cli/graphql-cli) in combination with [`graphql-config`](https://github.com/graphcool/graphql-config). This also leads with a few more improvements regarding your general workflows.
+### Testing the new implementation
 
-<Instruction>
-
-First, create a `.graphqlconfig` file:
-
-```bash(path=".../hackernews-node")
-touch .graphqlconfig.yml
-```
-
-</Instruction>
-
-This file is the major source of information for the GraphQL CLI.
-
-<Instruction>
-
-Add the following contents to `.graphqlconfig.yml`:
-
-```yml(path=".../hackernews-node/.graphqlconfig.yml")
-projects:
-  app:
-    schemaPath: src/schema.graphql
-    extensions:
-      endpoints:
-        default: http://localhost:4000
-  database:
-    schemaPath: src/generated/prisma.graphql
-    extensions:
-      prisma: database/prisma.yml
-```
-
-</Instruction>
-
-So, what's going on here? You're defining two `projects`. As you might guess, each project represents one of your GraphQL APIs - the application layer (`graphql-yoga`) and the database layer (Prisma).
-
-For each project, you're specifying a `schemaPath`. This is simply the path to the GraphQL schema that defines each API.
-
-For the `app` project, you're further specifying an `endpoint` which is the URL where the GraphQL server is running when it's started.
-
-The `database` project on the other hand only points to the `prisma.yml` file. In fact, pointing to this file also provides information about the endpoint of the Prisma service, since all the information that's needed to compose the endpoint can be found in there.
-
-There are two main benefits you now get from this setup:
-
-- You can interact with both GraphQL APIs in a Playground side-by-side.
-- When deploying the Prisma service with `prisma deploy`, the Prisma CLI downloads the generated Prisma database schema into the specified location.
-
-The Prisma CLI also uses information that's provided in `.graphqlconfig.yml`. Therefore, you can now run `prisma` commands from the root directory rather than from the `database` directory.
-
-<Instruction>
-
-Update `prisma.yml` to include a deploy hook:
-
-```bash(path=".../hackernews-node/prisma/prisma.yml")
-endpoint: https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev
-datamodel: datamodel.prisma
-
-# Deploy hook
-hooks:
-  post-deploy:
-    - graphql get-schema --project database
-```
-</Instruction>
-
-A deploy hook is invoked when Prisma is done with deploying. In this case, we want to download the schema using the `get-schema` command and pointing to the `database` project that was configured in `.graphqlconfig.yml`.
-
-The deploy hook invokes a `graphql` CLI command, therefore, we need to install this globally:
-
-<Instruction>
-
-Install the GraphQL CLI:
-
-```bash
-yarn global add graphql-cli
-```
-
-</Instruction>
-
-With the CLI tool installed, you can initiate the deploy process again:
-
-<Instruction>
-
-Inside the root directory of your project, run `prisma deploy` to download the Prisma database schema into location that's specified in `.graphqlconfig.yml`:
-
-```bash(path=".../hackernews-node")
-prisma deploy
-```
-
-</Instruction>
-
-Observing the output of the command, you can see it prints the following line this time:
-
-```(nocopy)
-Writing database schema to `src/generated/prisma.graphql`  1ms
-```
-
-And voilà, there is the Prisma database schema in `src/generated/prisma.graphql` 😮
-
-Okay, one last minor change before you can start and test the server!
-
-<Instruction>
-
-Open `src/schema.graphql` and delete the `Link` type.
-
-</Instruction>
-
-Ehm, what? Why would you do that? Where does the `Link` definition now come from that's used in the definition of the `feed` and `post` fields. Answer: You'll import it.
-
-<Instruction>
-
-Still in `src/schema.graphql`, add the following import statement to the top of the file:
-
-```graphql(path=".../hackernews-node/src/schema.graphql")
-# import Link from "./generated/prisma.graphql"
-```
-
-</Instruction>
-
-This import syntax used here is not part of the official GraphQL specification ([yet!](https://github.com/graphql/graphql-wg/blob/master/notes/2018-02-01.md#present-graphql-import)). It comes from the [`graphql-import`](https://github.com/graphcool/graphql-import) package which is being used by `graphql-yoga` to resolve any dependencies across `.graphql` files.
-
-Note that in this case, it wouldn't actually make a difference if you left the `Link` type as it was. However, it is a lot more convenient to only define the `Link` type _once_ and then reuse that definition. Otherwise you'd have to update multiple definitions whenever you're changing the `Link` type.
-
-Great, that's it! You can finally start the server now and test the API now!
-
-### Accessing both GraphQL APIs inside the same Playground
-
-Let's now look at how you can leverage the information in `.graphqlconfig.yml` to work with both GraphQL APIs side-by-side.
-
-Run the `graphql playground` command to open both APIs at once. Before that, you need to start the GraphQL server (otherwise the Playground for the `app` project won't work).
-
-<Instruction>
-
-Next, start the GraphQL server:
+With these code changes, you can now go ahead and test if the new implementation with a database works as expected. As usual, run the following command in your terminal to start the GraphQL server:
 
 ```bash(path=".../hackernews-node")
 node src/index.js
 ```
 
-</Instruction>
+Then, open the GraphQL Playground at `http://localhost:4000`. You can send the same `feed` query and `post` mutation as before. However, the difference is that this time the submitted links will be persisted in your Prisma Cloud demo database. Therefore, if you restart the server, the `feed` query will keep returning the correct links.
 
-<Instruction>
-
-Now, open a new terminal tab (or window) and run the following command to open both GraphQL APIs inside the same GraphQL Playground:
-
-```bash(path="hackernews-node/")
-graphql playground
-```
-
-</Instruction>
-
-> **Note**: You can also download the [Desktop app](https://github.com/graphcool/graphql-playground/releases) of the GraphQL Playground instead of using it in the browser.
-
-Here's what the Playground with both projects looks like:
-
-![](https://imgur.com/uEPCMs5.png)
-
-Using the left side-bar, you can now switch between the different projects and either send requests to the application layer or the database layer ✌️ ️
-
-All right, that was _a lot_ of configuration and only very little coding! Let's change that and implement a few more features.
+> **Note**: Because you're using a demo database in Prisma Cloud, you can view the stored data in the [Prisma Cloud Console](https://app.prisma.io/). 
+> ![](https://imgur.com/ZXJ8RIY.png)
