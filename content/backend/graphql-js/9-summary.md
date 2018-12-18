@@ -14,5 +14,5 @@ If you want to dive deeper and become part of the awesome GraphQL community, her
 
 - [Prisma Blog](https://prisma.io/blog): The blog regularly features new and interesting content about GraphQL, from community news to technical deep dives and various tutorials.
 - [GraphQL Weekly](https://graphqlweekly.com): A weekly GraphQL newsletter with news from the GraphQL ecosystem
-- [GraphQL Cong](https://www.graphqlconf.org): The world's biggest gathering of GraphQL enthusiasts happening in the heart of Berlin
+- [GraphQL Conf](https://www.graphqlconf.org): The world's biggest gathering of GraphQL enthusiasts happening in the heart of Berlin
 - [Prisma Slack](https://slack.prisma.io): A Slack team with vivid discussions around everything GraphQL & Prisma
