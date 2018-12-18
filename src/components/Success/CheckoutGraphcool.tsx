@@ -76,20 +76,18 @@ export default function CheckoutGraphcool() {
             href="https://www.prisma.io"
             target="_blank"
           >
-            <Icon
-              src={require('../../assets/icons/companies/prisma.svg')}
-              width={24}
-              height={24}
-            />
             <span>Get started with Prisma</span>
           </a>
         </div>
         <div className="right">
-          <h3>Prisma Tutorials</h3>
+          <h3>More Resources</h3>
           <Tutorial
-            title="Quickstart"
-            description="Get started with Prisma and"
-            link="https://www.prisma.io/docs/get-started/"
+            title="Prisma Quickstart"
+            link="https://www.prisma.io/docs/-a002"
+          />
+          <Tutorial
+            title="Community Tutorials"
+            link="https://www.prisma.io/tutorials"
           />
         </div>
       </div>
