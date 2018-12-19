@@ -76,6 +76,11 @@ export default function CheckoutGraphcool() {
             href="https://www.prisma.io"
             target="_blank"
           >
+            <Icon
+              src={require('../../assets/icons/companies/prisma.svg')}
+              width={24}
+              height={24}
+            />
             <span>Get started with Prisma</span>
           </a>
         </div>
