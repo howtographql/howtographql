@@ -89,10 +89,12 @@ export default function CheckoutGraphcool() {
           <Tutorial
             title="Prisma Quickstart"
             link="https://www.prisma.io/docs/-a002"
+            description="The fastest way to get started with Prisma"
           />
           <Tutorial
             title="Community Tutorials"
             link="https://www.prisma.io/tutorials"
+            description="Tutorials all around GraphQL, databases & ORMs"
           />
         </div>
       </div>
