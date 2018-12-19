@@ -55,8 +55,8 @@ class LinkList extends Component {
     const linksToRender = [
       {
         id: '1',
-        description: 'Prisma turns your database into a GraphQL API 😎 😎',
-        url: 'https://www.prismagraphql.com',
+        description: 'Prisma replaces traditional ORMs and makes it easy to build GraphQL servers 😎',
+        url: 'https://www.prisma.io',
       },
       {
         id: '2',
@@ -120,7 +120,7 @@ Here is what it looks like:
 }
 ```
 
-You could now simply execute this query in a [Playground](https://www.prisma.io/docs/graphql-ecosystem/graphql-playground/overview-chaha125ho) (against the _application schema_) and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
+You could now simply execute this query in a [Playground](https://github.com/prisma/graphql-playground/) and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
 
 ### Queries with Apollo Client
 

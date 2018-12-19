@@ -403,13 +403,14 @@ To implement this functionality, this time you need to make a small change on th
 
 Open `/server/src/resolvers/Mutation.js` and adjust the `post` resolver to look as follows:
 
-```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
-function post(parent, { url, description }, ctx, info) {
-  const userId = getUserId(ctx)
-  return ctx.db.mutation.createLink(
-    { data: { url, description, postedBy: { connect: { id: userId } } } },
-    info,
-  )
+```js{2}(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
+function post(parent, args, context) {
+  const userId = getUserId(context)
+  return context.prisma.createLink({
+    url: args.url,
+    description: args.description,
+    postedBy: { connect: { id: userId } },
+  })
 }
 ```
 
@@ -417,4 +418,4 @@ function post(parent, { url, description }, ctx, info) {
 
 With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
 
-> **Note**: Stop the server and run it again executing `yarn dev` to apply the changes made.
+> **Note**: Stop the server (by hitting **CTRL+C**) and run it again executing `yarn start` to apply the changes made.
