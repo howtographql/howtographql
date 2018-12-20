@@ -128,10 +128,9 @@ All right, you're finally ready to deploy your Prisma datamodel and the database
 
 <Instruction>
 
-Navigate into the `prisma` directory and run [`prisma deploy`](https://www.prisma.io/docs/-xcv9/):
+Now run [`prisma deploy`](https://www.prisma.io/docs/-xcv9/):
 
 ```bash(path=".../hackernews-node/")
-cd prisma
 prisma deploy
 ```
 
