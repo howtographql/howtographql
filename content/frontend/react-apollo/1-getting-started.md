@@ -413,6 +413,8 @@ The `prisma deploy` command starts an interactive process.
 
 First select the **Demo server** from the options provided. When the browser opens, register with Prisma Cloud and go back to your terminal.
 
+You may see an error 'Network error: Unexpected token < in JSON at position 0' when running `prisma deploy` and attempting to authenticate. If this is the case, simply go to https://app.prisma.io/ on your browser and authtenticate manually, and return to your console, and then you will be able to continue with the process.
+
 Then you need to select the **region** for your Demo server. Once that’s done, you can just hit enter twice to use the suggested values for **service** and **stage**.
 
 </Instruction>
