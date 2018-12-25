@@ -243,7 +243,7 @@ You will implement this functionality by using Apollo's [caching data](https://w
 
 <Instruction>
 
-Open `Link.js` and replace `<Mutation />` component adding the `update` prop like so:
+Open `Link.js` and in the `<Mutation />` component add the `update` prop like so:
 
 ```js{4-6}(path=".../hackernews-react-apollo/src/components/Link.js")
 <Mutation
