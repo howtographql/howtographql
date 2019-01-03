@@ -50,7 +50,7 @@ Wow, that looks weird! There's a bunch of new stuff happening, let's try to unde
 
 #### The `context` argument
 
-Previously, the `feed` resolver didn't take any arguments - now it receives _three_. In fact, the first two are not needed for this particular resolver. But the third one, called `context`, is.
+Previously, the `feed` resolver didn't take any arguments - now it receives _four_. In fact, the first two and the fourth are not needed for this particular resolver. But the third one, called `context`, is.
 
 Remember how we said earlier that all GraphQL resolver functions _always_ receive four arguments. Now you're getting to know another one, so what is `context` used for?
 
