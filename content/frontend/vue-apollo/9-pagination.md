@@ -151,7 +151,7 @@ update: (store, { data: { createLink } }) => {
 }
 ```
 
-You also need to add varibles in `voteForLink` method in `LinkItem` component.
+You also need to add variables in `voteForLink` method in `LinkItem` component.
 
 Open `src/components/LinkItem.vue` and update the `updateStoreAfterVote` callback within the methods object to look like this:
 
