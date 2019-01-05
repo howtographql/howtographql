@@ -435,7 +435,7 @@ yarn start
 
 </Instruction>
 
-Now you can open a GraphQL Playground by navigation to [http://localhost:4000](http://localhost:4000) where the GraphLQ server is running.
+Now you can open a GraphQL Playground by navigation to [http://localhost:4000](http://localhost:4000) where the GraphQL server is running.
 
 <Instruction>
 
