@@ -306,7 +306,7 @@ _confirm = async data => {
 
 </Instruction>
 
-After the mutation was performed, you're storing the returned `token` in `localStorage` and navigate back to the root route.
+After the mutation was performed, you're storing the returned `token` in `localStorage` and navigating back to the root route.
 
 > **Note**: Mutation returned `data` relies on GraphQL mutation definition, that's why we need to get the `token` depending on which mutation is triggered.
 

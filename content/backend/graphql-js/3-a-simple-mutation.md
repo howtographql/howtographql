@@ -7,7 +7,7 @@ answers: ["It carries the return value of the previous resolver execution level"
 correctAnswer: 1
 ---
 
-In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow to _post_ new links to the server.
+In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow us to _post_ new links to the server.
 
 ### Extending the schema definition
 
@@ -77,7 +77,7 @@ With that new file in place, you can cleanup `index.js` a bit.
 
 <Instruction>
 
-First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update the way how the `GraphQLServer` is instantiated at the bottom of the file:
+First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update how the `GraphQLServer` is instantiated at the bottom of the file:
 
 ```js{2}(path="../hackernews-node/src/index.js)
 const server = new GraphQLServer({
@@ -133,7 +133,7 @@ First off, note that you're entirely removing the `Link` resolvers (as explained
 Also, here's what's going on with the numbered comments:
 
 1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly created `Link` elements.
-1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
+2. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
 
 Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
 
