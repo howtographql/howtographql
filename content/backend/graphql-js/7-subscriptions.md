@@ -141,15 +141,13 @@ In one Playground, send the following subscription:
 ```graphql
 subscription {
   newLink {
-    node {
+    id
+    url
+    description
+    postedBy {
       id
-      url
-      description
-      postedBy {
-        id
-        name
-        email
-      }
+      name
+      email
     }
   }
 }
