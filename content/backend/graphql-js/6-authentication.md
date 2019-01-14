@@ -40,7 +40,7 @@ type User {
 
 You're adding a new _relation field_ called `postedBy` to the `Link` type that points to a `User` instance. The `User` type then has a `links` field that's a list of `Link`s. This is how you express a one-to-many relationship using SDL.
 
-After every change you're making to the datamodel file, you need to redeploy the Prisma API to apply your changes and migrate the underleying database schema.
+After every change you're making to the datamodel file, you need to redeploy the Prisma API to apply your changes and migrate the underlying database schema.
 
 <Instruction>
 
