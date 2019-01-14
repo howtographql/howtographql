@@ -162,7 +162,7 @@ _subscribeToNewLinks = subscribeToMore => {
     document: NEW_LINKS_SUBSCRIPTION,
     updateQuery: (prev, { subscriptionData }) => {
       if (!subscriptionData.data) return prev
-      const newLink = subscriptionData.data.newLink.node
+      const newLink = subscriptionData.data.newLink
 
       return Object.assign({}, prev, {
         feed: {
@@ -191,20 +191,18 @@ The last thing you need to do for this to work is add the `NEW_LINKS_SUBSCRIPTIO
 const NEW_LINKS_SUBSCRIPTION = gql`
   subscription {
     newLink {
-      node {
+      id
+      url
+      description
+      createdAt
+      postedBy {
         id
-        url
-        description
-        createdAt
-        postedBy {
+        name
+      }
+      votes {
+        id
+        user {
           id
-          name
-        }
-        votes {
-          id
-          user {
-            id
-          }
         }
       }
     }
@@ -244,27 +242,25 @@ Still in `LinkList.js` add the `NEW_VOTES_SUBSCRIPTION` to the top of the file:
 const NEW_VOTES_SUBSCRIPTION = gql`
   subscription {
     newVote {
-      node {
+      id
+      link {
         id
-        link {
+        url
+        description
+        createdAt
+        postedBy {
           id
-          url
-          description
-          createdAt
-          postedBy {
+          name
+        }
+        votes {
+          id
+          user {
             id
-            name
-          }
-          votes {
-            id
-            user {
-              id
-            }
           }
         }
-        user {
-          id
-        }
+      }
+      user {
+        id
       }
     }
   }
