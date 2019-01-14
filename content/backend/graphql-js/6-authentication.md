@@ -362,7 +362,7 @@ Two things have changed in the implementation compared to the previous implement
 
 #### Resolving relations
 
-There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: Ensuring the relation between `User` and `Link` getrs properly resolved.
+There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: Ensuring the relation between `User` and `Link` gets properly resolved.
 
 Notice how we've omitted all resolvers for _scalar_ values from the `User` and `Link` types? These are following the simple pattern that we saw at the beginning of the tutorial:
 
