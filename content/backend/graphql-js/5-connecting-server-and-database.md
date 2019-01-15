@@ -1,5 +1,5 @@
 ---
-title: Connecting Server and Database with Prisma Bindings
+title: Connecting Server and Database with the Prisma Client
 pageTitle: "Connecting a Database to a GraphQL Server with Prisma Tutorial"
 description: "Learn how to add a database to your GraphQL server. The database is powered by Prisma and connected to the server via GraphQL bindings."
 question: "What is the main responsibility of the Prisma binding instance that's attached to the 'context'?"
