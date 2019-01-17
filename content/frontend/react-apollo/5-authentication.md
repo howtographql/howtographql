@@ -288,7 +288,7 @@ import gql from 'graphql-tag'
 
 Now, let's understand what's going with the `<Mutation />` component you just added.
 
-The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, thus mutation will be triggered on the div `onClick` event. GraphQL mutations receive `email`, `password` and `name` state values as params passed on `variables` prop. Lastly, after the mutation was completed, we call `_confirm` function passing as argument the mutation returned `data`.
+The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, this mutation will be triggered on the div `onClick` event. GraphQL mutations receive `email`, `password` and `name` state values as params passed on `variables` prop. Lastly, after the mutation was completed, we call `_confirm` function passing as argument the mutation returned `data`.
 
 All right, all that's left to do is implement `_confirm` function!
 
