@@ -141,7 +141,6 @@ In one Playground, send the following subscription:
 ```graphql
 subscription {
   newLink {
-    node {
       id
       url
       description
@@ -150,7 +149,6 @@ subscription {
         name
         email
       }
-    }
   }
 }
 ```

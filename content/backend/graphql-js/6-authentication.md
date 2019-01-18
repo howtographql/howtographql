@@ -40,7 +40,7 @@ type User {
 
 You're adding a new _relation field_ called `postedBy` to the `Link` type that points to a `User` instance. The `User` type then has a `links` field that's a list of `Link`s. This is how you express a one-to-many relationship using SDL.
 
-After every change you're making to the datamodel file, you need to redeploy the Prisma API to apply your changes and migrate the underleying database schema.
+After every change you're making to the datamodel file, you need to redeploy the Prisma API to apply your changes and migrate the underlying database schema.
 
 <Instruction>
 
@@ -362,7 +362,7 @@ Two things have changed in the implementation compared to the previous implement
 
 #### Resolving relations
 
-There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: Ensuring the relation between `User` and `Link` getrs properly resolved.
+There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: Ensuring the relation between `User` and `Link` gets properly resolved.
 
 Notice how we've omitted all resolvers for _scalar_ values from the `User` and `Link` types? These are following the simple pattern that we saw at the beginning of the tutorial:
 
@@ -394,7 +394,7 @@ module.exports = {
 
 In the `postedBy` resolver, you're first fetching the `Link` using the `prisma` client instance and then invoke `postedBy` on it. Notice that the resolver needs to be called `postedBy` because it resolves the `postedBy` field from the `Link` type in `schema.graphql`. 
 
-You can resolver the `links` relation in a similar way.
+You can resolve the `links` relation in a similar way.
 
 <Instruction>
 
