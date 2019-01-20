@@ -13,15 +13,14 @@ All [GraphQL mutations](http://graphql.org/learn/queries/#mutations) start from 
 This type is auto generated in the file `app/graphql/types/mutation_type.rb`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
-Types::MutationType = GraphQL::ObjectType.define do
-  name 'Mutation'
-
-  # TODO: Remove me
-  field :testField, types.String do
-    description "An example field added by the generator"
-    resolve ->(obj, args, ctx) {
-      "Hello World!"
-    }
+module Types
+  class MutationType < Types::BaseObject
+    # TODO: remove me
+    field :test_field, String, null: false,
+      description: "An example field added by the generator"
+    def test_field
+      "Hello World"
+    end
   end
 end
 ```
@@ -34,9 +33,9 @@ You will be able to remove it as soon as you add your own mutation below.
 The mutation type is automatically exposed in your schema:
 
 ```ruby(path=".../graphql-ruby/app/graphql/graphql_tutorial_schema.rb")
-GraphqlTutorialSchema = GraphQL::Schema.define do
-  query(Types::QueryType)
-  mutation(Types::MutationType)
+class GraphqlTutorialSchema < GraphQL::Schema
+  query Types::QueryType
+  mutation Types::MutationType
 end
 ```
 
@@ -44,30 +43,28 @@ end
 
 Now add a resolver for `createLink`.
 
-For this purpose, you'll use [GraphQL::Function](http://graphql-ruby.org/fields/function.html), as mentioned earlier.
+For this purpose, you'll use a [Mutation class](http://graphql-ruby.org/mutations/mutation_classes.html), as mentioned earlier.
 
 <Instruction>
 
-Create a new file - `app/graphql/resolvers/create_link.rb`:
+Create a new file - `app/graphql/mutations/create_link.rb`:
 
-```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_link.rb")
-class Resolvers::CreateLink < GraphQL::Function
-  # arguments passed as "args"
-  argument :description, !types.String
-  argument :url, !types.String
+```ruby(path=".../graphql-ruby/app/graphql/mutations/create_link.rb")
+module Mutations
+  # `BaseMutation` was created from `rails generate graphql:install`
+  class CreateLink < BaseMutation
+    # arguments passed to the `resolved` method
+    argument :description, String, required: true
+    argument :url, String, required: true
 
-  # return type from the mutation
-  type Types::LinkType
+    # return type from the mutation
+    type Types::LinkType
 
-  # the mutation method
-  # _obj - is parent object, which in this case is nil
-  # args - are the arguments passed
-  # _ctx - is the GraphQL context (which would be discussed later)
-  def call(_obj, args, _ctx)
-    Link.create!(
-      description: args[:description],
-      url: args[:url],
-    )
+    def resolve(description: nil, url: nil)
+      Link.create!(
+        description: description,
+        url: url,
+      )
   end
 end
 ```
@@ -79,12 +76,11 @@ end
 Then expose this mutation in `app/graphql/types/mutation_type.rb`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
-Types::MutationType = GraphQL::ObjectType.define do
-  name 'Mutation'
-
-  field :createLink, function: Resolvers::CreateLink.new
-end
-```
+module Types
+  class MutationType < BaseObject
+    field :create_link, mutation: Mutations::CreateLink
+  end
+end```
 
 </Instruction>
 
@@ -100,23 +96,27 @@ It's a good practice in Ruby to unit test your resolver objects.
 
 Here is an example of `Resolvers::CreateLink` test:
 
-```ruby(path=".../graphql-ruby/test/graphql/resolvers/create_link_test.rb")
+```ruby(path=".../graphql-ruby/test/graphql/mutations/create_link_test.rb")
 require 'test_helper'
 
-class Resolvers::CreateLinkTest < ActiveSupport::TestCase
-  def perform(args = {})
-    Resolvers::CreateLink.new.call(nil, args, {})
+class Mutations::CreateLinkTest < ActiveSupport::TestCase
+  def perform(user: nil, **args)
+    Mutations::CreateLink.new(object: nil, context: {}).resolve(args)
   end
 
-  test 'creating new link' do
+  test 'create a new link' do
+    user = create :user
+
     link = perform(
       url: 'http://example.com',
       description: 'description',
+      user: user
     )
 
     assert link.persisted?
     assert_equal link.description, 'description'
     assert_equal link.url, 'http://example.com'
+    assert_equal link.user, user
   end
 end
 ```

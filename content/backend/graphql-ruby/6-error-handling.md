@@ -18,7 +18,7 @@ Some errors will be specific to the application though. For example, let's say t
 
 Luckily, all you need to do is to detect the problem and throw the error.
 
-[GraphQL Gem](http://graphql-ruby.org/) provides an exception for just these cases [GraphQL**::**ExecutionError](http://graphql-ruby.org/queries/error_handling.html).
+[GraphQL Gem](http://graphql-ruby.org/) provides an exception for just these cases [GraphQL**::**ExecutionError](http://graphql-ruby.org/mutations/mutation_errors.html#raising-errors).
 
 <Instruction>
 
@@ -44,21 +44,22 @@ Now every link, requires to have a `url` and `description` attributes.
 Then, try to add this to the `createLink` resolver:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_link.rb")
-class Resolvers::CreateLink < GraphQL::Function
-  argument :description, !types.String
-  argument :url, !types.String
+module Mutations
+  class CreateLink < BaseMutation
+    argument :description, String, required: true
+    argument :url, String, required: true
 
-  type Types::LinkType
+    type Types::LinkType
 
-  def call(obj, args, ctx)
-    Link.create!(
-      description: args[:description],
-      url: args[:url],
-      user: ctx[:current_user]
-    )
-  rescue ActiveRecord::RecordInvalid => e
-    # this would catch all validation errors and translate them to GraphQL::ExecutionError
-    GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
+    def resolve(description: nil, url: nil)
+      Link.create!(
+        description: description,
+        url: url,
+        user: context[:current_user]
+      )
+    rescue ActiveRecord::RecordInvalid => e
+      GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
+    end
   end
 end
 ```
@@ -68,5 +69,8 @@ end
 Now when you try to submit a link with invalid arguments you get an error.
 
 ![](http://i.imgur.com/e5ZgK9c.png)
+
+
+*You can learn more about GraphQL errors [here](http://blog.rstankov.com/graphql-mutations-and-form-errors/).*
 
 
