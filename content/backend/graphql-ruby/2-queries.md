@@ -52,15 +52,14 @@ Now, go ahead and define your [GraphQL Type](http://graphql.org/graphql-js/type/
 Create a new file `app/graphql/types/link_type.rb` and add the following code to it *(you can skip the comments starting with #)*:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/link_type.rb")
-# defines a new GraphQL type
-Types::LinkType = GraphQL::ObjectType.define do
-  # this type is named `Link`
-  name 'Link'
-
-  # it has the following fields
-  field :id, !types.ID
-  field :url, !types.String
-  field :description, !types.String
+module Types
+  class LinkType < BaseObject
+    field :id, ID, null: false
+    # `created_at` is automatically camelcased to `createdAt`
+    field :created_at, DateTimeType, null: false
+    field :url, String, null: false
+    field :description, String, null: false
+  end
 end
 ```
 
@@ -79,13 +78,16 @@ When you previously ran `rails generate graphql:install`, it created the root qu
 Now update its content to:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
-Types::QueryType = GraphQL::ObjectType.define do
-  name 'Query'
+module Types
+  class QueryType < BaseObject
+    # queries are just represented as fields
+    # `all_links` is automatically camelcased to `allLinks`
+    field :all_links, [LinkType], null: false
 
-  # queries are just represented as fields
-  field :allLinks, !types[Types::LinkType] do
-    # resolve would be called in order to fetch data for that field
-    resolve -> (obj, args, ctx) { Link.all }
+    # this method is invoked, when `all_link` fields is beeing resolved
+    def all_links
+      Link.all
+    end
   end
 end
 ```

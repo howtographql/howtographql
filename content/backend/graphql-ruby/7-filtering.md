@@ -51,16 +51,13 @@ class Resolvers::LinksSearch
   # scope is starting point for search
   scope { Link.all }
 
-  # return type
-  type !types[Types::LinkType]
+  type types[Types::LinkType]
 
   # inline input type definition for the advance filter
-  LinkFilter = GraphQL::InputObjectType.define do
-    name 'LinkFilter'
-
-    argument :OR, -> { types[LinkFilter] }
-    argument :description_contains, types.String
-    argument :url_contains, types.String
+  class LinkFilter < ::Types::BaseInputObject
+    argument :OR, [self], required: false
+    argument :description_contains, String, required: false
+    argument :url_contains, String, required: false
   end
 
   # when "filter" is passed "apply_filter" would be called to narrow the scope
@@ -68,20 +65,17 @@ class Resolvers::LinksSearch
 
   # apply_filter recursively loops through "OR" branches
   def apply_filter(scope, value)
-    # normalize filters from nested OR structure, to flat scope list
     branches = normalize_filters(value).reduce { |a, b| a.or(b) }
     scope.merge branches
   end
 
   def normalize_filters(value, branches = [])
-    # add like SQL conditions
     scope = Link.all
-    scope = scope.where('description LIKE ?', "%#{value['description_contains']}%") if value['description_contains']
-    scope = scope.where('url LIKE ?', "%#{value['url_contains']}%") if value['url_contains']
+    scope = scope.like(:description, value['description_contains']) if value['description_contains']
+    scope = scope.like(:url, value['url_contains']) if value['url_contains']
 
     branches << scope
 
-    # continue to normalize down
     value['OR'].reduce(branches) { |s, v| normalize_filters(v, s) } if value['OR'].present?
 
     branches
@@ -100,11 +94,12 @@ This resolver contains all logic related to find links. Over time you can add mo
 Use `LinksSearch` for finding links:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
-Types::QueryType = GraphQL::ObjectType.define do
-  name 'Query'
-
-  field :allLinks, function: Resolvers::LinksSearch
+module Types
+  class QueryType < BaseObject
+    field :all_links, function: Resolvers::LinksSearch
+  end
 end
+
 ```
 
 </Instruction>
@@ -139,10 +134,10 @@ class Resolvers::LinksSearchTest < ActiveSupport::TestCase
   end
 
   test 'filter option' do
-    link1 = create_link description: 'test1', url: 'http://test1.com'
-    link2 = create_link description: 'test2', url: 'http://test2.com'
-    link3 = create_link description: 'test3', url: 'http://test3.com'
-    create_link description: 'test4', url: 'http://test4.com'
+    link1 = create_link, description: 'test1', url: 'http://test1.com'
+    link2 = create_link, description: 'test2', url: 'http://test2.com'
+    link3 = create_link, description: 'test3', url: 'http://test3.com'
+    create_link, description: 'test4', url: 'http://test4.com'
 
     result = find(
       filter: {
