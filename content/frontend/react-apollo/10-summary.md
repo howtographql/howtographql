@@ -11,7 +11,7 @@ In this tutorial, you learned how to build a fully-feature Hackernews clone with
 
 To learn how to build the backend that you used for this tutorial, check out the [Node.JS tutorial](https://www.howtographql.com/graphql-js/0-introduction/).
 
-The backend was powered by [`graphql-yoga`](), a fast and simple GraphQL server library built on top of [Express.js](https://expressjs.com/). It comes with several features, such as out-of-the-box support for [GraphQL Playground](https://github.com/prisma/graphql-playground) and realtime GraphQL subscriptions.
+The backend was powered by [`graphql-yoga`](https://github.com/prisma/graphql-yoga), a fast and simple GraphQL server library built on top of [Express.js](https://expressjs.com/). It comes with several features, such as out-of-the-box support for [GraphQL Playground](https://github.com/prisma/graphql-playground) and realtime GraphQL subscriptions.
 
 The resolvers of your GraphQL server are implemented using the Prisma client that's responsible for database access.
 
