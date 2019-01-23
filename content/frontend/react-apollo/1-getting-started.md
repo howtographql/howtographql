@@ -60,7 +60,7 @@ To improve the project structure, move on to create two directories, both inside
 
 </Instruction>
 
-```js{4}(path=".../hackernews-react-apollo/src/index.js")
+```js{3-4}(path=".../hackernews-react-apollo/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
