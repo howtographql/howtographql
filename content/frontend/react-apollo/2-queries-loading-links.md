@@ -156,7 +156,7 @@ In general, the process for you to add some data fetching logic will be very sim
 
 <Instruction>
 
-Open up `LinkList.js` and add the query to the top of the file:
+Open up `LinkList.js`, import gql from 'graphql-tag' and add the query to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const FEED_QUERY = gql`
