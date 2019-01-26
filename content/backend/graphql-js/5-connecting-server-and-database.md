@@ -93,7 +93,7 @@ Similar to the `feed` resolver, you're simply invoking a function on the `prisma
 
 You're sending the `createLink` method from the Prisma client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
 
-So, to summarize, Prisma client exposes a CRUD API for the models in your datamodel for your to read and write in your database. These methods are auto-generated based on your model definitions in `datamodel.prisma`.  
+So, to summarize, Prisma client exposes a CRUD API for the models in your datamodel for you to read and write in your database. These methods are auto-generated based on your model definitions in `datamodel.prisma`.  
 
 But, how do you make sure your resolvers actually get access to that magical and often-mentioned `prisma` client instance?
 
