@@ -145,7 +145,7 @@ You'll pull out the resolvers for each type into their own files.
 
 <Instruction>
 
-First, create a new directory called `resolvers` and add three files to it: `Query.js`, `Mutation.js`, `User.js` and `Link.js`. You can do so with the following commands:
+First, create a new directory called `resolvers` and add four files to it: `Query.js`, `Mutation.js`, `User.js` and `Link.js`. You can do so with the following commands:
 
 ```bash(path=".../hackernews-node")
 mkdir src/resolvers
