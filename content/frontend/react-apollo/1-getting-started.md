@@ -417,7 +417,7 @@ Then you need to select the **region** for your Demo server. Once that’s done,
 
 </Instruction>
 
-The Demo server that you used as a deployment target for Prisma is hosed for free in Prisma Cloud and comes with a connected database (AWS Aurora).
+The Demo server that you used as a deployment target for Prisma is hosted for free in Prisma Cloud and comes with a connected database (AWS Aurora).
 
 > **Note**: You can also omit `yarn` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `yarn global add prisma`). In that case, you can simply run `prisma deploy`.
 
