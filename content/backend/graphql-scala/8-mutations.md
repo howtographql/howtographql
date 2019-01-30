@@ -120,21 +120,21 @@ Add to `DAO` the following function:
 
 ```scala
 //add to imports
-import com.howtographql.scala.sangria.models.{AuthProviderSignupData
+import com.howtographql.scala.sangria.models.AuthProviderSignupData
 
 //add in body
 def createUser(name: String, authProvider: AuthProviderSignupData): Future[User] = {
-    val newUser = User(0, name, authProvider.email.email, authProvider.email.password )
+  val newUser = User(0, name, authProvider.email.email, authProvider.email.password)
 
-    val insertAndReturnUserQuery = (Users returning Users.map(_.id)) into {
-      (user, id) => user.copy(id = id)
-    }
-
-    db.run {
-      insertAndReturnUserQuery += newUser
-    }
-
+  val insertAndReturnUserQuery = (Users returning Users.map(_.id)) into {
+    (user, id) => user.copy(id = id)
   }
+
+  db.run {
+    insertAndReturnUserQuery += newUser
+  }
+
+}
   
 ```
 
