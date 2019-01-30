@@ -14,7 +14,7 @@ description: Using Relay on Graphene
 
 Basically speaking, it gives every object a global unique identifier, creates a cursor-based pagination structure and introduces the input parameter to mutations.
 
-You can read more about the GraphQL server side considerations in the [GraphQL Relay Specification](https://facebook.github.io/relay/docs/graphql-relay-specification.html) and in the [Graphene Documentation](http://docs.graphene-python.org/projects/django/en/latest/tutorial-relay/).
+You can read more about the GraphQL server side considerations in the [GraphQL Relay Specification](https://facebook.github.io/relay/docs/en/graphql-server-specification.html) and in the [Graphene Documentation](http://docs.graphene-python.org/projects/django/en/latest/tutorial-relay/).
 
 ### Relay and Graphene
 Graphene and Graphene Django already comes with the Relay implementation, making your life easier.
