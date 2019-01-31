@@ -102,12 +102,12 @@ export class LinkListComponent implements OnInit {
     id: '1',
     description: 'The Coolest GraphQL Backend 😎',
     url: 'https://www.graph.cool',
-    createAt: '2018-02-08T16:54:37.000Z',
+    createdAt: '2018-02-08T16:54:37.000Z',
   }, {
     id: '2',
     description: 'The Best GraphQL Client',
     url: 'http://dev.apollodata.com/'
-    createAt: '2018-02-08T16:54:37.000Z',
+    createdAt: '2018-02-08T16:54:37.000Z',
   }];
 
   constructor() {
