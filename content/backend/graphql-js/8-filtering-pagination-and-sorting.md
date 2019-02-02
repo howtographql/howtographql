@@ -56,7 +56,7 @@ If no `filter` string is provided, then the `where` object will be just an empty
 
 In case there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions.
 
-That's it already for the filtering functionality! Go ahead and test your filter API - here's a sample query you can use:
+That's it for the filtering functionality! Go ahead and test your filter API - here's a sample query you can use:
 
 ```graphql
 query {
