@@ -130,3 +130,10 @@ A lot of tools available in the GraphQL ecosystem use the introspection system t
 [GraphQL Playground](https://github.com/graphcool/graphql-playground) is powerful "GraphQL IDE" for interactively working with a GraphQL API. It features an editor for GraphQL queries, mutations and subscriptions, equipped with autocompletion and validation as well as a documentation explorer to quickly visualize the structure of a schema (powered by introspection). It also can display your query history or lets you work with multiple GraphQL APIs side-by-side. It also seamlessly integrates with [`graphql-config`](https://github.com/graphcool/graphql-config).
 
 It is an incredibly powerful tool for development. It allows you to debug and try queries on a GraphQL server without having to write plain GraphQL queries over `curl`, for example.
+
+## Altair GraphQL Client
+
+[Altair](https://altair.sirmuel.design/) is yet another beautiful feature-rich IDE for GraphQL. It enables you interact with any GraphQL server you are authorized to access from any platform you are on. Much like Postman for GraphQL, you can easily test and optimize your GraphQL implementations. You also have several features to make your GraphQL development process much easier including subscriptions, query scaffolding, formatting, multiple languages, themes, and many more.
+
+There are also several integrations for altair on different platforms including [Gatsby](https://www.npmjs.com/package/gatsby-plugin-altair-graphql) and [express](https://www.npmjs.com/package/altair-express-middleware), making it easier for developers to work more quickly.
+
