@@ -144,19 +144,19 @@ client.query({
 }).then(response => console.log(response.data.allLinks))
 ```
 
-A more declarative way when using React however is to use new Apollo's [render prop API](https://dev-blog.apollodata.com/introducing-react-apollo-2-1-c837cc23d926) to manage your GraphQL data just using components.
+A more declarative way when using React however is to use Apollo's new [render prop API](https://dev-blog.apollodata.com/introducing-react-apollo-2-1-c837cc23d926) to manage your GraphQL data just using components.
 
-With this approach, all you need to do when it comes to data fetching is pass the GraphQL query as prop and `<Query />` component will fetch the data for you under the hood, then it'll make it available in the component's [render prop function](https://reactjs.org/docs/render-props.html).
+With this approach, all you need to do when it comes to data fetching is pass the GraphQL query as a prop and the `<Query />` component will fetch the data for you under the hood, then it'll make it available in the component's [render prop function](https://reactjs.org/docs/render-props.html).
 
 In general, the process for you to add some data fetching logic will be very similar every time:
 
 1. write the query as a JavaScript constant using the `gql` parser function
-1. use the `<Query />` component passing the GraphQL query as prop
+1. use the `<Query />` component passing the GraphQL query as a prop
 1. access the query results that gets injected into the component's `render prop function`
 
 <Instruction>
 
-Open up `LinkList.js` and add the query to the top of the file:
+Open up `LinkList.js` and add the following query to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const FEED_QUERY = gql`
@@ -191,9 +191,9 @@ return (
 What's going on here?
 
 1. First, you create the JavaScript constant called `FEED_QUERY` that stores the query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamililar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
-1. Finally, you wrap the returned code with `<Query />` component passing `FEED_QUERY` as prop. 
+1. Finally, you wrap the returned code with the `<Query />` component passing `FEED_QUERY` as a prop.
 
-> **Note**: Notice that we're returning `linksToRender` as a function result, that's due to `render prop function` provided by `<Query />` component.
+> **Note**: Notice that we're returning `linksToRender` as a function result, that's due to the `render prop function` provided by the `<Query />` component.
 
 <Instruction>
 
@@ -208,7 +208,7 @@ import gql from 'graphql-tag'
 
 Awesome, that's all your data fetching code, can you believe that? But as you can see, it's not receiving server data, so let's make it happen 🤩
 
-You can now finally remove the mock data and render actual links that are fetched from the server thanks to `<Query />` render prop function.
+You can now finally remove the mock data and render actual links that are fetched from the server thanks to the `<Query />` render prop function.
 
 <Instruction>
 
