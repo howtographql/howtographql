@@ -36,7 +36,7 @@ Authentication and authorization are often confused. _Authentication_ describes 
 
 Authentication in GraphQL can be implemented with common patterns such as [OAuth](https://oauth.net/).
 
-To implement authorization, it is [recommended](http://graphql.org/learn/authorization/) to delegate any data access logic to the business logic layer and not handle it directly in the GraphQL implementation. If you want to have some inspiration on how to implement authorization, you can take a look [Graphcool's permission queries](https://www.graph.cool/blog/2017-04-25-graphql-permission-queries-oolooch8oh/).
+To implement authorization, it is [recommended](http://graphql.org/learn/authorization/) to delegate any data access logic to the business logic layer and not handle it directly in the GraphQL implementation. If you want to have some inspiration on how to implement authorization, you can take a look to [Graphcool's permission rules](https://www.graph.cool/docs/reference/auth/overview-ohs4aek0pe).
 
 ### How to do Error Handling?
 

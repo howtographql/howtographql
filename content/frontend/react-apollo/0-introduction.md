@@ -31,8 +31,8 @@ In this track, you'll use the following technologies for building the app:
   - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
   - [Apollo Client 2.1](https://github.com/apollographql/apollo-client): Production-ready, caching GraphQL client
 - Backend:
-  - [`graphql-yoga`](https://github.com/graphcool/graphql-yoga/): Fully-featured GraphQL Server with focus on easy setup, performance & great developer experience
-  - [Prisma](https://www.prismagraphql.com/): Open-source GraphQL API layer that turns your database into a GraphQL API
+  - [`graphql-yoga`](https://github.com/prisma/graphql-yoga/): Fully-featured GraphQL Server with focus on easy setup, performance & great developer experience
+  - [Prisma](https://www.prisma.io/): Open-source GraphQL API layer that turns your database into a GraphQL API
 
 You'll create the React project with [`create-react-app`](https://github.com/facebookincubator/create-react-app), a popular command-line tool that gives you a blank project with all required build configuration already setup.
 
@@ -42,7 +42,7 @@ In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already c
 
 In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality you'll want in any frontend application that's talking to a GraphQL server - why build it yourself when you can use one of the amazing GraphQL clients out there?
 
-There are a few GraphQL client libraries available. For very simple use cases (such as writing scripts), [`graphql-request`](https://github.com/graphcool/graphql-request) might already be enough for your needs. However, chances are that you're writing a somewhat larger application where you want to benefit from caching, optimistic UI updates and other handy features. In these cases, you have the choice between [Apollo Client](https://github.com/apollographql/apollo-client) and [Relay](https://facebook.github.io/relay/).
+There are a few GraphQL client libraries available. For very simple use cases (such as writing scripts), [`graphql-request`](https://github.com/prisma/graphql-request) might already be enough for your needs. However, chances are that you're writing a somewhat larger application where you want to benefit from caching, optimistic UI updates and other handy features. In these cases, you have the choice between [Apollo Client](https://github.com/apollographql/apollo-client) and [Relay](https://facebook.github.io/relay/).
 
 ### Apollo vs Relay
 

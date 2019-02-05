@@ -49,7 +49,7 @@ Now, let's add GraphQL to the server. First, stop the server.
 Open `Gemfile` and add the following dependency to it:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'graphql', '1.7.4'
+gem 'graphql', '1.8.13'
 ```
 
 </Instruction>
@@ -76,7 +76,7 @@ gem 'graphiql-rails', group: :development
 To:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'graphiql-rails', '1.4.4', group: :development
+gem 'graphiql-rails', '1.5.0', group: :development
 ```
 
 And run:

@@ -10,7 +10,7 @@ duration: 0
 videoAuthor: ""
 ---
 
-In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with minors (but logicals) differences in the last two steps:
+In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with minor (but logical) differences in the last two steps:
 
 1. write the mutation as a JavaScript constant using the `gql` parser function
 1. use the `<Mutation />` component passing the GraphQL mutation and variables (if needed) as props
@@ -143,7 +143,7 @@ As promised, all you need to do is call the function that Apollo injects into `<
 
 <Instruction>
 
-Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change `render` to looks as follows:
+Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change `render` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
