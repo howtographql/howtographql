@@ -252,27 +252,25 @@ Still in `LinkList.js` add the `NEW_VOTES_SUBSCRIPTION` to the top of the file:
 const NEW_VOTES_SUBSCRIPTION = gql`
   subscription {
     newVote {
-      node {
+      id
+      link {
         id
-        link {
+        url
+        description
+        createdAt
+        postedBy {
           id
-          url
-          description
-          createdAt
-          postedBy {
+          name
+        }
+        votes {
+          id
+          user {
             id
-            name
-          }
-          votes {
-            id
-            user {
-              id
-            }
           }
         }
-        user {
-          id
-        }
+      }
+      user {
+        id
       }
     }
   }
