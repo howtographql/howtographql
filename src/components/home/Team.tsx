@@ -49,7 +49,7 @@ export default function Team() {
       <div className="team">
         <h2>For the Community, by the Community</h2>
         <p>
-          How to GraphQL was created by Graphcool and many amazing contributors.
+          How to GraphQL was created by Prisma and many amazing contributors.
           It's open-source and free of charge.
         </p>
         <div className="bubbles-container">
@@ -63,8 +63,8 @@ export default function Team() {
                 y={0}
               />
               <Company
-                src={require('../../assets/icons/companies/graphcool.svg')}
-                color={$v.green}
+                src={require('../../assets/icons/companies/prisma.svg')}
+                color={$v.white}
                 y={90}
               />
               <Bubble
@@ -237,6 +237,13 @@ export default function Team() {
                 description="angular-apollo"
                 x={0}
                 y={0}
+              />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/marioosh.jpg')}
+                name="Mariusz Nosiński"
+                description={"Sangria - Scala"}
+                x={170}
+                y={-10}
               />
             </div>
           </div>

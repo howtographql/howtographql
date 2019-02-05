@@ -371,7 +371,17 @@ Failed to compile.
 Module not found: Can't resolve './__generated__/LinkListPageQuery.graphql' in '.../hackernews-react-relay/src/components'
 ```
 
-That's because we've skipped the _compilation_ of the GraphQL code that makes for much of Relay's actual power! You already installed the `relay-compiler`, so now you'll actually use it.
+That's because we've skipped the _compilation_ of the GraphQL code that makes for much of Relay's actual power! You already installed the `relay-compiler` as a dev dependency, this allows you to add it as a script to `package.json` as explained [here](https://facebook.github.io/relay/docs/en/installation-and-setup.html#set-up-relay-compiler). However, to keep things a bit more simple in this tutorial you'll just install it globally for now (feel free to choose the other setup described in the Relay docs).
+
+<Instruction>
+
+In your terminal, install the `relay-compiler` globally with the following command:
+
+```sh
+npm install -g relay-compiler
+```
+  
+</Instruction>
 
 The compiler can be invoked using the `relay-compiler` command in the terminal where you have to provide two arguments:
 
@@ -388,7 +398,7 @@ relay-compiler --src ./src --schema ./schema.graphql
 
 </Instruction>
 
-Now - when running the `relay-compiler` you'll actually see another error message. That's disappointing, but don't worry - it's not your fault this time. This happens because of a [bug in the Relay Compiler](https://github.com/facebook/relay/issues/1835) that breaks the compilation when there are non-nullable types on the connection types in the schema. You can work around the the issue by manually adjusting it, which is not something you should be doing under normal circumstances but for the purpose of this tutorial it will be fine. 
+Now - when running the `relay-compiler` you'll actually see another error message. That's disappointing, but don't worry - it's not your fault this time. This happens because of a [bug in the Relay Compiler](https://github.com/facebook/relay/issues/1835) that breaks the compilation when there are non-nullable types on the connection types in the schema. You can work around the issue by manually adjusting it, which is not something you should be doing under normal circumstances but for the purpose of this tutorial it will be fine.
 
 <Instruction>
 

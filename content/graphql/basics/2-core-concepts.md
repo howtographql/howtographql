@@ -9,11 +9,11 @@ videoId: NeQfq0U5LnI
 duration: 15
 ---
 
-In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for you, based on [graphql-up](https://github.com/graphcool/graphql-up), that you can use to experiment with what you learn.  
+In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for you, based on [graphql-up](https://www.npmjs.com/package/graphql-up), that you can use to experiment with what you learn.  
 
 ### The Schema Definition Language (SDL)
 
-GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL).
+GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL).
 
 Here is an example how we can use the SDL to define a simple type called `Person`:
 
@@ -169,7 +169,7 @@ The server response for the above mutation would look as follows:
 ```js(nocopy)
 "createPerson": {
   "name": "Bob",
-  "age": "36",
+  "age": 36,
 }
 ```
 
@@ -300,3 +300,11 @@ type Post {
   author: Person!
 }
 ```
+
+### Learn more
+
+To learn more about the core concepts in GraphQL, be sure to check out the following article series:
+
+- [GraphQL Server Basics (Part I): GraphQL Schemas, TypeDefs & Resolvers Explained](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e)
+- [GraphQL Server Basics (Part II): The Network Layer](https://blog.graph.cool/graphql-server-basics-the-network-layer-51d97d21861)
+- [GraphQL Server Basics (Part III): Demystifying the `info` argument in GraphQL resolvers](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a)

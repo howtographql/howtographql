@@ -6,7 +6,6 @@ duration: 4
 question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
 correctAnswer: 3
-draft: false
 ---
 
 ### Backend
@@ -17,7 +16,7 @@ Since this is a frontend track, you don't want to spend too much time setting up
 
 You'll use the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/) to build (and deploy) your GraphQL API based on the data model that you need for the app.
 
-Speaking of the data model, here is what the final version looks like written in the [GraphQL Schema Definition Language](https://www.graph.cool/docs/faq/graphql-sdl-schema-definition-language-kr84dktnp0/) (SDL):
+Speaking of the data model, here is what the final version looks like written in the [GraphQL Schema Definition Language](http://graphql.org/learn/schema/) (SDL):
 
 ```graphql(nocopy)
 type User @model {
@@ -79,7 +78,7 @@ npm install -g graphcool-framework
 
 </Instruction>
 
-To use the Graphcool CLI, you can either use the `graphcool-framework` command, or the shorter form: `gfc`.
+To use the Graphcool CLI, you can either use the `graphcool-framework` command, or the shorter form: `gcf`.
 
 Now you can go and create the server. There are two steps involved in this:
 
@@ -461,7 +460,7 @@ export class GraphQLModule {
     const uri = '__SIMPLE_API_ENDPOINT__';
     const http = httpLink.create({ uri });
 
-    // 6
+    // 5
     apollo.create({
       link: http,
       cache: new InMemoryCache()
@@ -480,7 +479,7 @@ Let's try to understand what's going on in that code snippet:
 2. We export the `HttpClientModule`, `ApolloModule`, `HttpLinkModule` to make them "public" when `GraphQLModule` is imported in another module. In fact, if you don't export, it stays private, visible only to other component declared in this module. You can find more information in [NgModule FAQs](https://angular.io/guide/ngmodule-faq#what-should-i-export)
 3. We inject the `Apollo` and `HttpLink` to be able to configure them
 4. We create a `link` by providing the `URI` (i.e. your actual GraphQL endpoint) to the `.create` method of the `HttpLink` instance. You'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit
-3. Now you instantiate the `ApolloClient` by passing in the `link` created and an `InMemoryCache` cache instance. The `HttpLink` is a replacement for `createNetworkInterface` from Apollo Client 1.0
+5. Now you instantiate the `ApolloClient` by passing in the `link` created and an `InMemoryCache` cache instance. You can also use `new InMemoryCache({ dataIdFromObject: o => (o as GraphCoolObject).id })` and have all your objects in `types.ts` extend a common interface names `GraphCoolObject` with an `id: string;` property to specify how Apollo will identify and de-duplicate the objects returned from the server. The `HttpLink` is a replacement for `createNetworkInterface` from Apollo Client 1.0
 
 Finally, we export the `GraphQLModule`.
 

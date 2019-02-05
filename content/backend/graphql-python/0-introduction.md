@@ -55,3 +55,13 @@ An important thing to note about building a GraphQL server is that the main deve
 
 The schema is a *contract* agreed on between the frontend and backend, so keeping it at the center allows both sides of the development to evolve without going off the spec. This also makes it easier to parallelize the work, since the frontend can move on with full knowledge of the API from the start, using a simple mocking service (or even a full backend such as [Graphcool](https://www.graph.cool/)) which can later be easily replaced with the final server.
 
+### Revisions
+
+#### v2.0
+Add Token based authentication with [django-graphql-jwt](https://github.com/flavors/django-graphql-jwt). Thanks [mongkok](https://github.com/mongkok) for the library and contribution!
+
+#### v1.1
+Change Django and Graphene to version 2.
+
+#### v1.0
+Original content :)

@@ -9,15 +9,13 @@ correctAnswer: 2
 
 GraphQL gives enormous power to clients. But with great power come great responsibilities 🕷.
 
-Since clients have the possibility to craft very complex queries, our servers must be ready to handle them properly. These queries may be abusive queries from evil clients, or may simply be very large queries used by legitimate clients. In both of these cases, the client
-can potentially take your GraphQL server down.
+Since clients have the possibility to craft very complex queries, our servers must be ready to handle them properly. These queries may be abusive queries from evil clients, or may simply be very large queries used by legitimate clients. In both of these cases, the client can potentially take your GraphQL server down.
 
-There are a few strategies to mitigate these risks, which we will cover in this chapter. We will cover them in order of most simple
-to the most complex, and look at their pros and cons.
+There are a few strategies to mitigate these risks. We will cover them in this chapter in order from the simplest to the most complex, and look at their pros and cons.
 
 ## Timeout
 
-The first strategy and the most simple one is using a simple timeout to defend against large queries. This strategy is the simplest since it does not require the server to know anything about the incoming queries. All the server knows is the maximum of time allowed for a query.
+The first strategy and the simplest one is using a timeout to defend against large queries. This strategy is the simplest since it does not require the server to know anything about the incoming queries. All the server knows is the maximum time allowed for a query.
 
 For example, a server configured with a 5 seconds timeout would stop the execution of any query that is taking more than 5 seconds to execute.
 
@@ -29,8 +27,7 @@ For example, a server configured with a 5 seconds timeout would stop the executi
 ### Timeout Cons
 
   - Damage can already be done even when the timeout kicks in.
-  - Sometimes hard to implement. Cutting connections after a certain time may result
-    in strange behaviours.
+  - Sometimes hard to implement. Cutting connections after a certain time may result in strange behaviours.
 
 ## Maximum Query Depth
 
@@ -126,7 +123,7 @@ query {
 
   - Hard to implement perfectly.
   - If complexity is estimated by developers, how do we keep it up to date? How do we find the costs in the first place?
-  - Mutations are hard to estimate. What if they have a side effect that is hard to measure like queuing a background job?
+  - Mutations are hard to estimate. What if they have a side effect that is hard to measure, like queuing a background job?
 
 ## Throttling
 
@@ -139,7 +136,7 @@ since they are defined by the clients. So what can we use to throttle clients?
 
 ### Throttling Based on Server Time
 
-A good estimate of how expensive a query is is the server time it needs to complete. We can use this heuristic to throttle queries. With a good knowledge of your system, you can come up with a maximum server time a client can use over a certain time frame.
+A good estimate of how expensive a query is the server time it needs to complete. We can use this heuristic to throttle queries. With a good knowledge of your system, you can come up with a maximum server time a client can use over a certain time frame.
 
 We also decide on how much server time is added to a client over time. This is a classic [leaky bucket algorithm](https://en.wikipedia.org/wiki/Leaky_bucket). Note that there are other throttling algorithms out there, but they are out of scope for this chapter. We will use a leaky bucket throttle in the next examples.
 

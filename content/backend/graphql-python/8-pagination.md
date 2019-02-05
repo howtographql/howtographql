@@ -1,7 +1,7 @@
 ---
 title: Pagination
 question: Why pagination in queries are important?
-answers: ["To show all the information at once", "Allows the client to say how much data it wants", "To filter results by specific fields", "GraphQL can't runt without pagination"]
+answers: ["To show all the information at once", "Allows the client to say how much data it wants", "To filter results by specific fields", "GraphQL can't run without pagination"]
 correctAnswer: 1
 description: Simple Pagination with Graphene
 ---
@@ -10,9 +10,9 @@ Imagine that your Hackernews has thousands of created links – that would be aw
 
 The simple way defined in the GraphQL [pagination](http://graphql.org/learn/pagination/) documentation is to slice the results using two parameters: `first`, which returns the first *n* items and `skip`, which skips the first *n* items.
 
-Let's implement it on the links query.
+Let's implement it in the links query.
 
-### Paginating Links 
+### Paginating Links
 
 <Instruction>
 
@@ -35,13 +35,13 @@ class Query(graphene.ObjectType):
 
         if search:
             filter = (
-                Q(url__icontains=search) | 
+                Q(url__icontains=search) |
                 Q(description__icontains=search)
             )
             qs = qs.filter(filter)
 
         if skip:
-            qs = qs[skip::]
+            qs = qs[skip:]
 
         if first:
             qs = qs[:first]
@@ -57,6 +57,6 @@ class Query(graphene.ObjectType):
 
 The `skip` and `first` uses [Python Slicing](https://www.dotnetperls.com/slice-python).
 
-Testing it on the GraphiQL interface:
+Testing it in the Insomnia interface:
 
-![](http://i.imgur.com/LtRMZrv.png)
+![](https://i.imgur.com/pcNvb8y.png)

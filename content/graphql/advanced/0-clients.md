@@ -5,7 +5,6 @@ description: "Learn about GraphQL clients, like Relay and Apollo Client, and the
 question: What does a GraphQL client usually do before caching the results of a query?
 answers: ["Validating the query results against the schema", "Normalizing the data", "Calling a resolver function", "Making the data available in the props of a React component"]
 correctAnswer: 1
-draft: false
 ---
 
 
@@ -18,7 +17,7 @@ Working with a GraphQL API on the frontend is a great opportunity to develop new
 
 Of course, nothing stops you from using plain HTTP to fetch your data and then shifting all the bits yourself until the right information ends up in your UI. But GraphQL provides the ability to abstract away a lot of the manual work you'd usually have to do during that process and lets you focus on the real important parts of your app! In the following, we'll discuss in a bit more detail what these tasks are.
 
-> There are two major GraphQL clients available at the moment. The first one is [Apollo Client](http://dev.apollodata.com/), which is a community-driven effort to build a powerful and flexible GraphQL client for all major development platforms. The second one is called [Relay](https://facebook.github.io/relay/) and it is Facebook's homegrown GraphQL client that heavily optimizes for performance and is only available on the web.  
+> There are two major GraphQL clients available at the moment. The first one is [Apollo Client](https://github.com/apollographql/apollo-client), which is a community-driven effort to build a powerful and flexible GraphQL client for all major development platforms. The second one is called [Relay](https://facebook.github.io/relay/) and it is Facebook's homegrown GraphQL client that heavily optimizes for performance and is only available on the web.  
 
 ### Directly Sending Queries and Mutations
 
@@ -29,7 +28,7 @@ When you previously used plain HTTP (like `fetch` in Javascript or `NSURLSession
 
 ### View Layer Integrations & UI updates
 
-Once the server response was received and handled by the GraphQL client, the requested data somehow needs to end up in your UI. Depending on the platforms and frameworks you're developing with, there will be different approaches how UI updates are handled in general.
+Once the server response was received and handled by the GraphQL client, the requested data somehow needs to end up in your UI. Depending on the platforms and frameworks you're developing with, there will be different approaches to how UI updates are handled in general.
 
 Taking React as an example, GraphQL clients use the concept of [higher-order components](https://facebook.github.io/react/docs/higher-order-components.html) to fetch the needed data under the hood and make it available in the `props` of your components. In general, the declarative nature of GraphQL ties in particularly well with [functional reactive programming](https://en.wikipedia.org/wiki/Functional_reactive_programming) techniques. The two can form a powerful combination where a view simply declares its data dependencies and the UI is wired up with an FRP layer of your choice. 
 

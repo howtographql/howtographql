@@ -1,7 +1,15 @@
 {
   "resolutions": {
-    "graphql": "0.10.3"
+    "graphql": "0.11.7"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howtographql/howtographql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/howtographql/howtographql/issues"
+  },
+  "homepage": "https://github.com/howtographql/howtographql#readme",
   "dependencies": {
     "algoliasearch": "^3.24.0",
     "classnames": "^2.2.5",
@@ -22,7 +30,7 @@
     "gatsby-transformer-remark": "next",
     "graphcool-graphiql": "^1.8.13",
     "graphcool-styles": "^0.1.31",
-    "graphql": "^0.10.3",
+    "graphql": "^0.11.7",
     "graphql-request": "^1.2.0",
     "lodash": "^4.17.4",
     "node-fetch": "^1.7.1",
@@ -48,6 +56,7 @@
     "redux-localstorage-filter": "^0.1.1",
     "redux-logger": "^3.0.6",
     "relay-compiler": "^1.1.0",
+    "sharp": "^0.19.1",
     "sitemap": "^1.13.0",
     "styled-jsx": "git+https://github.com/timsuchanek/styled-jsx#build",
     "styled-jsx-postcss": "git+https://github.com/timsuchanek/styled-jsx-postcss#build3",

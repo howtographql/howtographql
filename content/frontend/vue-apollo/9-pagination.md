@@ -151,6 +151,26 @@ update: (store, { data: { createLink } }) => {
 }
 ```
 
+You also need to add variables in `voteForLink` method in `LinkItem` component.
+
+Open `src/components/LinkItem.vue` and update the `updateStoreAfterVote` callback within the methods object to look like this:
+
+```js(path=".../hackernews-vue-apollo/src/components/LinkItem.vue")
+updateStoreAfterVote (store, createVote, linkId) {
+  const data = store.readQuery({
+    query: ALL_LINKS_QUERY,
+    variables: {     
+      first: 5,
+      skip: 0,
+      orderBy: 'createdAt_DESC'
+    }
+  })
+  const votedLink = data.allLinks.find(link => link.id === linkId)
+  votedLink.votes = createVote.link.votes
+  store.writeQuery({query: ALL_LINKS_QUERY, data})
+}
+```
+
 Here you are simply adding the variables that this query now expects.
 
 </Instruction>

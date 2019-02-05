@@ -10,6 +10,7 @@ import ContentOverview from '../components/home/ContentOverview'
 import Footer from '../components/home/Footer'
 import { MarkdownRemark, RelayConnection } from '../types'
 import CustomHelmet from '../components/CustomHelmet'
+import { Banner } from '../components/Banner'
 
 interface Props {
   data: {
@@ -28,7 +29,11 @@ export default (props: Props) => {
     'Fullstack GraphQL Tutorial to go from zero to production covering all basics and advanced concepts.'
   return (
     <App history={props.history} steps={steps} location={props.location}>
-      <CustomHelmet title={title} description={description} overrideDescription={overrideDescription} />
+      <CustomHelmet
+        title={title}
+        description={description}
+        overrideDescription={overrideDescription}
+      />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />
@@ -36,6 +41,7 @@ export default (props: Props) => {
       <Team />
       <ContentOverview location={props.location} steps={steps} />
       <Footer />
+      <Banner />
     </App>
   )
 }

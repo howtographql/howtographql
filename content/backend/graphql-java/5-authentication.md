@@ -155,6 +155,9 @@ public class UserRepository {
     }
     
     private User user(Document doc) {
+    if (doc == null) {
+        return null;
+    }
         return new User(
                 doc.get("_id").toString(),
                 doc.getString("name"),
@@ -351,7 +354,7 @@ headers: {
 }
 ```
 
-and add the `Authorization` header to the list, with the value obtained by executing `signinUser` mutation as above:
+and add the `Authorization` header to the list, **with the value obtained by executing `signinUser` mutation as above**:
 
 ```html(path=".../hackernews-graphql-java/src/main/webapp/index.html")
 method: 'post',
@@ -361,7 +364,7 @@ headers: {
     'Authorization': 'Bearer 5959649b3b067a55a3c1ffad',
 }
 ```
-
+🔔**Don't use the Authorization code from the above code snippet, use the value obtained by executing `signinUser` mutation**
 </Instruction>
 
 What this means for you, as the server developer, is that you need to check the value of the `Authorization` header on every request that needs authentication and/or authorization.

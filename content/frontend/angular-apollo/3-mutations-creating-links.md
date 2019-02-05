@@ -3,7 +3,7 @@ title: "Mutations: Creating Links"
 pageTitle: "GraphQL Mutations with React & Apollo Tutorial"
 description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's service injected in the component to define and send mutations."
 question: Which of the following statements is true?
-answers: ["Only queries can be executed with the Apollo service ", "'gql' is a higher-order component from the apollo-angular package", "GraphQL mutations never take any arguments"]
+answers: ["Only queries can be executed with the Apollo service", "'gql' is a higher-order component from the apollo-angular package", "GraphQL mutations are used for changes (writes) that are made in the database", "GraphQL mutations never take any arguments"]
 correctAnswer: 2
 ---
 
@@ -32,7 +32,7 @@ export class CreateLinkComponent implements OnInit {
   description: string = '';
   url: string = '';
 
-  constructor() {
+  constructor(public apollo: Apollo) {
   }
 
   ngOnInit() {

@@ -16,16 +16,18 @@ GraphQL was developed to cope with the need for more flexibility and efficiency!
 
 To illustrate the major differences between REST and GraphQL when it comes to fetching data from an API, let's consider a simple example scenario: In a blogging application, an app needs to display the titles of the posts of a specific user. The same screen also displays the names of the last 3 followers of that user. How would that situation be solved with REST and GraphQL?
 
+> 💡 Check out [this](https://www.prisma.io/blog/top-5-reasons-to-use-graphql-b60cfa683511) article to learn more about why developers love GraphQL.
+
 ### Data Fetching with REST vs GraphQL
 
 With a REST API, you would typically gather the data by accessing multiple endpoints. In the example, these could be `/users/<id>` endpoint to fetch the initial user data. Secondly, there's likely to be a `/users/<id>/posts` endpoint that returns all the posts for a user. The third endpoint will then be the `/users/<id>/followers` that returns a list of followers per user.
 
-![](http://imgur.com/VIWd5I5.png)
+![](https://imgur.com/VRyV7Jh.png)
 *With REST, you have to make three requests to different endpoints to fetch the required data. You're also _overfetching_ since the endpoints return additional information that's not needed.*
 
 In GraphQL on the other hand, you'd simply send a single query to the GraphQL server that includes the concrete data requirements. The server then responds with a JSON object where these requirements are fulfilled.
 
-![](http://imgur.com/uY50GHz.png)
+![](https://imgur.com/z9VKnHs.png)
 *Using GraphQL, the client can specify exactly the data it needs in a _query_. Notice that the _structure_ of the server's response follows precisely the nested structure defined in the query.*
 
 ### No more Over- and Underfetching
@@ -64,7 +66,7 @@ GraphQL uses a strong type system to define the capabilities of an API. All the 
 
 Once the schema is defined, the teams working on frontend and backends can do their work without further communication since they both are aware of the definite structure of the data that's sent over the network. 
 
-Frontend teams can easily test their applications by mocking the required data structures. Once the server is ready, the flip can be switched for the client apps to load the data from the actual API.
+Frontend teams can easily test their applications by mocking the required data structures. Once the server is ready, the switch can be flipped for the client apps to load the data from the actual API.
 
 
 

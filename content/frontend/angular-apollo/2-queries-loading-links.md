@@ -53,6 +53,8 @@ export class LinkItemComponent implements OnInit {
 
 <Instruction>
 
+Add the following code in `link-item.component.html`:
+
 ```html(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.html")
 <div>{{link.description}} ({{link.url}})</div>
 ```
@@ -98,11 +100,13 @@ export class LinkListComponent implements OnInit {
   linksToRender: Link[] = [{
     id: '1',
     description: 'The Coolest GraphQL Backend 😎',
-    url: 'https://www.graph.cool'
+    url: 'https://www.graph.cool',
+    createdAt: '2018-02-08T16:54:37.000Z',
   }, {
     id: '2',
     description: 'The Best GraphQL Client',
     url: 'http://dev.apollodata.com/'
+    createdAt: '2018-02-08T16:54:37.000Z',
   }];
 
   constructor() {
@@ -169,7 +173,7 @@ export class AppModule {
 Then, open `app.component.html` and replace the current contents with the following:
 
 ```html(path=".../hackernews-angular-apollo/src/app/app.component.html")
-  <hn-link-list></hn-link-item-list>
+  <hn-link-list></hn-link-list>
 ```
 
 </Instruction>
@@ -223,9 +227,9 @@ Create a file within `src/app` called `graphql.ts`. This is where all of your qu
 
 <Instruction>
 
-Open up `src/constants/graphql.js` and add your first query:
+Open up `src/app/graphql.ts` and add your first query:
 
-```ts{2-3,5-15,17-21}(path=".../hackernews-vue-apollo/src/app/graphql.ts")
+```ts{2-3,5-15,17-21}(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 import {Link} from './types';
 // 1
 import gql from 'graphql-tag'
@@ -322,10 +326,10 @@ export class LinkListComponent implements OnInit {
 What's going on here?
 
 1. You import the `ALL_LINKS_QUERY` which you just created
-2. Next, you initialize the `allLinks` data property to an empty array and `loading` to `false`. This will be set to false once data loads.
+2. Next, you initialize the `allLinks` data property to an empty array and `loading` to `true`. This will be set to false once data loads.
 3. Now you inject an `Apollo` service to your component
 4. You call the `query` method to it ( you can also use another method named `watchQuery`). This method requires a `query, ` and you pass it the `ALL_LINKS_QUERY`. As you can see, there is a new property, `valueChanges`. To watch results you have to subscribe to `valueChanges` property.
 5. The `query` method gives back a observable where we subscribe to get the response that contains a `data` property with `loading` set to `true`  as long as the request is still ongoing and the response hasn't been received and `allLinks` which is the actual data that was received from the server.
 
-That's it! If you ran `npm start or yarn start` earlier, you should see your UI update and show the two links.
+That's it! If you ran `npm start` or `yarn start` earlier, you should see your UI update and show the two links.
 

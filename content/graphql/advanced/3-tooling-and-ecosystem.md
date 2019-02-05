@@ -125,10 +125,8 @@ As you can see, introspection is an extremely powerful feature of GraphQL, and w
 
 A lot of tools available in the GraphQL ecosystem use the introspection system to provide amazing features. Think of documentation browsers, autocomplete, code generation, everything is possible! One of the most useful tools you will need as you build and use GraphQL APIs uses introspection heavily. It is called **GraphiQL**.
 
-## GraphiQL
+## GraphQL Playground
 
-GraphiQL is an in-browser IDE for writing, validating, and testing GraphQL queries. It features an editor for GraphQL queries, equipped with autocompletion and validation as well as a documentation explorer to quickly visualize the structure of a schema (Powered by introspection).
+[GraphQL Playground](https://github.com/graphcool/graphql-playground) is powerful "GraphQL IDE" for interactively working with a GraphQL API. It features an editor for GraphQL queries, mutations and subscriptions, equipped with autocompletion and validation as well as a documentation explorer to quickly visualize the structure of a schema (powered by introspection). It also can display your query history or lets you work with multiple GraphQL APIs side-by-side. It also seamlessly integrates with [`graphql-config`](https://github.com/graphcool/graphql-config).
 
-It is an incredibly powerful tool for development. It allows you to debug and try queries on a GraphQL server without having to write plain GraphQL queries over curl for example.
-
-Give it a try! http://graphql.org/swapi-graphql/
+It is an incredibly powerful tool for development. It allows you to debug and try queries on a GraphQL server without having to write plain GraphQL queries over `curl`, for example.

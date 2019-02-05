@@ -34,8 +34,8 @@ const BACKEND_INDEX = 1
 
 export default class Chooser extends React.Component<Props, State> {
   state = {
-    selectedCategoryIndex: FRONTEND_INDEX,
-    selectedIndex: FRONTEND_TUTORIALS_COUNT,
+    selectedCategoryIndex: BACKEND_INDEX,
+    selectedIndex: FRONTEND_TUTORIALS_COUNT+1,
   }
 
   render() {
@@ -301,6 +301,9 @@ export default class Chooser extends React.Component<Props, State> {
             style={{
               overflow: 'visible',
               width: 90,
+            }}
+            slideStyle={{
+              overflow: 'hidden'
             }}
             index={selectedCategoryIndex}
             onChangeIndex={this.handleChangeSelectedCategoryIndex}

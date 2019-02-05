@@ -1,7 +1,7 @@
 ---
 title: "Filtering: Searching the List of Links"
 pageTitle: "Filtering with GraphQL, React & Apollo Tutorial"
-description: "Learn how to use filters with GraphQL and Apollo Client. Graphcool provides a powerful filter and ordering API that you'll explore in this example."
+description: "Learn how to use filters with GraphQL and Apollo Client. Prisma provides a powerful filter and ordering API that you'll explore in this example."
 question: "What's the purpose of the 'withApollo' function?"
 answers: ["You use it to send queries and mutations to a GraphQL server", "When wrapped around a component, it injects the 'ApolloClient' instance into the component's props", "You have to use it everywhere where you want to use Apollo functionality", "It parses GraphQL code"]
 correctAnswer: 1
@@ -37,23 +37,20 @@ class Search extends Component {
           Search
           <input
             type='text'
-            onChange={(e) => this.setState({ filter: e.target.value })}
+            onChange={e => this.setState({ filter: e.target.value })}
           />
-          <button
-            onClick={() => this._executeSearch()}
-          >
-            OK
-          </button>
+          <button onClick={() => this._executeSearch()}>OK</button>
         </div>
-        {this.state.links.map((link, index) => <Link key={link.id} link={link} index={index}/>)}
+        {this.state.links.map((link, index) => (
+          <Link key={link.id} link={link} index={index} />
+        ))}
       </div>
     )
   }
 
   _executeSearch = async () => {
-    // ... you'll implement this in a bit
+    // ... you'll implement this 🔜
   }
-
 }
 
 export default withApollo(Search)
@@ -76,10 +73,10 @@ render() {
       <Header />
       <div className='ph3 pv1 background-gray'>
         <Switch>
-          <Route exact path='/' component={LinkList}/>
-          <Route exact path='/create' component={CreateLink}/>
-          <Route exact path='/login' component={Login}/>
-          <Route exact path='/search' component={Search}/>
+          <Route exact path='/' component={LinkList} />
+          <Route exact path='/create' component={CreateLink} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/search' component={Search} />
         </Switch>
       </div>
     </div>
@@ -105,18 +102,24 @@ For the user to be able to comfortably navigate to the search functionality, you
 
 Open `Header.js` and put a new `Link` between `new` and `submit`:
 
-```js{4-5}(path=".../hackernews-react-apollo/src/components/Header.js")
-<div className='flex flex-fixed black'>
-  <div className='fw7 mr1'>Hacker News</div>
-  <Link to='/' className='ml1 no-underline black'>new</Link>
-  <div className='ml1'>|</div>
-  <Link to='/search' className='ml1 no-underline black'>search</Link>
-  {authToken &&
-  <div className='flex'>
-    <div className='ml1'>|</div>
-    <Link to='/create' className='ml1 no-underline black'>submit</Link>
-  </div>
-  }
+```js{6-9}(path=".../hackernews-react-apollo/src/components/Header.js")
+<div className="flex flex-fixed black">
+  <div className="fw7 mr1">Hacker News</div>
+  <Link to="/" className="ml1 no-underline black">
+    new
+  </Link>
+  <div className="ml1">|</div>
+  <Link to="/search" className="ml1 no-underline black">
+    search
+  </Link>
+  {authToken && (
+    <div className="flex">
+      <div className="ml1">|</div>
+      <Link to="/create" className="ml1 no-underline black">
+        submit
+      </Link>
+    </div>
+  )}
 </div>
 ```
 
@@ -132,7 +135,7 @@ Great, let's now go back to the `Search` component and see how we can implement 
 
 <Instruction>
 
-Open `Search.js` and add the following query definition at the bottom of the file:
+Open `Search.js` and add the following query definition at the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 const FEED_SEARCH_QUERY = gql`
@@ -172,18 +175,18 @@ async function feed(parent, args, ctx, info) {
     ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
     : {}
 
-  const queriedLinkes = await ctx.db.query.links({ first, skip, where })
+  const queriedLinks = await ctx.db.query.links({ first, skip, where })
 
   return {
-    linkIds: queriedLinkes.map(link => link.id),
+    linkIds: queriedLinks.map(link => link.id),
     count
   }
 }
 ```
 
-> **Note**: To understand what's going on in this resolver, take a look at the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
+> **Note**: To understand what's going on in this resolver, check out the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
-In this case, two `where` conditions are specified: A link is only returned if either its `url` contains the provided `filter` _or_ its `description` contains the provided `filter`. Both conditions are combined using Graphcool's `OR` operator.
+In this case, two `where` conditions are specified: A link is only returned if either its `url` contains the provided `filter` _or_ its `description` contains the provided `filter`. Both conditions are combined using Prisma's `OR` operator.
 
 Perfect, the query is defined! But this time we actually want to load the data every time the user hits the **search**-button - not upon the initial load of the component.
 

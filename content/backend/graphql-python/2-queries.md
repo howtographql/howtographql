@@ -9,15 +9,15 @@ description: Creating Your First Queries
 ### About the Django structure
 It's important to understand how the Django project structure works before moving on.
 
-On the last chapter, you created a *Django Project*, which holds everything related to your application. However, Django separates the project into *apps*. Think about apps as a [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). You will have two apps, one for Users and one for the Links.
+In the last chapter, you created a *Django Project*, which holds everything related to your application. However, Django separates the project into *apps*. Think about apps as a [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). You will have two apps, one for Users and one for the Links.
 
-Another essential decision is about the database. Django works out of the box with [SQLite](https://www.sqlite.org/) – a file based database – which you will use. On production systems, you should have a more robust database, such as [PostgreSQL](https://www.postgresql.org/). 
+Another essential decision is about the database. Django works out of the box with [SQLite](https://www.sqlite.org/) – a file based database – which you will use. On production systems, you should have a more robust database, such as [PostgreSQL](https://www.postgresql.org/).
 
 ### Creating the Links app
 
 <Instruction>
 
-On the project's root (next to the `manage.py` file), create the `links` app:
+In the project's root (next to the `manage.py` file), create the `links` app:
 
 ```bash
 python manage.py startapp links
@@ -31,19 +31,19 @@ With an app in place, you need to define a Model – the layer between Django an
 
 <Instruction>
 
-On the `links/models.py` file, add the following content:
+In the `links/models.py` file, add the following content:
 
 ```python(path=".../graphql-python/hackernews/links/models.py")
 class Link(models.Model):
     url = models.URLField()
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(blank=True)
 ```
 
 </Instruction>
 
 <Instruction>
 
-Lastly, configure Django to use the new `links` app on the `hackernews/settings.py` file:
+Lastly, configure Django to use the new `links` app in the `hackernews/settings.py` file:
 
 ```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 INSTALLED_APPS = (
@@ -88,7 +88,7 @@ Create the `links/schema.py` file, with the content below:
 import graphene
 from graphene_django import DjangoObjectType
 
-from links.models import Link
+from .models import Link
 
 
 class LinkType(DjangoObjectType):
@@ -105,7 +105,7 @@ class Query(graphene.ObjectType):
 
 </Instruction>
 
-On the snippet above, the `LinkType` was created using the `DjangoObjectType` – a custom type available in Graphene Django. Also, the special type query was created with a resolver for the field `links`, which returns all the links.
+In the snippet above, the `LinkType` was created using the `DjangoObjectType` – a custom type available in Graphene Django. Also, the special type query was created with a resolver for the field `links`, which returns all the links.
 
 <Instruction>
 
@@ -131,11 +131,11 @@ Why creating another query? This query just inherits the query defined before. T
 Wow, that's a lot, right? But now you can finally query some data!
 
 ### Introducing GraphiQL
-[GraphiQL](https://github.com/graphql/graphiql) is a graphical interactive in-browser GraphQL IDE. In other words, a playground. Note that you need to disable the [Django CSRF protection](https://docs.djangoproject.com/en/1.11/ref/csrf/).
+[GraphiQL](https://github.com/graphql/graphiql) is a graphical interactive in-browser GraphQL IDE. In other words, a playground. Note that you need to disable the [Django CSRF protection](https://docs.djangoproject.com/en/2.0/ref/csrf/).
 
 <Instruction>
 
-To install it, add the following on the `hackernews/urls.py` file:
+To install it, add the following in the `hackernews/urls.py` file:
 
 ```python(path=".../graphql-python/hackernews/hackernews/urls.py")
 ... # code

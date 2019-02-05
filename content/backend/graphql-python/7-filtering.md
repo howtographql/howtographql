@@ -1,6 +1,6 @@
 ---
 title: Filtering
-question: What you happen if you run the last query without the search parameter?
+question: What would happen if you ran the last query without the search parameter?
 answers: ["The application would break", "The search parameter is mandatory", "All the Links would be returned", "Just the first Link would be returned"]
 correctAnswer: 2
 description: Filtering GraphQL Queries
@@ -27,10 +27,10 @@ class Query(graphene.ObjectType):
 
     # Change the resolver
     def resolve_links(self, info, search=None, **kwargs):
-        # The value sent with the search parameter will be on the args variable
+        # The value sent with the search parameter will be in the args variable
         if search:
             filter = (
-                Q(url__icontains=search) | 
+                Q(url__icontains=search) |
                 Q(description__icontains=search)
             )
             return Link.objects.filter(filter)
@@ -45,4 +45,4 @@ class Query(graphene.ObjectType):
 
 To test it, just pass the `search` argument to the query:
 
-![](http://i.imgur.com/5DbFBa3.png)
+![](https://i.imgur.com/JdUSjJx.png)

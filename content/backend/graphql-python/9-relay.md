@@ -14,12 +14,12 @@ description: Using Relay on Graphene
 
 Basically speaking, it gives every object a global unique identifier, creates a cursor-based pagination structure and introduces the input parameter to mutations.
 
-You can read more about the GraphQL server side considerations on the [GraphQL Relay Specification](https://facebook.github.io/relay/docs/graphql-relay-specification.html) and on the [Graphene Documentation](http://docs.graphene-python.org/projects/django/en/latest/tutorial-relay/).
+You can read more about the GraphQL server side considerations in the [GraphQL Relay Specification](https://facebook.github.io/relay/docs/en/graphql-server-specification.html) and in the [Graphene Documentation](http://docs.graphene-python.org/projects/django/en/latest/tutorial-relay/).
 
 ### Relay and Graphene
 Graphene and Graphene Django already comes with the Relay implementation, making your life easier.
 
-You are going to recreate a little part of the application. Some code will be duplicated, but it's just for learning purposes. On production systems I recommend you to use Relay whenever possible. 
+You are going to recreate a little part of the application. Some code will be duplicated, but it's just for learning purposes. On production systems I recommend you to use Relay whenever possible.
 
 ### Using Relay on Links
 First of all, let's implement our link query using Relay. You will write all the following code in a new schema file, keeping things separated. The nomenclature used across the code – prefixed with *Relay* – is used to avoid confusion and it's not needed on real world scenarios.
@@ -34,8 +34,7 @@ import django_filters
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
-from links.models import Link, Vote
-from users.schema import get_user
+from .models import Link, Vote
 
 
 #1
@@ -73,12 +72,12 @@ Let's go over the essential changes:
 * `#1`: Relay allows you to use [django-filter](https://github.com/carltongibson/django-filter/) for filtering data. Here, you've defined a *FilterSet*, with the `url` and `description` fields.
 * `#2`: The data is exposed in *Nodes*, so you must create one for the links.
 * `#3`: Each node implements an interface with an unique ID (you'll see the result of this in a bit).
-* `#4`: Uses the `LinkNode` with the `relay_link` field inside the your new query.
+* `#4`: Uses the `LinkNode` with the `relay_link` field inside your new query.
 * `#5`: Defines the `relay_links` field as a *Connection*, which implements the pagination structure.
 
 <Instruction>
 
-On the root schema file, add the new query:
+In the root schema file, add the new query:
 
 ```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 # ...code
@@ -86,7 +85,7 @@ On the root schema file, add the new query:
 import links.schema_relay
 
 
-# Add on the main Query
+# Add in the main Query
 class Query(
     users.schema.Query,
     links.schema.Query,
@@ -98,9 +97,9 @@ class Query(
 
 </Instruction>
 
-On the GraphiQL platform, try out the Relay query:
+In Insomnia, try out the Relay query:
 
-![](http://i.imgur.com/QiBbyoD.png)
+![](https://i.imgur.com/JEg6jWG.png)
 
 Some differences from the last queries:
 
@@ -109,11 +108,11 @@ Some differences from the last queries:
 
 What about the pagination? Each field has some arguments for controlling it: `before`, `after,` `first` and `last`. On top of that, each edge has a `pageInfo` object, including the cursor for navigating between pages.
 
-![](http://i.imgur.com/iq8GpjN.png) 
+![](https://i.imgur.com/WdIl6GK.png)
 
 The `first: 1` parameter limits the response for the first result. You also requested the `pageInfo`, which returned the navigation cursors.
 
-![](http://i.imgur.com/s25FQwu.png)
+![](https://i.imgur.com/54DLMs8.png)
 
 With `first: 1, after:"YXJyYXljb25uZWN0aW9uOjA="` the response returned is the first one after the last link.
 
@@ -133,7 +132,7 @@ class RelayCreateLink(graphene.relay.ClientIDMutation):
         description = graphene.String()
 
     def mutate_and_get_payload(root, info, **input):
-        user = get_user(info) or None
+        user = info.context.user or None
 
         link = Link(
             url=input.get('url'),
@@ -153,24 +152,26 @@ class RelayMutation(graphene.AbstractType):
 
 <Instruction>
 
-On the root schema file, add the new mutation:
+In the root schema file, add the new mutation:
 
 ```python(path=".../graphql-python/hackernews/hackernews/schema.py")
 # ...code
-# Add on the main Query
+# Add in the main Query
 class Mutation(
     users.schema.Mutation,
     links.schema.Mutation,
     links.schema_relay.RelayMutation,
     graphene.ObjectType,
 ):
-    pass
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
 ```
 
 </Instruction>
 
 The changes here are mostly on classes and methods names. You can now create links!
 
-![](http://i.imgur.com/hNz7M9e.png)
+![](https://i.imgur.com/hPNzfb0.png)
 
 The variation here is the `input` argument, which accepts the defined `url` and `description` arguments as a dictionary.
