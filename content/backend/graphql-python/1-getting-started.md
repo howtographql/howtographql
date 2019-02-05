@@ -20,7 +20,7 @@ When working with Python, you will use *Virtual Environment*: a tool for keeping
 
 <Instruction>
 
-On the terminal, create a new virtual environment and activate it:
+In the terminal, create a new virtual environment and activate it:
 
 ```bash
 python3.6 -m venv venv
@@ -31,7 +31,7 @@ source venv/bin/activate
 
 You'll notice your prompt changed to `(venv) ...`. It means you are *inside* your virtual environment, every Python package will be installed there. If you want to leave it, just type `deactivate`. Make sure to *always* have the virtual environment activated.
 
-### Installing Django and Graphene 
+### Installing Django and Graphene
 The tool used to manage Python packages is `pip`, which should be available with your Python installation.
 
 <Instruction>
@@ -39,7 +39,7 @@ The tool used to manage Python packages is `pip`, which should be available with
 With the virtual environment activated, run the following commands:
 
 ```bash
-pip install django==2.0.2 graphene==2.0.1 graphene-django==2.0.0 django-filter==1.1.0 django-graphql-jwt==0.1.5
+pip install django==2.1.4 graphene-django==2.2.0 django-filter==2.0.0 django-graphql-jwt==0.1.5
 django-admin startproject hackernews
 cd hackernews
 python manage.py migrate
@@ -58,7 +58,7 @@ The commands above will install the necessary libraries, create a new Django pro
 
 <Instruction>
 
-On the `hackernews/settings.py` file, search for the `INSTALLED_APPS` variable and add the following:
+In the `hackernews/settings.py` file, search for the `INSTALLED_APPS` variable and add the following:
 
 ```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 INSTALLED_APPS = (

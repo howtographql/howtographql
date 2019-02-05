@@ -2,6 +2,14 @@
   "resolutions": {
     "graphql": "0.11.7"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howtographql/howtographql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/howtographql/howtographql/issues"
+  },
+  "homepage": "https://github.com/howtographql/howtographql#readme",
   "dependencies": {
     "algoliasearch": "^3.24.0",
     "classnames": "^2.2.5",

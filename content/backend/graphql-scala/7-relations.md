@@ -12,7 +12,7 @@ In GraphQL (and Sangria) relations are strictly connected with deferred resolver
 When you want to find related entities, the query can be optimized and all needed data fetched at once.
 
 In other words: Relations expand Fetchers, allows for finding entities not only by their id field, 
-by also by ids quite often stored in fields of another entity.
+but also by ids quite often stored in fields of another entity.
 
 Lets try to define how many relations we have in our schema.
 
@@ -91,7 +91,7 @@ In `VotesTable` add:
 
 </Instruction>
 
-Because domain models has slightly changed, we have also redefine our data.
+Because domain models has slightly changed, we also have to redefine our data.
 
 <Instruction>
 
@@ -129,20 +129,20 @@ val databaseSetup = DBIO.seq(
 
 </Instruction>
 
-I think we're done with Database part of changes. Following code represents a current state of `DBSchema` file:
+I think we're done with the Database part of changes. The following code represents the current state of `DBSchema` file:
 
 [DBSchema.scala](https://gist.github.com/marioosh/033380591bc796c7b7b002f0860dfb79#file-dbschema-scala)
 
-No we can go and do a GraphQL part of changes.
+Now we can go and do the GraphQL part of changes.
 
 
 ### Defining User->Link relation
 
-Lets begin with User-Link relation. In the first entity we have to add the field `links` and in the second the field `postedBy`. 
+Let's begin with User-Link relation. In the first entity we have to add the field `links` and in the second the field `postedBy`. 
 Both fields uses the same Relation model.
 
-Actually a `Link` entity has to have two defined relations. First because we can lookup database to find a link with particular Id,
-Second, when we want to filter links bu user ids stored in `postedBy` column. Our Fetcher accepts the provided id already what covers the first case
+Actually a `Link` entity has to have two defined relations. First because we can lookup the database to find a link with a particular Id,
+Second, when we want to filter links by user ids stored in `postedBy` column. Our Fetcher accepts the provided id already, so we have what covers the first case
 but we still have to define the second one:
 
 <Instruction>
@@ -410,7 +410,7 @@ AddFields(
 
 </Instruction>
 
-You see the similarities betwee both `votes` fields, don't you? 
+You see the similarities between both `votes` fields, don't you? 
 
 ```scala
 //UserType
@@ -480,12 +480,12 @@ def getVotesByRelationIds(rel: RelationIds[Vote]): Future[Seq[Vote]] =
   )
 ```
 
-The function above use pattern matching to recognize with type of relation it has and depends on that relation uses proper filter.
+The function above use pattern matching to recognize which type of relation it has and depending on that relation uses the proper filter.
 
 </Instruction>
 
 The last thing to do is to change `VoteType` definition. We have to remove `linkId` property and instead add `link` field which returns 
-entire `Link` object.
+the entire `Link` object.
 
 <Instruction>
 

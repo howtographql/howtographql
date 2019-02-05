@@ -247,7 +247,7 @@ You will implement this functionality by using Apollo's [caching data](https://w
 
 <Instruction>
 
-Open `Link.js` and replace `<Mutation />` component adding the `update` prop like so:
+Open `Link.js` and in the `<Mutation />` component add the `update` prop like so:
 
 ```js{4-6}(path=".../hackernews-react-apollo/src/components/Link.js")
 <Mutation
@@ -319,7 +319,7 @@ While we're at it, let's also implement `update` for adding new links!
 
 <Instruction>
 
-Open `CreateLink.js` and following we did before, update `<Mutation />` component passing `update` as prop like so:
+Open `CreateLink.js` and following what we did before, update `<Mutation />` component passing `update` as prop like so:
 
 ```js{5-12}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 <Mutation
