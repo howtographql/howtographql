@@ -54,12 +54,11 @@ export class LinkItemComponent implements OnInit {
 <Instruction>
 
 Add the following code in `link-item.component.html`:
-  
+
 ```html(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.html")
-
 <div>{{link.description}} ({{link.url}})</div>
-
 ```
+
 </Instruction>
 
 Note, we will be writing all our typings in a `./src/app/types.ts` file and merely importing these types into components as needed.
@@ -121,12 +120,12 @@ export class LinkListComponent implements OnInit {
 </Instruction>
 
 <Instruction>
+
 Then, add the following code in `link-list.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
-<hn-link-item *ngFor="let link of linksToRender"
-          [link]="link">
+<hn-link-item *ngFor="let link of linksToRender" [link]="link">
 </hn-link-item>
 
 ```
@@ -170,6 +169,7 @@ export class AppModule {
 ```
 </Instruction>
 <Instruction>
+
 Then, open `app.component.html` and replace the current contents with the following:
 
 ```html(path=".../hackernews-angular-apollo/src/app/app.component.html")
@@ -271,8 +271,7 @@ Open up `src/app/link-list/link-list.component.html`, update the HTML template t
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
 <h4 *ngIf="loading">Loading...</h4>
-<hn-link-item *ngFor="let link of allLinks"
-          [link]="link">
+<hn-link-item *ngFor="let link of allLinks" [link]="link">
 </hn-link-item>
 
 
@@ -280,6 +279,7 @@ Open up `src/app/link-list/link-list.component.html`, update the HTML template t
 </Instruction>
 
 <Instruction>
+
 Then, open up `src/app/link-list/link-list.component.ts`, import `ALL_LINKS_QUERY`, remove the hard-coded `linksToRender`, and inject the `Apollo` service. Your `LinkListComponent` component should now look like this:
 
 ```ts{5-6,17-18,23-25,27-28}(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
