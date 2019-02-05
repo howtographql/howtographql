@@ -20,7 +20,7 @@ Once more, you first need to prepare the React components for this new functiona
 
 Open `App.js` and adjust the render method like so:
 
-```js{4,8,9}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7,11,12}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className='center w85'>
@@ -109,7 +109,7 @@ export const FEED_QUERY = gql`
 
 The query now accepts arguments that we'll use to implement pagination and ordering. `skip` defines the _offset_ where the query will start. If you passed a value of e.g. `10` for this argument, it means that the first 10 items of the list will not be included in the response. `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list. `orderBy` defines how the returned list should be sorted.
 
-But how can we pass the variables when using the `<Query />` component which is fetching the data under the hood? You need to provide the arguments into `variables` prop right where you're declaring the component.
+But how can we pass the variables when using the `<Query />` component which is fetching the data under the hood? You need to provide the arguments into the `variables` prop right where you're declaring the component.
 
 <Instruction>
 
@@ -220,7 +220,7 @@ import { LINKS_PER_PAGE } from '../constants'
 
 </Instruction>
 
-Before continue, discover [React Fragments](https://reactjs.org/docs/fragments.html) a common pattern for a component to return multiple elements without adding extra nodes to the DOM ✨
+Before we continue, you can read some more about [React Fragments](https://reactjs.org/docs/fragments.html) - a common pattern for a component to return multiple elements without adding extra nodes to the DOM ✨
 
 <Instruction>
 

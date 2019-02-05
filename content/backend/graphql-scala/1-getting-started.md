@@ -2,7 +2,7 @@
 title: Getting Started
 pageTitle: "GraphQL Scala - Getting Started"
 description: "In this chapter will be described how to setup the HTTP server, install all dependencies and setup the database."
-question: "Does GraphQL needs HTTP Server?"
+question: "Does GraphQL need HTTP Server?"
 answers: ["Yes. It needs HTTP server.", "Yes, it needs HTTP server but some of features can be used without that", "No, but it strictly recommended to use. Without HTTP layer, GraphQL is losing some of its features.","No, GraphQL is a specification and it's far from transport protocol. You can use HTTP, Websockets, sockets or even use it internally in you application." ]
 correctAnswer: 3
 ---

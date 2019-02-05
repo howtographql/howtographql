@@ -158,3 +158,5 @@ Open `CreateLink.js` and update `<Mutation />` component to look as follows:
 </Instruction>
 
 After the mutation was performed, `react-router-dom` will now navigate back to the `LinkList` component that's accessible on the root route: `/`.
+
+> **Note**: It won't display the new `Link` created, it'll just redirect to the root route, you could always refresh to see the changes made. We'll see how to update the data after the `Mutation` is being triggered on `More Mutations and Updating the Store` chapter!

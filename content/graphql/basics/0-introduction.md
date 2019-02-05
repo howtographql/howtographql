@@ -59,6 +59,6 @@ Today, GraphQL is used in production by [lots of different companies](http://gra
 ![](https://imgur.com/2RYRYB3.png)
 *Despite being such a young technology, GraphQL has already been widely adopted. Learn [who else](http://graphql.org/users/) is using GraphQL in production.*
 
-There are entire conferences dedicated to GraphQL such as [GraphQL Summit](https://summit.graphql.com/) or [GraphQL Europe](https://graphql-europe.org/) and more resources like the [GraphQL Radio](https://graphqlradio.com/) podcast and [GraphQL Weekly](https://graphqlweekly.com/) newsletter.
+There are entire conferences dedicated to GraphQL such as [GraphQL Conf](https://graphqlconf.org/) and more resources like the [GraphQL Weekly](https://graphqlweekly.com/) newsletter.
 
 

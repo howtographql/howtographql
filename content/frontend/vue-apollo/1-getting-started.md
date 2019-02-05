@@ -413,7 +413,7 @@ That's it, you're ready to write some code! 🚀
 
 #### Configuring the `ApolloClient`
 
-Apollo abstracts away all lower-lever networking logic and provides a nice interface to the GraphQL API. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests anymore - instead you can simply write queries and mutations and send them using the `ApolloClient`.
+Apollo abstracts away all lower-level networking logic and provides a nice interface to the GraphQL API. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests anymore - instead you can simply write queries and mutations and send them using the `ApolloClient`.
 
 The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the endpoint of your GraphQL API so it can deal with the network connections.
 

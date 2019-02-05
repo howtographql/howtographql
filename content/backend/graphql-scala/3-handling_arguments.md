@@ -18,11 +18,11 @@ Take this query for instance:
 query {
     link(id: 1){
       id
-      name
+      url
     }
     links(ids: [2, 3]){
       id
-      name
+      url
     }  
 }
 ```

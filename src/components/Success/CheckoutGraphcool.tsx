@@ -67,39 +67,34 @@ export default function CheckoutGraphcool() {
           <h1>Next step: Build something in production.</h1>
           <p>
             Use your new knowledge and start building a production app.
-            Graphcool
+            Prisma
             provides everything you need to build the backend for your next
             project.
           </p>
           <a
             className="btn green small"
-            href="https://www.graph.cool"
+            href="https://www.prisma.io"
             target="_blank"
           >
             <Icon
-              src={require('../../assets/icons/companies/graphcool.svg')}
+              src={require('../../assets/icons/companies/prisma.svg')}
               width={24}
               height={24}
             />
-            <span>Get started with Graphcool</span>
+            <span>Get started with Prisma</span>
           </a>
         </div>
         <div className="right">
-          <h3>Graphcool Tutorials</h3>
+          <h3>More Resources</h3>
           <Tutorial
-            title="Exploring Graphcool: The Serverless GraphQL Backend"
-            description="Get an overview over all major features of Graphcool"
-            link="https://www.graph.cool/docs/tutorials/graphcool-features-overview-ped6wohw0o/"
+            title="Prisma Quickstart"
+            link="https://www.prisma.io/docs/-a002"
+            description="The fastest way to get started with Prisma"
           />
           <Tutorial
-            title="Freecom Fullstack Tutorial"
-            description="Learn how to build an Intercom clone with Graphcool, React & Apollo"
-            link="https://www.graph.cool/docs/tutorials/freecom-overview-intercom-tutorial-e8a6ajt8ax/"
-          />
-          <Tutorial
-            title="Quickstart"
-            description="Get started with Graphcool and your favorite frontend technology"
-            link="https://www.graph.cool/docs/quickstart/"
+            title="Community Tutorials"
+            link="https://www.prisma.io/tutorials"
+            description="Tutorials all around GraphQL, databases & ORMs"
           />
         </div>
       </div>
