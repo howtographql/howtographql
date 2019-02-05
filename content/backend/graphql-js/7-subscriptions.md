@@ -479,7 +479,14 @@ module.exports = {
 
 </Instruction>
 
+
 All right, that's it! You can now test the implementation of your `newVote` subscription.
+
+<Instruction>
+
+If you haven't done so already, stop and restart the server by first killing it with **CTRL+C**, then run `node src/index.js`. Afterwards, open a new Playground with the GraphQL CLI by running `graphql playground`.
+
+</Instruction>
 
 You can use the following subscription for that:
 

@@ -102,7 +102,7 @@ export function timeDifferenceForDate(date) {
 
 <Instruction>
 
-Back in `Link.js`, import `AUTH_TOKEN` and `timeDifferenceForDate`  on top the file:
+Back in `Link.js`, import `AUTH_TOKEN` and `timeDifferenceForDate` on top the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
 import { AUTH_TOKEN } from '../constants'
@@ -165,6 +165,8 @@ const FEED_QUERY = gql`
 All you do here is include information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed.
 
 ![](https://imgur.com/tKzj3b5.png)
+
+> **Note**: If you're not able to fetch the `Links`, restart the server and reload the browser. You could also check if everything is working as expected on `GraphQL Playground`!
 
 Let's now move on and implement the `vote` mutation!
 
@@ -233,6 +235,8 @@ import gql from 'graphql-tag'
 
 You can now go and test the implementation! Run `yarn start` in `hackernews-react-apollo` and click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page you'll see the added votes.
 
+> **Remember**: You have to be `logged in` to being able to vote links!
+
 In the next section, you'll learn how to automatically update the UI after each mutation!
 
 ### Updating the cache
@@ -273,7 +277,6 @@ All right, so now you know what this `update` function is, but the actual implem
 
 Open `LinkList.js` and add the following method inside the scope of the `LinkList` component:
 
-
 ```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
 _updateCacheAfterVote = (store, createVote, linkId) => {
   const data = store.readQuery({ query: FEED_QUERY })
@@ -289,9 +292,9 @@ _updateCacheAfterVote = (store, createVote, linkId) => {
 
 What's going on here?
 
-1. You start by reading the current state of the cached data for the `FEED_QUERY` from the `store`.
-1. Now you're retrieving the link that the user just voted for from that list. You're also manipulating that link by resetting its `votes` to the `votes` that were just returned by the server.
-1. Finally, you take the modified data and write it back into the store.
+1.  You start by reading the current state of the cached data for the `FEED_QUERY` from the `store`.
+1.  Now you're retrieving the link that the user just voted for from that list. You're also manipulating that link by resetting its `votes` to the `votes` that were just returned by the server.
+1.  Finally, you take the modified data and write it back into the store.
 
 Next you need to pass this function down to the `Link` so it can be called from there.
 

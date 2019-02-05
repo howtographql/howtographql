@@ -95,7 +95,7 @@ Let's quickly understand the structure of this new component, which can have two
 - One state is **for users that already have an account** and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `state.login` will be `true` in this case.
 - The second state is for **users that haven't created an account yet**, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
 
-The method `_confirm`  will be used to implement the mutations that we need to send for the login functionality.
+The method `_confirm` will be used to implement the mutations that we need to send for the login functionality.
 
 Next you also need to provide the `constants.js` file that we use to define the key for the credentials that we're storing in the browser's `localStorage`.
 
@@ -117,7 +117,7 @@ With that component in place, you can go and add a new route to your `react-rout
 
 Open `App.js` and update `render` to include the new route:
 
-```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className="center w85">
@@ -288,7 +288,7 @@ import gql from 'graphql-tag'
 
 Now, let's understand what's going with the `<Mutation />` component you just added.
 
-The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, this mutation will be triggered on the div `onClick` event. GraphQL mutations receive `email`, `password` and `name` state values as params passed on `variables` prop. Lastly, after the mutation was completed, we call `_confirm` function passing as argument the mutation returned `data`.
+The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, thus mutation will be triggered on the div `onClick` event. GraphQL mutations receive `email`, `password` and `name` state values as params passed on `variables` prop. Lastly, after the mutation was completed, we call `_confirm` function passing as argument the mutation returned `data`.
 
 All right, all that's left to do is implement `_confirm` function!
 
@@ -356,7 +356,7 @@ const authLink = setContext((_, { headers }) => {
 
 Before moving on, you need to import the Apollo dependencies. Add the following to the top of `index.js`:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { setContext } from 'apollo-link-context'
 ```
 
@@ -395,27 +395,22 @@ That's it - now all your API requests will be authenticated if a `token` is avai
 
 ### Requiring authentication on the server-side
 
-The last thing you're doing in this chapter is ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
-
-To implement this functionality, this time you need to make a small change on the server-side as well.
+The last thing you might do in this chapter is check how to ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
 
 <Instruction>
 
-Open `/server/src/resolvers/Mutation.js` and adjust the `post` resolver to look as follows:
+Open `/server/src/resolvers/Mutation.js` and give a look how it was implemented:
 
-```js{2}(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
-function post(parent, args, context) {
-  const userId = getUserId(context)
-  return context.prisma.createLink({
-    url: args.url,
-    description: args.description,
-    postedBy: { connect: { id: userId } },
-  })
+```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
+function post(parent, { url, description }, ctx, info) {
+  const userId = getUserId(ctx)
+  return ctx.db.mutation.createLink(
+    { data: { url, description, postedBy: { connect: { id: userId } } } },
+    info,
+  )
 }
 ```
 
 </Instruction>
 
-With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
-
-> **Note**: Stop the server (by hitting **CTRL+C**) and run it again executing `yarn start` to apply the changes made.
+With this, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
