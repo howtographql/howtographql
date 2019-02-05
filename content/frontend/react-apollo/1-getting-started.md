@@ -380,6 +380,7 @@ To deploy the service all you need to do is install the server's dependencies an
 In your terminal, navigate to the `server` directory and execute the following commands:
 
 ```sh(path=".../hackernews-react-apollo/server")
+cd server
 yarn install
 yarn prisma deploy
 ```
