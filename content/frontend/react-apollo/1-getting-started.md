@@ -395,28 +395,7 @@ When prompted where you want to set/deploy your service, select `Demo server` (i
 
 </Instruction>
 
-<Instruction>
-
-From the output of the `deploy` command, copy the `HTTP` endpoint and paste it into `server/src/index.js`, replacing the current placeholder `__PRISMA_ENDPOINT__`:
-
-```js(path=".../hackernews-react-apollo/server/src/index.js")
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
-  resolvers,
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: '__PRISMA_ENDPOINT__',
-      secret: 'mysecret123',
-    }),
-  }),
-})
-```
-
-</Instruction>
-
-> **Note**: If you ever lose the endpoint, you can get access to it again by running `yarn prisma info`.
+> **Note**: Once the command has finished running, the CLI writes the endpoint for the Prisma API to your prisma.yml. It will look similar to this: https://eu1.prisma.sh/john-doe/hackernews-node/dev.
 
 #### Exploring the server
 
@@ -427,12 +406,12 @@ With the proper Prisma endpoint in place, you can now explore the server!
 Navigate into the `server` directory and run the following commands to start the server:
 
 ```bash(path=".../hackernews-react-apollo/server")
-yarn dev
+yarn start
 ```
 
 </Instruction>
 
-The `yarn dev` executes the `dev` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API. Note that if you only want to start the server without opening a Playground, you can do so by running `yarn start`.
+The `yarn start` executes the `start` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API.
 
 ![](https://imgur.com/k2I7NJn.png)
 
