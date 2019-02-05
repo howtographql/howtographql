@@ -63,7 +63,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
-`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in `index.js` accordingly:
+`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
 
 </Instruction>
 
@@ -72,6 +72,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
+```
+
+```js{2}(path=".../hackernews-react-apollo/src/components/App.js")
+import React, { Component } from 'react';
+import logo from '../logo.svg';
+import '../styles/App.css';
 ```
 
 Your project structure should now look as follows:
