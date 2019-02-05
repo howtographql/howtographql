@@ -41,7 +41,7 @@ yarn global add create-react-app
 Next, you can use it to bootstrap your React application:
 
 ```bash
-npx create-react-app hackernews-react-apollo
+create-react-app hackernews-react-apollo
 ```
 
 </Instruction>
@@ -63,7 +63,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
-`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in `index.js` accordingly:
+`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
 
 </Instruction>
 
@@ -72,6 +72,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
+```
+
+```js{2}(path=".../hackernews-react-apollo/src/components/App.js")
+import React, { Component } from 'react';
+import logo from '../logo.svg';
+import '../styles/App.css';
 ```
 
 Your project structure should now look as follows:
@@ -91,7 +97,7 @@ Your project structure should now look as follows:
 │   │   └── App.js
 │   ├── index.js
 │   ├── logo.svg
-│   ├── registerServiceWorker.js
+│   ├── serviceWorker.js
 │   └── styles
 │       ├── App.css
 │       └── index.css
@@ -209,7 +215,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
-import registerServiceWorker from './registerServiceWorker'
+import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
@@ -230,7 +236,7 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById('root')
 )
-registerServiceWorker()
+serviceWorker.unregister();
 ```
 
 </Instruction>
@@ -244,7 +250,7 @@ Let's try to understand what's going on in that code snippet:
 1. Now you instantiate `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
 1. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
-That's it, you're all set to start loading some data into your app! 😎
+That's it, you're all set to start for loading some data into your app! 😎
 
 ### Backend
 
@@ -374,6 +380,7 @@ To deploy the service all you need to do is install the server's dependencies an
 In your terminal, navigate to the `server` directory and execute the following commands:
 
 ```sh(path=".../hackernews-react-apollo/server")
+cd server
 yarn install
 yarn prisma deploy
 ```
@@ -384,32 +391,11 @@ Note that you can also omit `yarn prisma` in the above command if you have the `
 
 <Instruction>
 
-When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the development clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
+When prompted where you want to set/deploy your service, select `Demo server` (it requires login, you could sign in with your GitHub account), then choose any of the development clusters, e.g. `demo-us1` or `demo-eu1`. (If you have Docker installed, you can also deploy locally.)
 
 </Instruction>
 
-<Instruction>
-
-From the output of the `deploy` command, copy the `HTTP` endpoint and paste it into `server/src/index.js`, replacing the current placeholder `__PRISMA_ENDPOINT__`:
-
-```js(path=".../hackernews-react-apollo/server/src/index.js")
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
-  resolvers,
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: '__PRISMA_ENDPOINT__',
-      secret: 'mysecret123',
-    }),
-  }),
-})
-```
-
-</Instruction>
-
-> **Note**: If you ever lose the endpoint, you can get access to it again by running `yarn prisma info`.
+> **Note**: Once the command has finished running, the CLI writes the endpoint for the Prisma API to your prisma.yml. It will look similar to this: https://eu1.prisma.sh/john-doe/hackernews-node/dev.
 
 #### Exploring the server
 
@@ -420,12 +406,12 @@ With the proper Prisma endpoint in place, you can now explore the server!
 Navigate into the `server` directory and run the following commands to start the server:
 
 ```bash(path=".../hackernews-react-apollo/server")
-yarn dev
+yarn start
 ```
 
 </Instruction>
 
-The `yarn dev` executes the `dev` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API. Note that if you only want to start the server without opening a Playground, you can do so by running `yarn start`.
+The `yarn start` executes the `start` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API.
 
 ![](https://imgur.com/k2I7NJn.png)
 

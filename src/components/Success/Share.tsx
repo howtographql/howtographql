@@ -74,8 +74,8 @@ export default function Share() {
         <p>Share this tutorial with your friends.</p>
         <a
           className="button twitter"
-          href="https://twitter.com/intent/tweet"
-          target="_blank"
+          href="https://twitter.com/intent/tweet?text=I%20just%20finished%20the%20How%20to%20GraphQL%20tutorial%20by%20@prisma%20%20🎉%20Check%20it%20out%20on%20howtographql.com"
+         target="_blank"
         >
           <Icon
             src={require('graphcool-styles/icons/fill/twitter.svg')}

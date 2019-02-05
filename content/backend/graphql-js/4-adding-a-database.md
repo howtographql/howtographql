@@ -7,7 +7,7 @@ answers: ["To increase performance of the server", "When using two APIs, the Gra
 correctAnswer: 2
 ---
 
-In this section, you're going to setup a Prisma service along with a connected database to be used by the server.
+In this section, you're going to setup Prisma along with a connected database to be used by your GraphQL server.
 
 ### Why Prisma
 
@@ -28,105 +28,45 @@ The first option is problematic since dealing with SQL in resolvers is complex a
 
 The second option is to use an ORM which might seem like a good solution at first. However, this approach usually falls short as well. ORMs typically have the problem that they're implementing rather simple solutions for database access, which when using GraphQL won't work due to the complexities of queries and the various edge cases that can arise.
 
-Prisma solves this problem by providing you with a _GraphQL query engine_ which is taking care of resolving queries for you. When using Prisma, you're implementing your resolvers such that they're simply _delegating_ incoming queries to the underlying Prisma engine. Thanks to [Prisma bindings](https://github.com/graphcool/prisma-binding), query delegation is a simple process where most resolvers can be implemented as simple one-liners.
-
-> **Note**: Prisma bindings are based on the idea of schema stitching and schema delegation. We're not going to cover these techniques in detail in this tutorial. If you want to learn more about them, you can check out the following two articles:
-> - [GraphQL Schema Stitching explained: Schema Delegation](https://blog.graph.cool/graphql-schema-stitching-explained-schema-delegation-4c6caf468405)
-> - [Reusing & Composing GraphQL APIs with GraphQL Bindings](https://www.prisma.io/blog/reusing-and-composing-graphql-apis-with-graphql-bindings-80a4aa37cff5/)
+Prisma solves this problem by providing you with a convenient data access layer which is taking care of resolving queries for you. When using Prisma, you're implementing your resolvers such that they're simply forwarding incoming queries to the underlying Prisma engine which in turn resolves the query against the actual database. Thanks to the [Prisma client](https://www.prisma.io/docs/prisma-client/), this is a straightforward process where most resolvers can be implemented as simple one-liners.
 
 ### Architecture
 
 Here's an overview of the architecture that's used when building GraphQL servers with Prisma:
 
-![](https://imgur.com/ik5P7RO.png)
+![](https://imgur.com/OyIQQxF.png)
 
-What's important to understand about this architecture that you're dealing with two(!) GraphQL API layers.
+The Prisma server provides the _data access layer_ in your application architecture, making it easy for your API server to talk to the database through Prisma. The API of the Prisma server is consumed by the Prisma client inside your _API server_ implementation (similar to an ORM). The API server is what you've started building throughout the previous chapters using `graphql-yoga`.
 
-#### The application layer
+In essence, Prisma lets you easily connect the GraphQL resolvers in your API server with your database.
 
-The first GraphQL API is the one that you already started building in the previous sections of this tutorial. This is the GraphQL API for the **application layer**. It defines the API your client applications are going to talk to. Here is where you implement _business logic_, common workflows like _authentication_ and _authorization_ or integrate with _3rd-party services_ (such as Stripe if you want to implement a payment process). The API of the application layer is defined by the GraphQL schema in `src/schema.graphql` - we'll therefore from now on refer to this schema as the **application schema**.
+### Setting up Prisma with a demo database
 
-#### The database layer
+In this tutorial, you're going to build everything entirely from scratch! For your Prisma configuration, you're going to start with the most minimal setup that's possible.
 
-The second GraphQL API is the one that's provided by Prisma and provides the **database layer**. This one basically is a GraphQL-based interface to your database that saves you from the intricacies of writing SQL yourself. So, what does that GraphQL API look like?
-
-The Prisma API is mirroring a database API, so it allows you to perform CRUD operations for certain _data types_. What data types? Well, that's up to you - you are defining those data types using the familiar SDL. You'll learn in a bit how that works.
-
-Typically, these data types represent the _entities of your application domain_. For example, if you're building car dealership software, you're likely going to have data types such as `Car`, `CarDealer`, `Customer` and so on... The entire collection of these data types is referred to as your _data model_.
-
-Once your data model is defined in SDL, Prisma translates it into an according database schema and sets up the underlying database accordingly. When you're then sending queries and mutations to the Prisma GraphQL API, it translates those into database operations and performs these operations for you. Neat, right?
-
-Previously you learned that all GraphQL APIs are backed by a GraphQL schema. So, who is writing the schema for the Prisma GraphQL API? The answer is that it is _automatically generated_ based on the data model you provide. By the way, this schema is called the **Prisma database schema**.
-
-As an example, consider this simple data model with a single `User` type:
-
-```graphql(nocopy)
-type User {
-  id: ID! @unique
-  name: String!
-}
-```
-
-> **Note**: Don't worry about the `@unique` directive yet, we'll talk about it soon.
-
-Based on this data model, Prisma would generate a GraphQL schema looking like this:
-
-```graphql(nocopy)
-type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  user(where: UserWhereUniqueInput!): User
-}
-
-type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteUser(where: UserWhereUniqueInput!): User
-}
-
-type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-```
-
-In fact, the actual schema is quite a bit bigger - for brevity we've only included the three root types and the simple CRUD operations here. But the API also allows for a variety of other operations (such as batched updates and deletes). If you're curious, you can check out the entire schema [here](https://gist.github.com/gc-codesnippets/3f4178ad93c51d03195c92ce119d444c).
-
-#### Why not just use the Prisma GraphQL API directly?
-
-Prisma really only is an interface to a database. If you consumed the Prisma API directly from your frontend or mobile applications, this would be similar as _directly accessing a database_.
-
-In very, very rare cases, this might be an option - but the vast majority of applications do need additional logic that is not covered by CRUD operations (data validation and transformation, authentication, permissions, integration of 3rd-party services or any other sort of custom functionality...).
-
-Another potential concern of directly exposing the Prisma API to your client applications is _security_. GraphQL works in the way that everyone who has access to the endpoint of a GraphQL API can retrieve the _entire_ GraphQL schema from it - this is called [introspection](http://graphql.org/learn/introspection/). If your clients were talking directly to Prisma, it would be simply a matter of checking the network requests to get access to the endpoint of the Prisma API and everyone would be able to see your entire database schema.
-
-> **Note**: It is currently debated whether it should be possible to limit introspection capabilities, but so far it doesn't seem a priority in the development of the GraphQL spec. See [this](https://github.com/graphql/graphql-js/issues/113) GitHub issue for more info.
-
-### Creating a Prisma service with a connected database
-
-In this tutorial, you're going to build everything entirely from scratch! For the Prisma database service, you're going to start with the most minimal setup that's possible.
-
-The first thing you need to do is create two files, which you're going to put into a new directory called `database`.
+The first thing you need to do is create two files, which you're going to put into a new directory called `prisma`.
 
 <Instruction>
 
-First, create the `database` directory and then two files called `prisma.yml` and `datamodel.graphql` by running the following commands in your terminal:
+First, create the `prisma` directory and then two files called `prisma.yml` and `datamodel.prisma` by running the following commands in your terminal:
 
 ```bash(path=".../hackernews-node/")
-mkdir database
-touch database/prisma.yml
-touch database/datamodel.graphql
+mkdir prisma
+touch prisma/prisma.yml
+touch prisma/datamodel.prisma
 ```
 
 </Instruction>
 
-[`prisma.yml`](https://www.prisma.io/docs/reference/service-configuration/prisma.yml/overview-and-example-foatho8aip) is the main configuration file for your Prisma database service. `datamodel.graphql` on the other hand contains the definition of your data model which will be the foundation for the GraphQL CRUD API that's generated by Prisma.
+[`prisma.yml`](https://www.prisma.io/docs/-5cy7/) is the main configuration file for your Prisma setup. `datamodel.prisma` on the other hand contains the definition of your [datamodel](https://www.prisma.io/docs/-knul). The Prisma datamodel defines your application's _models_. Each model will be mapped to a table in the underlying database.
 
-So far, the data model for your Hacker News app only contains one data type: `Link`. In fact, you can basically copy the existing `Link` definition from `schema.graphql` into `datamodel.graphql`.
+So far, the datamodel for your Hacker News app only contains one data type: `Link`. Because Prisma uses [GraphQL SDL](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) for model definitions, you can basically copy the existing `Link` definition from `schema.graphql` into `datamodel.prisma`.
 
 <Instruction>
 
-Open `datamodel.graphql` and add the following code:
+Open `datamodel.prisma` and add the following code:
 
-```graphql{2,3}(path=".../hackernews-node/database/datamodel.graphql")
+```graphql{2,3}(path=".../hackernews-node/prisma/datamodel.prisma")
 type Link {
   id: ID! @unique
   createdAt: DateTime!
@@ -139,9 +79,9 @@ type Link {
 
 There are two main differences compared to the previous `Link` version from `schema.graphql`.
 
-First, you're adding the `@unique` directive to the `id: ID!` field. This directive generally tells Prisma that you never want any two `Link` elements in the database that have the same value for that field. In fact, `id: ID!` is a special field in the Prisma data model since Prisma will auto-generate globally unique IDs for the types that have this field.
+First, you're adding the `@unique` directive to the `id: ID!` field. This directive generally tells Prisma that you never want any two `Link` elements in the database that have the same value for that field. In fact, `id: ID!` is a special field in the Prisma datamodel since Prisma will auto-generate globally unique IDs for the types that have this field.
 
-Second, you're adding a new field called `createdAt: DateTime!`. This field is also managed by Prisma and will be read-only in the API. It stores the time for when a specific `Link` was created. Note that there's another similar field provided by Prisma, called `updatedAt: DateTime` - this one stores the time when a `Link` was last updated.
+Second, you're adding a new field called `createdAt: DateTime!`. This field is also managed by Prisma and will be read-only in the API. It stores the time for when a specific `Link` was created.
 
 Now, let's see what you need to do with `prisma.yml`.
 
@@ -149,47 +89,48 @@ Now, let's see what you need to do with `prisma.yml`.
 
 Add the following contents to `prisma.yml`:
 
-```graphql(path=".../hackernews-node/database/prisma.yml")
+```graphql(path=".../hackernews-node/prisma/prisma.yml")
 # The HTTP endpoint for your Prisma API
 endpoint: ''
 
-# Points to the file that holds your data model
-datamodel: datamodel.graphql
+# Points to the file that contains your datamodel
+datamodel: datamodel.prisma
 
-# You can only access the API when providing JWTs that are signed with this secret
-secret: mysecret123
+# Specifies language & location for the generated Prisma client
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-client
 ```
 
 </Instruction>
 
-To learn more about the structure of `prisma.yml`, feel free to check out the [documentation](https://www.prisma.io/docs/reference/service-configuration/prisma.yml/yaml-structure-ufeshusai8).
+To learn more about the structure of `prisma.yml`, feel free to check out the [documentation](https://www.prisma.io/docs/-5cy7#reference).
 
 Here's a quick explanation of each property you see in that file:
 
-- `endpoint`: The HTTP endpoint for your Prisma API. It is actually required to deploy your Prisma API. It will be generated when we deploy.
-- `datamodel`: This simply points to the _data model_ which is the foundation for the Prisma CRUD API.
-- `secret`: You want to protect your Prisma service and require requests against your Prisma API to be authenticated. This _secret is used to sign [JWT](https://en.wikipedia.org/wiki/JSON_Web_Token)s_ which need to be included in the `Authorization` header of any HTTP requests made against the API. Read more about that [here](https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication).
+- `endpoint`: The HTTP endpoint for your Prisma API.
+- `datamodel`: Points to the datamodel file which is the foundation for the Prisma client API that you'll use in your API server.
+- `generate`: Specifies in which language the Prisma client should be generated and where it will be located.
 
-Before deploying the service, you need to install the Prisma CLI which is used to manage the Prisma service.
+Before deploying the service, you need to install the Prisma CLI.
 
 <Instruction>
 
-To install the Prisma CLI globally with NPM, use the following command:
+To install the Prisma CLI globally with Yarn, use the following command:
 
 ```bash
-npm install -g prisma
+yarn global add prisma
 ```
 
 </Instruction>
 
-All right, you're finally ready to deploy your Prisma service and the database that comes along! 🙌
+All right, you're finally ready to deploy your Prisma datamodel and the database that comes along! 🙌 Note that for this tutorial, you'll use a free _demo database_ ([AWS Aurora](https://aws.amazon.com/de/rds/aurora/)) that's hosted in Prisma Cloud. If you want to learn more about setting up Prisma locally or with your own database, you can check the documentation [here](https://www.prisma.io/docs/-a002/).
 
 <Instruction>
 
-Navigate into the `database` directory and run [`prisma deploy`](https://www.prisma.io/docs/reference/cli-command-reference/database-service/prisma-deploy-kee1iedaov):
+Now run [`prisma deploy`](https://www.prisma.io/docs/-xcv9/):
 
 ```bash(path=".../hackernews-node/")
-cd database
 prisma deploy
 ```
 
@@ -199,102 +140,56 @@ The `prisma deploy` command starts an interactive process:
 
 <Instruction>
 
-First select the **Demo server** from the options provided. When the browser opens, **register with Prisma Cloud** and go back to your terminal.
+First select the **Demo server**. When the browser opens, **register with Prisma Cloud** and go back to your terminal.
 
 </Instruction>
 
 <Instruction>
 
-Then you need to select the **region** for your demo server. Once that's done, you can just hit enter twice to use the suggested values for **service** and **stage**.
+Then you need to select the **region** for your Demo server. Once that's done, you can just hit enter twice to use the suggested values for **service** and **stage**.
 
 </Instruction>
 
-> **Note**: Prisma is open-source. It is based on [Docker](http://docker.com/) which means you can deploy it to any cloud provider of your choice (such as Digital Ocean, AWS, Google Cloud, ...). If you don't want to deal with DevOps and the manual configuration of Docker, you can also use [Prisma Cloud](https://blog.graph.cool/introducing-prisma-cloud-a-graphql-database-platform-ed591baa8737) to easily spin up a private cluster to which you can deploy your services. Watch this short [video](https://www.youtube.com/watch?v=jELE4KXJPn4) to learn more about how that works.
+> **Note**: [Prisma is open-source](https://github.com/prisma/prisma). You can deploy it with [Docker](http://docker.com/) to a cloud provider of your choice (such as Digital Ocean, AWS, Google Cloud, ...).
 
-Once the command has finished running, the CLI outputs the endpoint for the Prisma GraphQL API. It will look somewhat similar to this: `https://eu1.prisma.sh/public-graytracker-771/hackernews-node/dev`.
+Once the command has finished running, the CLI writes the endpoint for the Prisma API to your `prisma.yml`. It will look similar to this: `https://eu1.prisma.sh/john-doe/hackernews-node/dev`.
 
-Here's how the URL is composed:
+The last step is to generate the Prisma client for your datamodel. The Prisma client is an auto-generated client library that lets you read and write data in your database through the Prisma API. You can generate it using the `prisma generate` command. This command reads the information from `prisma.yml` and generates the Prisma client accordingly.
 
-- `eu1.prisma.sh`: The domain of your cluster
-- `public-graytracker-771`: A randomly generated ID for your service
-- `hackernews-node`: The service name from `prisma.yml`
-- `dev`: The deployment stage from `prisma.yml`
+<Instruction>
 
-In future deploys (e.g. after you made changes to the data model), you won't be prompted where to deploy the service any more - the CLI will read the endpoint URL from `prisma.yml`.
+Run the following command in your terminal:
 
-### Exploring the Prisma service
+```bash(path=".../hackernews-node/prisma")
+prisma generate
+```
 
-To explore the Prisma database API, open the URL that was printed by the CLI.
+</Instruction>
 
-> **Note**: If you ever lose the endpoint, you can get access to it again by running `prisma info` in the terminal.
+The Prisma client is now generated and located in `hackernews-node/src/generated/prisma-client`. To use the client, you can import the `prisma` instance that's exported from the generated folder. Here's some sample code that you could use in a simple Node script:
 
-Unfortunately, if you do so you will be greeted by an error:
+```js(nocopy)
+const { prisma } = require('./generated/prisma-client')
 
-```json(nocopy)
-{
-  "errors": [
-    {
-      "message": " Your token is invalid. It might have expired or you might be using a token from a different project.",
-      "code": 3015,
-      "requestId": "api:api:cjfcbpal10t6w0b91idqif941"
-    }
-  ]
+async function main() {
+
+  // Create a new link
+  const newLink = await prisma.createLink({ 
+    url: 'www.prisma.io',
+    description: 'Prisma replaces traditional ORMs',
+  })
+  console.log(`Created new link: ${newLink.url} (ID: ${newLink.id})`)
+
+  // Read all links from the database and print them to the console
+  const allLinks = await prisma.links()
+  console.log(allLinks)
 }
+
+main().catch(e => console.error(e))
 ```
 
-Remember how we said that your Prisma API is protected by the `secret` from `prisma.yml`? Well, this is precisely the reason why you're getting the error right now. The Playground is trying to load the GraphQL schema from the endpoint, but its request is not authenticated. Let's go ahead and change that.
+Notice that the generated directory also contains a file with TypeScript definitions (`index.d.ts`). This file is there so that your IDE (i.e. Visual Studio Code) can help you with auto-completion when reading and writing data using the Prisma client:
 
-Inside the `database` directory, run the following command to generate an authentication token (JWT) that's signed with the `secret` from `prisma.yml`:
+![](https://imgur.com/kwGNPN4.png)
 
-```bash(path=".../hackernews-node/database")
-prisma token
-```
-
-Then copy the token that was printed by the CLI and use it to configure an HTTP header in the Playground. You can do so by opening the **HTTP HEADERS** pane in the bottom-left corner of the Playground - notice that you need to replace the `__TOKEN__` placeholder with the actual token that was printed:
-
-```json
-{
-  "Authorization": "Bearer __TOKEN__"
-}
-```
-
- It will look similar to this:
-
-```json(nocopy)
-{
-  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJoYWNrZXJuZXdzLW5vZGVAZGV2Iiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTUyMjMxNjM2MCwiZXhwIjoxNTIyOTIxMTYwfQ.MUoHGvw61iIq45ZVInOoylcs6_q2ldfD_GjQOVBqEqY"
-}
-```
-
-After a few seconds, the Playground is going to load the schema and you're able to send authenticated requests to the Prisma API. Open the documentation to check the available API operations.
-
-![](https://imgur.com/CK1xXWq.png)
-
-If you like, you can send the following mutation and query to create a new link and then retrieve the list of links:
-
-Create a new `Link`:
-
-```graphql
-mutation {
-  createLink(data: {
-    url: "www.prisma.io"
-    description: "Prisma turns your database into a GraphQL API"
-  }) {
-    id
-  }
-}
-```
-
-Load all `Link` elements:
-
-```graphql
-query {
-  links {
-    id
-    url
-    description
-  }
-}
-```
-
-![](https://imgur.com/jq6dOL7.png)
+In the next chapters, you will evolve the API or your GraphQL server and use the Prisma client to access the database inside your resolver functions.

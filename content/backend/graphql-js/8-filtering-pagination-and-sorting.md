@@ -11,7 +11,7 @@ This is the last section of the tutorial where you'll implement the finishing to
 
 ### Filtering
 
-Thanks to Prisma, you'll be able to implement filtering capabilities to your API without major effort. Similar to the previous chapters, the heavy-lifting of query resolution will be performed by the powerful Prisma engine. All you need to do is delegate incoming queries to it.
+Thanks to Prisma, you'll be able to implement filtering capabilities to your API without major effort. Similar to the previous chapters, the heavy-lifting of query resolution will be performed by the powerful Prisma engine. All you need to do is forward incoming queries to it.
 
 The first step is to think about the filters you want to expose through your API. In your case, the `feed` query in your API will accept a _filter string_. The query then should only return the `Link` elements where the `url` _or_ the `description` _contain_ that filter string.
 
@@ -34,18 +34,19 @@ Next, you need to update the implementation of the `feed` resolver to account fo
 
 Open `src/resolvers/Query.js` and update the `feed` resolver to look as follows:
 
-```js{2-11}(path=".../hackernews-node/src/resolvers/Query.js")
-function feed(parent, args, context, info) {
-  const where = args.filter
-    ? {
-        OR: [
-          { url_contains: args.filter },
-          { description_contains: args.filter },
-        ],
-      }
-    : {}
+```js{2-9}(path=".../hackernews-node/src/resolvers/Query.js")
+async function feed(parent, args, context, info) {
+  const where = args.filter ? {
+    OR: [
+      { description_contains: args.filter },
+      { url_contains: args.filter },
+    ],
+  } : {}
 
-  return context.db.query.links({ where }, info)
+  const links = await context.prisma.links({
+    where
+  })
+  return links
 }
 ```
 
@@ -55,36 +56,23 @@ If no `filter` string is provided, then the `where` object will be just an empty
 
 In case there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions.
 
-Notice that the `Prisma` binding object translates the above function call into a GraphQL query that will look somewhat similar to [this](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a). This query is sent by the Yoga server to the Prisma API and resolved there:
-
-```graphql(nocopy)
-query ($filter: String) {
-  links(where: {
-    OR: [{ url_contains: $filter }, { description_contains: $filter }]
-  }) {
-    id
-    url
-    description
-  }
-}
-```
-
-> **Note**: You can learn more about Prisma's filtering capabilities in the [docs](https://www.prisma.io/docs/reference/prisma-api/queries-ahwee4zaey#filtering-by-field). Another way explore those is to use the Playground of the Prisma API and read the schema documentation for the `where` argument or experiment directly by using the autocompletion features of the Playground.
-> ![](https://imgur.com/PjyLATP.png)
-
-That's it already for the filtering functionality! Go ahead and test your filter API - here's a sample query you can use:
+That's it for the filtering functionality! Go ahead and test your filter API - here's a sample query you can use:
 
 ```graphql
 query {
-  feed(filter: "Prisma") {
+  feed(filter:"QL") {
     id
-    description
+  	description
     url
+    postedBy {
+      id
+      name
+    }
   }
 }
 ```
 
-![](https://imgur.com/1EQsPKc.png)
+![](https://imgur.com/QlAXsKO.png)
 
 ### Pagination
 
@@ -93,7 +81,7 @@ Pagination is a tricky topic in API design. On a high-level, there are two major
 - **Limit-Offset**: Request a specific _chunk_ of the list by providing the indices of the items to be retrieved (in fact, you're mostly providing the start index (_offset_) as well as a count of items to be retrieved (_limit_)).
 - **Cursor-based**: This pagination model is a bit more advanced. Every element in the list is associated with a unique ID (the _cursor_). Clients paginating through the list then provide the cursor of the starting element as well as a count of items to be retrieved.
 
-Prisma supports both pagination approaches (read more in the [docs](https://www.prisma.io/docs/reference/prisma-api/queries-ahwee4zaey#pagination)). In this tutorial, you're going to implement limit-offset pagination.
+Prisma supports both pagination approaches (read more in the [docs](https://www.prisma.io/docs/-rsc2#pagination)). In this tutorial, you're going to implement limit-offset pagination.
 
 > **Note**: You can read more about the ideas behind both pagination approaches [here](https://dev-blog.apollodata.com/understanding-pagination-rest-graphql-and-relay-b10f835549e7).
 
@@ -123,21 +111,21 @@ Now, on to the resolver implementation.
 
 In `src/resolvers/Query.js`, adjust the implementation of the `feed` resolver:
 
-```js{12}(path=".../hackernews-node/src/resolvers/Query.js")
-function feed(parent, args, context, info) {
-  const where = args.filter
-    ? {
-        OR: [
-          { url_contains: args.filter },
-          { description_contains: args.filter },
-        ],
-      }
-    : {}
+```js{11-12}(path=".../hackernews-node/src/resolvers/Query.js")
+async function feed(parent, args, context, info) {
+  const where = args.filter ? {
+    OR: [
+      { description_contains: args.filter },
+      { url_contains: args.filter },
+    ],
+  } : {}
 
-  return context.db.query.links(
-    { where, skip: args.skip, first: args.first },
-    info,
-  )
+  const links = await context.prisma.links({
+    where,
+    skip: args.skip,
+    first: args.first
+  })
+  return links
 }
 ```
 
@@ -160,42 +148,34 @@ query {
 }
 ```
 
-![](https://imgur.com/fhkKct7.png)
+![](https://imgur.com/lwGncCX.png)
 
 ### Sorting
 
-With Prisma, it is possible to return lists of elements that are sorted (_ordered_) according to specific criteria. For example, you can order the list of `Link`s alphabetically by their `url` or `description`. For the Hackernews API, you'll leave it up to the client to decide how exactly it should be sorted and thus include all the ordering options from the Prisma API in the API of your Yoga server. You can do so by directly referencing the `LinkOrderByInput` enum from the Prisma database schema. Here is what it looks like:
+With Prisma, it is possible to return lists of elements that are sorted (_ordered_) according to specific criteria. For example, you can order the list of `Link`s alphabetically by their `url` or `description`. For the Hacker News API, you'll leave it up to the client to decide how exactly it should be sorted and thus include all the ordering options from the Prisma API in the API of your GraphQL server. You can do so by creating an enum that represents the ordering options.
 
-```graphql(path=".../hackernews-node/src/generated/prisma.graphql"&nocopy)
+<Instruction>
+
+Add the following enum definition to `schema.graphql`:
+
+```graphql(path=".../hackernews-node/src/schema.graphql")
 enum LinkOrderByInput {
-  id_ASC
-  id_DESC
   description_ASC
   description_DESC
   url_ASC
   url_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 ```
 
+</Instruction>
+
 It represents the various ways how the list of `Link` elements can be sorted.
 
 <Instruction>
 
-Open your application schema and import the `LinkOrderByInput` enum from the Prisma database schema:
-
-```graphql(path=".../hackernews-node/src/schema.graphql")
-# import Link, LinkSubscriptionPayload, Vote, VoteSubscriptionPayload, LinkOrderByInput from "./generated/prisma.graphql"
-```
-
-</Instruction>
-
-<Instruction>
-
-Then, adjust the `feed` query again to include the `orderBy` argument:
+Now, adjust the `feed` query again to include the `orderBy` argument:
 
 ```graphql{3}(path=".../hackernews-node/src/schema.graphql")
 type Query {
@@ -212,21 +192,22 @@ The implementation of the resolver is similar to what you just did with the pagi
 
 Update the implementation of the `feed` resolver in `src/resolvers/Query.js` and pass the `orderBy` argument along to Prisma:
 
-```js{12}(path=".../hackernews-node/src/resolvers/Query.js")
-function feed(parent, args, context, info) {
-  const where = args.filter
-    ? {
-        OR: [
-          { url_contains: args.filter },
-          { description_contains: args.filter },
-        ],
-      }
-    : {}
+```js{13}(path=".../hackernews-node/src/resolvers/Query.js")
+async function feed(parent, args, context, info) {
+  const where = args.filter ? {
+    OR: [
+      { description_contains: args.filter },
+      { url_contains: args.filter },
+    ],
+  } : {}
 
-  return context.db.query.links(
-    { where, skip: args.skip, first: args.first, orderBy: args.orderBy },
-    info,
-  )
+  const links = await context.prisma.links({
+    where,
+    skip: args.skip,
+    first: args.first,
+    orderBy: args.orderBy
+  })
+  return links
 }
 ```
 
@@ -246,11 +227,11 @@ query {
 
 ### Returning the total amount of `Link` elements
 
-The last thing you're going to implement for your Hackernews API is the information _how many_ `Link` elements are currently stored in the database. To do so, you're going to refactor the `feed` query a bit and create a new type to be returned by your API: `Feed`.
+The last thing you're going to implement for your Hacker News API is the information _how many_ `Link` elements are currently stored in the database. To do so, you're going to refactor the `feed` query a bit and create a new type to be returned by your API: `Feed`.
 
 <Instruction>
 
-Add the new `Feed` type to your application schema. Then also adjust the return type of the `feed` query accordingly:
+Add the new `Feed` type to your GraphQL schema. Then also adjust the return type of the `feed` query accordingly:
 
 ```graphql{3,6-9}(path=".../hackernews-node/src/schema.graphql")
 type Query {
@@ -270,104 +251,43 @@ type Feed {
 
 Now, go ahead and adjust the `feed` resolver again:
 
-```js{12-15,18-25,29-30}(path=".../hackernews-node/src/resolvers/Query.js")
-async function feed(parent, args, context, info) {
+```js{17-26}(path=".../hackernews-node/src/resolvers/Query.js")
+async function feed(parent, args, context) {
   const where = args.filter
     ? {
         OR: [
-          { url_contains: args.filter },
           { description_contains: args.filter },
+          { url_contains: args.filter },
         ],
       }
     : {}
 
-  // 1
-  const queriedLinks = await context.db.query.links(
-    { where, skip: args.skip, first: args.first, orderBy: args.orderBy },
-    `{ id }`,
-  )
-
-  // 2
-  const countSelectionSet = `
-    {
-      aggregate {
-        count
-      }
-    }
-  `
-  const linksConnection = await context.db.query.linksConnection({}, countSelectionSet)
-
-  // 3
+  const links = await context.prisma.links({
+    where,
+    skip: args.skip,
+    first: args.first,
+    orderBy: args.orderBy,
+  })
+  const count = await context.prisma
+    .linksConnection({
+      where,
+    })
+    .aggregate()
+    .count()
   return {
-    count: linksConnection.aggregate.count,
-    linkIds: queriedLinks.map(link => link.id),
+    links,
+    count,
   }
 }
 ```
 
 </Instruction>
 
-1. You're first using the provided filtering, ordering and pagination arguments to retrieve a number of `Link` elements. This is similar to what you did before except that you're now hardcoding the selection set of the query again and only retrieve the `id` fields of the queried `Link`s. In fact, if you tried to pass `info` here, the API would throw an error (read [this](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a) article to understand why).
-1. Next, you're using the `linksConnection` query from the Prisma database schema to retrieve the total number of `Link` elements currently stored in the database. You're hardcoding the selection set to return the `count` of elements which can be retrieved via the `aggregate` field.
-1. The `count` can be returned directly. The `links` that are specified on the `Feed` type are not yet returned - this will only happen at the next resolver level that you still need to implement. Notice that because you're returning the `linkIds` from this resolver level, the next resolver in the resolver chain will have access to these.
-
-The last step now is to implement the resolver for the `Feed` type.
-
-<Instruction>
-
-Create a new file inside `src/resolvers` and call it `Feed.js`:
-
-```bash(path=".../hackernews-node)
-touch src/resolvers/Feed.js
-```
-
-</Instruction>
-
-<Instruction>
-
-Now, add the following code to it:
-
-```js(path=".../hackernews-node/src/resolvers/Feed.js")
-function links(parent, args, context, info) {
-  return context.db.query.links({ where: { id_in: parent.linkIds } }, info)
-}
-
-module.exports = {
-  links,
-}
-```
-
-</Instruction>
-
-Here is where the `links` field from the `Feed` type _actually_ gets resolved. As you can see, the incoming `parent` argument is carrying the `linkIds` which were returned on the previous resolver level.
+1. You're first using the provided filtering, ordering and pagination arguments to retrieve a number of `Link` elements. 
+1. Next, you're using the `linksConnection` query from the Prisma client API to retrieve the total number of `Link` elements currently stored in the database.
+1. The `links` and `count` are then wrapped in an object to adhere to the `Feed` type that you just added to the GraphQL schema.
 
 The last step is to include that new resolver when instantiating the `GraphQLServer`.
-
-<Instruction>
-
-In `index.js`, first import the `Feed` resolver at the top of the file:
-
-```js(path=".../hackernews-node/src/index.js")
-const Feed = require('./resolvers/Feed')
-```
-
-</Instruction>
-
-<Instruction>
-
-Then, include it in the `resolvers` object:
-
-```js{6}(path=".../hackernews-node/src/index.js")
-const resolvers = {
-  Query,
-  Mutation,
-  AuthPayload,
-  Subscription,
-  Feed
-}
-```
-
-</Instruction>
 
 You can now test the revamped `feed` query as follows:
 
@@ -384,4 +304,4 @@ query {
 }
 ```
 
-![](https://imgur.com/x2z3lLU.png)
+![](https://imgur.com/pybtMep.png)

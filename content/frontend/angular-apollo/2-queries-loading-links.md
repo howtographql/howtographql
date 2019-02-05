@@ -102,12 +102,12 @@ export class LinkListComponent implements OnInit {
     id: '1',
     description: 'The Coolest GraphQL Backend 😎',
     url: 'https://www.graph.cool',
-    createAt: '2018-02-08T16:54:37.000Z',
+    createdAt: '2018-02-08T16:54:37.000Z',
   }, {
     id: '2',
     description: 'The Best GraphQL Client',
     url: 'http://dev.apollodata.com/'
-    createAt: '2018-02-08T16:54:37.000Z',
+    createdAt: '2018-02-08T16:54:37.000Z',
   }];
 
   constructor() {
@@ -326,10 +326,10 @@ export class LinkListComponent implements OnInit {
 What's going on here?
 
 1. You import the `ALL_LINKS_QUERY` which you just created
-2. Next, you initialize the `allLinks` data property to an empty array and `loading` to `false`. This will be set to false once data loads.
+2. Next, you initialize the `allLinks` data property to an empty array and `loading` to `true`. This will be set to false once data loads.
 3. Now you inject an `Apollo` service to your component
 4. You call the `query` method to it ( you can also use another method named `watchQuery`). This method requires a `query, ` and you pass it the `ALL_LINKS_QUERY`. As you can see, there is a new property, `valueChanges`. To watch results you have to subscribe to `valueChanges` property.
 5. The `query` method gives back a observable where we subscribe to get the response that contains a `data` property with `loading` set to `true`  as long as the request is still ongoing and the response hasn't been received and `allLinks` which is the actual data that was received from the server.
 
-That's it! If you ran `npm start or yarn start` earlier, you should see your UI update and show the two links.
+That's it! If you ran `npm start` or `yarn start` earlier, you should see your UI update and show the two links.
 

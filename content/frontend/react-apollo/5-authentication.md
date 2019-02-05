@@ -95,7 +95,7 @@ Let's quickly understand the structure of this new component, which can have two
 - One state is **for users that already have an account** and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `state.login` will be `true` in this case.
 - The second state is for **users that haven't created an account yet**, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
 
-The method `_confirm`  will be used to implement the mutations that we need to send for the login functionality.
+The method `_confirm` will be used to implement the mutations that we need to send for the login functionality.
 
 Next you also need to provide the `constants.js` file that we use to define the key for the credentials that we're storing in the browser's `localStorage`.
 
@@ -117,7 +117,7 @@ With that component in place, you can go and add a new route to your `react-rout
 
 Open `App.js` and update `render` to include the new route:
 
-```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{7}(path=".../hackernews-react-apollo/src/components/App.js")
 render() {
   return (
     <div className="center w85">
@@ -395,13 +395,11 @@ That's it - now all your API requests will be authenticated if a `token` is avai
 
 ### Requiring authentication on the server-side
 
-The last thing you're doing in this chapter is ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
-
-To implement this functionality, this time you need to make a small change on the server-side as well.
+The last thing you might do in this chapter is check how to ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
 
 <Instruction>
 
-Open `/server/src/resolvers/Mutation.js` and adjust the `post` resolver to look as follows:
+Open `/server/src/resolvers/Mutation.js` and give a look how it was implemented:
 
 ```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
 function post(parent, { url, description }, ctx, info) {
@@ -415,6 +413,4 @@ function post(parent, { url, description }, ctx, info) {
 
 </Instruction>
 
-With this change, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
-
-> **Note**: Stop the server and run it again executing `yarn dev` to apply the changes made.
+With this, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.

@@ -11,8 +11,6 @@ duration: 10
 
 GraphQL has been released only as a *specification*. This means that GraphQL is in fact not more than a [long document](https://facebook.github.io/graphql/) that describes in detail the behaviour of a *GraphQL server.*
 
-If you want to use GraphQL yourself, you'll have to go and build that GraphQL server yourself. You can do that in any programming language of your choice (e.g. based on one of the [available reference implementations](http://graphql.org/code/)) or by using a service like [Graphcool](http://www.graph.cool/) that provides a powerful GraphQL API out-of-the-box.
-
 ### Use Cases
 
 In this section, we'll walk you through 3 different kinds of architectures that include a GraphQL server:
@@ -64,6 +62,7 @@ As you learned in the previous chapter, the payload of a GraphQL query (or mutat
 When the server receives a query, it will call all the functions for the fields that are specified in the query's payload. It thus *resolves* the query and is able to retrieve the correct data for each field. Once all resolvers returned, the server will package data up in the format that was described by the query and send it back to the client.
 
 ![](http://imgur.com/cP2i8Da.png)
+// The above screenshot contains some of the resolved field names.
 *Each field in the query corresponds to a [resolver function](http://graphql.org/learn/execution/#root-fields-resolvers). The GraphQL calls all required resolvers when a query comes in to fetch the specified data.*
 
 ###  GraphQL Client Libraries
