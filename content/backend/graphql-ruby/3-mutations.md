@@ -47,11 +47,20 @@ For this purpose, you'll use a [Mutation class](http://graphql-ruby.org/mutation
 
 <Instruction>
 
-Create a new file - `app/graphql/mutations/create_link.rb`:
+Create a new file - `app/graphql/mutations/base_mutation.rb`:
+
+```ruby(path=".../graphql-ruby/app/graphql/mutations/base_mutation.rb")
+module Mutations
+  class BaseMutation < GraphQL::Schema::Mutation
+    null false
+  end
+end
+```
+
+and another new file - `app/graphql/mutations/create_link.rb`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/mutations/create_link.rb")
 module Mutations
-  # `BaseMutation` was created from `rails generate graphql:install`
   class CreateLink < BaseMutation
     # arguments passed to the `resolved` method
     argument :description, String, required: true
