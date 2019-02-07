@@ -63,6 +63,22 @@ module Types
 end
 ```
 
+You'll need to add another file `app/graphql/types/date_time_type.rb` to provide a type for the created_at field for LinkType:
+
+```ruby(path=".../graphql-ruby/app/graphql/types/date_time_type.rb")
+module Types
+  class DateTimeType < GraphQL::Schema::Scalar
+    def self.coerce_input(value, _context)
+      Time.zone.parse(value)
+    end
+
+    def self.coerce_result(value, _context)
+      value.utc.iso8601
+    end
+  end
+end
+```
+
 </Instruction>
 
 ### Query Resolver
