@@ -139,11 +139,11 @@ That's it. If you run the app again, you can now access two URLs. `http://localh
 
 ### Implement navigation
 
-To wrap up this section, you need to implement an automatic redirect from the `CreateLink` to `LinkList` after a mutation was performed.
+To wrap up this section, you need to implement an automatic redirect from the `CreateLink` component to the `LinkList` component after a mutation was performed.
 
 <Instruction>
 
-Open `CreateLink.js` and update `<Mutation />` component to look as follows:
+Open `CreateLink.js` and update the `<Mutation />` component to look as follows:
 
 ```js{4}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 <Mutation
@@ -159,4 +159,4 @@ Open `CreateLink.js` and update `<Mutation />` component to look as follows:
 
 After the mutation was performed, `react-router-dom` will now navigate back to the `LinkList` component that's accessible on the root route: `/`.
 
-> **Note**: It won't display the new `Link` created, it'll just redirect to the root route, you could always refresh to see the changes made. We'll see how to update the data after the `Mutation` is being triggered on `More Mutations and Updating the Store` chapter!
+> **Note**: It won't display the newly created `Link`, it'll just redirect to the root route, you could always refresh to see the changes made. We'll see how to update the data after the `Mutation` is being triggered on the `More Mutations and Updating the Store` chapter!
