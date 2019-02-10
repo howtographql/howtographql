@@ -17,7 +17,7 @@ In this tutorial, you will implement the backend for a [Hackernews](https://news
 
 It's time for you to create your project!
 
-First, you'll need to have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) installed on your system. If that's not the case, make sure to install it [now](https://www.ruby-lang.org/en/documentation/installation/).
+First, you'll need to have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) installed on your system. If that's not the case, make sure to install it [now](https://www.ruby-lang.org/en/documentation/installation/). This tutorial requires version 2.3.0 or higher.
 
 <Instruction>
 
