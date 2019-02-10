@@ -15,8 +15,8 @@ You'll need some registered users for this, so start by implementing the mutatio
 You already know the process for this, but let's go through each step again.
 
 ```bash
-rails generate model User name email password_digest
-rails db:migrate
+bundle exec rails generate model User name email password_digest
+bundle exec rails db:migrate
 ```
 
 </Instruction>
@@ -71,6 +71,8 @@ module Types
   class UserType < BaseObject
     field :id, ID, null: false
     field :name, String, null: false
+    # we are exposing `email` just for tutorial purposes
+    # in real application shouldn't leak user emails
     field :email, String, null: false
   end
 end
@@ -178,6 +180,12 @@ class Mutations::CreateUserTest < ActiveSupport::TestCase
 end
 ```
 
+You can run the tests with the following command:
+
+```bash
+bundle exec rails test
+```
+
 </Instruction>
 
 ### Sign in Mutation
@@ -216,9 +224,7 @@ module Mutations
       return unless user.authenticate(email[:password])
 
       # use Ruby on Rails - ActiveSupport::MessageEncryptor, to build a token
-      # For Ruby on Rails >=5.2.x use:
-      # crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
+      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
       token = crypt.encrypt_and_sign("user-id:#{ user.id }")
 
       { user: user, token: token }
@@ -258,11 +264,19 @@ require 'test_helper'
 
 class Mutations::SignInUserTest < ActiveSupport::TestCase
   def perform(args = {})
-    Mutations::SignInUser.new(object: nil, context: { }).resolve(args)
+    Mutations::SignInUser.new(object: nil, context: { session: {} }).resolve(args)
+  end
+
+  def create_user
+    User.create!(
+      name: 'Test User',
+      email: 'email@example.com',
+      password: '[omitted]',
+    )
   end
 
   test 'success' do
-    user = create :user
+    user = create_user
 
     result = perform(
       email: {
@@ -280,15 +294,21 @@ class Mutations::SignInUserTest < ActiveSupport::TestCase
   end
 
   test 'failure because wrong email' do
-    create :user
+    create_user
     assert_nil perform(email: { email: 'wrong' })
   end
 
   test 'failure because wrong password' do
-    user = create :user
+    user = create_user
     assert_nil perform(email: { email: user.email, password: 'wrong' })
   end
 end
+```
+
+You can run the tests with the following command:
+
+```bash
+bundle exec rails test
 ```
 
 </Instruction>
@@ -316,8 +336,10 @@ class GraphqlController < ApplicationController
       current_user: current_user
     }
     result = GraphqlTutorialSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
-
     render json: result
+  rescue => e
+    raise e unless Rails.env.development?
+    handle_error_in_development e
   end
 
   private
@@ -327,9 +349,7 @@ class GraphqlController < ApplicationController
     # if we want to change the sign-in strategy, this is the place to do it
     return unless session[:token]
 
-    # For Ruby on Rails >=5.2.x use:
-    # crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
+    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
     token = crypt.decrypt_and_verify session[:token]
     user_id = token.gsub('user-id:', '').to_i
     User.find_by id: user_id
@@ -339,6 +359,10 @@ class GraphqlController < ApplicationController
 
   # Handle form data, JSON body, or a blank value
   def ensure_hash(ambiguous_param)
+    # ...code
+  end
+
+  def handle_error_in_development(e)
     # ...code
   end
 end
@@ -358,10 +382,10 @@ module Mutations
     def resolve(email: nil)
       # ...code
 
-      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
+      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
       token = crypt.encrypt_and_sign("user-id:#{ user.id }")
 
-      ctx[:session][:token] = token
+      context[:session][:token] = token
 
       # ...code
     end
@@ -376,11 +400,19 @@ This is pretty straightforward since the generated token is so simple. Like was 
 
 ### Linking User to Created Links
 
+<Instruction>
+
 Your server can now detect the user that triggered each GraphQL request. This could be useful in many situations. For example, the authenticated user should be exactly the one that posted a link being created with the `createLink` mutation. You can now store this information for each link.
 
-First run `rails generate migration add_user_id_link`.
+First run the following script:
+
+```bash
+bundle exec rails generate migration add_user_id_link
+```
 
 It generates a [database migration](http://edgeguides.rubyonrails.org/active_record_migrations.html).
+
+</Instruction>
 
 <Instruction>
 
@@ -396,7 +428,11 @@ class AddUserIdLink < ActiveRecord::Migration[5.1]
 end
 ```
 
-Run `rails db:migrate`.
+Then run the following script:
+
+```bash
+bundle exec rails db:migrate
+```
 
 </Instruction>
 
@@ -420,11 +456,12 @@ Also you have to update the `LinkType`:
 module Types
   class LinkType < BaseObject
     field :id, ID, null: false
-    field :created_at, DateTimeType, null: false
     field :url, String, null: false
     field :description, String, null: false
+    # `posted_by` is automatically camelcased as `postedBy`
+    # field can be nil, because we added users relationship later
     # "method" option remaps field to an attribute of Link model
-    field :posted_by, UserType, null: false, method: :user
+    field :posted_by, UserType, null: true, method: :user
   end
 end
 ```

@@ -13,8 +13,8 @@ In order to be able to show all links, you first need to set up your database so
 Use the following command to generate the link database model:
 
 ```bash
-rails generate model Link url:string description:text
-rails db:migrate
+bundle exec rails generate model Link url:string description:text
+bundle exec rails db:migrate
 ```
 
 </Instruction>
@@ -55,8 +55,6 @@ Create a new file `app/graphql/types/link_type.rb` and add the following code to
 module Types
   class LinkType < BaseObject
     field :id, ID, null: false
-    # `created_at` is automatically camelcased to `createdAt`
-    field :created_at, DateTimeType, null: false
     field :url, String, null: false
     field :description, String, null: false
   end
@@ -94,10 +92,11 @@ end
 
 </Instruction>
 
-Resolvers can be either of two things:
+Files can be resolved by the following ways:
 
-* object responding to call method accepting 3 arguments - obj, arg, ctx (like `lambda` or `Proc` objects)
-* [GraphQL::Function](http://graphql-ruby.org/fields/function.html) - we are going discuss those in the next chapter
+* method on the type (named as the field), which accepts arguments and can access `object` and `context`
+* [GraphQL::Schema::Resolver](https://graphql-ruby.org/api-doc/1.8.13/GraphQL/Schema/Resolver) - we are going discuss those in the next chapter
+* [GraphQL::Function](http://graphql-ruby.org/fields/function.html) *(previous version of resolvers, consider it depracated)*
 
 ### Testing With Playground
 

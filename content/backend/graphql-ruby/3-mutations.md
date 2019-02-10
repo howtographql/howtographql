@@ -47,11 +47,25 @@ For this purpose, you'll use a [Mutation class](http://graphql-ruby.org/mutation
 
 <Instruction>
 
+Create a new file - `app/graphql/mutations/base_mutation.rb`:
+
+```ruby(path=".../graphql-ruby/app/graphql/mutations/base_mutation.rb")
+module Mutations
+  # This class is used as a parent for all mutations, and it is the place to have common utilities 
+  class BaseMutation < GraphQL::Schema::Mutation
+    null false
+  end
+end
+```
+
+</Instruction>
+
+<Instruction>
+
 Create a new file - `app/graphql/mutations/create_link.rb`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/mutations/create_link.rb")
 module Mutations
-  # `BaseMutation` was created from `rails generate graphql:install`
   class CreateLink < BaseMutation
     # arguments passed to the `resolved` method
     argument :description, String, required: true
@@ -65,6 +79,7 @@ module Mutations
         description: description,
         url: url,
       )
+    end
   end
 end
 ```
@@ -106,19 +121,20 @@ class Mutations::CreateLinkTest < ActiveSupport::TestCase
   end
 
   test 'create a new link' do
-    user = create :user
-
     link = perform(
       url: 'http://example.com',
       description: 'description',
-      user: user
     )
 
     assert link.persisted?
     assert_equal link.description, 'description'
     assert_equal link.url, 'http://example.com'
-    assert_equal link.user, user
   end
 end
 ```
 
+You can run the tests with the following command:
+
+```bash
+bundle exec rails test
+```
