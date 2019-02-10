@@ -26,7 +26,7 @@ First add validations to the `Link` model:
 
 ```ruby(path=".../graphql-ruby/app/models/link.rb")
 class Link < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true 
 
   validates :url, presence: true, length: { minimum: 5 }
   validates :description, presence: true, length: { minimum: 5 }

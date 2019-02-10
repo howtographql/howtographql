@@ -25,14 +25,38 @@ Then follow these steps to create the project for your application:
 
 ```bash
 gem install bundler
-gem install rails -v 5.1.4
+gem install rails -v 5.2.2
 rails new graphql-tutorial
 cd graphql-tutorial
-rails db:create
-rails server
+bundle exec rails db:create
+bundle exec rails server
 ```
 
 </Instruction>
+
+If you see the following error:
+
+```
+LoadError: Error loading the 'sqlite3' Active Record adapter. Missing a gem it depends on? can't activate sqlite3 (~> 1.3.6), already activated sqlite3-1.4.0. Make sure all dependencies are added to Gemfile.`. Go to and replace the SQLite version:
+```
+
+Open `Gemfile` and change the following line:
+
+```ruby(path=".../graphql-ruby/Gemfile")
+gem 'sqlite3'
+```
+
+```ruby(path=".../graphql-ruby/Gemfile")
+gem 'sqlite3', '~> 1.3', '< 1.4'
+```
+
+And run:
+
+```bash
+bundle update --source=sqlite
+bundle exec rails db:create
+```
+
 
 This will install and start a new [Ruby On Rails](http://rubyonrails.org/) project. When you visit [http://localhost:3000](http://localhost:3000/) in a browser, you should see:
 
@@ -60,7 +84,7 @@ Then run:
 
 ```bash
 bundle update
-rails generate graphql:install
+bundle exec rails generate graphql:install
 ```
 
 </Instruction>

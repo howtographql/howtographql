@@ -13,8 +13,8 @@ There's only one mutation left to be added: allowing users to vote for links. Th
 Run the following commands to generate the `Vote` model:
 
 ```bash
-rails generate model Vote link:references user:references
-rails db:migrate
+bundle exec rails generate model Vote link:references user:references
+bundle exec rails db:migrate
 ```
 
 </Instruction>
@@ -39,7 +39,6 @@ Add the `VoteType` first:
 module Types
   class VoteType < BaseObject
     field :id, ID, null: false
-    field :created_at, DateTimeType, null: false
     field :user, UserType, null: false
     field :link, LinkType, null: false
   end
@@ -61,7 +60,7 @@ module Mutations
 
     def resolve(link_id: nil)
       Vote.create!(
-        link: GraphqlTutorialSchema.object_from_id(link_id, context),
+        link: Link.find(link_id),
         user: context[:current_user]
       )
     end
@@ -122,7 +121,6 @@ For that you have to expose votes from `LinkType`:
 module Types
   class LinkType < BaseObject
     field :id, ID, null: false
-    field :created_at, DateTimeType, null: false
     field :url, String, null: false
     field :description, String, null: false
     field :posted_by, UserType, null: false, method: :user
