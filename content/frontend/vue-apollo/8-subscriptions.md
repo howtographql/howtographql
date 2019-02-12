@@ -261,7 +261,7 @@ You'll also implement this subscription in the `LinkList` component since that's
 
 <Instruction>
 
-Open `src/components/LinkList.vue` and add the following object to the `sunscribeToMore` array:
+Open `src/components/LinkList.vue` and add the following object to the `subscribeToMore` array:
 
 ```js(path=".../hackernews-vue-apollo/src/components/LinkList.vue")
 {
