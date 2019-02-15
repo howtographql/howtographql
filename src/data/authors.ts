@@ -92,7 +92,7 @@ const authors: Author[] = [
     bio:
       "Devan is a full-stack JavaScript engineer who enjoys working with a myriad of tech including GraphQL, Ember, React, and VueJS. He has a passion for helping others through documentation and tutorials, and can often be found at Walt Disney World.",
     link: 'https://twitter.com/devanbeitel_',
-    job: 'Engineer @ Envy Labs',
+    job: 'Seeking Employment',
     name: 'Devan Beitel'
   },
   {

@@ -2,9 +2,12 @@
 title: "Queries: Loading Links"
 pageTitle: "Fetching Data using GraphQL Queries with Ember & Apollo Tutorial"
 description: "Learn how you can use GraphQL queries with Apollo Client to load data from a server and display it in your React components."
-question: "ember-apollo-client exposes a service to your Ember application named what?"
+question: ember-apollo-client exposes a service to your Ember application named what?
 answers: ["apollo-store", "apollo", "ember-apollo", "store"]
 correctAnswer: 1
+videoId: ""
+duration: 0		
+videoAuthor: ""
 ---
 
 ### Preparing the components
@@ -57,7 +60,7 @@ Replace the contents of the route template with the following:
 
 ```html(path=".../hackernews-ember-apollo/app/templates/links.hbs")
 <div>
-  {{#each model as |link index|}}
+  {{#each this.model as |link index|}}
     {{link-post index=index link=link}}
   {{/each}}
 </div>
@@ -74,14 +77,14 @@ model() {
   return [
     {
       id: '1',
-      description: 'The Coolest GraphQL Backend 😎',
-      url: 'https://www.graph.cool'
+      description: 'Prisma replaces traditional ORMs and makes it easy to build GraphQL servers 😎',
+      url: 'https://www.prisma.io',
     },
     {
       id: '2',
-      description: 'The Best GraphQL Client',
-      url: 'http://dev.apollodata.com/'
-    }
+      description: 'The best GraphQL client',
+      url: 'https://www.apollographql.com/docs/react/',
+    },
   ];
 }
 ```
@@ -104,26 +107,28 @@ Router.map(function() {
 
 Run the app to check if everything works so far! The app should now display the two links from the array:
 
-![](http://i.imgur.com/Oky5GLx.png)
+![](https://i.imgur.com/hqXOE4Y.png)
 
 ### Writing the GraphQL Query
 
-You’ll now load the actual links that are stored on the server. The first thing you need to do for that is define the GraphQL query that you want to send to the API. 
+Next you'll load the actual links that are stored in the database. The first thing you need to do for that is define the GraphQL query you want to send to the API.
 
-Here is what that GraphQL query looks like:
+Here is what it looks like:
 
 ```graphql
-query AllLinks {
-  allLinks {
-    id
-    createdAt
-    description
-    url
+{
+  feed {
+    links {
+      id
+      createdAt
+      description
+      url
+    }
   }
 }
 ```
 
-You could now simply execute this query in a Playground and retrieve the results from your GraphQL server. But how can you use it inside your Ember app?
+You could now simply execute this query in a [Playground](https://github.com/prisma/graphql-playground/) and retrieve the results from your GraphQL server. But how can you use it inside your JavaScript code?
 
 ### Queries with `ember-apollo-client`
 
@@ -134,13 +139,15 @@ A example would look as follows:
 ```js(nocopy)
 this.get(‘apollo’).query({
   query: gql`
-    query AllLinks {
-      allLinks {
-        id
+    {
+      feed {
+        links {
+          id
+        }
       }
     }
   `
-}, ‘allLinks’).then(response => console.log(response))
+}, 'feed.links').then(response => console.log(response))
 ```
 
 In general, the process for you to add some data fetching logic will be very similar every time:
@@ -169,13 +176,15 @@ Create a nested set of folders in the `app` folder like so:
 
 In the `queries` folder, create a new file named `allLinks.graphql` and add the following contents:
 
-```graphql(path=".../hackernews-ember-apollo/app/gql/queries/allLinks.graphql")
-query AllLinksQuery {
-  allLinks {
-    id
-    createdAt
-    url
-    description
+```graphql(path=".../hackernews-ember-apollo/app/gql/queries/feed.graphql")
+query FeedQuery{
+  feed {
+    links {
+      id
+      createdAt
+      url
+      description
+    }
   }
 }
 ```
@@ -184,7 +193,7 @@ query AllLinksQuery {
 
 What’s going on here?
 
-You defined the plain GraphQL query. The name `AllLinksQuery` is the *operation name* and will be used by Apollo to refer to this query in its internals.
+You defined the plain GraphQL query. The name `FeedQuery` is the *operation name* and will be used by Apollo to refer to this query in its internals.
 
 You can now finally remove the mock data and render actual links that are fetched from the server.
 
@@ -193,18 +202,15 @@ You can now finally remove the mock data and render actual links that are fetche
 In the `links.js` route file, update the code as follows:
 
 ```js(path=".../hackernews-ember-apollo/app/routes/links.js")
-import Ember from 'ember';
-import UnsubscribeRoute from 'ember-apollo-client/mixins/unsubscribe-route';
-import query from ‘hackernews-ember-apollo/gql/queries/allLinks';
+import Route from "@ember/routing/route";
+import { RouteQueryManager } from "ember-apollo-client";
+import query from ‘hackernews-ember-apollo/gql/queries/feed';
 
 // 1.
-export default Ember.Route.extend(UnsubscribeRoute, {
-  // 2.  
-  apollo: Ember.inject.service(),
-
+export default Route.extend(RouteQueryManager, {
   model() {
-    // 3.
-    return this.get('apollo').query({ query }, 'allLinks').catch(error => alert(error));
+    // 2.
+    return this.get('apollo').query({ query }, 'feed.links').catch(error => alert(error));
   }
 });
 ```
@@ -213,8 +219,9 @@ export default Ember.Route.extend(UnsubscribeRoute, {
 
 Let’s walk through what’s happening in this code.
 
-1. After importing your query and the `UnsubscribeRoute` mixin, you are extending the route and using the `UnsubscribeRoute` mixin. More about this mixin in the “More Mutations and Updating the Store” section.
-2. Here you are injecting the `apollo` service that `ember-apollo-client` exposes.
-3. Finally you are using the `apollo` service to query your GraphQL endpoint. The final string, `allLinks`, is specifying where in the returned data your expected data will be located.
+1. After importing your query and the `RouteQueryManager` mixin, you are extending the route and using the `RouteQueryManager` mixin. More about this mixin in the “More Mutations and Updating the Store” section.
+2. You are using the `apollo` service to query your GraphQL endpoint. The final string, `feed`, is specifying where in the returned data your expected data will be located.
 
-That’s it! Go ahead and run `yarn start` again. You should see the exact same screen as before.
+That's it! You should see the exact same screen as before.
+
+> **Note**: If the browser on `http://localhost:4000` only says error and is empty otherwise, you probably forgot to have your server running. Note that for the app to work the server needs to run as well - so you have two running processes in your terminal: One for the server and one for the Ember app. To start the server, navigate into the `api-server` directory and run `yarn start`.

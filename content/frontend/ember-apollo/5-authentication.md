@@ -1,15 +1,21 @@
 ---
-title: "Authentication"
+title: Authentication
 pageTitle: "Authentication with GraphQL, Ember & Apollo Tutorial"
 description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in an Ember app with Graphcool."
-question: "What are the names of the two mutations that are added to the Graphcool project after the Email+Password Auth Provider was enabled?"
-answers: ["loginUser & logoutUser", "signinUser & createUser", "createUser & loginUser", "signinUser & logoutUser"]
-correctAnswer: 1
+question: "How are HTTP requests sent by ApolloClient authenticated?"
+answers: ["The ApolloClient needs to be instantiated with an authentication token", "ApolloClient exposes an extra method called 'authenticate' where you can pass an authentication token", "By attaching an authentication token to the request with dedicated ApolloLink middleware", "ApolloClient has nothing to do with authentication"]
+correctAnswer: 2
+videoId: ""
+duration: 0		
+videoAuthor: ""
 ---
 
 In this section, you’ll learn how you can implement authentication functionality with Apollo and Graphcool to provide a login to the user. Hang in there, because this will be a lengthy section. Once it’s all over you will understand how to handle authentication with Apollo and Ember though!
 
-### One Service To Rule Them All
+### Preparing the app
+
+As in the sections before, you'll set the stage for the login functionality by preparing the components that are needed for this feature. You'll start by building the `Login` component.
+<!-- ### One Service To Rule Them All
 
 <Instruction>
 
@@ -228,7 +234,7 @@ Your project file project.graphcool was updated. Reload it in your editor if nee
 
 > **Note**: You can also use the `graphcool status` command after having made changes to the schema to preview the potential changes that would be performed with `graphcool push`.
 
-Perfect, you’re all set now to actually implement the authentication functionality inside your app.
+Perfect, you’re all set now to actually implement the authentication functionality inside your app. -->
 
 ### Authentication with Graphcool
 

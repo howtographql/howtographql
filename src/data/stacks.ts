@@ -33,21 +33,21 @@ const data: Stack[] = [
     authorName: 'Brent Vatne',
     comingSoon: true,
   },
-//   {
-//     title: 'Ember + Apollo',
-//     type: 'frontend',
-//     key: 'ember-apollo',
-//     images: [
-//       require('../assets/icons/ember.svg'),
-//       require('../assets/icons/apollo.svg'),
-//     ],
-//     content: {
-//       title: 'Ember + Apollo',
-//       description:
-//         "Learn how to get started with Ember.js and Apollo Client on the frontend",
-//     },
-//     authorName: 'Devan Beitel',
-//   },
+  {
+    title: 'Ember + Apollo',
+    type: 'frontend',
+    key: 'ember-apollo',
+    images: [
+      require('../assets/icons/ember.svg'),
+      require('../assets/icons/apollo.svg'),
+    ],
+    content: {
+      title: 'Ember + Apollo',
+      description:
+        "Learn how to get started with Ember.js and Apollo Client on the frontend",
+    },
+    authorName: 'Devan Beitel',
+  },
 //   {
 //     title: 'Angular + Apollo',
 //     type: 'frontend',

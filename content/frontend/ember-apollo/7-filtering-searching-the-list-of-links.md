@@ -1,15 +1,13 @@
 ---
 title: "Filtering: Searching the List of Links"
 pageTitle: "Filtering with GraphQL, Ember & Apollo Tutorial"
-description: "Learn how to use filters with GraphQL and Apollo Client. Graphcool provides a powerful filter and ordering API that you'll explore in this example."
+description: "Learn how to use filters with GraphQL and Apollo Client. Prisma provides a powerful filter and ordering API that you'll explore in this example."
 question: "What ember-apollo-client method queries the server and creates a subscription on the store?"
 answers: ["queryOnce", "querySubscribe", "query", "observableQuery"]
 correctAnswer: 2
 ---
 
 In this section, you’ll implement a search feature and learn about the filtering capabilities of your GraphQL API.
-
-> Note: If you’re interested in all the filtering capabilities of Graphcool, you can check out the [documentation](https://www.graph.cool/docs/reference/simple-api/filtering-by-field-xookaexai0/) on it.
 
 ### Preparing the route
 
@@ -23,16 +21,16 @@ ember generate route search
 
 </Instruction>
 
-This will generate a new route, add it to your `router.js` and create a new template. You won't be needing the route file go delete `app/routes/search.js`.
+This will generate a new route, add it to your `router.js` and create a new template. You won't be needing the route file so delete `app/routes/search.js`.
 
 <Instruction>
 
-Open that template (`app/templates/search.hbs`) and replace the contents with the following code:
+Open the search template (`app/templates/search.hbs`) and replace the contents with the following code:
 
 ```html(path=".../hackernews-ember-apollo/app/templates/search.hbs")
 <div>
   <form {{action 'executeSearch' on='submit'}}>
-    {{input type='text' value=searchText}}
+    {{input type='text' value=filter}}
     {{input type='submit' value='search'}}
   </form>
   {{#each model as |link index|}}
@@ -90,21 +88,22 @@ You can now navigate to the search functionality using the new button in the `si
 Create a new controller for this route by adding a new file in your `app/controllers` folder. Name the file `search.js` and add the following code:
 
 ```js(path=".../hackernews-ember-apollo/app/controllers/search.js")
-import Ember from 'ember';
-import query from 'hackernews-ember-apollo/gql/queries/allLinksSearch';
+import Controller from "@ember/controller";
+import { inject as service } from "@ember/service";
+import query from 'hackernews-ember-apollo/gql/queries/feedSearch';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   actions: {
     executeSearch() {
-      const searchText = this.get('searchText');
-      if (!searchText) return console.error('No search text provided.');
-      return this.get('apollo').queryOnce({ query, variables: { searchText } }, 'allLinks').then(result => {
+      const filter = this.get('filter');
+      if (!filter) return console.error('No search text provided.');
+      return this.get('apollo').query({ query, variables: { filter } }, 'feed.links').then(result => {
         this.set('model', result);
       }).catch(error => alert(error));
     }
   },
 
-  apollo: Ember.inject.service()
+  apollo: service()
 });
 ```
 
@@ -112,23 +111,25 @@ export default Ember.Controller.extend({
 
 <Instruction>
 
-Also create a new file named `allLinksSearch.graphql` in your `app/gql/queries` directory, and add the following contents:
+Also create a new file named `feedSearch.graphql` in your `app/gql/queries` directory, and add the following contents:
 
 ```graphql
-query AllLinksSearchQuery($searchText: String!) {
-  allLinks(filter: { OR: [{ url_contains: $searchText }, { description_contains: $searchText }] }) {
-    id
-    url
-    description
-    createdAt
-    postedBy {
+query FeedSearchQuery($filter: String!) {
+  feed(filter: $filter) {
+    links {
       id
-      name
-    }
-    votes {
-      id
-      user {
+      url
+      description
+      createdAt
+      postedBy {
         id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
       }
     }
   }
@@ -137,15 +138,31 @@ query AllLinksSearchQuery($searchText: String!) {
 
 </Instruction>
 
-This query looks similar to the `allLinks` query that’s used in many places. However, this time it takes in an argument called `searchText` and specifies a `filter` object that will be used to specify conditions on the links that you want to retrieve.
+This query looks similar to the `feed` query that's used in `LinkList`. However, this time it takes in an argument called `filter` that will be used to constrain the list of links you want to retrieve.
 
-In this case, you’re specifying two filters that account for the following two conditions: A link is only returned if either its `url` contains the provided `searchText` *or* its `description` contains the provided `searchText`. Both conditions can be combined using the `OR` operator.
+The actual filter is built and used in the `feed` resolver which is implemented in `server/src/resolvers/Query.js`:
 
-Perfect, the query is defined! But this time you actually want to load the data every time the user hits the *search*-button which is what the `executeSearch` method is handling. You are getting the `searchText` the user provided, running a 
-`queryOnce` method on your Apollo client, and setting the results to your model.
+```js(path=".../hackernews-react-apollo/server/src/resolvers/Query.js"&nocopy)
+async function feed(parent, args, ctx, info) {
+  const { filter, first, skip } = args // destructure input arguments
+  const where = filter
+    ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
+    : {}
 
-Notice that you aren’t using the `query` method, but are instead using `queryOnce`. The difference is subtle, but important. `ember-apollo-client`s `query` method, by default, sets an internal Apollo subscription. This allows the client to be notified if another component calls your server and receives results that would need to update the data in your store. 
+  const queriedLinks = await ctx.db.query.links({ first, skip, where })
 
-Basically, by default, `ember-apollo-client` is trying to help you prevent stale data, if possible. The `queryOnce` method does not setup that internal Apollo subscription. Since you don’t care about being notified when a detail on your search results changes, you are using `queryOnce`.
+  return {
+    linkIds: queriedLinks.map(link => link.id),
+    count
+  }
+}
+```
 
-Go ahead and test the app by running `yarn start` in a Terminal and navigating to `http://localhost:4200/search`. Then type a search string into the text field, click the *search*-button and verify the links that are returned fit the filter conditions.
+> **Note**: To understand what's going on in this resolver, check out the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
+
+In this case, two `where` conditions are specified: A link is only returned if either its `url` contains the provided `filter` _or_ its `description` contains the provided `filter`. Both conditions are combined using Prisma's `OR` operator.
+
+Perfect, the query is defined! But this time you actually want to load the data every time the user hits the *search*-button which is what the `executeSearch` method is handling. You are getting the `filter` the user provided, running a 
+`query` method on your Apollo client, and setting the results to your model.
+
+Go ahead and test the app by running `yarn start` in a terminal and navigating to `http://localhost:4200/search`. Then type a search string into the text field, click the *search*-button and verify the links that are returned fit the filter conditions.
