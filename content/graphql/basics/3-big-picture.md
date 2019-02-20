@@ -62,8 +62,7 @@ As you learned in the previous chapter, the payload of a GraphQL query (or mutat
 When the server receives a query, it will call all the functions for the fields that are specified in the query's payload. It thus *resolves* the query and is able to retrieve the correct data for each field. Once all resolvers returned, the server will package data up in the format that was described by the query and send it back to the client.
 
 ![](https://imgur.com/e1gBEP5.png)
-// The above screenshot contains some of the resolved field names.
-*Each field in the query corresponds to a [resolver function](http://graphql.org/learn/execution/#root-fields-resolvers). The GraphQL calls all required resolvers when a query comes in to fetch the specified data.*
+*The above screenshot contains some of the resolved field names. Each field in the query corresponds to a [resolver function](http://graphql.org/learn/execution/#root-fields-resolvers). The GraphQL calls all required resolvers when a query comes in to fetch the specified data.*
 
 ###  GraphQL Client Libraries
 
