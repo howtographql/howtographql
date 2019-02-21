@@ -81,7 +81,16 @@ There are two main differences compared to the previous `Link` version from `sch
 
 First, you're adding the `@unique` directive to the `id: ID!` field. This directive generally tells Prisma that you never want any two `Link` elements in the database that have the same value for that field. In fact, `id: ID!` is a special field in the Prisma datamodel since Prisma will auto-generate globally unique IDs for the types that have this field.
 
-Second, you're adding a new field called `createdAt: DateTime!`. This field is also managed by Prisma and will be read-only in the API. It stores the time for when a specific `Link` was created.
+Second, you're adding a new field called `createdAt: DateTime!`. This field is also managed by Prisma and will be read-only in the API. It stores the time for when a specific `Link` was created. In order to access this field in our GraphQL queries, we'll also need to define DateTime as a custom scalar type in our GraphQL schema.
+
+<Instruction>
+Open `schema.graphql` and add the following line of code at the top of the page
+  
+```graphql(path=".../hackernews-node/schema.graphql")
+scalar DateTime
+```
+
+</Instruction>
 
 Now, let's see what you need to do with `prisma.yml`.
 
