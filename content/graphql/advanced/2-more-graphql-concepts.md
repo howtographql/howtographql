@@ -147,7 +147,7 @@ In GraphQL, there are two different kinds of types.
 - _Scalar_ types represent concrete units of data. The GraphQL spec has five predefined scalars: as `String`, `Int`, `Float`, `Boolean`, and `ID`. 
 - _Object_ types have _fields_ that express the properties of that type and are composable. Examples of object types are the `User` or `Post` types we saw in the previous section.
 
-In every GraphQL schema, you can define your own scalar and object types. An often cited example for a custom scalar would be a `Date` type where the implementation needs to define how that type validated, serialized, and deserialized.
+In every GraphQL schema, you can define your own scalar and object types. An often cited example for a custom scalar would be a `Date` type where the implementation needs to define how that type is validated, serialized, and deserialized.
 
 #### Enums
 
