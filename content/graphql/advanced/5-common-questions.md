@@ -20,7 +20,7 @@ On the _backend_, a GraphQL server can be implemented in any programming languag
 
 Since a GraphQL API is usually operated over HTTP, any client that can speak HTTP is able to query data from a GraphQL server. 
 
-> Note: GraphQL is actually transport layer agnostic, so you could choose other protocols than HTTP to implement your server.
+> Note: GraphQL is actually transport layer agnostic, so you could choose protocols other than HTTP to implement your server.
 
 ### How to do Server-side Caching?
 
