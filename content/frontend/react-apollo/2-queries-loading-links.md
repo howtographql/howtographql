@@ -190,7 +190,7 @@ return (
 
 What's going on here?
 
-1. First, you create the JavaScript constant called `FEED_QUERY` that stores the query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamililar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
+1. First, you create the JavaScript constant called `FEED_QUERY` that stores the query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamiliar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
 1. Finally, you wrap the returned code with `<Query />` component passing `FEED_QUERY` as prop. 
 
 > **Note**: Notice that we're returning `linksToRender` as a function result, that's due to `render prop function` provided by `<Query />` component.
