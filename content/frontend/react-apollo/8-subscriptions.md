@@ -189,7 +189,7 @@ _subscribeToNewLinks = subscribeToMore => {
 You're passing two arguments to `subscribeToMore`:
 
 1.  `document`: This represents the subscription query itself. In your case, the subscription will fire every time a new link is created.
-1.  `updateQuery`: Similar to cache `update` prop, this function allows you to determine how the store should be updated with the information that was sent by the server after the event occurred. In fact, it follows exactly the same principle as a [Redux reducer](http://redux.js.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that's sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated data. All you're doing inside `updateQuery` is retrieving the new link from the received `subscriptionData`, merge it into the existing list of links and return the result of this operation.
+1.  `updateQuery`: Similar to cache `update` prop, this function allows you to determine how the store should be updated with the information that was sent by the server after the event occurred. In fact, it follows exactly the same principle as a [Redux reducer](http://redux.js.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that's sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated data. All you're doing inside `updateQuery` is retrieving the new link from the received `subscriptionData`, merging it into the existing list of links and returning the result of this operation.
 
 <Instruction>
 
