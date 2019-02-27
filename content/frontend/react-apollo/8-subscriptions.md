@@ -156,7 +156,7 @@ class LinkList extends Component {
 
 </Instruction>
 
-Let's understand what's going on here! You're using the `<Query />` component as always but now you're using [`subscribeToMore`](https://www.apollographql.com/docs/react/features/subscriptions.html#subscribe-to-more) received as prop into the component’s render prop function. Calling `_subscribeToNewLinks` with it respective `subscribeToMore` function you make sure that the component actually subscribes to the events. This call opens up a websocket connection to the subscription server.
+Let's understand what's going on here! You're using the `<Query />` component as always but now you're using [`subscribeToMore`](https://www.apollographql.com/docs/react/features/subscriptions.html#subscribe-to-more) received as prop into the component’s render prop function. Calling `_subscribeToNewLinks` with its respective `subscribeToMore` function you make sure that the component actually subscribes to the events. This call opens up a websocket connection to the subscription server.
 
 <Instruction>
 
