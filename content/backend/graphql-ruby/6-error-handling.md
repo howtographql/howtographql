@@ -41,9 +41,9 @@ Now every link, requires to have a `url` and `description` attributes.
 
 <Instruction>
 
-Then, try to add this to the `createLink` resolver:
+Then, try to add this to the `createLink` mutation:
 
-```ruby(path=".../graphql-ruby/app/graphql/resolvers/create_link.rb")
+```ruby(path=".../graphql-ruby/app/graphql/mutations/create_link.rb")
 module Mutations
   class CreateLink < BaseMutation
     argument :description, String, required: true

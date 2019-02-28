@@ -112,7 +112,7 @@ end
 
 </Instruction>
 
-Now every link, have access to its votes. But GraphQL still doesn't know about those votes.
+Now every link has access to its votes. But GraphQL still doesn't know about those votes.
 
 <Instruction>
 
