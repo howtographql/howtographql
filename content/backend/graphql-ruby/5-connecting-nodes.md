@@ -145,7 +145,7 @@ Following these same steps, you could also add a new field to make it easier to 
 
 Start with the `User` model:
 
-```ruby(path=".../graphql-ruby/app/model/user.rb")
+```ruby(path=".../graphql-ruby/app/models/user.rb")
 class User < ApplicationRecord
   has_secure_password
 
