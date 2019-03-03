@@ -7,7 +7,7 @@ answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what
 correctAnswer: 1
 ---
 
-In this tutorial, you learned how to build a GraphQL server from scratch. The stack you used was based on [Node.js](https://nodejs.org/en/), [`graphql-yoga`](https://github.com/prisma/graphql-yoga) and [Prisma](https://www.prisma.com).
+In this tutorial, you learned how to build a GraphQL server from scratch. The stack you used was based on [Node.js](https://nodejs.org/en/), [`graphql-yoga`](https://github.com/prisma/graphql-yoga) and [Prisma](https://www.prisma.io/).
 
 `graphql-yoga` is a fast and simple GraphQL server library built on top of [Express.js](https://expressjs.com/). It comes with several features, such as out-of-the-box support for [GraphQL Playgrounds](https://github.com/prisma/graphql-playground) and realtime GraphQL subscriptions.
 
