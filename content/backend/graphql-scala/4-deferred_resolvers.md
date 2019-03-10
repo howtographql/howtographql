@@ -48,12 +48,12 @@ Change fields definition for `link` and `links` with the following code:
 Field("link",
   OptionType(LinkType),
   arguments = Id :: Nil,
-  resolve = c => linksFetcher.defer(Id)
+  resolve = c => linksFetcher.deferOpt(c.arg(Id))
 ),
 Field("links",
   ListType(LinkType),
   arguments = List(Argument("ids", ListInputType(IntType))),
-  resolve = c => linksFetcher.deferSeq(Ids)
+  resolve = c => linksFetcher.deferSeq(c.arg(Ids))
 )
 
 ```
@@ -69,7 +69,7 @@ entity in response, optional object (`deferOpt` function).
 In the second case we're providing a list of ids and expecting a sequence of objects (`deferSeq`).
 
 After defining a resolver we have to inform executor to use it.
-Firstly, push it to the lower level by using proper `DefferedResolver` function which rebuild it:
+Firstly, push it to the lower level by using proper `DeferredResolver` function which rebuild it:
 
 <Instruction>
 
