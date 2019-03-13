@@ -44,7 +44,7 @@ They also have a [secure password](http://api.rubyonrails.org/classes/ActiveMode
 
 <Instruction>
 
-Add `Gemfile` the following line:
+Add the following line to your `Gemfile`:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
 gem 'bcrypt', '~> 3.1.7'
