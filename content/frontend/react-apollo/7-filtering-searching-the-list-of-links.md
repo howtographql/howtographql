@@ -169,17 +169,32 @@ This query looks similar to the `feed` query that's used in `LinkList`. However,
 The actual filter is built and used in the `feed` resolver which is implemented in `server/src/resolvers/Query.js`:
 
 ```js(path=".../hackernews-react-apollo/server/src/resolvers/Query.js"&nocopy)
-async function feed(parent, args, ctx, info) {
-  const { filter, first, skip } = args // destructure input arguments
-  const where = filter
-    ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
-    : {}
-
-  const queriedLinks = await ctx.db.query.links({ first, skip, where })
-
+async function feed(parent, args, context) {
+  const count = await context.prisma
+    .linksConnection({
+      where: {
+        OR: [
+          { description_contains: args.filter },
+          { url_contains: args.filter },
+        ],
+      },
+    })
+    .aggregate()
+    .count()
+  const links = await context.prisma.links({
+    where: {
+      OR: [
+        { description_contains: args.filter },
+        { url_contains: args.filter },
+      ],
+    },
+    skip: args.skip,
+    first: args.first,
+    orderBy: args.orderBy,
+  })
   return {
-    linkIds: queriedLinks.map(link => link.id),
-    count
+    count,
+    links,
   }
 }
 ```
