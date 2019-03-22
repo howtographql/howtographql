@@ -402,7 +402,7 @@ The last thing you might do in this chapter is check how to ensure only authenti
 Open `/server/src/resolvers/Mutation.js` and give a look how it was implemented:
 
 ```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
-function post(parent, args, context) {
+async function post(parent, args, context) {
   const userId = getUserId(context)
   return context.prisma.createLink({
     url: args.url,
