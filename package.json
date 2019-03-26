@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git+https://github.com/howtographql/howtographql.git"
   },
+  "peerDependencies": {
+    "graphql": "^0.11.7",
+  },
   "bugs": {
     "url": "https://github.com/howtographql/howtographql/issues"
   },
@@ -30,7 +33,6 @@
     "gatsby-transformer-remark": "next",
     "graphcool-graphiql": "^1.8.13",
     "graphcool-styles": "^0.1.31",
-    "graphql": "^0.11.7",
     "graphql-request": "^1.2.0",
     "lodash": "^4.17.4",
     "node-fetch": "^1.7.1",
