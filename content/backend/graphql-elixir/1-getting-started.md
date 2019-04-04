@@ -49,6 +49,15 @@ In order to support GraphQL your application needs some additional dependencies 
 {:absinthe_plug, "~> 1.3.0"},
 ```
 
+Also, replace the `{:cowboy, "~> 1.0"}` dependency with `{:plug_cowboy, "~> 1.0"}` in your project’s mix.exs:
+
+```elixir(path=".../graphql-elixir/mix.exs")
+{:absinthe_ecto, "~> 0.1.0"},
+{:absinthe_plug, "~> 1.3.0"},
+{:plug_cowboy, "~> 1.0"},
+```
+
+
 <Instruction>
 
 Then run
