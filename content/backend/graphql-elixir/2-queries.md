@@ -53,8 +53,14 @@ Absinthe Schemas are also type checked at compile time. If you refer to a type t
 The query is now defined, but the server still doesn't know how to handle it. To do that you will now write your first **resolver**. Resolvers are just functions mapped to GraphQL fields, with their actual behavior. You specify the field for a resolver by using the resolve macro and passing it a function:
 
 ```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
-field :all_links, non_null(list_of(non_null(:link))) do
-  resolve &NewsResolver.all_links/3
+
+object :link do
+  field :id, non_null(:id)
+  field :url, non_null(:string)
+  field :description, non_null(:string)
+  field :all_links, non_null(list_of(non_null(:link))) do
+    resolve &NewsResolver.all_links/3
+  end
 end
 ```
 
