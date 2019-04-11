@@ -7,7 +7,7 @@ answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what
 correctAnswer: 1
 ---
 
-In this tutorial, you learned how to build a fully-feature Hackernews clone with React and [Apollo Client](https://www.apollographql.com/docs/react/). You implemented several features, such as displaying a list of links, signup and authentication, creating new links, voting on links, pagination as well as realtime updates with GraphQL subscriptions.
+In this tutorial, you learned how to build a fully-feature Hackernews clone with React and [Apollo Client](https://www.apollographql.com/docs/react/). You implemented several features, such as displaying a list of links, signup and authentication, creating new links, voting on links, pagination as well as realtime updates with GraphQL subscriptions. For a longer tutorial that covers more advanced features of Apollo Client, check out the [GraphQL Guide](https://graphql.guide/)
 
 To learn how to build the backend that you used for this tutorial, check out the [Node.JS tutorial](https://www.howtographql.com/graphql-js/0-introduction/).
 
