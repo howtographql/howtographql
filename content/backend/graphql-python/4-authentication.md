@@ -131,13 +131,16 @@ Unfortunately, the GraphiQL web interface that we used before does not accept ad
 
 <Instruction>
 
-In the `hackernews/settings.py` file, add a new `MIDDLEWARE`:
+In the `hackernews/settings.py` file, under the `GRAPHENE` variable, add a new `MIDDLEWARE` key:
 
 ```python(path=".../graphql-python/hackernews/hackernews/settings.py")
-MIDDLEWARE = [
-    # After django.contrib.auth.middleware.AuthenticationMiddleware...
-    'graphql_jwt.middleware.JSONWebTokenMiddleware',
-[
+GRAPHENE = {
+    'SCHEMA': 'hackernews.schema.schema',
+    # Add the line below
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
 ```
 
 </Instruction>
