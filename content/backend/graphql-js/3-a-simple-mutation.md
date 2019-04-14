@@ -7,7 +7,7 @@ answers: ["It carries the return value of the previous resolver execution level"
 correctAnswer: 1
 ---
 
-In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow to _post_ new links to the server.
+In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow you to _post_ new links to the server.
 
 ### Extending the schema definition
 
