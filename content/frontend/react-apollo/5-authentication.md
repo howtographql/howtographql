@@ -403,7 +403,7 @@ Open `/server/src/resolvers/Mutation.js` and give a look how it was implemented:
 
 ```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
 function post(parent, { url, description }, context) {
-  const userId = getUserId(context);
+  const userId = getUserId(context)
   return context.prisma.createLink({
     url,
     description,
@@ -412,7 +412,7 @@ function post(parent, { url, description }, context) {
         id: userId
       }
     }
-  });
+  })
 }
 ```
 
