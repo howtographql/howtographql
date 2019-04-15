@@ -71,8 +71,8 @@ class Resolvers::LinksSearch
 
   def normalize_filters(value, branches = [])
     scope = Link.all
-    scope = scope.like(:description, value['descriptionContains']) if value['descriptionContains']
-    scope = scope.like(:url, value['urlContains']) if value['urlContains']
+    scope = scope.like(:description, value[:description_contains]) if value[:description_contains]
+    scope = scope.like(:url, value[:url_contains]) if value[:url_contains]
 
     branches << scope
 
