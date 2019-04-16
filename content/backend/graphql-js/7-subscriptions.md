@@ -3,7 +3,7 @@ title: Realtime GraphQL Subscriptions
 pageTitle: "Realtime GraphQL Subscriptions with Node.JS Tutorial"
 description: "Learn how to implement GraphQL subscriptions with Node.js, Express & Prisma to add realtime functionality to an app."
 question: Which of the following statements is true?
-answers: ["The 'node' field of a subscription is always null for CREATED-mutations", "The 'previousValues' field of a subscription is always null for DELETED-mutations", "The 'previousValues' field of a subscription is always null for UPDATED-mutations", "The 'node' field of a subscription is always null for DELETED-mutations"]
+answers: ["Subscriptions follow a request-response-cycle", "Subscriptions are best implemented with MailChimp", "Subscriptions are typically implemented via WebSockets", "Subscriptions are defined on the 'Query' type and annotated with the @realtime-directive"]
 correctAnswer: 3
 ---
 
