@@ -40,11 +40,11 @@ end
 
 Now we have users, which are required to have `name` and `email`.
 
-They also have a [secure password](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password). But in order for [has_secure_password](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password), [bcrypt](https://rubygems.org/gems/bcrypt) gem. It used encrypting and verifying user passwords.
+They also have a [secure password](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password). The [has_secure_password](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password) requires the [bcrypt](https://rubygems.org/gems/bcrypt) gem to encrypt and verify user passwords.
 
 <Instruction>
 
-Add `Gemfile` the following line:
+Add the following line to your `Gemfile`:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
 gem 'bcrypt', '~> 3.1.7'
