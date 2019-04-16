@@ -276,7 +276,7 @@ Before we start the server, let's quickly understand the main components:
 
 - `prisma`: This directory holds all the files that relate to your [Prisma](https://www.prisma.io) setup. The Prisma client is used to access the database in your GraphQL resolvers (similar to an ORM).
   - `prisma.yml` is the root configuration file for your Prisma project.
-  - `datamodel.prisma` defines your data model in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). Whhen using Prisma, the datamodel is used to describe the database schema.
+  - `datamodel.prisma` defines your data model in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). When using Prisma, the datamodel is used to describe the database schema.
 - `src`: This directory holds the source files for your GraphQL server.
   - `schema.graphql` contains your **application schema**. The application schema defines the GraphQL operations you can send from the frontend. We'll take a closer look at this file in just a bit.
   - `generated/prisma-client` contains the auto-generated Prisma client, a type-safe database access library (similar to an ORM).
