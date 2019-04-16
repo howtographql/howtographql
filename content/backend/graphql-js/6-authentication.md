@@ -21,14 +21,14 @@ Open `prisma/datamodel.prisma` and replace its current contents with the followi
 
 ```graphql{5,8-14}(path=".../hackernews-node/prisma/datamodel.prisma")
 type Link {
-  id: ID! @unique
+  id: ID! @id
   description: String!
   url: String!
   postedBy: User
 }
 
 type User {
-  id: ID! @unique
+  id: ID! @id
   name: String!
   email: String! @unique
   password: String!

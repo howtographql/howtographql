@@ -68,8 +68,8 @@ Open `datamodel.prisma` and add the following code:
 
 ```graphql{2,3}(path=".../hackernews-node/prisma/datamodel.prisma")
 type Link {
-  id: ID! @unique
-  createdAt: DateTime!
+  id: ID! @id
+  createdAt: DateTime! @createdAt
   description: String!
   url: String!
 }
@@ -79,9 +79,9 @@ type Link {
 
 There are two main differences compared to the previous `Link` version from `schema.graphql`.
 
-First, you're adding the `@unique` directive to the `id: ID!` field. This directive generally tells Prisma that you never want any two `Link` elements in the database that have the same value for that field. In fact, `id: ID!` is a special field in the Prisma datamodel since Prisma will auto-generate globally unique IDs for the types that have this field.
+First, you're adding the `@id` directive to the `id: ID!` field. This means Prisma will auto-generate and store globally unique IDs for the `Link` records in the database on the `id` field.
 
-Second, you're adding a new field called `createdAt: DateTime!`. This field is also managed by Prisma and will be read-only in the API. It stores the time for when a specific `Link` was created.
+Second, you're adding a new field called `createdAt: DateTime! @createdAt`. Thanks to the `@createdAt` directive, this field is also managed by Prisma and will be read-only in the API. It stores the time for when a specific `Link` was created. You can also annotate a field with the `@updatedAt` directive to track when a record was last updated.
 
 Now, let's see what you need to do with `prisma.yml`.
 

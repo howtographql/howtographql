@@ -194,8 +194,8 @@ Open `prisma/datamodel.prisma` and adjust it to look as follows:
 
 ```graphql{7,16,19-23}(path=".../hackernews-node/prisma/datamodel.prisma")
 type Link {
-  id: ID! @unique
-  createdAt: DateTime!
+  id: ID! @id
+  createdAt: DateTime! @createdAt
   description: String!
   url: String!
   postedBy: User
@@ -203,7 +203,7 @@ type Link {
 }
 
 type User {
-  id: ID! @unique
+  id: ID! @id
   name: String!
   email: String! @unique
   password: String!
@@ -212,7 +212,7 @@ type User {
 }
 
 type Vote {
-  id: ID! @unique
+  id: ID! @id
   link: Link!
   user: User!
 }
