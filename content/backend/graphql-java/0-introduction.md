@@ -7,6 +7,11 @@ answers: ["Yes", "No, GraphQL is a JavaScript-only thing", "Yes, but only the No
 correctAnswer: 0
 ---
 
+### Warning
+The GraphQL Java tutorial by [@kaqqao](https://github.com/kaqqao) is unfortunately outdated and also uses some third party libraries on top of GraphQL Java, without making it clear that it is actually not GraphQL Java itself. The author is working on an updated version. Meanwhile, our recommend approach can be found [here](https://www.graphql-java.com/tutorials/getting-started-with-spring-boot/).
+
+More information about this issue can be found [here](https://github.com/howtographql/howtographql/issues/913).
+
 ### Motivation
 
 Hovering around the top of most popularity indexes, Java holds a tight grip over vast segments of the market, and is frequently employed in scenarios well within GraphQL's sweet spot. This is especially true when taking into account the type systems of the two technologies, in majority of cases, fit rather neatly together.
