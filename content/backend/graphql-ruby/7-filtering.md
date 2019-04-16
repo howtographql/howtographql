@@ -71,8 +71,8 @@ class Resolvers::LinksSearch
 
   def normalize_filters(value, branches = [])
     scope = Link.all
-    scope = scope.like(:description, value['description_contains']) if value['description_contains']
-    scope = scope.like(:url, value['url_contains']) if value['url_contains']
+    scope = scope.like(:description, value[:description_contains]) if value[:description_contains]
+    scope = scope.like(:url, value[:url_contains]) if value[:url_contains]
 
     branches << scope
 
@@ -105,11 +105,11 @@ end
 
 Try your new filter out now:
 
-![](http://i.imgur.com/FP7Jufr.png)
+![](https://i.imgur.com/9DCu9VL.png)
 
 You can even do more complicated searches:
 
-![](http://i.imgur.com/Rjf0FyM.png)
+![](https://i.imgur.com/8oBkRfJ.png)
 
 <Instruction>
 
@@ -141,14 +141,14 @@ module Resolvers
 
       result = find(
         filter: {
-          'description_contains' => 'test1',
+          'descriptionContains' => 'test1',
           'OR' => [{
-            'url_contains' => 'test2',
+            'urlContains' => 'test2',
             'OR' => [{
-              'url_contains' => 'test3'
+              'urlContains' => 'test3'
             }]
           }, {
-            'description_contains' => 'test2'
+            'descriptionContains' => 'test2'
           }]
         }
       )
