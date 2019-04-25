@@ -163,7 +163,7 @@ Next, you need functionality for the user to switch between the pages. First add
 
 Open `LinkList.js` and update `render` to look as follows:
 
-```js{11-15,27-36}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{11-15,23,27-36}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 render() {
   return (
     <Query query={FEED_QUERY} variables={this._getQueryVariables()}>
