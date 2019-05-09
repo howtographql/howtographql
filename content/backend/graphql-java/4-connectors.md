@@ -159,7 +159,7 @@ For this project, you'll use MongoDB as the persistent storage, but by following
 	    private static final LinkRepository linkRepository;
 	
 	    static {
-	        //Change to `new MongoClient("mongodb://<host>:<port>/hackernews")`
+	        //Change to `new MongoClient("<host>:<port>")`
 	        //if you don't have Mongo running locally on port 27017
 	        MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
 	        linkRepository = new LinkRepository(mongo.getCollection("links"));
