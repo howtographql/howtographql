@@ -67,7 +67,7 @@ Note, we will be writing all our typings in a `./src/app/types.ts` file and mere
 
 This command will create a `link-item` folder containing several new files called `link-item.component.ts` , `link-item.component.spec.ts`, `link-item.component.html`, `link-item.component.css` in the `app` directory and add the following code in `link-item.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/type.ts")
+```ts(path=".../hackernews-angular-apollo/src/app/types.ts")
 export class Link {
   id: string;
   description: string;
@@ -105,7 +105,7 @@ export class LinkListComponent implements OnInit {
   }, {
     id: '2',
     description: 'The Best GraphQL Client',
-    url: 'http://dev.apollodata.com/'
+    url: 'http://dev.apollodata.com/',
     createdAt: '2018-02-08T16:54:37.000Z',
   }];
 
