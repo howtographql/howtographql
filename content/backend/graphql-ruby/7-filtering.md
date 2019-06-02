@@ -71,12 +71,12 @@ class Resolvers::LinksSearch
 
   def normalize_filters(value, branches = [])
     scope = Link.all
-    scope = scope.like(:description, value[:description_contains]) if value[:description_contains]
-    scope = scope.like(:url, value[:url_contains]) if value[:url_contains]
+    scope = scope.where('description LIKE ?', "%#{value[:description_contains]}%") if value[:description_contains]
+    scope = scope.where('url LIKE ?', "%#{value[:url_contains]}%") if value[:url_contains]
 
     branches << scope
 
-    value['OR'].reduce(branches) { |s, v| normalize_filters(v, s) } if value['OR'].present?
+    value[:OR].reduce(branches) { |s, v| normalize_filters(v, s) } if value[:OR].present?
 
     branches
   end
@@ -141,14 +141,14 @@ module Resolvers
 
       result = find(
         filter: {
-          'descriptionContains' => 'test1',
-          'OR' => [{
-            'urlContains' => 'test2',
-            'OR' => [{
-              'urlContains' => 'test3'
+          description_contains: 'test1',
+          OR: [{
+            url_contains: 'test2',
+            OR: [{
+              url_contains: 'test3'
             }]
           }, {
-            'descriptionContains' => 'test2'
+            description_contains: 'test2'
           }]
         }
       )
@@ -164,13 +164,6 @@ You can run the tests with the following command:
 ```bash
 bundle exec rails test
 ```
-
-In order to get it to pass, you'll need to add the following line to the `Link` model.
-
-```ruby(path=".../graphql-ruby/app/models/link.rb")
-scope :like, ->(field, value) { where arel_table[field].matches("%#{value}%") }
-```
-
 
 </Instruction>
 
