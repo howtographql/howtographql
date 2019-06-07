@@ -234,8 +234,6 @@ prisma deploy
 
 </Instruction>
 
-Thanks to the post-deploy hook, you don't need to manually run `prisma generate` again to update your Prisma client.
-
 Now, with the process of schema-driven development in mind, go ahead and extend the schema definition of your application schema so that your GraphQL server also exposes a `vote` mutation:
 
 ```graphql{5}(path=".../hackernews-node/src/schema.graphql")
