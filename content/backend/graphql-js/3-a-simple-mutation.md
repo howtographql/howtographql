@@ -115,7 +115,7 @@ const resolvers = {
     // 2
     post: (parent, args) => {
        const link = {
-        id: `link-${idCount++}`,
+        id: `link-${idCount}`,
         description: args.description,
         url: args.url,
       }
