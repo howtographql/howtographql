@@ -485,7 +485,7 @@ From the server's response, copy the authentication `token` and open another tab
 
 ```json
 {
-  "Authorization": "Bearer __TOKEN__"
+  "Authorization": "__TOKEN__"
 }
 ```
 
