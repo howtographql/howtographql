@@ -329,7 +329,7 @@ Remove `linkHasId`, `userHasId` and `voteHasId`, and add companion object to the
 //add to imports:
 import sangria.execution.deferred.HasId
 
-//add int he body
+//add in the body
 object Identifiable {
     implicit def hasId[T <: Identifiable]: HasId[T, Int] = HasId(_.id)
 }
