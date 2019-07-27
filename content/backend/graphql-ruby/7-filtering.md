@@ -83,6 +83,12 @@ class Resolvers::LinksSearch
 end
 ```
 
+In order to get this to work, you'll need to add the following line to the `Link` model.
+
+```ruby(path=".../graphql-ruby/app/models/link.rb")
+scope :like, ->(field, value) { where arel_table[field].matches("%#{value}%") }
+```
+
 </Instruction>
 
 This resolver contains all logic related to find links. Over time you can add more rules.
@@ -164,13 +170,6 @@ You can run the tests with the following command:
 ```bash
 bundle exec rails test
 ```
-
-In order to get it to pass, you'll need to add the following line to the `Link` model.
-
-```ruby(path=".../graphql-ruby/app/models/link.rb")
-scope :like, ->(field, value) { where arel_table[field].matches("%#{value}%") }
-```
-
 
 </Instruction>
 
