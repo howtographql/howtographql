@@ -124,7 +124,7 @@ yarn global add prisma
 
 </Instruction>
 
-All right, you're finally ready to deploy your Prisma datamodel and the database that comes along! 🙌 Note that for this tutorial, you'll use a free _demo database_ ([AWS Aurora](https://aws.amazon.com/de/rds/aurora/)) that's hosted in Prisma Cloud. If you want to learn more about setting up Prisma locally or with your own database, you can check the documentation [here](https://www.prisma.io/docs/-a002/).
+All right, you're finally ready to deploy your Prisma datamodel and the database that comes along! 🙌 Note that for this tutorial, you'll use a free _demo database_ ([AWS Aurora](https://aws.amazon.com/rds/aurora/)) that's hosted in Prisma Cloud. If you want to learn more about setting up Prisma locally or with your own database, you can check the documentation [here](https://www.prisma.io/docs/-a002/).
 
 <Instruction>
 
