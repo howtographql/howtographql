@@ -63,7 +63,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
-`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
+`App.js` is a component, so move it into `components`, along with `App.test.js`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
 
 </Instruction>
 
@@ -95,6 +95,7 @@ Your project structure should now look as follows:
 │   ├── App.test.js
 │   ├── components
 │   │   └── App.js
+|   |   └── App.test.js
 │   ├── index.js
 │   ├── logo.svg
 │   ├── serviceWorker.js
