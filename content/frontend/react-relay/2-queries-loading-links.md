@@ -455,7 +455,7 @@ You'll also notice that the `__generated__` directory was now created and contai
 
 That's it, you can now run the app and you'll see the same links that you initially added with the two mutations in the Playground rendered in the app!
 
-By the way, if you're curios to see what the actual query looked like that the `QueryRenderer` composed for you and that was sent over to the server, you can inspect the _Networking_-tab of your browser's dev tools:
+By the way, if you're curious to see what the actual query looked like that the `QueryRenderer` composed for you and that was sent over to the server, you can inspect the _Networking_-tab of your browser's dev tools:
 
 ![](http://imgur.com/222Prig.png)
 
