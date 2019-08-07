@@ -14,7 +14,7 @@ This type is auto generated in the file `app/graphql/types/mutation_type.rb`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/mutation_type.rb")
 module Types
-  class MutationType < Types::BaseObject
+  class MutationType < BaseObject
     # TODO: remove me
     field :test_field, String, null: false,
       description: "An example field added by the generator"
@@ -27,7 +27,7 @@ end
 
 This type is a placeholder for all GraphQL mutations.
 
-To prevent any error when you first start your GraphQL project, it is generated with a dummy `testField` field.  
+To prevent any error when you first start your GraphQL project, it is generated with a dummy `testField` field.
 You will be able to remove it as soon as you add your own mutation below.
 
 The mutation type is automatically exposed in your schema:
@@ -51,7 +51,7 @@ Create a new file - `app/graphql/mutations/base_mutation.rb`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/mutations/base_mutation.rb")
 module Mutations
-  # This class is used as a parent for all mutations, and it is the place to have common utilities 
+  # This class is used as a parent for all mutations, and it is the place to have common utilities
   class BaseMutation < GraphQL::Schema::Mutation
     null false
   end
