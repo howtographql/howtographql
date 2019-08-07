@@ -80,6 +80,10 @@ hooks:
 
 The Prisma client will now automatically be regenerated upon a datamodel change. 
 
+```bash
+If you installed Prisma 1.31, or newer, the Prisma client is generated automatically after running `prisma deploy`. It is not necessary to generate it via a `post-deploy` hook any more, you can therefore remove the hook if you do not need it otherwise.
+```
+
 ### Extending the GraphQL schema
 
 Remember the process of schema-driven development? It all starts with extending your schema definition with the new operations that you want to add to the API - in this case a `signup` and `login` mutation.
