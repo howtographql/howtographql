@@ -33,6 +33,7 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 - Graphene / Python
 - Sangria / Scala (Coming Soon)
 - graphql-go / Go (Coming Soon)
+- graphql-php / PHP
 
 ## Contributions / Fixes
 
