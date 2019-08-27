@@ -137,7 +137,7 @@ In the `hackernews/settings.py` file, under the `GRAPHENE` variable, add a new `
 GRAPHENE = {
     'SCHEMA': 'hackernews.schema.schema',
     # Add the line below
-    'MIDDLEWARE': [
+    'MIDDLEWARES': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
