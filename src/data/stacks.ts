@@ -94,6 +94,22 @@ const data: Stack[] = [
 //     authorName: 'Nikolas Burk',
 //   },
   {
+    title: 'React + urql',
+    type: 'frontend',
+    key: 'react-urql',
+    images: [
+      require('../assets/icons/react.svg'),
+      require('../assets/icons/urql.svg'),
+    ],
+    content: {
+      title: 'React + urql',
+      description:
+        'Learn how to get started with React and urql on the frontend',
+    },
+    authorName: 'Phil Pluckthun',
+    beginnersChoice: true,
+  },
+  {
     title: 'React + Apollo',
     type: 'frontend',
     key: 'react-apollo',

@@ -111,6 +111,14 @@ const authors: Author[] = [
     job: 'Fullstack Developer @ Scalac.io',
     name: 'Mariusz Nosiński'
   },
+  {
+    avatar: require('../assets/graphics/contributors/phil.jpg'),
+    bio:
+      "Phil is working at Formidable in London, who enjoys playing around with the latest in greatest in React, GraphQL, and ReasonML. He is a core contributor on the styled-components and urql projects.",
+    link: 'https://twitter.com/_philpl',
+    job: 'Tech Lead, UK @ Formidable',
+    name: 'Phil Pluckthun'
+  },
 ]
 
 export default keyBy(authors, 'name')
