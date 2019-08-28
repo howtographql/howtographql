@@ -15,7 +15,7 @@ Since this is a frontend track, you're not going to spend any time implementing 
 
 Once you created your React application, you'll pull in the required code for the backend.
 
-> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
+> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-urql). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
 > Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
 
 ### Frontend
@@ -41,17 +41,17 @@ yarn global add create-react-app
 Next, you can use it to bootstrap your React application:
 
 ```bash
-create-react-app hackernews-react-apollo
+create-react-app hackernews-react-urql
 ```
 
 </Instruction>
 
-This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup.
+This will create a new directory called `hackernews-react-urql` that has all the basic configuration setup.
 
 Make sure everything works by navigating into the directory and starting the app:
 
 ```bash
-cd hackernews-react-apollo
+cd hackernews-react-urql
 yarn start
 ```
 
@@ -67,14 +67,14 @@ To improve the project structure, move on to create two directories, both inside
 
 </Instruction>
 
-```js{4}(path=".../hackernews-react-apollo/src/index.js")
+```js{4}(path=".../hackernews-react-urql/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
 ```
 
-```js{2}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{2}(path=".../hackernews-react-urql/src/components/App.js")
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import '../styles/App.css';
@@ -126,7 +126,7 @@ Since we still want to have a bit more custom styling here and there, we also pr
 
 Open `index.css` and replace its content with the following:
 
-```css(path=".../hackernews-react-apollo/src/styles/index.css")
+```css(path=".../hackernews-react-urql/src/styles/index.css")
 body {
   margin: 0;
   padding: 0;
@@ -174,75 +174,63 @@ input {
 
 </Instruction>
 
-#### Install Apollo Client
+#### Install urql
 
 <Instruction>
 
-Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
+Next, you need to pull in the functionality of `urql`. We'll also be installing
+two "Exchanges" for urql, which we'll use to set up normalized caching and support
+for React Suspense:
 
-```bash(path=".../hackernews-react-apollo")
-yarn add apollo-boost react-apollo graphql
+```bash(path=".../hackernews-react-urql")
+yarn add urql @urql/exchange-graphcache @urql/exchange-suspense graphql
 ```
 
 </Instruction>
 
 Here's an overview of the packages you just installed:
 
-- [`apollo-boost`](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) offers some convenience by bundling several packages you need when working with Apollo Client:
-  - `apollo-client`: Where all the magic happens
-  - `apollo-cache-inmemory`: Our recommended cache
-  - `apollo-link-http`: An Apollo Link for remote data fetching
-  - `apollo-link-error`: An Apollo Link for error handling
-  - `apollo-link-state`: An Apollo Link for local state management
-  - `graphql-tag`: Exports the `gql` function for your queries & mutations
-- [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well.
+- [`urql`](https://github.com/FormidabLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
+- [`@urql/exchange-graphcache`](https://github.com/FormidableLabs/urql-exchange-graphcache) is a replacement for `urql`'s default cache, which supports full normalized caching, which we'll set up later
+- [`@urql/exchange-suspense`](https://github.com/FormidableLabs/urql-exchange-suspense) allows us to fully use the React Suspense feature
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - urql and its other packages use some of its functionality as well.
+
+> **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/architecture/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
 
 That's it, you're ready to write some code! 🚀
 
-#### Configure `ApolloClient`
+#### Configure urql's Client
 
-Apollo abstracts away all lower-level networking logic and provides a nice interface to the GraphQL server. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests any more - instead you can simply write queries and mutations and send them using an `ApolloClient` instance.
+Instead of dealing with GraphQL requests directly, urql has a central Client. It controls when and how operations are made and deals with all the details of deduplication, caching, and cancellation. In contract to working with REST APIs, you don't have to construct any HTTP requests manually or store the results explicitly - instead you can simply write queries and mutations and send them using `urql`'s React bindings. Internally these bindings just use methods on the Client, for instance `executeQuery` and `executeMutation`.
 
-The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the _endpoint_ of your GraphQL API so it can deal with the network connections.
+The first thing you have to do when using urql is configure a `Client` instance. It needs to know the _endpoint_ of your GraphQL API so it can deal with the network connections.
 
 <Instruction>
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{6-9,11-13,15-18,21-23}(path=".../hackernews-react-apollo/src/index.js")
+```js{6-7,9-12,15-18}(path=".../hackernews-react-urql/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
-import * as serviceWorker from './serviceWorker';
 
 // 1
-import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-
+import { Provider, Client, defaultExchanges } from 'urql'
 
 // 2
-const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+const client = new Client({
+  url: 'http://localhost:4000',
+  exchanges: defaultExchanges
 })
 
 // 3
-const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache()
-})
-
-// 4
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <Provider value={client}>
     <App />
-  </ApolloProvider>,
+  </Provider>,
   document.getElementById('root')
 )
-serviceWorker.unregister();
 ```
 
 </Instruction>
@@ -251,10 +239,67 @@ serviceWorker.unregister();
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the required dependencies from the installed packages.
-2. Here you create the `httpLink` that will connect your `ApolloClient` instance with the GraphQL API, your GraphQL server will be running on `http://localhost:4000`.
-3. Now you instantiate `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
-4. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
+1. You're importing the `Client`, `Provider`, and `defaultExchanges` from `urql`.
+2. Here you're instantiating a new `Client` and are passing it your endpoint `url` and a list of `defaultExchanges`
+3. Finally you render the root component of your React app. The `App` is wrapped with the context Provider for the `urql` Client.
+
+The `defaultExchanges` would also be applied automatically, but in the next step we'll be
+setting up suspense support and the normalized cache!
+
+#### Set up additional urql Exchanges
+
+By default urql sets up three built-in exchanges, which provide its core functionality:
+
+- `dedupExchange` deduplicates operations. If you're sending the same queries at the same time, then it will make sure that only one of them is actually sent to your API
+- `cacheExchange` caches operation results. This is only a document cache, so it caches results from your GraphQL API by the unique query + variables combination that those results have been requested with.
+- `fetchExchange` sends GraphQL requests using `fetch` and supports cancellation by default.
+
+As you can see above, by default `urql` only comes with a simple document cache. This cache is very useful for content-heavy sites. It treats every query and result as documents that it can simply cache 1:1. For more complex apps you will most likely want to use normalized caching, which makes sure that data updates globally across the app, if it can be shared across queries.
+
+In this tutorial we'd also like to show you how you can use `<React.Suspense>` to simplify your data loading logic.
+
+Let's set up a normalized cache and suspense support.
+
+<Instruction>
+
+Modify `src/index.js` with the following new changes:
+
+```js{6-9,11-12,16-18}(path=".../hackernews-react-urql/src/index.js")
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './styles/index.css'
+import App from './components/App'
+
+// 1
+import { Provider, Client, dedupExchange, fetchExchange } from 'urql'
+import { cacheExchange } from '@urql/exchange-graphcache
+import { suspenseExchange } from '@urql/exchange-suspense
+
+// 2
+const cache = cacheExchange({});
+
+const client = new Client({
+  url: 'http://localhost:4000',
+  // 3
+  exchanges: [dedupExchange, suspenseExchange, cache, fetchExchange],
+  suspense: true
+})
+
+ReactDOM.render(
+  <Provider value={client}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
+```
+
+</Instruction>
+
+Let's go through the changes we've made to our `index.js` in order:
+
+1. We're now importing `dedupExchange` and `fetchExchange` from `urql` and have added `cacheExchange` and `suspenseExchange` from our two extension packages.
+2. We're creating a new normalized cache by calling `cacheExchange` with a config, which is empty for now.
+3. Lastly we're replacing `defaultExchanges` on the `Client` with our new list of exchanges, which need to be in a specific order (basically: `fetch` last, `dedup` first.) We also flip on the Client's `suspense` mode.
 
 That's it, you're all set to start for loading some data into your app! 😎
 
@@ -266,10 +311,10 @@ As mentioned above, for the backend in this tutorial you'll simply use the final
 
 <Instruction>
 
-In your terminal, navigate to the `hackernews-react-apollo` directory and run the following commands:
+In your terminal, navigate to the `hackernews-react-urql` directory and run the following commands:
 
-```bash(path=".../hackernews-react-apollo")
-curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar -xz --strip=1 react-apollo-starter/server
+```bash(path=".../hackernews-react-urql")
+curl https://codeload.github.com/howtographql/react-urql/tar.gz | tar -xz --strip=1 react-urql/server
 ```
 
 </Instruction>
@@ -293,7 +338,7 @@ From the mentioned files, only the application schema defined in `server/src/sch
 
 Here is what it looks like:
 
-```graphql(path=".../hackernews-react-apollo/server/src/schema.graphql"&nocopy)
+```graphql(path=".../hackernews-react-urql/server/src/schema.graphql"&nocopy)
 # import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from "./generated/prisma.graphql"
 
 type Query {
@@ -385,7 +430,7 @@ To deploy the service all you need to do is install the server's dependencies an
 
 In your terminal, navigate to the `server` directory and execute the following commands:
 
-```sh(path=".../hackernews-react-apollo/server")
+```sh(path=".../hackernews-react-urql/server")
 cd server
 yarn install
 yarn prisma deploy
@@ -411,7 +456,7 @@ With the proper Prisma endpoint in place, you can now explore the server!
 
 Navigate into the `server` directory and run the following commands to start the server:
 
-```bash(path=".../hackernews-react-apollo/server")
+```bash(path=".../hackernews-react-urql/server")
 yarn start
 ```
 
