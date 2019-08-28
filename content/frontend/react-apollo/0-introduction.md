@@ -42,7 +42,8 @@ In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already c
 
 In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality you'll want in any frontend application that's talking to a GraphQL server - why build it yourself when you can use one of the amazing GraphQL clients out there?
 
-There are a few GraphQL client libraries available. For very simple use cases (such as writing scripts), [`graphql-request`](https://github.com/prisma/graphql-request) might already be enough for your needs. However, chances are that you're writing a somewhat larger application where you want to benefit from caching, optimistic UI updates and other handy features. In these cases, you have the choice between [Apollo Client](https://github.com/apollographql/apollo-client) and [Relay](https://facebook.github.io/relay/).
+
+There are a few GraphQL client libraryes available, that all give you varying degrees of control over ongoing GraphQL operations and come with various benefits and drawbacks. For very simple use cases (such as writing scripts), [`graphql-request`](https://github.com/prisma/graphql-request) might already be enough for your needs. However, chances are that you're writing a somewhat larger application where you want to benefit from caching, optimistic UI updates and other handy features. In these cases, you have the choice between [urql](https://github.com/FormidableLabs/urql), [Apollo Client](https://github.com/apollographql/apollo-client), and [Relay](https://facebook.github.io/relay/).
 
 ### Apollo vs Relay
 
