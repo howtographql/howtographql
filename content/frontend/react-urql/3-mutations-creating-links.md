@@ -1,20 +1,25 @@
 ---
 title: "Mutations: Creating Links"
-pageTitle: "GraphQL Mutations with React & Apollo Tutorial"
-description: "Learn how you can use GraphQL mutations with Apollo Client. Use Apollo's `<Mutation />` component to define and send mutations."
+pageTitle: "GraphQL Mutations with React & urql Tutorial"
+description: "Learn how you can use GraphQL mutations with urql. Use urql's 'useMutation' hook to define and send mutations."
 question: Which of the following statements is true?
-answers: ["Only queries can be wrapped with the 'graphql' higher-order component", "'<Mutation />' component allow variables, optimisticResponse, refetchQueries, and update as props", "When wrapping a component with a mutation using 'graphql', Apollo only injects the mutation function into the render prop function", "GraphQL mutations never take any arguments"]
+answers: ["The 'useQuery' hook is also used for mutations", "The 'useMutation' hook accepts only the mutation and returns its current state and a function that accepts variables", "The 'useMutation' hook accepts both a mutation and variables and returns a function", "GraphQL mutations never take any arguments"]
 correctAnswer: 1
 videoId: ""
 duration: 0		
 videoAuthor: ""
 ---
 
-In this section, you'll learn how you can send mutations with Apollo. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with minor (but logical) differences in the last two steps:
+In this section, you'll learn how you can send mutations with urql. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with minor (but logical) differences in the last two steps:
 
-1. write the mutation as a JavaScript constant using the `gql` parser function
-1. use the `<Mutation />` component passing the GraphQL mutation and variables (if needed) as props
-1. use the mutation function that gets injected into the component's `render prop function`
+1. write the query as a JavaScript constant using the `gql` parser function
+1. use the `useMutation` hook passing the GraphQL mutation as the first argument
+1. use the `executeMutation` function passing the variables and receive the result
+
+The different here is that `useMutation` only accepts the mutation as its only
+argument. It still returns an array of `[result, executeMutation]`. The `executeMutation`
+function accepts variables as its first argument and returns a promise of the
+mutation result. The `result` will be updated with the mutation result as well.
 
 ### Preparing the React components
 
@@ -24,39 +29,36 @@ Like before, let's start by writing the React component where users will be able
 
 Create a new file in the `src/components` directory and call it `CreateLink.js`. Then paste the following code into it:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-import React, { Component } from 'react'
+```js(path=".../hackernews-react-urql/src/components/CreateLink.js")
+import React from 'react'
 
-class CreateLink extends Component {
-  state = {
-    description: '',
-    url: '',
-  }
+const CreateLink = () => {
+  const [description, setDescription] = React.useState('')
+  const [url, setUrl] = React.useState('')
 
-  render() {
-    const { description, url } = this.state
-    return (
-      <div>
-        <div className="flex flex-column mt3">
-          <input
-            className="mb2"
-            value={description}
-            onChange={e => this.setState({ description: e.target.value })}
-            type="text"
-            placeholder="A description for the link"
-          />
-          <input
-            className="mb2"
-            value={url}
-            onChange={e => this.setState({ url: e.target.value })}
-            type="text"
-            placeholder="The URL for the link"
-          />
-        </div>
-        <button onClick={`... you'll implement this 🔜`}>Submit</button>
+  return (
+    <div>
+      <div className="flex flex-column mt3">
+        <input
+          className="mb2"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+          type="text"
+          placeholder="A description for the link"
+        />
+        <input
+          className="mb2"
+          value={url}
+          onChange={e => setUrl(e.target.value)}
+          type="text"
+          placeholder="The URL for the link"
+        />
       </div>
-    )
-  }
+      <button onClick={`... you'll implement this 🔜`}>
+        Submit
+      </button>
+    </div>
+  )
 }
 
 export default CreateLink
@@ -64,19 +66,22 @@ export default CreateLink
 
 </Instruction>
 
-This is a standard setup for a React component with two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in the component's `state` and will be used when the mutation is sent.
+Here we're writing two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in `React.useState` hooks and will be used when the mutation is sent.
 
 ### Writing the mutation
 
 But how can you now actually send the mutation to your server? Let's follow the three steps from before.
 
-First you need to define the mutation in your JavaScript code and wrap your component with the `graphql` container. You'll do that in a similar way as with the query before.
+First you need to define the mutation and add a `useMutation` hook to the `CreateLink` component, much in a similar way as we've added a query to `LinkList` before.
 
 <Instruction>
 
 In `CreateLink.js`, add the following statement to the top of the file:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js(path=".../hackernews-react-urql/src/components/CreateLink.js")
+import gql from 'graphql-tag';
+import { useMutation } from 'urql';
+
 const POST_MUTATION = gql`
   mutation PostMutation($description: String!, $url: String!) {
     post(description: $description, url: $url) {
@@ -93,93 +98,83 @@ const POST_MUTATION = gql`
 
 <Instruction>
 
-Also replace the current `button` with the following:
+Then add the `useMutation` hook to the `CreateLink` component and implement a handler:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-<Mutation mutation={POST_MUTATION} variables={{ description, url }}>
-  {() => (
-    <button onClick={`... you'll implement this 🔜`}>
-      Submit
-    </button>
-  )}
-</Mutation>
+```js{5,7-9}(path=".../hackernews-react-urql/src/components/CreateLink.js")
+const CreateLink = () => {
+  const [description, setDescription] = React.useState('')
+  const [url, setUrl] = React.useState('')
+
+  const [state, executeMutation] = useMutation(POST_MUTATION);
+  
+  const submit = React.useCallback(() => {
+    executeMutation({ url, description });
+  }, [executeMutation, url, description]);
+  
+  // ...
+};
 ```
 
 </Instruction>
 
 Let's take a closer look again to understand what's going on:
 
-1. You first create the JavaScript constant called `POST_MUTATION` that stores the mutation.
-1. Now, you wrap the `button` element as `render prop function` result with `<Mutation />` component passing `POST_MUTATION` as prop.
-1. Lastly you pass _description_ and _url_ states as `variables` prop.
-
-
-<Instruction>
-
-Before moving on, you need to import the Apollo dependencies. Add the following to the top of `CreateLink.js`:
-
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-```
-
-</Instruction>
+1. You've added imports for the `gql` tag and the `useMutation` hook.
+1. Then you've defined `POST_MUTATION` which accepts a description and url as variables.
+1. You've added the `useMutation` hook which accepts the new mutation and returns you the current state of the mutation and an `executeMutation` function as an array.
+1. Lastly you've written a `submit` handler, which calls `executeMutation` with the variables from your input state hooks.
 
 Let's see the mutation in action!
 
 <Instruction>
 
-Still in `CreateLink.js`, replace `<Mutation />` component as follows:
+Still in `CreateLink.js`, replace the `button` element as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
-<Mutation mutation={POST_MUTATION} variables={{ description, url }}>
-  {postMutation => <button onClick={postMutation}>Submit</button>}
-</Mutation>
+```js(path=".../hackernews-react-urql/src/components/CreateLink.js")
+<button
+  disabled={state.fetching}
+  onClick={submit}
+>
+  Submit
+</button>
 ```
 
 </Instruction>
 
-As promised, all you need to do is call the function that Apollo injects into `<Mutation />` component's `render prop function` inside onClick button's event.
+As you can see, `useMutation` is as simple to use as `useQuery`. All you need to do is pass it a mutation query and call `executeMutatuon` with your variables. It also returns `state`, which we're using here to disable the "Submit" button, while the mutation is executing.
 
 <Instruction>
 
-Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change `render` to look as follows:
+Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change it to render `CreateLink` instead:
 
-```js(path=".../hackernews-react-apollo/src/components/App.js")
-render() {
-  return <CreateLink />
-}
-```
-
-</Instruction>
-
-<Instruction>
-
-Next, import the `CreateLink` component by adding the following statement to the top of `App.js`:
-
-```js(path=".../hackernews-react-apollo/src/components/App.js")
+```js(path=".../hackernews-react-urql/src/components/App.js")
+// import LinkList from './LinkList'
+// import LoadingBoundary from './LoadingBoundary'
 import CreateLink from './CreateLink'
+
+const App = () => <CreateLink />
+
+export default App
 ```
 
 </Instruction>
 
-Now, run `yarn start`, you'll see the following screen:
+Now, run `yarn start` and you'll see the following screen:
 
 ![](http://imgur.com/AJNlEfj.png)
 
-Two input fields and a **submit**-button - not very pretty but functional.
+Two input fields and our "Submit" button - not very pretty but functional.
 
 Enter some data into the fields, e.g.:
 
 - **Description**: `The best learning resource for GraphQL`
 - **URL**: `www.howtographql.com`
 
-Then click the **submit**-button. You won't get any visual feedback in the UI, but let's see if the query actually worked by checking the current list of links in a Playground.
+Then submit. You won't get any visual feedback in the UI apart from the button switching to its disabled state, but let's see if the query actually worked by checking the current list of links in a Playground.
 
 You can open a Playground again by navigating to `http://localhost:4000` in your browser. Then send the following query:
 
 ```graphql
-# Try to write your query here
 {
   feed {
     links {

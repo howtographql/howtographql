@@ -55,7 +55,7 @@ const linksToRender = [
   {
     id: '2',
     description: 'The best GraphQL client',
-    url: 'https://www.apollographql.com/docs/react/',
+    url: 'https://formidable.com/open-source/urql/',
   },
 ]
 
@@ -285,7 +285,7 @@ inside `App` or a component inside it renders a consistent loading screen:
 In `App.js`, update the `App` component as follows:
 
 ```js(path=".../hackernews-react-urql/src/components/App.js")
-import LoadingBoundary from './LoadingBoundary
+import LoadingBoundary from './LoadingBoundary'
 
 const App = () => <LoadingBoundary><LinkList /></LoadingBoundary>
 
