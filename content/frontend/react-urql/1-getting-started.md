@@ -18,6 +18,8 @@ Once you created your React application, you'll pull in the required code for th
 > **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-urql). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
 > Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
 
+> **Need some help?** No tutorial is perfect and questions always come up, so [feel free to reach out to us and the community over on the urql Spectrum](https://spectrum.chat/urql), if you have any questions or need some help!
+
 ### Frontend
 
 #### Creating the app
