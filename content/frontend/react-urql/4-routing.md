@@ -36,18 +36,17 @@ Create a new file in `src/components` and call it `Header.js`. Then paste the fo
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = () => (
+const Header = props => (
   <div className="flex pa1 justify-between nowrap orange">
     <div className="flex flex-fixed black">
       <div className="fw7 mr1">Hacker News</div>
-        <Link to="/" className="ml1 no-underline black">
-          new
-        </Link>
-        <div className="ml1">|</div>
-        <Link to="/create" className="ml1 no-underline black">
-          submit
-        </Link>
-      </div>
+      <Link to="/" className="ml1 no-underline black">
+        new
+      </Link>
+      <div className="ml1">|</div>
+      <Link to="/create" className="ml1 no-underline black">
+        submit
+      </Link>
     </div>
   </div>
 )
@@ -90,9 +89,9 @@ const App = () => (
       </LoadingBoundary>
     </div>
   </div>
-);
+)
 
-export default App;
+export default App
 ```
 
 </Instruction>
@@ -132,34 +131,20 @@ That's it. If you run the app again, you can now access two URLs. `http://localh
 
 ### Add automatic redirects
 
-To wrap up this section, let's also set up an automatic redirect to the `CreateLink` component. When a new link is created we'd like the app to navigate to the `LinkList` after the mutation was performed.
+To wrap up this section, let's also add an automatic redirect to the `CreateLink` component. To do that we can use the `history` prop that `react-router` passes down to all components that are wrapped in a route.
 
-To do that we can use the `history` prop that `react-router` passes down to all components that are wrapped in a route.
-
-<Instruction>
-
-Open `CreateLink.js` and update the `CreateLink` component to use the `history` prop:
-
-```js{1}(path=".../hackernews-react-urql/src/components/CreateLink.js")
-const CreateLink = ({ history }) => {
-  // ...
-}
-```
-
-</Instruction>
-
-Next, we want to use the `history.push` method to redirect to the `LinkList` route once the mutation has completed. We can do this by using the promise that `executeMutation` returns when it's being called.
+We want to use the `history.push` method to redirect to the `LinkList` route once the mutation has completed. We can do this by using the promise that `executeMutation` returns when it's being called.
 
 <Instruction>
 
-Still in `CreateLink.js` update the `submit` handler to look as follows:
+In `CreateLink.js` update the `submit` handler to look as follows:
 
 ```js(path=".../hackernews-react-urql/src/components/CreateLink.js")
 const submit = React.useCallback(() => {
   executeMutation({ url, description }).then(() => {
-    history.push('/')
+    props.history.push('/')
   })
-}, [executeMutation, url, description, history])
+}, [executeMutation, url, description, props.history])
 ```
 
 </Instruction>

@@ -32,7 +32,7 @@ Create a new file in the `src/components` directory and call it `CreateLink.js`.
 ```js(path=".../hackernews-react-urql/src/components/CreateLink.js")
 import React from 'react'
 
-const CreateLink = () => {
+const CreateLink = props => {
   const [description, setDescription] = React.useState('')
   const [url, setUrl] = React.useState('')
 
@@ -101,7 +101,7 @@ const POST_MUTATION = gql`
 Then add the `useMutation` hook to the `CreateLink` component and implement a handler:
 
 ```js{5,7-9}(path=".../hackernews-react-urql/src/components/CreateLink.js")
-const CreateLink = () => {
+const CreateLink = props => {
   const [description, setDescription] = React.useState('')
   const [url, setUrl] = React.useState('')
 
