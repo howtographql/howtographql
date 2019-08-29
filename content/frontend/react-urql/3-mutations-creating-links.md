@@ -105,14 +105,14 @@ const CreateLink = () => {
   const [description, setDescription] = React.useState('')
   const [url, setUrl] = React.useState('')
 
-  const [state, executeMutation] = useMutation(POST_MUTATION);
+  const [state, executeMutation] = useMutation(POST_MUTATION)
   
   const submit = React.useCallback(() => {
-    executeMutation({ url, description });
-  }, [executeMutation, url, description]);
+    executeMutation({ url, description })
+  }, [executeMutation, url, description])
   
   // ...
-};
+}
 ```
 
 </Instruction>
