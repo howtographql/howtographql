@@ -132,7 +132,7 @@ import LoadingBoundary from './LoadingBoundary'
 import Header from './Header'
 import LinkList from './LinkList'
 import CreateLink from './CreateLink'
-import Login from './Login
+import Login from './Login'
 
 const App = () => (
   <div className="center w85">
