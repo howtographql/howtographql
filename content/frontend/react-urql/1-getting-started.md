@@ -185,7 +185,7 @@ two "Exchanges" for urql, which we'll use to set up normalized caching and suppo
 for React Suspense:
 
 ```bash(path=".../hackernews-react-urql")
-yarn add urql @urql/exchange-graphcache @urql/exchange-suspense graphql
+yarn add urql @urql/exchange-graphcache @urql/exchange-suspense graphql graphql-tag
 ```
 
 </Instruction>
@@ -196,6 +196,7 @@ Here's an overview of the packages you just installed:
 - [`@urql/exchange-graphcache`](https://github.com/FormidableLabs/urql-exchange-graphcache) is a replacement for `urql`'s default cache, which supports full normalized caching, which we'll set up later
 - [`@urql/exchange-suspense`](https://github.com/FormidableLabs/urql-exchange-suspense) allows us to fully use the React Suspense feature
 - [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - urql and its other packages use some of its functionality as well.
+- [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a utility to write GraphQL query definitions using [tagged template literals](https://mxstbr.blog/2016/11/styled-components-magic-explained/).
 
 > **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/architecture/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
 

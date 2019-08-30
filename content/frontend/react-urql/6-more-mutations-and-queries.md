@@ -241,7 +241,7 @@ You can now go and test the implementation! Run `yarn start` in `hackernews-reac
 
 ### Creating the Search page
 
-The searcxh will be available under a new route and allow you to filter all links that been submitted. This involves filtering links with functionality that already exists on your GraphQL API.
+The search will be available under a new route and allow you to filter all links that been submitted. This involves filtering links with functionality that already exists on your GraphQL API.
 
 <Instruction>
 

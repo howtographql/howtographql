@@ -112,12 +112,12 @@ const authors: Author[] = [
     name: 'Mariusz Nosiński'
   },
   {
-    avatar: require('../assets/graphics/contributors/phil.jpg'),
+    avatar: require('../assets/graphics/contributors/phil-and-jovi.jpg'),
     bio:
-      "Phil is working at Formidable in London, who enjoys playing around with the latest in greatest in React, GraphQL, and ReasonML. He is a core contributor on the styled-components and urql projects.",
-    link: 'https://twitter.com/_philpl',
-    job: 'Tech Lead, UK @ Formidable',
-    name: 'Phil Pluckthun'
+      "Phil is working in London and Jovi is working remotely from Belgium for Formidable. They're core contributors on the urql project. Jovi also works on the Preact core team while Phil is on the styled-components core team.",
+    link: 'https://formidable.com/',
+    job: 'Open Source @ Formidable',
+    name: 'Phil & Jovi from Formidable'
   },
 ]
 

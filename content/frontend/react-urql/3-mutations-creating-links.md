@@ -16,7 +16,7 @@ In this section, you'll learn how you can send mutations with urql. It's actuall
 1. use the `useMutation` hook passing the GraphQL mutation as the first argument
 1. use the `executeMutation` function passing the variables and receive the result
 
-The different here is that `useMutation` only accepts the mutation as its only
+The difference here is that `useMutation` only accepts the mutation as its only
 argument. It still returns an array of `[result, executeMutation]`. The `executeMutation`
 function accepts variables as its first argument and returns a promise of the
 mutation result. The `result` will be updated with the mutation result as well.
