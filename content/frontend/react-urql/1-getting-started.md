@@ -278,7 +278,7 @@ import { cacheExchange } from '@urql/exchange-graphcache
 import { suspenseExchange } from '@urql/exchange-suspense
 
 // 2
-const cache = cacheExchange({});
+const cache = cacheExchange({})
 
 const client = new Client({
   url: 'http://localhost:4000',
