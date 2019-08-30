@@ -48,7 +48,7 @@ create-react-app hackernews-react-urql
 
 </Instruction>
 
-This will create a new directory called `hackernews-react-urql` that has all the basic configuration setup.
+This will create a new directory called `hackernews-react-urql` that contains a complete setup for a client-side only React app.
 
 Make sure everything works by navigating into the directory and starting the app:
 
@@ -77,9 +77,9 @@ import App from './components/App'
 ```
 
 ```js{2}(path=".../hackernews-react-urql/src/components/App.js")
-import React, { Component } from 'react';
-import logo from '../logo.svg';
-import '../styles/App.css';
+import React from 'react'
+import logo from '../logo.svg'
+import '../styles/App.css'
 ```
 
 Your project structure should now look as follows:
@@ -251,13 +251,13 @@ setting up suspense support and the normalized cache!
 
 #### Set up additional urql Exchanges
 
-By default urql sets up three built-in exchanges, which provide its core functionality:
+By default urql sets up three built-in exchanges, which provide its core functionality. These are all part of the `defaultExchanges` array:
 
 - `dedupExchange` deduplicates operations. If you're sending the same queries at the same time, then it will make sure that only one of them is actually sent to your API
 - `cacheExchange` caches operation results. This is only a document cache, so it caches results from your GraphQL API by the unique query + variables combination that those results have been requested with.
 - `fetchExchange` sends GraphQL requests using `fetch` and supports cancellation by default.
 
-As you can see above, by default `urql` only comes with a simple document cache. This cache is very useful for content-heavy sites. It treats every query and result as documents that it can simply cache 1:1. For more complex apps you will most likely want to use normalized caching, which makes sure that data updates globally across the app, if it can be shared across queries.
+As you can see above, by default `urql` only comes with a simple document cache. This cache is very useful for content-heavy sites, since it treats every query and result as documents that it can simply cache 1:1. For more complex apps you will most likely want to use normalized caching, which makes sure that data updates globally across the app, if it can be shared across queries.
 
 In this tutorial we'd also like to show you how you can use `<React.Suspense>` to simplify your data loading logic.
 
