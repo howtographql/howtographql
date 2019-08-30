@@ -139,7 +139,7 @@ Notice that the app won't run at the moment since the `votes` are not yet includ
 
 Still in `LinkList.js`, update the definition of `FEED_QUERY` to look as follows:
 
-```js{9-18}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{9-18}(path=".../hackernews-react-urql/src/components/LinkList.js")
 const FEED_QUERY = gql`
   {
     feed {
@@ -215,7 +215,7 @@ When we've updated the `Link` component we also added an empty `upvote` handler.
 
 Still in `Link.js`, implement the `useMutation` hook and `upvote` handler:
 
-```js{4-10}(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{4-10}(path=".../hackernews-react-urql/src/components/Link.js")
 const Link = ({ index, link }) => {
   // ...
 
@@ -247,7 +247,7 @@ The searcxh will be available under a new route and allow you to filter all link
 
 Start by creating a new file called `Search.js` in `src/components` and add the following code:
 
-```js(path=".../hackernews-react-apollo/src/components/Search.js")
+```js(path=".../hackernews-react-urql/src/components/Search.js")
 import React from 'react'
 import { useQuery } from 'urql'
 import gql from 'graphql-tag'
@@ -367,7 +367,7 @@ Great, let's now go back to the `Search` component and see how we can implement 
 
 Open `Search.js` and add the following import statements and query definition at the top of the file:
 
-```js(path=".../hackernews-react-apollo/src/components/Search.js")
+```js(path=".../hackernews-react-urql/src/components/Search.js")
 import gql from 'graphql-tag'
 import { useQuery } from 'urql'
 

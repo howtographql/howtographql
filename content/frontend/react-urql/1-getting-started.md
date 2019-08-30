@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
+pageTitle: "Getting Started with GraphQL, React & urql Tutorial"
 description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Prisma.
 question: Why are there two GraphQL API layers in a backend architecture with Prisma?
 answers: ["To increase robustness and stability of the GraphQL server (if one layer fails, the server is backed by the second one).", "To increase performance of the GraphQL server (requests are accelerated  by going through multiple layers).", "Prisma provides the database layer which offers CRUD operations. The second layer is the application layer for business logic and common workflows (like authentication).", "Having two GraphQL layers is a hard requirement by the GraphQL specification."]
@@ -114,7 +114,7 @@ This tutorial is about the concepts of GraphQL and how you can use it from withi
 
 Open `public/index.html` and add a third `link` tag right below the two existing ones that pulls in Tachyons:
 
-```html{3}(path=".../hackernews-react-apollo/public/index.html")
+```html{3}(path=".../hackernews-react-urql/public/index.html")
 <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
@@ -490,10 +490,10 @@ mutation CreatePrismaLink {
   }
 }
 
-mutation CreateApolloLink {
+mutation CreateUrqlLink {
   post(
     description: "The best GraphQL client for React",
-    url: "https://www.apollographql.com/docs/react/"
+    url: "https://github.com/FormidableLabs/urql"
   ) {
     id
   }
@@ -502,7 +502,7 @@ mutation CreateApolloLink {
 
 </Instruction>
 
-Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreatePrismaLink` and `CreateApolloLink`.
+Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreatePrismaLink` and `CreateUrqlLink`.
 
 <Instruction>
 
@@ -538,7 +538,7 @@ If everything went well, the query will return the following data (the `id`s wil
         {
           "id": "cjcnfwjeif1rx012483nh6utk",
           "description": "The best GraphQL client",
-          "url": "https://www.apollographql.com/docs/react/"
+          "url": "https://github.com/FormidableLabs/urql"
         },
         {
           "id": "cjcnfznzff1w601247iili50x",
