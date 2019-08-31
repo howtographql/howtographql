@@ -14,14 +14,14 @@ In this section of the tutorial you'll implement the voting feature! Authenticat
 
 ### Preparing the Link component
 
-Once more, let's first prepare the app's components before implementing the actual upvote mutation. There's several pieces of information on links that we're currently missing, compared to the real Hackernews site.
+Once more, let's first prepare the app's components before implementing the actual upvote mutation. There's several things that the `Link` component isn't currently displaying, compared to the real Hackernews site.
 
 - a link should display its number in the list of the current page (`1.`, `2.`, ...)
-- it should display an upvote button and number of upvotes
+- it should display an upvote button and the number of upvotes it received
 - it should display who posted the link
 - and it should display when it was posted
 
-Before we modify the `Link` component, we want to write a function that takes a timestamp and converts it to a string that's more user friendly, e.g. `"3 hours ago"`.
+Before we modify the `Link` component, we need to write a function that takes a timestamp and converts it to a string that's more user friendly, e.g. `"3 hours ago"`.
 
 <Instruction>
 
@@ -65,7 +65,7 @@ export const timeDifferenceForDate = date => {
 
 </Instruction>
 
-Now, let's update the `Link` component to include the new pieces of data we've just listed.
+Now, let's update the `Link` component with everything that is has previously been missing!
 
 <Instruction>
 
@@ -118,7 +118,7 @@ As you can see, we've also added a new prop. Each `Link` element will also rende
 
 Open `LinkList.js` and update the rendering of the `Link` components inside its returned elements:
 
-```js(path=".../hackernews-react-urql/src/components/LinkList.js")
+```js{6-8}(path=".../hackernews-react-urql/src/components/LinkList.js")
 // const linksToRender = data.feed.links
 // ...
 
@@ -166,7 +166,7 @@ const FEED_QUERY = gql`
 
 </Instruction>
 
-All you do here is include information about the user who posted a link as well as information about the links' votes in the query's payload. You can now run the app again and the links will be properly displayed.
+All you do here is include information about the user who posted a link as well as information about each link's votes in the query's payload. You can now run the app again and the links will be ddisplayed properly.
 
 ![](https://imgur.com/tKzj3b5.png)
 
@@ -174,7 +174,7 @@ All you do here is include information about the user who posted a link as well 
 
 ### The Upvote Mutation
 
-Let's now move on and finally implement the `vote` mutation!
+Let's now move on and implement the `vote` mutation!
 
 <Instruction>
 
@@ -213,7 +213,7 @@ When we've updated the `Link` component we also added an empty `upvote` handler.
 
 <Instruction>
 
-Still in `Link.js`, implement the `useMutation` hook and `upvote` handler:
+Still in `Link.js`, implement the `useMutation` hook and update the `upvote` handler:
 
 ```js{4-10}(path=".../hackernews-react-urql/src/components/Link.js")
 const Link = ({ index, link }) => {
@@ -233,15 +233,17 @@ const Link = ({ index, link }) => {
 
 </Instruction>
 
-This step should feel pretty familiar by now. You're adding the ability to call the mutation inside our functional component by using the `useMutation` hook. We're passing it the `linkId` variable that is required in the definition of the `VoteMutation`.
+This step should feel pretty familiar by now. You're adding the new mutation inside of your component by adding the `useMutation` hook. You're also passing the `linkId` variable to `executeMutation`, since it's required by the `VoteMutation`'s definition.
 
-You can now go and test the implementation! Run `yarn start` in `hackernews-react-urql`, make sure that you're logged in, and then click the upvote button on a link. You should then see the link's upvotes number update auto-magically!
+You can now go ahead and test this! Run `yarn start` in `hackernews-react-urql`, make sure that you're logged in, then click the upvote button on a link. You should then see the link's upvote number update automagically!
 
 > **Remember**: We haven't set up any configuration for `@urql/exchange-graphcache` yet, but since it's a normalized cache, it knows that the link it receives back from the mutation needs to also be updated on the feed query!
 
 ### Creating the Search page
 
-The search will be available under a new route and allow you to filter all links that been submitted. This involves filtering links with functionality that already exists on your GraphQL API.
+Next up, we'll be adding a search page to your app.
+
+The search will be available under a new route and allow you to filter all links that have been submitted to your GraphQL API.
 
 <Instruction>
 
@@ -283,7 +285,7 @@ export default Search
 
 Again, this is a pretty standard setup. You're rendering an `input` field where the user can type a search string.
 
-It's worth noting though that we'd like to start the search imperatively. In this component the user clicks the "search" button to start a new search.
+It's worth noting that this time we'd like to start the search imperatively. Instead of the `useQuery` hook starting the search immediately while the user is typing, we'd like to only start searching once the user clicks the "search" button.
 
 For now the `search` handler and `links` array are also empty stubs, but we'll be replacing them in a later step.
 
@@ -355,7 +357,7 @@ Open `Header.js` and put a new `Link` between `new` and `submit`:
 
 </Instruction>
 
-You can now navigate to the search feature using the new button in the `Header`:
+You can now navigate to the search feature using the "search" button in the `Header`:
 
 ![](http://imgur.com/XxPdUvo.png)
 
@@ -429,6 +431,6 @@ const Search = () => {
 
 Like in `LinkList` we pass in the query and variables into `useQuery`, but instead of immediately running the query we now pass `pause: true`. This flag will cause `useQuery` to wait until `executeQuery` is programmatically called.
 
-This is a very powerful option as we could also flip `pause` to `false` at any time to start the query, so it has many useful use cases.
+This is a very powerful option as we could also flip `pause` to `false` at any time to start the query. This is essentially one of the use-cases of having `executeQuery`! You can call it programmatically to ask for new results or use it in combination with `pause: true` to make it behave like the `useMutation` hook's `executeMutation`.
 
-Go ahead and test the app by running `yarn start` in a terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, submit it, and verify the links that are returned fit the filter conditions.
+Go ahead and test the app by running `yarn start` in a terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, submit the search, and verify that the links that are being displayed were filtered by your search string.
