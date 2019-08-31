@@ -13,13 +13,20 @@ videoAuthor: ""
 In this section, you'll learn how you can send mutations with urql. It's actually not that different from sending queries and follows the same three steps that were mentioned before, with minor (but logical) differences in the last two steps:
 
 1. write the query as a JavaScript constant using the `gql` parser function
-1. use the `useMutation` hook passing the GraphQL mutation as the first argument
-1. use the `executeMutation` function passing the variables and receive the result
+1. use the `useMutation` hook passing the GraphQL mutation as the first and only argument
+1. call the `executeMutation` with the mutation's variables and receive the result as a promise or in the first `state` part of the array that the `useMutation` hook returns
 
-The difference here is that `useMutation` only accepts the mutation as its only
-argument. It still returns an array of `[result, executeMutation]`. The `executeMutation`
+The difference between `useQuery` and `useMutation` are minor. While `useQuery` accepts multiple options, including `query` and `variables`, the `useMutation` hook accepts the mutation definition as its only argument. It still returns an array of `[state, executeMutation]`. The `executeMutation`
 function accepts variables as its first argument and returns a promise of the
-mutation result. The `result` will be updated with the mutation result as well.
+mutation result. The `state` part of the array will be updated with the mutation's state and `data` as well.
+
+### Why do the promise _and_ the `state` both exist?
+
+As you can tell the `useMutation` hook still returns `[state, executeMutation]` very similar to `useQuery` which returns `[state, executeQuery]`. In both cases, the `state` part is updated with the current mutation's or query's result. The difference is that `useQuery` eagerly executes the queries you pass to it, and the `useMutation` hook only executes once you call `executeMutation`.
+
+Furthermore, `executeMutation` returns a promise of the mutation's result, which is very similar to `state`, except that it's missing the `fetching: boolean` property.
+
+This is because accessing both `useMutation`'s state and having a promise cover very common use-cases. You may want to run a side-effect after a mutation completes, for instance navigating away from the current page or closing a modal. Meanwhile you may also want to use `state.fetching` to change the UI while the mutation is running. This is why `useMutation` provides both!
 
 ### Preparing the React components
 
@@ -35,6 +42,10 @@ import React from 'react'
 const CreateLink = props => {
   const [description, setDescription] = React.useState('')
   const [url, setUrl] = React.useState('')
+  
+  const submit = React.useCallback(() => {
+    // ... you'll implement this 🔜
+  }, [])
 
   return (
     <div>
@@ -54,7 +65,7 @@ const CreateLink = props => {
           placeholder="The URL for the link"
         />
       </div>
-      <button onClick={`... you'll implement this 🔜`}>
+      <button onClick={submit}>
         Submit
       </button>
     </div>
@@ -66,7 +77,7 @@ export default CreateLink
 
 </Instruction>
 
-Here we're writing two `input` fields where users can provide the `url` and `description` of the `Link` they want to create. The data that's typed into these fields is stored in `React.useState` hooks and will be used when the mutation is sent.
+Here we're writing two `input` fields where users can provide the `url` and `description` of the `Link` that they want to create. The data that's typed into these fields is stored in `React.useState` hooks and will be used when the mutation is sent.
 
 ### Writing the mutation
 
@@ -98,7 +109,7 @@ const POST_MUTATION = gql`
 
 <Instruction>
 
-Then add the `useMutation` hook to the `CreateLink` component and implement a handler:
+Then add the `useMutation` hook to the `CreateLink` component and implement a handler by replacing the `submit` stub:
 
 ```js{5,7-9}(path=".../hackernews-react-urql/src/components/CreateLink.js")
 const CreateLink = props => {
@@ -130,7 +141,7 @@ Let's see the mutation in action!
 
 Still in `CreateLink.js`, replace the `button` element as follows:
 
-```js(path=".../hackernews-react-urql/src/components/CreateLink.js")
+```js{2-3}(path=".../hackernews-react-urql/src/components/CreateLink.js")
 <button
   disabled={state.fetching}
   onClick={submit}
@@ -141,11 +152,11 @@ Still in `CreateLink.js`, replace the `button` element as follows:
 
 </Instruction>
 
-As you can see, `useMutation` is as simple to use as `useQuery`. All you need to do is pass it a mutation query and call `executeMutatuon` with your variables. It also returns `state`, which we're using here to disable the "Submit" button, while the mutation is executing.
+As you can see, `useMutation` is as simple to use as `useQuery`. All you need to do is pass it a mutation definition and call `executeMutation` with your variables. It also returns `state`, which we're using here to disable the "Submit" button, while the mutation is executing.
 
 <Instruction>
 
-Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change it to render `CreateLink` instead:
+Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change it to render `CreateLink` instead of `LinkList`:
 
 ```js(path=".../hackernews-react-urql/src/components/App.js")
 // import LinkList from './LinkList'
@@ -170,7 +181,7 @@ Enter some data into the fields, e.g.:
 - **Description**: `The best learning resource for GraphQL`
 - **URL**: `www.howtographql.com`
 
-Then submit. You won't get any visual feedback in the UI apart from the button switching to its disabled state, but let's see if the query actually worked by checking the current list of links in a Playground.
+Then submit! You won't get any visual feedback in the UI apart from the button switching to its disabled state, but let's see if the query actually worked by checking the current list of links in a Playground.
 
 You can open a Playground again by navigating to `http://localhost:4000` in your browser. Then send the following query:
 
