@@ -366,7 +366,7 @@ const client = new Client({
 
 Just one more configuration option for the `Client`, that's it!
 
-Now all your GraphQL operations will have an `Authorization` header if a `token` is available. This works because `fetchExchange` will call `fetchOptions` for every request it sends and attaches them to its default `fetch` parameters.
+Now all your GraphQL operations will have an `Authorization` header if a `token` is available. This works because `fetchExchange` will call `fetchOptions` for every request it sends and attaches them to its default `fetch` parameters. Your GraphQL API will use this token to retrieve data on the user that is currently logged in.
 
 > **Note**: In fully productionized apps you may run into cases where you need to reauthenticate or refresh the token on the fly, or maybe you can't retrieve the token synchronously.
 > In those cases it will make sense to write a custom Exchange that handles authentication for you. [You can find a guide on how to write an authentication exchange on the urql docs.](https://formidable.com/open-source/urql/docs/guides/#authentication)
@@ -396,4 +396,4 @@ function post(parent, { url, description }, context) {
 
 </Instruction>
 
-With this, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's being created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-urql/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
+With this, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's being created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-urql/blob/master/server/src/utils.js#L12) if the token is invalid or missing.
