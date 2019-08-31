@@ -26,14 +26,14 @@ yarn add react-router react-router-dom
 
 ### Create a Header
 
-Before moving on to configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
+Before we move on and configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
 
 <Instruction>
 
 Create a new file in `src/components` and call it `Header.js`. Then paste the following code inside of it:
 
 ```js(path=".../hackernews-react-urql/src/components/Header.js")
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = props => (
@@ -96,7 +96,9 @@ export default App
 
 </Instruction>
 
-Now we need to add an additional Provider component around your app. This is necessary for `react-router-dom` to work properly.
+You've now added the `/` and `/create` routes to the app, added the `Header` and put the `LoadingBoundary` back to where it was.
+
+Next we'll need to add an additional Provider component around your app. This is necessary for `react-router-dom` to work properly.
 
 <Instruction>
 
@@ -110,7 +112,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 <Instruction>
 
-Now update `ReactDOM.render` at the end and wrap the exiting elements there in `BrowserRouter`:
+Then update `ReactDOM.render` at the end and wrap the exiting elements there in `BrowserRouter`:
 
 ```js{2,6}(path=".../hackernews-react-urql/src/index.js")
 ReactDOM.render(
