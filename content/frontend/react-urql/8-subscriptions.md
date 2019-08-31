@@ -42,7 +42,7 @@ Next, we'll add the `subscriptionExchange` to your urql Client, which is part of
 
 Open `index.js` and add the following import statements to the file, then modify the Client to include the `subscriptionExchange`:
 
-```js{1-2,6-14,28-30}(path=".../hackernews-react-urql/src/index.js")
+```js{1-2,6-14,29-31}(path=".../hackernews-react-urql/src/index.js")
 import { Provider, Client, dedupExchange, fetchExchange, subscriptionExchange } from 'urql'
 import { SubscriptionClient } from 'subscription-transport-ws'
 

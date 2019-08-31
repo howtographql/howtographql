@@ -3,7 +3,7 @@ title: Pagination and Cache Updates
 pageTitle: "Pagination and Cache Updates with GraphQL, React & urql Tutorial"
 description: "Learn how to implement limit-offset pagination and cache updates with GraphQL and urql in a React app and update."
 question: "How do you configure mutation updates with '@urql/exchange-graphcache'?"
-answers: ["You pass an 'update' argument to the 'useMutation' hook", "You set up a new 'useUpdate' hook with the new data", "You call 'updateQuery' on the cache exchange with the new data", "You pass an 'updates' config with an updater function to the cache exchange"]
+answers: ["You pass an 'update' argument to the 'useMutation' hook", "You set up a new 'useUpdate' hook with the new data", "You call 'updateQuery' on the cache instance with the new data", "You pass an 'updates' config with an updater function that uses 'updateQuery' to the cache exchange"]
 correctAnswer: 3
 videoId: ""
 duration: 0		
@@ -64,13 +64,21 @@ Before moving on, quickly add a new navigation item to the `Header` component th
 
 <Instruction>
 
-Open `Header.js` add the following lines _between_ the `/` and the `/search` links:
+Open `Header.js` add the new link to `/top` _between_ the `/` and the `/search` links:
 
-```js(path=".../hackernews-react-urql/src/components/Header.js")
+```js{5-8}(path=".../hackernews-react-urql/src/components/Header.js")
+<div className="fw7 mr1">Hacker News</div>
+<Link to="/" className="ml1 no-underline black">
+  new
+</Link>
+<div className="ml1">|</div>
 <Link to="/top" className="ml1 no-underline black">
   top
 </Link>
 <div className="ml1">|</div>
+<Link to="/search" className="ml1 no-underline black">
+  search
+</Link>
 ```
 
 </Instruction>
@@ -151,7 +159,7 @@ Lastly, let's update what we pass as the `index` prop to the `Link` components s
 
 In `LinkList.js` replace the `index` prop that you're passing to the `Link` elements:
 
-```js{1-3,5-9,11}(path=".../hackernews-react-urql/src/components/LinkList.js")
+```js{1-3,6,11}(path=".../hackernews-react-urql/src/components/LinkList.js")
 const LinkList = props => {
   const isNewPage = props.location.pathname.includes('new')
   const page = parseInt(props.match.params.page, 10)

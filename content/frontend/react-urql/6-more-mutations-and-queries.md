@@ -215,7 +215,7 @@ When we've updated the `Link` component we also added an empty `upvote` handler.
 
 Still in `Link.js`, implement the `useMutation` hook and update the `upvote` handler:
 
-```js{4-10}(path=".../hackernews-react-urql/src/components/Link.js")
+```js{4,6-10}(path=".../hackernews-react-urql/src/components/Link.js")
 const Link = ({ index, link }) => {
   // ...
 

@@ -190,7 +190,7 @@ const LinkList = () => {
 
   return (
     <div>
-        {linksToRender.map(link => <Link key={link.id} link={link} />)}
+      {linksToRender.map(link => <Link key={link.id} link={link} />)}
     </div>
   );
 };
@@ -224,7 +224,7 @@ You can now finally remove the mock data and render actual links that are fetche
 
 Still in `LinkList.js`, delete the `linksToRender` mock data and then update the `LinkList` component as follows:
 
-```js{2-3,4-5,7}(path=".../hackernews-react-urql/src/components/LinkList.js")
+```js{2-3,5-6,8}(path=".../hackernews-react-urql/src/components/LinkList.js")
 const LinkList = () => {
   const [result] = useQuery({ query: FEED_QUERY })
   const { data, fetching, error } = result

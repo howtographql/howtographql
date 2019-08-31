@@ -212,7 +212,7 @@ The first thing you have to do when using urql is configure a `Client` instance.
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{6-7,9-12,15-18}(path=".../hackernews-react-urql/src/index.js")
+```js{7,10-13,17-19}(path=".../hackernews-react-urql/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
@@ -267,7 +267,7 @@ Let's set up a normalized cache and suspense support.
 
 Modify `src/index.js` with the following new changes:
 
-```js{6-9,11-12,16-18}(path=".../hackernews-react-urql/src/index.js")
+```js{7-9,12,17-18}(path=".../hackernews-react-urql/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
