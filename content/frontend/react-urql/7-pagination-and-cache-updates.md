@@ -16,7 +16,7 @@ We also haven't implemented any cache updates yet, which we'll also cover. With 
 
 ## Preparing the React Components
 
-Like in every section, let's first prepare the React components for this new functionality. In fact, we'll just slightly adjust the current routing setup. We'll use the `LinkList` component for two slightly different use cases and routes.
+Like in every section, let's first prepare the React components for the new pagination feature. In fact, we'll just slightly adjust the current routing setup. We'll reuse the existing `LinkList` component for two slightly different use-cases and routes.
 
 The first one is to display the 10 top voted links. The second one is to display new links in a list separated into multiple pages that the user can navigate through.
 
@@ -64,7 +64,7 @@ Before moving on, quickly add a new navigation item to the `Header` component th
 
 <Instruction>
 
-Open `Header.js` add the following lines _between_ the `/` and the `/search` routes:
+Open `Header.js` add the following lines _between_ the `/` and the `/search` links:
 
 ```js(path=".../hackernews-react-urql/src/components/Header.js")
 <Link to="/top" className="ml1 no-underline black">
@@ -109,17 +109,17 @@ export const FEED_QUERY = gql`
 
 </Instruction>
 
-The query now accepts arguments that we'll use to implement pagination and ordering. Notice that we're also adding `export` to `FEED_QUERY`, which we'll use in a later step to implement updating.
+The query now accepts arguments that we'll use to implement pagination and ordering. We're also now exporting `FEED_QUERY` because we'll need it in a later step to implement some cache updates.
 
 - `skip` defines the _offset_ where the query will start. If you for instance passed a value of `10` for this argument, it means that the first 10 items of the list will not be included in the response.
 - `first` then defines the _limit_, or _how many_ elements, you want to load from that list. Say, you're passing the `10` for `skip` and `5` for `first`, you'll receive items 10 to 15 from the list.
 - `orderBy` defines how the returned list should be sorted.
 
-But to actually pass the variables when using the `useQuery` hook we'll now need to provide it the `variables` argument.
+To actually pass the variables into the `useQuery` hook's variables argument we'll now create a small, memoized function that creates the `variables` object for us.
 
 <Instruction>
 
-Still in `LinkList.js`, add the following code before the `useQuery` hook inside the `LinkList` component:
+Still in `LinkList.js`, add the following code before the `useQuery` hook inside the `LinkList` component and pass `variables` into `useQuery`:
 
 ```js{1-3,5-9,11}(path=".../hackernews-react-urql/src/components/LinkList.js")
 const LinkList = props => {
@@ -141,13 +141,11 @@ const LinkList = props => {
 
 </Instruction>
 
-You're now passing `first`, `skip`, and `orderedBy` as `variables` to the `useQuery` hook, depending on the current page.
-
 We're checking what page we're on by looking at some props that `react-router` passes to our component. The `location` prop tells us more about what route we're on. In this case we're checking the `pathname` for `new`, which tells us that we're on the `/new/:page` route. Then we're parsing the current page from `react-router`'s `match.params` prop.
 
-We're also including the `'createdAt_DESC'` mode for the `/new` route to make sure that the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes on each link.
+We're also including the `'createdAt_DESC'` mode for the `/new` route to make sure that the newest links are displayed first. The ordering for the `/top` route will be calculated manually based on the number of votes on each link, which we'll implement in just a bit.
 
-Lastly, let's update what we pass as the `index` prop to the `Link` components so that the numbers keep changing as we switch between pages.
+Lastly, let's update what we pass as the `index` prop to the `Link` components so that the numbers change correctly as we switch to different pages, like `/new/2`.
 
 <Instruction>
 
@@ -173,7 +171,7 @@ const LinkList = props => {
 
 </Instruction>
 
-Now you can manually navigate to `/new/1` and `/new/2` and so on, provided you've created enough links on your GraphQL API and the index of the links will correctly change per page!
+Now you can manually navigate to `/new/1`, `/new/2`, and so on, provided you've created enough links on your GraphQL API. The index number of the links will correctly change per page!
 
 ### Implementing navigation
 
@@ -248,11 +246,36 @@ const linksToRender = React.useMemo(() => {
 
 For the `/new` route we just return the links that we received from the query, as before. That's because we're already passing `orderBy` to the query so we get ordered data back. Our server doesn't support sorting by votes however, so on the `/top` route we manually sort links by how many votes they have.
 
-### Updates when creating links
+### What are urql's request policies about?
 
-Back when we've created the `CreateLink` page we noted how we didn't get any feedback in the UI apart from the redirect we've implemented. The actual link would however not be added to the links list.
+Back when we've created the `CreateLink` page, you saw how we didn't get any feedback in the UI when creating a new link, apart from being redirected to the homepage. Any links that are created in the app aren't immediately shown on the `/new/1` route.
 
-This is because a normalized cache cannot relate the newly created link that your GraphQL API sends back with the queries in `LinkList`. However, there's an easy fix! We can pass an updater to our Graphcache exchange that updates the normalized cache manually.
+This is because a normalized cache cannot relate the newly created link that your GraphQL API sends back with the queries in `LinkList`. Instead it only shows the stale, outdated data it knows about.
+
+One simple way to fix this is to pass a different "request policy" to `useQuery`. We can use different policies to tell urql how to treat cached data. By default, it will always be using `cache-first`, which means that if a query exists in the cache, urql won't make another network request.
+
+There are several request policies that tell the `cacheExchange` in your urql Client how to treat cached data:
+
+- `cache-first` prevents a network request, when the query's result has already been cached.
+- `cache-only` prevents a network request, even when the query's result has never been cached.
+- `network-only` always sends a network request to get a query's result and ignores the cache.
+- `cache-and-network` returns a query's cached result but then also makes a network request.
+
+As you can see, you could use the last request policy, `cache-and-network`, to update the `/new/1` page automatically from your GraphQL API, when you're redirected to it from `/create`, like so:
+
+```js(nocopy)
+const [result] = useQuery({
+  query: FEED_QUERY,
+  variables,
+  requestPolicy: 'cache-and-network'
+})
+```
+
+However, **this is not what we'll be doing to solve this problem in this tutorial**.
+
+### Cache Updates when creating links
+
+With `@urql/exchange-graphcache` there's an easy fix to update the cache after a mutation completes. We can pass an updater to our Graphcache exchange that tells it how to update the normalized cache data manually!
 
 <Instruction>
 
@@ -286,6 +309,8 @@ const cache = cacheExchange({
 
 This is all it takes to update some cache data after a mutation is performed! ✨
 
-You can add any number of update functions to the `updates` config. Here we add a handler for the `post` mutation. The function receives the data of the mutation, any arguments that have been passed to the mutation field, and an instance of the cache. The cache itself has a method called `updateQuery` that can be used to update the data for a given query in the cache.
+This has the added advantage that we're only using the data that comes back from the mutation. With this approach we'll never make network requests, when we've got enough information in our normalized cache already, which is great!
+
+You can add any number of update functions to the `updates` config. In this example, we've only added a handler for the `post` mutation. The function receives the data of the mutation, any arguments that have been passed to the mutation field, and an instance of the cache. The cache itself has a method called `updateQuery` that can be used to update the data for a given query in the cache.
 
 Go ahead and test this by running `yarn start` in a terminal and navigating to `http://localhost:3000/create`. Then submit a new link and verify that your newly created link shows up on the `/new/1` page.
