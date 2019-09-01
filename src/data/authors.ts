@@ -117,7 +117,7 @@ const authors: Author[] = [
       "Phil is working in London and Jovi is working remotely from Belgium for Formidable. They're core contributors on the urql project. Jovi also works on the Preact core team while Phil is on the styled-components core team.",
     link: 'https://formidable.com/',
     job: 'Open Source @ Formidable',
-    name: 'Phil & Jovi from Formidable'
+    name: 'Jovi & Phil from Formidable'
   },
 ]
 

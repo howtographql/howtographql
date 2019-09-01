@@ -106,7 +106,7 @@ const data: Stack[] = [
       description:
         'Learn how to get started with React and urql on the frontend',
     },
-    authorName: 'Phil & Jovi from Formidable',
+    authorName: 'Jovi & Phil from Formidable',
     beginnersChoice: true,
   },
   {
