@@ -14,7 +14,7 @@ In this section, you'll learn how you can implement authentication with urql to 
 
 ### Prepare the token logic
 
-You'll later be adding a `Login` component and some mutations to either login or signup a user. These mutations return a `token` string that is used to authenticate each request that is sent to your GraphQL API. For the purpose of this tutorial we'll be storing this token in your browser's `LocalStorage`.
+You'll later be adding a `Login` component and some mutations to either login or signup a user. These mutations return a `token` string that authenticates each request sent to your GraphQL API. For the purpose of this tutorial we'll store this token in your browser's `LocalStorage`.
 
 However, let's write some utilities to make it easier to reuse this code and abstract the local storage API away.
 
@@ -34,9 +34,9 @@ export const deleteToken = () => localStorage.removeItem(AUTH_TOKEN);
 
 You now have two functions that you can use in the upcoming steps to set up authentication:
 
-- the `getToken` funtion is used to get a token, which will return `null` if the user has not logged in yet.
-- the `setToken` function is used to update the token in local storage.
-- the `deleteToken` function is used to remove the token from local storage to log out.
+- the `getToken` funtion returns the token or `null` if the user is not logged in yet.
+- the `setToken` function updates the token in local storage.
+- the `deleteToken` function removes the token from local storage, when logging out.
 
 > **Warning**: Storing JWTs in `localStorage` is not a safe approach to implement authentication on the frontend. Because this tutorial is focused on GraphQL, we want to keep things simple and therefore are using it here. You can read more about this topic [here](https://www.rdegges.com/2018/please-stop-using-local-storage/).
 

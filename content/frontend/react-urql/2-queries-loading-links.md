@@ -200,7 +200,7 @@ const LinkList = () => {
 
 What's going on here?
 
-1. First, you create a JavaScript constant called `FEED_QUERY` that holds your GraphQL query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamiliar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
+1. First, you create a JavaScript constant called `FEED_QUERY` that holds your GraphQL query. The `gql` function parses the plain string that contains the GraphQL code (if you're unfamiliar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
 1. Finally, you add the `useQuery` hook to the component, passing `FEED_QUERY` to the `query` option.
 
 > **Note**: Notice that the example still returns the mocked `linksToRender` as a function result, as you haven't written any code just yet to use the result from `useQuery`.

@@ -22,7 +22,7 @@ This method is really interesting to keep your app up-to-date without refreshing
 
 ### Subscriptions with urql
 
-When using urql, you need to add another exchange to your Client to tell it how to handle GraphQL subscriptions. This is done by using the `subscriptionExchange` that `urql` exports. We'll be using it together with the `subscriptions-transport-ws` package, which exposes a `SubscriptionClient` that establishes the WebSocket connection.
+When using urql, you need to add the `subscriptionExchange` to your Client, to tell it how to handle GraphQL subscriptions. We'll use it together with the `subscriptions-transport-ws` package, which exposes a `SubscriptionClient` that establishes the WebSocket connection.
 
 Go and add this dependency to your app first.
 
