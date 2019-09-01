@@ -121,7 +121,7 @@ When using urql, you've got several ways of sending queries to the server. The R
 A practical example of using these is a little longer than using the React bindings, but would look as follows:
 
 ```js(nocopy)
-import { createRequest } from 'urql
+import { createRequest } from 'urql'
 import { pipe, subscribe } from 'wonka'
 
 const request = createRequest(gql`
@@ -139,12 +139,12 @@ const request = createRequest(gql`
 pipe(
   client.executeQuery(request),
   subscribe(response => {
-    console.log(response.data.allLinks);
+    console.log(response.data.feed);
   })
 );
 ```
 
-> **Note**: `urql` is planned expose helper methods on its Client that internally call `useRequest` for you eventually, but since it is primarily meant to be used with its React bindings, these methods haven't been implemented yet. Stay tuned!
+> **Note**: `urql` is planned to expose helper methods on its Client that internally call `useRequest` for you eventually, but since it is primarily meant to be used with its React bindings, these methods haven't been implemented yet. Stay tuned!
 
 The more declarative way when using React however is to use [`urql`'s hook APIs](https://formidable.com/open-source/urql/docs/api/#react-components-and-hooks) to manage your GraphQL data just using components.
 
@@ -216,7 +216,7 @@ import gql from 'graphql-tag'
 
 </Instruction>
 
-Awesome, that's all your data fetching code. If you check your app now you can see that a request is sent to your GraphQL API. But as you can already tell, `LinkList` not using the server data yet, so let's make it happen 🤩
+Awesome, that's all your data fetching code. If you check your app now you can see that a request is sent to your GraphQL API. But as you can already tell, `LinkList` is not using the server data yet, so let's make it happen 🤩
 
 You can now finally remove the mock data and render actual links that are fetched from the server.
 
