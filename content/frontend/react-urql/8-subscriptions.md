@@ -36,7 +36,7 @@ yarn add subscriptions-transport-ws
 
 </Instruction>
 
-Next, we'll add the `subscriptionExchange` to your urql Client, which is part of the `urql` package itself.
+Let's now add the `subscriptionExchange` to your urql Client, which is part of the `urql` package itself.
 
 <Instruction>
 
@@ -116,7 +116,7 @@ const NEW_VOTES_SUBSCRIPTION = gql`
 
 </Instruction>
 
-This looks very similar to the `VoteMutation` definition that you've written earlier. But instead of sending a mutation or query we're subscribing to any new votes and are asking for the updated `votes` field on the event's link.
+This looks very similar to the `VoteMutation` definition that you've written earlier. But instead of sending a mutation or query, you're subscribing to any new votes and are asking for the updated `votes` field on the event's link.
 
 Now the only thing you'll need to do is add the subscription to the `LinkList` component.
 
@@ -130,13 +130,13 @@ useSubscription({ query: NEW_VOTES_SUBSCRIPTION })
 
 </Instruction>
 
-This is all that you need to add to subscribe to new votes! You also don't have to write a new updater function for Graphcache, like we had to for the `post` mutation, because the normalized cache can simply update the link that the subscription definition asks for.
+This is all that you need to add to subscribe to new votes! You also don't have to write a new updater function for Graphcache, like you had to for the `post` mutation, because the normalized cache can simply update the link that the subscription definition asks for.
 
 The `useSubscription` hook is actually very similar to `useQuery` and `useMutation`. If you'd be using a non-normalized document cache, you could look at each event's result and manually reconcile it with a query's result. In this case however, the normalized cache can take care of all updates for us! So you only have to add the hook and don't have to worry about anything else! 😍
 
 ### Subscribing to new links
 
-Next we'll add a subscription that automatically displays new links in the `LinkList` as they're posted by other users!
+Let's finally add some subscriptions! You'll add one that automatically displays new links in the `LinkList` as they're posted by other users!
 
 We'll again write a new subscription definition and add another `useSubscription` hook.
 
@@ -169,8 +169,6 @@ const NEW_LINKS_SUBSCRIPTION = gql`
 
 </Instruction>
 
-Then we just add another `useSubscription` hook.
-
 <Instruction>
 
 In `LinkList.js` next to the other `useSubscription` hook, add the new hook with the subscription for new links:
@@ -182,7 +180,7 @@ useSubscription({ query: NEW_LINKS_SUBSCRIPTION })
 
 </Instruction>
 
-Unfortunately in this case, like with the `post` mutation, new links won't automatically be added to the currently displayed `LinkList`. But we can easily fix this by writing another updater function.
+Unfortunately in this case, like with the `post` mutation, new links won't automatically be added to the currently displayed `LinkList`. But you can easily fix this by writing another updater function!
 
 <Instruction>
 
@@ -219,7 +217,7 @@ const cache = cacheExchange({
 
 </Instruction>
 
-This function is essentially identical to our `updates.Mutation.post` updater function. The only difference is the naming of the data (in this case `newLink`) that we're adding to the `FEED_QUERY`.
+This function is essentially identical to the `updates.Mutation.post` updater function that you've written previously. The only difference is the naming of the property on the result. In this case `newLink` is added to the `FEED_QUERY` data instead of `post`.
 
 **And that's it!** Your app is now ready for realtime and will immediately update links and votes whenevert they're created by other users.
 

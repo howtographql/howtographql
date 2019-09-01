@@ -77,7 +77,7 @@ export default CreateLink
 
 </Instruction>
 
-Here we're writing two `input` fields where users can provide the `url` and `description` of the `Link` that they want to create. The data that's typed into these fields is stored in `React.useState` hooks and will be used when the mutation is sent.
+Here you've added two `input` fields using which users will provide the `url` and `description` of the `Link` that they want to create. The data that's typed into these fields is stored in `React.useState` hooks and will be used when the mutation is sent.
 
 ### Writing the mutation
 
@@ -152,7 +152,7 @@ Still in `CreateLink.js`, replace the `button` element as follows:
 
 </Instruction>
 
-As you can see, `useMutation` is as simple to use as `useQuery`. All you need to do is pass it a mutation definition and call `executeMutation` with your variables. It also returns `state`, which we're using here to disable the "Submit" button, while the mutation is executing.
+As you can see, `useMutation` is as simple to use as `useQuery`. All you need to do is pass it a mutation definition and call `executeMutation` with your variables. It also returns `state`, which is used here to disable the "Submit" button, while the mutation is still in progress.
 
 <Instruction>
 
@@ -174,7 +174,7 @@ Now, run `yarn start` and you'll see the following screen:
 
 ![](http://imgur.com/AJNlEfj.png)
 
-Two input fields and our "Submit" button - not very pretty but functional.
+Two input fields and a "Submit" button. Not pretty, but functional.
 
 Enter some data into the fields, e.g.:
 

@@ -14,7 +14,7 @@ In this section, you'll learn how you can implement authentication with urql to 
 
 ### Prepare the token logic
 
-We'll later be adding a `Login` component and some mutations to either login or signup a user. These mutations return a `token` string that is used to authenticate each request that we send to your GraphQL API. For the purpose of this tutorial we'll be storing this token in your browser's `LocalStorage`.
+You'll later be adding a `Login` component and some mutations to either login or signup a user. These mutations return a `token` string that is used to authenticate each request that is sent to your GraphQL API. For the purpose of this tutorial we'll be storing this token in your browser's `LocalStorage`.
 
 However, let's write some utilities to make it easier to reuse this code and abstract the local storage API away.
 
@@ -32,7 +32,7 @@ export const deleteToken = () => localStorage.removeItem(AUTH_TOKEN);
 
 </Instruction>
 
-We now have two functions that we'll be using in the upcoming steps to set up authentication:
+You now have two functions that you can use in the upcoming steps to set up authentication:
 
 - the `getToken` funtion is used to get a token, which will return `null` if the user has not logged in yet.
 - the `setToken` function is used to update the token in local storage.
@@ -116,7 +116,7 @@ Let's quickly understand the structure of this new component, which can have two
 - One state is **for users that already have an account** and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. `isLogin` will be `true` in this case.
 - The second state is for **users that haven't created an account yet**, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `isLogin` will be `false`.
 
-Later, we will add an `onClick` handler to the first button to execute the mutations for the login and signup functionality. You've also added an import for `setToken` at the top of the file that will later be used to update the token after the mutation is sent.
+Later, you'll add an `onClick` handler to the first button to execute the mutations for the login and signup functionality. You've also added an import for `setToken` at the top of the file that will later be used to update the token after the mutation is sent.
 
 With that component in place, you can go ahead and add a new route to your `react-router` setup.
 
@@ -253,9 +253,9 @@ const LOGIN_MUTATION = gql`
 
 </Instruction>
 
-Both mutations are very similar. They take a number of arguments and return a `token` that you can save to local storage to authenticate the user. You've also added the `useMutation` and `setToken` imports that we'll now use to actually authenticate the user.
+Both mutations are very similar. They take a number of arguments and return a `token` that you can save to local storage to authenticate the user. You've also added the `useMutation` and `setToken` imports that are used in the next step to actually authenticate the user.
 
-We're now going to implement the actual two mutations. Luckily you can write just one `useMutation` hook for both login and signup since their results are identical and we're only doing one at a time.
+You're now going to implement the two mutations. Luckily you can write just one `useMutation` hook for both login and signup since their results are identical and only one of them is used at a time.
 
 <Instruction>
 
@@ -286,7 +286,7 @@ const Login = props => {
 
 </Instruction>
 
-If the user wants to login you're passing `LOGIN_MUTATION` to `useMutation`, if the user wants to sign up you're passing `SIGNUP_MUTATION`. The `mutate` handler then calls `executeMutation` with all variables; `email`, `password`, and `name`. Lastly, after the mutation has finished, we look at its result data to find the token and store it, then redirect to the homepage.
+If the user wants to login you're passing `LOGIN_MUTATION` to `useMutation`, if the user wants to sign up you're passing `SIGNUP_MUTATION`. The `mutate` handler then calls `executeMutation` with all variables; `email`, `password`, and `name`. Lastly, after the mutation has finished, the token from the result data is stored, and the app then redirects to the homepage.
 
 All right, all that's left to do is to add the handler to the `button` element!
 
@@ -323,7 +323,7 @@ To summarise what you've been coding:
 - you've implemented a `mutate` handler that calls `executeMutation` with the `Login` form's variables, stores the token from the result in local storage, and redirects to the homepage
 - and lastly, you added the handler and `disabled` flags to the buttons
 
-> **Note**: Like with queries, depending on what your mutations definitions request, you'll get different sets of data. That's why we need to read either from `login` or `signup` on the result `data`.
+> **Note**: Like with queries, depending on what your mutations definitions request, you'll get different sets of data. That's why you need to read either from `login` or `signup` on the result `data`.
 
 You can now create an account by providing a `name`, `email` and `password`. Once you've done that, the "Submit" button in the header will be displayed again:
 

@@ -21,7 +21,7 @@ Once more, let's first prepare the app's components before implementing the actu
 - it should display who posted the link
 - and it should display when it was posted
 
-Before we modify the `Link` component, we need to write a function that takes a timestamp and converts it to a string that's more user friendly, e.g. `"3 hours ago"`.
+Before you'll modify the `Link` component, let's write a function that takes a timestamp and converts it to a string that's more user friendly, e.g. `"3 hours ago"`.
 
 <Instruction>
 
@@ -209,7 +209,7 @@ const VOTE_MUTATION = gql`
 
 </Instruction>
 
-When we've updated the `Link` component we also added an empty `upvote` handler. We'll now add the mutation and populate that handler with the usual logic, like we did back when we implemented the `Login` component.
+When you've updated the `Link` component you also added an empty `upvote` handler. Let's now add the mutation and populate that handler with the usual logic, like you did back for the `Login` component in a previous step.
 
 <Instruction>
 
@@ -241,7 +241,7 @@ You can now go ahead and test this! Run `yarn start` in `hackernews-react-urql`,
 
 ### Creating the Search page
 
-Next up, we'll be adding a search page to your app.
+Next up, you'll add a search page to your app!
 
 The search will be available under a new route and allow you to filter all links that have been submitted to your GraphQL API.
 
@@ -291,7 +291,7 @@ For now the `search` handler and `links` array are also empty stubs, but we'll b
 
 <Instruction>
 
-Let's add our new `Search` route to the app. Open `App.js` and update the routes to include it:
+Add a new `/search` route to the app. Open `App.js` and update the routes to include the `Search` component:
 
 ```js{9,20}(path=".../hackernews-react-urql/src/components/App.js")
 import React from 'react'
@@ -325,7 +325,7 @@ export default App
 
 </Instruction>
 
-Let's also add a button to the header so we can comfortably navigate to the search page.
+Let's also add a button to the header so users can comfortably navigate to the search page.
 
 <Instruction>
 
@@ -363,7 +363,7 @@ You can now navigate to the search feature using the "search" button in the `Hea
 
 ### The Search Query
 
-Great, let's now go back to the `Search` component and see how we can implement the actual search.
+Great, let's now go back to the `Search` component and implement the actual search!
 
 <Instruction>
 
@@ -401,7 +401,7 @@ const FEED_SEARCH_QUERY = gql`
 
 This query looks similar to the feed query that's used in `LinkList`. However, this time it takes in an argument called `filter` that will be used to constrain the list of links you want to retrieve.
 
-Previously we've always just passed `useQuery` a query and some variables. But in the case of our new `Search` we want to only run the query programmatically, when the "search" button is clicked. We can utilise the `executeQuery` method and the `pause` argument to achieve this.
+Previously you've always just passed `useQuery` a query and some variables. But in the case of the new `Search` component, the query is meant to run programmatically, when the "search" button is clicked. You can utilise the `executeQuery` method and the `pause` argument to achieve this.
 
 <Instruction>
 
@@ -429,8 +429,8 @@ const Search = () => {
 
 </Instruction>
 
-Like in `LinkList` we pass in the query and variables into `useQuery`, but instead of immediately running the query we now pass `pause: true`. This flag will cause `useQuery` to wait until `executeQuery` is programmatically called.
+Like in `LinkList` you're passing the query and variables arguments to `useQuery`. But instead of immediately running the query, the `pause` option is now set to `true`. This flag will cause `useQuery` to wait until `executeQuery` is programmatically called.
 
-This is a very powerful option as we could also flip `pause` to `false` at any time to start the query. This is essentially one of the use-cases of having `executeQuery`! You can call it programmatically to ask for new results or use it in combination with `pause: true` to make it behave like the `useMutation` hook's `executeMutation`.
+This is a very powerful option as you could also flip `pause` to `false` at any time to let the hook start the query automatically. This is essentially one of the use-cases of having `executeQuery`! You can call it programmatically to ask for new results or use it in combination with `pause: true` to make it behave like the `useMutation` hook's `executeMutation`.
 
 Go ahead and test the app by running `yarn start` in a terminal and navigating to `http://localhost:3000/search`. Then type a search string into the text field, submit the search, and verify that the links that are being displayed were filtered by your search string.

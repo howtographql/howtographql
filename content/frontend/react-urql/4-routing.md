@@ -26,7 +26,7 @@ yarn add react-router react-router-dom
 
 ### Create a Header
 
-Before we move on and configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
+Before you'll configure the different routes for your application, you need to create a `Header` component that users can use to navigate between the different parts of your app.
 
 <Instruction>
 
@@ -98,7 +98,7 @@ export default App
 
 You've now added the `/` and `/create` routes to the app, added the `Header` and put the `LoadingBoundary` back to where it was.
 
-Next we'll need to add an additional Provider component around your app. This is necessary for `react-router-dom` to work properly.
+Now you'll need to add an additional Provider component around your app for `react-router-dom` to work properly.
 
 <Instruction>
 
@@ -133,7 +133,7 @@ That's it. If you run the app again, you can now access two URLs. `http://localh
 
 ### Add automatic redirects
 
-To wrap up this section, let's also add an automatic redirect to the `CreateLink` component. To do that we can use the `history` prop that `react-router` passes down to all components that are wrapped in a route.
+To wrap up this section, let's also add an automatic redirect to the `CreateLink` component. To do that you can use the `history` prop that `react-router` passes down to all components that are wrapped in a route.
 
 We want to use the `history.push` method to redirect to the `LinkList` route once the mutation has completed. We can do this by using the promise that `executeMutation` returns when it's being called.
 
@@ -153,4 +153,4 @@ const submit = React.useCallback(() => {
 
 After the mutation was performed, `react-router` will now navigate back to the `LinkList` component that's accessible on the root route: `/`.
 
-> **Note**: The `LinkList` won't display the newly created `Link` after we're redirecting to it.For now you can simply refresh to see the changes made. We'll see how to update the data after the mutation is being triggered in a future chapter!
+> **Note**: The `LinkList` won't display the newly created `Link` after the app redirects to it. For now you can simply refresh to see the changes made. You'll learn how to update the data after the mutation is being triggered in a future chapter!

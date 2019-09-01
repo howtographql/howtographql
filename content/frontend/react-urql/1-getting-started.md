@@ -63,7 +63,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 <Instruction>
 
-To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
+To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
 `App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
 
@@ -246,7 +246,7 @@ Let's try to understand what's going on in that code snippet:
 2. Here you're instantiating a new `Client` and are passing it your endpoint `url` and a list of `defaultExchanges`
 3. Finally you render the root component of your React app. The `App` is wrapped with the context Provider for the `urql` Client.
 
-The `defaultExchanges` would also be applied automatically, but in the next step we'll be
+The `defaultExchanges` would also be applied automatically, but in the next step you'll be
 setting up suspense support and the normalized cache!
 
 #### Set up additional urql Exchanges
@@ -298,11 +298,11 @@ ReactDOM.render(
 
 </Instruction>
 
-Let's go through the changes we've made to our `index.js` in order:
+Let's go through the changes we've made to `index.js` in order:
 
-1. We're now importing `dedupExchange` and `fetchExchange` from `urql` and have added `cacheExchange` and `suspenseExchange` from our two extension packages.
-2. We're creating a new normalized cache by calling `cacheExchange` with a config, which is empty for now.
-3. Lastly we're replacing `defaultExchanges` on the `Client` with our new list of exchanges, which need to be in a specific order (basically: `fetch` last, `dedup` first.) We also flip on the Client's `suspense` mode.
+1. you're now importing `dedupExchange` and `fetchExchange` from `urql` and have added `cacheExchange` and `suspenseExchange` from the two additional `@urql` packages.
+2. you're creating a new normalized cache by calling `cacheExchange` with a config, which is empty for now.
+3. lastly, you've replaced `defaultExchanges` on the `Client` with a new list of exchanges, which is in a specific order (basically: `fetch` last and `dedup` first.) You've also turned on the Client's `suspense` mode.
 
 That's it, you're all set to start for loading some data into your app! 😎
 

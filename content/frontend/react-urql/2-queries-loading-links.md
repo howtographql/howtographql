@@ -203,7 +203,7 @@ What's going on here?
 1. First, you create a JavaScript constant called `FEED_QUERY` that holds your GraphQL query. The `gql` function is used to parse the plain string that contains the GraphQL code (if you're unfamiliar with the backtick-syntax, you can read up on JavaScript's [tagged template literals](http://wesbos.com/tagged-template-literals/)).
 1. Finally, you add the `useQuery` hook to the component, passing `FEED_QUERY` to the `query` option.
 
-> **Note**: Notice that we're still returning `linksToRender` as a function result, as we haven't written any code yet to use the result from `useQuery`.
+> **Note**: Notice that the example still returns the mocked `linksToRender` as a function result, as you haven't written any code just yet to use the result from `useQuery`.
 
 <Instruction>
 
@@ -250,13 +250,13 @@ The properties of the `result` from the hook tell us more about the state of you
 
 1. `fetching`: Is `true` as long as the request is still ongoing and the response hasn't been received, otherwise it'll be `false`
 1. `error`: In case the request fails, this field will contain a `CombinedError` that tells you what exactly went wrong. Depending on what error has occured it'll either have a `networkError` or a `graphQLErrors` property.
-1. `data`: This is the actual data that was received from the server. It has the `links` property from our query which represents a list of `Link` elements.
+1. `data`: This is the actual data that is received from the server. It'll have a `links` property with a list of `Link` elements, since the `FEED_QUERY` definition is requesting them.
 
 > If you'd like to learn more about the second element in the hooks returned array, `executeQuery`, then [read more about it on the urql docs](https://formidable.com/open-source/urql/docs/getting-started/#refetching-data).
 
 ### Add a React Suspense boundary
 
-Usually this would be all you need to set up, but since we've added the `@urql/exchange-suspense` extension, we also need to set up a separate loading boundary.
+Usually this would be all you need to set up your first query with urql, but since this tutorial is using the `@urql/exchange-suspense` extension, you will also need to set up a separate loading boundary.
 
 With suspense, when you mount a component that uses `useQuery`, instead of the data being loaded in the background and `result.fetching` being `true`, React suspends the component and the query loads in the background. This means that you will never see `result.fetching === true` which makes your local component logic a lot simpler!
 
