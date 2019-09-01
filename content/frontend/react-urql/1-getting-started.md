@@ -13,7 +13,7 @@ videoAuthor: ""
 
 Since this is a frontend track, you're not going to spend any time implementing the backend. Instead, you'll use the server from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
-Once you created your React application, you'll pull in the required code for the backend.
+Once you've created your React application, you'll pull in the required code for the backend.
 
 > **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-urql). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
 > Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
@@ -204,7 +204,7 @@ That's it, you're ready to write some code! 🚀
 
 #### Configure urql's Client
 
-Instead of dealing with GraphQL requests directly, urql has a central Client. It controls when and how operations are made and deals with all the details of deduplication, caching, and cancellation. In contract to working with REST APIs, you don't have to construct any HTTP requests manually or store the results explicitly - instead you can simply write queries and mutations and send them using `urql`'s React bindings. Internally these bindings just use methods on the Client, for instance `executeQuery` and `executeMutation`.
+Instead of dealing with GraphQL requests directly, urql has a central Client. It controls when and how operations are made and deals with all the details of deduplication, caching, and cancellation. In contrast to working with REST APIs, you don't have to construct any HTTP requests manually or store the results explicitly - instead you can simply write queries and mutations and send them using `urql`'s React bindings. Internally these bindings just use methods on the Client, for instance `executeQuery` and `executeMutation`.
 
 The first thing you have to do when using urql is configure a `Client` instance. It needs to know the _endpoint_ of your GraphQL API so it can deal with the network connections.
 
@@ -275,8 +275,8 @@ import App from './components/App'
 
 // 1
 import { Provider, Client, dedupExchange, fetchExchange } from 'urql'
-import { cacheExchange } from '@urql/exchange-graphcache
-import { suspenseExchange } from '@urql/exchange-suspense
+import { cacheExchange } from '@urql/exchange-graphcache'
+import { suspenseExchange } from '@urql/exchange-suspense'
 
 // 2
 const cache = cacheExchange({})
