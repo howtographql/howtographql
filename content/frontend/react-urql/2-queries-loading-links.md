@@ -79,7 +79,7 @@ For now you're pasting in some mock data to make sure the component setup works.
 To complete the setup, open `App.js` and replace the current contents with the following:
 
 ```js(path=".../hackernews-react-urql/src/components/App.js")
-import React, { Component } from 'react'
+import React from 'react'
 import LinkList from './LinkList'
 
 const App = () => <LinkList />
@@ -150,7 +150,7 @@ The more declarative way when using React however is to use [`urql`'s hook APIs]
 
 Depending on whether you're using queries, mutations, or subscriptions there are three corresponding hooks: `useQuery`, `useMutation`, and `useSubscription`. All three also have corresponding components with render prop APIs.
 
-These hooks and components are convenient wrappers around the urql Client! They automatically take care of cancellation, updates, suspense, and correctly set the initial state for you.
+These hooks and components are convenient wrappers around the urql Client! They automatically take care of cancellation, updates, and correctly set the initial state for you.
 
 When it comes to making a GraphQL query using the urql hooks, you will need to pass your query as an option to `useQuery` and optionally pass some variables as well. The hook will internally tell the client to execute your query, and the cache will be able to proactively send updates to your components, when the data changes or the cached data is invalidated.
 
@@ -252,59 +252,10 @@ The properties of the `result` from the hook tell us more about the state of you
 1. `error`: In case the request fails, this field will contain a `CombinedError` that tells you what exactly went wrong. Depending on what error has occured it'll either have a `networkError` or a `graphQLErrors` property.
 1. `data`: This is the actual data that is received from the server. It'll have a `links` property with a list of `Link` elements, since the `FEED_QUERY` definition is requesting them.
 
-> If you'd like to learn more about the second element in the hooks returned array, `executeQuery`, then [read more about it on the urql docs](https://formidable.com/open-source/urql/docs/getting-started/#refetching-data).
-
-### Add a React Suspense boundary
-
-Usually this would be all you need to set up your first query with urql, but since this tutorial is using the `@urql/exchange-suspense` extension, you will also need to set up a separate loading boundary.
-
-With suspense, when you mount a component that uses `useQuery`, instead of the data being loaded in the background and `result.fetching` being `true`, React suspends the component and the query loads in the background. This means that you will never see `result.fetching === true` which makes your local component logic a lot simpler!
-
-Components that suspend need to be wrapped with a `<React.Suspense>` element, somewhere above in the component hierarchy. The `<React.Suspense>` element expects a `fallback` prop with a React element that is rendered instead of its `children` when anything inside it suspends.
-
-Let's create a fetching component that adds a small loading screen whenever one of your queries is loading:
-
-<Instruction>
-
-Create a new file called `LoadingBoundary.js` in the `components` directory and add the following code:
-
-```js(path=".../hackernews-react-urql/src/components/LoadingBoundary.js")
-import React from 'react'
-
-const LoadingBoundary = ({ children }) => {
-  const placeholder = <div>Fetching</div>
-  return <React.Suspense fallback={placeholder}>{children}</React.Suspense>
-}
-
-export default LoadingBoundary
-```
-
-</Instruction>
-
-To actually use this boundary let's add it to the `App` component, so that any `useQuery`
-inside `App` or a component inside it renders a consistent loading screen:
-
-<Instruction>
-
-In `App.js`, update the `App` component as follows:
-
-```js(path=".../hackernews-react-urql/src/components/App.js")
-import LoadingBoundary from './LoadingBoundary'
-
-const App = () => <LoadingBoundary><LinkList /></LoadingBoundary>
-
-export default App
-```
-
-</Instruction>
-
-Lastly you can remove the `if (fetching)` logic from the `LinkList` component. This is optional and your component will still work _with_ it, although it'll never be truthy in urql's suspense mode.
-
 That's it! You should see the exact same screen as before! 🤩
 And to summarize, in this section you've:
 
 - created a `Link` and `LinkList`
 - added a `useQuery` hook to load some feed data from your GraphQL API
-- added a React Suspense loading screen to the `App`
 
 > **Note**: If the browser on `http://localhost:4000` only says error and is empty otherwise, you probably forgot to have your server running. Note that for the app to work the server needs to run as well - so you have two running processes in your terminal: One for the server and one for the React app. To start the server, navigate into the `server` directory and run `yarn start`.

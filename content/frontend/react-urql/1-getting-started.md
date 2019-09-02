@@ -181,11 +181,10 @@ input {
 <Instruction>
 
 Next, you need to pull in the functionality of `urql`. We'll also be installing
-two "Exchanges" for urql, which we'll use to set up normalized caching and support
-for React Suspense:
+an "Exchange" for urql, which we'll use to set up normalized caching:
 
 ```bash(path=".../hackernews-react-urql")
-yarn add urql @urql/exchange-graphcache @urql/exchange-suspense graphql graphql-tag
+yarn add urql @urql/exchange-graphcache graphql graphql-tag
 ```
 
 </Instruction>
@@ -194,7 +193,6 @@ Here's an overview of the packages you just installed:
 
 - [`urql`](https://github.com/FormidabLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
 - [`@urql/exchange-graphcache`](https://github.com/FormidableLabs/urql-exchange-graphcache) is a replacement for `urql`'s default cache, which supports full normalized caching, which we'll set up later
-- [`@urql/exchange-suspense`](https://github.com/FormidableLabs/urql-exchange-suspense) allows us to fully use the React Suspense feature
 - [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - urql and its other packages use some of its functionality as well.
 - [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a utility to write GraphQL query definitions using [tagged template literals](https://mxstbr.blog/2016/11/styled-components-magic-explained/).
 
@@ -212,22 +210,19 @@ The first thing you have to do when using urql is configure a `Client` instance.
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{7,10-13,17-19}(path=".../hackernews-react-urql/src/index.js")
+```js{6,8-11,14-16}(path=".../hackernews-react-urql/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
 
-// 1
 import { Provider, Client, defaultExchanges } from 'urql'
 
-// 2
 const client = new Client({
   url: 'http://localhost:4000',
   exchanges: defaultExchanges
 })
 
-// 3
 ReactDOM.render(
   <Provider value={client}>
     <App />
@@ -242,12 +237,11 @@ ReactDOM.render(
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the `Client`, `Provider`, and `defaultExchanges` from `urql`.
-2. Here you're instantiating a new `Client` and are passing it your endpoint `url` and a list of `defaultExchanges`
-3. Finally you render the root component of your React app. The `App` is wrapped with the context Provider for the `urql` Client.
+- You're importing the `Client`, `Provider`, and `defaultExchanges` from `urql`.
+- Here you're instantiating a new `Client` and are passing it your endpoint `url` and a list of `defaultExchanges`
+- Finally you render the root component of your React app. The `App` is wrapped with the context Provider for the `urql` Client.
 
-The `defaultExchanges` would also be applied automatically, but in the next step you'll be
-setting up suspense support and the normalized cache!
+The `defaultExchanges` would also be applied automatically, but in the next step you'll set up the normalized cache!
 
 #### Set up additional urql Exchanges
 
@@ -259,33 +253,26 @@ By default urql sets up three built-in exchanges, which provide its core functio
 
 As you can see above, by default `urql` only comes with a simple document cache. This cache is very useful for content-heavy sites, since it treats every query and result as documents that it can simply cache 1:1. For more complex apps you will most likely want to use normalized caching, which makes sure that data updates globally across the app, if it can be shared across queries.
 
-In this tutorial we'd also like to show you how you can use `<React.Suspense>` to simplify your data loading logic.
-
-Let's set up a normalized cache and suspense support.
+Let's set up a normalized cache!
 
 <Instruction>
 
 Modify `src/index.js` with the following new changes:
 
-```js{7-9,12,17-18}(path=".../hackernews-react-urql/src/index.js")
+```js{7,9,13}(path=".../hackernews-react-urql/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
 
-// 1
 import { Provider, Client, dedupExchange, fetchExchange } from 'urql'
 import { cacheExchange } from '@urql/exchange-graphcache'
-import { suspenseExchange } from '@urql/exchange-suspense'
 
-// 2
 const cache = cacheExchange({})
 
 const client = new Client({
   url: 'http://localhost:4000',
-  // 3
-  exchanges: [dedupExchange, suspenseExchange, cache, fetchExchange],
-  suspense: true
+  exchanges: [dedupExchange, cache, fetchExchange],
 })
 
 ReactDOM.render(
@@ -300,9 +287,9 @@ ReactDOM.render(
 
 Let's go through the changes we've made to `index.js` in order:
 
-1. you're now importing `dedupExchange` and `fetchExchange` from `urql` and have added `cacheExchange` and `suspenseExchange` from the two additional `@urql` packages.
-2. you're creating a new normalized cache by calling `cacheExchange` with a config, which is empty for now.
-3. lastly, you've replaced `defaultExchanges` on the `Client` with a new list of exchanges, which is in a specific order (basically: `fetch` last and `dedup` first.) You've also turned on the Client's `suspense` mode.
+- you're now importing `dedupExchange` and `fetchExchange` from `urql` and have added `cacheExchange` from the additional `@urql/exchange-graphcache` package.
+- you're creating a new normalized cache by calling `cacheExchange` with a config, which is empty for now.
+- lastly, you've replaced `defaultExchanges` on the `Client` with a new list of exchanges that includes the normalized cache exchange. The list is in a specific order (basically: `fetch` last and `dedup` first.)
 
 That's it, you're all set to start for loading some data into your app! 😎
 

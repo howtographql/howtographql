@@ -32,15 +32,12 @@ In this track, you'll use the following technologies for building the app:
 - Frontend:
   - [React](https://facebook.github.io/react/): Frontend framework for building user interfaces
   - [urql](https://github.com/FormidableLabs/urql): Flexible and extensible GraphQL client for React
-  - [@urql/exchange-suspense](https://github.com/FormidableLabs/urql-exchange-suspense): Extension for urql to enable React Suspense support
   - [@urql/exchange-graphcache](https://github.com/FormidableLabs/urql-exchange-graphcache): A normalized cache implementation for urql
 - Backend:
   - [`graphql-yoga`](https://github.com/prisma/graphql-yoga/): Fully-featured GraphQL Server with focus on easy setup, performance & great developer experience
   - [Prisma](https://www.prisma.io/): Open-source GraphQL API layer that turns your database into a GraphQL API
 
 You'll create the React project with [`create-react-app`](https://github.com/facebookincubator/create-react-app), a popular command-line tool that gives you a blank project with all required build configuration already setup.
-
-We'll be using React Suspense, which helps us to suspend parts of the app and render loading indicators higher up in the React tree. This React feature isn't 100% stable yet, but when you see `<React.Suspense>` in use you can simply leave it out, if you wish not to use it.
 
 ### Why a GraphQL Client?
 
