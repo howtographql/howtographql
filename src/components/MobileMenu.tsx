@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { Step } from '../types'
+import { MarkdownRemark, Step } from '../types'
 import Icon from 'graphcool-styles/dist/components/Icon/Icon'
 import * as cn from 'classnames'
 import Sidebar from './Tutorials/Sidebar'
 
 interface Props {
   steps: { [key: string]: Step[] }
+  post?: MarkdownRemark
   location: any
 }
 
@@ -89,6 +90,7 @@ export default class MobileMenu extends React.Component<Props, State> {
           <Sidebar
             steps={steps}
             location={location}
+            post={this.props.post}
             onClickLink={this.toggleMenu}
           />
           <div className="oval" onClick={this.toggleMenu} />
