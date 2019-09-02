@@ -160,8 +160,9 @@ Finally, let's add a new link to the `Header` that allows the users to navigate 
 
 Open `Header.js` and update it to look as follows:
 
-```js{3,6,15-22,25-41}(path=".../hackernews-react-urql/src/components/Header.js")
+```js{2,4,6,15-22,25-41,47}(path=".../hackernews-react-urql/src/components/Header.js")
 import React, { Component } from 'react'
+import { withRouer } from 'react-router'
 import { Link } from 'react-router-dom'
 import { getToken, deleteToken } from '../token'
 
@@ -206,7 +207,7 @@ const Header = props => {
   )
 }
 
-export default Header
+export default withRouter(Header)
 ```
 
 </Instruction>
@@ -278,7 +279,7 @@ const Login = props => {
           props.history.push('/')
         }
       });
-  }, [executeMutation, props.history, setToken, email, password, name]);
+  }, [executeMutation, props.history, isLogin, email, password, name]);
     
   // ...
 };

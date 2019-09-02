@@ -216,10 +216,10 @@ const LinkList = props => {
       </div>
       {isNewPage && (
         <div className="flex ml4 mv3 gray">
-          <div className="pointer mr2" onClick={this._previousPage}>
+          <div className="pointer mr2" onClick={previousPage}>
             Previous
           </div>
-          <div className="pointer" onClick={() => this._nextPage(data)}>
+          <div className="pointer" onClick={nextPage}>
             Next
           </div>
         </div>
@@ -235,11 +235,13 @@ Lastly you'll need to ensure that when the `/top` route is opened, the list of l
 
 <Instruction>
 
-Still in `LinkList.js`, replace the `linksToRender` variable:
+Still in `LinkList.js`, replace the `linksToRender` variable and move it above the `if` checks for fetching and error:
 
 ```js(path=".../hackernews-react-urql/src/components/LinkList.js")
 const linksToRender = React.useMemo(() => {
-  if (isNewPage) {
+  if (!data) {
+    return [];
+  } else if (isNewPage) {
     return data.feed.links;
   } else {
     const rankedLinks = data.feed.links

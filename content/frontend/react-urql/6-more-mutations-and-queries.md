@@ -74,7 +74,7 @@ Open `Link.js` and update it to look as follows:
 ```js{2-3,5-6,8,12-19,24-30}(path=".../hackernews-react-urql/src/components/Link.js")
 import React from 'react'
 import { getToken } from '../token'
-import { timeDifferenceForDate } from '../dates
+import { timeDifferenceForDate } from '../dates'
 
 const Link = ({ index, link }) => {
   const isLoggedIn = !!getToken()
