@@ -44,9 +44,13 @@ class Tutorials extends React.Component<Props, null> {
             }
             .left-container {
               @p: .bbox, .flexAuto;
-              height: calc(100vh - 68px);
-              overflow-y: scroll; /* has to be scroll, not auto */
-              -webkit-overflow-scrolling: touch;
+            }
+            @media (min-width: 1051px) {
+              .left-container {
+                height: calc(100vh - 68px);
+                overflow-y: scroll; /* has to be scroll, not auto */
+                -webkit-overflow-scrolling: touch;
+              }
             }
           `}</style>
           <div
