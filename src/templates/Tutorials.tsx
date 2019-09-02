@@ -35,6 +35,7 @@ class Tutorials extends React.Component<Props, null> {
       <App
         history={this.props.history}
         steps={steps}
+        post={post}
         location={this.props.location}
       >
         <div className="tutorials">
