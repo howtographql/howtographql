@@ -24,6 +24,7 @@ Choose your favorite programming language to get started with GraphQL on the ser
 Here's an overview of the frontend tutorials we offer:
 
 - [**React & Apollo**](https://www.howtographql.com/react-apollo/0-introduction/) (_Beginners Choice_): If you're new to GraphQL, this is the tutorial for you. [Apollo Client](http://dev.apollodata.com/) makes it super easy to get started with GraphQL on the frontend by providing a flexible, yet powerful and intuitive API that gives you everything you need when developing applications.
+- [**React & urql**](https://www.howtographql.com/react-urql/0-introduction/) (_Newcomer_): If you're new to GraphQL but are looking at a very flexible solution, this is the tutorial for you. [urql](https://formidable.com/open-source/urql/) is a GraphQL client for React that is easy to get started with while remaining very customizable over time. This tutorial also explains how to use a normalized caching and React Suspense with it.
 - **React Native & Apollo** (_Coming Soon_): [Expo](https://expo.io/) is a  React Native toolchain to build native apps with JavaScript and React. In this tutorial, you'll learn how you can build a mobile app with GraphQL, based on Expo and [Apollo Client](http://dev.apollodata.com/).
 - **VulcanJS** (_Coming Soon_): [VulcanJS](http://docs.vulcanjs.org/) is a fullstack JavaScript framework that lets you build GraphQL apps with React, [Apollo Client](http://dev.apollodata.com/) and [Meteor](http://meteor.com/).
 
