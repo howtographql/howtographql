@@ -159,8 +159,8 @@ As you can see, `useMutation` is as simple to use as `useQuery`. All you need to
 Go ahead and see if the mutation works. To be able to test the code, open `App.js` and change it to render `CreateLink` instead of `LinkList`:
 
 ```js(path=".../hackernews-react-urql/src/components/App.js")
+import React from 'react'
 // import LinkList from './LinkList'
-// import LoadingBoundary from './LoadingBoundary'
 import CreateLink from './CreateLink'
 
 const App = () => <CreateLink />

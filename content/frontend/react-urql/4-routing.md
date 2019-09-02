@@ -72,7 +72,6 @@ Open the `App.js` file and replace it with the following code:
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import LoadingBoundary from './LoadingBoundary'
 import Header from './Header'
 import LinkList from './LinkList'
 import CreateLink from './CreateLink'
@@ -81,12 +80,10 @@ const App = () => (
   <div className="center w85">
     <Header />
     <div className="ph3 pv1 background-gray">
-      <LoadingBoundary>
-        <Switch>
-          <Route exact path="/" component={LinkList} />
-          <Route exact path="/create" component={CreateLink} />
-        </Switch>
-      </LoadingBoundary>
+      <Switch>
+        <Route exact path="/" component={LinkList} />
+        <Route exact path="/create" component={CreateLink} />
+      </Switch>
     </div>
   </div>
 )
@@ -96,7 +93,7 @@ export default App
 
 </Instruction>
 
-You've now added the `/` and `/create` routes to the app, added the `Header` and put the `LoadingBoundary` back to where it was.
+You've now added the `/` and `/create` routes to the app and added the `Header`.
 
 Now you'll need to add an additional Provider component around your app for `react-router-dom` to work properly.
 

@@ -356,10 +356,8 @@ const client = new Client({
       headers: { authorization: token ? `Bearer ${token}` : '' }
     }
   },
-  exchanges: [dedupExchange, suspenseExchange, cache, fetchExchange],
-  suspense: true
+  exchanges: [dedupExchange, cache, fetchExchange]
 })
-
 ```
 
 </Instruction>

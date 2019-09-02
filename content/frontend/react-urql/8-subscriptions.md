@@ -68,14 +68,12 @@ const client = new Client({
   },
   exchanges: [
     dedupExchange,
-    suspenseExchange,
     cache,
     fetchExchange,
     subscriptionExchange({
       forwardSubscription: operation => subscriptionClient.request(operation)
     })
-  ],
-  suspense: true
+  ]
 })
 ```
 
