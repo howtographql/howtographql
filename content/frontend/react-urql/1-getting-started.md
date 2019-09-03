@@ -307,6 +307,8 @@ In your terminal, navigate to the `hackernews-react-urql` directory and run the 
 curl https://codeload.github.com/howtographql/react-urql/tar.gz/master | tar -xz --strip=1 react-urql-master/server
 ```
 
+> **Note**: You can find the server's code [on the react-urql example repository](https://github.com/howtographql/react-urql/tree/master/server) in case the command is not working.
+
 </Instruction>
 
 > **Note**: If you are on Windows, you may want to install [Git CLI](https://git-scm.com/) to avoid potential problems with commands such as `curl`.
