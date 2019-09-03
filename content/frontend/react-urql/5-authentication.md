@@ -162,7 +162,7 @@ Open `Header.js` and update it to look as follows:
 
 ```js{2,4,6,15-22,25-41,47}(path=".../hackernews-react-urql/src/components/Header.js")
 import React, { Component } from 'react'
-import { withRouer } from 'react-router'
+import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { getToken, deleteToken } from '../token'
 
