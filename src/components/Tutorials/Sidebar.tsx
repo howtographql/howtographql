@@ -13,6 +13,7 @@ interface Props {
   post?: MarkdownRemark
   location: any
   onClickLink?: () => void
+  onRef?: (el: HTMLElement) => void
 }
 
 export default class Sidebar extends React.Component<Props, {}> {
@@ -131,5 +132,8 @@ export default class Sidebar extends React.Component<Props, {}> {
 
   private setRef = ref => {
     this.ref = ref
+    if (this.props.onRef) {
+      this.props.onRef(ref)
+    }
   }
 }
