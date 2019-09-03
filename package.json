@@ -12,6 +12,7 @@
   "homepage": "https://github.com/howtographql/howtographql#readme",
   "dependencies": {
     "algoliasearch": "^3.24.0",
+    "body-scroll-lock": "^2.6.4",
     "classnames": "^2.2.5",
     "frontmatter": "^0.0.3",
     "gatsby": "1.0.0-beta.5-alpha.fb30fcd6",
