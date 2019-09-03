@@ -27,7 +27,8 @@ export default function Team() {
             padding-bottom: 0 !important;
           }
           .bubbles-container {
-            overflow: auto;
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
             padding-left: 30px;
             padding-bottom: 38px;
             margin-bottom: -180px;
