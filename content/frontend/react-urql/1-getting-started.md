@@ -304,7 +304,7 @@ As mentioned above, for the backend in this tutorial you'll simply use the final
 In your terminal, navigate to the `hackernews-react-urql` directory and run the following commands:
 
 ```bash(path=".../hackernews-react-urql")
-curl https://codeload.github.com/howtographql/react-urql/tar.gz | tar -xz --strip=1 react-urql/server
+curl https://codeload.github.com/howtographql/react-urql/tar.gz/master | tar -xz --strip=1 react-urql-master/server
 ```
 
 </Instruction>
