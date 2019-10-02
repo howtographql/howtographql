@@ -379,7 +379,7 @@ export default class Chooser extends React.Component<Props, State> {
     if (index < 0 || index > Object.keys(this.props.mds).length) {
       return
     }
-    const selectedCategoryIndex = index > 5 ? 1 : 0
+    const selectedCategoryIndex = index > 3 ? 1 : 0
     this.setState({ selectedIndex: index, selectedCategoryIndex })
   }
 
