@@ -1,6 +1,6 @@
 ---
 title: Links and Voting
-question: In which Python class is defined the arguments for a Mutation?
+question: In which Python class has defined the arguments for a Mutation?
 answers: ["Input", "Query", "Mutation", "Schema"]
 correctAnswer: 0
 description: Enable Users to create Links and to Vote on them
@@ -90,7 +90,7 @@ To test it, send a mutation to the server (remember to use the token!):
 Neat!
 
 ### Adding Votes
-One of the Hackernews' features is to vote on links, making ones more popular than others. To create this, you'll need to create a Vote model and a `CreateVote` mutation. Let's begin:
+One of the Hackernews' features is to vote on links, making one more popular than others. To create this, you'll need to create a Vote model and a `CreateVote` mutation. Let's begin:
 
 <Instruction>
 
