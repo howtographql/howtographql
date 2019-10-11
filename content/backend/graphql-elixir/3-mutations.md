@@ -7,7 +7,7 @@ description: "Learn best practices for implementing GraphQL mutations with Absin
 
 ### Mutation for creating links
 
-Setting up mutations is as easy as queries, and you'll follow basically the same process. Create a root mutation object in your `lib/community_web/schema.ex` file and add a `:create_link` field to it with a couple of arguments.
+Setting up mutations is as easy as queries, and you'll follow the same process. Create a root mutation object in your `lib/community_web/schema.ex` file and add a `:create_link` field to it with a couple of arguments.
 
 ```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
 mutation do
@@ -22,7 +22,7 @@ end
 
 ### Resolvers with arguments
 
-As before you'll need to actually write the `create_link` function inside the news resolver.
+As before you'll need to write the `create_link` function inside the news resolver.
 
 ```elixir(path=".../graphql-elixir/lib/community_web/resolvers/news_resolver.ex")
 def create_link(_root, args, _info) do
@@ -36,9 +36,9 @@ def create_link(_root, args, _info) do
 end
 ```
 
-Note that in this case you need to access the arguments that were passed with the mutation. The second resolver parameter is exactly what you need for this, not only for mutations but for any other time you want to access this data (such as for queries with arguments, which you'll also build later).
+Note that in this case, you need to access the arguments that were passed with the mutation. The second resolver parameter is exactly what you need for this, not only for mutations but for any other time you want to access this data (such as for queries with arguments, which you'll also build later).
 
-The generator you used earlier created a function for you `Community.News.create_link/1` that will insert a news article in the DB. In this resolver you can simply hand off all database or business specific concerns to that function, and let the resolver handle anything that might be GraphQL specific. Although this indirection may seem unnecessary now it becomes incredibly useful as your app grows and other parts of it also need to create links.
+The generator you used earlier created a function for you `Community.News.create_link/1` that will insert a news article in the DB. In this resolver you can simply hand off all database or business-specific concerns to that function, and let the resolver handle anything that might be GraphQL specific. Although this indirection may seem unnecessary now it becomes incredibly useful as your app grows and other parts of it also need to create links.
 
 ### Testing with Playground
 
