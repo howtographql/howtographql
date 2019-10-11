@@ -6,9 +6,9 @@ description: "Learn how to setup a GraphQL server with Elixir & Absinthe as well
 
 ### Install Dependencies
 
-It's time to start creating your project. The First you'll need to have Elixir and Erlang installed on your machine. See https://elixir-lang.org/install.html
+It's time to start creating your project. First you'll need to have Elixir and Erlang installed on your machine. See https://elixir-lang.org/install.html
 
-Unlike some frameworks, Phoenix works within the ordinary structure of a regular Elixir application. It does however bring its own generator to add in some basic Phoenix code to get you going.
+Unlike some frameworks, Phoenix works within the ordinary structure of a regular Elixir application. It does, however, bring its own generator to add in some basic Phoenix code to get you going.
 
 <Instruction>
 
@@ -28,7 +28,7 @@ For OS X users it should be as simple as `brew install postgres`.
 
 ### Setting up your App
 
-You're going to build an app called Community, and you can think of it as a miniature version of Hacker News, Slashdot, or any other site that displays content on the basis of user submissions and votes.
+You're going to build an app called Community, and you can think of it as a miniature version of Hacker News, Slashdot, or any other site that displays content based on user submissions and votes.
 
 <Instruction>
 
@@ -89,4 +89,4 @@ mix ecto.setup
 
 </Instruction>
 
-At this point the database tables created, and the migrations and the have been run. If at any point you want to clear everything out you can just run `mix ecto.reset`. If you get postgres connection issues be sure to double check your database credentials inside `config/dev.exs`.
+At this point the database tables created, and the migrations and the have been run. If at any point you want to clear everything out you can just run `mix ecto.reset`. If you get postgres connection issues be sure to double-check your database credentials inside `config/dev.exs`.
