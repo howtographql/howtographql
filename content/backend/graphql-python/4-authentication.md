@@ -7,7 +7,7 @@ description: Authenticating on GraphQL
 ---
 
 ### Creating a User
-Django already comes with the concept of Users built in. Before talking about authentication, let's create our first User.
+Django already comes with the concept of Users built-in. Before talking about authentication, let's create our first User.
 
 To do so, we need to send data to the server through a mutation.
 
@@ -82,7 +82,7 @@ Execute the following code in the GraphiQL interface:
 
 ![](https://i.imgur.com/dyRB15P.png)
 
-In the response, you already can see the new user. Hurray!
+In response, you already can see the new user. Hurray!
 
 ### Querying the Users
 Let's create a query for listing all users:
