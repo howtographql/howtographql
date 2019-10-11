@@ -71,7 +71,7 @@ Let's go over the essential changes:
 
 * `#1`: Relay allows you to use [django-filter](https://github.com/carltongibson/django-filter/) for filtering data. Here, you've defined a *FilterSet*, with the `url` and `description` fields.
 * `#2`: The data is exposed in *Nodes*, so you must create one for the links.
-* `#3`: Each node implements an interface with an unique ID (you'll see the result of this in a bit).
+* `#3`: Each node implements an interface with a unique ID (you'll see the result of this in a bit).
 * `#4`: Uses the `LinkNode` with the `relay_link` field inside your new query.
 * `#5`: Defines the `relay_links` field as a *Connection*, which implements the pagination structure.
 
@@ -103,7 +103,7 @@ In Insomnia, try out the Relay query:
 
 Some differences from the last queries:
 
-* *Edges* and *Nodes*: they're the main structure of Relay. Edges represents a collection, which has pagination properties. Nodes are the final object or an edge for a new list of objects.
+* *Edges* and *Nodes*: they're the main structure of Relay. Edges represent a collection, which has pagination properties. Nodes are the final object or an edge for a new list of objects.
 * The IDs are now a global unique *base64* encoded string.
 
 What about the pagination? Each field has some arguments for controlling it: `before`, `after,` `first` and `last`. On top of that, each edge has a `pageInfo` object, including the cursor for navigating between pages.
