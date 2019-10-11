@@ -1,6 +1,6 @@
 ---
 title: Pagination
-question: Why pagination in queries are important?
+question: Why pagination in queries is important?
 answers: ["To show all the information at once", "Allows the client to say how much data it wants", "To filter results by specific fields", "GraphQL can't run without pagination"]
 correctAnswer: 1
 description: Simple Pagination with Graphene
