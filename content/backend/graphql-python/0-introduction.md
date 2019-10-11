@@ -8,9 +8,9 @@ description: Building a Server with GraphQL and Graphene
 
 ### Motivation
 
-[Python](https://www.python.org) is a general purpose and mature language, used to create solutions from Web APIs to Artificial Intelligence. It has a lovable community, empowering the minorities and making everyone feel welcomed. If you are new to the language, you might want to check [Learn Python the Hard Way](https://learnpythonthehardway.org/) – it's really easy!
+[Python](https://www.python.org) is a general-purpose and mature language, used to create solutions from Web APIs to Artificial Intelligence. It has a lovable community, empowering the minorities and making everyone feel welcomed. If you are new to the language, you might want to check [Learn Python the Hard Way](https://learnpythonthehardway.org/) – it's really easy!
 
-One of its most famous libraries is [Django](https://www.djangoproject.com/), *the web framework for perfectionists with deadlines*. It allows you to quickly prototype and build full web applications with less code.
+One of its most famous libraries is [Django](https://www.djangoproject.com/), *the web framework for perfectionists with deadlines*. It allows you to quickly prototype and builds full web applications with less code.
 
 Last but not least, there's [Graphene](http://graphene-python.org/) and [Graphene-Django](http://docs.graphene-python.org/projects/django/en/latest/), exposing a simple and powerful API for creating GraphQL servers.
 
