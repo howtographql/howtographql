@@ -7,7 +7,7 @@ description: Creating Data With Mutations
 ---
 
 ### Mutations
-The process of sending data to server is called *mutation*. Defining it is pretty similar on how you've defined the query.
+The process of sending data to the server is called *mutation*. Defining it is pretty similar to how you've defined the query.
 
 <Instruction>
 
@@ -47,7 +47,7 @@ class Mutation(graphene.ObjectType):
 
 Let me explain this snippet, piece by piece:
 
-* `#1`: Defines a mutation class. Right after, you define the *output* of the mutation, the data the server can send back to the client. The output is defined *field* by *field* for learning purposes. In the next mutation you'll define them as just one.
+* `#1`: Defines a mutation class. Right after, you define the *output* of the mutation, the data the server can send back to the client. The output is defined *field* by *field* for learning purposes. In the next mutation, you'll define them as just one.
 * `#2`: Defines the data you can send to the server, in this case, the links' `url` and `description`.
 * `#3`: The mutation method: it creates a link in the database using the data sent by the user, through the `url` and `description` parameters. After, the server returns the `CreateLink` class with the data just created. See how this matches the parameters set on `#1`.
 * `#4`: Creates a mutation class with a field to be resolved, which points to our mutation defined before.
@@ -80,6 +80,6 @@ Time to play! In the GraphiQL interface, enter the following data and see how a 
 
 ![](http://i.imgur.com/L2BA6eV.png)
 
-After, try to query the data again, you should see the new link.
+After try to query the data again, you should see the new link.
 
 ![](http://i.imgur.com/wjinT5F.png)
