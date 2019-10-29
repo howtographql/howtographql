@@ -52,33 +52,7 @@ prisma deploy
 
 </Instruction>
 
-This now updated the Prisma API. You also need to update the auto-generated Prisma client so that it can expose CRUD methods for the newly added `User` model.
-
-<Instruction>
-
-In the same directory, run the following command:
-
-```bash(path=".../hackernews-node")
-prisma generate
-```
-
-</Instruction>
-
-Right now, it is a bit annoying that you need to explicitly run `prisma generate` every time you're migrating your database with `prisma deploy`. To make that easier in the future, you can configure a [post-deployment hook](https://www.prisma.io/docs/prisma-cli-and-configuration/prisma-yml-5cy7/#hooks-optional) that gets invoked every time after you ran `prisma deploy`.
-
-<Instruction>
-
-Add the following lines to the end of your `prisma.yml`:
-
-```yml(path=".../hackernews-node/prisma/prisma.yml")
-hooks:
-  post-deploy:
-    - prisma generate
-```
-
-</Instruction>
-
-The Prisma client will now automatically be regenerated upon a datamodel change. 
+This now updated the Prisma API. The Prisma client is generated automatically after running `prisma deploy`, exposing all the CRUD methods for the newly added User model.
 
 ### Extending the GraphQL schema
 
