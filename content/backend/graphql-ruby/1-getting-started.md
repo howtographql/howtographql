@@ -76,7 +76,7 @@ gem 'graphiql-rails', group: :development
 To:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'graphiql-rails', '1.5.0', group: :development
+gem 'graphiql-rails', '1.7.0', group: :development
 ```
 
 And run:
