@@ -47,7 +47,7 @@ They also have a [secure password](http://api.rubyonrails.org/classes/ActiveMode
 Add the following line to your `Gemfile`:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.13'
 ```
 
 </Instruction>
@@ -66,31 +66,23 @@ bundle update
 
 Now, lets create GraphQL type for representing a user:
 
-```ruby(path=".../graphql-ruby/app/graphql/types/user_type.rb")
-module Types
-  class UserType < BaseObject
-    field :id, ID, null: false
-    field :name, String, null: false
-    # we are exposing `email` just for tutorial purposes
-    # in real application shouldn't leak user emails
-    field :email, String, null: false
-  end
-end
+```bash
+bundle exec rails generate graphql:object UserType id:ID! name:String! email:String!
 ```
 
 </Instruction>
 
-Now when we have our user model and its GraphQL type. We need a way to create users. Users would be created by `name`, `email` and `password`.
+Now that we have our user model and its GraphQL type, we need a way to create users. Users will be created by `name`, `email` and `password`.
 
 <Instruction>
 
 Create a type for the authentication provider [input type](http://graphql-ruby.org/type_definitions/input_objects.html):
 
-```ruby(path=".../graphql-ruby/app/graphql/types/auth_provider_email_input.rb")
+```ruby(path=".../graphql-ruby/app/graphql/types/auth_provider_credentials_input.rb")
 module Types
-  class AuthProviderEmailInput < BaseInputObject
+  class AuthProviderCredentialsInput < BaseInputObject
     # the name is usually inferred by class name but can be overwritten
-    graphql_name 'AUTH_PROVIDER_EMAIL'
+    graphql_name 'AUTH_PROVIDER_CREDENTIALS'
 
     argument :email, String, required: true
     argument :password, String, required: true
@@ -110,7 +102,7 @@ module Mutations
     # often we will need input types for specific mutation
     # in those cases we can define those input types in the mutation class itself
     class AuthProviderSignupData < Types::BaseInputObject
-      argument :email, Types::AuthProviderEmailInput, required: false
+      argument :credentials, Types::AuthProviderCredentialsInput, required: false
     end
 
     argument :name, String, required: true
@@ -121,8 +113,8 @@ module Mutations
     def resolve(name: nil, auth_provider: nil)
       User.create!(
         name: name,
-        email: auth_provider&.[](:email)&.[](:email),
-        password: auth_provider&.[](:email)&.[](:password)
+        email: auth_provider&.[](:credentials)&.[](:email),
+        password: auth_provider&.[](:credentials)&.[](:password)
       )
     end
   end
@@ -148,7 +140,7 @@ end
 
 Now, you can create a new user using [GraphiQL](https://github.com/graphql/graphiql):
 
-![](http://i.imgur.com/SVg4T6z.png)
+![](https://i.imgur.com/J3OeMk4.png)
 
 <Instruction>
 
@@ -159,14 +151,14 @@ require 'test_helper'
 
 class Mutations::CreateUserTest < ActiveSupport::TestCase
   def perform(args = {})
-    Mutations::CreateUser.new(object: nil, context: {}).resolve(args)
+    Mutations::CreateUser.new(object: nil, field: nil, context: {}).resolve(args)
   end
 
   test 'create new user' do
     user = perform(
       name: 'Test User',
       auth_provider: {
-        email: {
+        credentials: {
           email: 'email@example.com',
           password: '[omitted]'
         }
@@ -196,7 +188,6 @@ For this first time signing users in through GraphQL you'll be using a simple em
 
 > Note that this is **NOT** supposed to be a production-ready authentication feature, but just a small functioning prototype to show the basic concept. In a real app, you should make sure to encrypt passwords properly before passing them around and use a good token generation method, such as [JWT](https://jwt.io/).
 
-
 Again, the workflow for adding this mutation will be very similar to the ones we've done before:
 
 <Instruction>
@@ -208,20 +199,20 @@ module Mutations
   class SignInUser < BaseMutation
     null true
 
-    argument :email, Types::AuthProviderEmailInput, required: false
+    argument :credentials, Types::AuthProviderCredentialsInput, required: false
 
     field :token, String, null: true
     field :user, Types::UserType, null: true
 
-    def resolve(email: nil)
+    def resolve(credentials: nil)
       # basic validation
-      return unless email
+      return unless credentials
 
-      user = User.find_by email: email[:email]
+      user = User.find_by email: credentials[:email]
 
       # ensures we have the correct user
       return unless user
-      return unless user.authenticate(email[:password])
+      return unless user.authenticate(credentials[:password])
 
       # use Ruby on Rails - ActiveSupport::MessageEncryptor, to build a token
       crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
@@ -264,7 +255,7 @@ require 'test_helper'
 
 class Mutations::SignInUserTest < ActiveSupport::TestCase
   def perform(args = {})
-    Mutations::SignInUser.new(object: nil, context: { session: {} }).resolve(args)
+    Mutations::SignInUser.new(object: nil, field: nil, context: { session: {} }).resolve(args)
   end
 
   def create_user
@@ -279,7 +270,7 @@ class Mutations::SignInUserTest < ActiveSupport::TestCase
     user = create_user
 
     result = perform(
-      email: {
+      credentials: {
         email: user.email,
         password: user.password
       }
@@ -295,12 +286,12 @@ class Mutations::SignInUserTest < ActiveSupport::TestCase
 
   test 'failure because wrong email' do
     create_user
-    assert_nil perform(email: { email: 'wrong' })
+    assert_nil perform(credentials: { email: 'wrong' })
   end
 
   test 'failure because wrong password' do
     user = create_user
-    assert_nil perform(email: { email: user.email, password: 'wrong' })
+    assert_nil perform(credentials: { email: user.email, password: 'wrong' })
   end
 end
 ```
@@ -315,7 +306,7 @@ bundle exec rails test
 
 ### Authenticating requests
 
-With the token that the `signinUser` mutation provides, apps can authenticate subsequent requests. There are a couple of ways this can be done. In this tutorial, we are just going to use the built-in **session**, since this doesn't add any requirements to the client application. The GraphQL server should be able to get the token from the session header on each request, detect what user it relates to, and pass this information down to the mutations.
+With the token that the `SignInUser` mutation provides, apps can authenticate subsequent requests. There are a couple of ways this can be done. In this tutorial, we are just going to use the built-in **session**, since this doesn't add any requirements to the client application. The GraphQL server should be able to get the token from the session header on each request, detect what user it relates to, and pass this information down to the mutations.
 
 The best place to put data shared between mutations is in the context object.
 You'll need that object to be different in every request now though, since each one may be from a different user.
@@ -352,7 +343,7 @@ class GraphqlController < ApplicationController
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
     token = crypt.decrypt_and_verify session[:token]
     user_id = token.gsub('user-id:', '').to_i
-    User.find_by id: user_id
+    User.find user_id
   rescue ActiveSupport::MessageVerifier::InvalidSignature
     nil
   end
@@ -372,7 +363,7 @@ end
 
 <Instruction>
 
-We also need to update our `signinUser` resolver, so it also stores the `token` in `session`. Be sure to remove the `_` since the variable is now in use:
+We also need to update our `SignInUser` resolver, so it also stores the `token` in `session`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/mutations/sign_in_user.rb")
 module Mutations
@@ -493,6 +484,6 @@ end
 
 </Instruction>
 
-Done! Now when you post links, they will be attached to your user, so you have to run  `signinUser` beforehand.
+Done! Now when you post links, they will be attached to your user, so you have to run  `SignInUser` beforehand.
 
 ![](http://i.imgur.com/9ma8r8u.png)
