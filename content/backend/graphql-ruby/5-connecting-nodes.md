@@ -35,14 +35,8 @@ Votes would be created by a mutation and represented by a GraphQL type.
 
 Add the `VoteType` first:
 
-```ruby(path=".../graphql-ruby/app/graphql/types/vote_type.rb")
-module Types
-  class VoteType < BaseObject
-    field :id, ID, null: false
-    field :user, UserType, null: false
-    field :link, LinkType, null: false
-  end
-end
+```bash
+bundle exec rails generate graphql:object VoteType id:ID! user:UserType! link:LinkType!
 ```
 
 </Instruction>
@@ -179,4 +173,3 @@ end
 Now you can see all votes for users:
 
 ![](http://i.imgur.com/Dhsy92u.png)
-
