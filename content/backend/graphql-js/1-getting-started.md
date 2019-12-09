@@ -137,7 +137,7 @@ What you'll then see is a [GraphQL Playground](https://github.com/graphcool/grap
 
 ![](https://imgur.com/9RC6x9S.png)
 
-By clicking the green **SCHEMA**-button on the right, you can open the API documentation. This documentation is auto-generated based on your schema definition and displays all API operations and data types of your schema.
+By clicking the **DOCS**-button on the right, you can open the API documentation. This documentation is auto-generated based on your schema definition and displays all API operations and data types of your schema.
 
 ![](https://imgur.com/81Ho6YM.png)
 
@@ -149,7 +149,7 @@ query {
 }
 ```
 
-Now send the query to the server by clicking the **Play**-button in the center (or use the keyboard shortcut **CMD+ENTER**).
+Now send the query to the server by clicking the **Play**-button in the center (or use the keyboard shortcut **CMD+ENTER** for Mac and **CTRL+ENTER** on Windows and Linux).
 
 ![](https://imgur.com/EnW3HE5.png)
 
