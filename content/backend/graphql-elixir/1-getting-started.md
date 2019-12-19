@@ -89,4 +89,4 @@ mix ecto.setup
 
 </Instruction>
 
-At this point the database tables created, and the migrations and the have been run. If at any point you want to clear everything out you can just run `mix ecto.reset`. If you get postgres connection issues be sure to double check your database credentials inside `config/dev.exs`.
+At this point the database tables have been created, and the migrations ran. If at any point you want to clear everything out you can just run `mix ecto.reset`. If you get postgres connection issues be sure to double check your database credentials inside `config/dev.exs`.
