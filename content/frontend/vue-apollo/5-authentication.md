@@ -37,16 +37,18 @@ Create a new file in `src/components` and call it `AppLogin.vue`. Then paste the
         placeholder="Password">
     </div>
     <div class='flex mt3'>
-      <div
+      <button
+        type="button"
         class='pointer mr2 button'
         @click="confirm()">
         {{login ? 'login' : 'create account'}}
-      </div>
-      <div
+      </button>
+      <button
+        type="button"
         class='pointer button'
         @click="login = !login">
         {{login ? 'need to create an account?' : 'already have an account?'}}
-      </div>
+      </button>
     </div>
   </div>
 </template>
