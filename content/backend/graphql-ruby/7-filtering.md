@@ -87,7 +87,7 @@ end
 
 This resolver contains all logic related to find links. Over time you can add more rules.
 
-[SearchObject](https://github.com/rstankov/SearchObjectGraphQL) can be used as a [GraphQL::Function](http://graphql-ruby.org/fields/function.html).
+[SearchObject](https://github.com/rstankov/SearchObjectGraphQL) can be used as a [GraphQL::Schema::Resolver](https://graphql-ruby.org/api-doc/1.10.2/GraphQL/Schema/Resolver.html).
 
 <Instruction>
 
@@ -96,7 +96,7 @@ Use `LinksSearch` for finding links:
 ```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
 module Types
   class QueryType < BaseObject
-    field :all_links, function: Resolvers::LinksSearch
+    field :all_links, resolver: Resolvers::LinksSearch
   end
 end
 ```
