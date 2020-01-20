@@ -13,8 +13,7 @@ For this part of the tutorial, we are going to use [SearchObject::Plugin::GraphQ
 Add the following lines to your `Gemfile`:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'search_object', '1.2.0'
-gem 'search_object_graphql', '0.1'
+gem 'search_object_graphql', '0.3.1'
 ```
 
 </Instruction>
@@ -24,7 +23,7 @@ gem 'search_object_graphql', '0.1'
 Then run:
 
 ```bash
-bundle update
+bundle install
 ```
 
 </Instruction>
@@ -42,6 +41,7 @@ This would install [SearchObject](https://github.com/rstankov/SearchObjectGraphQ
 Create a search resolver:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
+require 'search_object'
 require 'search_object/plugin/graphql'
 
 class Resolvers::LinksSearch
@@ -53,7 +53,7 @@ class Resolvers::LinksSearch
 
   type types[Types::LinkType]
 
-  # inline input type definition for the advance filter
+  # inline input type definition for the advanced filter
   class LinkFilter < ::Types::BaseInputObject
     argument :OR, [self], required: false
     argument :description_contains, String, required: false
@@ -166,4 +166,3 @@ bundle exec rails test
 ```
 
 </Instruction>
-
