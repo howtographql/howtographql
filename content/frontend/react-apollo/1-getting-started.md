@@ -26,25 +26,15 @@ First, you are going to create the React project! As mentioned in the beginning,
 
 <Instruction>
 
-If you haven't already, you need to install `create-react-app` using yarn:
+To create new project, run the command below:
 
 ```bash
-yarn global add create-react-app
+yarn create react-app hackernews-react-apollo
 ```
 
 </Instruction>
 
 > **Note**: This tutorial uses [Yarn](https://yarnpkg.com/) for dependency management. Find instructions for how you can install it [here](https://yarnpkg.com/en/docs/install). If you prefer using `npm`, you can just run the equivalent commands. 
-
-<Instruction>
-
-Next, you can use it to bootstrap your React application:
-
-```bash
-create-react-app hackernews-react-apollo
-```
-
-</Instruction>
 
 This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup.
 
