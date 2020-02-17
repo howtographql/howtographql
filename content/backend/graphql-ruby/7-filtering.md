@@ -13,8 +13,7 @@ For this part of the tutorial, we are going to use [SearchObject::Plugin::GraphQ
 Add the following lines to your `Gemfile`:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'search_object', '1.2.0'
-gem 'search_object_graphql', '0.1'
+gem 'search_object_graphql', '0.3.1'
 ```
 
 </Instruction>
@@ -24,7 +23,7 @@ gem 'search_object_graphql', '0.1'
 Then run:
 
 ```bash
-bundle update
+bundle install
 ```
 
 </Instruction>
@@ -42,6 +41,7 @@ This would install [SearchObject](https://github.com/rstankov/SearchObjectGraphQ
 Create a search resolver:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
+require 'search_object'
 require 'search_object/plugin/graphql'
 
 class Resolvers::LinksSearch
@@ -53,7 +53,7 @@ class Resolvers::LinksSearch
 
   type types[Types::LinkType]
 
-  # inline input type definition for the advance filter
+  # inline input type definition for the advanced filter
   class LinkFilter < ::Types::BaseInputObject
     argument :OR, [self], required: false
     argument :description_contains, String, required: false
@@ -87,7 +87,7 @@ end
 
 This resolver contains all logic related to find links. Over time you can add more rules.
 
-[SearchObject](https://github.com/rstankov/SearchObjectGraphQL) can be used as a [GraphQL::Function](http://graphql-ruby.org/fields/function.html).
+[SearchObject](https://github.com/rstankov/SearchObjectGraphQL) can be used as a [GraphQL::Schema::Resolver](https://graphql-ruby.org/api-doc/1.10.2/GraphQL/Schema/Resolver.html).
 
 <Instruction>
 
@@ -96,7 +96,7 @@ Use `LinksSearch` for finding links:
 ```ruby(path=".../graphql-ruby/app/graphql/types/query_type.rb")
 module Types
   class QueryType < BaseObject
-    field :all_links, function: Resolvers::LinksSearch
+    field :all_links, resolver: Resolvers::LinksSearch
   end
 end
 ```
@@ -166,4 +166,3 @@ bundle exec rails test
 ```
 
 </Instruction>
-

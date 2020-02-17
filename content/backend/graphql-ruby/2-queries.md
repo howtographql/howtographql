@@ -49,7 +49,15 @@ Now, go ahead and define your [GraphQL Type](http://graphql.org/graphql-js/type/
 
 <Instruction>
 
-Create a new file `app/graphql/types/link_type.rb` and add the following code to it *(you can skip the comments starting with #)*:
+Run the following command:
+
+```bash
+rails g graphql:object LinkType id:ID! url:String! description:String!
+```
+
+</Instruction>
+
+This creates the file `app/graphql/types/link_type.rb` with the following content:
 
 ```ruby(path=".../graphql-ruby/app/graphql/types/link_type.rb")
 module Types
@@ -60,8 +68,6 @@ module Types
   end
 end
 ```
-
-</Instruction>
 
 ### Query Resolver
 
@@ -92,17 +98,21 @@ end
 
 </Instruction>
 
-Files can be resolved by the following ways:
+Fields can be resolved in one of two ways:
 
 * method on the type (named as the field), which accepts arguments and can access `object` and `context`
-* [GraphQL::Schema::Resolver](https://graphql-ruby.org/api-doc/1.8.13/GraphQL/Schema/Resolver) - we are going discuss those in the next chapter
-* [GraphQL::Function](http://graphql-ruby.org/fields/function.html) *(previous version of resolvers, consider it depracated)*
+* [GraphQL::Schema::Resolver](https://graphql-ruby.org/api-doc/1.8.13/GraphQL/Schema/Resolver) - we are going to discuss those in the next chapter
 
 ### Testing With Playground
 
 It's time to check what you've done so far! For this, you'll use [GraphiQL](https://github.com/graphql/graphiql), an in-browser IDE for running GraphQL queries.
 
-GraphiQL had already been added to your application when you executed `rails generate graphql:install` in the terminal before, so you don't have to do any extra work to set it up.
+GraphiQL had already been added to your application when you executed `rails generate graphql:install` in the terminal before, but you have to tell the asset pipeline to precompile its assets. Add this at the end of `/app/assets/config/manifest.js`:
+
+```js
+//= link graphiql/rails/application.css
+//= link graphiql/rails/application.js
+```
 
 Open your browser at http://localhost:3000/graphiql
 
@@ -119,4 +129,3 @@ Try it out! On the left-most text box, type a simple query for listing all links
 ![](http://i.imgur.com/W7gpVvV.png)
 
 You can play around as much as you want with this tool. It makes testing GraphQL APIs so fun and easy, you'll never want to live without it any more. 😎
-

@@ -7,7 +7,7 @@ answers: ["What tutorial?", "Yes, I learned something!", "No, I even forgot what
 correctAnswer: 1
 ---
 
-In this tutorial you learn how to handle [GraphQL](http://graphql.org/) in a [Ruby](https://www.ruby-lang.org/en/) project via [GraphQL Ruby gem](http://graphql-ruby.org/).
+In this tutorial you learned how to handle [GraphQL](http://graphql.org/) in a [Ruby](https://www.ruby-lang.org/en/) project via [GraphQL Ruby gem](http://graphql-ruby.org/).
 
 We covered:
 
@@ -17,4 +17,3 @@ We covered:
 - handling complex querying
 
 In https://github.com/howtographql/graphql-ruby you can find the final project + a couple of further improvements 😺.
-

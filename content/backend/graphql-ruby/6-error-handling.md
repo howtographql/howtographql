@@ -10,7 +10,7 @@ Any good server should be able to handle errors well. Otherwise, it becomes hard
 
 In fact, if you try right now to send an invalid request to the server, such as a request with a field that doesn't exist, you'll already get a pretty good error message back. For example:
 
-![](http://i.imgur.com/wSYcR4S.png)
+![](https://i.imgur.com/kHTelsi.png)
 
 ### Application errors
 
@@ -26,7 +26,7 @@ First add validations to the `Link` model:
 
 ```ruby(path=".../graphql-ruby/app/models/link.rb")
 class Link < ApplicationRecord
-  belongs_to :user, optional: true 
+  belongs_to :user, optional: true
 
   validates :url, presence: true, length: { minimum: 5 }
   validates :description, presence: true, length: { minimum: 5 }
@@ -72,5 +72,3 @@ Now when you try to submit a link with invalid arguments you get an error.
 
 
 *You can learn more about GraphQL errors [here](http://blog.rstankov.com/graphql-mutations-and-form-errors/).*
-
-

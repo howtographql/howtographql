@@ -67,7 +67,7 @@ Create a new file - `app/graphql/mutations/create_link.rb`:
 ```ruby(path=".../graphql-ruby/app/graphql/mutations/create_link.rb")
 module Mutations
   class CreateLink < BaseMutation
-    # arguments passed to the `resolved` method
+    # arguments passed to the `resolve` method
     argument :description, String, required: true
     argument :url, String, required: true
 
@@ -117,7 +117,7 @@ require 'test_helper'
 
 class Mutations::CreateLinkTest < ActiveSupport::TestCase
   def perform(user: nil, **args)
-    Mutations::CreateLink.new(object: nil, context: {}).resolve(args)
+    Mutations::CreateLink.new(object: nil, field: nil, context: {}).resolve(args)
   end
 
   test 'create a new link' do

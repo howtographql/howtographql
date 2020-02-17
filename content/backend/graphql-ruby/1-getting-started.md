@@ -25,38 +25,14 @@ Then follow these steps to create the project for your application:
 
 ```bash
 gem install bundler
-gem install rails -v 5.2.2
-rails new graphql-tutorial
+gem install rails -v 6.0.2.1
+rails new graphql-tutorial --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-active-storage --skip-action-cable --skip-javascript --skip-system-test --skip-webpack-install
 cd graphql-tutorial
 bundle exec rails db:create
 bundle exec rails server
 ```
 
 </Instruction>
-
-If you see the following error:
-
-```
-LoadError: Error loading the 'sqlite3' Active Record adapter. Missing a gem it depends on? can't activate sqlite3 (~> 1.3.6), already activated sqlite3-1.4.0. Make sure all dependencies are added to Gemfile.`. Go to and replace the SQLite version:
-```
-
-Open `Gemfile` and change the following line:
-
-```ruby(path=".../graphql-ruby/Gemfile")
-gem 'sqlite3'
-```
-
-```ruby(path=".../graphql-ruby/Gemfile")
-gem 'sqlite3', '~> 1.3', '< 1.4'
-```
-
-And run:
-
-```bash
-bundle update --source=sqlite
-bundle exec rails db:create
-```
-
 
 This will install and start a new [Ruby On Rails](http://rubyonrails.org/) project. When you visit [http://localhost:3000](http://localhost:3000/) in a browser, you should see:
 
@@ -66,14 +42,14 @@ This will install and start a new [Ruby On Rails](http://rubyonrails.org/) proje
 
 Now, let's add GraphQL to the server. First, stop the server.
 
-> Usually you don't need to restart [Ruby On Rails](http://rubyonrails.org/), but when you are adding new gems(libraries), this is required.
+> Usually you don't need to restart [Ruby On Rails](http://rubyonrails.org/), but when you are adding new gems (libraries), this is required.
 
 <Instruction>
 
 Open `Gemfile` and add the following dependency to it:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'graphql', '1.8.13'
+gem 'graphql', '1.9.17'
 ```
 
 </Instruction>
@@ -83,7 +59,7 @@ gem 'graphql', '1.8.13'
 Then run:
 
 ```bash
-bundle update
+bundle install
 bundle exec rails generate graphql:install
 ```
 
@@ -100,16 +76,15 @@ gem 'graphiql-rails', group: :development
 To:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'graphiql-rails', '1.5.0', group: :development
+gem 'graphiql-rails', '1.7.0', group: :development
 ```
 
 And run:
 
 ```
-bundle update
+bundle install
 ```
 
 </Instruction>
 
 This will install all the necessary dependencies you need to get started with GraphQL and Ruby.
-

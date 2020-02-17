@@ -24,6 +24,7 @@ type Query {
 So, lets add `skip` and `first` to `LinksSearch`:
 
 ```ruby(path=".../graphql-ruby/app/graphql/resolvers/links_search.rb")
+require 'search_object'
 require 'search_object/plugin/graphql'
 
 class Resolvers::LinksSearch
@@ -52,4 +53,3 @@ All done!
 ![](http://i.imgur.com/oZZnuMG.png)
 
 In https://github.com/howtographql/graphql-ruby you can find the final project + a couple of further improvements 😺.
-
