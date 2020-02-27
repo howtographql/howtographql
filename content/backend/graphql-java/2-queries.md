@@ -164,7 +164,7 @@ It is now appropriate to feel good about yourself 😎
 
 <Instruction>
 
-To add GraphiQL, copy [the example `index.html` from GraphiQL's GitHub repo](https://github.com/graphql/graphiql/blob/master/example/index.html) and replace the paths to `graphiql.css` and `graphiql.js` from
+To add GraphiQL, copy [the example `index.html` from GraphiQL's GitHub repo](https://github.com/howtographql/graphql-java/blob/master/src/main/webapp/index.html) and replace the paths to `graphiql.css` and `graphiql.js` from
 
 ```html(nocopy)
 <link rel="stylesheet" href="./node_modules/graphiql/graphiql.css" />
