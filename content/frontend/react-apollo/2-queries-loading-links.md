@@ -141,7 +141,7 @@ client.query({
       }
     }
   `
-}).then(response => console.log(response.data.allLinks))
+}).then(response => console.log(response.data.feed))
 ```
 
 A more declarative way when using React however is to use new Apollo's [render prop API](https://dev-blog.apollodata.com/introducing-react-apollo-2-1-c837cc23d926) to manage your GraphQL data just using components.
