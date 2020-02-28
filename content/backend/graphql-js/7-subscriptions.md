@@ -291,11 +291,11 @@ async function vote(parent, args, context, info) {
   const userId = getUserId(context)
 
   // 2
-  const linkExists = await context.prisma.$exists.vote({
+  const voteExists = await context.prisma.$exists.vote({
     user: { id: userId },
     link: { id: args.linkId },
   })
-  if (linkExists) {
+  if (voteExists) {
     throw new Error(`Already voted for link: ${args.linkId}`)
   }
 
