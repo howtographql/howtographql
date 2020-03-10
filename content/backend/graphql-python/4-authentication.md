@@ -136,10 +136,25 @@ In the `hackernews/settings.py` file, under the `MIDDLEWARE` variable, add the f
 ```python(path=".../graphql-python/hackernews/hackernews/settings.py")
 MIDDLEWARE = [
     # all the middlewares
-    'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 ```
 
+</Instruction>
+
+<Instruction>
+
+In the `hackernews/settings.py` file, under the `GRAPHENE` variable, add the following:
+
+'''python(path=".../graphql-python/hackernews/hackernews/settings.py")
+GRAPHENE = {
+    'SCHEMA': 'mysite.myschema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
+'''
+    
 </Instruction>
 
 <Instruction>
