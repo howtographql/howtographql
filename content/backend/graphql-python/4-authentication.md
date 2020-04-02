@@ -131,13 +131,15 @@ Unfortunately, the GraphiQL web interface that we used before does not accept ad
 
 <Instruction>
 
-In the `hackernews/settings.py` file, under the `MIDDLEWARE` variable, add the following line:
+In the `hackernews/settings.py` file, Add JSONWebTokenMiddleware middleware to your GRAPHENE settings:
 
 ```python(path=".../graphql-python/hackernews/hackernews/settings.py")
-MIDDLEWARE = [
-    # all the middlewares
-    'graphql_jwt.middleware.JSONWebTokenMiddleware',
-]
+GRAPHENE = {
+    'SCHEMA': 'hackernews.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
 ```
 
 </Instruction>
