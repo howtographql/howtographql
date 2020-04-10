@@ -264,6 +264,8 @@ curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar 
 
 </Instruction>
 
+After downloading the server folder, delete the internal file (yarn.lock) to prevent errors from different versions of installed packages. Reference -> https://github.com/howtographql/react-apollo/issues/33#issuecomment-508579864.
+
 > **Note**: If you are on Windows, you may want to install [Git CLI](https://git-scm.com/) to avoid potential problems with commands such as `curl`.
 
 You now have a new directory called `server` inside your project that contains all the code you need for your backend.
