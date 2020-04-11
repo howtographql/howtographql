@@ -160,9 +160,9 @@ Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add th
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function signup(parent, args, context, info) {
   // 1
-  const password = await bcrypt.hash(args.password, 10)
+  const hashedPassword = await bcrypt.hash(args.password, 10)
   // 2
-  const {password, ...user} = await context.prisma.createUser({ ...args, password })
+  const {password, ...user} = await context.prisma.createUser({ ...args, password: hashedPassword })
 
   // 3
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
@@ -182,7 +182,7 @@ async function login(parent, args, context, info) {
   }
 
   // 2
-  const valid = await bcrypt.compare(args.password, user.password)
+  const valid = await bcrypt.compare(args.password, password)
   if (!valid) {
     throw new Error('Invalid password')
   }
