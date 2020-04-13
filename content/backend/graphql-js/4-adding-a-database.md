@@ -11,7 +11,7 @@ In this section, you're going to setup Prisma along with a connected database to
 
 ### Why Prisma
 
-By now, you already understand the basic mechanics of how GraphQL servers work under the hood - surprisingly simple right? That's part of the beauty of GraphQL, that it actually only follows a few very simple rules. The strongly typed schema and the GraphQL engine that's resolving the queries inside the server are taking away major pain points commonly dealt with in API development.
+By now, you already understand the basic mechanics of how GraphQL servers work under the hood - surprisingly simple right? That's part of the beauty of GraphQL, that it actually only follows a few very simple rules. The statically typed schema and the GraphQL engine that's resolving the queries inside the server are taking away major pain points commonly dealt with in API development.
 
 So, what's then the difficulty in building GraphQL servers?
 
