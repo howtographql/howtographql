@@ -23,7 +23,7 @@ All three architectures represent major use cases of GraphQL and demonstrate the
 
 #### 1. GraphQL server with a connected database
 
-This architecture will be the most common for *greenfield* projects. In the setup, you have a single (web) server that implements the GraphQL specification. When a query arrives at the GraphQL server, the server reads the query's payload and fetches the required information from the database. This is called *resolving* the query. It then constructs the response object [as described in the official specification](http://spec.graphql.org/June2018/#sec-Response) and returns it to the client.
+This architecture will be the most common for *greenfield* projects. In the setup, you have a single (web) server that implements the GraphQL specification. When a query arrives at the GraphQL server, the server reads the query's payload and fetches the required information from the database. This is called *resolving* the query. It then constructs the response object [as described in the official specification](https://spec.graphql.org/June2018/#sec-Response) and returns it to the client.
 
 It's important to note that GraphQL is actually *transport-layer agnostic*. This means it can potentially be used with any available network protocol. So, it is potentially possible to implement a GraphQL server based on TCP, WebSockets, etc.   
 
