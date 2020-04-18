@@ -244,7 +244,7 @@ end
 
 Now, you can get the token by using [GraphiQL](https://github.com/graphql/graphiql):
 
-![](http://i.imgur.com/jmMofgT.png)
+![](https://i.imgur.com/7wYZXgw.png)
 
 <Instruction>
 
