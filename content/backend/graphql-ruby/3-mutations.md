@@ -34,8 +34,8 @@ The mutation type is automatically exposed in your schema:
 
 ```ruby(path=".../graphql-ruby/app/graphql/graphql_tutorial_schema.rb")
 class GraphqlTutorialSchema < GraphQL::Schema
-  query Types::QueryType
   mutation Types::MutationType
+  query Types::QueryType
 end
 ```
 
