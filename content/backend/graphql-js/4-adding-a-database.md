@@ -58,7 +58,7 @@ touch prisma/datamodel.prisma
 
 </Instruction>
 
-[`prisma.yml`](https://www.prisma.io/docs/-5cy7/) is the main configuration file for your Prisma setup. `datamodel.prisma` on the other hand contains the definition of your [datamodel](https://www.prisma.io/docs/-knul). The Prisma datamodel defines your application's _models_. Each model will be mapped to a table in the underlying database.
+[`prisma.yml`](https://www.prisma.io/docs/-5cy7/) is the main configuration file for your Prisma setup. `datamodel.prisma` on the other hand contains the definition of your [datamodel](https://www.prisma.io/docs/understand-prisma/data-modeling). The Prisma datamodel defines your application's _models_. Each model will be mapped to a table in the underlying database.
 
 So far, the datamodel for your Hacker News app only contains one data type: `Link`. Because Prisma uses [GraphQL SDL](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) for model definitions, you can basically copy the existing `Link` definition from `schema.graphql` into `datamodel.prisma`.
 
