@@ -34,7 +34,6 @@ export default (props: Props) => {
         description={description}
         overrideDescription={overrideDescription}
       />
-      <Banner />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />
