@@ -38,7 +38,7 @@ type Link {
 
 </Instruction>
 
-At this point, the schema definition already has grown to be quite large. Let's refactor the app a bit and pull the schema out into its own file!
+At this point, the schema definition has already grown to be quite large. Let's refactor the app a bit and pull the schema out into its own file!
 
 <Instruction>
 
@@ -77,7 +77,7 @@ With that new file in place, you can cleanup `index.js` a bit.
 
 <Instruction>
 
-First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update the way how the `GraphQLServer` is instantiated at the bottom of the file:
+First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update the way that the `GraphQLServer` is instantiated at the bottom of the file:
 
 ```js{2}(path="../hackernews-node/src/index.js)
 const server = new GraphQLServer({
@@ -135,7 +135,7 @@ Also, here's what's going on with the numbered comments:
 1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly created `Link` elements.
 1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
 
-Now it's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
+Now is a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
 
 Correct! It carries the _arguments_ for the operation - in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
 
@@ -172,7 +172,7 @@ To verify that your mutation worked, you can send the `feed` query from before a
 
 ![](https://imgur.com/ZfJQwdB.png)
 
-However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database layer_ to the GraphQL server in order to persists the data beyond the runtime of the server.
+However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database layer_ to the GraphQL server in order to persist the data beyond the runtime of the server.
 
 ### Exercise
 

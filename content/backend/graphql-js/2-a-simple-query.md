@@ -134,7 +134,7 @@ query {
 
 All four fields specified in the query, `feed`, `id`, `url` and `description` can also be found inside the schema definition. Now, you also learned that _every_ field inside the schema definition is backed by one resolver function whose responsibility it is to return the data for precisely that field.
 
-Can you imagine what the query resolution process now looks like? Effectively, everything the GraphQL server has to do is invoke all resolver functions for the fields that are contained in the query and then package up the response according to the query's shape. Query resolution thus merely becomes a process of orchestrating the invocation of resolver functions!
+Can you imagine what the query resolution process now looks like? Effectively, all the GraphQL server has to do is invoke all resolver functions for the fields that are contained in the query and then package up the response according to the query's shape. Query resolution thus merely becomes a process of orchestrating the invocation of resolver functions!
 
 One thing that's still a bit weird in the implementation right now are the resolvers for the `Link` type that all seem to follow a very simple and trivial pattern:
 
@@ -152,8 +152,8 @@ The first argument, commonly called `parent` (or sometimes `root`) is the result
 
 Well, as you already saw, GraphQL queries can be _nested_. Each level of nesting (i.e. nested curly braces) corresponds to one resolver execution level. The above query therefore has two of these execution levels.
 
-On the first level, it invokes the `feed` resolver and returns the entire data stored in `links`. For the second execution level, the GraphQL server is smart enough to invoke the resolvers of the `Link` type (because thanks to the schema, it knows that `feed` returns a list of `Link` elements) for each element inside the list that was returned on the previous resolver level. Therefore, in every of the three `Link` resolvers, the incoming `parent` object is the element inside the `links` list.
+On the first level, it invokes the `feed` resolver and returns the entire data stored in `links`. For the second execution level, the GraphQL server is smart enough to invoke the resolvers of the `Link` type (because thanks to the schema, it knows that `feed` returns a list of `Link` elements) for each element inside the list that was returned on the previous resolver level. Therefore, in all of the three `Link` resolvers, the incoming `parent` object is the element inside the `links` list.
 
-> **Note**: To learn more about this, check out [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#9d03) article.
+> **Note**: To learn more about this, check out [this](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#9d03) article.
 
 In any case, because the implementation of the `Link` resolvers is trivial, you can actually omit them and the server will work in the same way as it did before 👌

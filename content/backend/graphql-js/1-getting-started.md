@@ -7,7 +7,7 @@ answers: ["The three root fields are: Query, Mutation and Subscription", "Root f
 correctAnswer: 2
 ---
 
-In this section, you will setup the project for your GraphQL server and implement your first GraphQL query. In the end, we'll talk theory for a bit and learn about the [GraphQL schema](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e).
+In this section, you will set up the project for your GraphQL server and implement your first GraphQL query. In the end, we'll talk theory for a bit and learn about the [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e).
 
 ### Creating the project
 
@@ -73,7 +73,7 @@ Here's a list of its features:
 - Resolves custom directives in your GraphQL schema
 - Query performance tracing
 - Accepts both `application/json` and `application/graphql` content-types
-- Runs everywhere: Can be deployed via `now`, `up`, AWS Lambda, Heroku etc.
+- Runs everywhere: Can be deployed via `vercel`, `up`, AWS Lambda, Heroku etc.
 
 Perfect, it's time to write some code 🙌
 
@@ -113,7 +113,7 @@ server.start(() => console.log(`Server is running on http://localhost:4000`))
 
 All right, let's understand what's going on here by walking through the numbered comments:
 
-1. The `typeDefs` constant defines your _GraphQL schema_ (more about this in a bit). Here, it defines a simple `Query` type with one _field_ called `info`. This field has the type `String!`. The exclamation mark in the type definition means that this field can never be `null`.
+1. The `typeDefs` constant defines your _GraphQL schema_ (more about this in a bit). Here, it defines a simple `Query` type with one _field_ called `info`. This field has the type `String!`. The exclamation mark in the type definition means that this field is required and can never be `null`.
 1. The `resolvers` object is the actual _implementation_ of the GraphQL schema. Notice how its structure  is identical to the structure of the type definition inside `typeDefs`: `Query.info`.
 1. Finally, the schema and resolvers are bundled and passed to the `GraphQLServer` which is imported from `graphql-yoga`. This tells the server what API operations are accepted and how they should be resolved.
 
@@ -133,7 +133,7 @@ node src/index.js
 
 As indicated by the terminal output, the server is now running on `http://localhost:4000`. To test the API of your server, open a browser and navigate to that URL.
 
-What you'll then see is a [GraphQL Playground](https://github.com/graphcool/graphql-playground), a powerful "GraphQL IDE" that lets you explore the capabilities of your API in an interactive manner.
+What you'll then see is a [GraphQL Playground](https://github.com/prisma-labs/graphql-playground), a powerful "GraphQL IDE" that lets you explore the capabilities of your API in an interactive manner.
 
 ![](https://imgur.com/9RC6x9S.png)
 
@@ -173,7 +173,7 @@ Now, send the query from before again. This time, it returns an error: `Error: C
 
 ![](https://imgur.com/VLVE5Vv.png)
 
-What happens here is that the underlying [`graphql-js`](https://github.com/graphql/graphql-js/) reference implementation ensures that the return types of your resolvers adhere to the type definitions from your GraphQL schema. Put differently, it protects you from making stupid mistakes!
+What happens here is that the underlying [`graphql-js`](https://github.com/graphql/graphql-js/) reference implementation ensures that the return types of your resolvers adhere to the type definitions in your GraphQL schema. Put differently, it protects you from making stupid mistakes!
 
 This is in fact one of the core benefits of GraphQL in general: It enforces that the API actually behaves in the way that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can always be 100% sure about the API operations and data structures that are returned by the API.
 
@@ -181,11 +181,11 @@ This is in fact one of the core benefits of GraphQL in general: It enforces that
 
 At the core of every GraphQL API, there is a GraphQL schema. So, let's quickly talk about it.
 
-> **Note**: In this tutorial, we'll only scratch the surface of this topic. If you want to go a bit more in-depth and learn more about the GraphQL schema as well as its role in a GraphQL API, be sure to check out [this](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e) excellent article.
+> **Note**: In this tutorial, we'll only scratch the surface of this topic. If you want to go a bit more in-depth and learn more about the GraphQL schema as well as its role in a GraphQL API, be sure to check out [this](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) excellent article.
 
-GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). The SDL has a type system that allows to define data structures (just like other strongly typed programming languages such as Java, TypeScript, Swift, Go, ...).
+GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). SDL has a type system that allows you to define data structures (just like other strongly typed programming languages such as Java, TypeScript, Swift, Go, etc.).
 
-But how does that help in defining the API for a GraphQL server? Every GraphQL schema has three special _root types_, these are called `Query`, `Mutation` and `Subscription`. The root types correspond to the three operation types offered by GraphQL: queries, mutations and subscriptions. The fields on these root types are called _root field_ and define the available API operations.
+But how does that help in defining the API for a GraphQL server? Every GraphQL schema has three special _root types_: `Query`, `Mutation`, and `Subscription`. The root types correspond to the three operation types offered by GraphQL: queries, mutations and subscriptions. The fields on these root types are called _root field_ and define the available API operations.
 
 As an example, consider the simple GraphQL schema we used above:
 
@@ -256,13 +256,12 @@ mutation {
 
 There are a few things to note:
 
-- In these examples, we always query `id` and `name` of the returned `User` objects. We could potentially omit either of them. Note however when querying an object type, it is required that you query at least one of its fields in a selection set.
-- For the fields in the selection set, it doesn't matter whether the type of the root field is _required_ or a _list_. In the examples schema above, the three root fields all have different [type modifiers](http://graphql.org/learn/schema/#lists-and-non-null) (i.e. different combinations of being a list and/or required) for the `User` type:
+- In these examples, we always query `id` and `name` of the returned `User` objects. We could potentially omit either of them. Note, however, when querying an object type, it is required that you query at least one of its fields in a selection set.
+- For the fields in the selection set, it doesn't matter whether the type of the root field is _required_ or a _list_. In the example schema above, the three root fields all have different [type modifiers](http://graphql.org/learn/schema/#lists-and-non-null) (i.e. different combinations of being a list and/or required) for the `User` type:
   - For the `users` field, the return type `[User!]!` means it returns a _list_ (which itself can not be `null`) of `User` elements. The list can also not contain elements that are `null`. So, you're always guaranteed to either receive an empty list or a list that only contains non-null `User` objects.
   - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
 
 As you provide this information, the `Prisma` instance will get full access to your database service and can be used to resolve incoming request later on.
 
-Phew, enough theory 😠 Let's go and write some code again!
-
+Phew, enough theory 😠 Let's go and write some more code!
