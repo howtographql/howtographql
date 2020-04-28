@@ -20,6 +20,12 @@ module.exports = class Html extends React.Component {
         />
       )
     }
+    
+    // from https://github.com/prisma/prisma2-docs/blob/b8d9e2d8b78f4b9fce4de1c2f0c573f435fa98ed/src/components/seo.tsx#L14
+    const [pathTechParams] = location.pathname.split('/').splice(-1)
+    let canonicalUrl = pathPrefix ? siteUrl + pathPrefix : siteUrl
+    canonicalUrl = pathTechParams ? `${canonicalUrl}/${pathTechParams}` : canonicalUrl
+
     return (
       <html>
       <head>
@@ -42,6 +48,7 @@ module.exports = class Html extends React.Component {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#e00083" />
+        <link rel="canonical" href={canonicalUrl} />
         {this.props.headComponents}
         {css}
       </head>
