@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 interface Props {
   title: string;
   description: string;
-  location: string;
+  location?: string;
   overrideDescription?: string;
 }
 
@@ -15,6 +15,12 @@ export default function CustomHelmet({
   overrideDescription,
 }: Props) {
   const image = "https://www.howtographql.com/social.png";
+  const link = [] as any;
+  if (location) {
+    const canonicalUrl = `https://www.howtographql.com/${location.pathname}`;
+    link.push({ rel: "canonical", href: canonicalUrl, key: canonicalUrl });
+  }
+
   return (
     <Helmet
       title={title}
@@ -29,9 +35,7 @@ export default function CustomHelmet({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: image },
       ]}
-      link={[
-        {rel: "canonical" href: location},
-      ]}
+      link={link}
     />
   );
 }
