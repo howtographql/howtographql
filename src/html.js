@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === `production`) {
 }
 
 module.exports = class Html extends React.Component {
-  render() {
+  render({ location }) {
     let css
     if (process.env.NODE_ENV === `production`) {
       css = (
@@ -22,9 +22,7 @@ module.exports = class Html extends React.Component {
     }
     
     // from https://github.com/prisma/prisma2-docs/blob/b8d9e2d8b78f4b9fce4de1c2f0c573f435fa98ed/src/components/seo.tsx#L14
-    const [pathTechParams] = location.pathname.split('/').splice(-1)
-    let canonicalUrl = pathPrefix ? siteUrl + pathPrefix : siteUrl
-    canonicalUrl = pathTechParams ? `${canonicalUrl}/${pathTechParams}` : canonicalUrl
+    const canonicalUrl = `${siteUrl}/${location.pathname}`
 
     return (
       <html>
