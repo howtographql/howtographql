@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 interface Props {
   title: string;
   description: string;
-  location: string;
+  location?: string;
   overrideDescription?: string;
 }
 
@@ -29,9 +29,7 @@ export default function CustomHelmet({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: image },
       ]}
-      link={[
-        {rel: "canonical" href: location},
-      ]}
+      link={[{ rel: "canonical", href: location }]}
     />
   );
 }
