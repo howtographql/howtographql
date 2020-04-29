@@ -18,7 +18,7 @@ export default function CustomHelmet({
   const link = [] as any;
   if (location) {
     const canonicalUrl = `https://www.howtographql.com${location.pathname}`;
-    link.push({ rel: "canonical", href: canonicalUrl, key: canonicalUrl });
+    link.push({ rel: "canonical", href: canonicalUrl });
   }
 
   return (
