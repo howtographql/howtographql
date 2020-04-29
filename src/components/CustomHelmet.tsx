@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 interface Props {
   title: string;
   description: string;
-  location?: string;
+  location?: any;
   overrideDescription?: string;
 }
 
