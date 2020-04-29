@@ -10,11 +10,12 @@ import A from './A'
 
 interface Props {
   steps: { [key: string]: Step[] }
+  location: any
   html: string
 }
 
-function getTutorialChooser(steps: { [key: string]: Step[] }) {
-  return () => <TutorialChooser markdownFiles={steps} />
+function getTutorialChooser(steps: { [key: string]: Step[] }, location) {
+  return () => <TutorialChooser markdownFiles={steps} location={location} />
 }
 
 export default function Markdown({ steps, html }: Props) {
@@ -187,7 +188,7 @@ export default function Markdown({ steps, html }: Props) {
           INSTRUCTION: Instruction,
           PLAYGROUND: Playground,
           PRE: Pre,
-          TUTORIALCHOOSER: getTutorialChooser(steps),
+          TUTORIALCHOOSER: getTutorialChooser(steps, this.props.location),
         }}
         showWarnings={true}
       />
