@@ -32,6 +32,7 @@ export default (props: Props) => {
         title={title}
         description={description}
         overrideDescription={overrideDescription}
+        location={props.location}
       />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
