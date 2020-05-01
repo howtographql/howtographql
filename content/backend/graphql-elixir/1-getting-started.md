@@ -35,7 +35,7 @@ You're going to build an app called Community, and you can think of it as a mini
 Use the `phx.new` generator (confirm with `y` when prompted):
 
 ```bash
-mix phx.new community --no-brunch --no-html
+mix phx.new community --no-webpack --no-html
 ```
 
 </Instruction>
@@ -45,8 +45,9 @@ Say `y` to the question about fetching and installing dependencies, and then cd 
 In order to support GraphQL your application needs some additional dependencies which are configured in the `mix.exs` file. They go inside the list found within the `defp deps do` function:
 
 ```elixir(path=".../graphql-elixir/mix.exs")
-{:absinthe_ecto, "~> 0.1.0"},
-{:absinthe_plug, "~> 1.3.0"},
+{:poison, "~> 3.1"},
+{:absinthe_plug, "~> 1.4.0"},
+{:dataloader, "~> 1.0.0"}
 ```
 
 <Instruction>
