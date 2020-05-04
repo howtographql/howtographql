@@ -119,3 +119,123 @@ npx prisma migrate save --experimental
 You will get a prompt asking if you would like to create a new database. Select "Yes", and type "Init DB" for the `Name of migration`.
 
 </Instruction>
+
+Take a look at the `prisma` directory in your project's file system now. You'll see that there is now a `/migrations` directory that was created for you when running `npx prisma migrate save --experimental`. 
+
+For now, the important thing to understand is that we have told Prisma with our data model, "I want create a `Link` table to store Link data, and here's what that data will look like. Prisma then generates the necessary migration and packages it into a dedicated directory with its own `README.md` file containing detailed information about the specific migration. This is then put inside that `prisma/migrations` directory, which becomes a historical reference of how your database evolves over time with each individual migration you make!
+
+Check out the [Prisma Migrate docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-migrate) for a deeper dive on this.
+
+Now you just need to run one more command to actually *execute* the migration against your database:
+
+<Instruction>
+
+Run the following command in your terminal:
+
+```bash(path=".../hackernews-node/")
+npx prisma migrate up --experimental
+```
+
+</Instruction>
+
+Boom! You now have a database with a `Link` table! 🎉
+
+### Generating Prisma Client
+
+It's time to generate *Prisma Client* based on your data model!
+
+<Instruction>
+
+Run the following command in your terminal:
+
+```bash(path=".../hackernews-node/")
+npx prisma generate
+```
+
+</Instruction>
+
+It's as simple as that! You now have `/node_modules/@prisma/client` which can be imported and used in your code.
+
+Let's write your first query with Prisma Client and break everything down.
+
+<Instruction>
+
+Create a new file in the `src/` directory called `script.js` and add the following code:
+
+```js(path=".../hackernews-node/src/script.js")
+// 1
+const { PrismaClient } = require("@prisma/client")
+// 2
+const prisma = new PrismaClient()
+//3
+async function main() {
+  const allLinks = await prisma.link.findMany()
+  console.log(allLinks)
+}
+//4
+main()
+  .catch(e => {
+    throw e
+  })
+  // 5
+  .finally(async () => {
+    await prisma.disconnect()
+  })
+```
+
+</Instruction>
+
+Let's break down what's going on here:
+1. Import the `PrismaClient` constructor from the `@prisma/client` node module
+1. Instantiate `PrismaClient`
+1. Define an `async` function called `main` to send queries to the database. You will write all your queries insite this function.
+1. Call the `main` function
+1. Close the database connections when the script terminates
+
+Take a moment to re-type the query line and notice the helpful autocompletion you get after typing `prisma.` and `prisma.link.` which lets us see all of the possible models we can access and operations we can use to query that data:
+
+![](https://i.imgur.com/Zrrqwmo.png)
+
+So now let's see things in action.
+
+<Instruction>
+
+Run your new code with the following command:
+
+```bash(path=".../hackernews-node/")
+node src/script.js
+```
+
+</Instruction>
+
+You successfully queried the database with Prisma Client! Of course, we got an empty array back since the database is empty, so now let's add a mutation to create a new link.
+
+<Instruction>
+
+Type out the following lines of code yourself inside of the `main` function right above the `allLinks` query and pay close attention to the incredibly helpful autocompletion. First, it helps us understand that `.create()` is the operation we need (just scroll through the options) and then it actually shows us exactly how to construct the mutation!
+
+```js(path=".../hackernews-node/src/script.js")
+const newLink = await prisma.link.create({
+    data: {
+      description: 'Fullstack tutorial for GraphQL',
+      url: 'www.howtographql.com',
+    },
+  })
+```
+
+</Instruction>
+
+![](https://i.imgur.com/AUAtnxZ.png)
+
+Great! You should now see your newly created link print in the terminal output!
+
+### Summary of your workflow
+
+To recap, this is the typical workflow you will follow when updating your data:
+
+1. Manually adjust your Prisma data model.
+2. Migrate your database using the `prisma migrate` CLI commands we covered.
+3. (Re-)generate Prisma Client
+4. Use Prisma Client in your application code to access your database.
+
+In the next chapters, you will evolve the API of your GraphQL server and use Prisma Client to access the database from inside your resolver functions.
