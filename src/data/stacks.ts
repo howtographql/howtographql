@@ -216,6 +216,18 @@ const data: Stack[] = [
     },
     authorName: 'Mariusz Nosiński',
     darkenGreyLogo: true,
+  },
+  {
+    title: 'graphql-go',
+    type: 'backend',
+    key: 'graphql-go',
+    images: [require('../assets/icons/gqlgen.svg')],
+    content: {
+      title: 'Graphql Go',
+      description:
+        'Learn how to build GraphQL server with go and gqlgen',
+    },
+    authorName: 'Shayegan Hooshyari',
   }
 ]
 
