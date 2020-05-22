@@ -166,16 +166,16 @@ type contextKey struct {
 func Middleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			c, err := r.Cookie("token")
+			header := r.Header.Get("Authorization")
 
 			// Allow unauthenticated users in
-			if err != nil || c == nil {
+			if header == "" {
 				next.ServeHTTP(w, r)
 				return
 			}
 
 			//validate jwt token
-			tokenStr := c.Value
+			tokenStr := header
 			username, err := jwt.ParseToken(tokenStr)
 			if err != nil {
 				http.Error(w, "Invalid token", http.StatusForbidden)
@@ -190,9 +190,8 @@ func Middleware() func(http.Handler) http.Handler {
 				return
 			}
 			user.ID = strconv.Itoa(id)
-
 			// put it in context
-			ctx := context.WithValue(r.Context(), userCtxKey, user)
+			ctx := context.WithValue(r.Context(), userCtxKey, &user)
 
 			// and call the next with our new context
 			r = r.WithContext(ctx)
