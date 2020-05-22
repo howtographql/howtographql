@@ -12,6 +12,8 @@ In our app we need to be able to generate a token for users when they sign up or
 We create a new directory pkg in the root of our application, you have seen that we used internal for what we want to only be internally used withing our app, pkg directory is for files that we don't mind if some outer code imports it into itself and generation and validation jwt tokens are this kinds of code.
 There is a concept named claims it's not only limited to JWT We'll see more about it in rest of the section.
 
+<Instruction>
+
 `pkg/jwt/jwt.go`:
 ```go
 package jwt
@@ -56,6 +58,9 @@ func ParseToken(tokenStr string) (string, error) {
 	}
 }
 ```
+
+</Instruction>
+
 Let's talk about what above code does:
 * GenerateToken function is going to be used whenever we want to generate a token for user, we save username in token claims and set token expire time to 5 minutes later also in claims.
 * ParseToken function is going to be used whenever we receive a token and want to know who sent this token.
@@ -63,6 +68,8 @@ Let's talk about what above code does:
 ## User SignUp and Login Functionality <a name="user-signup-and-login-functionality"></a>
 Til now we can generate a token for each user but before generating token for every user, we need to assure user exists in our database. Simply we need to query database to match the user with given username and password.
 Another thing is when a user tries to register we insert username and password in our database.
+
+<Instruction>
 
 `internal/users/users.go`:
 ```go
@@ -107,6 +114,9 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 ```
+
+</Instruction>
+
 The Create function is much like the CreateLink function we saw earlier but let's break down the Authenticate code:
 * first we have a query to select password from users table where username is equal to the username we got from resolver.
 * We use QueryRow instead of Exec we used earlier; the difference is `QueryRow()` will return a pointer to a `sql.Row`.
@@ -117,6 +127,7 @@ In the next part we set the tools we have together to detect the user that is us
 ## Authentication Middleware <a name="authentication-middleware"></a>
 Every time a request comes to our resolver before sending it to resolver we want to recognize the user sending request, for this purpose we have to write a code before every resolver, but using middleware we can have a auth middleware that executes before request send to resolver and does the authentication process. to read more about middlewares visit.
 
+<Instruction>
 
 `internal/users/users.go`:
 ```go
@@ -140,9 +151,14 @@ func GetUserIdByUsername(username string) (int, error) {
 	return Id, nil
 }
 ```
+
+</Instruction>
+
 We use this function to get user object with username in authentication middeware.
 
 And now let's create our auth middleware, for more information visit [gql authentication docs](https://github.com/99designs/gqlgen/blob/master/docs/content/recipes/authentication.md).
+
+<Instruction>
 
 `internal/auth/middleware.go`:
 ```go
@@ -207,7 +223,11 @@ func ForContext(ctx context.Context) *users.User {
 }
 ```
 
+</Instruction>
+
 Now we use the middleware we declared in our server:
+
+<Instruction>
 
 `server/server.go`:
 ```go
@@ -247,3 +267,5 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }
 ```
+
+</Instruction>

@@ -4,11 +4,20 @@ Simply mutations are just like queries but they can cause a data write, Technica
 So mutations are like queries, they have names, parameters and they can return data.
 ## A Simple Mutation <a name="a-simple-mutation"></a>
 Let's try to implement the createLink mutation, since we do not have a database set up yet(we'll get it done in the next section) we just receive the link data and construct a link object and send it back for response!
+<Instruction>
+
 Open `resolver.go` and Look at `CreateLink` function:
 ```go
 func (r *mutationResolver) CreateLink(ctx context.Context, input NewLink) (*Link, error) {
 ```
-This function receives a `NewLink` with type of `input` we defined NewLink structure in our `schema.graphql` try to look at the structure and try Construct a `Link` object that be defined in our `schema.ghraphql`:
+
+</Instruction>
+
+This function receives a `NewLink` with type of `input` we defined NewLink structure in our `schema.graphql`.
+
+<Instruction>
+
+Try to Construct a `Link` object we defined in our `schema.ghraphql`:
 ```go
 func (r *mutationResolver) CreateLink(ctx context.Context, input NewLink) (*Link, error) {
 	var link Link
@@ -20,6 +29,9 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input NewLink) (*Link
 	return &link, nil
 }
 ```
+
+</Instruction>
+
 now run server and use the mutation to create a new link:
 ```
 mutation {

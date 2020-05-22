@@ -5,6 +5,8 @@ Now we have our database ready we can start implementing our schema!
 Lets implement CreateLink mutation; first we need a function to let us write a link to database.
 Create a folders links and users inside internal folder, these packages are layers between database and our app.
 
+<Instruction>
+
 `internal/users/users.go`:
 ```go
 package users
@@ -15,6 +17,11 @@ type User struct {
 	Password string `json:"password"`
 }
 ```
+
+</Instruction>
+
+<Instruction>
+
 `internal/links/links.go`:
 ```go
 package links
@@ -55,6 +62,9 @@ func (link Link) Save() int64 {
 }
 
 ```
+
+</Instruction>
+
 In users.go we just defined a `struct` that represent users we get from database, But let me explain links.go part by part:
 * 1: definition of struct that represent a link.
 * 2: function that insert a Link object into database and returns it's ID.
@@ -63,6 +73,8 @@ In users.go we just defined a `struct` that represent users we get from database
 * 5: retrieving Id of inserted Link.
 
 Now we use this function in our CreateLink resolver:
+
+<Instruction>
 
 `resolver.go`:
 ```go
@@ -74,9 +86,15 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input NewLink) (*Link
 	return &Link{ID: strconv.FormatInt(linkId, 10), Title:link.Title, Address:link.Address}, nil
 }
 ```
+
+</Instruction>
+
 Hopefully you understand this piece of code, we create a link object from input and save it to database then return newly created link(notice that we convert the ID to string with `strconv.FormatInt`).
 note that here we have 2 structs for Link in our project, one is use for our graphql server and one is for our database.
 run the server and open graphiql page to test what we just wrote:
+
+<Instruction>
+
 ```
 mutation create{
   createLink(input: {title: "something", address: "somewhere"}){
@@ -97,11 +115,14 @@ mutation create{
   }
 }
 ```
-Grate job!
+
+</Instruction>
 
 ## links Query <a name="links-query"></a>
 Just like how we implemented CreateLink mutation we implement links query, we need a function to retrieve links from database and pass it to graphql server in our resolver.
 Create a function named GetAll
+
+<Instruction>
 
 `internal/links/links.go`:
 ```go
@@ -132,7 +153,11 @@ func GetAll() []Link {
 }
 ```
 
+</Instruction>
+
 Return links from GetAll in Links query.
+
+<Instruction>
 
 `resolver.go`:
 ```go
@@ -146,6 +171,9 @@ func (r *queryResolver) Links(ctx context.Context) ([]*Link, error) {
 	return resultLinks, nil
 }
 ```
+
+</Instruction>
+
 Now query Links at graphiql:
 ```
 query {

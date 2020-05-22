@@ -5,6 +5,9 @@ Before we jump into implementing GraphQL schema we need to setup database to sav
 
 ## Setup MySQL <a name="setup-mysql"></a>
 If you have docker you can run [Mysql image]((https://hub.docker.com/_/mysql)) from docker and use it.
+
+<Instruction>
+
 `docker run --name mysql -e MYSQL_ROOT_PASSWORD=dbpass -d mysql:latest`
 now run `docker ps` and you should see our mysql image is running:
 ```
@@ -13,12 +16,18 @@ CONTAINER ID        IMAGE                                                       
 
 ```
 
+</Instruction>
+
+<Instruction>
+
 Now create a database for our application:
 ```bash
 docker exec -it mysql bash
 mysql -u root -p
 CREATE DATABASE hackernews;
 ```
+
+</Instruction>
 
 ## Models and migrations <a name="models-and-migrations"></a>
 We need to create migrations for our app so every time our app runs it creates tables it needs to work properly, we are going to use [golang-migrate](https://github.com/golang-migrate/migrate) package.
@@ -32,6 +41,9 @@ go-graphql-hackernews
 ----------mysql
 ```
 Install go mysql driver and golang-migrate packages then create migrations:
+
+<Instruction>
+
 ```
 go get -u github.com/go-sql-driver/mysql
 go build -tags 'mysql' -ldflags="-X main.Version=$(git describe --tags)" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/cmd/migrate
@@ -39,8 +51,14 @@ cd internal/pkg/db/migrations/
 migrate create -ext sql -dir mysql -seq create_users_table
 migrate create -ext sql -dir mysql -seq create_links_table
 ```
+
+</Instruction>
+
 migrate command will create two files for each migration ending with .up and .down; up is responsible for applying migration and down is responsible for reversing it.
 open `create_users_table.up.sql` and add table for our users:
+
+<Instruction>
+
 ```sql
 CREATE TABLE IF NOT EXISTS Users(
     ID INT NOT NULL UNIQUE AUTO_INCREMENT,
@@ -49,7 +67,13 @@ CREATE TABLE IF NOT EXISTS Users(
     PRIMARY KEY (ID)
 )
 ```
+
+</Instruction>
+
 in `create_links_table.up.sql`:
+
+<Instruction>
+
 ```sql
 CREATE TABLE IF NOT EXISTS Links(
     ID INT NOT NULL UNIQUE AUTO_INCREMENT,
@@ -61,6 +85,8 @@ CREATE TABLE IF NOT EXISTS Links(
 )
 ```
 
+</Instruction>
+
 We need one table for saving links and one table for saving users, Then we apply these to our database using migrate command.
 
 ```bash
@@ -68,6 +94,8 @@ We need one table for saving links and one table for saving users, Then we apply
 ```
 
 Last thing is that we need a connection to our database, for this we create a mysql.go under mysql folder(We name this file after mysql since we are now using mysql and if we want to have multiple databases we can add other folders) with a function to initialize connection to database for later use.
+
+<Instruction>
 
 `internal/pkg/db/mysql/mysql.go`:
 ```go
@@ -112,10 +140,16 @@ func Migrate() {
 
 }
 ```
+
+</Instruction>
+
 `InitDB` Function creates a connection to our database and `Migrate` function runs migrations file for us.
 In `Migrate function we apply migrations just like we did with command line but with this function your app will always apply the latest migrations before start.
 
 Then call `InitDB` and `Migrate`(Optional) In main func to create database connection at the start of the app:
+
+<Instruction>
+
 ```go
 func main() {
 	port := os.Getenv("PORT")
@@ -134,3 +168,5 @@ func main() {
 }
 
 ```
+
+</Instruction>

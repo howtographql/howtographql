@@ -2,6 +2,8 @@
 In this tutorial we are going to create a Hackernews clone with Go and gqlgen, So our API will be able to handle registration, authentication, submitting links and getting list of links.
 
 ## Project Setup <a name="project-setup"></a>
+
+<Instruction>
 Create a directory for project and initialize go modules file:
 ```bash
 go mod init github.com/[username]/hackernews
@@ -11,6 +13,8 @@ after that use ‍‍gqlgen `init` command to setup a gqlgen project.
 ```
 go run github.com/99designs/gqlgen init
 ```
+</Instruction>
+
 Here is a description from gqlgen about the generated files:
 * `gqlgen.yml` — The gqlgen config file, knobs for controlling the generated code.
 * `generated.go` — The GraphQL execution runtime, the bulk of the generated code.
@@ -66,9 +70,13 @@ type Mutation {
   refreshToken(input: RefreshTokenInput!): String!
 }
 ```
+
+<Instruction>
+
 Now remove resolver.go and  re-run the command to regenerate files;
 ```
 rm resolver.go
 go run github.com/99designs/gqlgen
 ```
+</Instruction>
 After gqlgen generated code for us with have to implement our schema, we do that in ‍‍‍‍`resolver.go`, as you see there is functions for Queries and Mutations we defined in our schema.
