@@ -107,7 +107,7 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 ```
-The Create function is much like the [CreateLink](#createlinks) function we saw earlier but let's break down the Authenticate code:
+The Create function is much like the CreateLink function we saw earlier but let's break down the Authenticate code:
 * first we have a query to select password from users table where username is equal to the username we got from resolver.
 * We use QueryRow instead of Exec we used earlier; the difference is `QueryRow()` will return a pointer to a `sql.Row`.
 * Using `.Scan` method we fill the hashedPassword variable with the hashed password from database. Obviously you don't want to [save raw passwords](https://security.blogoverflow.com/2011/11/why-passwords-should-be-hashed/) in your database.

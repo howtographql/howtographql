@@ -5,7 +5,8 @@
 
 
 In this tutorial we Implement a Hackernews GraphQL API clone  with *golang* and *gqlgen* and learn about GraphQL fundamentals along the way.
-Source code and also this tutorial are available on Github at: https://github.com/Glyphack/go-graphql-hackernews
+Source code and also this tutorial are available on Github at: https://github.com/howtographql/graphql-golang
+
 
 #### What is a GraphQL server? <a name="what-is-a-graphql-server"></a>
 A GraphQL server is able to receive requests in GraphQL Query Language format and return response in desired form.

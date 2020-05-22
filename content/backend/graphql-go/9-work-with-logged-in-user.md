@@ -1,6 +1,6 @@
 #### Completing Our app <a name="completing-our-app"></a>
 Our CreateLink mutation left incomplete because we could not authorize users back then, so let's get back to it and complete the implementation.
-With what we did in [authentication middleware](#authentication-middleware) we can retrieve user in resolvers using ctx argument. so in CreateLink function add these lines:
+With what we did in authentication middleware we can retrieve user in resolvers using ctx argument. so in CreateLink function add these lines:
 
 `resolver.go`:
 ```go
