@@ -1,6 +1,6 @@
-### Continue Implementing schema <a name="continue-implementing-schema"></a>
+# Continue Implementing schema <a name="continue-implementing-schema"></a>
 Now that we have working authentication system we can get back to implementing our schema.
-#### CreateUser <a name="createuser"></a>
+## CreateUser <a name="createuser"></a>
 We continue our implementation of CreateUser mutation with functions we have written in auth section.
 
 `resolver.go`:
@@ -35,7 +35,7 @@ results:
 ```
 So we successfully created our first user!
 
-#### Login <a name="login"></a>
+## Login <a name="login"></a>
 For this mutation, first we have to check if user exists in database and given password is correct, then we generate a token for user and give it bach to user.
 
 `internal/users.go`:
@@ -102,7 +102,7 @@ func (m *WrongUsernameOrPasswordError) Error() string {
 To define a custom error in go you need a struct with Error method implemented, here is our error for wrong username or password with it's Error() method.
 Again you can try login with username and password from the user we created and get a token.
 
-#### Refresh Token <a name="refresh-token"></a>
+## Refresh Token <a name="refresh-token"></a>
 This is the last endpoint we need to complete our authentication system, imagine a user has loggedIn in our app and it's token is going to get expired after minutes we set(when generated the token), now we need a solution to keep our user loggedIn. One solution is to have a endpoint to get tokens that are going to expire and regenerate a new token for that user so that app uses new token.
 So our endpoint should take a token, Parse the username and generate a token for that username.
 

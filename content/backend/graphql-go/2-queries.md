@@ -1,10 +1,10 @@
-### Queries <a name="queries"></a>
+# Queries <a name="queries"></a>
 In the previous section we setup up the server, Now we try to implement a Query that we defined in `schema.grpahql`.
 
-#### What Is A Query <a name="what-is-a-query"></a>
+## What Is A Query <a name="what-is-a-query"></a>
 a query in graphql is asking for data, you use a query and specify what you want and graphql will return it back to you.
 
-#### Simple Query <a name="simple-query"></a>
+## Simple Query <a name="simple-query"></a>
  open `resolver.go` file and take a look at Links function,
 ```go
 func (r *queryResolver) Links(ctx context.Context) ([]*Link, error) {

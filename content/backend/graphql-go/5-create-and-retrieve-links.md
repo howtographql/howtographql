@@ -1,9 +1,7 @@
-
-
-### Create and Retrieve Links
+# Create and Retrieve Links
 Now we have our database ready we can start implementing our schema!
 
-#### CreateLinks
+## CreateLinks
 Lets implement CreateLink mutation; first we need a function to let us write a link to database.
 Create a folders links and users inside internal folder, these packages are layers between database and our app.
 
@@ -101,7 +99,7 @@ mutation create{
 ```
 Grate job!
 
-#### links Query <a name="links-query"></a>
+## links Query <a name="links-query"></a>
 Just like how we implemented CreateLink mutation we implement links query, we need a function to retrieve links from database and pass it to graphql server in our resolver.
 Create a function named GetAll
 

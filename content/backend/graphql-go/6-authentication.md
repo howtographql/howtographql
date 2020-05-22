@@ -1,14 +1,14 @@
-### Authentication <a name="authentication"></a>
+# Authentication <a name="authentication"></a>
 One of most common layers in web applications is authentication system, our app is no exception. For authentication we are going to use jwt tokens as our way to authentication users, lets see how it works.
 
-##### JWT <a name="jwt"></a>
+## JWT <a name="jwt"></a>
 [JWT](https://jwt.io/) or Json Web Token is a string containing a hash that helps us verify who is using application. Every token is constructed of 3 parts like `xxxxx.yyyyy.zzzzz` and name of these parts are: Header, Payload and Signature. Explanation about these parts are more about JWT than our application you can read more about them [here](https://jwt.io/introduction/).
 whenever a user login to an app server generates a token for user, Usually server saves some information like username about the user in token to be able to recognize the user later using that token.This tokens get signed by a key so only the issuer app can reopen the token.
 We are going to implement this behavior in our app. 
 
-##### Setup <a name="setup"></a>
+### Setup <a name="setup"></a>
 In our app we need to be able to generate a token for users when they sign up or login and a middleware to authenticate users by the given token, then in our views we can know the user interacting with app. We will be using `github.com/dgrijalva/jwt-go` library to generate and prase JWT tokens.
-###### Generating and Parsing JWT Tokens <a name="generating-and-parsing-jwt-tokens"></a>
+### Generating and Parsing JWT Tokens <a name="generating-and-parsing-jwt-tokens"></a>
 We create a new directory pkg in the root of our application, you have seen that we used internal for what we want to only be internally used withing our app, pkg directory is for files that we don't mind if some outer code imports it into itself and generation and validation jwt tokens are this kinds of code.
 There is a concept named claims it's not only limited to JWT We'll see more about it in rest of the section.
 
@@ -60,7 +60,7 @@ Let's talk about what above code does:
 * GenerateToken function is going to be used whenever we want to generate a token for user, we save username in token claims and set token expire time to 5 minutes later also in claims.
 * ParseToken function is going to be used whenever we receive a token and want to know who sent this token.
 
-###### User SignUp and Login Functionality <a name="user-signup-and-login-functionality"></a>
+## User SignUp and Login Functionality <a name="user-signup-and-login-functionality"></a>
 Til now we can generate a token for each user but before generating token for every user, we need to assure user exists in our database. Simply we need to query database to match the user with given username and password.
 Another thing is when a user tries to register we insert username and password in our database.
 
@@ -114,7 +114,7 @@ The Create function is much like the CreateLink function we saw earlier but let'
 * then we check if any user with given username exists or not, if there is not any we return `false`, and if we found any we check the user hashedPassword with the raw password given.(Notice that we save hashed passwords not raw passwords in database in line 23)
 
 In the next part we set the tools we have together to detect the user that is using the app.
-###### Authentication Middleware <a name="authentication-middleware"></a>
+## Authentication Middleware <a name="authentication-middleware"></a>
 Every time a request comes to our resolver before sending it to resolver we want to recognize the user sending request, for this purpose we have to write a code before every resolver, but using middleware we can have a auth middleware that executes before request send to resolver and does the authentication process. to read more about middlewares visit.
 
 

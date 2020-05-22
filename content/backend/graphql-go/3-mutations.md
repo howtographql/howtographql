@@ -1,8 +1,8 @@
-### Mutations <a name="mutations"></a>
-#### What Is A Mutation <a name="what-is-a-mutation"></a>
+# Mutations <a name="mutations"></a>
+## What Is A Mutation <a name="what-is-a-mutation"></a>
 Simply mutations are just like queries but they can cause a data write, Technically Queries can be used to write data too however it's not suggested to use it.
 So mutations are like queries, they have names, parameters and they can return data.
-#### A Simple Mutation <a name="a-simple-mutation"></a>
+## A Simple Mutation <a name="a-simple-mutation"></a>
 Let's try to implement the createLink mutation, since we do not have a database set up yet(we'll get it done in the next section) we just receive the link data and construct a link object and send it back for response!
 Open `resolver.go` and Look at `CreateLink` function:
 ```go
