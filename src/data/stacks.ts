@@ -221,11 +221,14 @@ const data: Stack[] = [
     title: 'graphql-go',
     type: 'backend',
     key: 'graphql-go',
-    images: [require('../assets/icons/gqlgen.svg')],
+    images: [
+      require('../assets/icons/gopher.svg'),
+      require('../assets/icons/gqlgen.svg')
+    ],
     content: {
       title: 'Graphql Go',
       description:
-        'Learn how to build GraphQL server with go and gqlgen',
+        'Learn how to build a GraphQL server with Go and Gqlgen',
     },
     authorName: 'Shayegan Hooshyari',
   }
