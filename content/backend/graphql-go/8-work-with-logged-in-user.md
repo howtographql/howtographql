@@ -100,7 +100,7 @@ and Our app is finally complete.
 To test the endpoint navigate to localhost:8080 and write the mutation to create link:
 ```graphql
 mutation {
-  createLink(input: {title: "real link!", address: "www.graphl.org"}){
+  createLink(input: {title: "real link!", address: "www.graphql.org"}){
     user{
       name
     }

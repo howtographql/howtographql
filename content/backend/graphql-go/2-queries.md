@@ -22,7 +22,7 @@ func (r *queryResolver) Links(ctx context.Context) ([]*Link, error) {
 	return links, nil
 }
 ```
-now run the server with `go run server/server.go` and send this query in graphiql:
+now run the server with `go run server/server.go` and send this query in Graphiql:
 ```
 query {
 	links{
