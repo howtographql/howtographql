@@ -116,9 +116,12 @@ From the root directory of your project, create your first *migration* by runnin
 npx prisma migrate save --experimental
 ```
 
-You will get a prompt asking if you would like to create a new database. Select "Yes", and type "Init DB" for the `Name of migration`.
-
 </Instruction>
+
+<Instruction>
+You will get a prompt asking if you would like to create a new database. Select "Yes", and type "Init DB" for the `Name of migration`.
+</Instruction>
+
 
 Take a look at the `prisma` directory in your project's file system now. You'll see that there is now a `/migrations` directory that was created for you when running `npx prisma migrate save --experimental`. 
 
