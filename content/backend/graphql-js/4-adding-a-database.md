@@ -64,7 +64,7 @@ Remember the GraphQL schema that you've been working with until now? Well, Prism
 1. **Generator**: Indicates that you want to genenerate Prisma Client.
 1. **Data model**: Defines your application *models*. Each model will be mapped to a table in the underlying database.
 
-Prisma's unique data model bridges the gap to help you reason about your data in a way that maps very well to the underlying database, while still providing an abstraction that allows you to be productive with type safety and superb auto-completion.
+Prisma's unique data model bridges the gap to help you reason about your data in a way that maps very well to the underlying database, while still providing an abstraction that allows you to be productive with type safety and auto-completion.
 
 Let's see it in action with your project!
 
