@@ -29,6 +29,8 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) 
 </Instruction>
 
 Explanation:
+* 1: we get user object from ctx and if user is not set we return error with message access denied.
+* 2: then we set user of that link equal to the user is requesting to create the link.
 
 And edit the links query to get user from db too.
 
