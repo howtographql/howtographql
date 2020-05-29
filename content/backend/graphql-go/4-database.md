@@ -8,23 +8,12 @@ If you have docker you can run [Mysql image]((https://hub.docker.com/_/mysql)) f
 
 <Instruction>
 
-`docker run --name mysql -e MYSQL_ROOT_PASSWORD=dbpass -d mysql:latest`
+`docker run --name mysql -e MYSQL_ROOT_PASSWORD=dbpass -e MYSQL_DATABASE=hackernews -d mysql:latest`
 now run `docker ps` and you should see our mysql image is running:
 ```
 CONTAINER ID        IMAGE                                                               COMMAND                  CREATED             STATUS              PORTS                  NAMES
 8fea71529bb2        mysql:latest                                                        "docker-entrypoint.s…"   2 hours ago         Up 2 hours          3306/tcp, 33060/tcp    mysql
 
-```
-
-</Instruction>
-
-<Instruction>
-
-Now create a database for our application:
-```bash
-docker exec -it mysql bash
-mysql -u root -p
-CREATE DATABASE hackernews;
 ```
 
 </Instruction>
@@ -46,7 +35,7 @@ Install go mysql driver and golang-migrate packages then create migrations:
 
 ```
 go get -u github.com/go-sql-driver/mysql
-go build -tags 'mysql' -ldflags="-X main.Version=$(git describe --tags)" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/cmd/migrate
+go build -tags 'mysql' -ldflags="-X main.Version=1.0.0" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/cmd/migrate
 cd internal/pkg/db/migrations/
 migrate create -ext sql -dir mysql -seq create_users_table
 migrate create -ext sql -dir mysql -seq create_links_table
@@ -55,7 +44,7 @@ migrate create -ext sql -dir mysql -seq create_links_table
 </Instruction>
 
 migrate command will create two files for each migration ending with .up and .down; up is responsible for applying migration and down is responsible for reversing it.
-open `create_users_table.up.sql` and add table for our users:
+open `000001_create_users_table.up.sql` and add table for our users:
 
 <Instruction>
 
@@ -70,7 +59,7 @@ CREATE TABLE IF NOT EXISTS Users(
 
 </Instruction>
 
-in `create_links_table.up.sql`:
+in `000001_create_links_table.up.sql`:
 
 <Instruction>
 
@@ -113,7 +102,8 @@ import (
 var Db *sql.DB
 
 func InitDB() {
-	db, err := sql.Open("mysql", "root:dbpass@(172.17.0.2:3306)/hackernews")
+	// Use root:dbpass@tcp(172.17.0.2)/hackernews, if you're using Windows.
+	db, err := sql.Open("mysql", "root:dbpass@tcp(localhost)/hackernews")
 	if err != nil {
 		log.Panic(err)
 	}
