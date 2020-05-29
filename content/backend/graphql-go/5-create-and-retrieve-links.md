@@ -1,3 +1,9 @@
+---
+title: Create and Retrieve Links
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "Enable Users to create Links and see them"
+---
+
 # Create and Retrieve Links
 Now we have our database ready we can start implementing our schema!
 
