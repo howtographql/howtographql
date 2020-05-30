@@ -4,7 +4,6 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "Implement authentication in gqlgen with jwt"
 ---
 
-# Authentication <a name="authentication"></a>
 One of most common layers in web applications is authentication system, our app is no exception. For authentication we are going to use jwt tokens as our way to authentication users, lets see how it works.
 
 ## JWT <a name="jwt"></a>

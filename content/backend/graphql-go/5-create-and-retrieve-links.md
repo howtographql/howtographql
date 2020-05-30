@@ -4,9 +4,6 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "Enable Users to create Links and see them"
 ---
 
-# Create and Retrieve Links
-Now we have our database ready we can start implementing our schema!
-
 ## CreateLinks
 Lets implement CreateLink mutation; first we need a function to let us write a link to database.
 Create a folders links and users inside internal folder, these packages are layers between database and our app.

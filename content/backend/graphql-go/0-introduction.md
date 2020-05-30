@@ -4,7 +4,7 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "Learn how to build a GraphQL server with gqlgen."
 ---
 
-# Motivation <a name="motivation"></a>
+## Motivation <a name="motivation"></a>
 [**Go**](https://golang.org/) is a modern general purpose programming language designed by google; best known for it's simplicity, concurrency and fast performance. It's being used by big players in the industry like Google, Docker, Lyft and Uber. If you are new to golang you can start from [golang tour](https://tour.golang.org/) to learn fundamentals.
 
 [**gqlgen**](https://gqlgen.com/) is a library for creating GraphQL applications in Go.

@@ -4,7 +4,6 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "Summary of building a GraphQL server with GO backend"
 ---
 
-# Summary <a name="summary"></a>
 Congratulations on make it to here! You've learned about gqlgen library and some Graphql fundamentals. By implementing a HackerNews clone you've learned about queries, mutations, authentication and GraphQL query language. 
 # Further Steps <a name="further-steps"></a>
 If you want to create more complex GrahpQL APIs there are few things you can check out:

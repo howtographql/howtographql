@@ -4,8 +4,6 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "what are mutations and implementing a mutation in gqlgen"
 ---
 
-
-# Mutations <a name="mutations"></a>
 ## What Is A Mutation <a name="what-is-a-mutation"></a>
 Simply mutations are just like queries but they can cause a data write, Technically Queries can be used to write data too however it's not suggested to use it.
 So mutations are like queries, they have names, parameters and they can return data.

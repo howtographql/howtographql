@@ -4,7 +4,6 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "Get logged-in user in gqlgen"
 ---
 
-# Logged in user object<a name="completing-our-app"></a>
 Our CreateLink mutation left incomplete because we could not authorize users back then, so let's get back to it and complete the implementation. With what we have now, we can check whether the user is logged in or not by checking the Authorization HTTP header.
 With what we did in authentication middleware we can retrieve user in resolvers using ctx argument. so in CreateLink function add these lines:
 

@@ -4,7 +4,7 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "Creating an app with gqlgen"
 ---
 
-# Getting started <a name="getting-started"></a>
+## What are you going to build?
 In this tutorial we are going to create a Hackernews clone with Go and gqlgen, So our API will be able to handle registration, authentication, submitting links and getting list of links.
 
 ## Project Setup <a name="project-setup"></a>
