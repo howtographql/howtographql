@@ -1,4 +1,9 @@
-# Queries <a name="queries"></a>
+---
+title: Queries
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "what are queries and implementing a query in gqlgen"
+---
+
 In the previous section we setup up the server, Now we try to implement a Query that we defined in `schema.grpahql`.
 
 ## What Is A Query <a name="what-is-a-query"></a>

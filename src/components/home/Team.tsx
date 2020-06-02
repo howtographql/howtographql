@@ -246,6 +246,13 @@ export default function Team() {
                 x={170}
                 y={-10}
               />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/shayegan.jpg')}
+                name="Shayegan Hooshyari"
+                description={"graphql-go"}
+                x={-670}
+                y={80}
+              />
             </div>
           </div>
         </div>

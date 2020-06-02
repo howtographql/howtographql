@@ -33,8 +33,9 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 - graphql-ruby / Ruby
 - graphql-java / Java
 - Graphene / Python
+- gqlgen / Go
 - Sangria / Scala (Coming Soon)
-- graphql-go / Go (Coming Soon)
+
 
 ## Contributions / Fixes
 

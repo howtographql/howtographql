@@ -18,6 +18,7 @@ Choose your favorite programming language to get started with GraphQL on the ser
 - [**Elixir**](https://www.howtographql.com/graphql-elixir/0-introduction/): Learn how to build a GraphQL server in Elixir with this tutorial based on the [Absinthe](https://github.com/absinthe-graphql/absinthe) library.
 - [**Python**](https://www.howtographql.com/graphql-python/0-introduction/): Learn how to build a GraphQL server in Python with this tutorial based on the [Graphene](https://github.com/graphql-python/graphene) library.
 - [**Scala**](https://www.howtographql.com/graphql-scala/0-introduction): Learn how to build a GraphQL server in Scala with this tutorial based on the [Sangria](https://github.com/sangria-graphql/sangria) library.
+- [**Golang**](https://www.howtographql.com/graphql-go/0-intruduction): Learn how to build a GraphQL server in golang based on the  gqlgen library.
 
 ### Learn how to use GraphQL on the frontend
 
