@@ -1,5 +1,9 @@
-# Continue Implementing schema <a name="continue-implementing-schema"></a>
-Now that we have working authentication system we can get back to implementing our schema.
+---
+title: Auth Endpoints
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "Enable Users to register, login and refresh their token"
+---
+
 ## CreateUser <a name="createuser"></a>
 We continue our implementation of CreateUser mutation with functions we have written in auth section.
 

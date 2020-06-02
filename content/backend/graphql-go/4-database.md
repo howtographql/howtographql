@@ -1,4 +1,9 @@
-# Database <a name="database"></a>
+---
+title: Database
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "Setup mysql db with migrations in golang"
+---
+
 Before we jump into implementing GraphQL schema we need to setup database to save users and links, This is not supposed to be tutorial about databases in go but here is what we are going to do:
 * setup MySQL
 * define our models and create migrations
