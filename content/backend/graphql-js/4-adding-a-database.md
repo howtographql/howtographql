@@ -108,7 +108,7 @@ Apart from removing the colon, there are a few key differences between the schem
 For more information on field attributes see the [Field Attribute Documentation](https://github.com/prisma/specs/tree/master/schema#field-attributes)
 
 
-It's finally time to actually create our SQLite database, which Prisma can do for us right out of the box with a simple command!
+Now, it's finally time to actually create our SQLite database, which Prisma can do for us right out of the box with a simple command!
 
 <Instruction>
 
