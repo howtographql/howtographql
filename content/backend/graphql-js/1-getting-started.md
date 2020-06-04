@@ -7,7 +7,7 @@ answers: ["The three root fields are: Query, Mutation and Subscription", "Root f
 correctAnswer: 2
 ---
 
-In this section, you will set up the project for your GraphQL server and implement your first GraphQL query. In the end, we'll talk theory for a bit and learn about the [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e).
+In this section, you will set up the project for your GraphQL server and implement your first GraphQL query. At the end, we'll talk theory for a bit and learn about the [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e).
 
 ### Creating the project
 
@@ -15,7 +15,7 @@ This tutorial teaches you how to build a GraphQL server from scratch, so the fir
 
 <Instruction>
 
-Open your terminal, navigate to a location of your choice and run the following commands:
+Open your terminal, navigate to a location of your choice, and run the following commands:
 
 ```bash
 mkdir hackernews-node
@@ -50,6 +50,8 @@ To start the app, you can now execute `node src/index.js` inside the `hackernews
 
 Let's go and start building the GraphQL server! The first thing you need to is - surprise - add a dependency to the project.
 
+First, let's install an important dependency that will allow you to create your GraphQL server.
+
 <Instruction>
 
 Run the following command in your terminal:
@@ -73,7 +75,7 @@ Here's a list of its features:
 - Resolves custom directives in your GraphQL schema
 - Query performance tracing
 - Accepts both `application/json` and `application/graphql` content-types
-- Runs everywhere: Can be deployed via `vercel`, `up`, AWS Lambda, Heroku etc.
+- Runs everywhere: Can be deployed via Vercel, Up, AWS Lambda, Heroku etc.
 
 Perfect, it's time to write some code 🙌
 
@@ -141,7 +143,7 @@ By clicking the **DOCS**-button on the right, you can open the API documentation
 
 ![](https://imgur.com/81Ho6YM.png)
 
-Let's go and send your very first GraphQL query. Type the following into the editor pane on the left side:
+Let's go ahead and send your very first GraphQL query. Type the following into the editor pane on the left side:
 
 ```graphql
 query {
@@ -175,7 +177,7 @@ Now, send the query from before again. This time, it returns an error: `Error: C
 
 What happens here is that the underlying [`graphql-js`](https://github.com/graphql/graphql-js/) reference implementation ensures that the return types of your resolvers adhere to the type definitions in your GraphQL schema. Put differently, it protects you from making stupid mistakes!
 
-This is in fact one of the core benefits of GraphQL in general: It enforces that the API actually behaves in the way that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can always be 100% sure about the API operations and data structures that are returned by the API.
+This is in fact one of the core benefits of GraphQL in general: it enforces that the API actually behaves in the way that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can always be 100% sure about the API operations and data structures that are returned by the API.
 
 ### A word on the GraphQL schema
 
@@ -185,7 +187,7 @@ At the core of every GraphQL API, there is a GraphQL schema. So, let's quickly t
 
 GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). SDL has a type system that allows you to define data structures (just like other strongly typed programming languages such as Java, TypeScript, Swift, Go, etc.).
 
-But how does that help in defining the API for a GraphQL server? Every GraphQL schema has three special _root types_: `Query`, `Mutation`, and `Subscription`. The root types correspond to the three operation types offered by GraphQL: queries, mutations and subscriptions. The fields on these root types are called _root field_ and define the available API operations.
+How does that help in defining the API for a GraphQL server, though? Every GraphQL schema has three special _root types_: `Query`, `Mutation`, and `Subscription`. The root types correspond to the three operation types offered by GraphQL: queries, mutations, and subscriptions. The fields on these root types are called _root fields_ and define the available API operations.
 
 As an example, consider the simple GraphQL schema we used above:
 
@@ -260,7 +262,7 @@ There are a few things to note:
 
 - In these examples, we always query `id` and `name` of the returned `User` objects. We could potentially omit either of them. Note, however, when querying an object type, it is required that you query at least one of its fields in a selection set.
 - For the fields in the selection set, it doesn't matter whether the type of the root field is _required_ or a _list_. In the example schema above, the three root fields all have different [type modifiers](http://graphql.org/learn/schema/#lists-and-non-null) (i.e. different combinations of being a list and/or required) for the `User` type:
-  - For the `users` field, the return type `[User!]!` means it returns a _list_ (which itself can not be `null`) of `User` elements. The list can also not contain elements that are `null`. So, you're always guaranteed to either receive an empty list or a list that only contains non-null `User` objects.
+  - For the `users` field, the return type `[User!]!` means it returns a _list_ (which itself cannot be `null`) of `User` elements. The list can also not contain elements that are `null`. So, you're always guaranteed to either receive an empty list or a list that only contains non-null `User` objects.
   - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
 
