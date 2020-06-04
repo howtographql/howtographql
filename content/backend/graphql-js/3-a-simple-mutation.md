@@ -19,20 +19,20 @@ In `index.js`, extend the `typeDefs` string as follows:
 
 ```js{7-9}(path="../hackernews-node/src/index.js")
 const typeDefs = `
-type Query {
-  info: String!
-  feed: [Link!]!
-}
+  type Query {
+    info: String!
+    feed: [Link!]!
+  }
 
-type Mutation {
-  post(url: String!, description: String!): Link!
-}
+  type Mutation {
+    post(url: String!, description: String!): Link!
+  }
 
-type Link {
-  id: ID!
-  description: String!
-  url: String!
-}
+  type Link {
+    id: ID!
+    description: String!
+    url: String!
+  }
 `
 ```
 
@@ -104,6 +104,7 @@ let links = [{
   url: 'www.howtographql.com',
   description: 'Fullstack tutorial for GraphQL'
 }]
+
 // 1
 let idCount = links.length
 const resolvers = {
@@ -128,20 +129,20 @@ const resolvers = {
 
 </Instruction>
 
-First off, note that you're entirely removing the `Link` resolvers (as explained before). They are not needed because the GraphQL server infers what they look like.
+First off, note that you're entirely removing the `Link` resolvers (as explained at the very end of the last section). They are not needed because the GraphQL server infers what they look like.
 
 Also, here's what's going on with the numbered comments:
 
-1. You're adding a new integer variable that simply serves as a way to generate unique IDs for newly created `Link` elements.
+1. You're adding a new integer variable that simply serves as a very rudimentary way to generate unique IDs for newly created `Link` elements.
 1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
 
-Now is a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
+Now's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
 
-Correct! It carries the _arguments_ for the operation - in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
+Correct! 💡 It carries the _arguments_ for the operation -- in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
 
 ### Testing the mutation
 
-Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through the Playground:
+Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through the GraphQL Playground:
 
 ```graphql
 mutation {
@@ -168,7 +169,7 @@ The server response will look as follows:
 
 With every mutation you send, the `idCount` will increase and the following IDs for created links will be `link-2`, `link-3`, and so forth...
 
-To verify that your mutation worked, you can send the `feed` query from before again - it now returns the additional post that you created with the mutation:
+To verify that your mutation worked, you can send the `feed` query from before again -- it now returns the additional Link that you created with the mutation:
 
 ![](https://imgur.com/ZfJQwdB.png)
 
