@@ -103,10 +103,12 @@ Let's break down the three parts:
 
 You may notice that this `Link` *model* looks very similar to the `Link` *type* in the GraphQL Schema. It's important to quickly discuss how the two schemas are different.
 
-// explain how they are different
+Apart from removing the colon, there are a few key differences between the schema above and the one we previously defined. Notice that the "!" character is no longer necessary in the Prisma schema. This is because Prisma implicitly enforces non null values. The main difference lies in the core field attributes placed after `id` and `createdAt`. For example, `@id` must be included exactly once to serve as the primary key for the table and `@default` determines the value of the field when a null value is provided.
+
+For more information on field attributes see the [Field Attribute Documentation](https://github.com/prisma/specs/tree/master/schema#field-attributes)
 
 
-It's finally time to actually create our SQLite database, which Prisma can do for us right out of the box with a simple command!
+Now, it's finally time to actually create our SQLite database, which Prisma can do for us right out of the box with a simple command!
 
 <Instruction>
 
