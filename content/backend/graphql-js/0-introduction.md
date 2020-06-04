@@ -25,7 +25,7 @@ In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server entire
 
 ### What to expect
 
-The goal of this tutorial is to build an API for a [Hacker News](https://news.ycombinator.com/) clone. Here is a quick rundown of what to expect in this tutorial.
+The goal of this tutorial is to build an API for a [Hacker News](https://news.ycombinator.com/) clone. Here is a quick rundown of what to expect.
 
 You'll start by learning the basics of how a GraphQL server works, simply by defining a [_GraphQL schema_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) for the server and writing corresponding _resolver functions_. In the beginning, these resolvers will only work with data that's stored in-memory - so nothing will persist beyond the runtime of the server.
 
