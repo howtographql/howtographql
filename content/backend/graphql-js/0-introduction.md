@@ -29,14 +29,14 @@ The goal of this tutorial is to build an API for a [Hacker News](https://news.yc
 
 You'll start by learning the basics of how a GraphQL server works, simply by defining a [_GraphQL schema_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) for the server and writing corresponding _resolver functions_. In the beginning, these resolvers will only work with data that's stored in-memory - so nothing will persist beyond the runtime of the server.
 
-Because nobody wants a server that's not able to store and persist data, you're going to add a database layer to it. The database layer is powered by [Prisma](https://www.prisma.io/) and will be connected to your GraphQL server via the [Prisma client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/api#overview). 
+Nobody wants a server that's not able to store and persist data, right? Not to worry! Next, you're going to add a database layer to the project. The database layer is powered by [Prisma](https://www.prisma.io/) and will be connected to your GraphQL server via [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/api#overview). 
 
 Once you have the database connected, you are going to add more advanced features to the API.
 
 You'll start by implementing signup/login functionality that enables users to authenticate against the API. This will also allow you to check the permissions of your users for certain API operations.
 
-The next part of the tutorial is about adding realtime functionality to your API using GraphQL subscriptions.
+Next, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding filtering and pagination capabalities to it.
 
-Lastly, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding filtering and pagination capabalities to it.
+Finally, in a bonus section of the tutorial we will even cover adding realtime functionality to your API using GraphQL subscriptions.
 
 Let's get started 🚀
