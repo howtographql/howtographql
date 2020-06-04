@@ -264,6 +264,7 @@ There are a few things to note:
   - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
 
+// TODO (robin-macpherson): question #2 for Nikolas
 As you provide this information, the `Prisma` instance will get full access to your database service and can be used to resolve incoming request later on.
 
 Phew, enough theory 😠 Let's go and write some more code!
