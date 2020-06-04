@@ -7,7 +7,7 @@ answers: ["With schema-driven development", "By invoking all available resolver 
 correctAnswer: 3
 ---
 
-In this section, you are going to implement the first API operation that provides the functionality for a Hacker News clone: Querying a feed of _links_ that were posted by other users.
+In this section, you are going to implement the first API operation that provides the functionality of a Hacker News clone: querying a feed of _links_ that were posted by other users.
 
 ### Extending the schema definition
 
@@ -26,26 +26,26 @@ In `index.js`, update the `typeDefs` constant to look as follows:
 
 ```js{4,7-11}(path="../hackernews-node/src/index.js")
 const typeDefs = `
-type Query {
-  info: String!
-  feed: [Link!]!
-}
+  type Query {
+    info: String!
+    feed: [Link!]!
+  }
 
-type Link {
-  id: ID!
-  description: String!
-  url: String!
-}
+  type Link {
+    id: ID!
+    description: String!
+    url: String!
+  }
 `
 ```
 
 </Instruction>
 
-Pretty straightforward. You're defining a new `Link` type that represents the links that can be posted to Hacker News. Each `Link` has an `id`, a `description` and `url`. You're then adding another root field to the `Query` type that allows you to retrieve a list of `Link` elements. This list is guaranteed to never be `null` (if anything, it will be empty) and never contain any elements that are `null` - that's what the two exclamation marks are for.
+Pretty straightforward, right? You're defining a new `Link` type that represents the links that can be posted to Hacker News. Each `Link` has an `id`, a `description`, and a `url`. You're then adding another root field to the `Query` type that allows you to retrieve a list of `Link` elements. This list is guaranteed to never be `null` (if anything, it will be empty) and never contain any elements that are `null` - that's what the two exclamation marks are for.
 
 ### Implement resolver functions
 
-The next step is to implement the resolver function for the `feed` query. In fact, one thing we haven't mentioned yet is that not only _root fields_, but virtually _all_ fields on the types in a GraphQL schema have resolver functions. So, you'll add resolvers for the `id`, `description` and `url` fields of the `Link` type as well.
+The next step is to implement the resolver function for the `feed` query. In fact, one thing we haven't mentioned yet is that not only _root fields_, but virtually _all_ fields on the types in a GraphQL schema have resolver functions. So, you'll add resolvers for the `id`, `description`, and `url` fields of the `Link` type as well.
 
 <Instruction>
 
@@ -80,7 +80,7 @@ Let's walk through the numbered comments again:
 
 1. The `links` variable is used to store the links at runtime. For now, everything is stored only _in-memory_ rather than being persisted in a database.
 1. You're adding a new resolver for the `feed` root field. Notice that a resolver always has to be named after the corresponding field from the schema definition.
-1. Finally, you're adding three more resolvers for the fields on the `Link` type from the schema definition. We'll discuss in a bit what the `parent` argument is that's passed into the resolver here.
+1. Finally, you're adding three more resolvers for the fields on the `Link` type from the schema definition. We'll discuss what the `parent` argument that's passed into the resolver here is in a bit.
 
 Go ahead and test the implementation by restarting the server (first use **CTRL+C** to stop the server if it is still running, then execute `node src/index.js` again) and navigate to `http://localhost:4000` in your browser. If you expand the documentation of the Playground, you'll notice that another query called `feed` is now available:
 
@@ -120,7 +120,7 @@ Feel free to play around with the query by removing any fields from the selectio
 
 Let's now quickly talk about how a GraphQL server actually resolves incoming queries. As you already saw, a GraphQL query consists of a number of _fields_ that have their source in the type definitions of the GraphQL schema.
 
-Consider again the query from above:
+Let's consider the query from above again:
 
 ```graphql(nocopy)
 query {
@@ -132,9 +132,9 @@ query {
 }
 ```
 
-All four fields specified in the query, `feed`, `id`, `url` and `description` can also be found inside the schema definition. Now, you also learned that _every_ field inside the schema definition is backed by one resolver function whose responsibility it is to return the data for precisely that field.
+All four fields specified in the query (`feed`, `id`, `url`, and `description`) can also be found inside the schema definition. Now, you also learned that _every_ field inside the schema definition is backed by one resolver function whose responsibility it is to return the data for precisely that field.
 
-Can you imagine what the query resolution process now looks like? Effectively, all the GraphQL server has to do is invoke all resolver functions for the fields that are contained in the query and then package up the response according to the query's shape. Query resolution thus merely becomes a process of orchestrating the invocation of resolver functions!
+Can you imagine what the query resolution process looks like now? Effectively, all the GraphQL server has to do is invoke all resolver functions for the fields that are contained in the query and then package up the response according to the query's shape. Query resolution thus merely becomes a process of orchestrating the invocation of resolver functions!
 
 One thing that's still a bit weird in the implementation right now are the resolvers for the `Link` type that all seem to follow a very simple and trivial pattern:
 
@@ -148,7 +148,7 @@ Link: {
 
 First, it's important to note that every GraphQL resolver function actually receives _four_ input arguments. As the remaining three are not needed in our scenario right now, we're simply omitting them. Don't worry, you'll get to know them soon.
 
-The first argument, commonly called `parent` (or sometimes `root`) is the result of the previous _resolver execution level_. But what does that mean? 🤔
+The first argument, commonly called `parent` (or sometimes `root`) is the result of the previous _resolver execution level_. Hang on, what does that mean? 🤔
 
 Well, as you already saw, GraphQL queries can be _nested_. Each level of nesting (i.e. nested curly braces) corresponds to one resolver execution level. The above query therefore has two of these execution levels.
 
@@ -156,4 +156,4 @@ On the first level, it invokes the `feed` resolver and returns the entire data s
 
 > **Note**: To learn more about this, check out [this](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#9d03) article.
 
-In any case, because the implementation of the `Link` resolvers is trivial, you can actually omit them and the server will work in the same way as it did before 👌
+In any case, because the implementation of the `Link` resolvers is trivial, you can actually omit them and the server will work in the same way as it did before 👌 I just wanted you to understand what's happening under the hood 🚗
