@@ -144,16 +144,16 @@ MIDDLEWARE = [
 
 <Instruction>
 
-In the `hackernews/settings.py` file, under the `GRAPHENE` variable, add the following:
+In the `hackernews/settings.py` file, inside the `GRAPHENE` variable, add the `JSONWebTokenMiddleware`:
 
-'''python(path=".../graphql-python/hackernews/hackernews/settings.py")
+```
 GRAPHENE = {
     'SCHEMA': 'mysite.myschema.schema',
     'MIDDLEWARE': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
-'''
+```
     
 </Instruction>
 
