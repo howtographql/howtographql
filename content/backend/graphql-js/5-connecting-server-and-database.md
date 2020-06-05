@@ -1,5 +1,5 @@
 ---
-title: Connecting Server and Database with the Prisma Client
+title: Connecting The Server and Database with Prisma Client
 pageTitle: "Connecting a Database to a GraphQL Server with Prisma Tutorial"
 description: "Learn how to add a database to your GraphQL server. The database is powered by Prisma and connected to the server via GraphQL bindings."
 question: "What is the main responsibility of the Prisma binding instance that's attached to the 'context'?"
@@ -7,15 +7,80 @@ answers: ["Expose the application schema to client applications", "Translate the
 correctAnswer: 1
 ---
 
-In this section, you're going to connect your GraphQL server with the [Prisma](https://www.prisma.io) API which provides the interface to your database. The connection is implemented via the [Prisma client](https://www.prisma.io/docs/prisma-client/).
+// -- TODO (robin-macpherson) --//
 
-### Updating the resolver functions to use Prisma client
+@nikolasburk as I was working through this myself, it was a stark difference to go from having the amazing autocompletion in the last section and then no autocompletion here while writing out these first steps. 
 
-You're going to start this section with a bit of cleanup and refactoring.
+I'd like to re-structure the steps of this chapter so that it's a bit more intuitive and it would be great if we could get autocompletion working before they begin typing out the refactoring of the resolvers!
+
+Below is my first effort of restructuring and re-ordering things.
+
+Other change notes:
+
+- I updated the original code to continue using `parent` instead of `root`. In my experience, `parent` is much more common and that's what was used in previous sections, so it felt a little jarring to suddenly switch to `root` here. Let me know if you disagree, though, since you have a lot more experience than me here!
+- I decided that it would be nice to add a little more focus/emphasis on helping people become comfortable with the overall system and workflow behind a Prisma/GraphQL project. I might been a little repetitive on this point so let me know if you think so. I thought it was better to start out very clear and we can always make it a little more concise if needed.
+- I changed the order in which we present and explain the information. As I was going through the original, I found myself asking questions like, "Wait, how do we have access to the `prisma` object?" and while typing "Why am I getting these errors?". The way I wrote it now feels a little smoother to me, by introducing the objective, then concepts like the `context` argument up front which we will use to accomplish that objective, and then showing it in action. In the same line of thinking, I also presented the steps of importing `PrismaClient` and setting up the `context` before then implementing the refactored resolvers. Let me know how you like this approach and educational flow! 😄
+
+// --------------------------- //
+
+In this section, you're going to learn how to connect your GraphQL server to the [Prisma](https://www.prisma.io) API you set up in the last chapter, which provides the interface to your database. This connection is implemented via [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+
+### Wiring up your GraphQL schema with Prisma Client
+
+The first thing you need to do is import your generated Prisma Client library and wire up the GraphQL server so that you can access the CRUD operations that your new Prisma API exposes in order to access your new database.
+
+#### The GraphQL Context Resolver Argument
+
+Remember how we said earlier that all GraphQL resolver functions _always_ receive four arguments? To accomplish this step, you'll need to get to know another one -- the `context` argument!
+
+The `context` argument is a plain JavaScript object that every resolver in the resolver chain can read from and write to. Thus, it is basically a means for resolvers to communicate. A really helpful feature is that you can already write to the context at the moment when the GraphQL server itself is being initialized.
+
+This means that we can attach an instance of Prisma Client to the _context_ when initializing the server and then access is from inside our resolvers via the _context_ argument!
+
+That's all a bit theoretical, so let's see how it looks in action 💻
+
+### Updating the resolver functions to use Prisma Client
 
 <Instruction>
 
-Open `index.js` and entirely remove the `links` array as well as the `idCount` variable - you don't need those any more since the data will now be stored in an actual database.
+First, import `PrismaClient` into `index.js` at the top of the file:
+
+```js(path=".../hackernews-node/src/index.js")
+const { PrismaClient } = require('@prisma/client')
+```
+
+</Instruction>
+
+Now you can attach an instance of PrismaClient to the `context` when the `GraphQLServer` is being initialized.
+
+<Instruction>
+
+In `index.js`, save an instance of PrismaClient to a variable and update the instantiation of the `GraphQLServer` to add is to the context as follows:
+
+```js{4-12}(path=".../hackernews-node/src/index.js")
+const prisma = new PrismaClient()
+
+const server = new GraphQLServer({
+  typeDefs: './src/schema.graphql',
+  resolvers,
+  context: (request) => {
+    return {
+      ...request,
+      prisma,
+    }
+  },
+})
+```
+
+</Instruction>
+
+Awesome! Now, the `context` object that's passed into all your GraphQL resolvers is being initialized right here and because you're attaching an instance of `PrismaClient` (as `prisma`) to it when the `GraphQLServer` is instantiated, you'll now be able to access `context.prisma` in all of your resolvers.
+
+Finally, it's time to refactor your resolvers. Again, we encourage you to type these changes yourself so that you can get used to Prisma's autocompletion and how to leverage that to intuitively figure out what resolvers should be on your own.
+
+<Instruction>
+
+Open `index.js` and remove the `links` array entirely, as well as the `idCount` variable -- you don't need those any more since the data will now be stored in an actual database.
 
 </Instruction>
 
@@ -29,16 +94,19 @@ Still in `index.js`, update the `resolvers` object to look as follows:
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    feed: (root, args, context, info) => {
-      return context.prisma.links()
+    feed: async (parent, args, context, info) => {
+      return context.prisma.link.findMany()
     },
   },
   Mutation: {
-    post: (root, args, context) => {
-      return context.prisma.createLink({
-        url: args.url,
-        description: args.description,
+    post: (parent, args, context, info) => {
+      const newLink = context.prisma.link.create({
+        data: {
+          url: args.url,
+          description: args.description,
+        },
       })
+      return newLink
     },
   },
 }
@@ -46,102 +114,43 @@ const resolvers = {
 
 </Instruction>
 
-Wow, that looks weird! There's a bunch of new stuff happening, let's try to understand what's going on, starting with the `feed` resolver.
-
-#### The `context` argument
-
-Previously, the `feed` resolver didn't take any arguments - now it receives _four_. In fact, the first two and the fourth are not needed for this particular resolver. But the third one, called `context`, is.
-
-Remember how we said earlier that all GraphQL resolver functions _always_ receive four arguments. Now you're getting to know another one, so what is `context` used for?
-
-The `context` argument is a plain JavaScript object that every resolver in the resolver chain can read from and write to - it thus basically is a means for resolvers to communicate. As you'll see in a bit, it's also possible to already write to it at the moment when the GraphQL server itself is being initialized. So, it's also a way for _you_ to pass arbitrary data or functions to the resolvers. In this case, you're going to attach this `prisma` client instance to the `context` - more about that soon.
-
-> **Note**: This tutorial actually doesn't cover the fourth resolver argument. To learn more about this topic, check out these two articles:
-> - [GraphQL Server Basics: The Schema](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e)
-> - [GraphQL Server Basics: Demystifying the `info` Argument in GraphQL Resolvers](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a)
-
-Now that you have a basic understanding of the arguments that are passed into the resolver, let's see how they're being used inside the implementation of the resolver function.
+Now let's understand how these new resolvers are working!
 
 #### Understanding the `feed` resolver
 
 The `feed` resolver is implemented as follows:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
-feed: (root, args, context, info) => {
-  return context.prisma.links()
+feed: async (parent, args, context, info) => {
+  return context.prisma.link.findMany()
 },
 ```
 
-It accesses a `prisma` object on `context`. As you will see in a bit, this `prisma` object actually is a `Prisma` client instance that's imported from the generated `prisma-client` library.
+It accesses the `prisma` object via the `context` argument we discussed a moment ago. As a reminder, this is actually an entire `PrismaClient` instance that's imported from the generated `@prisma/client` library, effectively allowing you to access your database through the Prisma API we set up in chapter 4.
 
-This `Prisma` client instance effectively lets you access your database through the Prisma API. It exposes a number of methods that let you perform CRUD operations for your models. 
+Now, you should be able to imagine the complete system and workflow of a Prisma/GraphQL project, where our Prisma API exposes a number of methods that let you perform CRUD operations on your database models. As we add new functionality, we expose the appropriate methods to the GraphQL server via `PrismaClient` and then use them inside your resolvers via the `context` argument! 
 
 #### Understanding the `post` resolver
 
 The `post` resolver now looks like this:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
-post: (root, args, context) => {
-  return context.prisma.createLink({
-    url: args.url,
-    description: args.description,
+post: (parent, args, context) => {
+  const newLink = context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+    },
   })
+  return newLink
 },
 ```
 
-Similar to the `feed` resolver, you're simply invoking a function on the `prisma` client instance which is attached to the `context`.
+Similar to the `feed` resolver, you're simply invoking a function on the PrismaClient instance which is attached to the `context`.
 
-You're sending the `createLink` method from the Prisma client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
+You're calling the `create` method on a `link` from your Prisma Client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
 
-So, to summarize, Prisma client exposes a CRUD API for the models in your datamodel for you to read and write in your database. These methods are auto-generated based on your model definitions in `datamodel.prisma`.  
-
-But, how do you make sure your resolvers actually get access to that magical and often-mentioned `prisma` client instance?
-
-### Attaching the generated Prisma client to `context`
-
-Before doing anything else, go ahead and do what JavaScript developers love most: Add a new dependency to your project 😑
-
-<Instruction>
-
-In the root directory of your project (not inside `prisma`), run the following command:
-
-```bash(path=".../hackernews-node")
-yarn add prisma-client-lib
-```
-
-</Instruction>
-
-This dependency is required to make the auto-generated Prisma client work.
-
-Now you can attach the generated `prisma` client instance to the `context` so that your resolvers get access to it.
-
-<Instruction>
-
-First, import the `prisma` client instance into `index.js`. At the top of the file, add the following import statement:
-
-```js(path=".../hackernews-node/src/index.js")
-const { prisma } = require('./generated/prisma-client')
-```
-
-</Instruction>
-
-Now you can attach it to the `context` when the `GraphQLServer` is being initialized.
-
-<Instruction>
-
-In `index.js`, update the instantiation of the `GraphQLServer` to look as follows:
-
-```js{4-12}(path=".../hackernews-node/src/index.js")
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
-  resolvers,
-  context: { prisma },
-})
-```
-
-</Instruction>
-
-The `context` object that's passed into all your GraphQL resolvers is being initialized right here. Because you're attaching the `prisma` client instance to it when the `GraphQLServer` is instantiated, you can access `context.prisma` in your resolvers.
+So, to summarize, Prisma Client exposes a CRUD API for the models in your datamodel for you to read and write in your database. These methods are auto-generated based on your model definitions in `schema.prisma`.
 
 ### Testing the new implementation
 
@@ -151,7 +160,6 @@ With these code changes, you can now go ahead and test if the new implementation
 node src/index.js
 ```
 
-Then, open the GraphQL Playground at `http://localhost:4000`. You can send the same `feed` query and `post` mutation as before. However, the difference is that this time the submitted links will be persisted in your Prisma Cloud demo database. Therefore, if you restart the server, the `feed` query will keep returning the correct links.
+Then, open the GraphQL Playground at `http://localhost:4000`. You can send the same `feed` query and `post` mutation as before. However, the difference is that this time the submitted links will be persisted in your SQLite database. Therefore, if you restart the server, the `feed` query will keep returning the correct links.
 
-> **Note**: Because you're using a demo database in Prisma Cloud, you can view the stored data in the [Prisma Cloud Console](https://app.prisma.io/). 
-> ![](https://imgur.com/ZXJ8RIY.png)
+// TODO (robin-macpherson): Add a section here about using Prisma Studio.
