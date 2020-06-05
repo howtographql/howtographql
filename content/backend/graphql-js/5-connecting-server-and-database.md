@@ -162,4 +162,26 @@ node src/index.js
 
 Then, open the GraphQL Playground at `http://localhost:4000`. You can send the same `feed` query and `post` mutation as before. However, the difference is that this time the submitted links will be persisted in your SQLite database. Therefore, if you restart the server, the `feed` query will keep returning the correct links.
 
-// TODO (robin-macpherson): Add a section here about using Prisma Studio.
+### Exploring your data in Prisma Studio
+
+Prisma ships with a very powerful database GUI where you can interact with your data: [Prisma Studio](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-studio).
+
+Prisma Studio is different from a typical database GUI program (such as [TablePlus](https://tableplus.com/)) in that it provides a layer of abstraction which allows you to see your data represented as it is in your Prisma datamodel. This is one of the several ways that Prisma bridges the gap between how you structure and interact with your data in your application and how it is actually structured and represented in the underlying database. One benefit of this is that it helps you to build intuition and understanding of these two linked but separate layers over time.
+
+Let's run Prisma Studio and see it in action!
+
+<Instruction>
+
+Run the following command in your terminal
+
+```js(path=".../hackernews-node")
+npx prisma studio --experimental
+```
+
+</Instruction>
+
+Running the command should open a tab in your browser automatically (running on `http://localhost:5555`) where you will see the following interface. Notice that you see a tab for your `Link` model and can also explore all models by hovering on the far left menu:
+
+![](https://i.imgur.com/66yCVs2.png)
+
+![](https://i.imgur.com/3MNfygT.png)
