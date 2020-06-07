@@ -11,7 +11,8 @@ In this tutorial we are going to create a Hackernews clone with Go and gqlgen, S
 
 <Instruction>
 Create a directory for project and initialize go modules file:
-```bash
+  
+```
 go mod init github.com/[username]/hackernews
 ```
 
@@ -23,15 +24,20 @@ go run github.com/99designs/gqlgen init
 
 Here is a description from gqlgen about the generated files:
 * `gqlgen.yml` — The gqlgen config file, knobs for controlling the generated code.
-* `generated.go` — The GraphQL execution runtime, the bulk of the generated code.
-* `models_gen.go` — Generated models required to build the graph. Often you will override these with your own models. Still very useful for input types.
-* `resolver.go` — This is where your application code lives. generated.go will call into this to get the data the user has requested.
-* `server/server.go` — This is a minimal entry point that sets up an http.Handler to the generated GraphQL server.
+* `graph/generated/generated.go` — The GraphQL execution runtime, the bulk of the generated code.
+* `graph/model/models_gen.go` — Generated models required to build the graph. Often you will override these with your own models. Still very useful for input types.
+* `graph/schema.resolvers.go` — This is where your application code lives. generated.go will call into this to get the data the user has requested. 
+* `graph/schema.graphqls` — This is where we put our schemas 
+* `resolver.go` — This is where we declare any dependencies for our app like our database, it gets initialized once in server.go when we create the graph.
+* `server.go` — This is a minimal entry point that sets up an http.Handler to the generated GraphQL server.
 start the server with `go run server.go` and open your browser and you should see the graphql playground, So setup is right!
+
 
 ## Defining Our Schema <a name="defining-out-schema"></a>
 Now let's start with defining schema we need for our API. 
 We have two types Link and User each of them for representing Link and User to client, a `links` Query to return list of Links. an input for creating new links and mutation for creating link. we also need mutations to for auth system which includes Login, createUser, refreshToken(I'll explain them later) then run the command below to regenerate graphql models.
+
+open `schema.graphqls` file and add our schema,
 ```js
 type Link {
   id: ID!
@@ -42,7 +48,7 @@ type Link {
 
 type User {
   id: ID!
-  name: String!
+  username: String!
 }
 
 type Query {
