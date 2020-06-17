@@ -45,8 +45,11 @@ Say `y` to the question about fetching and installing dependencies, and then cd 
 In order to support GraphQL your application needs some additional dependencies which are configured in the `mix.exs` file. They go inside the list found within the `defp deps do` function:
 
 ```elixir(path=".../graphql-elixir/mix.exs")
-{:absinthe_ecto, "~> 0.1.0"},
-{:absinthe_plug, "~> 1.3.0"},
+{:poison, "~> 3.1"},
+{:jason, "~> 1.1"},
+{:dataloader, "~> 1.0.0"},
+{:plug_cowboy, "~> 1.0"},
+{:absinthe_plug, "~> 1.3.0"}
 ```
 
 <Instruction>
