@@ -11,52 +11,105 @@ In this section, you're going to implement signup and login functionality that a
 
 ### Adding a `User` model
 
-The first thing you need is a way to represent user data in the database. You can achieve that by adding a `User` type to your Prisma datamodel.
+The first thing you need is a way to represent user data in the database. To do so, you can add a `User` type to your Prisma datamodel.
 
-You also want to add a _relation_ between the `User` and the already existing `Link` type to express that `Link`s are _posted_ by `User`s.
+You'll also want to add a _relation_ between the `User` and the existing `Link` type to express that `Link`s are _posted_ by `User`s.
 
 <Instruction>
 
-Open `prisma/datamodel.prisma` and replace its current contents with the following:
+Open `prisma/schema.prisma` and add the following code, making sure to also update your existing `Link` model accordingly:
 
 ```graphql{5,8-14}(path=".../hackernews-node/prisma/datamodel.prisma")
-type Link {
-  id: ID! @id
-  description: String!
-  url: String!
-  postedBy: User
+model Link {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  description String
+  url         String
+  postedBy    User     @relation(fields: [postedById], references: [id])
+  postedById  Int
 }
 
-type User {
-  id: ID! @id
-  name: String!
-  email: String! @unique
-  password: String!
-  links: [Link!]!
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String
+  email     String   @unique
+  password  String
+  links     Link[]
 }
 ```
 
 </Instruction>
 
-You're adding a new _relation field_ called `postedBy` to the `Link` type that points to a `User` instance. The `User` type then has a `links` field that's a list of `Link`s. This is how you express a one-to-many relationship using SDL.
+Now we start to see even more how Prisma helps you to reason about your data in a way that is more aligned with how it is represented in the underlying database.
 
-After every change you're making to the datamodel file, you need to redeploy the Prisma API to apply your changes and migrate the underlying database schema.
+### Understanding Relation Fields
+
+Notice how you're adding a new _relation field_ called `postedBy` to the `Link` model that points to a `User` instance. The `User` model then has a `links` field that's a list of `Link`s. To do this, we need to also define the relation by annotating the `postedBy` field with [the `@relation` attribute](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations#the-relation-attribute). This is required for every relation field in your Prisma schema, and all you're doing is defining what the foreign key of the related table will be. So in this case, we're adding an extra field to store the `id` of the `User` who posts a `Link`, and then telling Prisma that `postedById` will be equal to the `id` field in the `User` tabel.
+
+If this is quite new to you, don't worry! We're going be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations).
+
+### Updating Prisma Client
+
+This is a great time to refresh your memory on the workflow we described for your project at the end of chapter 4!
+
+After every change you make to the datamodel, you need to migrate your database and then re-generate Prisma Client.
 
 <Instruction>
 
 In the root directory of the project, run the following command:
 
 ```bash(path=".../hackernews-node")
-prisma deploy
+npx prisma migrate save --experimental
 ```
 
 </Instruction>
 
-This now updated the Prisma API. The Prisma client is generated automatically after running `prisma deploy`, exposing all the CRUD methods for the newly added User model.
+<Instruction>
+
+In the root directory of the project, run the following command. When promptd, give your migration a descriptive name, such as "Add User model".
+
+```bash(path=".../hackernews-node")
+npx prisma migrate save --experimental
+```
+
+</Instruction>
+
+// TODO @nikolasburk this command actually failed here. Temporarily I had to just delete all migrations in order to move on but we should make sure that everyone isn't going to experience this issue.
+
+This command has now generated your second migration inside of `prisma/migrations`, and you can start to see how this becomes a historical record of how your database evolves over time.
+
+<Instruction>
+
+Now it's time to apply that migration to your database:
+
+```bash(path=".../hackernews-node")
+npx prisma migrate up --experimental
+```
+
+</Instruction>
+
+Your database structure should now be updated to reflect the changes to your datamodel.
+
+Finally, we need to re-generate PrismaClient:
+
+<Instruction>
+
+Run the following command:
+
+```bash(path=".../hackernews-node")
+npx prisma generate
+```
+
+</Instruction>
+
+That might feel like a lot of steps, but the workflow will become automatic by the end of this tutorial!
+
+Your database is ready and Prisma Client is now updated to expose all the CRUD methods for the newly added User model -- woohoo! 🎉
 
 ### Extending the GraphQL schema
 
-Remember the process of schema-driven development? It all starts with extending your schema definition with the new operations that you want to add to the API - in this case a `signup` and `login` mutation.
+Remember back when we were setting up your GraphQL server and discussed the process of schema-driven development? It all starts with extending your schema definition with the new operations that you want to add to the API - in this case a `signup` and `login` mutation.
 
 <Instruction>
 
@@ -94,7 +147,7 @@ type User {
 
 </Instruction>
 
-The `signup` and `login` mutations behave very similar. Both return information about the `User` who's signing up (or logging in) as well as a `token` which can be used to authenticate subsequent requests against your GraphQL API. This information is bundled in the `AuthPayload` type.
+The `signup` and `login` mutations behave very similarly: both return information about the `User` who's signing up (or logging in) as well as a `token` which can be used to authenticate subsequent requests against your GraphQL API. This information is bundled in the `AuthPayload` type.
 
 <Instruction>
 
@@ -161,8 +214,9 @@ Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add th
 async function signup(parent, args, context, info) {
   // 1
   const hashedPassword = await bcrypt.hash(args.password, 10)
+  
   // 2
-  const {password, ...user} = await context.prisma.createUser({ ...args, password: hashedPassword })
+  const user = await context.prisma.user.create({ data: { ...args, password } })
 
   // 3
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
@@ -176,7 +230,7 @@ async function signup(parent, args, context, info) {
 
 async function login(parent, args, context, info) {
   // 1
-  const {password, ...user} = await context.prisma.user({ email: args.email })
+  const user = await context.prisma.user.findOne({ where: { email: args.email } })
   if (!user) {
     throw new Error('No such user found')
   }
@@ -207,14 +261,14 @@ module.exports = {
 
 Let's use the good ol' numbered comments again to understand what's going on here - starting with `signup`.
 
-1. In the `signup` mutation, the first thing to do is encrypting the `User`'s password using the `bcryptjs` library which you'll install soon.
-1. The next step is to use the `prisma` client instance to store the new `User` in the database. Note that we use object destructuring to strip away the password from being returned from `signup` in adherance to the graphql schema.
-1. You're then generating a JWT which is signed with an `APP_SECRET`. You still need to create this `APP_SECRET` and also install the `jwt` library that's used here.
+1. In the `signup` mutation, the first thing to do is encrypt the `User`'s password using the `bcryptjs` library which you'll install soon.
+1. The next step is to use your `PrismaClient` instance (via `prisma` as we covered in the steps about `context`) to store the new `User` in the database.
+1. You're then generating a Jason Web Token which is signed with an `APP_SECRET`. You still need to create this `APP_SECRET` and also install the `jwt` library that's used here.
 1. Finally, you return the `token` and the `user` in an object that adheres to the shape of an `AuthPayload` object from your GraphQL schema.
 
-Now on the `login` mutation:
+Now on the `login` mutation!
 
-1. Instead of _creating_ a new `User` object, you're now using the `prisma` client instance to retrieve the existing `User` record by the `email` address that was sent along as an argument in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error. Just like with `signup`, we strip away the password using object destructuring to conform to the graphql schema.
+1. Instead of _creating_ a new `User` object, you're now using your `PrismaClient` instance to retrieve an existing `User` record by the `email` address that was sent along as an argument in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error.
 1. The next step is to compare the provided password with the one that is stored in the database. If the two don't match, you're returning an error as well.
 1. In the end, you're returning `token` and `user` again.
 
