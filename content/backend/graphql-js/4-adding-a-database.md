@@ -7,7 +7,9 @@ answers: ["To increase performance of the server", "When using two APIs, the Gra
 correctAnswer: 2
 ---
 
-In this section, you're going to setup Prisma along with a connected database to be used by your GraphQL server.
+In this section, you're going to setup Prisma 1 along with a connected database to be used by your GraphQL server.
+
+> **Note**: This tutorial uses [Prisma 1](https://v1.prisma.io/docs/1.34) to connect to the database and to query it. It will be updated soon to use the recently released [Prisma 2](https://www.prisma.io/blog/announcing-prisma-2-n0v98rzc8br1/).
 
 ### Why Prisma
 
@@ -35,6 +37,8 @@ Prisma solves this problem by providing you with a convenient data access layer 
 Here's an overview of the architecture that's used when building GraphQL servers with Prisma:
 
 ![](https://imgur.com/OyIQQxF.png)
+
+> **Note**: This architecture depicts the architecture with Prisma 1. With the new [Prisma 2](https://www.prisma.io/blog/announcing-prisma-2-n0v98rzc8br1/), the standalone Prisma server is not required any more. Learn more about Prisma 2 with GraphQL in the [docs](https://www.prisma.io/docs/understand-prisma/prisma-in-your-stack/graphql).
 
 The Prisma server provides the _data access layer_ in your application architecture, making it easy for your API server to talk to the database through Prisma. The API of the Prisma server is consumed by the Prisma client inside your _API server_ implementation (similar to an ORM). The API server is what you've started building throughout the previous chapters using `graphql-yoga`.
 
