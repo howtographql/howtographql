@@ -17,7 +17,7 @@ GraphQL is the rising star of backend technologies. It replaces REST as an API d
 In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server entirely from scratch. You are going to use the following technologies:
 
 * [`graphql-yoga`](https://github.com/prisma/graphql-yoga): Fully-featured GraphQL server with focus on easy setup, performance & great developer experience. It is built on top of [Express](https://expressjs.com/), [`apollo-server`](https://github.com/apollographql/apollo-server), [`graphql-js`](https://github.com/graphql/graphql-js) and more.
-* [Prisma](https://www.prisma.io/): Prisma replaces traditional ORMs. Use the Prisma client to implement your GraphQL resolvers and simplify database access (note: this tutorial uses [Prisma 1](https://v1.prisma.io/docs/1.34) but will be updated soon to use the new Prisma 2)
+* [Prisma](https://www.prisma.io/): Prisma replaces traditional ORMs. Use the Prisma client to implement your GraphQL resolvers and simplify database access (note: this tutorial uses [Prisma 1](https://v1.prisma.io/docs/1.34) but will be updated soon to use the new [Prisma 2](https://www.prisma.io/blog/announcing-prisma-2-n0v98rzc8br1/))
 * [GraphQL Playground](https://github.com/prisma/graphql-playground): "GraphQL IDE" that allows to interactively explore the functionality of a GraphQL API by sending queries and mutations to it. It's somewhat similar to [Postman](https://www.getpostman.com/) which offers comparable functionality for REST APIs. Among other things, a GraphQL Playground...
   * ... auto-generates a comprehensive documentation for all available API operations.
   * ... provides an editor where you can write queries, mutations & subscriptions, with auto-completion(!) and syntax highlighting.
