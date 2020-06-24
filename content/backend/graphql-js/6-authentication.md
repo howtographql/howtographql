@@ -343,7 +343,7 @@ Right now, there's one more minor issue. You're accessing a `request` object on 
 
 <Instruction>
 
-To change this, open `index.js` and adjust the instantiation of the `GraphQLServer` as follows:
+To make the above operations possible, open `index.js` and adjust the instantiation of the `GraphQLServer` as follows:
 
 ```js{4-9}(path=".../hackernews-node/src/index.js")
 const server = new GraphQLServer({
@@ -373,10 +373,13 @@ In `Mutation.js`, add the following resolver implementation for `post`:
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 function post(parent, args, context, info) {
   const userId = getUserId(context)
-  return context.prisma.createLink({
-    url: args.url,
-    description: args.description,
-    postedBy: { connect: { id: userId } },
+
+  return context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+      postedBy: { connect: { id: userId } },
+    }
   })
 }
 ```
@@ -390,7 +393,7 @@ Two things have changed in the implementation compared to the previous implement
 
 #### Resolving relations
 
-There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: Ensuring the relation between `User` and `Link` gets properly resolved.
+There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: ensuring the relation between `User` and `Link` gets properly resolved.
 
 Notice how we've omitted all resolvers for _scalar_ values from the `User` and `Link` types? These are following the simple pattern that we saw at the beginning of the tutorial:
 
@@ -410,7 +413,7 @@ To resolve the `postedBy` relation, open `Link.js` and add the following code to
 
 ```js(path=".../hackernews-node/src/resolvers/Link.js")
 function postedBy(parent, args, context) {
-  return context.prisma.link({ id: parent.id }).postedBy()
+  return context.prisma.link.findOne({ where: { id: parent.id } }).postedBy()
 }
 
 module.exports = {
@@ -430,7 +433,7 @@ Open `User.js` and add the following code to it:
 
 ```js(path=".../hackernews-node/src/resolvers/User.js")
 function links(parent, args, context) {
-  return context.prisma.user({ id: parent.id }).links()
+  return context.prisma.user.findOne({ where: { id: parent.id } }).links()
 }
 
 module.exports = {
@@ -484,7 +487,7 @@ If you haven't done so already, stop and restart the server by first killing it 
 
 </Instruction>
 
-Note that you can "reuse" your Playground from before if you still have it open - it's only important that you're restarting the server so the changes you made to the implementation are actually applied.
+Note that you can "reuse" your Playground from before if you still have it open - it's only important that you restart the server so the changes you made to the implementation are actually applied.
 
 <Instruction>
 
