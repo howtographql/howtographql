@@ -137,7 +137,7 @@ async function feed(parent, args, context, info) {
 
 </Instruction>
 
-Really all that's changing here is that the invocation of the `links` query now receives two additional arguments which might be carried by the incoming `args` object. Again, Prisma will do the hard work for us 🙏
+Really all that's changing here is that the invocation of the `links` query now receives two additional arguments which might be carried by the incoming `args` object. Again, Prisma will take care of the rest.
 
 You can test the pagination API with the following query which returns the second `Link` from the list:
 
@@ -177,7 +177,7 @@ enum LinkOrderByInput {
 
 </Instruction>
 
-It represents the various ways how the list of `Link` elements can be sorted.
+It represents the various ways that the list of `Link` elements can be sorted.
 
 <Instruction>
 
@@ -186,7 +186,7 @@ Now, adjust the `feed` query again to include the `orderBy` argument:
 ```graphql{3}(path=".../hackernews-node/src/schema.graphql")
 type Query {
   info: String!
-  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): [Link!]!
+  feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): [Link!]!
 }
 ```
 
@@ -200,18 +200,20 @@ Update the implementation of the `feed` resolver in `src/resolvers/Query.js` and
 
 ```js{13}(path=".../hackernews-node/src/resolvers/Query.js")
 async function feed(parent, args, context, info) {
-  const where = args.filter ? {
-    OR: [
-      { description_contains: args.filter },
-      { url_contains: args.filter },
-    ],
-  } : {}
+  const where = args.filter
+    ? {
+        OR: [
+          { description_contains: args.filter },
+          { url_contains: args.filter },
+        ],
+      }
+    : {}
 
-  const links = await context.prisma.links({
+  const links = await context.prisma.link.findMany({
     where,
     skip: args.skip,
-    first: args.first,
-    orderBy: args.orderBy
+    take: args.take,
+    orderBy: args.orderBy,
   })
   return links
 }
@@ -242,7 +244,7 @@ Add the new `Feed` type to your GraphQL schema. Then also adjust the return type
 ```graphql{3,6-9}(path=".../hackernews-node/src/schema.graphql")
 type Query {
   info: String!
-  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
+  feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): Feed!
 }
 
 type Feed {
@@ -268,18 +270,14 @@ async function feed(parent, args, context) {
       }
     : {}
 
-  const links = await context.prisma.links({
+  const links = await context.prisma.link.findMany({
     where,
     skip: args.skip,
     first: args.first,
     orderBy: args.orderBy,
   })
-  const count = await context.prisma
-    .linksConnection({
-      where,
-    })
-    .aggregate()
-    .count()
+
+  const count = await context.prisma.link.count({ where })
   return {
     links,
     count,
@@ -289,8 +287,9 @@ async function feed(parent, args, context) {
 
 </Instruction>
 
-1. You're first using the provided filtering, ordering and pagination arguments to retrieve a number of `Link` elements. 
-1. Next, you're using the `linksConnection` query from the Prisma client API to retrieve the total number of `Link` elements currently stored in the database.
+1. You're first using the provided filtering, ordering, and pagination arguments to retrieve a number of `Link` elements.
+// TODO (robin-macpherson): get the updated Prisma Client Query.
+1. Next, you're using the `linksConnection` query from the Prisma Client API to retrieve the total number of `Link` elements currently stored in the database.
 1. The `links` and `count` are then wrapped in an object to adhere to the `Feed` type that you just added to the GraphQL schema.
 
 The last step is to include that new resolver when instantiating the `GraphQLServer`.
