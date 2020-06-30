@@ -127,6 +127,14 @@ const authors: Author[] = [
     job: 'Software Engineer @ StyleSeat // CEO @ Journaly',
     name: 'Robin MacPherson'
   },
+  {
+    avatar: require('../assets/graphics/contributors/shayegan.jpg'),
+    bio:
+      "A software engineer who wants to share.",
+    link: 'https://twitter.com/glyphack',
+    job: 'Software engineer @ Divar',
+    name: 'Shayegan Hooshyari'
+  },
 ]
 
 export default keyBy(authors, 'name')

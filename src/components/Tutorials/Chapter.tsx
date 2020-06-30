@@ -56,7 +56,11 @@ export default function Chapter({ post, location, steps }: Props) {
 
   return (
     <div>
-      <CustomHelmet title={title} description={description} />
+      <CustomHelmet 
+      title={title}
+      description={description}
+      location={location} 
+      />
       <style jsx={true}>{`
         .content {
           @p: .ph38, .pt38, .bbox;

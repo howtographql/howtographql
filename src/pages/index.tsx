@@ -10,7 +10,6 @@ import ContentOverview from '../components/home/ContentOverview'
 import Footer from '../components/home/Footer'
 import { MarkdownRemark, RelayConnection } from '../types'
 import CustomHelmet from '../components/CustomHelmet'
-import { Banner } from '../components/Banner'
 
 interface Props {
   data: {
@@ -33,8 +32,8 @@ export default (props: Props) => {
         title={title}
         description={description}
         overrideDescription={overrideDescription}
+        location={props.location}
       />
-      <Banner />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />
