@@ -120,7 +120,7 @@ const authors: Author[] = [
     name: 'Jovi & Phil from Formidable'
   },
   {
-    avatar: require('../assets/graphics/contributors/robin.jpg'),
+    avatar: require('../assets/graphics/contributors/robin.png'),
     bio:
       "Robin is a full-stack software engineer and budding data scientist who also loves learning foreign (human) languges. He is a co-founder @ Journaly.io, runs a language learning YouTube channel, and works at StyleSeat in San Francisco.",
     link: 'https://www.youtube.com/user/TheLifeOfRob/',
