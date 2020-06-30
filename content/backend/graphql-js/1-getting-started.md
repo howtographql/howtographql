@@ -184,11 +184,7 @@ At the core of every GraphQL API, there is a GraphQL schema. So, let's quickly t
 
 > **Note**: In this tutorial, we'll only scratch the surface of this topic. If you want to go a bit more in-depth and learn more about the GraphQL schema as well as its role in a GraphQL API, be sure to check out [this](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) excellent article.
 
-<<<<<<< HEAD
 GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). SDL has a type system that allows you to define data structures (just like other strongly typed programming languages such as Java, TypeScript, Swift, Go, etc.).
-=======
-GraphQL schemas are usually written in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). The SDL has a type system that allows to define data structures (just like other statically typed programming languages such as Java, TypeScript, Swift, Go, ...).
->>>>>>> d8746ff53d2d6dda90242c2f7379f648346345f0
 
 How does that help in defining the API for a GraphQL server, though? Every GraphQL schema has three special _root types_: `Query`, `Mutation`, and `Subscription`. The root types correspond to the three operation types offered by GraphQL: queries, mutations, and subscriptions. The fields on these root types are called _root fields_ and define the available API operations.
 
