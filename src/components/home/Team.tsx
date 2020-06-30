@@ -246,6 +246,13 @@ export default function Team() {
                 x={170}
                 y={-10}
               />
+              <Bubble
+                avatar={require('../../assets/graphics/contributors/robin.jpg')}
+                name="Robin MacPherson"
+                description={"graphql.js"}
+                x={170}
+                y={-10}
+              />
             </div>
           </div>
         </div>

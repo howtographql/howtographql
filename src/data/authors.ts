@@ -119,6 +119,14 @@ const authors: Author[] = [
     job: 'Open Source @ Formidable',
     name: 'Jovi & Phil from Formidable'
   },
+  {
+    avatar: require('../assets/graphics/contributors/robin.jpg'),
+    bio:
+      "Robin is a full-stack software engineer and budding data scientist who also loves learning foreign (human) languges. He is a co-founder @ Journaly.io, runs a language learning YouTube channel, and works at StyleSeat in San Francisco.",
+    link: 'https://www.youtube.com/user/TheLifeOfRob/',
+    job: 'Software Engineer @ StyleSeat // CEO @ Journaly',
+    name: 'Robin MacPherson'
+  },
 ]
 
 export default keyBy(authors, 'name')
