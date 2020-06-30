@@ -2,12 +2,12 @@
 title: Adding a Database
 pageTitle: "Creating a Prisma Database Service Tutorial"
 description: "Learn how to add a database to your GraphQL server. The database is powered by Prisma and connected to the server via GraphQL bindings."
-question: Why is a second GraphQL API (defined by the application schema) needed in a GraphQL server architecture with Prisma?
-answers: ["To increase performance of the server", "When using two APIs, the GraphQL server can be scaled better", "The Prisma API only is an interface to the database, but doesn't allow for any sort of application logic which is needed in most apps", "It is required by the GraphQL specification"]
+question: What is the role of Prisma Client in the GraphQL API?
+answers: ["It receives and processes GraphQL queries", "It connects your GraphQL resolvers to the database", "It migrates your database schema", "It lets you design your GraphQL schema"]
 correctAnswer: 2
 ---
 
-In this section, you're going to set up Prisma along with a connected database to be used by your GraphQL server. You'll be using [SQLite](https://www.sqlite.org/index.html) for the database.
+In this section, you're going to set up a [SQLite](https://www.sqlite.org/index.html) to persist the data of incoming GraphQL mutations. Instead of writing SQL directly, you will use [Prisma](https://www.prisma.io/) to access your database. 
 
 ## So, what is Prisma?
 
@@ -19,11 +19,11 @@ It mainly consists of three tools:
 - **Prisma Migrate** (experimental): A declarative data modeling & migration system.
 - **Prisma Studio** (experimental): A GUI to view and edit data in your database.
 
-In this tutorial, you will be setting everything up from scratch and taking full advantage of these three features. We want to get you building stuff right away, so explanations of Prisma concepts will be kept light but we have included links to [Prisma docs](https://www.prisma.io/docs/) in case you want to dive deeper on any particular concept.
+In this tutorial, you will be setting everything up from scratch and taking full advantage of these three tools. We want to get you building stuff right away, so explanations of Prisma concepts will be kept light but we have included links to [Prisma docs](https://www.prisma.io/docs/) in case you want to dive deeper on any particular concept.
 
 ### Why Prisma?
 
-You've now understood the basic mechanics of how GraphQL servers work under the hood and the beauty of GraphQL itself -- it actually only follows a few very simple rules. The statically typed schema and the GraphQL engine that resolves the queries inside the server take away major pain points commonly dealt with in API development.
+You've now understood the basic mechanics of how GraphQL servers work under the hood and the beauty of GraphQL itself – it actually only follows a few very simple rules. The statically typed schema and the GraphQL engine that resolves the queries inside the server take away major pain points commonly dealt with in API development.
 
 Well, in real-world applications you're likely to encounter many scenarios where implementing the resolvers can become extremely complex. Especially because GraphQL queries can be nested multiple levels deep, the implementation often becomes tricky and can easily lead to performance problems.
 
@@ -101,12 +101,9 @@ Let's break down the three parts:
 1. **Generator**: Indicates that you want to genenerate Prisma Client. 
 1. **Data model**: Here, we have written out our `Link` as a model.
 
-You may notice that this `Link` *model* looks very similar to the `Link` *type* in the GraphQL Schema. It's important to quickly discuss how the two schemas are different.
+The `Link` model defines the structure of the `Link` database table that Prisma is going to create for your in a bit.
 
-// TODO (robin-macpherson): explain how they are different
-
-
-## Getting Started With SQLite
+## Getting Started with SQLite
 
 It's finally time to actually create our [SQLite](https://www.sqlite.org/index.html) database. In case you aren't familiar with SQLite, it is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.
 
@@ -125,13 +122,14 @@ npx prisma migrate save --experimental
 </Instruction>
 
 <Instruction>
-You will get a prompt asking if you would like to create a new database. Select "Yes", and type "Init DB" for the `Name of migration`.
-</Instruction>
 
+You will get a prompt asking if you would like to create a new database. Select **Yes**, and type `init` for the **Name of migration**. The hit **Return** to confirm.
+
+</Instruction>
 
 Take a look at the `prisma` directory in your project's file system. You'll see that there is now a `/migrations` directory that Prisma Migrate created for you when running the above command. 
 
-For now, the important thing to understand is that we have told Prisma with our data model, "I want to create a `Link` table to store Link data, and here's what that data will look like. Prisma then generates the necessary migration and packages it into a dedicated directory with its own `README.md` file containing detailed information about the specific migration. This is then put inside that `prisma/migrations` directory, which becomes a historical reference of how your database evolves over time with each individual migration you make!
+For now, the important thing to understand is that we have told Prisma with our data model, "I want to create a `Link` table to store data about _links_, and here's what that data will look like. Prisma then generates the necessary migration and packages it into a dedicated directory with its own `README.md` file containing detailed information about the specific migration. This is then put inside that `prisma/migrations` directory, which becomes a historical reference of how your database evolves over time with each individual migration you make!
 
 Check out the [Prisma Migrate docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-migrate) for a deeper dive on this.
 
@@ -165,7 +163,7 @@ npx prisma generate
 
 It's as simple as that! You now have `/node_modules/@prisma/client` which can be imported and used in your code.
 
-Let's write your first query with Prisma Client and break everything down.
+Let's write your first query with Prisma Client and break everything down. You'll do that in a separate file to not mess with your current GraphQL server implementation.
 
 <Instruction>
 
@@ -220,7 +218,7 @@ node src/script.js
 
 </Instruction>
 
-You successfully queried the database with Prisma Client! Of course, we got an empty array back since the database is empty, so now let's add a mutation to create a new link.
+You successfully queried the database with Prisma Client! Of course, we got an empty array back since the database is empty, so now let's quickly create a new link in the same script.
 
 <Instruction>
 

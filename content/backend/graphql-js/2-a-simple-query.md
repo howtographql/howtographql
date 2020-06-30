@@ -13,7 +13,7 @@ In this section, you are going to implement the first API operation that provide
 
 Let's start by implementing a `feed` query which allows you to retrieve a list of `Link` elements. In general, when adding a new feature to the API, the process will look pretty similar every time:
 
-1. Extend the GraphQL schema definition with a new _root field_ (and new _data types_, if needed)
+1. Extend the GraphQL schema definition with a new _root field_ (and new _object types_, if needed)
 1. Implement corresponding _resolver functions_ for the added fields
 
 This process is also referred to as _schema-driven_ or _schema-first development_.
@@ -79,7 +79,7 @@ const resolvers = {
 Let's walk through the numbered comments again:
 
 1. The `links` variable is used to store the links at runtime. For now, everything is stored only _in-memory_ rather than being persisted in a database.
-1. You're adding a new resolver for the `feed` root field. Notice that a resolver always has to be named after the corresponding field from the schema definition.
+1. You're adding a new resolver for the `feed` root field. Notice that a resolver always has to be named _exactly_ after the corresponding field from the schema definition.
 1. Finally, you're adding three more resolvers for the fields on the `Link` type from the schema definition. We'll discuss what the `parent` argument that's passed into the resolver here is in a bit.
 
 Go ahead and test the implementation by restarting the server (first use **CTRL+C** to stop the server if it is still running, then execute `node src/index.js` again) and navigate to `http://localhost:4000` in your browser. If you expand the documentation of the Playground, you'll notice that another query called `feed` is now available:
@@ -156,4 +156,4 @@ On the first level, it invokes the `feed` resolver and returns the entire data s
 
 > **Note**: To learn more about this, check out [this](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#9d03) article.
 
-In any case, because the implementation of the `Link` resolvers is trivial, you can actually omit them and the server will work in the same way as it did before 👌 I just wanted you to understand what's happening under the hood 🚗
+In any case, because the implementation of the `Link` resolvers is trivial, you can actually omit them and the server will work in the same way as it did before 👌 We just wanted you to understand what's happening under the hood 🚗

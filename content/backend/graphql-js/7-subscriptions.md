@@ -18,10 +18,7 @@ Subscriptions are a GraphQL feature that allows a server to send data to its cli
 
 Instead, the client initially opens up a long-lived connection to the server by sending a _subscription query_ that specifies which _event_ it is interested in. Every time this particular event happens, the server uses the connection to push the event data to the subscribed client(s).
 
-### Implementing Subscriptions In A Prisma Project
-
-GraphQL subscriptions are not yet supported natively by Prisma. However, we will show you how you can still implement them anyway, and we will update this tutorial if they have first-party support from Prisma in the future.
-
+### Implementing GraphQL subscriptions
 
 We will be using `PubSub` from the `graphql-yoga` library that we have already been using for our GraphQL server to implement subscriptions to the following _events_:
 
@@ -31,7 +28,7 @@ We will be using `PubSub` from the `graphql-yoga` library that we have already b
 
 You will do this by first adding an instance of `PubSub` to the context, just as we did with `PrismaClient`, and then calling its methods in the resolvers that handle each of the above events.
 
-### Setting Up `PubSub`
+### Setting up `PubSub`
 
 <Instruction>
 
@@ -68,11 +65,11 @@ const server = new GraphQLServer({
 
 </Instruction>
 
-Great! Now we can access the methods we need to implement our Subscriptions from inside our resolvers via `context.pubsub`!
+Great! Now we can access the methods we need to implement our subscriptions from inside our resolvers via `context.pubsub`!
 
 ### Subscribing to new `Link` elements
 
-Alright -- let's go ahead and implement the subscription that allows your clients to subscribe to newly created `Link` elements.
+Alright – let's go ahead and implement the subscription that allows your clients to subscribe to newly created `Link` elements.
 
 Just like with queries and mutations, the first step to implement a subscription is to extend your GraphQL schema definition.
 
@@ -107,7 +104,7 @@ touch src/resolvers/Subscription.js
 
 Here's how you need to implement the subscription resolver in that new file:
 
-```js
+```js(path=".../hackernews-node/src/resolvers/Subscription.js")
 function newLinkSubscribe(parent, args, context, info) {
   return context.pubsub.asyncIterator("NEW_LINK")
 }
@@ -190,7 +187,7 @@ const resolvers = {
 ### Testing subscriptions
 
 With all the code in place, it's time to test your realtime API ⚡️
-You can do so by using two instances (i.e. windows) of the GraphQL Playground at once.
+You can do so by using two instances (i.e. tabs or windows) of the GraphQL Playground at once.
 
 <Instruction>
 
@@ -258,7 +255,7 @@ Now observe the Playground where the subscription was running:
 
 #### Implementing a `vote` mutation
 
-The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma datamodel to represent votes in the database.
+The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma data model to represent votes in the database.
 
 <Instruction>
 
@@ -270,8 +267,8 @@ model Link {
   createdAt   DateTime @default(now())
   description String
   url         String
-  postedBy    User     @relation(fields: [postedById], references: [id])
-  postedById  Int
+  postedBy    User?     @relation(fields: [postedById], references: [id])
+  postedById  Int?
   votes       Vote[]
 }
 
@@ -297,9 +294,20 @@ model Vote {
 
 </Instruction>
 
-As you can see, you added a new `Vote` type to the datamodel. It has one-to-many relationships to the `User` and the `Link` type.
+As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the `Link` type.
 
-To apply the changes and update your Prisma Client API so it includes CRUD operations for the new `Vote` model, regenerate `PrismaClient`.
+<Instruction>
+
+Now migrate your database schema with the following commands:
+
+```
+npx prisma migrate save --name 'add-vote-model' --experimental
+npx prisma migrate up --experimental
+```
+
+</Instruction>
+
+To apply the changes and update your Prisma Client API so it exposes CRUD queries for the new `Vote` model, regenerate `PrismaClient`.
 
 <Instruction>
 
@@ -460,6 +468,7 @@ touch src/resolvers/Vote.js
 
 </Instruction>
 
+Great job!
 
 <Instruction>
 

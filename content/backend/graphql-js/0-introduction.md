@@ -12,12 +12,12 @@ correctAnswer: 0
 
 ### Overview
 
-GraphQL is the rising star of backend technologies. It replaces REST as an API design paradigm and is becoming the new standard for exposing the data and functionality of a server.
+GraphQL is the rising star of backend technologies. It replaces REST as an API design paradigm and is becoming the new standard for exposing the data and functionality of a web server.
 
 In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server entirely from scratch. You are going to use the following technologies:
 
 * [`graphql-yoga`](https://github.com/prisma/graphql-yoga): A fully-featured GraphQL server with a focus on easy setup, performance & great developer experience. It is built on top of [Express](https://expressjs.com/), [`apollo-server`](https://github.com/apollographql/apollo-server), [`graphql-js`](https://github.com/graphql/graphql-js) and more.
-* [Prisma](https://www.prisma.io/): Replaces traditional ORMs. Use Prisma Client to implement your GraphQL resolvers and simplify database access.
+* [Prisma](https://www.prisma.io/): Replaces traditional ORMs. Use Prisma Client to access your database inside of GraphQL resolvers.
 * [GraphQL Playground](https://github.com/prisma/graphql-playground): A "GraphQL IDE" that allows you to interactively explore the functionality of a GraphQL API by sending queries and mutations to it. It's somewhat similar to [Postman](https://www.getpostman.com/) which offers comparable functionality for REST APIs. Among other things, GraphQL Playground:
   * Auto-generates comprehensive documentation for all available API operations.
   * Provides an editor where you can write queries, mutations & subscriptions, with auto-completion(!) and syntax highlighting.
@@ -29,14 +29,12 @@ The goal of this tutorial is to build an API for a [Hacker News](https://news.yc
 
 You'll start by learning the basics of how a GraphQL server works, simply by defining a [_GraphQL schema_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) for the server and writing corresponding _resolver functions_. In the beginning, these resolvers will only work with data that's stored in-memory - so nothing will persist beyond the runtime of the server.
 
-Nobody wants a server that's not able to store and persist data, right? Not to worry! Next, you're going to add a database layer to the project. The database layer is powered by [Prisma](https://www.prisma.io/) and will be connected to your GraphQL server via [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/api#overview). 
+Nobody wants a server that's not able to store and persist data, right? Not to worry! Next, you're going to add a [SQLite](http://sqlite.org/) database to the project which will be managed with [Prisma](https://www.prisma.io/).
 
 Once you have the database connected, you are going to add more advanced features to the API.
 
 You'll start by implementing signup/login functionality that enables users to authenticate against the API. This will also allow you to check the permissions of your users for certain API operations.
 
 Next, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding filtering and pagination capabalities to it.
-
-Finally, in a bonus section of the tutorial we will even cover adding realtime functionality to your API using GraphQL subscriptions.
 
 Let's get started 🚀

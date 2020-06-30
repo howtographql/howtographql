@@ -2,8 +2,8 @@
 title: Filtering, Pagination & Sorting
 pageTitle: "GraphQL Filtering, Pagination & Sorting Tutorial with JavaScript"
 description: "Learn how to add filtering and pagination capabilities to a GraphQL API with Node.js, Express & Prisma."
-question: Which arguments are typically used to paginate through a list in the Prisma API using limit-offset pagination?
-answers: ["skip & last", "skip & first", "first & last", "where & orderBy"]
+question: Which arguments are typically used to paginate through a list in the Prisma CLient API using limit-offset pagination?
+answers: ["skip & take", "skip & orderBy", "take & where", "where & orderBy"]
 correctAnswer: 1
 ---
 
@@ -13,7 +13,7 @@ Let's jump in! 🚀
 
 ### Filtering
 
-By using PrismaClient, you'll be able to implement filtering capabilities to your API without too much effort. Similarly to the previous chapters, the heavy-lifting of query resolution will be performed by the powerful Prisma engine. All you need to do is forward incoming queries to it.
+By using `PrismaClient`, you'll be able to implement filtering capabilities to your API without too much effort. Similarly to the previous chapters, the heavy-lifting of query resolution will be performed by Prisma. All you need to do is forward incoming queries to it.
 
 The first step is to think about the filters you want to expose through your API. In your case, the `feed` query in your API will accept a _filter string_. The query then should only return the `Link` elements where the `url` _or_ the `description` _contain_ that filter string.
 
@@ -36,15 +36,15 @@ Next, you need to update the implementation of the `feed` resolver to account fo
 
 Open `src/resolvers/Query.js` and update the `feed` resolver to look as follows:
 
-```js{2-9}(path=".../hackernews-node/src/resolvers/Query.js")
+```js(path=".../hackernews-node/src/resolvers/Query.js")
 async function feed(parent, args, context, info) {
   const where = args.filter
     ? {
-        OR: [
-          { description_contains: args.filter },
-          { url_contains: args.filter },
-        ],
-      }
+      OR: [
+        { description: { contains: args.filter } },
+        { url: { contains: args.filter } },
+      ],
+    }
     : {}
 
   const links = await context.prisma.link.findMany({
@@ -57,7 +57,7 @@ async function feed(parent, args, context, info) {
 
 </Instruction>
 
-If no `filter` string is provided, then the `where` object will be just an empty object and no filtering conditions will be applied by the Prisma engine when it returns the response for the `links` query.
+If no `filter` string is provided, then the `where` object will be just an empty object and no filtering conditions will be applied by Prisma Client when it returns the response for the `links` query.
 
 In cases where there is a `filter` carried by the incoming `args`, you're constructing a `where` object that expresses our two filter conditions from above. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions.
 
@@ -92,8 +92,7 @@ Prisma supports both pagination approaches (read more in the [docs](https://www.
 
 Limit and offset have different names in the Prisma API:
 
-// TODO (robin-macpherson): @nikolasburk it seems we still need to update this over in the `grraphql-js` project as well
-- The _limit_ is called `take`, meaning you're "taking" x elements after a provided start index.
+- The _limit_ is called `take`, meaning you're "taking" `x` elements after a provided start index.
 - The _start index_ is called `skip`, since you're skipping that many elements in the list before collecting the items to be returned. If `skip` is not provided, it's `0` by default. The pagination then always starts from the beginning of the list.
 
 So, go ahead and add the `skip` and `take` arguments to the `feed` query.
@@ -117,20 +116,23 @@ Now, on to the resolver implementation.
 
 In `src/resolvers/Query.js`, adjust the implementation of the `feed` resolver:
 
-```js{11-12}(path=".../hackernews-node/src/resolvers/Query.js")
+```js(path=".../hackernews-node/src/resolvers/Query.js")
 async function feed(parent, args, context, info) {
-  const where = args.filter ? {
-    OR: [
-      { description_contains: args.filter },
-      { url_contains: args.filter },
-    ],
-  } : {}
+  const where = args.filter
+    ? {
+      OR: [
+        { description: { contains: args.filter } },
+        { url: { contains: args.filter } },
+      ],
+    }
+    : {}
 
-  const links = await context.prisma.links({
+  const links = await context.prisma.link.findMany({
     where,
     skip: args.skip,
-    take: args.take
+    take: args.take,
   })
+
   return links
 }
 ```
@@ -158,26 +160,28 @@ query {
 
 ### Sorting
 
-With Prisma, it is possible to return lists of elements that are sorted (_ordered_) according to specific criteria. For example, you can order the list of `Link`s alphabetically by their `url` or `description`. For the Hacker News API, you'll leave it up to the client to decide how exactly it should be sorted and thus include all the ordering options from the Prisma API in the API of your GraphQL server. You can do so by creating an enum that represents the ordering options.
+With Prisma, it is possible to return lists of elements that are sorted (_ordered_) according to specific criteria. For example, you can order the list of `Link`s alphabetically by their `url` or `description`. For the Hacker News API, you'll leave it up to the client to decide how exactly it should be sorted and thus include all the ordering options from the Prisma API in the API of your GraphQL server. You can do so by creating an [`input`](https://graphql.org/graphql-js/mutations-and-input-types/) type and an enum to represent the ordering options.
 
 <Instruction>
 
 Add the following enum definition to `schema.graphql`:
 
 ```graphql(path=".../hackernews-node/src/schema.graphql")
-enum LinkOrderByInput {
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
-  createdAt_ASC
-  createdAt_DESC
+input LinkOrderByInput {
+  description: Sort
+  url: Sort
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
 }
 ```
 
 </Instruction>
 
-It represents the various ways that the list of `Link` elements can be sorted.
+This represents the various ways that the list of `Link` elements can be sorted.
 
 <Instruction>
 
@@ -198,15 +202,15 @@ The implementation of the resolver is similar to what you just did with the pagi
 
 Update the implementation of the `feed` resolver in `src/resolvers/Query.js` and pass the `orderBy` argument along to Prisma:
 
-```js{13}(path=".../hackernews-node/src/resolvers/Query.js")
+```js(path=".../hackernews-node/src/resolvers/Query.js")
 async function feed(parent, args, context, info) {
   const where = args.filter
     ? {
-        OR: [
-          { description_contains: args.filter },
-          { url_contains: args.filter },
-        ],
-      }
+      OR: [
+        { description: { contains: args.filter } },
+        { url: { contains: args.filter } },
+      ],
+    }
     : {}
 
   const links = await context.prisma.link.findMany({
@@ -215,6 +219,7 @@ async function feed(parent, args, context, info) {
     take: args.take,
     orderBy: args.orderBy,
   })
+
   return links
 }
 ```
@@ -225,7 +230,7 @@ Awesome! Here's a query that sorts the returned links by their creation dates:
 
 ```graphql
 query {
-  feed(orderBy: createdAt_ASC) {
+  feed(orderBy: { createdAt: asc }) {
     id
     description
     url
@@ -260,24 +265,25 @@ type Feed {
 Now, go ahead and adjust the `feed` resolver again:
 
 ```js{17-26}(path=".../hackernews-node/src/resolvers/Query.js")
-async function feed(parent, args, context) {
+async function feed(parent, args, context, info) {
   const where = args.filter
     ? {
-        OR: [
-          { description_contains: args.filter },
-          { url_contains: args.filter },
-        ],
-      }
+      OR: [
+        { description: { contains: args.filter } },
+        { url: { contains: args.filter } },
+      ],
+    }
     : {}
 
   const links = await context.prisma.link.findMany({
     where,
     skip: args.skip,
-    first: args.first,
+    take: args.take,
     orderBy: args.orderBy,
   })
 
   const count = await context.prisma.link.count({ where })
+
   return {
     links,
     count,
@@ -286,13 +292,6 @@ async function feed(parent, args, context) {
 ```
 
 </Instruction>
-
-1. You're first using the provided filtering, ordering, and pagination arguments to retrieve a number of `Link` elements.
-// TODO (robin-macpherson): get the updated Prisma Client Query.
-1. Next, you're using the `linksConnection` query from the Prisma Client API to retrieve the total number of `Link` elements currently stored in the database.
-1. The `links` and `count` are then wrapped in an object to adhere to the `Feed` type that you just added to the GraphQL schema.
-
-The last step is to include that new resolver when instantiating the `GraphQLServer`.
 
 You can now test the revamped `feed` query as follows:
 

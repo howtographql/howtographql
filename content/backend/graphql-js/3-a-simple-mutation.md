@@ -138,7 +138,7 @@ Also, here's what's going on with the numbered comments:
 
 Now's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
 
-Correct! 💡 It carries the _arguments_ for the operation -- in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
+Correct! 💡 It carries the _arguments_ for the operation – in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
 
 ### Testing the mutation
 
@@ -169,11 +169,11 @@ The server response will look as follows:
 
 With every mutation you send, the `idCount` will increase and the following IDs for created links will be `link-2`, `link-3`, and so forth...
 
-To verify that your mutation worked, you can send the `feed` query from before again -- it now returns the additional Link that you created with the mutation:
+To verify that your mutation worked, you can send the `feed` query from before again – it now returns the additional Link that you created with the mutation:
 
 ![](https://imgur.com/ZfJQwdB.png)
 
-However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database layer_ to the GraphQL server in order to persist the data beyond the runtime of the server.
+However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database_ to the GraphQL server in order to persist the data beyond the runtime of the server.
 
 ### Exercise
 

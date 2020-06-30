@@ -20,14 +20,12 @@ Open your terminal, navigate to a location of your choice, and run the following
 ```bash
 mkdir hackernews-node
 cd hackernews-node
-yarn init -y
+npm init -y
 ```
 
 </Instruction>
 
-> **Note** This tutorial uses [Yarn](https://yarnpkg.com/en/) to manage your project. If you prefer using [npm](https://www.npmjs.com/), you can simply run the equivalent commands using `npm`.
-
-This creates a new directory called `hackernews-node` and initializes it with a `package.json` file. `package.json` is the configuration file for the Node app you're building. It lists all dependencies and other configuration options (such as _scripts_) needed for the app.
+This creates a new directory called `hackernews-node` and initializes it with a `package.json` file. `package.json` is the configuration file for the Node.js app you're building. It lists all dependencies and other configuration options (such as _scripts_) needed for the app.
 
 ### Creating a raw GraphQL server
 
@@ -57,7 +55,7 @@ First, let's install an important dependency that will allow you to create your 
 Run the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-yarn add graphql-yoga
+npm install graphql-yoga
 ```
 
 </Instruction>
@@ -111,7 +109,6 @@ server.start(() => console.log(`Server is running on http://localhost:4000`))
 </Instruction>
 
 > **Note**: This code block is annotated with a file name. It indicates into which file you need to put the code that's shown. The annotation also links to the corresponding file on GitHub to help you figure out _where_ in the file you need to put it in case you are not sure about that.
-> Also, while the code block has a button for copying the code, we encourage you to type everything out yourself since that drastically improves your learning experience.
 
 All right, let's understand what's going on here by walking through the numbered comments:
 
@@ -157,7 +154,9 @@ Now send the query to the server by clicking the **Play**-button in the center (
 
 Congratulations, you just implemented and successfully tested your first GraphQL query 🎉
 
-Now, remember when we talked about the definition of the `info: String!` field and said the exclamation mark means this field could never be `null`. Well, since you're implementing the resolver, you are in control of what the value for that field is, right? So, what happens if you return `null` instead of the actual informative string in the resolver implementation? Feel free to try that out!
+Now, remember when we talked about the definition of the `info: String!` field and said the exclamation mark means this field could never be `null`. Well, since you're implementing the resolver, you are in control of what the value for that field is, right? 
+
+So, what happens if you return `null` instead of the actual informative string in the resolver implementation? Feel free to try that out!
 
 In `index.js`, update the the definition of `resolvers` as follows:
 
@@ -223,7 +222,6 @@ What are the API operations that can be derived from this schema definition? Wel
 
 When the type of a root field is an object type, you can further expand the query (or mutation/subscription) with fields of that object type. The expanded part is called _selection set_.
 
-
 Here are the operations that are accepted by a GraphQL API that implements the above schema:
 
 ```graphql(nocopy)
@@ -259,8 +257,5 @@ There are a few things to note:
   - For the `users` field, the return type `[User!]!` means it returns a _list_ (which itself cannot be `null`) of `User` elements. The list can also not contain elements that are `null`. So, you're always guaranteed to either receive an empty list or a list that only contains non-null `User` objects.
   - For the `user(id: ID!)` field, the return type `User` means the returned value could be `null` _or_ a `User` object.
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User` object.
-
-// TODO (robin-macpherson): question #2 for Nikolas
-As you provide this information, the `Prisma` instance will get full access to your database service and can be used to resolve incoming request later on.
 
 Phew, enough theory 😠 Let's go and write some more code!
