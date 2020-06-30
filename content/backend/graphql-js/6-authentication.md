@@ -2,61 +2,113 @@
 title: Authentication
 pageTitle: "Implementing Authentication in a GraphQL server with Node.js"
 description: "Learn best practices for implementing authentication and authorization with Node.js, Express & Prisma."
-question: Why was the 'User' type redefined in the application schema when it's already part of the Prisma database schema and could be imported from there?
-answers: ["A 'User' type can never be imported because of how graphql-import works", "To hide potentially sensitive information from client applications", "This is important so users can reset their passwords", "It's a requirement from the GraphQL specification"]
-correctAnswer: 1
+question: "Which HTTP header field carries the authentication token?"
+answers: ["Cache-Control", "Token", "Authorization", "Authentication"]
+correctAnswer: 3
 ---
 
 In this section, you're going to implement signup and login functionality that allows your users to authenticate against your GraphQL server.
 
 ### Adding a `User` model
 
-The first thing you need is a way to represent user data in the database. You can achieve that by adding a `User` type to your Prisma datamodel.
+The first thing you need is a way to represent user data in the database. To do so, you can add a `User` type to your Prisma data model.
 
-You also want to add a _relation_ between the `User` and the already existing `Link` type to express that `Link`s are _posted_ by `User`s.
+You'll also want to add a _relation_ between the `User` and the existing `Link` type to express that `Link`s are _posted_ by `User`s.
 
 <Instruction>
 
-Open `prisma/datamodel.prisma` and replace its current contents with the following:
+Open `prisma/schema.prisma` and add the following code, making sure to also update your existing `Link` model accordingly:
 
-```graphql{5,8-14}(path=".../hackernews-node/prisma/datamodel.prisma")
-type Link {
-  id: ID! @id
-  description: String!
-  url: String!
-  postedBy: User
+```graphql{5,8-14}(path=".../hackernews-node/prisma/data model.prisma")
+model Link {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  description String
+  url         String
+  postedBy    User?    @relation(fields: [postedById], references: [id])
+  postedById  Int?
 }
 
-type User {
-  id: ID! @id
-  name: String!
-  email: String! @unique
-  password: String!
-  links: [Link!]!
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  links     Link[]
 }
 ```
 
 </Instruction>
 
-You're adding a new _relation field_ called `postedBy` to the `Link` type that points to a `User` instance. The `User` type then has a `links` field that's a list of `Link`s. This is how you express a one-to-many relationship using SDL.
+Now we start to see even more how Prisma helps you to reason about your data in a way that is more aligned with how it is represented in the underlying database.
 
-After every change you're making to the datamodel file, you need to redeploy the Prisma API to apply your changes and migrate the underlying database schema.
+### Understanding relation fields
+
+Notice how you're adding a new _relation field_ called `postedBy` to the `Link` model that points to a `User` instance. The `User` model then has a `links` field that's a list of `Link`s. 
+
+To do this, we need to also define the relation by annotating the `postedBy` field with [the `@relation` attribute](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations#the-relation-attribute). This is required for every relation field in your Prisma schema, and all you're doing is defining what the foreign key of the related table will be. So in this case, we're adding an extra field to store the `id` of the `User` who posts a `Link`, and then telling Prisma that `postedById` will be equal to the `id` field in the `User` table.
+
+If this is quite new to you, don't worry! We're going be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations).
+
+### Updating Prisma Client
+
+This is a great time to refresh your memory on the workflow we described for your project at the end of chapter 4!
+
+After every change you make to the data model, you need to migrate your database and then re-generate Prisma Client.
 
 <Instruction>
 
 In the root directory of the project, run the following command:
 
 ```bash(path=".../hackernews-node")
-prisma deploy
+npx prisma migrate save --experimental
 ```
 
 </Instruction>
 
-This now updated the Prisma API. The Prisma client is generated automatically after running `prisma deploy`, exposing all the CRUD methods for the newly added User model.
+<Instruction>
+
+In the root directory of the project, run the following command:
+
+```bash(path=".../hackernews-node")
+npx prisma migrate save --name "add-user-model" --experimental
+```
+
+</Instruction>
+
+This command has now generated your second migration inside of `prisma/migrations`, and you can start to see how this becomes a historical record of how your database evolves over time.
+
+<Instruction>
+
+Now it's time to apply that migration to your database:
+
+```bash(path=".../hackernews-node")
+npx prisma migrate up --experimental
+```
+
+</Instruction>
+
+Your database structure should now be updated to reflect the changes to your data model.
+
+Finally, you need to re-generate PrismaClient.
+
+<Instruction>
+
+Run the following command:
+
+```bash(path=".../hackernews-node")
+npx prisma generate
+```
+
+</Instruction>
+
+That might feel like a lot of steps, but the workflow will become automatic by the end of this tutorial!
+
+Your database is ready and Prisma Client is now updated to expose all the CRUD queries for the newly added `User` model – woohoo! 🎉
 
 ### Extending the GraphQL schema
 
-Remember the process of schema-driven development? It all starts with extending your schema definition with the new operations that you want to add to the API - in this case a `signup` and `login` mutation.
+Remember back when we were setting up your GraphQL server and discussed the process of schema-driven development? It all starts with extending your schema definition with the new operations that you want to add to the API - in this case a `signup` and `login` mutation.
 
 <Instruction>
 
@@ -94,7 +146,7 @@ type User {
 
 </Instruction>
 
-The `signup` and `login` mutations behave very similar. Both return information about the `User` who's signing up (or logging in) as well as a `token` which can be used to authenticate subsequent requests against your GraphQL API. This information is bundled in the `AuthPayload` type.
+The `signup` and `login` mutations behave very similarly: both return information about the `User` who's signing up (or logging in) as well as a `token` which can be used to authenticate subsequent requests against your GraphQL API. This information is bundled in the `AuthPayload` type.
 
 <Instruction>
 
@@ -139,7 +191,7 @@ In `Query.js`, add the following function definition:
 
 ```js(path=".../hackernews-node/src/resolvers/Query.js")
 function feed(parent, args, context, info) {
-  return context.prisma.links()
+  return context.prisma.link.findMany()
 }
 
 module.exports = {
@@ -160,9 +212,10 @@ Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add th
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function signup(parent, args, context, info) {
   // 1
-  const hashedPassword = await bcrypt.hash(args.password, 10)
+  const password = await bcrypt.hash(args.password, 10)
+  
   // 2
-  const {password, ...user} = await context.prisma.createUser({ ...args, password: hashedPassword })
+  const user = await context.prisma.user.create({ data: { ...args, password } })
 
   // 3
   const token = jwt.sign({ userId: user.id }, APP_SECRET)
@@ -176,13 +229,13 @@ async function signup(parent, args, context, info) {
 
 async function login(parent, args, context, info) {
   // 1
-  const {password, ...user} = await context.prisma.user({ email: args.email })
+  const user = await context.prisma.user.findOne({ where: { email: args.email } })
   if (!user) {
     throw new Error('No such user found')
   }
 
   // 2
-  const valid = await bcrypt.compare(args.password, password)
+  const valid = await bcrypt.compare(args.password, user.password)
   if (!valid) {
     throw new Error('Invalid password')
   }
@@ -205,16 +258,16 @@ module.exports = {
 
 </Instruction>
 
-Let's use the good ol' numbered comments again to understand what's going on here - starting with `signup`.
+Let's use the good ol' numbered comments again to understand what's going on here – starting with `signup`.
 
-1. In the `signup` mutation, the first thing to do is encrypting the `User`'s password using the `bcryptjs` library which you'll install soon.
-1. The next step is to use the `prisma` client instance to store the new `User` in the database. Note that we use object destructuring to strip away the password from being returned from `signup` in adherance to the graphql schema.
-1. You're then generating a JWT which is signed with an `APP_SECRET`. You still need to create this `APP_SECRET` and also install the `jwt` library that's used here.
+1. In the `signup` mutation, the first thing to do is encrypt the `User`'s password using the `bcryptjs` library which you'll install soon.
+1. The next step is to use your `PrismaClient` instance (via `prisma` as we covered in the steps about `context`) to store the new `User` record in the database.
+1. You're then generating a JSON Web Token which is signed with an `APP_SECRET`. You still need to create this `APP_SECRET` and also install the `jwt` library that's used here.
 1. Finally, you return the `token` and the `user` in an object that adheres to the shape of an `AuthPayload` object from your GraphQL schema.
 
-Now on the `login` mutation:
+Now on the `login` mutation!
 
-1. Instead of _creating_ a new `User` object, you're now using the `prisma` client instance to retrieve the existing `User` record by the `email` address that was sent along as an argument in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error. Just like with `signup`, we strip away the password using object destructuring to conform to the graphql schema.
+1. Instead of _creating_ a new `User` object, you're now using your `PrismaClient` instance to retrieve an existing `User` record by the `email` address that was sent along as an argument in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error.
 1. The next step is to compare the provided password with the one that is stored in the database. If the two don't match, you're returning an error as well.
 1. In the end, you're returning `token` and `user` again.
 
@@ -225,7 +278,7 @@ Let's go and finish up the implementation.
 First, add the required dependencies to the project:
 
 ```bash(path=".../hackernews-node/")
-yarn add jsonwebtoken bcryptjs
+npm install jsonwebtoken bcryptjs
 ```
 
 </Instruction>
@@ -285,11 +338,11 @@ const { APP_SECRET, getUserId } = require('../utils')
 
 </Instruction>
 
-Right now, there's one more minor issue. You're accessing a `request` object on the `context`. However, when initializing the `context`, you're really only attaching the `prisma` client instance to it - there's no `request` object yet that could be accessed.
+Right now, there's one more minor issue. You're accessing a `request` object on the `context`. However, when initializing the `context`, you're really only attaching the `prisma` instance to it - there's no `request` object yet that could be accessed.
 
 <Instruction>
 
-To change this, open `index.js` and adjust the instantiation of the `GraphQLServer` as follows:
+To make the above operations possible, open `index.js` and adjust the instantiation of the `GraphQLServer` as follows:
 
 ```js{4-9}(path=".../hackernews-node/src/index.js")
 const server = new GraphQLServer({
@@ -319,10 +372,13 @@ In `Mutation.js`, add the following resolver implementation for `post`:
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 function post(parent, args, context, info) {
   const userId = getUserId(context)
-  return context.prisma.createLink({
-    url: args.url,
-    description: args.description,
-    postedBy: { connect: { id: userId } },
+
+  return context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+      postedBy: { connect: { id: userId } },
+    }
   })
 }
 ```
@@ -332,11 +388,11 @@ function post(parent, args, context, info) {
 Two things have changed in the implementation compared to the previous implementation in `index.js`:
 
 1. You're now using the `getUserId` function to retrieve the ID of the `User`. This ID is stored in the JWT that's set at the `Authorization` header of the incoming HTTP request. Therefore, you know which `User` is creating the `Link` here. Recall that an unsuccessful retrieval of the `userId` will lead to an exception and the function scope is exited before the `createLink` mutation is invoked. In that case, the GraphQL response will just contain an error indicating that the user was not authenticated.
-1. You're then also using that `userId` to _connect_ the `Link` to be created with the `User` who is creating it. This is happening through a [nested object write](https://www.prisma.io/docs/-rsc6#nested-object-writes).
+1. You're then also using that `userId` to _connect_ the `Link` to be created with the `User` who is creating it. This is happening through a [nested write](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/relation-queries#nested-writes).
 
 #### Resolving relations
 
-There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: Ensuring the relation between `User` and `Link` gets properly resolved.
+There's one more thing you need to do before you can launch the GraphQL server again and test the new functionality: ensuring the relation between `User` and `Link` gets properly resolved.
 
 Notice how we've omitted all resolvers for _scalar_ values from the `User` and `Link` types? These are following the simple pattern that we saw at the beginning of the tutorial:
 
@@ -348,7 +404,7 @@ Link: {
 }
 ```
 
-However, we've now added two fields to our GraphQL schema that can _not_ be resolved in the same way: `postedBy` on `Link` and `links` on `User`. These fields need to be explicitly implemented because our GraphQL server can not infer where to get that data from.
+However, we've now added two fields to our GraphQL schema that can _not_ be resolved in the same way: `postedBy` on `Link` and `links` on `User`. The resolvers for these fields need to be explicitly implemented because our GraphQL server can not infer where to get that data from.
 
 <Instruction>
 
@@ -356,7 +412,7 @@ To resolve the `postedBy` relation, open `Link.js` and add the following code to
 
 ```js(path=".../hackernews-node/src/resolvers/Link.js")
 function postedBy(parent, args, context) {
-  return context.prisma.link({ id: parent.id }).postedBy()
+  return context.prisma.link.findOne({ where: { id: parent.id } }).postedBy()
 }
 
 module.exports = {
@@ -366,7 +422,7 @@ module.exports = {
 
 </Instruction>
 
-In the `postedBy` resolver, you're first fetching the `Link` using the `prisma` client instance and then invoke `postedBy` on it. Notice that the resolver needs to be called `postedBy` because it resolves the `postedBy` field from the `Link` type in `schema.graphql`. 
+In the `postedBy` resolver, you're first fetching the `Link` from the database using the `prisma` instance and then invoke `postedBy` on it. Notice that the resolver needs to be called `postedBy` because it resolves the `postedBy` field from the `Link` type in `schema.graphql`. 
 
 You can resolve the `links` relation in a similar way.
 
@@ -376,7 +432,7 @@ Open `User.js` and add the following code to it:
 
 ```js(path=".../hackernews-node/src/resolvers/User.js")
 function links(parent, args, context) {
-  return context.prisma.user({ id: parent.id }).links()
+  return context.prisma.user.findOne({ where: { id: parent.id } }).links()
 }
 
 module.exports = {
@@ -430,7 +486,7 @@ If you haven't done so already, stop and restart the server by first killing it 
 
 </Instruction>
 
-Note that you can "reuse" your Playground from before if you still have it open - it's only important that you're restarting the server so the changes you made to the implementation are actually applied.
+Note that you can "reuse" your Playground from before if you still have it open - it's only important that you restart the server so the changes you made to the implementation are actually applied.
 
 <Instruction>
 

@@ -139,7 +139,7 @@ const data: Stack[] = [
       description:
         'Build your own GraphQL server with Node.js, graphql-yoga and Prisma',
     },
-    authorName: 'Maira Bello',
+    authorName: 'Robin MacPherson',
     beginnersChoice: true,
   },
   {
