@@ -61,7 +61,7 @@ touch prisma/schema.prisma
 Remember the GraphQL schema that you've been working with until now? Well, Prisma has a schema, too! You can think of the `prisma.schema` file as a *database schema*. It has three components:
 
 1. **Data source**: Specifies your database connection.
-1. **Generator**: Indicates that you want to genenerate Prisma Client.
+1. **Generator**: Indicates that you want to generate Prisma Client.
 1. **Data model**: Defines your application *models*. Each model will be mapped to a table in the underlying database.
 
 Prisma's unique data model bridges the gap to help you reason about your data in a way that maps very well to the underlying database, while still providing an abstraction that allows you to be productive with type safety and auto-completion.
@@ -98,7 +98,7 @@ model Link {
 Let's break down the three parts:
 
 1. **Data source**: Tells Prisma you'll be using SQLite for your database connection.
-1. **Generator**: Indicates that you want to genenerate Prisma Client. 
+1. **Generator**: Indicates that you want to generate Prisma Client. 
 1. **Data model**: Here, we have written out our `Link` as a model.
 
 The `Link` model defines the structure of the `Link` database table that Prisma is going to create for your in a bit.
