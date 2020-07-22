@@ -37,7 +37,8 @@ export default (props: Props) => {
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />
-      <LandingPlayground />
+      {/*  The Playground is based on Graphcool and therefore (temporarily) removed */}
+      {/*  <LandingPlayground /> */}
       <Team />
       <ContentOverview location={props.location} steps={steps} />
       <Footer />
