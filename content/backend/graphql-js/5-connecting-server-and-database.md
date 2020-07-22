@@ -4,7 +4,7 @@ pageTitle: "Connecting a Database to a GraphQL Server with Prisma Tutorial"
 description: "Learn how to add a database to your GraphQL server. The database is accessed using Prisma Client."
 question: "What is the purpose of the context argument in GraphQL resolvers?"
 answers: ["It always provides access to a database", "It carries the query arguments", "It is used for authentication", "It lets resolvers communicate with each other"]
-correctAnswer: 4
+correctAnswer: 3
 ---
 
 In this section, you're going to learn how to connect your GraphQL server to your database using [Prisma](https://www.prisma.io), which provides the interface to your database. This connection is implemented via [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
