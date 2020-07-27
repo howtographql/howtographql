@@ -1,5 +1,8 @@
-# Create and Retrieve Links
-Now we have our database ready we can start implementing our schema!
+---
+title: Create and Retrieve Links
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "Enable Users to create Links and see them"
+---
 
 ## CreateLinks
 Lets implement CreateLink mutation; first we need a function to let us write a link to database.
@@ -13,7 +16,7 @@ package users
 
 type User struct {
 	ID       string `json:"id"`
-	Username     string `json:"name"`
+	Username string `json:"name"`
 	Password string `json:"password"`
 }
 ```
@@ -43,12 +46,12 @@ type Link struct {
 //#2
 func (link Link) Save() int64 {
 	//#3
-	statement, err := database.Db.Prepare("INSERT INTO Links(Title,Address) VALUES(?,?)")
+	stmt, err := database.Db.Prepare("INSERT INTO Links(Title,Address) VALUES(?,?)")
 	if err != nil {
 		log.Fatal(err)
 	}
 	//#4
-	res, err := statement.Exec(link.Title, link.Address)
+	res, err := stmt.Exec(link.Title, link.Address)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -76,14 +79,14 @@ Now we use this function in our CreateLink resolver:
 
 <Instruction>
 
-`resolver.go`:
+`schema.resolvers.go`:
 ```go
-func (r *mutationResolver) CreateLink(ctx context.Context, input NewLink) (*Link, error) {
+func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) (*model.Link, error) {
 	var link links.Link
 	link.Title = input.Title
 	link.Address = input.Address
-	linkId := link.Save()
-	return &Link{ID: strconv.FormatInt(linkId, 10), Title:link.Title, Address:link.Address}, nil
+	linkID := link.Save()
+	return &model.Link{ID: strconv.FormatInt(linkID, 10), Title:link.Title, Address:link.Address}, nil
 }
 ```
 
@@ -159,14 +162,14 @@ Return links from GetAll in Links query.
 
 <Instruction>
 
-`resolver.go`:
+`schema.resolvers.go`:
 ```go
-func (r *queryResolver) Links(ctx context.Context) ([]*Link, error) {
-	var resultLinks []*Link
+func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
+	var resultLinks []*model.Link
 	var dbLinks []links.Link
 	dbLinks = links.GetAll()
 	for _, link := range dbLinks{
-		resultLinks = append(resultLinks, &Link{ID:link.ID, Title:link.Title, Address:link.Address})
+		resultLinks = append(resultLinks, &model.Link{ID:link.ID, Title:link.Title, Address:link.Address})
 	}
 	return resultLinks, nil
 }

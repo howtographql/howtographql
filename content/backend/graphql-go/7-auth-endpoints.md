@@ -1,13 +1,17 @@
-# Continue Implementing schema <a name="continue-implementing-schema"></a>
-Now that we have working authentication system we can get back to implementing our schema.
+---
+title: Auth Endpoints
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "Enable Users to register, login and refresh their token"
+---
+
 ## CreateUser <a name="createuser"></a>
 We continue our implementation of CreateUser mutation with functions we have written in auth section.
 
 <Instruction>
 
-`resolver.go`:
+`schema.resolvers.go`:
 ```go
-func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (string, error) {
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
 	var user users.User
 	user.Username = input.Username
 	user.Password = input.Password
@@ -41,7 +45,7 @@ results:
 So we successfully created our first user!
 
 ## Login <a name="login"></a>
-For this mutation, first we have to check if user exists in database and given password is correct, then we generate a token for user and give it bach to user.
+For this mutation, first we have to check if user exists in database and given password is correct, then we generate a token for user and give it back to user.
 
 <Instruction>
 
@@ -81,9 +85,9 @@ Explanation:
 
 <Instruction>
 
-`resolver.go`
+`schema.resolvers.go`
 ```go
-func (r *mutationResolver) Login(ctx context.Context, input Login) (string, error) {
+func (r *mutationResolver) Login(ctx context.Context, input model.Login) (string, error) {
 	var user users.User
 	user.Username = input.Username
 	user.Password = input.Password
@@ -124,13 +128,13 @@ Again you can try login with username and password from the user we created and 
 
 ## Refresh Token <a name="refresh-token"></a>
 This is the last endpoint we need to complete our authentication system, imagine a user has loggedIn in our app and it's token is going to get expired after minutes we set(when generated the token), now we need a solution to keep our user loggedIn. One solution is to have a endpoint to get tokens that are going to expire and regenerate a new token for that user so that app uses new token.
-So our endpoint should take a token, Parse the username and generate a token for that username.
+So our endpoint should take a token, Parse the username and generate a new token for that username.
 
 <Instruction>
 
-`resolver.go`:
+`schema.resolvers.go`:
 ```go
-func (r *mutationResolver) RefreshToken(ctx context.Context, input RefreshTokenInput) (string, error) {
+func (r *mutationResolver) RefreshToken(ctx context.Context, input model.RefreshTokenInput) (string, error) {
 	username, err := jwt.ParseToken(input.Token)
 	if err != nil {
 		return "", fmt.Errorf("access denied")

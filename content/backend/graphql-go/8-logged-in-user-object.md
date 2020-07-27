@@ -1,16 +1,21 @@
-# Logged in user object<a name="completing-our-app"></a>
+---
+title: Logged in User
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "Get logged-in user in gqlgen"
+---
+
 Our CreateLink mutation left incomplete because we could not authorize users back then, so let's get back to it and complete the implementation. With what we have now, we can check whether the user is logged in or not by checking the Authorization HTTP header.
 With what we did in authentication middleware we can retrieve user in resolvers using ctx argument. so in CreateLink function add these lines:
 
 <Instruction>
 
-`resolver.go`:
+`schema.resolvers.go`:
 ```go
-func (r *mutationResolver) CreateLink(ctx context.Context, input NewLink) (*Link, error) {
+func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) (*model.Link, error) {
 	// 1
 	user := auth.ForContext(ctx)
 	if user == nil {
-		return &Link{}, fmt.Errorf("access denied")
+		return &model.Link{}, fmt.Errorf("access denied")
 	}
 	.
 	.
@@ -18,11 +23,11 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input NewLink) (*Link
 	// 2
 	link.User = user
 	linkId := link.Save()
-	grahpqlUser := &User{
+	grahpqlUser := &model.User{
 		ID:   user.ID,
 		Name: user.Username,
 	}
-	return &Link{ID: strconv.FormatInt(linkId, 10), Title:link.Title, Address:link.Address, User:grahpqlUser}, nil
+	return &model.Link{ID: strconv.FormatInt(linkId, 10), Title:link.Title, Address:link.Address, User:grahpqlUser}, nil
 }
 ```
 
@@ -36,18 +41,18 @@ And edit the links query to get user from db too.
 
 <Instruction>
 
-`resolver.go`:
+`schema.resolvers.go`:
 ```go
-func (r *queryResolver) Links(ctx context.Context) ([]*Link, error) {
-	var resultLinks []*Link
+func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
+	var resultLinks []*model.Link
 	var dbLinks []links.Link
 	dbLinks = links.GetAll()
 	for _, link := range dbLinks{
-		grahpqlUser := &User{
+		grahpqlUser := &model.User{
 			ID:   link.User.ID,
 			Name: link.User.Username,
 		}
-		resultLinks = append(resultLinks, &Link{ID:link.ID, Title:link.Title, Address:link.Address, User:grahpqlUser})
+		resultLinks = append(resultLinks, &model.Link{ID: link.ID, Title: link.Title, Address: link.Address, User: grahpqlUser})
 	}
 	return resultLinks, nil
 }

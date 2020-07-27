@@ -1,4 +1,9 @@
-# Queries <a name="queries"></a>
+---
+title: Queries
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+description: "what are queries and implementing a query in gqlgen"
+---
+
 In the previous section we setup up the server, Now we try to implement a Query that we defined in `schema.grpahql`.
 
 ## What Is A Query <a name="what-is-a-query"></a>
@@ -8,9 +13,9 @@ a query in graphql is asking for data, you use a query and specify what you want
 
 <Instruction>
 
- open `resolver.go` file and take a look at Links function,
+open `schema.resolvers.go` file and take a look at Links function,
 ```go
-func (r *queryResolver) Links(ctx context.Context) ([]*Link, error) {
+func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 ```
 
 </Instruction>
@@ -22,18 +27,23 @@ Let's make a dummy response for this function, for now.
 
 <Instruction>
 
-`resolver.go`:
+`schema.resolvers.go`:
 ```go
-func (r *queryResolver) Links(ctx context.Context) ([]*Link, error) {
-	var links []*Link
-	links = append(links, &Link{Title: "our dummy link", Address: "https://address.org", User: &User{Username: "admin"}})
+func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
+  var links []*model.Link
+  dummyLink := model.Link{
+    Title: "our dummy link",
+    Address: "https://address.org",
+    User: &model.User{Name: "admin"},
+  }
+	links = append(links, &dummyLink)
 	return links, nil
 }
 ```
 
 </Instruction>
 
-now run the server with `go run server/server.go` and send this query in Graphiql:
+now run the server with `go run server.go` and send this query in Graphiql:
 ```
 query {
 	links{
