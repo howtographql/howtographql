@@ -124,7 +124,7 @@ const authors: Author[] = [
     bio:
       "A software engineer who wants to share.",
     link: 'twitter.com/glyphack',
-    job: 'Software engineer @ Divar',
+    job: 'Software engineer',
     name: 'Shayegan Hooshyari'
   },
 ]
