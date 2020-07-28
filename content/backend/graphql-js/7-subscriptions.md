@@ -18,21 +18,58 @@ Subscriptions are a GraphQL feature that allows a server to send data to its cli
 
 Instead, the client initially opens up a long-lived connection to the server by sending a _subscription query_ that specifies which _event_ it is interested in. Every time this particular event happens, the server uses the connection to push the event data to the subscribed client(s).
 
-### Subscriptions with Prisma
+### Implementing GraphQL subscriptions
 
-Luckily, Prisma comes with out-of-the-box support for subscriptions.
-
-For each model in your Prisma datamodel, Prisma lets you subscribe to the following _events_:
+We will be using `PubSub` from the `graphql-yoga` library that we have already been using for our GraphQL server to implement subscriptions to the following _events_:
 
 - A new model is **created**
 - An existing model **updated**
 - An existing model is **deleted**
 
-You can subscribe to these events using the `$subscribe` method of the Prisma client.
+You will do this by first adding an instance of `PubSub` to the context, just as we did with `PrismaClient`, and then calling its methods in the resolvers that handle each of the above events.
+
+### Setting up `PubSub`
+
+<Instruction>
+
+Open your `index.js` file where we instantiate the server and add the following code:
+
+```graphql(path=".../hackernews-node/src/index.js)
+// ... previous import statements
+const { PubSub } = require('graphql-yoga')
+
+const pubsub = new PubSub()
+```
+
+</Instruction>
+
+Here, you're creating an instance of `PubSub` and storing it in the variable `pubsub`, just as we stored an instance of `PrismaClient` in the variable `prisma`.
+
+<Instruction>
+
+Now, in the same file, add `pubsub` to the context, just as did with `prisma`:
+
+```graphql(path=".../hackernews-node/src/index.js)
+const server = new GraphQLServer({
+  typeDefs: './src/schema.graphql',
+  resolvers,
+  context: request => {
+    return {
+      ...request,
+      prisma,
+      pubsub
+    }
+  },
+})
+```
+
+</Instruction>
+
+Great! Now we can access the methods we need to implement our subscriptions from inside our resolvers via `context.pubsub`!
 
 ### Subscribing to new `Link` elements
 
-Enough with the talking, more of the coding! Let's implement the subscription that allows your clients to subscribe to newly created `Link` elements.
+Alright – let's go ahead and implement the subscription that allows your clients to subscribe to newly created `Link` elements.
 
 Just like with queries and mutations, the first step to implement a subscription is to extend your GraphQL schema definition.
 
@@ -67,9 +104,9 @@ touch src/resolvers/Subscription.js
 
 Here's how you need to implement the subscription resolver in that new file:
 
-```js
+```js(path=".../hackernews-node/src/resolvers/Subscription.js")
 function newLinkSubscribe(parent, args, context, info) {
-  return context.prisma.$subscribe.link({ mutation_in: ['CREATED'] }).node()
+  return context.pubsub.asyncIterator("NEW_LINK")
 }
 
 const newLink = {
@@ -88,7 +125,38 @@ module.exports = {
 
 The code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a `subscribe` field inside a plain JavaScript object.
 
-As mentioned, the `prisma` client instance on the `context` exposes a `$subscribe` property which proxies the subscriptions from the Prisma API. This function is used to resolve subscriptions and push the event data. Prisma is taking care of all the complexity of handling the realtime functionality under the hood.
+Now you can see how we access `pubsub` on the `context` and call `asyncIterator()` passing the string `"NEW_LINK"` into it. This function is used to resolve subscriptions and push the event data.
+
+### Adding subscriptions to your resolvers
+
+The last thing we need to do for our subscription implementation itself is to actually call this function inside of a resolver!
+
+<Instruction>
+
+Pop over to `Mutation.js` and locate your `post` resolver function, adding the following call to `pubsub.publish()` right before we return our `newLink`:
+
+```js(path=".../hackernews-node/src/resolvers/Mutation.js")
+function post(parent, args, context, info) {
+  const userId = getUserId(context)
+
+  const newLink = context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+      postedBy: { connect: { id: userId } },
+    }
+  })
+  context.pubsub.publish("NEW_LINK", newLink)
+
+  return newLink
+}
+```
+
+</Instruction>
+
+Now you can see how we pass the same string to the `publish` method as you added in your `newLinkSubscribe` function just above, along with passing in the `newLink` as a second argument!
+
+Ok, I'm sure you're dying to test out your brand-spanking new Subscription! All we need to do now is make sure your GraphQL server knows about your changes.
 
 <Instruction>
 
@@ -118,7 +186,8 @@ const resolvers = {
 
 ### Testing subscriptions
 
-With all the code in place, it's time to test your realtime API ⚡️ You can do so, by using two instances (i.e. windows) of the GraphQL Playground at once.
+With all the code in place, it's time to test your realtime API ⚡️
+You can do so by using two instances (i.e. tabs or windows) of the GraphQL Playground at once.
 
 <Instruction>
 
@@ -186,55 +255,69 @@ Now observe the Playground where the subscription was running:
 
 #### Implementing a `vote` mutation
 
-The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma datamodel to represent votes in the database.
+The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma data model to represent votes in the database.
 
 <Instruction>
 
-Open `prisma/datamodel.prisma` and adjust it to look as follows:
+Open `prisma/schema.prisma` and adjust it to look as follows:
 
-```graphql{7,16,19-23}(path=".../hackernews-node/prisma/datamodel.prisma")
-type Link {
-  id: ID! @id
-  createdAt: DateTime! @createdAt
-  description: String!
-  url: String!
-  postedBy: User
-  votes: [Vote!]!
+```graphql{7,16,19-23}(path=".../hackernews-node/prisma/schema.prisma")
+model Link {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  description String
+  url         String
+  postedBy    User?     @relation(fields: [postedById], references: [id])
+  postedById  Int?
+  votes       Vote[]
 }
 
-type User {
-  id: ID! @id
-  name: String!
-  email: String! @unique
-  password: String!
-  links: [Link!]!
-  votes: [Vote!]!
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  links    Link[]
+  votes    Vote[]
 }
 
-type Vote {
-  id: ID! @id
-  link: Link!
-  user: User!
+model Vote {
+  id     Int  @id @default(autoincrement())
+  link   Link @relation(fields: [linkId], references: [id])
+  linkId Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@unique([linkId, userId])
 }
 ```
 
 </Instruction>
 
-As you can see, you added a new `Vote` type to the datamodel. It has one-to-many relationships to the `User` and the `Link` type.
+As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the `Link` type.
 
-To apply the changes and update your Prisma client API so it includes CRUD operations for the new `Vote` type, you need to deploy the service again.
+<Instruction>
+
+Now migrate your database schema with the following commands:
+
+```
+npx prisma migrate save --name 'add-vote-model' --experimental
+npx prisma migrate up --experimental
+```
+
+</Instruction>
+
+To apply the changes and update your Prisma Client API so it exposes CRUD queries for the new `Vote` model, regenerate `PrismaClient`.
 
 <Instruction>
 
 Run the following command in your terminal:
 
 ```bash(path=".../hackernews-node)
-prisma deploy
+npx prisma generate
 ```
 
 </Instruction>
-
-Thanks to the post-deploy hook, you don't need to manually run `prisma generate` again to update your Prisma client.
 
 Now, with the process of schema-driven development in mind, go ahead and extend the schema definition of your application schema so that your GraphQL server also exposes a `vote` mutation:
 
@@ -291,19 +374,29 @@ async function vote(parent, args, context, info) {
   const userId = getUserId(context)
 
   // 2
-  const voteExists = await context.prisma.$exists.vote({
-    user: { id: userId },
-    link: { id: args.linkId },
+  const vote = await context.prisma.vote.findOne({
+    where: {
+      linkId_userId: {
+        linkId: Number(args.linkId),
+        userId: userId
+      }
+    }
   })
-  if (voteExists) {
+
+  if (Boolean(vote)) {
     throw new Error(`Already voted for link: ${args.linkId}`)
   }
 
   // 3
-  return context.prisma.createVote({
-    user: { connect: { id: userId } },
-    link: { connect: { id: args.linkId } },
+  const newVote = context.prisma.vote.create({
+    data: {
+      user: { connect: { id: userId } },
+      link: { connect: { id: Number(args.linkId) } },
+    }
   })
+  context.pubsub.publish("NEW_VOTE", newVote)
+
+  return newVote
 }
 ```
 
@@ -312,8 +405,8 @@ async function vote(parent, args, context, info) {
 Here is what's going on:
 
 1. Similar to what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the `getUserId` helper function. If it's valid, the function will return the `userId` of the `User` who is making the request. If the JWT is not valid, the function will throw an exception.
-1. The `prisma.$exists.vote(...)` function call is new for you. The `prisma` client instance not only exposes CRUD methods for your models, it also generates one `$exists` function per model. The `$exists` function takes a `where` filter object that allows to specify certain conditions about elements of that type. Only if the condition applies to _at least_ one element in the database, the `$exists` function returns `true`. In this case, you're using it to verify that the requesting `User` has not yet voted for the `Link` that's identified by `args.linkId`.
-1. If `exists` returns `false`, the `createVote` method will be used to create a new `Vote` that's _connected_ to the `User` and the `Link`.
+1. To protect against those pesky "double voters" (or honest folks who accidentally click twice), you need to check if the vote already exists or not. First, you try to fetch a vote with the same `linkId` and `userId`. If the vote exists, it will be stored in the `vote` variable, resulting in the boolean `true` from your call to `Boolean(vote)` -- throwing an error kindly telling the user that they already voted.
+1. If that `Boolean(vote)` call returns `false`, the `vote.create` method will be used to create a new `Vote` that's _connected_ to the `User` and the `Link`.
 
 <Instruction>
 
@@ -344,7 +437,7 @@ Open `Link.js` and add the following function to it:
 
 ```js(path=".../hackernews-node/src/resolvers/Link.js")
 function votes(parent, args, context) {
-  return context.prisma.link({ id: parent.id }).votes()
+  return context.prisma.link.findOne({ where: { id: parent.id } }).votes()
 }
 ```
 
@@ -363,7 +456,7 @@ module.exports = {
 
 </Instruction>
 
-Finally you need to resolve the relations from the `Vote` type. 
+Finally you need to resolve the relations from the `Vote` type.
 
 <Instruction>
 
@@ -375,6 +468,7 @@ touch src/resolvers/Vote.js
 
 </Instruction>
 
+Great job!
 
 <Instruction>
 
@@ -382,11 +476,11 @@ Now add the following code to it:
 
 ```js(path=".../hackernews-node/src/resolvers/Vote.js")
 function link(parent, args, context) {
-  return context.prisma.vote({ id: parent.id }).link()
+  return context.prisma.vote.findOne({ where: { id: parent.id } }).link()
 }
 
 function user(parent, args, context) {
-  return context.prisma.vote({ id: parent.id }).user()
+  return context.prisma.vote.findOne({ where: { id: parent.id } }).user()
 }
 
 module.exports = {
@@ -453,7 +547,7 @@ Add the following code to `Subscription.js`:
 
 ```js(path=".../hackernews-node/src/resolvers/Subscription.js")
 function newVoteSubscribe(parent, args, context, info) {
-  return context.prisma.$subscribe.vote({ mutation_in: ['CREATED'] }).node()
+  return context.pubsub.asyncIterator("NEW_VOTE")
 }
 
 const newVote = {
@@ -479,8 +573,7 @@ module.exports = {
 
 </Instruction>
 
-
-All right, that's it! You can now test the implementation of your `newVote` subscription.
+All right, that's it! You can now test the implementation of your `newVote` subscription!
 
 <Instruction>
 

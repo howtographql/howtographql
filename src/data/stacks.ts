@@ -139,7 +139,7 @@ const data: Stack[] = [
       description:
         'Build your own GraphQL server with Node.js, graphql-yoga and Prisma',
     },
-    authorName: 'Maira Bello',
+    authorName: 'Robin MacPherson',
     beginnersChoice: true,
   },
   {
@@ -231,6 +231,8 @@ const data: Stack[] = [
         'Learn how to build a GraphQL server with Go and Gqlgen',
     },
     authorName: 'Shayegan Hooshyari',
+    darkenGreyLogo: true,
+    color2: '#a5152a',
   }
 ]
 

@@ -11,6 +11,7 @@ Setting up mutations is as easy as queries, and you'll follow basically the same
 
 ```elixir(path=".../graphql-elixir/lib/community_web/schema.ex")
 mutation do
+  @desc "Create a new link"
   field :create_link, :link do
     arg :url, non_null(:string)
     arg :description, non_null(:string)
