@@ -9,10 +9,10 @@ One of most common layers in web applications is authentication system, our app 
 ## JWT <a name="jwt"></a>
 [JWT](https://jwt.io/) or Json Web Token is a string containing a hash that helps us verify who is using application. Every token is constructed of 3 parts like `xxxxx.yyyyy.zzzzz` and name of these parts are: Header, Payload and Signature. Explanation about these parts are more about JWT than our application you can read more about them [here](https://jwt.io/introduction/).
 whenever a user login to an app server generates a token for user, Usually server saves some information like username about the user in token to be able to recognize the user later using that token.This tokens get signed by a key so only the issuer app can reopen the token.
-We are going to implement this behavior in our app. 
+We are going to implement this behavior in our app.
 
 ### Setup <a name="setup"></a>
-In our app we need to be able to generate a token for users when they sign up or login and a middleware to authenticate users by the given token, then in our views we can know the user interacting with app. We will be using `github.com/dgrijalva/jwt-go` library to generate and prase JWT tokens.
+In our app we need to be able to generate a token for users when they sign up or login and a middleware to authenticate users by the given token, then in our views we can know the user interacting with app. We will be using `github.com/dgrijalva/jwt-go` library to generate and parse JWT tokens.
 ### Generating and Parsing JWT Tokens <a name="generating-and-parsing-jwt-tokens"></a>
 We create a new directory pkg in the root of our application, you have seen that we used internal for what we want to only be internally used withing our app, pkg directory is for files that we don't mind if some outer code imports it into itself and generation and validation jwt tokens are this kinds of code.
 There is a concept named claims it's not only limited to JWT We'll see more about it in rest of the section.
@@ -34,7 +34,7 @@ var (
 	SecretKey = []byte("secret")
 )
 
-//GenerateToken generates a jwt token and assign a username to it's claims and return it
+// GenerateToken generates a jwt token and assign a username to it's claims and return it
 func GenerateToken(username string) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	/* Create a map to store our claims */
@@ -50,7 +50,7 @@ func GenerateToken(username string) (string, error) {
 	return tokenString, nil
 }
 
-//ParseToken parses a jwt token and returns the username it it's claims
+// ParseToken parses a jwt token and returns the username in it's claims
 func ParseToken(tokenStr string) (string, error) {
 	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
 		return SecretKey, nil

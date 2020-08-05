@@ -22,15 +22,15 @@ go run github.com/99designs/gqlgen init
 </Instruction>
 
 Here is a description from gqlgen about the generated files:
-* `gqlgen.yml` — The gqlgen config file, knobs for controlling the generated code.
-* `generated.go` — The GraphQL execution runtime, the bulk of the generated code.
-* `models_gen.go` — Generated models required to build the graph. Often you will override these with your own models. Still very useful for input types.
-* `resolver.go` — This is where your application code lives. generated.go will call into this to get the data the user has requested.
-* `server/server.go` — This is a minimal entry point that sets up an http.Handler to the generated GraphQL server.
-start the server with `go run server.go` and open your browser and you should see the graphql playground, So setup is right!
+- `gqlgen.yml` — The gqlgen config file, knobs for controlling the generated code.
+- `graph/generated/generated.go` — The GraphQL execution runtime, the bulk of the generated code.
+- `graph/model/models_gen.go` — Generated models required to build the graph. Often you will override these with your own models. Still very useful for input types.
+- `graph/schema.resolvers.go` — This is where your application code lives. generated.go will call into this to get the data the user has requested.
+- `server.go` — This is a minimal entry point that sets up an http.Handler to the generated GraphQL server.
+  start the server with `go run server.go` and open your browser and you should see the graphql playground, So setup is right!
 
 ## Defining Our Schema <a name="defining-out-schema"></a>
-Now let's start with defining schema we need for our API. 
+Now let's start with defining schema we need for our API.
 We have two types Link and User each of them for representing Link and User to client, a `links` Query to return list of Links. an input for creating new links and mutation for creating link. we also need mutations to for auth system which includes Login, createUser, refreshToken(I'll explain them later) then run the command below to regenerate graphql models.
 ```js
 type Link {
@@ -79,10 +79,9 @@ type Mutation {
 
 <Instruction>
 
-Now remove resolver.go and  re-run the command to regenerate files;
+Now run the following command to regenerate files;
 ```
-rm resolver.go
-go run github.com/99designs/gqlgen
+go run github.com/99designs/gqlgen generate
 ```
 </Instruction>
-After gqlgen generated code for us with have to implement our schema, we do that in ‍‍‍‍`resolver.go`, as you see there is functions for Queries and Mutations we defined in our schema.
+After gqlgen generated code for us, we'll have to implement our schema, we do that in ‍‍‍‍`schema.resolvers.go`, as you see there is functions for Queries and Mutations we defined in our schema.

@@ -131,8 +131,8 @@ const authors: Author[] = [
     avatar: require('../assets/graphics/contributors/shayegan.jpg'),
     bio:
       "A software engineer who wants to share.",
-    link: 'https://twitter.com/glyphack',
-    job: 'Software engineer @ Divar',
+    link: 'twitter.com/glyphack',
+    job: 'Software engineer',
     name: 'Shayegan Hooshyari'
   },
 ]
