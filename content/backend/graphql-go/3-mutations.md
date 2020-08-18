@@ -24,12 +24,12 @@ This function receives a `NewLink` with type of `input` we defined NewLink struc
 
 Try to Construct a `Link` object we defined in our `schema.graphqls`:
 ```go
-func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) (*Link, error) {
-	var link Link
-	var user User
+func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) (*model.Link, error) {
+	var link model.Link
+	var user model.User
 	link.Address = input.Address
 	link.Title = input.Title
-	user.Username = "test"
+	user.Name = "test"
 	link.User = &user
 	return &link, nil
 }
