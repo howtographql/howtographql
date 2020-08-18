@@ -4,7 +4,7 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
 description: "what are queries and implementing a query in gqlgen"
 ---
 
-In the previous section we setup up the server, Now we try to implement a Query that we defined in `schema.grpahql`.
+In the previous section we setup up the server, Now we try to implement a Query that we defined in `schema.grpahqls`.
 
 ## What Is A Query <a name="what-is-a-query"></a>
 a query in graphql is asking for data, you use a query and specify what you want and graphql will return it back to you.
