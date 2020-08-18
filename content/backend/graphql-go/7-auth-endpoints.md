@@ -15,7 +15,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 	var user users.User
 	user.Username = input.Username
 	user.Password = input.Password
-	err := user.Create()
+	user.Create()
 	token, err := jwt.GenerateToken(user.Username)
 	if err != nil{
 		return "", err
