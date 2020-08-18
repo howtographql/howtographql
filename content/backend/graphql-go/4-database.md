@@ -168,6 +168,7 @@ Then call `InitDB` and `Migrate`(Optional) In main func to create database conne
 
 <Instruction>
 
+`server.go`:
 ```go
 
 func main() {
