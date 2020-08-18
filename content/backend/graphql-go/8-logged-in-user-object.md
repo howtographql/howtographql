@@ -22,12 +22,12 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) 
 	.
 	// 2
 	link.User = user
-	linkId := link.Save()
+	linkID := link.Save()
 	grahpqlUser := &model.User{
 		ID:   user.ID,
 		Name: user.Username,
 	}
-	return &model.Link{ID: strconv.FormatInt(linkId, 10), Title:link.Title, Address:link.Address, User:grahpqlUser}, nil
+	return &model.Link{ID: strconv.FormatInt(linkID, 10), Title:link.Title, Address:link.Address, User:grahpqlUser}, nil
 }
 ```
 
@@ -67,11 +67,11 @@ The part that is left here is our database operation for creating link, We need 
 `internal/links/links.go`:
 In our Save method from links changed the query statement to:
 ```go
-statement, err := database.Db.Prepare("INSERT INTO Links(Title,Address, UserID) VALUES(?,?, ?)")
+stmt, err := database.Db.Prepare("INSERT INTO Links(Title,Address, UserID) VALUES(?,?, ?)")
 ```
 and the line that we execute query to:
 ```go
-res, err := statement.Exec(link.Title, link.Address, link.User.ID)
+res, err := stmt.Exec(link.Title, link.Address, link.User.ID)
 ```
 
 </Instruction>
