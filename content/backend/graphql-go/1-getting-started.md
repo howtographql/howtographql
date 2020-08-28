@@ -33,9 +33,10 @@ Here is a description from gqlgen about the generated files:
 ## Defining Our Schema <a name="defining-out-schema"></a>
 Now let's start with defining schema we need for our API.
 We have two types Link and User each of them for representing Link and User to client, a `links` Query to return list of Links. an input for creating new links and mutation for creating link. we also need mutations to for auth system which includes Login, createUser, refreshToken(I'll explain them later) then run the command below to regenerate graphql models.
-```js
-// graph/schema.graphqls
 
+`file: graph/schema.graphqls`
+
+```js
 
 type Link {
   id: ID!
