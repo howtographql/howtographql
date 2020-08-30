@@ -5,15 +5,16 @@ description: "Setup mysql db with migrations in golang"
 ---
 
 Before we jump into implementing GraphQL schema we need to setup database to save users and links, This is not supposed to be tutorial about databases in go but here is what we are going to do:
-* setup MySQL
-* define our models and create migrations
+* Setup MySQL
+* Create MySQL database
+* Define our models and create migrations
 
 ## Setup MySQL <a name="setup-mysql"></a>
 If you have docker you can run [Mysql image]((https://hub.docker.com/_/mysql)) from docker and use it.
 
 <Instruction>
 
-`docker run --name mysql -e MYSQL_ROOT_PASSWORD=dbpass -e MYSQL_DATABASE=hackernews -d mysql:latest`
+`docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=dbpass -e MYSQL_DATABASE=hackernews -d mysql:latest`
 now run `docker ps` and you should see our mysql image is running:
 ```
 CONTAINER ID        IMAGE                                                               COMMAND                  CREATED             STATUS              PORTS                  NAMES
@@ -21,11 +22,33 @@ CONTAINER ID        IMAGE                                                       
 
 ```
 
+## Create MySQL database <a name="create-mysql-database"></a>
+You have already started `mysql` instance in the previous step. Now we will need to create our `hackernews` database in that instance.
+To create the database run these commands.
+
+<Instruction>
+
+`docker exec -it mysql bash`
+
+It will open the bash terminal inside `mysql` instance.
+
+
+In the next step we will open `mysql` repl as the root user:
+
+`mysql -u root -p`
+
+
+It will ask you for root password, enter `dbpass` and enter.
+
+Now we are inside `mysql` repl. To create the database, run this command:
+
+`CREATE DATABASE hackernews;`
+
 </Instruction>
 
 ## Models and migrations <a name="models-and-migrations"></a>
 We need to create migrations for our app so every time our app runs it creates tables it needs to work properly, we are going to use [golang-migrate](https://github.com/golang-migrate/migrate) package.
-create a folder structure for our database files:
+Create a folder structure for our database files in the project root directory:
 ```
 go-graphql-hackernews
 --internal
@@ -40,7 +63,7 @@ Install go mysql driver and golang-migrate packages then create migrations:
 
 ```
 go get -u github.com/go-sql-driver/mysql
-go build -tags 'mysql' -ldflags="-X main.Version=1.0.0" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/cmd/migrate
+go build -tags 'mysql' -ldflags="-X main.Version=1.0.0" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/v4/cmd/migrate/
 cd internal/pkg/db/migrations/
 migrate create -ext sql -dir mysql -seq create_users_table
 migrate create -ext sql -dir mysql -seq create_links_table
@@ -64,7 +87,7 @@ CREATE TABLE IF NOT EXISTS Users(
 
 </Instruction>
 
-in `000001_create_links_table.up.sql`:
+in `000002_create_links_table.up.sql`:
 
 <Instruction>
 
@@ -81,10 +104,10 @@ CREATE TABLE IF NOT EXISTS Links(
 
 </Instruction>
 
-We need one table for saving links and one table for saving users, Then we apply these to our database using migrate command.
+We need one table for saving links and one table for saving users, Then we apply these to our database using migrate command. Run this command in your project root directory.
 
 ```bash
-  migrate -database mysql://root:dbpass@(172.17.0.2:3306)/hackernews -path internal/pkg/db/migrations/mysql up
+  migrate -database mysql://root:dbpass@/hackernews -path internal/pkg/db/migrations/mysql up
 ```
 
 Last thing is that we need a connection to our database, for this we create a mysql.go under mysql folder(We name this file after mysql since we are now using mysql and if we want to have multiple databases we can add other folders) with a function to initialize connection to database for later use.
@@ -145,6 +168,7 @@ Then call `InitDB` and `Migrate`(Optional) In main func to create database conne
 
 <Instruction>
 
+`server.go`:
 ```go
 
 func main() {

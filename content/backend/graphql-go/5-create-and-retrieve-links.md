@@ -6,7 +6,7 @@ description: "Enable Users to create Links and see them"
 
 ## CreateLinks
 Lets implement CreateLink mutation; first we need a function to let us write a link to database.
-Create a folders links and users inside internal folder, these packages are layers between database and our app.
+Create folders `links` and `users` inside `internal` directory, these packages are layers between database and our app.
 
 <Instruction>
 
