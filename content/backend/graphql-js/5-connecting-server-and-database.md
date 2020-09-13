@@ -19,7 +19,7 @@ Remember how we said earlier that all GraphQL resolver functions _always_ receiv
 
 The `context` argument is a plain JavaScript object that every resolver in the resolver chain can read from and write to. Thus, it is basically a means for resolvers to communicate. A really helpful feature is that you can already write to the `context` at the moment when the GraphQL server itself is being initialized.
 
-This means that we can attach an instance of Prisma Client to the `context` when initializing the server and then access is from inside our resolvers via the `context` argument!
+This means that we can attach an instance of Prisma Client to the `context` when initializing the server and then access it from inside our resolvers via the `context` argument!
 
 That's all a bit theoretical, so let's see how it looks in action 💻
 
