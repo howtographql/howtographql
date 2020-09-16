@@ -319,14 +319,14 @@ Before we start the server, let's quickly understand the main components:
 
 - `prisma`: This directory holds all the files that relate to your [Prisma](https://www.prisma.io) setup.  Prisma Client is used to access the database in your GraphQL resolvers (similar to an ORM).
   - `prisma.yml` is the root configuration file for your Prisma project.
-  - `datamodel.prisma` defines your data model in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). When using Prisma, the datamodel is used to describe the database schema.
+  - `datamodel.prisma` defines your data model in the GraphQL [Schema Definition Language](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). When using Prisma, the datamodel is used to describe the database schema.
 - `src`: This directory holds the source files for your GraphQL server.
   - `schema.graphql` contains your **application schema**. The application schema defines the GraphQL operations you can send from the frontend. We'll take a closer look at this file in just a bit.
   - `generated/prisma-client` contains the auto-generated Prisma client, a type-safe database access library (similar to an ORM).
-  - `resolvers` contains the [_resolver functions_](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#1880) for the operations defined in the application schema.
+  - `resolvers` contains the [_resolver functions_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#resolvers-implement-the-api) for the operations defined in the application schema.
   - `index.js` is the entry point for your GraphQL server.
 
-From the mentioned files, only the application schema defined in `server/src/schema.graphql` is relevant for you as a frontend developer. This file contains the [GraphQL schema](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e) which defines all the operations (queries, mutations and subscriptions) you can send from your frontend app.
+From the mentioned files, only the application schema defined in `server/src/schema.graphql` is relevant for you as a frontend developer. This file contains the [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) which defines all the operations (queries, mutations and subscriptions) you can send from your frontend app.
 
 Here is what it looks like:
 
