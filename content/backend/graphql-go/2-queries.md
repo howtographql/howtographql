@@ -1,13 +1,14 @@
 ---
 title: Queries
 pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
-description: "what are queries and implementing a query in gqlgen"
+description: "What are queries and implementing a query in gqlgen"
 ---
 
-In the previous section we setup up the server, Now we try to implement a Query that we defined in `schema.grpahqls`.
+In the previous section the server was setup.
+Now we will try to implement a Query that we defined in `schema.grpahqls`.
 
 ## What Is A Query <a name="what-is-a-query"></a>
-a query in graphql is asking for data, you use a query and specify what you want and graphql will return it back to you.
+A query in graphql is asking for data, you use a query and specify what you want and graphql will return it back to you.
 
 ## Simple Query <a name="simple-query"></a>
 
@@ -20,10 +21,10 @@ func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 
 </Instruction>
 
-Notice that this function takes a Context and returns slice of Links and an error(is there is any).
+Notice that this function takes a Context and returns slice of Links and an error(if there is any).
 ctx argument contains the data from the person who sends request like which user is working with app(we'll see how later), etc.
 
-Let's make a dummy response for this function, for now.
+For now, let's make a dummy response for this function.
 
 <Instruction>
 
@@ -71,4 +72,4 @@ And you will get:
   }
 }
 ```
-Now you know how we generate response for our graphql server. But this response is just a dummy response we want be able to query all other users links, In the next section we setup database for our app to be able to save links and retrieve them from database.
+Now you know that how to generate a response for your graphql server. But this response is just a dummy response and we want to be able to query all other users links. In the next section we will setup a database for our app so that we will be able to save the links and retrieve them.
