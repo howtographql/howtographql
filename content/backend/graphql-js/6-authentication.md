@@ -19,7 +19,7 @@ You'll also want to add a _relation_ between the `User` and the existing `Link` 
 
 Open `prisma/schema.prisma` and add the following code, making sure to also update your existing `Link` model accordingly:
 
-```graphql{5,8-14}(path=".../hackernews-node/prisma/data model.prisma")
+```graphql{6,10-16}(path=".../hackernews-node/prisma/data model.prisma")
 model Link {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
