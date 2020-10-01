@@ -261,14 +261,14 @@ The next feature to be added is a voting feature which lets users _upvote_ certa
 
 Open `prisma/schema.prisma` and adjust it to look as follows:
 
-```graphql{7,16,19-23}(path=".../hackernews-node/prisma/schema.prisma")
+```graphql{8,17,20-28}(path=".../hackernews-node/prisma/schema.prisma")
 model Link {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   description String
   url         String
-  postedBy    User?     @relation(fields: [postedById], references: [id])
-  postedById  Int?
+  postedBy    User      @relation(fields: [postedById], references: [id])
+  postedById  Int 
   votes       Vote[]
 }
 
