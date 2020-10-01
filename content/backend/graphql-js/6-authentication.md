@@ -25,8 +25,8 @@ model Link {
   createdAt   DateTime @default(now())
   description String
   url         String
-  postedBy    User?    @relation(fields: [postedById], references: [id])
-  postedById  Int?
+  postedBy    User     @relation(fields: [postedById], references: [id])
+  postedById  Int 
 }
 
 model User {
