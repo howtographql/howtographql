@@ -61,22 +61,16 @@ After every change you make to the data model, you need to migrate your database
 In the root directory of the project, run the following command:
 
 ```bash(path=".../hackernews-node")
-npx prisma migrate save --experimental
-```
-
-</Instruction>
-
-<Instruction>
-
-In the root directory of the project, run the following command:
-
-```bash(path=".../hackernews-node")
 npx prisma migrate save --name "add-user-model" --experimental
 ```
 
 </Instruction>
 
 This command has now generated your second migration inside of `prisma/migrations`, and you can start to see how this becomes a historical record of how your database evolves over time.
+
+You'll recall that the first time we did this in chapter 4, we named our migration 'init' when we were prompted: `Name of migration`.
+
+This time we supplied the `name of migration` directly inline with a flag: `--name "add-user-model"`. 
 
 <Instruction>
 
