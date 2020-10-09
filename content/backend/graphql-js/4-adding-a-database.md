@@ -218,7 +218,7 @@ node src/script.js
 
 </Instruction>
 
-You successfully queried the database with Prisma Client! Of course, we got an empty array back since the database is empty, so now let's quickly create a new link in the same script.
+You successfully queried the database with Prisma Client! Of course, we got an empty array back since the database is empty, so now let's quickly create a new link in the same script.If the query failed make sure that your nodejs version is above `14.0.0`.
 
 <Instruction>
 
