@@ -11,6 +11,7 @@ In this tutorial we are going to create a Hackernews clone with Go and gqlgen, S
 
 <Instruction>
 Create a directory for project and initialize go modules file:
+  
 ```bash
 go mod init github.com/[username]/hackernews
 ```
