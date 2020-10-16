@@ -482,7 +482,7 @@ Copy the following two mutations into the _editor_ pane.
 mutation CreatePrismaLink {
   createPost(
     description: "Prisma gives you a powerful database toolkit 😎"
-    url: "https://www.prismagraphql.com"
+    url: "https://prisma.io"
   ) {
     id
   }
@@ -541,7 +541,7 @@ If everything went well, the query will return the following data (the `id`s wil
         {
           "id": "cjcnfznzff1w601247iili50x",
           "description": "Prisma gives you a powerful database toolkit 😎",
-          "url": "https://www.prismagraphql.com"
+          "url": "https://prisma.io"
         }
       ]
     }
