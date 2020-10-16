@@ -20,7 +20,7 @@ func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 
 </Instruction>
 
-Notice that this function takes a Context and returns slice of Links and an error(is there is any).
+Notice that this function takes a Context and returns slice of Links and an error(if there are any).
 ctx argument contains the data from the person who sends request like which user is working with app(we'll see how later), etc.
 
 Let's make a dummy response for this function, for now.
