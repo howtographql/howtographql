@@ -616,4 +616,4 @@ mutation {
 }
 ```
 
-![](https://i.imgur.com/hmqRJws.png)
+![](https://i.imgur.com/cYkqy1j.png)
