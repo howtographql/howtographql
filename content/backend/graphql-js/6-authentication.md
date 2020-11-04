@@ -4,7 +4,7 @@ pageTitle: "Implementing Authentication in a GraphQL server with Node.js"
 description: "Learn best practices for implementing authentication and authorization with Node.js, Express & Prisma."
 question: "Which HTTP header field carries the authentication token?"
 answers: ["Cache-Control", "Token", "Authorization", "Authentication"]
-correctAnswer: 3
+correctAnswer: 2
 ---
 
 In this section, you're going to implement signup and login functionality that allows your users to authenticate against your GraphQL server.
