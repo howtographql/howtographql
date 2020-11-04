@@ -3,8 +3,8 @@ title: Filtering, Pagination & Sorting
 pageTitle: "GraphQL Filtering, Pagination & Sorting Tutorial with JavaScript"
 description: "Learn how to add filtering and pagination capabilities to a GraphQL API with Node.js, Express & Prisma."
 question: Which arguments are typically used to paginate through a list in the Prisma Client API using limit-offset pagination?
-answers: ["skip & take", "skip & orderBy", "take & where", "where & orderBy"]
-correctAnswer: 1
+answers: ["take & where", "skip & orderBy", "skip & take", "where & orderBy"]
+correctAnswer: 2
 ---
 
 This is an exciting section of the tutorial where you'll implement some key features of many robust APIs! The goal is to allow clients to constrain the list of `Link` elements returned by the `feed` query by providing filtering and pagination parameters.
