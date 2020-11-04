@@ -246,7 +246,7 @@ Here is what the ready component looks like:
 
 ![](http://imgur.com/tBxMVtb.png)
 
-Perfect, you're all set now to implement the authentication functionality.
+Perfect, we're all set to implement the authentication functionality.
 
 ### Using the authentication mutations
 
@@ -287,7 +287,7 @@ const LOGIN_MUTATION = gql`
 
 </Instruction>
 
-Both mutations look very similar to the mutations you already saw before. They take a number of arguments and return the `token` that you can attach to subsequent requests to authenticate the user (i.e. indicate that a request is made _on behalf_ of that user). You'll learn 🔜 how to do so.
+Both mutations look very similar to the mutations we've already seen. They take a number of arguments and return the `token` that we can attach to subsequent requests to authenticate the user (i.e. indicate that a request is made _on behalf_ of that user). You'll learn 🔜 how to do so.
 
 <Instruction>
 
@@ -295,95 +295,82 @@ Next, find the `div` element that has the class names `flex mt3` and replace it 
 
 ```js{2-12}(path=".../hackernews-react-apollo/src/components/Login.js")
 <div className="flex mt3">
-  <Mutation
-    mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-    variables={{ email, password, name }}
-    onCompleted={(data) => this._confirm(data)}
+  <button
+    className="pointer mr2 button"
+    onClick={formState.login ? login : signup}
   >
-    {(mutation) => (
-      <div
-        className="pointer mr2 button"
-        onClick={mutation}
-      >
-        {login ? 'login' : 'create account'}
-      </div>
-    )}
-  </Mutation>
-  <div
+    {formState.login ? 'login' : 'create account'}
+  </button>
+  <button
     className="pointer button"
-    onClick={() => this.setState({ login: !login })}
+    onClick={(e) =>
+      setFormState({
+        ...formState,
+        login: !formState.login
+      })
+    }
   >
-    {login
+    {formState.login
       ? 'need to create an account?'
       : 'already have an account?'}
-  </div>
+  </button>
 </div>
 ```
 
 </Instruction>
 
-Before we take a closer look at the `<Mutation />` component implementation, go ahead and add the required imports.
+The `onClick` event on the "login"/"create account" button uses a ternary to call one of two functions: `login` or `signup`. As the names imply, these functions will run mutations to log the user in or sign them up for a new account. Let's put in the `useMutation` hook to make these actions happen.
+
+```js(path=".../hackernews-react-apollo/src/components/Login.js")
+const [login] = useMutation(LOGIN_MUTATION, {
+  variables: {
+    email: formState.email,
+    password: formState.password
+  },
+  onCompleted: ({ login }) => {
+    localStorage.setItem(AUTH_TOKEN, login.token);
+    history.push('/');
+  }
+});
+
+const [signup] = useMutation(SIGNUP_MUTATION, {
+  variables: {
+    name: formState.name,
+    email: formState.email,
+    password: formState.password
+  },
+  onCompleted: ({ signup }) => {
+    localStorage.setItem(AUTH_TOKEN, signup.token);
+    history.push('/');
+  }
+});
+```
+
+These two mutations use the `useMutation` hook from Apollo. They accept the GraphQL mutation documents we defined earlier and accept variables from the form. The `onCompleted` callback sets the user's token in local storage and redirects them to the home page afterward.
 
 <Instruction>
 
-Still in `Login.js`, add the following statement to the top of the file:
+Still in `Login.js`, add the following imports to the top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import { useMutation, gql } from '@apollo/client';
+import { useHistory } from 'react-router';
+import { AUTH_TOKEN } from '../constants';
 ```
 
 </Instruction>
 
-Now, let's understand what's going with the `<Mutation />` component you just added.
-
-The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, and the mutation will be triggered on the div's `onClick` event. GraphQL mutations receive the `email`, `password` and `name` state values as params passed on the `variables` prop. Lastly, after the mutation has finished, we call the `_confirm` function, passing the `data` returned by the mutation as an argument.
-
-All right, all that's left to do is implement the `_confirm` function!
-
-<Instruction>
-
-Open `Login.js` and update `_confirm` as follows:
-
-```js(path=".../hackernews-react-apollo/src/components/Login.js")
-_confirm = async (data) => {
-  const { token } = this.state.login
-    ? data.login
-    : data.signup;
-  this._saveUserData(token);
-  this.props.history.push(`/`);
-};
-```
-
-</Instruction>
-
-After the mutation was performed, you're storing the returned `token` in `localStorage` and navigating back to the root route.
-
-> **Note**: Mutation returned `data` relies on GraphQL mutation definition, that's why we need to get the `token` depending on which mutation is triggered.
-
-You can now create an account by providing a `name`, `email` and `password`. Once you did that, the **submit**-button will be rendered again:
+We can now create an account by providing a `name`, `email` and `password`. Once we do that, the **submit** button will be rendered again:
 
 ![](https://imgur.com/z4KILTw.png)
 
-If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the **need to create an account?**-button and provide some user data for the user you're creating. Finally, click the **create account**-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by sending the `users` query in the **dev** Playground in the **database** project.
+If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the **need to create an account?** button and provide some user data for the user you're creating. Finally, click the **create account** button. If all went well, the app navigates back to the home route and the user was created. We can verify that the new user is there by sending the `users` query in the **dev** Playground in the **database** project.
 
 ### Configuring Apollo with the authentication token
 
-Now that users are able to login and obtain a token that authenticates them against the GraphQL server, you actually need to make sure that the token gets attached to all requests that are sent to the API.
+Now that users are able to log in and obtain a token that authenticates them against the GraphQL server, we need to make sure that the token gets attached to all requests that are sent to the API.
 
-Since all the API requests are actually created and sent by the `ApolloClient` instance in your app, you need to make sure it knows about the user's token! Luckily, Apollo provides a nice way for authenticating all requests by using the concept of [middleware](http://dev.apollodata.com/react/auth.html#Header), implemented as an [Apollo Link](https://github.com/apollographql/apollo-link).
-
-First, you need to add the required dependencies to the app. Open a terminal, navigate to your project directory and type:
-
-<Instruction>
-
-```bash(path=".../hackernews-react-apollo")
-yarn add apollo-link-context
-```
-
-</Instruction>
-
-Let’s see the authentication link in action!
+Since all the API requests are actually created and sent by the `ApolloClient` instance at the root of our app, we need to make sure it knows about the user's token! Luckily, Apollo provides a nice way for authenticating all requests by using the concept of [middleware](http://dev.apollodata.com/react/auth.html#Header), implemented as an [Apollo Link](https://github.com/apollographql/apollo-link).
 
 <Instruction>
 
@@ -405,23 +392,23 @@ const authLink = setContext((_, { headers }) => {
 
 <Instruction>
 
-Before moving on, you need to import the Apollo dependencies. Add the following to the top of `index.js`:
+Before moving on, we need to import the Apollo dependencies. Add the following to the top of `index.js`:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
-import { setContext } from 'apollo-link-context';
+import { setContext } from '@apollo/client/link/context';
 ```
 
 </Instruction>
 
-This middleware will be invoked every time `ApolloClient` sends a request to the server. Apollo Links allow you to create `middlewares` that let you modify requests before they are sent to the server.
+This middleware will be invoked every time `ApolloClient` sends a request to the server. Apollo Links allow us to create `middlewares` that modify requests before they are sent to the server.
 
 Let's see how it works in our code: first, we get the authentication `token` from `localStorage` if it exists; after that, we return the `headers` to the `context` so `httpLink` can read them.
 
-> **Note**: You can read more about Apollo's authentication [here](https://www.apollographql.com/docs/react/recipes/authentication.html).
+> **Note**: You can read more about Apollo's authentication [here](https://www.apollographql.com/docs/react/networking/authentication/).
 
 <Instruction>
 
-Now you also need to make sure `ApolloClient` gets instantiated with the correct link - update the constructor call as follows:
+We also need to make sure `ApolloClient` gets instantiated with the correct link - update the constructor call as follows:
 
 ```js{2}(path=".../hackernews-react-apollo/src/index.js")
 const client = new ApolloClient({
@@ -434,7 +421,7 @@ const client = new ApolloClient({
 
 <Instruction>
 
-Then directly import the key you need to retrieve the token from `localStorage` on top of the same file:
+Then directly import the key we need to retrieve the token from `localStorage` on top of the same file:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 import { AUTH_TOKEN } from './constants';
@@ -442,31 +429,50 @@ import { AUTH_TOKEN } from './constants';
 
 </Instruction>
 
-That's it - now all your API requests will be authenticated if a `token` is available.
+That's it - now all our API requests will be authenticated if a `token` is available.
 
 ### Requiring authentication on the server-side
 
-The last thing you might do in this chapter is check how to ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
+The last thing we might do in this chapter is check how to ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
+
+In our case, we're allowing `Link`s without an associated `User` to be submitted. This is for the sake of demonstration and may not be what you want for your own application. We can get a sense of how this works if we look at the server code in `Mutation.js`.
 
 <Instruction>
 
 Open `/server/src/resolvers/Mutation.js` and give a look how it was implemented:
 
 ```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
-function post(parent, { url, description }, context) {
-  const userId = getUserId(context);
-  return context.prisma.createLink({
-    url,
-    description,
-    postedBy: {
-      connect: {
-        id: userId
-      }
+const createPost = async (
+  parent,
+  { url, description },
+  context
+) => {
+  try {
+    if (!context.userId) {
+      return await context.prisma.link.create({
+        data: {
+          url,
+          description
+        }
+      });
     }
-  });
-}
+    return await context.prisma.link.create({
+      data: {
+        url,
+        description,
+        postedBy: {
+          connect: {
+            id: context.userId
+          }
+        }
+      }
+    });
+  } catch (err) {
+    throw new ApolloError(err);
+  }
+};
 ```
 
 </Instruction>
 
-With this, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
+In this code block, we're extracting the `userId` from the `Authorization` header of the request and using it to directly [`connect`](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/relation-queries) it with the `Link` that's created.
