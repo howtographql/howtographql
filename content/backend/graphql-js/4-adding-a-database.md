@@ -7,7 +7,7 @@ answers: ["It receives and processes GraphQL queries", "It connects your GraphQL
 correctAnswer: 2
 ---
 
-In this section, you're going to set up a [SQLite](https://www.sqlite.org/index.html) to persist the data of incoming GraphQL mutations. Instead of writing SQL directly, you will use [Prisma](https://www.prisma.io/) to access your database. 
+In this section, you're going to set up a [SQLite](https://www.sqlite.org/index.html) to persist the data of incoming GraphQL mutations. Instead of writing SQL directly, you will use [Prisma](https://www.prisma.io/) to access your database.
 
 ## So, what is Prisma?
 
@@ -33,7 +33,7 @@ Prisma is focused on addressing that issue and [making developers more productiv
 
 Speaking of being productive and building awesome stuff, let's jump back in and continue with our HackerNews Clone! 🏎💨
 
-### Setting up our project with Prisma and SQLite 
+### Setting up our project with Prisma and SQLite
 
 <Instruction>
 
@@ -75,7 +75,7 @@ Open `schema.prisma` and add the following code:
 ```graphql(path=".../hackernews-node/prisma/schema.prisma")
 // 1
 datasource db {
-  provider = "sqlite" 
+  provider = "sqlite"
   url      = "file:./dev.db"
 }
 
@@ -98,7 +98,7 @@ model Link {
 Let's break down the three parts:
 
 1. **Data source**: Tells Prisma you'll be using SQLite for your database connection.
-1. **Generator**: Indicates that you want to genenerate Prisma Client. 
+1. **Generator**: Indicates that you want to genenerate Prisma Client.
 1. **Data model**: Here, we have written out our `Link` as a model.
 
 The `Link` model defines the structure of the `Link` database table that Prisma is going to create for you in a bit.
@@ -127,7 +127,7 @@ You will get a prompt asking if you would like to create a new database. Select 
 
 </Instruction>
 
-Take a look at the `prisma` directory in your project's file system. You'll see that there is now a `/migrations` directory that Prisma Migrate created for you when running the above command. 
+Take a look at the `prisma` directory in your project's file system. You'll see that there is now a `/migrations` directory that Prisma Migrate created for you when running the above command.
 
 For now, the important thing to understand is that we have told Prisma with our data model, "I want to create a `Link` table to store data about _links_, and here's what that data will look like. Prisma then generates the necessary migration and packages it into a dedicated directory with its own `README.md` file containing detailed information about the specific migration. This is then put inside that `prisma/migrations` directory, which becomes a historical reference of how your database evolves over time with each individual migration you make!
 
@@ -196,6 +196,7 @@ main()
 </Instruction>
 
 Let's break down what's going on here with the numbered comments:
+
 1. Import the `PrismaClient` constructor from the `@prisma/client` node module.
 1. Instantiate `PrismaClient`.
 1. Define an `async` function called `main` to send queries to the database. You will write all your queries inside this function.
