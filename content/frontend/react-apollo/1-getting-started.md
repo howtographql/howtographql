@@ -17,9 +17,9 @@ duration: 0
 videoAuthor: ''
 ---
 
-Since this is a frontend track, you're not going to spend any time implementing the backend. Instead, you'll use the server from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
+Since this is a frontend track, we're not going to spend any time implementing the backend. Instead, we'll use the server from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
-Once you created your React application, you'll pull in the required code for the backend.
+Once our React application is created, we'll pull in the required code for the backend.
 
 > **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
 > Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
@@ -40,7 +40,7 @@ yarn create react-app hackernews-react-apollo
 
 </Instruction>
 
-> **Note**: This tutorial uses [Yarn](https://yarnpkg.com/) for dependency management. Find instructions for how you can install it [here](https://yarnpkg.com/en/docs/install). If you prefer using `npm`, you can just run the equivalent commands.
+> **Note**: This tutorial uses [yarn](https://yarnpkg.com/) for dependency management. Find instructions for how you can install it [here](https://yarnpkg.com/en/docs/install). If you prefer using `npm`, you can just run the equivalent commands.
 
 This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup.
 
@@ -51,7 +51,7 @@ cd hackernews-react-apollo
 yarn start
 ```
 
-This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
+This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, we'll see the following:
 
 ![](http://imgur.com/Yujwwi6.png)
 
@@ -59,7 +59,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Create a second directory called `styles` to hold all of the CSS for the project.
 
-`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
+`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. We also need to change the references to these files in both `index.js` and `App.js` accordingly:
 
 </Instruction>
 
@@ -76,7 +76,7 @@ import logo from './../logo.svg';
 import './../styles/App.css';
 ```
 
-Your project structure should now look as follows:
+The project structure should now look as follows:
 
 ```bash(nocopy)
 .
@@ -104,9 +104,9 @@ Your project structure should now look as follows:
 └── yarn.lock
 ```
 
-#### Prepare styling
+#### Prepare Styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling. To reduce the usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
+This tutorial is about the concepts of GraphQL and how we can use it from within a React application, so we want to spend as little time as possible on styling. To reduce the usage of CSS in this project, we'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
 
 <Instruction>
 
@@ -115,12 +115,15 @@ Open `public/index.html` and add a third `link` tag right below the two existing
 ```html{3}(path=".../hackernews-react-apollo/public/index.html")
 <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"
+/>
 ```
 
 </Instruction>
 
-Since we still want to have a bit more custom styling, we also prepared some styles for you that need to be included in the project.
+Since we still want to have a bit more custom styling, we also prepared some styles that need to be included in the project.
 
 <Instruction>
 
@@ -178,7 +181,7 @@ input {
 
 <Instruction>
 
-Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
+Next, we need to pull in the functionality of Apollo Client (and its React hooks) which comes in several packages:
 
 ```bash(path=".../hackernews-react-apollo")
 yarn add @apollo/client graphql
@@ -191,13 +194,13 @@ Here's an overview of the packages we installed:
 - [`@apollo/client`](https://github.com/apollographql/apollo-client) contains all the pieces needed to wire up the GraphQL client for our app. It exposes the `ApolloClient`, a provider to wrap around the React app called `ApolloProvider`, custom hooks such as `useQuery`, and much more.
 - [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality within.
 
-That's it, you're ready to write some code! 🚀
+That's it, we're ready to write some code! 🚀
 
 #### Configure `ApolloClient`
 
-Apollo abstracts away all lower-level networking logic and provides a nice interface to the GraphQL server. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests any more - instead you can simply write queries and mutations and send them using an `ApolloClient` instance.
+Apollo abstracts away all lower-level networking logic and provides a nice interface to the GraphQL server. In contrast to working with REST APIs, we don't have to deal with constructing our own HTTP requests any more - instead we can simply write queries and mutations and send them using an `ApolloClient` instance.
 
-The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the _endpoint_ of your GraphQL API so it can deal with the network connections.
+The first thing we have to do when using Apollo is configure our `ApolloClient` instance. It needs to know the _endpoint_ of our GraphQL API so it can deal with the network connections.
 
 <Instruction>
 
@@ -252,7 +255,7 @@ That's it, we're all set to start for loading some data into our app! 😎
 
 ### Backend
 
-#### Downloading the server code
+#### Downloading the Server Code
 
 As mentioned above, for the backend in this tutorial we'll simply use the final project from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 

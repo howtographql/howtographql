@@ -62,7 +62,7 @@ We're already preparing the `Link` component to render the number of votes for e
 
 Notice that we're also using a function called `timeDifferenceForDate` that gets passed the `createdAt` information for each link. The function will take the timestamp and convert it to a string that's more user friendly, e.g. `"3 hours ago"`.
 
-Go ahead and implement the `timeDifferenceForDate` function next so you can import and use it in the `Link` component.
+Go ahead and implement the `timeDifferenceForDate` function next so we can import and use it in the `Link` component.
 
 <Instruction>
 
@@ -277,7 +277,7 @@ import { useMutation, gql } from '@apollo/client';
 
 </Instruction>
 
-We can now go and test the implementation! Run `yarn start` in `hackernews-react-apollo` and click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page you'll see the added votes.
+We can now go and test the implementation! Run `yarn start` in `hackernews-react-apollo` and click the upvote button on a link. You're not getting any UI feedback yet, but after refreshing the page we'll see the added votes.
 
 > **Remember**: We have to be logged in to being able to vote links!
 

@@ -1,7 +1,7 @@
 ---
 title: Introduction
 pageTitle: 'Fullstack Tutorial with GraphQL, React & Apollo'
-description: 'Learn how to build a Hackernews clone with GraphQL, React & Apollo Client. Use create-react-app for the frontend and graphql-yoga & Prisma for the backend.'
+description: 'Learn how to build a Hackernews clone with GraphQL, React and Apollo Client. Use create-react-app for the frontend and Apollo Server with Prisma for the backend.'
 question: What's a major benefit of using a GraphQL client library?
 answers:
   [
@@ -20,35 +20,35 @@ videoAuthor: ''
 
 ### Overview
 
-In the previous tutorials, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!
+In the previous tutorials, we covered the major concepts and benefits of GraphQL. Now is the time to get our hands dirty and start out with an actual project!
 
-You're going to build a simple clone of [Hackernews](https://news.ycombinator.com/). Here's a list of the features the app will have:
+We're going to build a simple clone of [Hackernews](https://news.ycombinator.com/). Here's a list of the features the app will have:
 
 - Display a list of links
 - Search the list of links
-- Users can authenticate
-- Authenticated users can create new links
-- Authenticated users can upvote links (one vote per link and user)
+- Handle user authentication
+- Allow authenticated users to create new links
+- Allow authenticated users to upvote links (one vote per link and user)
 - Realtime updates when other users upvote a link or create a new one
 
-In this track, you'll use the following technologies for building the app:
+In this track, we'll use the following technologies for building the app:
 
 - Frontend:
   - [React](https://facebook.github.io/react/): Library for building user interfaces
   - [Apollo Client 3.2](https://github.com/apollographql/apollo-client): Production-ready, caching GraphQL client
 - Backend:
-  - [`Apollo Server 2.18`](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server): Fully-featured GraphQL Server with focus on easy setup, performance and great developer experience
+  - [Apollo Server 2.18](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server): Fully-featured GraphQL Server with focus on easy setup, performance and great developer experience
   - [Prisma](https://www.prisma.io/): Open-source database toolkit that makes it simple to work with relational databases
 
-You'll create the React project with [`create-react-app`](https://github.com/facebook/create-react-app), a popular command-line tool that gives you a blank project with all required build configuration already setup.
+We'll create the React project with [`create-react-app`](https://github.com/facebook/create-react-app), a popular command-line tool that gives us a blank project with all required build configuration already setup.
 
 ### Why a GraphQL Client?
 
-In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get more concrete.
+In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level. It's now time to get more concrete.
 
-In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality you'll want in any frontend application that's talking to a GraphQL server. Why build these features yourself when you can use one of the amazing GraphQL clients out there?
+In short, we should use a GraphQL client for tasks that are repetitive and agnostic to the app we're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality we'll want in any frontend application that's talking to a GraphQL server. Why build these features yourself when we can use one of the amazing GraphQL clients out there?
 
-There are several GraphQL client libraries available that all give you varying degrees of control over ongoing GraphQL operations and come with different benefits and drawbacks. For very simple use cases (such as writing scripts), [`graphql-request`](https://github.com/prisma-labs/graphql-request) might already be enough for your needs. Libraries like it are thin layers around sending HTTP requests to your GraphQL API.
+There are several GraphQL client libraries available that all give us varying degrees of control over ongoing GraphQL operations and come with different benefits and drawbacks. For very simple use cases (such as writing scripts), [`graphql-request`](https://github.com/prisma-labs/graphql-request) might already be enough for our needs. Libraries like it are thin layers around sending HTTP requests to our GraphQL API.
 
 Chances are that you're writing a somewhat larger application where you want to benefit from caching, optimistic UI updates and other handy features. In these cases you'll likely want to use a full GraphQL client that handles the lifecycle of all your GraphQL operations. You have the choice between [Apollo Client](https://github.com/apollographql/apollo-client), [Relay](https://facebook.github.io/relay/), and [urql](https://github.com/FormidableLabs/urql).
 

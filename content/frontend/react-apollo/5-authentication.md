@@ -250,7 +250,7 @@ Perfect, we're all set to implement the authentication functionality.
 
 ### Using the authentication mutations
 
-`signup` and `login` are two regular GraphQL mutations you can use in the same way as you did with the `createLink` mutation from before.
+`signup` and `login` are two regular GraphQL mutations we can use in the same way as we did with the `createLink` mutation from before.
 
 <Instruction>
 

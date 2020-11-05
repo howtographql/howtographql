@@ -14,7 +14,7 @@ This section is all about bringing realtime functionality into the app by using 
 
 ### What are GraphQL Subscriptions?
 
-Subscriptions are a GraphQL feature allowing the server to send data to its clients when a specific _event_ happens. Subscriptions are usually implemented with [WebSockets](https://en.wikipedia.org/wiki/WebSocket), where the server holds a steady connection to the client. This means when working with subscriptions, you're breaking the _Request-Response_ cycle that is typically used for interactions with the API. Instead, the client now initiates a steady connection with the server by specifying which event it is interested in. Every time this particular event then happens, the server uses the connection to push the expected data to the client.
+Subscriptions are a GraphQL feature allowing the server to send data to its clients when a specific _event_ happens. Subscriptions are usually implemented with [WebSockets](https://en.wikipedia.org/wiki/WebSocket), where the server holds a steady connection to the client. This means when working with subscriptions, we're breaking the _Request-Response_ cycle that is typically used for interactions with the API. Instead, the client now initiates a steady connection with the server by specifying which event it is interested in. Every time this particular event then happens, the server uses the connection to push the expected data to the client.
 
 ### Subscriptions with Apollo
 

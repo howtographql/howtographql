@@ -13,7 +13,7 @@ answers:
 correctAnswer: 1
 ---
 
-In this section, we'll implement a search feature and learn about the filtering capabilities of your GraphQL API.
+In this section, we'll implement a search feature and learn about the filtering capabilities of our GraphQL API.
 
 ### Preparing the React components
 

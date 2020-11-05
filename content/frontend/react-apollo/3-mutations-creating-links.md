@@ -1,13 +1,19 @@
 ---
-title: "Mutations: Creating Links"
-pageTitle: "GraphQL Mutations with React and Apollo Tutorial"
+title: 'Mutations: Creating Links'
+pageTitle: 'GraphQL Mutations with React and Apollo Tutorial'
 description: "Learn how to use GraphQL mutations with Apollo Client. Use Apollo's `<Mutation />` component to define and send mutations."
 question: Which of the following statements is true?
-answers: ["Only queries can be wrapped with the 'graphql' higher-order component", "'<Mutation />' component allow variables, optimisticResponse, refetchQueries, and update as props", "When wrapping a component with a mutation using 'graphql', Apollo only injects the mutation function into the render prop function", "GraphQL mutations never take any arguments"]
+answers:
+  [
+    "Only queries can be wrapped with the 'graphql' higher-order component",
+    "'<Mutation />' component allow variables, optimisticResponse, refetchQueries, and update as props",
+    "When wrapping a component with a mutation using 'graphql', Apollo only injects the mutation function into the render prop function",
+    'GraphQL mutations never take any arguments',
+  ]
 correctAnswer: 1
-videoId: ""
-duration: 0		
-videoAuthor: ""
+videoId: ''
+duration: 0
+videoAuthor: ''
 ---
 
 There are two top-level operation types in GraphQL: queries and mutations.
@@ -38,7 +44,7 @@ const CreateLink = () => {
     description: '',
     url: ''
   });
-  
+
   return (
     <div>
       <form
@@ -75,8 +81,8 @@ const CreateLink = () => {
         <button type="submit">Submit</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default CreateLink;
 ```
@@ -129,7 +135,7 @@ const CreateLink = () => {
     }
   });
   // ...
-}
+};
 ```
 
 </Instruction>
@@ -144,13 +150,13 @@ return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        createLink()
+        createLink();
       }}
     >
-    ...
+      ...
     </form>
   </div>
-)
+);
 ```
 
 <Instruction>
@@ -187,7 +193,7 @@ Then click the **Submit** button. You won't get any visual feedback in the UI, b
 You can open a Playground again by navigating to `http://localhost:4000` in your browser. Then send the following query:
 
 ```graphql
-# Try to write your query here
+# Try to write the query here
 {
   feed {
     links {
