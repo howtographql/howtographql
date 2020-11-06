@@ -1,4 +1,4 @@
-# Frontent - Angular + Apollo
+# Frontend - Angular + Apollo
 
 **Example:** Simple Hackernews Clone
 

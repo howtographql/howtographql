@@ -399,7 +399,7 @@ sbt run
 </Instruction>
 
 And open in the browser an url [http://localhost:8080/graphiql](http://localhost:8080/graphiql)
-Of couse use different port number if you haven't decided to default one during project initialization. 
+Of course use different port number if you haven't decided to default one during project initialization.
 <Instruction>
 
 In graphiql console execute the following code:

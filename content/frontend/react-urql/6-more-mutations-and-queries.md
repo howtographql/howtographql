@@ -166,7 +166,7 @@ const FEED_QUERY = gql`
 
 </Instruction>
 
-All you do here is include information about the user who posted a link as well as information about each link's votes in the query's payload. You can now run the app again and the links will be ddisplayed properly.
+All you do here is include information about the user who posted a link as well as information about each link's votes in the query's payload. You can now run the app again and the links will be displayed properly.
 
 ![](https://imgur.com/tKzj3b5.png)
 

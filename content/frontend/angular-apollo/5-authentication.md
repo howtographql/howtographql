@@ -317,7 +317,7 @@ Before you can implement the authentication functionality in `src/app/login/logi
 
 Authentication in the Graphcool Framework is based on [resolver](https://www.graph.cool/docs/reference/functions/resolvers-su6wu3yoo2) functions that deal with login-functionality by issuing and returning [node tokens](https://www.graph.cool/docs/reference/auth/authentication/authentication-tokens-eip7ahqu5o#node-tokens) which are used to authenticate requests.
 
-Graphcool has a lightweight and flexible [template](https://www.graph.cool/docs/reference/service-definition/templates-zeiv8phail) system that allows to conventiently pull in predefined functionality into a service. You'll be using the `email-password` template for authentication.
+Graphcool has a lightweight and flexible [template](https://www.graph.cool/docs/reference/service-definition/templates-zeiv8phail) system that allows to conveniently pull in predefined functionality into a service. You'll be using the `email-password` template for authentication.
 
 You can use the CLI's [`add-template`](https://www.graph.cool/docs/reference/graphcool-cli/commands-aiteerae6l#graphcool-add-template) command to use a template in your Graphcool service. This command will perform two major tasks:
 
@@ -526,7 +526,7 @@ export default async (event: FunctionEvent<EventData>) => {
     return { data: { id: userId, token } }
   } catch (e) {
     console.log(e)
-    return { error: 'An unexpected error occured during signup.' }
+    return { error: 'An unexpected error occurred during signup.' }
   }
 }
 ```

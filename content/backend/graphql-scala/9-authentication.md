@@ -130,7 +130,7 @@ To do so, add `tags` property with the above implemented tag.
 
 <Instruction>
 
-Add `Authoried` field's tag to the `createLink` mutation field. Entire mutation's definition should look like the following one:
+Add `Authorized` field's tag to the `createLink` mutation field. Entire mutation's definition should look like the following one:
 
 ```scala
 Field("createLink",
@@ -324,7 +324,7 @@ mutation loginAndAddLink {
 }
 ```
 
-You can experiment with the query above, check the reponse when you provide wrong email or password, or what will happen when you'll skip
+You can experiment with the query above, check the response when you provide wrong email or password, or what will happen when you'll skip
 entire `login` mutation.
 
 

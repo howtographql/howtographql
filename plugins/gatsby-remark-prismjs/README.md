@@ -121,7 +121,7 @@ Just add the following CSS along your PrismJS theme and the styles for
     code with a special class `.gatsby-highlight-code-line` that you can
     target with styles. See this readme for more info.
 
-    In the following code snippit, lines 1 and 4 through 6 will get
+    In the following code snippet, lines 1 and 4 through 6 will get
     the line highlighting. The line range parsing is done with
     https://www.npmjs.com/package/parse-numeric-range.
 

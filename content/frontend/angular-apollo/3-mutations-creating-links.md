@@ -7,7 +7,7 @@ answers: ["Only queries can be executed with the Apollo service", "'gql' is a hi
 correctAnswer: 2
 ---
 
-In this section, you'll learn how you can send mutations with Apollo. It's not that different from creati queries and follows similar steps that were mentioned before with queries:
+In this section, you'll learn how you can send mutations with Apollo. It's not that different from creating queries and follows similar steps that were mentioned before with queries:
 
 1. write the mutation as a ts constant using the `gql` parser function
 2. use `Apollo` service to call the mutation through the `mutate` method

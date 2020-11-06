@@ -74,7 +74,7 @@
 - how to implement data access permissions
 
 ### Error Handling
-- what if requests partically fail
+- what if requests partially fail
 
 ### API Design
 - how to structure root fields 

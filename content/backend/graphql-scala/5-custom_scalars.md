@@ -66,7 +66,7 @@ Add column mapper for our `DateTime` type in `DBSchema` object (before the `Link
 import java.sql.Timestamp
 
 
-//and at the begining of the class' body:
+//and at the beginning of the class' body:
 implicit val dateTimeColumnType = MappedColumnType.base[DateTime, Timestamp](
     dt => new Timestamp(dt.clicks),
     ts => DateTime(ts.getTime)

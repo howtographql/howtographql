@@ -32,6 +32,6 @@ Once you have the database connected, you are going to add more advanced feature
 
 You'll start by implementing signup/login functionality that enables users to authenticate against the API. This will also allow you to check the permissions of your users for certain API operations.
 
-Next, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding filtering and pagination capabalities to it.
+Next, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding filtering and pagination capabilities to it.
 
 Let's get started 🚀

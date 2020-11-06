@@ -217,7 +217,7 @@ const cache = cacheExchange({
 
 This function is essentially identical to the `updates.Mutation.post` updater function that you've written previously. The only difference is the naming of the property on the result. In this case `newLink` is added to the `FEED_QUERY` data instead of `post`.
 
-**And that's it!** Your app is now ready for realtime and will immediately update links and votes whenevert they're created by other users.
+**And that's it!** Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.
 
 ### What if subscriptions aren't an option?
 

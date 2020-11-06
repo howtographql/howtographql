@@ -201,7 +201,7 @@ module.exports = {
 
 </Instruction>
 
-This is pretty straighforward. You're just reimplementing the same functionality from before with a dedicated function in a different file. The `Mutation` resolvers are next.
+This is pretty straightforward. You're just reimplementing the same functionality from before with a dedicated function in a different file. The `Mutation` resolvers are next.
 
 #### Adding authentication resolvers
 
