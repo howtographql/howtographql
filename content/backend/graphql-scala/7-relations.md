@@ -3,7 +3,7 @@ title: Relations
 pageTitle: "GraphQL Scala - Relations"
 description: "In this chapter you will learn how to connect models with relations. You will also learn how to prepare fetchers to use either relations or ids to get entities."
 question: "Are we limited to amount of defined relations per model?"
-answers: ["Yes, 1 per model", "Yes, 2 per model", "No, there is no such limitation", "No, but relation could be based only on models's id"]
+answers: ["Yes, 1 per model", "Yes, 2 per model", "No, there is no such limitation", "No, but relation could be based only on model's id"]
 correctAnswer: 2
 ---
 

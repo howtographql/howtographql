@@ -249,7 +249,7 @@ Let's walk through what's happening in this code. As expected, `useQuery` return
 The properties of the `result` from the hook tell us more about the state of your query and pass you the data that it receives from your GraphQL API:
 
 1. `fetching`: Is `true` as long as the request is still ongoing and the response hasn't been received, otherwise it'll be `false`
-1. `error`: In case the request fails, this field will contain a `CombinedError` that tells you what exactly went wrong. Depending on what error has occured it'll either have a `networkError` or a `graphQLErrors` property.
+1. `error`: In case the request fails, this field will contain a `CombinedError` that tells you what exactly went wrong. Depending on what error has occurred it'll either have a `networkError` or a `graphQLErrors` property.
 1. `data`: This is the actual data that is received from the server. It'll have a `links` property with a list of `Link` elements, since the `FEED_QUERY` definition is requesting them.
 
 That's it! You should see the exact same screen as before! 🤩

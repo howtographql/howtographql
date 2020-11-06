@@ -61,7 +61,7 @@ Additionally, it will be much more comfortable to work if the [method parameter 
 
 <Instruction>
 
-So enable the `-paramaters` javac option by configuring the `maven-compiler-plugin` as follows:
+So enable the `-parameters` javac option by configuring the `maven-compiler-plugin` as follows:
 
 ```xml(path=".../hackernews-graphql-java/pom.xml")
 <plugin>

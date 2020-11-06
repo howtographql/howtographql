@@ -34,7 +34,7 @@ export const deleteToken = () => localStorage.removeItem(AUTH_TOKEN);
 
 You now have two functions that you can use in the upcoming steps to set up authentication:
 
-- the `getToken` funtion returns the token or `null` if the user is not logged in yet.
+- the `getToken` function returns the token or `null` if the user is not logged in yet.
 - the `setToken` function updates the token in local storage.
 - the `deleteToken` function removes the token from local storage, when logging out.
 

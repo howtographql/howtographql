@@ -4,7 +4,7 @@ This document describes writing guidelines and best practices for the HTG tutori
 
 ## Document Format
 
-Your tutorial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be predended with the index of the chapter, starting at 0.
+Your tutorial should be divided into shorter _chapters_. Each chapter needs to be a single markdown document. The name of each document has to be prepended with the index of the chapter, starting at 0.
 
 [Here](https://github.com/howtographql/howtographql/tree/master/content/frontend/react-apollo) is what the example structure for the React+Apollo tutorial looks like: 
 
@@ -41,7 +41,7 @@ In your tutorials, you should always speak very directly to the reader. Particul
 
 Instruction blocks will be visually highlighted on the website. This has two advantages:
 
-1. Fast readers who are only interested in moving forward with the code don't have to spend unnessessary time reading explanations since it's very clear when in the tutorial they're required to perform an action
+1. Fast readers who are only interested in moving forward with the code don't have to spend unnecessary time reading explanations since it's very clear when in the tutorial they're required to perform an action
 2. It's less likely that a reader will accidentally miss a part where they were required to do something
 
 You'll use the `<Instruction>` tag to mark a sentence or a paragraph as an instruction. Notice that the **opening and closing tags need to have one line break in between the content**. This is what a simple example looks like:

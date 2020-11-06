@@ -13,7 +13,7 @@ The goal of this chapter is to add realtime functionality to the app using [Grap
 
 ### What are GraphQL Subscriptions?
 
-GraphQL subscriptions allow you to add event-based realtime functionality to your app. A client can _subscribe_ to specific events that are happening on the server-side. Then, whenenever that event actually happens, the server will send the corresponding data over to the client.
+GraphQL subscriptions allow you to add event-based realtime functionality to your app. A client can _subscribe_ to specific events that are happening on the server-side. Then, whenever that event actually happens, the server will send the corresponding data over to the client.
 
 Events usually refer to mutations, so typically we're talking about events where data was created, updated or deleted.
 
@@ -34,14 +34,14 @@ However, in order to get `requestSubscription` to work, you also need to configu
 
 #### Using Subscriptions with Graphcool and Relay Modern
 
-Graphcool generally exposes two different GraphQL APIs whose type definitions slitghly vary:
+Graphcool generally exposes two different GraphQL APIs whose type definitions slightly vary:
 
 - Simple API: Intuitive API to provide CRUD-style capabilities for all model types
 - Relay API: Adheres to the requirements that Relay has for a GraphQL schema
 
 Currently, subscriptions are only supported for the Simple API. However, you can still use subscriptions with the Relay API by making some manual adjustments to the `schema.graphql` which you feed into the `relay-compiler`. 
 
-Notice that we already did these manual adjustments for you and you already have them in your project as you imported the project from [this URL](https://graphqlbin.com/hn-relay-full.graphql) in chapter 3. If you're interested in what these changes actually look like, take a look at the `Subscription` type in `schema.grahpql`. 
+Notice that we already did these manual adjustments for you and you already have them in your project as you imported the project from [this URL](https://graphqlbin.com/hn-relay-full.graphql) in chapter 3. If you're interested in what these changes actually look like, take a look at the `Subscription` type in `schema.graphql`.
 
 ### Configuring the Relay Environment
 
@@ -179,7 +179,7 @@ export default () => {
       const link = proxyStore.get(linkId)
       link.getLinkedRecord('votes').setValue(newVoteCount, 'count')
     },
-    onError: error => console.log(`An error occured:`, error)
+    onError: error => console.log(`An error occurred:`, error)
   }
 
   requestSubscription(
@@ -200,7 +200,7 @@ Let's take a closer look at the subscription query that you're storing in `newVo
 
 ### Initiating the Subscription
 
-Now that you have all required infrastructure setup, you can go ahead and actually iniate a subscription! For our project, it's not too important where exactly the subscription is invoked as there are no context-dependent arguments that the subscription needs. However, it is important that the subscription only gets invoked once, so you don't want to put it into the `Link` component where it would be invoked as many times as `Link` elements are rendered. You'll therefore put it into the `LinkList` component.
+Now that you have all required infrastructure setup, you can go ahead and actually initiate a subscription! For our project, it's not too important where exactly the subscription is invoked as there are no context-dependent arguments that the subscription needs. However, it is important that the subscription only gets invoked once, so you don't want to put it into the `Link` component where it would be invoked as many times as `Link` elements are rendered. You'll therefore put it into the `LinkList` component.
 
 <Instruction>
 
