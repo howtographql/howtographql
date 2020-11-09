@@ -29,7 +29,7 @@ First, you are going to create the React project! As mentioned in the beginning,
 To create new project, run the command below:
 
 ```bash
-yarn create react-app hackernews-react-apollo
+yarn create-react-app hackernews-react-apollo
 ```
 
 </Instruction>
