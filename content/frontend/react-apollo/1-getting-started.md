@@ -200,7 +200,7 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{6-9,11-13,15-18,21-23}(path=".../hackernews-react-apollo/src/index.js")
+```js{8-11,15-17,20-23,27-29}(path=".../hackernews-react-apollo/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
