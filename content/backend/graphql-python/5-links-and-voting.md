@@ -183,7 +183,7 @@ class VoteType(DjangoObjectType):
 
 <Instruction>
 
-And add the `votes` field and the `resolve_links` method:
+And add the `votes` field and the `resolve_votes` method:
 
 ```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
