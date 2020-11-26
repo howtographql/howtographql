@@ -391,7 +391,7 @@ When prompted where you want to set/deploy your service, select `Demo server` (i
 
 </Instruction>
 
-> **Note**: Once the command has finished running, the CLI writes the endpoint for the Prisma API to your prisma.yml. It will look similar to this: https://eu1.prisma.sh/john-doe/hackernews-node/dev.
+> **Note**: Once the command has finished running, the CLI writes the endpoint for the Prisma API to your prisma.yml. It will look similar to this: https://eu1.prisma.sh/john-doe/hackernews-node/dev. Make sure that you've your slug name in the generated endpoint i.e., john-doe in the above url. You can get it by logging into [Prisma console](https://app.prisma.io/), `https://app.prisma.io/{MySlug}/services/`
 
 #### Exploring the server
 
