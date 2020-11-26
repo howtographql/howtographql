@@ -1,14 +1,19 @@
 ---
 title: Routing
 pageTitle: 'React Router with GraphQL and Apollo Tutorial'
-description: 'Learn how to use React Router 5 together with GraphQL and Apollo Client to implement navigation in a React app. Each route will be represented as a `Link`.'
-question: What's the role of the Link component that you added in this chapter?
+description:
+  'Learn how to use React Router 5 together with GraphQL and
+  Apollo Client to implement navigation in a React app. Each
+  route will be represented as a `Link`.'
+question:
+  What's the role of the Link component that you added in
+  this chapter?
 answers:
   [
     'It renders a link that was posted by a user',
     'It renders the input form for users to create new links',
     'It lets you navigate to a different URL',
-    'It links your root component with all its children',
+    'It links your root component with all its children'
   ]
 correctAnswer: 2
 videoId: ''
@@ -16,7 +21,9 @@ duration: 0
 videoAuthor: ''
 ---
 
-In this section, we'll see how to use the [React Router](https://github.com/ReactTraining/react-router) with Apollo to implement navigation!
+In this section, we'll see how to use the
+[React Router](https://github.com/ReactTraining/react-router)
+with Apollo to implement navigation!
 
 ### Install dependencies
 
@@ -32,11 +39,14 @@ yarn add react-router react-router-dom
 
 ### Create a Header
 
-Before moving on to configure the different routes for the app, we need to create a `Header` component that will hold the navigation links.
+Before moving on to configure the different routes for the
+app, we need to create a `Header` component that will hold
+the navigation links.
 
 <Instruction>
 
-Create a new file in `src/components` and call it `Header.js`. Then paste the following code inside of it:
+Create a new file in `src/components` and call it
+`Header.js`. Then paste the following code inside of it:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React from 'react';
@@ -69,17 +79,28 @@ export default Header;
 
 </Instruction>
 
-The `Header` component currently just renders two `Link` components that can be used to navigate between the `LinkList` and the `CreateLink` components.
+The `Header` component currently just renders two `Link`
+components that can be used to navigate between the
+`LinkList` and the `CreateLink` components.
 
-> Don't get confused by the "other" `Link` component that is used here. The one that you're using in the `Header` has nothing to do with the `Link` component that you wrote before, they just happen to have the same name. This [Link](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md) stems from the `react-router-dom` package and allows us to navigate between routes inside of your application.
+> Don't get confused by the "other" `Link` component that is
+> used here. The one that you're using in the `Header` has
+> nothing to do with the `Link` component that you wrote
+> before, they just happen to have the same name. This
+> [Link](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md)
+> stems from the `react-router-dom` package and allows us to
+> navigate between routes inside of your application.
 
 ### Setup routes
 
-Let's configure the different routes for the app in the project's root component: `App`.
+Let's configure the different routes for the app in the
+project's root component: `App`.
 
 <Instruction>
 
-Open up `App.js` and update it to include the `Header` as well as `LinkList` and the `CreateLink` components under different routes:
+Open up `App.js` and update it to include the `Header` as
+well as `LinkList` and the `CreateLink` components under
+different routes:
 
 ```js(path=".../hackernews-react-apollo/src/components/App.js")
 import React from 'react';
@@ -111,11 +132,14 @@ export default App;
 
 </Instruction>
 
-We now need to wrap the `App` with `BrowserRouter` so that all child components of `App` will get access to the routing functionality.
+We now need to wrap the `App` with `BrowserRouter` so that
+all child components of `App` will get access to the routing
+functionality.
 
 <Instruction>
 
-Open `index.js` and add the following import statement to the top:
+Open `index.js` and add the following import statement to
+the top:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 import { BrowserRouter } from 'react-router-dom';
@@ -125,7 +149,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 <Instruction>
 
-Now update `ReactDOM.render` and wrap the whole app with `BrowserRouter`:
+Now update `ReactDOM.render` and wrap the whole app with
+`BrowserRouter`:
 
 ```js{2,6}(path=".../hackernews-react-apollo/src/index.js")
 ReactDOM.render(
@@ -140,17 +165,28 @@ ReactDOM.render(
 
 </Instruction>
 
-If we run the app again, we can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component we created in the previous section.
+If we run the app again, we can now access two URLs.
+`http://localhost:3000/` will render `LinkList` and
+`http://localhost:3000/create` renders the `CreateLink`
+component we created in the previous section.
 
 ![](https://imgur.com/X9bmkQH.png)
 
 ### Implement Navigation
 
-To wrap up this section, we need to implement an automatic redirect from the `CreateLink` component to the `LinkList` component after a mutation is performed. To do this, we can use the `onCompleted` function that is provided by Apollo when mutations are performed.
+To wrap up this section, we need to implement an automatic
+redirect from the `CreateLink` component to the `LinkList`
+component after a mutation is performed. To do this, we can
+use the `onCompleted` function that is provided by Apollo
+when mutations are performed.
 
 <Instruction>
 
-Open `CreateLink.js` and update it to include the `useHistory` hook from React Router. In the body of the function, create a `history` reference and use it within the `onCompleted` callback. This callback runs after the mutation is completed.
+Open `CreateLink.js` and update it to include the
+`useHistory` hook from React Router. In the body of the
+function, create a `history` reference and use it within the
+`onCompleted` callback. This callback runs after the
+mutation is completed.
 
 ```js{4}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // ...
@@ -172,6 +208,12 @@ const CreateLink = () => {
 
 </Instruction>
 
-After the mutation completes, React Router will navigate back to the `LinkList` component that's accessible on the root route: `/`.
+After the mutation completes, React Router will navigate
+back to the `LinkList` component that's accessible on the
+root route: `/`.
 
-> **Note**: With our current setup, we won't see the newly created `Link`, we'll just redirect to the main route. We could refresh the page to see the changes made. We'll see how to update the data after the mutation completes in the `More Mutations and Updating the Store` chapter!
+> **Note**: With our current setup, we won't see the newly
+> created `Link`, we'll just redirect to the main route. We
+> could refresh the page to see the changes made. We'll see
+> how to update the data after the mutation completes in the
+> `More Mutations and Updating the Store` chapter!
