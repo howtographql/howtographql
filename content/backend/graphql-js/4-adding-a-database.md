@@ -58,7 +58,7 @@ touch prisma/schema.prisma
 
 </Instruction>
 
-Remember the GraphQL schema that you've been working with until now? Well, Prisma has a schema, too! You can think of the `prisma.schema` file as a *database schema*. It has three components:
+Remember the GraphQL schema that you've been working with until now? Well, Prisma has a schema, too! You can think of the `schema.prisma` file as a *database schema*. It has three components:
 
 1. **Data source**: Specifies your database connection.
 1. **Generator**: Indicates that you want to genenerate Prisma Client.
