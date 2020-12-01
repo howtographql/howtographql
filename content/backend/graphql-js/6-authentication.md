@@ -56,15 +56,6 @@ This is a great time to refresh your memory on the workflow we described for you
 
 After every change you make to the data model, you need to migrate your database and then re-generate Prisma Client.
 
-<Instruction>
-
-In the root directory of the project, run the following command:
-
-```bash(path=".../hackernews-node")
-npx prisma migrate save --experimental
-```
-
-</Instruction>
 
 <Instruction>
 
