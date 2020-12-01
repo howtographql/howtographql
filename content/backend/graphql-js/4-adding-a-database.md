@@ -196,6 +196,7 @@ main()
 </Instruction>
 
 Let's break down what's going on here with the numbered comments:
+
 1. Import the `PrismaClient` constructor from the `@prisma/client` node module.
 1. Instantiate `PrismaClient`.
 1. Define an `async` function called `main` to send queries to the database. You will write all your queries inside this function.
