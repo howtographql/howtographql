@@ -107,6 +107,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './components/App';
+import reportWebVitals from './reportWebVitals';
 ```
 
 ```js{2}(path=".../hackernews-react-apollo/src/components/App.js")
