@@ -77,7 +77,7 @@ WebSocket connection. We'll use `split` for proper "routing"
 of the requests and update the constructor call of
 `ApolloClient` like so:
 
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js{1-9, 11-21}(path=".../hackernews-react-apollo/src/index.js")
 const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/graphql`,
   options: {
@@ -153,8 +153,26 @@ our app "realtime".
 Open `LinkList.js` and update current component as follow:
 
 ```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+const getQueryVariables = (isNewPage, page) => {
+  const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+  const take = isNewPage ? LINKS_PER_PAGE : 100;
+  const orderBy = { createdAt: 'desc' };
+  return { take, skip, orderBy };
+};
+
 const LinkList = () => {
-  // ...
+  const history = useHistory();
+  const isNewPage = history.location.pathname.includes(
+    'new'
+  );
+  const pageIndexParams = history.location.pathname.split(
+    '/'
+  );
+  const page = parseInt(
+    pageIndexParams[pageIndexParams.length - 1]
+  );
+
+  const pageIndex = page ? (page - 1) * LINKS_PER_PAGE : 0;
 
   const {
     data,

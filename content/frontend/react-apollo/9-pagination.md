@@ -49,7 +49,7 @@ can navigate through.
 
 Open `App.js` and adjust the component to look like this:
 
-```js{}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{20-24}(path=".../hackernews-react-apollo/src/components/App.js")
 const App = () => (
   <div className="center w85">
     <Header />
@@ -289,9 +289,10 @@ and forth.
 
 <Instruction>
 
-Open `LinkList.js` and update `render` to look as follows:
+Open `LinkList.js` and update the returned JSX to look as
+follows:
 
-```js{11-15,23,27-36}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 return (
   <>
     {loading && <p>Loading...</p>}
@@ -449,7 +450,7 @@ to get passed the same variables that we defined before.
 With that information, open `Link.js` and update the
 `update` function on the `useMutation` hook:
 
-```js{2-11}(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{5-7, 16-20, 40-44}(path=".../hackernews-react-apollo/src/components/Link.js")
 import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
 
 // ...

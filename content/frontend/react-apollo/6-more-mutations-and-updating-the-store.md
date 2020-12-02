@@ -45,33 +45,46 @@ Open `Link.js` and update the returned JSX to look like
 this:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
-const authToken = localStorage.getItem(AUTH_TOKEN);
-return (
-  <div className="flex mt2 items-start">
-    <div className="flex items-center">
-      <span className="gray">{props.index + 1}.</span>
-      <div
-        className="ml1 gray f11"
-        style={{ cursor: 'pointer' }}
-        onClick={vote}
-      >
-        ▲
+import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
+// ...
+
+const Link = (props) => {
+  const { link } = props;
+  const authToken = localStorage.getItem(AUTH_TOKEN);
+
+  const take = LINKS_PER_PAGE;
+  const skip = 0;
+  const orderBy = { createdAt: 'desc' };
+
+  return (
+    <div className="flex mt2 items-start">
+      <div className="flex items-center">
+        <span className="gray">{props.index + 1}.</span>
+        {authToken && (
+          <div
+            className="ml1 gray f11"
+            style={{ cursor: 'pointer' }}
+            onClick={vote}
+          >
+            ▲
+          </div>
+        )}
       </div>
-    </div>
-    <div className="ml1">
-      <div>
-        {link.description} ({link.url})
-      </div>
-      {authToken && (
-        <div className="f6 lh-copy gray">
-          {link.votes.length} votes | by{' '}
-          {link.postedBy ? link.postedBy.name : 'Unknown'}{' '}
-          {timeDifferenceForDate(link.createdAt)}
+      <div className="ml1">
+        <div>
+          {link.description} ({link.url})
         </div>
-      )}
+        {authToken && (
+          <div className="f6 lh-copy gray">
+            {link.votes.length} votes | by{' '}
+            {link.postedBy ? link.postedBy.name : 'Unknown'}{' '}
+            {timeDifferenceForDate(link.createdAt)}
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 ```
 
 </Instruction>
@@ -273,7 +286,7 @@ voting. We'll call the function that runs the mutation
 `vote` and will pass the `VOTE_MUTATION` GraphQL mutation to
 it.
 
-```js{4-10}(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{2-6}(path=".../hackernews-react-apollo/src/components/Link.js")
 const Link = (props) => {
   // ...
   const [vote] = useMutation(VOTE_MUTATION, {
@@ -357,7 +370,7 @@ additional behavior in the `update` callback. This runs
 after the mutation has completed and allows us to read the
 cache, modify it, and commit the changes.
 
-```js{4-6}(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{7-29}(path=".../hackernews-react-apollo/src/components/Link.js")
 const Link = (props) => {
   // ...
   const [vote] = useMutation(VOTE_MUTATION, {
@@ -423,7 +436,7 @@ Open `CreateLink.js` and following what we did before, add
 an `update` callback to the `useMutation` hook to update the
 Apollo store.
 
-```js{5-12}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{6-34}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
       description: formState.description,

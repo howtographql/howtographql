@@ -42,8 +42,10 @@ Create a new file in `src/components` and call it
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 
 const Login = () => {
+  const history = useHistory();
   const [formState, setFormState] = useState({
     login: true,
     email: '',
@@ -169,7 +171,7 @@ routing setup.
 
 Open `App.js` and update it to include the new route:
 
-```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{15}(path=".../hackernews-react-apollo/src/components/App.js")
 // ...
 import Login from './Login';
 

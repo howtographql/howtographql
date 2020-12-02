@@ -188,7 +188,7 @@ function, create a `history` reference and use it within the
 `onCompleted` callback. This callback runs after the
 mutation is completed.
 
-```js{4}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{5}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // ...
 import { useHistory } from 'react-router';
 

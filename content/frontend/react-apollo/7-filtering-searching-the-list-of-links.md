@@ -82,7 +82,7 @@ later.
 Let's now add the `Search` component as a new route to the
 app. Open `App.js` and update it to look as follows:
 
-```js{10}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{18}(path=".../hackernews-react-apollo/src/components/App.js")
 const App = () => (
   <div className="center w85">
     <Header />

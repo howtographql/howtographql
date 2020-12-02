@@ -52,7 +52,7 @@ where users will be able to add new links.
 Create a new file in the `src/components` directory and call
 it `CreateLink.js`. Then paste the following code into it:
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{6}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import React, { useState } from 'react';
 
 const CreateLink = () => {
@@ -194,7 +194,7 @@ return (
 We're now ready to check wether the mutations are working.
 Open `App.js` and change it up as follows:
 
-```js(path=".../hackernews-react-apollo/src/components/App.js")
+```js{2,6}(path=".../hackernews-react-apollo/src/components/App.js")
 import React from 'react';
 import CreateLink from './CreateLink';
 import LinkList from './LinkList';

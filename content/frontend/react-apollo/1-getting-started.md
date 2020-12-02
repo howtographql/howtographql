@@ -95,10 +95,12 @@ both inside the `src` folder. The first is called
 a second directory called `styles` to hold all of the CSS
 for the project.
 
-`App.js` is a component, so move it into `components`.
-`App.css` and `index.css` contain styles, so move them into
-`styles`. We also need to change the references to these
-files in both `index.js` and `App.js` accordingly:
+`App.js` is a component, so move it into `components`. You
+can also move `App.test.js` there as well (or delete it as
+we won't use it here). `App.css` and `index.css` contain
+styles, so move them into `styles`. We also need to change
+the references to these files in both `index.js` and
+`App.js` accordingly:
 
 </Instruction>
 
@@ -134,9 +136,10 @@ The project structure should now look as follows:
 │   ├── App.test.js
 │   ├── components
 │   │   └── App.js
+│   │   └── App.test.js
 │   ├── index.js
 │   ├── logo.svg
-│   ├── serviceWorker.js
+│   ├── reportWebVitals.js
 │   ├── setupTests.js
 │   └── styles
 │       ├── App.css
@@ -368,10 +371,10 @@ main components:
     and retrieve data for this tutorial
 - `src`: This directory holds the source files for our
   GraphQL server.
-  - `schema.js` contains our **application schema**. The
-    application schema defines the GraphQL operations we can
-    send from the frontend. We'll take a closer look at this
-    file in just a bit.
+  - `schema.graphql` contains our **application schema**.
+    The application schema defines the GraphQL operations we
+    can send from the frontend. We'll take a closer look at
+    this file in just a bit.
   - `resolvers` contains the
     [_resolver functions_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#resolvers-implement-the-api)
     for the operations defined in the application schema.
@@ -544,6 +547,13 @@ Client.
 We need to change directories into `server` and run some
 commands to migrate the database and generate the Prisma
 client.
+
+Before doing so, make sure to install the dependencies.
+
+```bash
+cd server
+yarn
+```
 
 First, we need to save an initial migration.
 
