@@ -102,7 +102,7 @@ files in both `index.js` and `App.js` accordingly:
 
 </Instruction>
 
-```js{4}(path=".../hackernews-react-apollo/src/index.js")
+```js{3,4}(path=".../hackernews-react-apollo/src/index.js")
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
