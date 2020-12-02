@@ -85,7 +85,7 @@ This will open a browser and navigate to
 `http://localhost:3000` where the app is running. If
 everything went well, we'll see the following:
 
-![](http://imgur.com/Yujwwi6.png)
+![](https://imgur.com/hRFgy4k.png)
 
 <Instruction>
 
