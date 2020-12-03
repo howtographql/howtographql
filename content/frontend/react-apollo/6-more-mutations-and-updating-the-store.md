@@ -240,7 +240,7 @@ a link as well as information about the links' votes in the
 query's payload. We can now run the app again and the links
 will be properly displayed.
 
-![](https://imgur.com/tKzj3b5.png)
+![](https://imgur.com/YCv4QGb.png)
 
 > **Note**: If you're not able to fetch the `Links`, restart
 > the server and reload the browser. You could also check if
