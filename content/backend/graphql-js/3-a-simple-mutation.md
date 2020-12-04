@@ -1,13 +1,22 @@
 ---
 title: A Simple Mutation
-pageTitle: "Implementing Mutations in a GraphQL Server Tutorial"
-description: "Learn best practices for implementing GraphQL mutations with graphql-js, Node.js & Prisma. Test your implementation in a GraphQL Playground."
+pageTitle: 'Implementing Mutations in a GraphQL Server Tutorial'
+description:
+  'Learn best practices for implementing GraphQL mutations with graphql-js, Node.js & Prisma. Test your implementation
+  in a GraphQL Playground.'
 question: What is the second argument that's passed into GraphQL resolvers used for?
-answers: ["It carries the return value of the previous resolver execution level", "It carries the arguments for the incoming GraphQL operation", "It is an object that all resolvers can write to and read from", "It carries the AST of the incoming GraphQL operation"]
+answers:
+  [
+    'It carries the return value of the previous resolver execution level',
+    'It carries the arguments for the incoming GraphQL operation',
+    'It is an object that all resolvers can write to and read from',
+    'It carries the AST of the incoming GraphQL operation'
+  ]
 correctAnswer: 1
 ---
 
-In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow you to _post_ new links to the server.
+In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow you to _post_ new links
+to the server.
 
 ### Extending the schema definition
 
@@ -38,7 +47,8 @@ const typeDefs = `
 
 </Instruction>
 
-At this point, the schema definition has already grown to be quite large. Let's refactor the app a bit and pull the schema out into its own file!
+At this point, the schema definition has already grown to be quite large. Let's refactor the app a bit and pull the
+schema out into its own file!
 
 <Instruction>
 
@@ -77,18 +87,28 @@ With that new file in place, you can cleanup `index.js` a bit.
 
 <Instruction>
 
-First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema definition now lives in its own file. Then, update the way that the `GraphQLServer` is instantiated at the bottom of the file:
+First, entirely delete the definition of the `typeDefs` constant - it's not needed any more because the schema
+definition now lives in its own file. Then, update the way that the `GraphQLServer` is instantiated at the bottom of the
+file:
 
-```js{2}(path="../hackernews-node/src/index.js)
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
+```js{5-8}(path="../hackernews-node/src/index.js)
+const fs = require('fs');
+const path = require('path');
+
+const server = new ApolloServer({
+  typeDefs: fs.readFileSync(
+    path.join(__dirname, 'schema.graphql'),
+    'utf8'
+  ),
   resolvers,
 })
 ```
 
 </Instruction>
 
-One convenient thing about the constructor of the `GraphQLServer` is that `typeDefs` can be provided either directly as a string (as you previously did) or by referencing a file that contains your schema definition (this is what you're doing now).
+One convenient thing about the constructor of the `GraphQLServer` is that `typeDefs` can be provided either directly as
+a string (as you previously did) or by referencing a file that contains your schema definition (this is what you're
+doing now).
 
 ### Implementing the resolver function
 
@@ -129,27 +149,31 @@ const resolvers = {
 
 </Instruction>
 
-First off, note that you're entirely removing the `Link` resolvers (as explained at the very end of the last section). They are not needed because the GraphQL server infers what they look like.
+First off, note that you're entirely removing the `Link` resolvers (as explained at the very end of the last section).
+They are not needed because the GraphQL server infers what they look like.
 
 Also, here's what's going on with the numbered comments:
 
-1. You're adding a new integer variable that simply serves as a very rudimentary way to generate unique IDs for newly created `Link` elements.
-1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links` list and finally returns the new `link`.
+1. You're adding a new integer variable that simply serves as a very rudimentary way to generate unique IDs for newly
+   created `Link` elements.
+1. The implementation of the `post` resolver first creates a new `link` object, then adds it to the existing `links`
+   list and finally returns the new `link`.
 
-Now's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what it's used for?
+Now's a good time to discuss the second argument that's passed into all resolver functions: `args`. Any guesses what
+it's used for?
 
-Correct! 💡 It carries the _arguments_ for the operation – in this case the `url` and `description` of the `Link` to be created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't specify any arguments in the schema definition.
+Correct! 💡 It carries the _arguments_ for the operation – in this case the `url` and `description` of the `Link` to be
+created. We didn't need it for the `feed` and `info` resolvers before, because the corresponding root fields don't
+specify any arguments in the schema definition.
 
 ### Testing the mutation
 
-Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through the GraphQL Playground:
+Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through
+the GraphQL Playground:
 
 ```graphql
 mutation {
-  post(
-    url: "www.prisma.io"
-    description: "Prisma replaces traditional ORMs"
-  ) {
+  post(url: "www.prisma.io", description: "Prisma replaces traditional ORMs") {
     id
   }
 }
@@ -167,17 +191,24 @@ The server response will look as follows:
 }
 ```
 
-With every mutation you send, the `idCount` will increase and the following IDs for created links will be `link-2`, `link-3`, and so forth...
+With every mutation you send, the `idCount` will increase and the following IDs for created links will be `link-2`,
+`link-3`, and so forth...
 
-To verify that your mutation worked, you can send the `feed` query from before again – it now returns the additional Link that you created with the mutation:
+To verify that your mutation worked, you can send the `feed` query from before again – it now returns the additional
+Link that you created with the mutation:
 
 ![](https://imgur.com/ZfJQwdB.png)
 
-However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections, you will learn how to add a _database_ to the GraphQL server in order to persist the data beyond the runtime of the server.
+However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need
+to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections,
+you will learn how to add a _database_ to the GraphQL server in order to persist the data beyond the runtime of the
+server.
 
 ### Exercise
 
-If you want to practice implementing GraphQL resolvers a bit more, here's an _optional_ challenge for you. Based on your current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular, implement the queries and mutations that have the following definitions:
+If you want to practice implementing GraphQL resolvers a bit more, here's an _optional_ challenge for you. Based on your
+current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular,
+implement the queries and mutations that have the following definitions:
 
 ```graphql(nocopy)
 type Query {

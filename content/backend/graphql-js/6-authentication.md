@@ -1,5 +1,4 @@
 ---
-title: Authentication
 pageTitle: "Implementing Authentication in a GraphQL server with Node.js"
 description: "Learn best practices for implementing authentication and authorization with Node.js, Express & Prisma."
 question: "Which HTTP header field carries the authentication token?"
@@ -44,27 +43,21 @@ Now we start to see even more how Prisma helps you to reason about your data in 
 
 ### Understanding relation fields
 
-Notice how you're adding a new _relation field_ called `postedBy` to the `Link` model that points to a `User` instance. The `User` model then has a `links` field that's a list of `Link`s. 
+Notice how you're adding a new _relation field_ called `postedBy` to the `Link` model that points to a `User` instance. The `User` model then has a `links` field that's a list of `Link`s.
 
-To do this, we need to also define the relation by annotating the `postedBy` field with [the `@relation` attribute](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations#the-relation-attribute). This is required for every relation field in your Prisma schema, and all you're doing is defining what the foreign key of the related table will be. So in this case, we're adding an extra field to store the `id` of the `User` who posts a `Link`, and then telling Prisma that `postedById` will be equal to the `id` field in the `User` table.
+To do this, we need to also define the relation by annotating the `postedBy` field with
+[the `@relation` attribute](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations#the-relation-attribute). This is required for every relation field in your Prisma schema,
+and all you're doing is defining what the foreign key of the related table will be. So in this case, we're adding an extra field to store the `id` of the `User` who posts a `Link`, and then telling
+Prisma that `postedById` will be equal to the `id` field in the `User` table.
 
-If this is quite new to you, don't worry! We're going be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations).
+If this is quite new to you, don't worry! We're going be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with Prisma, check out these
+[docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations).
 
 ### Updating Prisma Client
 
 This is a great time to refresh your memory on the workflow we described for your project at the end of chapter 4!
 
 After every change you make to the data model, you need to migrate your database and then re-generate Prisma Client.
-
-<Instruction>
-
-In the root directory of the project, run the following command:
-
-```bash(path=".../hackernews-node")
-npx prisma migrate save --experimental
-```
-
-</Instruction>
 
 <Instruction>
 
@@ -108,7 +101,8 @@ Your database is ready and Prisma Client is now updated to expose all the CRUD q
 
 ### Extending the GraphQL schema
 
-Remember back when we were setting up your GraphQL server and discussed the process of schema-driven development? It all starts with extending your schema definition with the new operations that you want to add to the API - in this case a `signup` and `login` mutation.
+Remember back when we were setting up your GraphQL server and discussed the process of schema-driven development? It all starts with extending your schema definition with the new operations that you
+want to add to the API - in this case a `signup` and `login` mutation.
 
 <Instruction>
 
@@ -146,7 +140,8 @@ type User {
 
 </Instruction>
 
-The `signup` and `login` mutations behave very similarly: both return information about the `User` who's signing up (or logging in) as well as a `token` which can be used to authenticate subsequent requests against your GraphQL API. This information is bundled in the `AuthPayload` type.
+The `signup` and `login` mutations behave very similarly: both return information about the `User` who's signing up (or logging in) as well as a `token` which can be used to authenticate subsequent
+requests against your GraphQL API. This information is bundled in the `AuthPayload` type.
 
 <Instruction>
 
@@ -213,7 +208,7 @@ Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add th
 async function signup(parent, args, context, info) {
   // 1
   const password = await bcrypt.hash(args.password, 10)
-  
+
   // 2
   const user = await context.prisma.user.create({ data: { ...args, password } })
 
@@ -229,7 +224,7 @@ async function signup(parent, args, context, info) {
 
 async function login(parent, args, context, info) {
   // 1
-  const user = await context.prisma.user.findOne({ where: { email: args.email } })
+  const user = await context.prisma.user.findUnique({ where: { email: args.email } })
   if (!user) {
     throw new Error('No such user found')
   }
@@ -267,7 +262,8 @@ Let's use the good ol' numbered comments again to understand what's going on her
 
 Now on the `login` mutation!
 
-1. Instead of _creating_ a new `User` object, you're now using your `PrismaClient` instance to retrieve an existing `User` record by the `email` address that was sent along as an argument in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error.
+1. Instead of _creating_ a new `User` object, you're now using your `PrismaClient` instance to retrieve an existing `User` record by the `email` address that was sent along as an argument in the
+   `login` mutation. If no `User` with that email address was found, you're returning a corresponding error.
 1. The next step is to compare the provided password with the one that is stored in the database. If the two don't match, you're returning an error as well.
 1. In the end, you're returning `token` and `user` again.
 
@@ -300,31 +296,45 @@ touch src/utils.js
 Now, add the following code to it:
 
 ```js(path=".../hackernews-node/src/utils.js")
-const jwt = require('jsonwebtoken')
-const APP_SECRET = 'GraphQL-is-aw3some'
+const jwt = require('jsonwebtoken');
+const APP_SECRET = 'GraphQL-is-aw3some';
 
-function getUserId(context) {
-  const Authorization = context.request.get('Authorization')
-  if (Authorization) {
-    const token = Authorization.replace('Bearer ', '')
-    const { userId } = jwt.verify(token, APP_SECRET)
-    return userId
+function getTokenPayload(token) {
+  return jwt.verify(token, APP_SECRET);
+}
+
+function getUserId(req, authToken) {
+  if (req) {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.replace('Bearer ', '');
+      if (!token) {
+        throw new Error('No token found');
+      }
+      const { userId } = getTokenPayload(token);
+      return userId;
+    }
+  } else if (authToken) {
+    const { userId } = getTokenPayload(authToken);
+    return userId;
   }
 
-  throw new Error('Not authenticated')
+  throw new Error('Not authenticated');
 }
 
 module.exports = {
   APP_SECRET,
-  getUserId,
-}
+  getUserId
+};
 ```
 
 </Instruction>
 
 The `APP_SECRET` is used to sign the JWTs which you're issuing for your users.
 
-The `getUserId` function is a helper function that you'll call in resolvers which require authentication (such as `post`). It first retrieves the `Authorization` header (which contains the `User`'s JWT) from the `context`. It then verifies the JWT and retrieves the `User`'s ID from it. Notice that if that process is not successful for any reason, the function will throw an _exception_. You can therefore use it to "protect" the resolvers which require authentication.
+The `getUserId` function is a helper function that you'll call in resolvers which require authentication (such as `post`). It first retrieves the `Authorization` header (which contains the `User`'s
+JWT) from the `context`. It then verifies the JWT and retrieves the `User`'s ID from it. Notice that if that process is not successful for any reason, the function will throw an _exception_. You can
+therefore use it to "protect" the resolvers which require authentication.
 
 <Instruction>
 
@@ -338,28 +348,40 @@ const { APP_SECRET, getUserId } = require('../utils')
 
 </Instruction>
 
-Right now, there's one more minor issue. You're accessing a `request` object on the `context`. However, when initializing the `context`, you're really only attaching the `prisma` instance to it - there's no `request` object yet that could be accessed.
+Right now, there's one more minor issue. You're accessing a `request` object on the `context`. However, when initializing the `context`, you're really only attaching the `prisma` instance to it -
+there's no `request` object yet that could be accessed.
 
 <Instruction>
 
 To make the above operations possible, open `index.js` and adjust the instantiation of the `GraphQLServer` as follows:
 
-```js{4-9}(path=".../hackernews-node/src/index.js")
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
+```js{1,9,13-17}(path=".../hackernews-node/src/index.js")
+const { getUserId } = require('./utils');
+
+const server = new ApolloServer({
+  typeDefs: fs.readFileSync(
+    path.join(__dirname, 'schema.graphql'),
+    'utf8'
+  ),
   resolvers,
-  context: request => {
+  context: ({ req }) => {
     return {
-      ...request,
+      ...req,
       prisma,
-    }
-  },
-})
+      userId:
+        req && req.headers.authorization
+          ? getUserId(req)
+          : null
+    };
+  }
+});
 ```
 
 </Instruction>
 
-Instead of attaching an object directly, you're now creating the `context` as a function which _returns_ the `context`. The advantage of this approach is that you can attach the HTTP request that carries the incoming GraphQL query (or mutation) to the `context` as well. This will allow your resolvers to read the `Authorization` header and validate if the user who submitted the request is eligible to perform the requested operation.
+Instead of attaching an object directly, you're now creating the `context` as a function which _returns_ the `context`. The advantage of this approach is that you can attach the HTTP request that
+carries the incoming GraphQL query (or mutation) to the `context` as well. This will allow your resolvers to read the `Authorization` header and validate if the user who submitted the request is
+eligible to perform the requested operation.
 
 ### Requiring authentication for the `post` mutation
 
@@ -370,10 +392,10 @@ Before you're going to test your authentication flow, make sure to complete your
 In `Mutation.js`, add the following resolver implementation for `post`:
 
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
-function post(parent, args, context, info) {
-  const userId = getUserId(context)
+async function post(parent, args, context, info) {
+  const { userId } = context;
 
-  return context.prisma.link.create({
+  return await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,
@@ -387,8 +409,11 @@ function post(parent, args, context, info) {
 
 Two things have changed in the implementation compared to the previous implementation in `index.js`:
 
-1. You're now using the `getUserId` function to retrieve the ID of the `User`. This ID is stored in the JWT that's set at the `Authorization` header of the incoming HTTP request. Therefore, you know which `User` is creating the `Link` here. Recall that an unsuccessful retrieval of the `userId` will lead to an exception and the function scope is exited before the `createLink` mutation is invoked. In that case, the GraphQL response will just contain an error indicating that the user was not authenticated.
-1. You're then also using that `userId` to _connect_ the `Link` to be created with the `User` who is creating it. This is happening through a [nested write](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/relation-queries#nested-writes).
+1. You're now using the `getUserId` function to retrieve the ID of the `User`. This ID is stored in the JWT that's set at the `Authorization` header of the incoming HTTP request. Therefore, you know
+   which `User` is creating the `Link` here. Recall that an unsuccessful retrieval of the `userId` will lead to an exception and the function scope is exited before the `createLink` mutation is
+   invoked. In that case, the GraphQL response will just contain an error indicating that the user was not authenticated.
+1. You're then also using that `userId` to _connect_ the `Link` to be created with the `User` who is creating it. This is happening through a
+   [nested write](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/relation-queries#nested-writes).
 
 #### Resolving relations
 
@@ -404,7 +429,8 @@ Link: {
 }
 ```
 
-However, we've now added two fields to our GraphQL schema that can _not_ be resolved in the same way: `postedBy` on `Link` and `links` on `User`. The resolvers for these fields need to be explicitly implemented because our GraphQL server can not infer where to get that data from.
+However, we've now added two fields to our GraphQL schema that can _not_ be resolved in the same way: `postedBy` on `Link` and `links` on `User`. The resolvers for these fields need to be explicitly
+implemented because our GraphQL server can not infer where to get that data from.
 
 <Instruction>
 
@@ -412,7 +438,7 @@ To resolve the `postedBy` relation, open `Link.js` and add the following code to
 
 ```js(path=".../hackernews-node/src/resolvers/Link.js")
 function postedBy(parent, args, context) {
-  return context.prisma.link.findOne({ where: { id: parent.id } }).postedBy()
+  return context.prisma.link.findUnique({ where: { id: parent.id } }).postedBy()
 }
 
 module.exports = {
@@ -422,7 +448,8 @@ module.exports = {
 
 </Instruction>
 
-In the `postedBy` resolver, you're first fetching the `Link` from the database using the `prisma` instance and then invoke `postedBy` on it. Notice that the resolver needs to be called `postedBy` because it resolves the `postedBy` field from the `Link` type in `schema.graphql`. 
+In the `postedBy` resolver, you're first fetching the `Link` from the database using the `prisma` instance and then invoke `postedBy` on it. Notice that the resolver needs to be called `postedBy`
+because it resolves the `postedBy` field from the `Link` type in `schema.graphql`.
 
 You can resolve the `links` relation in a similar way.
 
@@ -432,7 +459,7 @@ Open `User.js` and add the following code to it:
 
 ```js(path=".../hackernews-node/src/resolvers/User.js")
 function links(parent, args, context) {
-  return context.prisma.user.findOne({ where: { id: parent.id } }).links()
+  return context.prisma.user.findUnique({ where: { id: parent.id } }).links()
 }
 
 module.exports = {
@@ -482,7 +509,8 @@ The very first thing you'll do is test the `signup` mutation and thereby create 
 
 <Instruction>
 
-If you haven't done so already, stop and restart the server by first killing it with **CTRL+C**, then run `node src/index.js`. Afterwards, navigate to `http://localhost:4000` where the GraphQL Playground is running.
+If you haven't done so already, stop and restart the server by first killing it with **CTRL+C**, then run `node src/index.js`. Afterwards, navigate to `http://localhost:4000` where the GraphQL
+Playground is running.
 
 </Instruction>
 
@@ -494,11 +522,7 @@ Now, send the following mutation to create a new `User`:
 
 ```graphql
 mutation {
-  signup(
-    name: "Alice"
-    email: "alice@prisma.io"
-    password: "graphql"
-  ) {
+  signup(name: "Alice", email: "alice@prisma.io", password: "graphql") {
     token
     user {
       id
@@ -511,7 +535,8 @@ mutation {
 
 <Instruction>
 
-From the server's response, copy the authentication `token` and open another tab in the Playground. Inside that new tab, open the **HTTP HEADERS** pane in the bottom-left corner and specify the `Authorization` header - similar to what you did with the Prisma Playground before. Replace the `__TOKEN__` placeholder in the following snippet with the copied token:
+From the server's response, copy the authentication `token` and open another tab in the Playground. Inside that new tab, open the **HTTP HEADERS** pane in the bottom-left corner and specify the
+`Authorization` header - similar to what you did with the Prisma Playground before. Replace the `__TOKEN__` placeholder in the following snippet with the copied token:
 
 ```json
 {
@@ -529,10 +554,7 @@ With the `Authorization` header in place, send the following to your GraphQL ser
 
 ```graphql
 mutation {
-  post(
-    url: "www.graphqlconf.org"
-    description: "An awesome GraphQL conference"
-  ) {
+  post(url: "www.graphqlconf.org", description: "An awesome GraphQL conference") {
     id
   }
 }
@@ -542,16 +564,14 @@ mutation {
 
 ![](https://imgur.com/V1hp4ID.png)
 
-When your server receives this mutation, it invokes the `post` resolver and therefore validates the provided JWT. Additionally, the new `Link` that was created is now connected to the `User` for which you previously sent the `signup` mutation.
+When your server receives this mutation, it invokes the `post` resolver and therefore validates the provided JWT. Additionally, the new `Link` that was created is now connected to the `User` for which
+you previously sent the `signup` mutation.
 
 To verify everything worked, you can send the following `login` mutation:
 
 ```graphql
 mutation {
-  login(
-    email: "alice@prisma.io"
-    password: "graphql"
-  ) {
+  login(email: "alice@prisma.io", password: "graphql") {
     token
     user {
       email
