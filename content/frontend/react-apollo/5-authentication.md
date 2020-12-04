@@ -1,160 +1,220 @@
 ---
 title: Authentication
-pageTitle: "Authentication with GraphQL, React & Apollo Tutorial"
-description: "Learn best practices to implement authentication with GraphQL & Apollo Client to provide an email-and-password-based login in a React app with Prisma."
-question: "How are HTTP requests sent by ApolloClient authenticated?"
-answers: ["The ApolloClient needs to be instantiated with an authentication token", "ApolloClient exposes an extra method called 'authenticate' where you can pass an authentication token", "By attaching an authentication token to the request with dedicated ApolloLink middleware", "ApolloClient has nothing to do with authentication"]
+pageTitle:
+  'Authentication with GraphQL, React and Apollo Tutorial'
+description:
+  'Learn best practices to implement authentication with
+  GraphQL and Apollo Client to provide an email/password
+  login in a React app with Prisma.'
+question:
+  'How are HTTP requests sent by ApolloClient authenticated?'
+answers:
+  [
+    'The ApolloClient needs to be instantiated with an
+    authentication token',
+    "ApolloClient exposes an extra method called
+    'authenticate' where you can pass an authentication
+    token",
+    'By attaching an authentication token to the request
+    with dedicated ApolloLink middleware',
+    'ApolloClient has nothing to do with authentication'
+  ]
 correctAnswer: 2
-videoId: ""
-duration: 0		
-videoAuthor: ""
+videoId: ''
+duration: 0
+videoAuthor: ''
 ---
 
-In this section, you'll learn how you can implement authentication functionality with Apollo to provide signup and login features to your users.
+In this section, we'll see how to implement authentication
+with Apollo to provide signup and login features in our app.
 
-### Prepare the React components
+### Prepare the React Components
 
-As in the sections before, you'll set the stage for the login functionality by preparing the React components that are needed for this feature. You'll start by building the `Login` component.
+As in the sections before, we'll set the stage for the login
+functionality by preparing the React components that are
+needed for this feature. We'll start by building the `Login`
+component.
 
 <Instruction>
 
-Create a new file in `src/components` and call it `Login.js`. Then paste the following code into it:
+Create a new file in `src/components` and call it
+`Login.js`. Then paste the following code into it:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
-import React, { Component } from 'react'
-import { AUTH_TOKEN } from '../constants'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 
-class Login extends Component {
-  state = {
-    login: true, // switch between Login and SignUp
+const Login = () => {
+  const history = useHistory();
+  const [formState, setFormState] = useState({
+    login: true,
     email: '',
     password: '',
-    name: '',
-  }
+    name: ''
+  });
 
-  render() {
-    const { login, email, password, name } = this.state
-    return (
-      <div>
-        <h4 className="mv3">{login ? 'Login' : 'Sign Up'}</h4>
-        <div className="flex flex-column">
-          {!login && (
-            <input
-              value={name}
-              onChange={e => this.setState({ name: e.target.value })}
-              type="text"
-              placeholder="Your name"
-            />
-          )}
+  return (
+    <div>
+      <h4 className="mv3">
+        {formState.login ? 'Login' : 'Sign Up'}
+      </h4>
+      <div className="flex flex-column">
+        {!formState.login && (
           <input
-            value={email}
-            onChange={e => this.setState({ email: e.target.value })}
+            value={formState.name}
+            onChange={(e) =>
+              setFormState({
+                ...formState,
+                name: e.target.value
+              })
+            }
             type="text"
-            placeholder="Your email address"
+            placeholder="Your name"
           />
-          <input
-            value={password}
-            onChange={e => this.setState({ password: e.target.value })}
-            type="password"
-            placeholder="Choose a safe password"
-          />
-        </div>
-        <div className="flex mt3">
-          <div className="pointer mr2 button" onClick={() => this._confirm()}>
-            {login ? 'login' : 'create account'}
-          </div>
-          <div
-            className="pointer button"
-            onClick={() => this.setState({ login: !login })}
-          >
-            {login
-              ? 'need to create an account?'
-              : 'already have an account?'}
-          </div>
-        </div>
+        )}
+        <input
+          value={formState.email}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              email: e.target.value
+            })
+          }
+          type="text"
+          placeholder="Your email address"
+        />
+        <input
+          value={formState.password}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              password: e.target.value
+            })
+          }
+          type="password"
+          placeholder="Choose a safe password"
+        />
       </div>
-    )
-  }
+      <div className="flex mt3">
+        <button
+          className="pointer mr2 button"
+          onClick={() => console.log('onClick')}
+        >
+          {formState.login ? 'login' : 'create account'}
+        </button>
+        <button
+          className="pointer button"
+          onClick={(e) =>
+            setFormState({
+              ...formState,
+              login: !formState.login
+            })
+          }
+        >
+          {formState.login
+            ? 'need to create an account?'
+            : 'already have an account?'}
+        </button>
+      </div>
+    </div>
+  );
+};
 
-  _confirm = async () => {
-    // ... you'll implement this 🔜
-  }
-
-  _saveUserData = token => {
-    localStorage.setItem(AUTH_TOKEN, token)
-  }
-}
-
-export default Login
+export default Login;
 ```
 
 </Instruction>
 
-Let's quickly understand the structure of this new component, which can have two major states:
+Let's quickly understand the structure of this new
+component, which can have two major states:
 
-- One state is **for users that already have an account** and only need to login. In this state, the component will only render two `input` fields for the user to provide their `email` and `password`. Notice that `state.login` will be `true` in this case.
-- The second state is for **users that haven't created an account yet**, and thus still need to sign up. Here, you also render a third `input` field where users can provide their `name`. In this case, `state.login` will be `false`.
+- One state is **for users that already have an account**
+  and only need to login. In this state, the component will
+  only render two `input` fields for the user to provide
+  their `email` and `password`. Notice that
+  `formState.login` will be `true` in this case.
+- The second state is for **users that haven't created an
+  account yet**, and thus still need to sign up. Here, we
+  render a third `input` field where users can provide their
+  `name`. In this case, `formState.login` will be `false`.
 
-The method `_confirm` will be used to implement the mutations that we need to send for the login functionality.
+In the `onClick` handler in the submit button, we'll
+eventually call the appropriate mutations for these two
+actions.
 
-Next you also need to provide the `constants.js` file that we use to define the key for the credentials that we're storing in the browser's `localStorage`.
+Next, we also need to provide the `constants.js` file that
+we use to define the key for the credentials that we're
+storing in the browser's `localStorage`.
 
-> **Warning**: Storing JWTs in `localStorage` is not a safe approach to implement authentication on the frontend. Because this tutorial is focused on GraphQL, we want to keep things simple and therefore are using it here. You can read more about this topic [here](https://www.rdegges.com/2018/please-stop-using-local-storage/).
+> **Warning**: Storing JWTs in `localStorage` is not a safe
+> approach to implement authentication on the frontend.
+> Because this tutorial is focused on GraphQL, we want to
+> keep things simple and therefore are using it here. You
+> can read more about this topic
+> [here](https://www.rdegges.com/2018/please-stop-using-local-storage/).
 
 <Instruction>
 
-In `src`, create a new file called `constants.js` and add the following definition:
+In `src`, create a new file called `constants.js` and add
+the following definition:
 
 ```js(path=".../hackernews-react-apollo/src/constants.js")
-export const AUTH_TOKEN = 'auth-token'
+export const AUTH_TOKEN = 'auth-token';
 ```
 
 </Instruction>
 
-With that component in place, you can go and add a new route to your `react-router-dom` setup.
+With that component in place, we can add a new route to our
+routing setup.
 
 <Instruction>
 
-Open `App.js` and update `render` to include the new route:
+Open `App.js` and update it to include the new route:
 
-```js{9}(path=".../hackernews-react-apollo/src/components/App.js")
-render() {
+```js{15}(path=".../hackernews-react-apollo/src/components/App.js")
+// ...
+import Login from './Login';
+
+const App = () => {
   return (
     <div className="center w85">
       <Header />
       <div className="ph3 pv1 background-gray">
         <Switch>
           <Route exact path="/" component={LinkList} />
-          <Route exact path="/create" component={CreateLink} />
+          <Route
+            exact
+            path="/create"
+            component={CreateLink}
+          />
           <Route exact path="/login" component={Login} />
         </Switch>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default App;
 ```
 
 </Instruction>
 
-<Instruction>
-
-Also import the `Login` component on top of the same file:
-
-```js(path=".../hackernews-react-apollo/src/components/App.js")
-import Login from './Login'
-```
-
-</Instruction>
-
-Finally, go ahead and add a `Link` to the `Header` that allows the users to navigate to the `Login` page.
+Add a `Link` to the `Header` to allow users to navigate to
+the `Login` page.
 
 <Instruction>
 
 Open `Header.js` and update `render` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
-render() {
-  const authToken = localStorage.getItem(AUTH_TOKEN)
+import React from 'react';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+import { AUTH_TOKEN } from '../constants';
+
+const Header = () => {
+  const history = useHistory();
+  const authToken = localStorage.getItem(AUTH_TOKEN);
   return (
     <div className="flex pa1 justify-between nowrap orange">
       <div className="flex flex-fixed black">
@@ -162,10 +222,24 @@ render() {
         <Link to="/" className="ml1 no-underline black">
           new
         </Link>
+        <div className="ml1">|</div>
+        <Link to="/top" className="ml1 no-underline black">
+          top
+        </Link>
+        <div className="ml1">|</div>
+        <Link
+          to="/search"
+          className="ml1 no-underline black"
+        >
+          search
+        </Link>
         {authToken && (
           <div className="flex">
             <div className="ml1">|</div>
-            <Link to="/create" className="ml1 no-underline black">
+            <Link
+              to="/create"
+              className="ml1 no-underline black"
+            >
               submit
             </Link>
           </div>
@@ -176,246 +250,320 @@ render() {
           <div
             className="ml1 pointer black"
             onClick={() => {
-              localStorage.removeItem(AUTH_TOKEN)
-              this.props.history.push(`/`)
+              localStorage.removeItem(AUTH_TOKEN);
+              history.push(`/`);
             }}
           >
             logout
           </div>
         ) : (
-          <Link to="/login" className="ml1 no-underline black">
+          <Link
+            to="/login"
+            className="ml1 no-underline black"
+          >
             login
           </Link>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default Header;
 ```
 
 </Instruction>
 
-You first retrieve the `authToken` from local storage. If the `authToken` is not available, the **submit**-button won't be rendered any more. That way you make sure only authenticated users can create new links.
+We first retrieve the `authToken` from local storage. If the
+`authToken` is not available, the **submit** button won't be
+rendered. This way, we can make sure only authenticated
+users can create new links.
 
-You're also adding a second button to the right of the `Header` that users can use to login and logout.
-
-<Instruction>
-
-Lastly, you need to import the key definition from `constants.js` in `Header.js`. Add the following statement to the top of file:
-
-```js(path=".../hackernews-react-apollo/src/components/Header.js")
-import { AUTH_TOKEN } from '../constants'
-```
-
-</Instruction>
+We're also adding a second button to the right of the
+`Header` that users can use to login and logout.
 
 Here is what the ready component looks like:
 
-![](http://imgur.com/tBxMVtb.png)
+![](https://imgur.com/FsHxKnu.png)
 
-Perfect, you're all set now to implement the authentication functionality.
+Perfect, we're all set to implement the authentication
+functionality.
 
 ### Using the authentication mutations
 
-`signup` and `login` are two regular GraphQL mutations you can use in the same way as you did with the `createLink` mutation from before.
+`signup` and `login` are two regular GraphQL mutations we
+can use in the same way as we did with the `createLink`
+mutation from before.
 
 <Instruction>
 
-Open `Login.js` and add the following two definitions to the top of the file:
+Open `Login.js` and add the following two definitions to the
+top of the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 const SIGNUP_MUTATION = gql`
-  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
-    signup(email: $email, password: $password, name: $name) {
+  mutation SignupMutation(
+    $email: String!
+    $password: String!
+    $name: String!
+  ) {
+    signup(
+      email: $email
+      password: $password
+      name: $name
+    ) {
       token
     }
   }
-`
+`;
 
 const LOGIN_MUTATION = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
+  mutation LoginMutation(
+    $email: String!
+    $password: String!
+  ) {
     login(email: $email, password: $password) {
       token
     }
   }
-`
+`;
 ```
 
 </Instruction>
 
-Both mutations look very similar to the mutations you already saw before. They take a number of arguments and return the `token` that you can attach to subsequent requests to authenticate the user (i.e. indicate that a request is made _on behalf_ of that user). You'll learn 🔜 how to do so.
+Both mutations look very similar to the mutations we've
+already seen. They take a number of arguments and return the
+`token` that we can attach to subsequent requests to
+authenticate the user (i.e. indicate that a request is made
+_on behalf_ of that user). You'll learn 🔜 how to do so.
 
 <Instruction>
 
-Next, find the `div` element that has the class names `flex mt3` and replace it with the following:
+Next, find the `div` element that has the class names
+`flex mt3` and replace it with the following:
 
 ```js{2-12}(path=".../hackernews-react-apollo/src/components/Login.js")
 <div className="flex mt3">
-  <Mutation
-    mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-    variables={{ email, password, name }}
-    onCompleted={data => this._confirm(data)}
+  <button
+    className="pointer mr2 button"
+    onClick={formState.login ? login : signup}
   >
-    {mutation => (
-      <div className="pointer mr2 button" onClick={mutation}>
-        {login ? 'login' : 'create account'}
-      </div>
-    )}
-  </Mutation>
-  <div
+    {formState.login ? 'login' : 'create account'}
+  </button>
+  <button
     className="pointer button"
-    onClick={() => this.setState({ login: !login })}
+    onClick={(e) =>
+      setFormState({
+        ...formState,
+        login: !formState.login
+      })
+    }
   >
-    {login ? 'need to create an account?' : 'already have an account?'}
-  </div>
+    {formState.login
+      ? 'need to create an account?'
+      : 'already have an account?'}
+  </button>
 </div>
 ```
 
 </Instruction>
 
-Before we take a closer look at the `<Mutation />` component implementation, go ahead and add the required imports.
+The `onClick` event on the "login"/"create account" button
+uses a ternary to call one of two functions: `login` or
+`signup`. As the names imply, these functions will run
+mutations to log the user in or sign them up for a new
+account. Let's put in the `useMutation` hook to make these
+actions happen.
+
+```js(path=".../hackernews-react-apollo/src/components/Login.js")
+const [login] = useMutation(LOGIN_MUTATION, {
+  variables: {
+    email: formState.email,
+    password: formState.password
+  },
+  onCompleted: ({ login }) => {
+    localStorage.setItem(AUTH_TOKEN, login.token);
+    history.push('/');
+  }
+});
+
+const [signup] = useMutation(SIGNUP_MUTATION, {
+  variables: {
+    name: formState.name,
+    email: formState.email,
+    password: formState.password
+  },
+  onCompleted: ({ signup }) => {
+    localStorage.setItem(AUTH_TOKEN, signup.token);
+    history.push('/');
+  }
+});
+```
+
+These two mutations use the `useMutation` hook from Apollo.
+They accept the GraphQL mutation documents we defined
+earlier and accept variables from the form. The
+`onCompleted` callback sets the user's token in local
+storage and redirects them to the home page afterward.
 
 <Instruction>
 
-Still in `Login.js`, add the following statement to the top of the file:
+Still in `Login.js`, add the following imports to the top of
+the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
-import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
+import { useMutation, gql } from '@apollo/client';
+import { useHistory } from 'react-router';
+import { AUTH_TOKEN } from '../constants';
 ```
 
 </Instruction>
 
-Now, let's understand what's going with the `<Mutation />` component you just added.
+We can now create an account by providing a `name`, `email`
+and `password`. Once we do that, the **submit** button will
+be rendered again:
 
-The code is pretty straightforward. If the user wants to just login, you're calling the `loginMutation`, otherwise you're using the `signupMutation`, and the mutation will be triggered on the div's `onClick` event. GraphQL mutations receive the `email`, `password` and `name` state values as params passed on the `variables` prop. Lastly, after the mutation has finished, we call the `_confirm` function, passing the `data` returned by the mutation as an argument.
+![](https://imgur.com/bFPDTg2.png)
 
-All right, all that's left to do is implement the `_confirm` function!
-
-<Instruction>
-
-Open `Login.js` and update `_confirm` as follows:
-
-```js(path=".../hackernews-react-apollo/src/components/Login.js")
-_confirm = async data => {
-  const { token } = this.state.login ? data.login : data.signup
-  this._saveUserData(token)
-  this.props.history.push(`/`)
-}
-```
-
-</Instruction>
-
-After the mutation was performed, you're storing the returned `token` in `localStorage` and navigating back to the root route.
-
-> **Note**: Mutation returned `data` relies on GraphQL mutation definition, that's why we need to get the `token` depending on which mutation is triggered.
-
-You can now create an account by providing a `name`, `email` and `password`. Once you did that, the **submit**-button will be rendered again:
-
-![](https://imgur.com/z4KILTw.png)
-
-If you haven't done so before, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the **need to create an account?**-button and provide some user data for the user you're creating. Finally, click the **create account**-button. If all went well, the app navigates back to the root route and your user was created. You can verify that the new user is there by sending the `users` query in the **dev** Playground in the **database** project.
+If you haven't done so before, go ahead and test the login
+functionality. Run `yarn start` and open
+`http://localhost:3000/login`. Then click the **need to
+create an account?** button and provide some user data for
+the user you're creating. Finally, click the **create
+account** button. If all went well, the app navigates back
+to the home route and the user was created. We can verify
+that the new user is there by sending the `users` query in
+the **dev** Playground in the **database** project.
 
 ### Configuring Apollo with the authentication token
 
-Now that users are able to login and obtain a token that authenticates them against the GraphQL server, you actually need to make sure that the token gets attached to all requests that are sent to the API.
+Now that users are able to log in and obtain a token that
+authenticates them against the GraphQL server, we need to
+make sure that the token gets attached to all requests that
+are sent to the API.
 
-Since all the API requests are actually created and sent by the `ApolloClient` instance in your app, you need to make sure it knows about the user's token! Luckily, Apollo provides a nice way for authenticating all requests by using the concept of [middleware](http://dev.apollodata.com/react/auth.html#Header), implemented as an [Apollo Link](https://github.com/apollographql/apollo-link).
-
-First, you need to add the required dependencies to the app. Open a terminal, navigate to your project directory and type:
-
-<Instruction>
-
-```bash(path=".../hackernews-react-apollo")
-yarn add apollo-link-context
-```
-
-</Instruction>
-
-Let’s see the authentication link in action!
+Since all the API requests are actually created and sent by
+the `ApolloClient` instance at the root of our app, we need
+to make sure it knows about the user's token! Luckily,
+Apollo provides a nice way for authenticating all requests
+by using the concept of
+[middleware](http://dev.apollodata.com/react/auth.html#Header),
+implemented as an
+[Apollo Link](https://github.com/apollographql/apollo-link).
 
 <Instruction>
 
-Open `index.js` and put the following code _between_ the creation of the `httpLink` and the instantiation of `ApolloClient`:
+Open `index.js` and put the following code _between_ the
+creation of the `httpLink` and the instantiation of
+`ApolloClient`:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem(AUTH_TOKEN)
+  const token = localStorage.getItem(AUTH_TOKEN);
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : ''
     }
-  }
-})
+  };
+});
 ```
 
 </Instruction>
 
 <Instruction>
 
-Before moving on, you need to import the Apollo dependencies. Add the following to the top of `index.js`:
+Before moving on, we need to import the Apollo dependencies.
+Add the following to the top of `index.js`:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
-import { setContext } from 'apollo-link-context'
+import { setContext } from '@apollo/client/link/context';
 ```
 
 </Instruction>
 
-This middleware will be invoked every time `ApolloClient` sends a request to the server. Apollo Links allow you to create `middlewares` that let you modify requests before they are sent to the server.
+This middleware will be invoked every time `ApolloClient`
+sends a request to the server. Apollo Links allow us to
+create `middlewares` that modify requests before they are
+sent to the server.
 
-Let's see how it works in our code: first, we get the authentication `token` from `localStorage` if it exists; after that, we return the `headers` to the `context` so `httpLink` can read them.
+Let's see how it works in our code: first, we get the
+authentication `token` from `localStorage` if it exists;
+after that, we return the `headers` to the `context` so
+`httpLink` can read them.
 
-> **Note**: You can read more about Apollo's authentication [here](https://www.apollographql.com/docs/react/recipes/authentication.html).
+> **Note**: You can read more about Apollo's authentication
+> [here](https://www.apollographql.com/docs/react/networking/authentication/).
 
 <Instruction>
 
-Now you also need to make sure `ApolloClient` gets instantiated with the correct link - update the constructor call as follows:
+We also need to make sure `ApolloClient` gets instantiated
+with the correct link - update the constructor call as
+follows:
 
 ```js{2}(path=".../hackernews-react-apollo/src/index.js")
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
-})
+});
 ```
 
 </Instruction>
 
 <Instruction>
 
-Then directly import the key you need to retrieve the token from `localStorage` on top of the same file:
+Then directly import the key we need to retrieve the token
+from `localStorage` on top of the same file:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
-import { AUTH_TOKEN } from './constants'
+import { AUTH_TOKEN } from './constants';
 ```
 
 </Instruction>
 
-That's it - now all your API requests will be authenticated if a `token` is available.
+That's it - now all our API requests will be authenticated
+if a `token` is available.
 
 ### Requiring authentication on the server-side
 
-The last thing you might do in this chapter is check how to ensure only authenticated users are able to `post` new links. Plus, every `Link` that's created by a `post` mutation should automatically set the `User` who sent the request for its `postedBy` field.
+The last thing we might do in this chapter is check how to
+ensure only authenticated users are able to `post` new
+links. Plus, every `Link` that's created by a `post`
+mutation should automatically set the `User` who sent the
+request for its `postedBy` field.
+
+In our case, we're allowing `Link`s without an associated
+`User` to be submitted. This is for the sake of
+demonstration and may not be what you want for your own
+application. We can get a sense of how this works if we look
+at the server code in `Mutation.js`.
 
 <Instruction>
 
-Open `/server/src/resolvers/Mutation.js` and give a look how it was implemented:
+Open `/server/src/resolvers/Mutation.js` and give a look how
+it was implemented:
 
 ```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
-function post(parent, { url, description }, context) {
-  const userId = getUserId(context)
-  return context.prisma.createLink({
-    url,
-    description,
-    postedBy: {
-      connect: {
-        id: userId
-      }
+function post(parent, args, context, info) {
+  const { userId } = context;
+
+  const newLink = context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+      postedBy: { connect: { id: userId } }
     }
-  })
+  });
+
+  return newLink;
 }
 ```
 
 </Instruction>
 
-With this, you're extracting the `userId` from the `Authorization` header of the request and use it to directly [`connect`](https://www.prismagraphql.com/docs/reference/prisma-api/mutations-ol0yuoz6go#nested-mutations) it with the `Link` that's created. Note that `getUserId` will [throw an error](https://github.com/howtographql/react-apollo/blob/master/server/src/utils.js#L12) if the field is not provided or not valid token could be extracted.
+In this code block, we're extracting the `userId` from the
+`context` object of the request and using it to directly
+[`connect`](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/relation-queries)
+it with the `Link` that's created. The `userId` is placed on
+`context` by extracting it from the `Authorization` header
+when we set up the server context in `index.js`.
