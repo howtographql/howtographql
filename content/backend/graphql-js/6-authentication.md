@@ -100,17 +100,6 @@ In the root directory of the project, run the following
 command:
 
 ```bash(path=".../hackernews-node")
-npx prisma migrate save --experimental
-```
-
-</Instruction>
-
-<Instruction>
-
-In the root directory of the project, run the following
-command:
-
-```bash(path=".../hackernews-node")
 npx prisma migrate save --name "add-user-model" --experimental
 ```
 
@@ -461,7 +450,7 @@ that could be accessed.
 To make the above operations possible, open `index.js` and
 adjust the instantiation of the `GraphQLServer` as follows:
 
-```js{13-17}(path=".../hackernews-node/src/index.js")
+```js{1,9,13-17}(path=".../hackernews-node/src/index.js")
 const { getUserId } = require('./utils');
 
 const server = new ApolloServer({
@@ -506,10 +495,10 @@ In `Mutation.js`, add the following resolver implementation
 for `post`:
 
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
-function post(parent, args, context, info) {
+async function post(parent, args, context, info) {
   const { userId } = context;
 
-  return context.prisma.link.create({
+  return await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,

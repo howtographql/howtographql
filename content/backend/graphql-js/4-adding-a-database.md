@@ -127,7 +127,7 @@ Let's see it in action with your project!
 
 Open `schema.prisma` and add the following code:
 
-```graphql{2,3}(path=".../hackernews-node/prisma/schema.prisma")
+```graphql{3-4,12-17}(path=".../hackernews-node/prisma/schema.prisma")
 // 1
 datasource db {
   provider = "sqlite"
@@ -285,7 +285,7 @@ main()
   })
   // 5
   .finally(async () => {
-    await prisma.disconnect()
+    await prisma.$disconnect()
   })
 ```
 

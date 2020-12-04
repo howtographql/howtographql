@@ -77,10 +77,10 @@ In `index.js`, save an instance of PrismaClient to a
 variable and update the instantiation of the `GraphQLServer`
 to add is to the context as follows:
 
-```js{4-12}(path=".../hackernews-node/src/index.js")
+```js{1,9-11}(path=".../hackernews-node/src/index.js")
 const prisma = new PrismaClient()
 
-const server = new GraphQLServer({
+const server = new ApolloServer({
   typeDefs: fs.readFileSync(
     path.join(__dirname, 'schema.graphql'),
     'utf8'

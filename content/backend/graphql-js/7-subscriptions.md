@@ -86,7 +86,7 @@ in the variable `pubsub`, just as we stored an instance of
 Now, in the same file, add `pubsub` to the context, just as
 did with `prisma`:
 
-```{11}graphql(path=".../hackernews-node/src/index.js)
+```js{11}graphql(path=".../hackernews-node/src/index.js)
 const server = new ApolloServer({
   typeDefs: fs.readFileSync(
     path.join(__dirname, 'schema.graphql'),
@@ -206,11 +206,11 @@ Pop over to `Mutation.js` and locate your `post` resolver
 function, adding the following call to `pubsub.publish()`
 right before we return our `newLink`:
 
-```js(path=".../hackernews-node/src/resolvers/Mutation.js")
-function post(parent, args, context, info) {
+```js{4,11,13}(path=".../hackernews-node/src/resolvers/Mutation.js")
+async function post(parent, args, context, info) {
   const userId = getUserId(context)
 
-  const newLink = context.prisma.link.create({
+  const newLink = await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,
@@ -356,7 +356,7 @@ database.
 Open `prisma/schema.prisma` and adjust it to look as
 follows:
 
-```graphql{7,16,19-23}(path=".../hackernews-node/prisma/schema.prisma")
+```graphql{8,17,20-27}(path=".../hackernews-node/prisma/schema.prisma")
 model Link {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())

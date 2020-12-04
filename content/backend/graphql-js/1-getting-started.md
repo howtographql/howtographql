@@ -139,7 +139,12 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
 })
-server.start(() => console.log(`Server is running on http://localhost:4000`))
+
+server
+  .listen()
+  .then(({ url }) =>
+    console.log(`Server is running on ${url}`)
+  );
 ```
 
 </Instruction>
