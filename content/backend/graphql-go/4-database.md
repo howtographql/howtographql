@@ -116,7 +116,7 @@ Last thing is that we need a connection to our database, for this we create a my
 
 `internal/pkg/db/mysql/mysql.go`:
 ```go
-package database
+package mysql
 
 import (
 	"database/sql"
@@ -179,8 +179,8 @@ func main() {
 
 	router := chi.NewRouter()
 
-	database.InitDB()
-	database.Migrate()
+	mysql.InitDB()
+	mysql.Migrate()
 	server := handler.GraphQL(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}}))
 	router.Handle("/", handler.Playground("GraphQL playground", "/query"))
 	router.Handle("/query", server)
