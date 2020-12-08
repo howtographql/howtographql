@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
 pageTitle: "Fullstack Tutorial with GraphQL, Ember & Apollo"
-description: "Learn how to build a Hackernews clone with GraphQL, Ember, and Apollo Client. You'll use Ember and ember-apollo-client for the frontend and Graphcool for the backend."
+description: "Learn how to build a Hackernews clone with GraphQL, Ember, and Apollo Client. You'll use Ember and ember-apollo-client for the frontend and Prisma for the backend."
 question: "What's a major benefit of using a GraphQL client library?"
 answers: ["It makes it easy to use animations inside your app", "A GraphQL client is mainly used to improve security", "It saves you from writing infrastructure code for networking and caching", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
 correctAnswer: 2
@@ -9,7 +9,7 @@ correctAnswer: 2
 
 ### Overview
 
-> **NOTE**: This tutorial uses the [legacy](https://www.graph.cool/docs/reference/service-definition/legacy-console-projects-aemieb1aev) version of [Graphcool](https://www.graph.cool/) and will be updated soon to use the new [Graphcool Framework](https://blog.graph.cool/introducing-the-graphcool-framework-d9edab2a7816). The CLI commands mentioned in tutorial are outdated, you can read more about the new CLI [here](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/). If you still want to go through this tutorial, you can install the old version of the CLI using `npm install -g graphcool@0.4`.
+**Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/ember-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters. Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub, so you can clearly see where to put the code and what the end result will look like. Also accompanying each section is an embedded CodeSandbox of the final state of the application at the end of the section.
 
 In the previous tutorials, you learned about major concepts and benefits of GraphQL. Now is the time to get your hands dirty and start out with an actual project!
 
@@ -25,23 +25,30 @@ In this track, you’ll use the following technologies for building the app:
 
 * Frontend:
     * [Ember](https://emberjs.com/): A framework for creating ambitious web applications.
-    * [Apollo Client](http://dev.apollodata.com/): Fully-featured, production ready caching GraphQL client.
+    * [Apollo Client 2.4.7](https://github.com/apollographql/apollo-client): Fully-featured, production ready caching GraphQL client.
 * Backend:
-    * [Graphcool](https://www.graph.cool/): Flexible backend platform combining GraphQL + Serverless
+    * [graphql-yoga](https://github.com/prisma/graphql-yoga/): Fully-featured GraphQL Server with focus on easy setup, performance & great developer experience
+    * [Prisma](https://www.prisma.io/): Open-source GraphQL API layer that turns your database into a GraphQL API
 
 You’ll create the Ember project with [ember-cli](http://ember-cli.com/), the command line interface for ambitious web applications. `ember-cli` will start you off with a blank project with all required build configuration already setup.
 
 ### Why a GraphQL Client?
 
-In the [Clients](https://www.howtographql.com/advanced/0-clients/) section in the GraphQL part, you already covered the responsibilities of a GraphQL client on a higher level, now it’s time to get bit more concrete.
+In the [Clients](/advanced/0-clients/) section in the GraphQL part, you already covered the responsibilities of a GraphQL client on a higher level, now it’s time to get bit more concrete.
 
 In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you’re building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality that you’ll want in any frontend application that’s talking to a GraphQL server - why build it yourself if you can use one of the amazing GraphQL clients out there?
 
 There are a few GraphQL client libraries available. For very simple use cases (such as writing scripts), [`graphql-request`](https://github.com/graphcool/graphql-request) might already be enough for your needs. However, chances are that you’re writing a somewhat larger application where you want to benefit from caching, optimistic UI updates, and other handy features. In these cases, [Apollo Client](http://dev.apollodata.com/) is the only solution that currently works with Ember.
 
-### Apollo Client
+### Apollo vs Relay
 
-[Apollo Client](http://dev.apollodata.com/) is a community-driven effort to build an easy-to-understand, flexible and powerful GraphQL client. Apollo has the ambition to build one library for every major development platform that people use to build web and mobile applications. Right now there is a JavaScript client with bindings for popular frameworks like [React](https://github.com/apollographql/react-apollo), [Angular](https://github.com/apollographql/apollo-angular), [Ember](https://github.com/bgentry/ember-apollo-client), and [Vue](https://github.com/Akryum/vue-apollo) as well as early versions of [iOS](https://github.com/apollographql/apollo-ios) and [Android](https://github.com/apollographql/apollo-android). Apollo is production-ready and has handy features like caching, optimistic UI, subscription support and many more.
+The most common question heard from people that are getting started with GraphQL on the frontend is which GraphQL client they should use. We'll try to provide a few hints that'll help you decide which of these clients is the right one for your next project!
+
+[Relay](https://facebook.github.io/relay/) is Facebook's homegrown GraphQL client that they open-sourced alongside GraphQL in 2015. It incorporates all the learnings that Facebook gathered since they started using GraphQL in 2012. Relay is heavily optimized for performance and tries to reduce network traffic where possible. An interesting side-note is that Relay itself actually started out as a _routing_ framework that eventually got combined with data loading responsibilities. It thus evolved into a powerful data management solution that can be used in JavaScript apps to interface with GraphQL APIs.
+
+The performance benefits of Relay come at the cost of a notable learning curve. Relay is a pretty complex framework and understanding all its bits and pieces does require some time to really get into it. The overall situation in that respect has improved with the release of the 1.0 version, called [Relay Modern](http://facebook.github.io/relay/docs/en/introduction-to-relay.html), but if you're for something to _just get started_ with GraphQL, Relay might not be the right choice just yet.
+
+[Apollo Client](https://github.com/apollographql/apollo-client) is a community-driven effort to build an easy-to-understand, flexible and powerful GraphQL client. Apollo has the ambition to build one library for every major development platform that people use to build web and mobile applications. Right now there is a JavaScript client with bindings for popular frameworks like [React](https://github.com/apollographql/react-apollo), [Angular](https://github.com/apollographql/apollo-angular), [Ember](https://github.com/bgentry/ember-apollo-client) or [Vue](https://github.com/Akryum/vue-apollo) as well as early versions of [iOS](https://github.com/apollographql/apollo-ios) and [Android](https://github.com/apollographql/apollo-android) clients. Apollo is production-ready and has handy features like caching, optimistic UI, subscription support and many more.
 
 ### `ember-apollo-client`
 

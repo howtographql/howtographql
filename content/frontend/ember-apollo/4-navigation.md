@@ -1,10 +1,13 @@
 ---
-title: "Navigation"
+title: Navigation
 pageTitle: “Ember with GraphQL & Apollo Tutorial"
 description: "Learn how to use Ember components together with GraphQL and Apollo Client to implement navigation in an Ember app."
-question: "Which of the following statements is not true?"
+question: Which of the following statements is not true?
 answers: ["ember-apollo-client exposes several Apollo methods on an Ember service", "ember-apollo-client is an add-on for Apollo Client and GraphQL", "ember-apollo-client returns Promises", "ember-apollo-client only allows mutations"]
 correctAnswer: 3
+videoId: ""
+duration: 0		
+videoAuthor: ""
 ---
 
 In this section, you’ll implement some navigation functionality.
@@ -57,6 +60,6 @@ This simply renders two links that users can use to navigate between the `/links
 
 That’s it. If you run `yarn start`, you can now access two URLs. `http://localhost:4200/` will render all links and `http://localhost:4200/create` renders the form to add a link component you just wrote in the previous section.
 
-![](http://i.imgur.com/zxf1Dfv.png)
+![](http://i.imgur.com/xebXv9S.png)
 
 You've already integrated the redirect after creating a new link, so this section is super simple, but necessary!
