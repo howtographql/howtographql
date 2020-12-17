@@ -126,7 +126,7 @@ So how about the setup? Well, the great news is that Prisma can do that for us r
 From the root directory of your project, create your first _migration_ by running the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npx prisma migrate save --experimental
+npx prisma migrate dev --preview-feature
 ```
 
 </Instruction>
@@ -145,33 +145,7 @@ inside that `prisma/migrations` directory, which becomes a historical reference 
 
 Check out the [Prisma Migrate docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-migrate) for a deeper dive on this.
 
-Now you just need to run one more command to actually _execute_ the migration against your database:
-
-<Instruction>
-
-Run the following command in your terminal:
-
-```bash(path=".../hackernews-node/")
-npx prisma migrate up --experimental
-```
-
-</Instruction>
-
 Boom! 💥 You now have a database with a `Link` table! 🎉
-
-### Generating Prisma Client
-
-It's time to generate _Prisma Client_ based on your data model!
-
-<Instruction>
-
-Run the following command in your terminal:
-
-```bash(path=".../hackernews-node/")
-npx prisma generate
-```
-
-</Instruction>
 
 It's as simple as that! You now have `/node_modules/@prisma/client` which can be imported and used in your code.
 
