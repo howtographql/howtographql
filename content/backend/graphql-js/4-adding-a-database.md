@@ -126,7 +126,9 @@ So how about the setup? Well, the great news is that Prisma can do that for us r
 From the root directory of your project, create your first _migration_ by running the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npx prisma migrate save --experimental
+npx prisma migrate resolve --applied "[replace with folder name created during init]" --preview-feature
+// An example of the folder name is "20201221011902_init"
+// An example of the command: npx prisma migrate resolve --applied "20201221011902_init" --preview-feature
 ```
 
 </Instruction>
@@ -144,18 +146,6 @@ Prisma then generates the necessary migration and packages it into a dedicated d
 inside that `prisma/migrations` directory, which becomes a historical reference of how your database evolves over time with each individual migration you make!
 
 Check out the [Prisma Migrate docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-migrate) for a deeper dive on this.
-
-Now you just need to run one more command to actually _execute_ the migration against your database:
-
-<Instruction>
-
-Run the following command in your terminal:
-
-```bash(path=".../hackernews-node/")
-npx prisma migrate up --experimental
-```
-
-</Instruction>
 
 Boom! 💥 You now have a database with a `Link` table! 🎉
 
