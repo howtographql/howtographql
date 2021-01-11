@@ -185,13 +185,12 @@ func main() {
 		port = defaultPort
 	}
 
-	router := chi.NewRouter()
-
 	database.InitDB()
 	database.Migrate()
-	server := handler.GraphQL(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}}))
-	router.Handle("/", handler.Playground("GraphQL playground", "/query"))
-	router.Handle("/query", server)
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+
+	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	http.Handle("/query", srv)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
