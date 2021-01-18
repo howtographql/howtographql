@@ -1,4 +1,5 @@
 ---
+title: Authentication 
 pageTitle: "Implementing Authentication in a GraphQL server with Node.js"
 description: "Learn best practices for implementing authentication and authorization with Node.js, Express & Prisma."
 question: "Which HTTP header field carries the authentication token?"
