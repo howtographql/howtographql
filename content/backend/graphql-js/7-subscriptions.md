@@ -1,8 +1,7 @@
 ---
 title: Realtime GraphQL Subscriptions
 pageTitle: 'Realtime GraphQL Subscriptions with Node.JS Tutorial'
-description:
-  'Learn how to implement GraphQL subscriptions with Node.js, Express & Prisma to add realtime functionality to an app.'
+description: 'Learn how to implement GraphQL subscriptions with Node.js, Express & Prisma to add realtime functionality to an app.'
 question: Which of the following statements is true?
 answers:
   [
@@ -14,34 +13,31 @@ answers:
 correctAnswer: 2
 ---
 
-In this section, you'll learn how you can bring realtime functionality into your app by implementing GraphQL
-subscriptions. The goal is to implement two subscriptions to be exposed by your GraphQL server:
+In this section, you'll learn how you can bring realtime functionality into your app by implementing GraphQL subscriptions. The goal is to implement two subscriptions to be exposed
+by your GraphQL server:
 
 - Send realtime updates to subscribed clients when a new `Link` element is _created_
 - Send realtime updates to subscribed clients when an existing `Link` element is _upvoted_
 
 ### What are GraphQL subscriptions?
 
-Subscriptions are a GraphQL feature that allows a server to send data to its clients when a specific _event_ happens.
-Subscriptions are usually implemented with [WebSockets](https://en.wikipedia.org/wiki/WebSocket). In that setup, the
-server maintains a steady connection to its subscribed client. This also breaks the "Request-Response-Cycle" that were
-used for all previous interactions with the API.
+Subscriptions are a GraphQL feature that allows a server to send data to its clients when a specific _event_ happens. Subscriptions are usually implemented with
+[WebSockets](https://en.wikipedia.org/wiki/WebSocket). In that setup, the server maintains a steady connection to its subscribed client. This also breaks the
+"Request-Response-Cycle" that were used for all previous interactions with the API.
 
-Instead, the client initially opens up a long-lived connection to the server by sending a _subscription query_ that
-specifies which _event_ it is interested in. Every time this particular event happens, the server uses the connection to
-push the event data to the subscribed client(s).
+Instead, the client initially opens up a long-lived connection to the server by sending a _subscription query_ that specifies which _event_ it is interested in. Every time this
+particular event happens, the server uses the connection to push the event data to the subscribed client(s).
 
 ### Implementing GraphQL subscriptions
 
-We will be using `PubSub` from the `apollo-server` library that we have already been using for our GraphQL server to
-implement subscriptions to the following _events_:
+We will be using `PubSub` from the `apollo-server` library that we have already been using for our GraphQL server to implement subscriptions to the following _events_:
 
 - A new model is **created**
 - An existing model **updated**
 - An existing model is **deleted**
 
-You will do this by first adding an instance of `PubSub` to the context, just as we did with `PrismaClient`, and then
-calling its methods in the resolvers that handle each of the above events.
+You will do this by first adding an instance of `PubSub` to the context, just as we did with `PrismaClient`, and then calling its methods in the resolvers that handle each of the
+above events.
 
 ### Setting up `PubSub`
 
@@ -58,8 +54,7 @@ const pubsub = new PubSub()
 
 </Instruction>
 
-Here, you're creating an instance of `PubSub` and storing it in the variable `pubsub`, just as we stored an instance of
-`PrismaClient` in the variable `prisma`.
+Here, you're creating an instance of `PubSub` and storing it in the variable `pubsub`, just as we stored an instance of `PrismaClient` in the variable `prisma`.
 
 <Instruction>
 
@@ -88,16 +83,13 @@ const server = new ApolloServer({
 
 </Instruction>
 
-Great! Now we can access the methods we need to implement our subscriptions from inside our resolvers via
-`context.pubsub`!
+Great! Now we can access the methods we need to implement our subscriptions from inside our resolvers via `context.pubsub`!
 
 ### Subscribing to new `Link` elements
 
-Alright – let's go ahead and implement the subscription that allows your clients to subscribe to newly created `Link`
-elements.
+Alright – let's go ahead and implement the subscription that allows your clients to subscribe to newly created `Link` elements.
 
-Just like with queries and mutations, the first step to implement a subscription is to extend your GraphQL schema
-definition.
+Just like with queries and mutations, the first step to implement a subscription is to extend your GraphQL schema definition.
 
 <Instruction>
 
@@ -111,14 +103,11 @@ type Subscription {
 
 </Instruction>
 
-Next, go ahead and implement the resolver for the `newLink` field. Resolvers for subscriptions are slightly different
-than the ones for queries and mutations:
+Next, go ahead and implement the resolver for the `newLink` field. Resolvers for subscriptions are slightly different than the ones for queries and mutations:
 
-1. Rather than returning any data directly, they return an `AsyncIterator` which subsequently is used by the GraphQL
-   server to push the event data to the client.
-1. Subscription resolvers are wrapped inside an object and need to be provided as the value for a `subscribe` field. You
-   also need to provide another field called `resolve` that actually returns the data from the data emitted by the
-   `AsyncIterator`.
+1. Rather than returning any data directly, they return an `AsyncIterator` which subsequently is used by the GraphQL server to push the event data to the client.
+1. Subscription resolvers are wrapped inside an object and need to be provided as the value for a `subscribe` field. You also need to provide another field called `resolve` that
+   actually returns the data from the data emitted by the `AsyncIterator`.
 
 <Instruction>
 
@@ -153,21 +142,18 @@ module.exports = {
 
 </Instruction>
 
-The code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a
-`subscribe` field inside a plain JavaScript object.
+The code seems pretty straightforward. As mentioned before, the subscription resolver is provided as the value for a `subscribe` field inside a plain JavaScript object.
 
-Now you can see how we access `pubsub` on the `context` and call `asyncIterator()` passing the string `"NEW_LINK"` into
-it. This function is used to resolve subscriptions and push the event data.
+Now you can see how we access `pubsub` on the `context` and call `asyncIterator()` passing the string `"NEW_LINK"` into it. This function is used to resolve subscriptions and push
+the event data.
 
 ### Adding subscriptions to your resolvers
 
-The last thing we need to do for our subscription implementation itself is to actually call this function inside of a
-resolver!
+The last thing we need to do for our subscription implementation itself is to actually call this function inside of a resolver!
 
 <Instruction>
 
-Pop over to `Mutation.js` and locate your `post` resolver function, adding the following call to `pubsub.publish()`
-right before we return our `newLink`:
+Pop over to `Mutation.js` and locate your `post` resolver function, adding the following call to `pubsub.publish()` right before we return our `newLink`:
 
 ```js{4,11,13}(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function post(parent, args, context, info) {
@@ -188,11 +174,10 @@ async function post(parent, args, context, info) {
 
 </Instruction>
 
-Now you can see how we pass the same string to the `publish` method as you added in your `newLinkSubscribe` function
-just above, along with passing in the `newLink` as a second argument!
+Now you can see how we pass the same string to the `publish` method as you added in your `newLinkSubscribe` function just above, along with passing in the `newLink` as a second
+argument!
 
-Ok, I'm sure you're dying to test out your brand-spanking new Subscription! All we need to do now is make sure your
-GraphQL server knows about your changes.
+Ok, I'm sure you're dying to test out your brand-spanking new Subscription! All we need to do now is make sure your GraphQL server knows about your changes.
 
 <Instruction>
 
@@ -222,8 +207,7 @@ const resolvers = {
 
 ### Testing subscriptions
 
-With all the code in place, it's time to test your realtime API ⚡️ You can do so by using two instances (i.e. tabs or
-windows) of the GraphQL Playground at once.
+With all the code in place, it's time to test your realtime API ⚡️ You can do so by using two instances (i.e. tabs or windows) of the GraphQL Playground at once.
 
 <Instruction>
 
@@ -233,13 +217,12 @@ If you haven't already, restart the server by first killing it with **CTRL+C**, 
 
 <Instruction>
 
-Next, open two browser windows and navigate both to the endpoint of your GraphQL server:
-[`http://localhost:4000`](http://localhost:4000).
+Next, open two browser windows and navigate both to the endpoint of your GraphQL server: [`http://localhost:4000`](http://localhost:4000).
 
 </Instruction>
 
-As you might guess, you'll use one Playground to send a subscription query and thereby create a permanent websocket
-connection to the server. The second one will be used to send a `post` mutation which triggers the subscription.
+As you might guess, you'll use one Playground to send a subscription query and thereby create a permanent websocket connection to the server. The second one will be used to send a
+`post` mutation which triggers the subscription.
 
 <Instruction>
 
@@ -262,8 +245,8 @@ subscription {
 
 </Instruction>
 
-In contrast to what happens when sending queries and mutations, you'll not immediately see the result of the operation.
-Instead, there's a loading spinner indicating that it's waiting for an event to happen.
+In contrast to what happens when sending queries and mutations, you'll not immediately see the result of the operation. Instead, there's a loading spinner indicating that it's
+waiting for an event to happen.
 
 ![](https://imgur.com/hmqRJws.png)
 
@@ -271,8 +254,7 @@ Time to trigger a subscription event.
 
 <Instruction>
 
-Send the following `post` mutation inside a GraphQL Playground. Remember that you need to be authenticated for that (see
-the previous chapter to learn how that works):
+Send the following `post` mutation inside a GraphQL Playground. Remember that you need to be authenticated for that (see the previous chapter to learn how that works):
 
 ```graphql
 mutation {
@@ -292,8 +274,8 @@ Now observe the Playground where the subscription was running:
 
 #### Implementing a `vote` mutation
 
-The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to
-extend your Prisma data model to represent votes in the database.
+The next feature to be added is a voting feature which lets users _upvote_ certain links. The very first step here is to extend your Prisma data model to represent votes in the
+database.
 
 <Instruction>
 
@@ -332,22 +314,19 @@ model Vote {
 
 </Instruction>
 
-As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the
-`Link` type.
+As you can see, you added a new `Vote` type to the data model. It has one-to-many relationships to the `User` and the `Link` type.
 
 <Instruction>
 
 Now migrate your database schema with the following commands:
 
 ```
-npx prisma migrate save --name 'add-vote-model' --experimental
-npx prisma migrate up --experimental
+npx prisma migrate dev --name 'add-vote-model' --preview-feature
 ```
 
 </Instruction>
 
-To apply the changes and update your Prisma Client API so it exposes CRUD queries for the new `Vote` model, regenerate
-`PrismaClient`.
+To apply the changes and update your Prisma Client API so it exposes CRUD queries for the new `Vote` model, regenerate `PrismaClient`.
 
 <Instruction>
 
@@ -359,8 +338,8 @@ npx prisma generate
 
 </Instruction>
 
-Now, with the process of schema-driven development in mind, go ahead and extend the schema definition of your
-application schema so that your GraphQL server also exposes a `vote` mutation:
+Now, with the process of schema-driven development in mind, go ahead and extend the schema definition of your application schema so that your GraphQL server also exposes a `vote`
+mutation:
 
 ```graphql{5}(path=".../hackernews-node/src/schema.graphql")
 type Mutation {
@@ -385,8 +364,7 @@ type Vote {
 
 </Instruction>
 
-It should also be possible to query all the `votes` from a `Link`, so you need to adjust the `Link` type in
-`schema.graphql` as well.
+It should also be possible to query all the `votes` from a `Link`, so you need to adjust the `Link` type in `schema.graphql` as well.
 
 <Instruction>
 
@@ -446,15 +424,12 @@ async function vote(parent, args, context, info) {
 
 Here is what's going on:
 
-1. Similar to what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the
-   `getUserId` helper function. If it's valid, the function will return the `userId` of the `User` who is making the
-   request. If the JWT is not valid, the function will throw an exception.
-1. To protect against those pesky "double voters" (or honest folks who accidentally click twice), you need to check if
-   the vote already exists or not. First, you try to fetch a vote with the same `linkId` and `userId`. If the vote
-   exists, it will be stored in the `vote` variable, resulting in the boolean `true` from your call to `Boolean(vote)`
-   -- throwing an error kindly telling the user that they already voted.
-1. If that `Boolean(vote)` call returns `false`, the `vote.create` method will be used to create a new `Vote` that's
-   _connected_ to the `User` and the `Link`.
+1. Similar to what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the `getUserId` helper function. If it's valid, the function will return
+   the `userId` of the `User` who is making the request. If the JWT is not valid, the function will throw an exception.
+1. To protect against those pesky "double voters" (or honest folks who accidentally click twice), you need to check if the vote already exists or not. First, you try to fetch a
+   vote with the same `linkId` and `userId`. If the vote exists, it will be stored in the `vote` variable, resulting in the boolean `true` from your call to `Boolean(vote)` --
+   throwing an error kindly telling the user that they already voted.
+1. If that `Boolean(vote)` call returns `false`, the `vote.create` method will be used to create a new `Vote` that's _connected_ to the `User` and the `Link`.
 
 <Instruction>
 
@@ -572,8 +547,7 @@ Your GraphQL API now accepts `vote` mutations! 👏
 
 #### Subscribing to new votes
 
-The last task in this chapter is to add a subscription that fires when new `Vote`s are being created. You'll use an
-analogous approach as for the `newLink` query for that.
+The last task in this chapter is to add a subscription that fires when new `Vote`s are being created. You'll use an analogous approach as for the `newLink` query for that.
 
 <Instruction>
 
@@ -626,8 +600,8 @@ All right, that's it! You can now test the implementation of your `newVote` subs
 
 <Instruction>
 
-If you haven't done so already, stop and restart the server by first killing it with **CTRL+C**, then run
-`node src/index.js`. Afterwards, open a new Playground with the GraphQL CLI by running `graphql playground`.
+If you haven't done so already, stop and restart the server by first killing it with **CTRL+C**, then run `node src/index.js`. Afterwards, open a new Playground with the GraphQL
+CLI by running `graphql playground`.
 
 </Instruction>
 
@@ -649,9 +623,8 @@ subscription {
 }
 ```
 
-If you're unsure about writing one yourself, here's a sample `vote` mutation you can use. You'll need to replace the
-`__LINK_ID__` placeholder with the `id` of an actual `Link` from your database. Also, make sure that you're
-authenticated when sending the mutation.
+If you're unsure about writing one yourself, here's a sample `vote` mutation you can use. You'll need to replace the `__LINK_ID__` placeholder with the `id` of an actual `Link`
+from your database. Also, make sure that you're authenticated when sending the mutation.
 
 ```graphql
 mutation {
