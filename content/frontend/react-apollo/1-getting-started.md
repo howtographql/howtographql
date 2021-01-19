@@ -279,7 +279,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './components/App';
-import * as serviceWorker from './serviceWorker';
 
 // 1
 import {
@@ -307,7 +306,6 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById('root')
 );
-serviceWorker.unregister();
 ```
 
 </Instruction>
