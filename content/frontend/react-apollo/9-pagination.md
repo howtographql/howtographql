@@ -36,7 +36,7 @@ elements.
 
 ## Preparing the React Components
 
-Once more, we fir needst to prepare the React components for
+Once more, we first need to prepare the React components for
 this new functionality. In fact, we'll make a slight
 adjustment to the current routing setup. The idea is that
 the `LinkList` component will be used for two different
