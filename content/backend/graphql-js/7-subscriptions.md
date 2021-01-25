@@ -157,7 +157,7 @@ Pop over to `Mutation.js` and locate your `post` resolver function, adding the f
 
 ```js{4,11,13}(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function post(parent, args, context, info) {
-  const userId = getUserId(context)
+  const { userId } = context
 
   const newLink = await context.prisma.link.create({
     data: {
@@ -391,7 +391,7 @@ Add the following function to `src/resolvers/Mutation.js`:
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function vote(parent, args, context, info) {
   // 1
-  const userId = getUserId(context)
+  const { userId } = context
 
   // 2
   const vote = await context.prisma.vote.findUnique({
