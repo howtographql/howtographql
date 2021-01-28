@@ -1,8 +1,8 @@
-import * as React from 'react'
-import GraphQLConf from '../assets/icons/GraphQLConf'
-import LinkArrow from '../assets/icons/LinkArrow'
+import * as React from 'react';
+import GraphQLConf from '../assets/icons/GraphQLConf';
+import LinkArrow from '../assets/icons/LinkArrow';
 
-export const Banner = () =>
+export const Banner = () => (
   <div className="banner-container">
     <style jsx={true}>
       {`
@@ -42,10 +42,12 @@ export const Banner = () =>
     <a className="banner" href="https://www.graphqlconf.org/" target="_blank">
       <GraphQLConf />
       <span className="title">
-        Tickets are now available for <span className="bold">GraphQL Conf!</span>
+        Check out the upcoming{' '}
+        <span className="bold">GraphQL Berlin Meetup</span> on Feb 3, 2020{' '}
       </span>
       <span className="link-arrow-wrapper">
         <LinkArrow />
       </span>
     </a>
   </div>
+);
