@@ -26,6 +26,7 @@ export const Banner = () => (
           display: flex;
           align-items: center;
           color: black;
+          z-index: 100;
         }
         .title {
           font-size: 16px;
@@ -39,7 +40,11 @@ export const Banner = () => (
         }
       `}
     </style>
-    <a className="banner" href="https://www.graphqlconf.org/" target="_blank">
+    <a
+      className="banner"
+      href="https://www.meetup.com/graphql-berlin/"
+      target="_blank"
+    >
       <GraphQLConf />
       <span className="title">
         Check out the upcoming{' '}
