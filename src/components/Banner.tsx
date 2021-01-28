@@ -48,7 +48,7 @@ export const Banner = () => (
       <GraphQLConf />
       <span className="title">
         Check out the upcoming{' '}
-        <span className="bold">GraphQL Berlin Meetup</span> on Feb 3, 2020{' '}
+        <span className="bold">GraphQL Berlin Meetup</span> on Feb 3, 2021{' '}
       </span>
       <span className="link-arrow-wrapper">
         <LinkArrow />
