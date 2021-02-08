@@ -12,7 +12,7 @@ correctAnswer: 1
 
 To match the schema from the first chapter, we have to extend a `Link` model with an additional field: `createdAt`. 
 This field will store information about date and time. The problem is that `H2` database understands only timestamp. 
-Sangria has a similar limitation - it supports only basic types. Our goal is to store the date an time information in the database 
+Sangria has a similar limitation - it supports only basic types. Our goal is to store the date and time information in the database 
 and to present it in a human friendly format.
 
 ### Extend a Link model
