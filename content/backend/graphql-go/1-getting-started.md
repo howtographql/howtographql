@@ -5,23 +5,29 @@ description: "Creating an app with gqlgen"
 ---
 
 ## What are you going to build?
+
 In this tutorial we are going to create a Hackernews clone with Go and gqlgen, So our API will be able to handle registration, authentication, submitting links and getting list of links.
 
 ## Project Setup <a name="project-setup"></a>
 
 <Instruction>
+
 Create a directory for project and initialize go modules file:
-```bash
+
+```
 go mod init github.com/[username]/hackernews
 ```
 
 after that use ‍‍gqlgen `init` command to setup a gqlgen project.
+
 ```
 go run github.com/99designs/gqlgen init
 ```
+
 </Instruction>
 
 Here is a description from gqlgen about the generated files:
+
 - `gqlgen.yml` — The gqlgen config file, knobs for controlling the generated code.
 - `graph/generated/generated.go` — The GraphQL execution runtime, the bulk of the generated code.
 - `graph/model/models_gen.go` — Generated models required to build the graph. Often you will override these with your own models. Still very useful for input types.
@@ -31,6 +37,7 @@ Here is a description from gqlgen about the generated files:
   start the server with `go run server.go` and open your browser and you should see the graphql playground, So setup is right!
 
 ## Defining Our Schema <a name="defining-out-schema"></a>
+
 Now let's start with defining schema we need for our API.
 We have two types Link and User each of them for representing Link and User to client, a `links` Query to return list of Links. an input for creating new links and mutation for creating link. we also need mutations to for auth system which includes Login, createUser, refreshToken(I'll explain them later) then run the command below to regenerate graphql models.
 
@@ -85,9 +92,11 @@ type Mutation {
 <Instruction>
 
 Now run the following command to regenerate files;
+
 ```
 go run github.com/99designs/gqlgen generate
 ```
+
 </Instruction>
 
 > **Note**: If you are getting `validation failed: packages.Load` error. It may occur, because `gqlgen` uses todo project as starter template. To get rid of this error, edit `graph/schema.resolvers.go` file and delete functions `CreateTodo` and `Todos`. Now run the command again.
