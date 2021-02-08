@@ -24,7 +24,7 @@ Java has dedicated package for date and time and it includes many classes you ca
 
 <Instruction>
 
-Change the content of `Link.scala`:
+Change the content of `package.scala`:
 
 ```scala
 //in imports:
