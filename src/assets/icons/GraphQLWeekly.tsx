@@ -7,7 +7,6 @@ export default () => (
     viewBox="0 0 68 68"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style="margin-top: 4px;margin-left: 6px;"
   >
     <g>
       <circle cx="34" cy="30" r="26" fill="white" />
