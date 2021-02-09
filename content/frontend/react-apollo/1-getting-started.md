@@ -1,28 +1,57 @@
 ---
 title: Getting Started
-pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
-description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Prisma.
-question: Why are there two GraphQL API layers in a backend architecture with Prisma?
-answers: ["To increase robustness and stability of the GraphQL server (if one layer fails, the server is backed by the second one).", "To increase performance of the GraphQL server (requests are accelerated  by going through multiple layers).", "Prisma provides the database layer which offers CRUD operations. The second layer is the application layer for business logic and common workflows (like authentication).", "Having two GraphQL layers is a hard requirement by the GraphQL specification."]
+pageTitle:
+  'Getting Started with GraphQL, React and Apollo Tutorial'
+description:
+  Start building a Hackernews clone. Create the frontend
+  with create-react-app and the backend with Prisma.
+question:
+  Why are there two GraphQL API layers in a backend
+  architecture with Prisma?
+answers:
+  [
+    'To increase robustness and stability of the GraphQL
+    server (if one layer fails, the server is backed by the
+    second one).',
+    'To increase performance of the GraphQL server (requests
+    are accelerated  by going through multiple layers).',
+    'Prisma provides the database layer which offers CRUD
+    operations. The second layer is the application layer
+    for business logic and common workflows (like
+    authentication).',
+    'Having two GraphQL layers is a hard requirement by the
+    GraphQL specification.'
+  ]
 correctAnswer: 2
 draft: false
-videoId: ""
-duration: 0		
-videoAuthor: ""
+videoId: ''
+duration: 0
+videoAuthor: ''
 ---
 
-Since this is a frontend track, you're not going to spend any time implementing the backend. Instead, you'll use the server from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
+Since this is a frontend track, we're not going to spend any
+time implementing the backend. Instead, we'll use the server
+from the
+[Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
-Once you created your React application, you'll pull in the required code for the backend.
+Once our React application is created, we'll pull in the
+required code for the backend.
 
-> **Note**: The final project for this tutorial can be found on [GitHub](https://github.com/howtographql/react-apollo). You can always use it as a reference whenever you get lost throughout the course of the following chapters.
-> Also note that each code block is annotated with a filename. These annotations directly link to the corresponding file on GitHub so you can clearly see where to put the code and what the end result will look like.
+> **Note**: The final project for this tutorial can be found
+> on [GitHub](https://github.com/howtographql/react-apollo).
+> You can always use it as a reference whenever you get lost
+> throughout the course of the following chapters. Also note
+> that each code block is annotated with a filename. These
+> annotations directly link to the corresponding file on
+> GitHub so you can clearly see where to put the code and
+> what the end result will look like.
 
 ### Frontend
 
 #### Creating the app
 
-First, you are going to create the React project! As mentioned in the beginning, you'll use `create-react-app` for that.
+The first step is to create a React project! As mentioned in
+the beginning, we'll use `create-react-app` for that.
 
 <Instruction>
 
@@ -34,43 +63,62 @@ yarn create react-app hackernews-react-apollo
 
 </Instruction>
 
-> **Note**: This tutorial uses [Yarn](https://yarnpkg.com/) for dependency management. Find instructions for how you can install it [here](https://yarnpkg.com/en/docs/install). If you prefer using `npm`, you can just run the equivalent commands. 
+> **Note**: This tutorial uses [yarn](https://yarnpkg.com/)
+> for dependency management. Find instructions for how you
+> can install it
+> [here](https://yarnpkg.com/en/docs/install). If you prefer
+> using `npm`, you can just run the equivalent commands.
 
-This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup.
+This will create a new directory called
+`hackernews-react-apollo` that has all the basic
+configuration setup.
 
-Make sure everything works by navigating into the directory and starting the app:
+Make sure everything works by navigating into the directory
+and starting the app:
 
 ```bash
 cd hackernews-react-apollo
 yarn start
 ```
 
-This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
+This will open a browser and navigate to
+`http://localhost:3000` where the app is running. If
+everything went well, we'll see the following:
 
-![](http://imgur.com/Yujwwi6.png)
+![](https://imgur.com/RZsBM1p.png)
 
 <Instruction>
 
-To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
+To improve the project structure, create two directories,
+both inside the `src` folder. The first is called
+`components` and will hold all our React components. Create
+a second directory called `styles` to hold all of the CSS
+for the project.
 
-`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
+`App.js` is a component, so move it into `components`. You
+can also move `App.test.js` there as well (or delete it as
+we won't use it here). `App.css` and `index.css` contain
+styles, so move them into `styles`. We also need to change
+the references to these files in both `index.js` and
+`App.js` accordingly:
 
 </Instruction>
 
-```js{4}(path=".../hackernews-react-apollo/src/index.js")
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './styles/index.css'
-import App from './components/App'
+```js{3,4}(path=".../hackernews-react-apollo/src/index.js")
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styles/index.css';
+import App from './components/App';
+import reportWebVitals from './reportWebVitals';
 ```
 
 ```js{2}(path=".../hackernews-react-apollo/src/components/App.js")
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import '../styles/App.css';
+import logo from './../logo.svg';
+import './../styles/App.css';
 ```
 
-Your project structure should now look as follows:
+The project structure should now look as follows:
 
 ```bash(nocopy)
 .
@@ -81,36 +129,52 @@ Your project structure should now look as follows:
 │   ├── favicon.ico
 │   ├── index.html
 │   └── manifest.json
+│   └── logo192.png
+│   └── logo512.png
+│   └── robot.txt
 ├── src
 │   ├── App.test.js
 │   ├── components
 │   │   └── App.js
+│   │   └── App.test.js
 │   ├── index.js
 │   ├── logo.svg
-│   ├── serviceWorker.js
+│   ├── reportWebVitals.js
+│   ├── setupTests.js
 │   └── styles
 │       ├── App.css
 │       └── index.css
 └── yarn.lock
 ```
 
-#### Prepare styling
+#### Prepare Styling
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time possible on styling. To reduce the usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
+This tutorial is about the concepts of GraphQL and how we
+can use it from within a React application, so we want to
+spend as little time as possible on styling. To reduce the
+usage of CSS in this project, we'll use the
+[Tachyons](http://tachyons.io/) library which provides a
+number of CSS classes.
 
 <Instruction>
 
-Open `public/index.html` and add a third `link` tag right below the two existing ones that pulls in Tachyons:
+Open `public/index.html` and add a third `link` tag right
+below the two existing ones that pulls in Tachyons:
 
 ```html{3}(path=".../hackernews-react-apollo/public/index.html")
-<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
+<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"
+/>
 ```
 
 </Instruction>
 
-Since we still want to have a bit more custom styling here and there, we also prepared some styles for you that you need to include in the project.
+Since we still want to have a bit more custom styling, we
+also prepared some styles that need to be included in the
+project.
 
 <Instruction>
 
@@ -136,7 +200,7 @@ input {
 }
 
 .background-gray {
-  background-color: rgb(246,246,239);
+  background-color: rgb(246, 246, 239);
 }
 
 .f11 {
@@ -168,62 +232,73 @@ input {
 
 <Instruction>
 
-Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
+Next, we need to pull in the functionality of Apollo Client
+(and its React hooks) which comes in several packages:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add apollo-boost react-apollo graphql
+yarn add @apollo/client graphql
 ```
 
 </Instruction>
 
-Here's an overview of the packages you just installed:
+Here's an overview of the packages we installed:
 
-- [`apollo-boost`](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) offers some convenience by bundling several packages you need when working with Apollo Client:
-  - `apollo-client`: Where all the magic happens
-  - `apollo-cache-inmemory`: Our recommended cache
-  - `apollo-link-http`: An Apollo Link for remote data fetching
-  - `apollo-link-error`: An Apollo Link for error handling
-  - `apollo-link-state`: An Apollo Link for local state management
-  - `graphql-tag`: Exports the `gql` function for your queries & mutations
-- [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well.
+- [`@apollo/client`](https://github.com/apollographql/apollo-client)
+  contains all the pieces needed to wire up the GraphQL
+  client for our app. It exposes the `ApolloClient`, a
+  provider to wrap around the React app called
+  `ApolloProvider`, custom hooks such as `useQuery`, and
+  much more.
+- [`graphql`](https://github.com/graphql/graphql-js)
+  contains Facebook's reference implementation of GraphQL -
+  Apollo Client uses some of its functionality within.
 
-That's it, you're ready to write some code! 🚀
+That's it, we're ready to write some code! 🚀
 
 #### Configure `ApolloClient`
 
-Apollo abstracts away all lower-level networking logic and provides a nice interface to the GraphQL server. In contrast to working with REST APIs, you don't have to deal with constructing your own HTTP requests any more - instead you can simply write queries and mutations and send them using an `ApolloClient` instance.
+Apollo abstracts away all lower-level networking logic and
+provides a nice interface to the GraphQL server. In contrast
+to working with REST APIs, we don't have to deal with
+constructing our own HTTP requests any more - instead we can
+simply write queries and mutations and send them using an
+`ApolloClient` instance.
 
-The first thing you have to do when using Apollo is configure your `ApolloClient` instance. It needs to know the _endpoint_ of your GraphQL API so it can deal with the network connections.
+The first thing we have to do when using Apollo is configure
+our `ApolloClient` instance. It needs to know the _endpoint_
+of our GraphQL API so it can deal with the network
+connections.
 
 <Instruction>
 
-Open `src/index.js` and replace the contents with the following:
+Open `src/index.js` and replace the contents with the
+following:
 
 ```js{6-9,11-13,15-18,21-23}(path=".../hackernews-react-apollo/src/index.js")
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './styles/index.css'
-import App from './components/App'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styles/index.css';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 // 1
-import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-
+import {
+  ApolloProvider,
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache
+} from '@apollo/client';
 
 // 2
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000'
-})
+});
 
 // 3
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache()
-})
+});
 
 // 4
 ReactDOM.render(
@@ -231,32 +306,41 @@ ReactDOM.render(
     <App />
   </ApolloProvider>,
   document.getElementById('root')
-)
+);
 serviceWorker.unregister();
 ```
 
 </Instruction>
 
-> Note: The project that was generated by `create-react-app` uses semicolons and double quotes for strings. All the code that you're going to add will use **no semicolons** and mostly **single quotes**. You're also free to delete any existing semicolons and replace double with single quotes 🔥
+Let's take a look at what's going on in the code snippet
+above:
 
-Let's try to understand what's going on in that code snippet:
+1. We import all the dependencies we need to wire up the
+   Apollo client, all from `@apollo/client`.
+2. We create the `httpLink` that will connect our
+   `ApolloClient` instance with the GraphQL API. The GraphQL
+   server will be running on `http://localhost:4000`.
+3. We instantiate `ApolloClient` by passing in the
+   `httpLink` and a new instance of an `InMemoryCache`.
+4. Finally, we render the root component of our React app.
+   The `App` is wrapped with the higher-order component
+   `ApolloProvider` that gets passed the `client` as a prop.
 
-1. You're importing the required dependencies from the installed packages.
-2. Here you create the `httpLink` that will connect your `ApolloClient` instance with the GraphQL API, your GraphQL server will be running on `http://localhost:4000`.
-3. Now you instantiate `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
-4. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
-
-That's it, you're all set to start for loading some data into your app! 😎
+That's it, we're all set to start for loading some data into
+our app! 😎
 
 ### Backend
 
-#### Downloading the server code
+#### Downloading the Server Code
 
-As mentioned above, for the backend in this tutorial you'll simply use the final project from the [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
+As mentioned above, for the backend in this tutorial we'll
+simply use the final project from the
+[Node tutorial](https://www.howtographql.com/graphql-js/0-introduction).
 
 <Instruction>
 
-In your terminal, navigate to the `hackernews-react-apollo` directory and run the following commands:
+In the terminal, navigate to the `hackernews-react-apollo`
+directory and run the following commands:
 
 ```bash(path=".../hackernews-react-apollo")
 curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar -xz --strip=1 react-apollo-starter/server
@@ -264,42 +348,78 @@ curl https://codeload.github.com/howtographql/react-apollo/tar.gz/starter | tar 
 
 </Instruction>
 
-> **Note**: If you are on Windows, you may want to install [Git CLI](https://git-scm.com/) to avoid potential problems with commands such as `curl`.
+> **Note**: If you are on Windows, you may want to install
+> [Git CLI](https://git-scm.com/) to avoid potential
+> problems with commands such as `curl`.
 
-You now have a new directory called `server` inside your project that contains all the code you need for your backend.
+We now have a new directory called `server` inside our
+project that contains all the code needed for our backend.
 
-Before we start the server, let's quickly understand the main components:
+Before we start the server, let's quickly understand the
+main components:
 
-- `prisma`: This directory holds all the files that relate to your [Prisma](https://www.prisma.io) setup. Prisma Client is used to access the database in your GraphQL resolvers (similar to an ORM).
-  - `prisma.yml` is the root configuration file for your Prisma project.
-  - `datamodel.prisma` defines your data model in the GraphQL [Schema Definition Language](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). When using Prisma, the datamodel is used to describe the database schema.
-- `src`: This directory holds the source files for your GraphQL server.
-  - `schema.graphql` contains your **application schema**. The application schema defines the GraphQL operations you can send from the frontend. We'll take a closer look at this file in just a bit.
-  - `generated/prisma-client` contains the auto-generated Prisma client, a type-safe database access library (similar to an ORM).
-  - `resolvers` contains the [_resolver functions_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#resolvers-implement-the-api) for the operations defined in the application schema.
-  - `index.js` is the entry point for your GraphQL server.
+- `prisma`: This directory holds all the files that relate
+  to our [Prisma](https://www.prisma.io) setup. Prisma
+  Client is used to access the database in our GraphQL
+  resolvers (similar to an ORM).
+  - `schema.prisma` defines our data model for the project.
+    It uses the
+    [Prisma Schema Langauge](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema)
+    to define the shape of our databases tables and the
+    relations between them.
+  - `dev.db` is a SQLite database that will be used to store
+    and retrieve data for this tutorial
+- `src`: This directory holds the source files for our
+  GraphQL server.
+  - `schema.graphql` contains our **application schema**.
+    The application schema defines the GraphQL operations we
+    can send from the frontend. We'll take a closer look at
+    this file in just a bit.
+  - `resolvers` contains the
+    [_resolver functions_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#resolvers-implement-the-api)
+    for the operations defined in the application schema.
+  - `index.js` is the entry point for our GraphQL server.
 
-From the mentioned files, only the application schema defined in `server/src/schema.graphql` is relevant for you as a frontend developer. This file contains the [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) which defines all the operations (queries, mutations and subscriptions) you can send from your frontend app.
+From the mentioned files, only the application schema
+defined in `server/src/schema.js` is relevant for you as a
+frontend developer. This file contains the
+[GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e)
+which defines all the operations (queries, mutations and
+subscriptions) we can send from your frontend app.
 
 Here is what it looks like:
 
 ```graphql(path=".../hackernews-react-apollo/server/src/schema.graphql"&nocopy)
-# import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from "./generated/prisma.graphql"
-
 type Query {
-  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
+  info: String!
+  feed(
+    filter: String
+    skip: Int
+    take: Int
+    orderBy: LinkOrderByInput
+  ): Feed!
 }
 
 type Feed {
+  id: ID!
   links: [Link!]!
   count: Int!
 }
 
 type Mutation {
   post(url: String!, description: String!): Link!
-  signup(email: String!, password: String!, name: String!): AuthPayload
+  signup(
+    email: String!
+    password: String!
+    name: String!
+  ): AuthPayload
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote
+}
+
+type Subscription {
+  newLink: Link
+  newVote: Vote
 }
 
 type AuthPayload {
@@ -311,32 +431,63 @@ type User {
   id: ID!
   name: String!
   email: String!
+  links: [Link!]!
 }
 
-type Subscription {
-  newLink: LinkSubscriptionPayload
-  newVote: VoteSubscriptionPayload
+type Link {
+  id: ID!
+  description: String!
+  url: String!
+  postedBy: User
+  votes: [Vote!]!
+  createdAt: DateTime!
 }
+
+type Vote {
+  id: ID!
+  link: Link!
+  user: User!
+}
+
+input LinkOrderByInput {
+  description: Sort
+  url: Sort
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
+}
+
+scalar DateTime
+
 ```
 
 This schema allows for the following operations:
 
 - Queries:
-  - `feed`: Retrieves all links from the backend, note that this query also allows for filter, sorting and pagination arguments
+  - `feed`: Retrieves all links from the backend, note that
+    this query also allows for filter, sorting and
+    pagination arguments
 - Mutations:
   - `post`: Allows authenticated users to create a new link
   - `signup`: Create an account for a new user
   - `login`: Login an existing user
-  - `vote`: Allows authenticated users to vote for an existing link
+  - `vote`: Allows authenticated users to vote for an
+    existing link
 - Subscriptions:
-  - `newLink`: Receive realtime updates when a new link is created
-  - `newVote`: Receive realtime updates when a vote was submitted
+  - `newLink`: Receive realtime updates when a new link is
+    created
+  - `newVote`: Receive realtime updates when a vote was
+    submitted
 
-For example, you can send the following `feed` query to retrieve the first 10 links from the server:
+For example, we can send the following `feed` query to
+retrieve the first 10 links from the server:
 
 ```graphql(nocopy)
 {
-  feed(skip: 0, first: 10) {
+  feed(skip: 0, take: 10) {
     links {
       description
       url
@@ -353,8 +504,8 @@ Or the `signup` mutation to create a new user:
 ```graphql(nocopy)
 mutation {
   signup(
-    name: "Sarah",
-    email: "sarah@graph.cool",
+    name: "Sarah"
+    email: "sarah@prisma.io"
     password: "graphql"
   ) {
     token
@@ -365,69 +516,121 @@ mutation {
 }
 ```
 
-#### Deploying the Prisma database service
+#### Creating a Database and Generating the Prisma Client
 
-There is one thing left to do before you can start your server and begin sending queries and mutations to it. The Prisma project needs to be deployed so the GraphQL server can access it.
+There is one thing left to do before we can start our server
+and begin sending queries and mutations to it. We need a
+database and a generated Prisma Client so that we can
+actually store and retrieve data.
 
-To deploy the service all you need to do is install the server's dependencies and invoke the `prisma deploy` command inside the `server` directory.
+Prisma
+[supports several relational databases](https://www.prisma.io/docs/more/supported-databases),
+including Postgres, MySQL, and SQLite.
+
+For this tutorial, we'll keep things simple and use SQLite.
+It's a filesystem database that is very easy to get started
+with. It should be noted, however, that SQLite may not be
+suitable for production purposes.
+
+There is a file called `dev.db` located in the
+`server/prisma` directory. This file is our SQLite database.
+
+> **Note**: You are free to use Postgres or MySQL for this
+> tutorial if you prefer. All aspects of the tutorial will
+> still work with those databases.
+
+Next, let's run database migratons and generate the Prisma
+Client.
 
 <Instruction>
 
-In your terminal, navigate to the `server` directory and execute the following commands:
+We need to change directories into `server` and run some
+commands to migrate the database and generate the Prisma
+client.
 
-```sh(path=".../hackernews-react-apollo/server")
+Before doing so, make sure to install the dependencies.
+
+```bash
 cd server
-yarn install
-yarn prisma deploy
+yarn
 ```
 
-</Instruction>
+First, we need to save an initial migration.
 
-Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `yarn global add prisma`). In that case, you can simply run `prisma deploy`.
+```sh(path=".../react-apollo/server")
+cd server
+npx prisma migrate save --experimental
+> Supply a migration name
+```
 
-<Instruction>
+Next, we need to run the migration.
 
-When prompted where you want to set/deploy your service, select `Demo server` (it requires login, you could sign in with your GitHub account), then choose a _region_, e.g. `demo-us1` or `demo-eu1`. The Demo server includes a free instance of an AWS Aurora database. (If you have Docker installed, you can also deploy locally.)
+```sh(path=".../react-apollo/server")
+npx prisma migrate up --experimental
+```
 
-</Instruction>
+Finally, we generate the Prisma Client.
 
-> **Note**: Once the command has finished running, the CLI writes the endpoint for the Prisma API to your prisma.yml. It will look similar to this: https://eu1.prisma.sh/john-doe/hackernews-node/dev.
+```sh(path=".../react-apollo/server")
+npx prisma generate
+```
 
 #### Exploring the server
 
-With the proper Prisma endpoint in place, you can now explore the server!
+With the database migrated and the Prisma Client generated,
+we can now explore our server.
 
 <Instruction>
 
-Navigate into the `server` directory and run the following commands to start the server:
+Navigate into the `server` directory and run the following
+commands to start the server:
 
 ```bash(path=".../hackernews-react-apollo/server")
-yarn start
+yarn dev
 ```
 
 </Instruction>
 
-The `yarn start` executes the `start` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API.
+The `yarn dev` executes the `dev` script defined in
+`package.json`. The script first starts the server using
+[nodemon](https://www.npmjs.com/package/nodemon) (which is
+then running on `http://localhost:4000`) and then opens up a
+[GraphQL Playground](https://github.com/graphcool/graphql-playground)
+for us to explore and work with the API.
 
-![](https://imgur.com/V1hp4ID.png)
+![](https://imgur.com/xLyx3Sr.png)
 
-> A Playground is a "GraphQL IDE", providing an interactive environment that allows to send queries, mutations and subscriptions to your GraphQL API. It is similar to a tool like [Postman](https://www.getpostman.com) which you might know from working with REST APIs, but comes with a lot of additional benefits.
+> A Playground is a "GraphQL IDE", providing an interactive
+> environment that allows to send queries, mutations and
+> subscriptions to your GraphQL API. It is similar to a tool
+> like [Postman](https://www.getpostman.com) which you might
+> know from working with REST APIs, but comes with a lot of
+> additional benefits.
 
-The first thing to note about the Playground is that it has built-in documentation for its GraphQL API. This documentation is generated based on the GraphQL schema and can be opened by clicking the green **SCHEMA**-button on the right edge of the Playground. Consequently, it shows you the same information you saw in the application schema above:
+The first thing to note about the Playground is that it has
+built-in documentation for its GraphQL API. This
+documentation is generated based on the GraphQL schema and
+can be opened by clicking the green **SCHEMA** button on the
+right edge of the Playground. Consequently, it shows you the
+same information you saw in the application schema above:
 
-![](https://imgur.com/8xK81qt.png)
+![](https://imgur.com/zhlNpOE.png)
 
-The left pane of the Playground is the _editor_ that you can use to write your queries, mutations and subscriptions. Once you click the play button in the middle, your request is sent and the server's response will be displayed in the _results_ pane on the right.
+The left pane of the Playground is the _editor_ that you can
+use to write your queries, mutations and subscriptions. Once
+you click the play button in the middle, your request is
+sent and the server's response will be displayed in the
+_results_ pane on the right.
 
 <Instruction>
 
-Copy the following two mutations into the _editor_ pane - make sure to have the **default** Playground from the **app** project selected in the left side-menu:
+Copy the following two mutations into the _editor_ pane.
 
 ```graphql
 mutation CreatePrismaLink {
   post(
-    description: "Prisma turns your database into a GraphQL API 😎",
-    url: "https://www.prismagraphql.com"
+    description: "Prisma gives you a powerful database toolkit 😎"
+    url: "https://prisma.io"
   ) {
     id
   }
@@ -435,7 +638,7 @@ mutation CreatePrismaLink {
 
 mutation CreateApolloLink {
   post(
-    description: "The best GraphQL client for React",
+    description: "The best GraphQL client for React"
     url: "https://www.apollographql.com/docs/react/"
   ) {
     id
@@ -445,17 +648,22 @@ mutation CreateApolloLink {
 
 </Instruction>
 
-Since you're adding two mutations to the editor at once, the mutations need to have _operation names_. In your case, these are `CreatePrismaLink` and `CreateApolloLink`.
+Since you're adding two mutations to the editor at once, the
+mutations need to have _operation names_. In your case,
+these are `CreatePrismaLink` and `CreateApolloLink`.
 
 <Instruction>
 
-Click the **Play**-button in the middle of the two panes and select each mutation from the dropdown exactly once.
+Click the **Play** button in the middle of the two panes and
+select each mutation from the dropdown exactly once.
 
 </Instruction>
 
-![](https://imgur.com/2GViJwb.png)
+![](https://imgur.com/d2y5jBL.png)
 
-This creates two new `Link` records in the database. You can verify that the mutations actually worked by sending the following query in the already open Playground:
+This creates two new `Link` records in the database. You can
+verify that the mutations actually worked by sending the
+following query in the already open Playground:
 
 ```graphql
 {
@@ -469,9 +677,13 @@ This creates two new `Link` records in the database. You can verify that the mut
 }
 ```
 
-> **Note**: You can also send the `feed` query in the **default** Playground in the **app** section.
+> **Note**: You can also send the `feed` query in the
+> **default** Playground in the **app** section.
 
-If everything went well, the query will return the following data (the `id`s will of course be different in your case since they were generated by Prisma and are globally unique):
+If everything went well, the query will return the following
+data (the `id`s will of course be different in your case
+since they were generated by Prisma and are globally
+unique):
 
 ```json(nocopy)
 {
@@ -485,8 +697,8 @@ If everything went well, the query will return the following data (the `id`s wil
         },
         {
           "id": "cjcnfznzff1w601247iili50x",
-          "description": "Prisma turns your database into a GraphQL API 😎",
-          "url": "https://www.prismagraphql.com"
+          "description": "Prisma gives you a powerful database toolkit 😎",
+          "url": "https://prisma.io"
         }
       ]
     }
@@ -494,4 +706,4 @@ If everything went well, the query will return the following data (the `id`s wil
 }
 ```
 
-Fantastic, your server works! 👏
+Fantastic, our server works! 👏

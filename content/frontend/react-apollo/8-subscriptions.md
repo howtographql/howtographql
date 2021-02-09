@@ -1,201 +1,243 @@
 ---
 title: Realtime Updates with GraphQL Subscriptions
-pageTitle: "Realtime with GraphQL Subscriptions, React & Apollo Tutorial"
-description: "Learn how to implement realtime functionality using GraphQL subscriptions with Apollo Client & React. The websockets will be handled by subscriptions-transport-ws."
-question: "What transport does Apollo use to implement subscriptions?"
-answers: ["WebSockets", "TCP", "UDP", "HTTP 2"]
+pageTitle:
+  'Realtime with GraphQL Subscriptions, React & Apollo
+  Tutorial'
+description:
+  'Learn how to implement realtime functionality using
+  GraphQL subscriptions with Apollo Client & React. The
+  websockets will be handled by subscriptions-transport-ws.'
+question:
+  'What transport does Apollo use to implement
+  subscriptions?'
+answers: ['WebSockets', 'TCP', 'UDP', 'HTTP 2']
 correctAnswer: 0
-videoId: ""
-duration: 0		
-videoAuthor: ""
+videoId: ''
+duration: 0
+videoAuthor: ''
 ---
 
-This section is all about bringing realtime functionality into the app by using GraphQL subscriptions.
+This section is all about bringing realtime functionality
+into the app by using GraphQL subscriptions.
 
 ### What are GraphQL Subscriptions?
 
-Subscriptions are a GraphQL feature allowing the server to send data to its clients when a specific _event_ happens. Subscriptions are usually implemented with [WebSockets](https://en.wikipedia.org/wiki/WebSocket), where the server holds a steady connection to the client. This means when working with subscriptions, you're breaking the _Request-Response-Cycle_ that was used for all previous interactions with the API. The client now initiates a steady connection with the server by specifying which event it is interested in. Every time this particular event then happens, the server uses the connection to push the expected data to the client.
+Subscriptions are a GraphQL feature allowing the server to
+send data to its clients when a specific _event_ happens.
+Subscriptions are usually implemented with
+[WebSockets](https://en.wikipedia.org/wiki/WebSocket), where
+the server holds a steady connection to the client. This
+means when working with subscriptions, we're breaking the
+_Request-Response_ cycle that is typically used for
+interactions with the API. Instead, the client now initiates
+a steady connection with the server by specifying which
+event it is interested in. Every time this particular event
+then happens, the server uses the connection to push the
+expected data to the client.
 
 ### Subscriptions with Apollo
 
-When using Apollo, you need to configure your `ApolloClient` with information about the subscriptions endpoint. This is done by adding another `ApolloLink` to the Apollo middleware chain. This time, it's the `WebSocketLink` from the [`apollo-link-ws`](https://github.com/apollographql/apollo-link/tree/master/packages/apollo-link-ws) package.
+When using Apollo, we need to configure our `ApolloClient`
+with information about the subscriptions endpoint. This is
+done by adding another `ApolloLink` to the Apollo middleware
+chain. This time, it's the `WebSocketLink` from the
+[`@apollo/client/link/ws`](https://github.com/apollographql/apollo-link/tree/master/packages/apollo-link-ws)
+package.
 
-Go and add this dependency to your app first.
+To get started, add `subscriptions-transport-ws` as a
+dependency to the app.
 
 <Instruction>
 
-Open a terminal and navigate to the project's root directory. Then execute the following command:
+Open a terminal and navigate to the project's root
+directory. Then execute the following command:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add apollo-link-ws
-```
-
-> **Note**: For apollo-link-ws to work you also need to install subscriptions-transport-ws
-
-```
 yarn add subscriptions-transport-ws
 ```
 
 </Instruction>
 
-Next, make sure your `ApolloClient` instance knows about the subscription server.
+Next, let's make sure our `ApolloClient` instance knows
+about the subscription server.
 
 <Instruction>
 
-Open `index.js` and add the following import to the top of the file:
+Open `index.js` and add the following imports to the top of
+the file:
 
 ```js(path=".../hackernews-react-apollo/src/index.js")
-import { split } from 'apollo-link'
-import { WebSocketLink } from 'apollo-link-ws'
-import { getMainDefinition } from 'apollo-utilities'
+import { split } from '@apollo/client';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getMainDefinition } from '@apollo/client/utilities';
 ```
 
-</Instruction>
+Let's now create a new `WebSocketLink` that represents the
+WebSocket connection. We'll use `split` for proper "routing"
+of the requests and update the constructor call of
+`ApolloClient` like so:
 
-Notice that you're now also importing the `split` function from 'apollo-link'.
-
-<Instruction>
-
-Now create a new `WebSocketLink` that represents the WebSocket connection. Use `split` for proper "routing" of the requests and update the constructor call of `ApolloClient` like so:
-
-```js(path=".../hackernews-react-apollo/src/index.js")
+```js{1-9, 11-21}(path=".../hackernews-react-apollo/src/index.js")
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000`,
+  uri: `ws://localhost:4000/graphql`,
   options: {
     reconnect: true,
     connectionParams: {
-      authToken: localStorage.getItem(AUTH_TOKEN),
+      authToken: localStorage.getItem(AUTH_TOKEN)
     }
   }
-})
+});
 
 const link = split(
   ({ query }) => {
-    const { kind, operation } = getMainDefinition(query)
-    return kind === 'OperationDefinition' && operation === 'subscription'
+    const { kind, operation } = getMainDefinition(query);
+    return (
+      kind === 'OperationDefinition' &&
+      operation === 'subscription'
+    );
   },
   wsLink,
   authLink.concat(httpLink)
-)
+);
 
 const client = new ApolloClient({
   link,
   cache: new InMemoryCache()
-})
+});
 ```
 
 </Instruction>
 
-You're instantiating a `WebSocketLink` that knows the subscriptions endpoint. The subscriptions endpoint in this case is similar to the HTTP endpoint, except that it uses the `ws` instead of `http` protocol. Notice that you're also authenticating the websocket connection with the user's `token` that you retrieve from `localStorage`.
+We're instantiating a `WebSocketLink` that knows about the
+**subscriptions** endpoint. The **subscriptions** endpoint
+in this case is similar to the HTTP endpoint, except that it
+uses the `ws` (WebSocket) protocol instead of `http`. Notice
+that we're also authenticating the WebSocket connection with
+the user's `token` that we retrieve from `localStorage`.
 
-[`split`](https://github.com/apollographql/apollo-link/blob/98eeb1deb0363384f291822b6c18cdc2c97e5bdb/packages/apollo-link/src/link.ts#L33) is used to "route" a request to a specific middleware link. It takes three arguments, the first one is a `test` function which returns a boolean. The remaining two arguments are again of type `ApolloLink`. If `test` returns `true`, the request will be forwarded to the link passed as the second argument. If `false`, to the third one.
+[`split`](https://github.com/apollographql/apollo-link/blob/98eeb1deb0363384f291822b6c18cdc2c97e5bdb/packages/apollo-link/src/link.ts#L33)
+is used to "route" a request to a specific middleware link.
+It takes three arguments, the first one is a `test` function
+which returns a boolean. The remaining two arguments are
+again of type `ApolloLink`. If `test` returns `true`, the
+request will be forwarded to the link passed as the second
+argument. If `false`, to the third one.
 
-In your case, the `test` function is checking whether the requested operation is a _subscription_. If this is the case, it will be forwarded to the `wsLink`, otherwise (if it's a _query_ or _mutation_), the `authLink.concat(httpLink)` will take care of it:
+In our case, the `test` function is checking whether the
+requested operation is a _subscription_. If it is, it will
+be forwarded to the `wsLink`, otherwise (if it's a _query_
+or _mutation_), the `authLink.concat(httpLink)` will take
+care of it:
 
 ![](https://cdn-images-1.medium.com/max/720/1*KwnMO21k0d3UbyKWnlbeJg.png)
-_Picture taken from [Apollo Link: The modular GraphQL network stack](https://dev-blog.apollodata.com/apollo-link-the-modular-graphql-network-stack-3b6d5fcf9244) by [Evans Hauser](https://twitter.com/EvansHauser)_
+_Picture taken from
+[Apollo Link: The modular GraphQL network stack](https://dev-blog.apollodata.com/apollo-link-the-modular-graphql-network-stack-3b6d5fcf9244)
+by [Evans Hauser](https://twitter.com/EvansHauser)_
 
-### Subscribing to new links
+### Subscribing to New links
 
-For the app to update in realtime when new links are created, you need to subscribe to events that are happening on the `Link` type. There generally are three kinds of events you can subscribe to when using Prisma:
-
-- a new `Link` is _created_
-- an existing `Link` is _updated_
-- an existing `Link` is _deleted_
-
-You'll implement the subscription in the `LinkList` component since that's where all the links are rendered.
+For the app to update in realtime when new links are
+created, we need to subscribe to events that are happening
+on the `Link` type. We'll implement the subscription in the
+`LinkList` component since that's where all the links are
+rendered.
 
 <Instruction>
+
+The `useQuery` hook provided by Apollo gives us access to a
+function called `subscribeToMore`. We can destructure this
+function out and use it to act on new data that comes in
+over a subscription. This will give us the effect of making
+our app "realtime".
 
 Open `LinkList.js` and update current component as follow:
 
-```js{11-13,18,22}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-class LinkList extends Component {
-  _updateCacheAfterVote = (store, createVote, linkId) => {
-    const data = store.readQuery({ query: FEED_QUERY })
+```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+const getQueryVariables = (isNewPage, page) => {
+  const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+  const take = isNewPage ? LINKS_PER_PAGE : 100;
+  const orderBy = { createdAt: 'desc' };
+  return { take, skip, orderBy };
+};
 
-    const votedLink = data.feed.links.find(link => link.id === linkId)
-    votedLink.votes = createVote.link.votes
+const LinkList = () => {
+  const history = useHistory();
+  const isNewPage = history.location.pathname.includes(
+    'new'
+  );
+  const pageIndexParams = history.location.pathname.split(
+    '/'
+  );
+  const page = parseInt(
+    pageIndexParams[pageIndexParams.length - 1]
+  );
 
-    store.writeQuery({ query: FEED_QUERY, data })
-  }
+  const pageIndex = page ? (page - 1) * LINKS_PER_PAGE : 0;
 
-  _subscribeToNewLinks = async () => {
-    // ... you'll implement this 🔜
-  }
+  const {
+    data,
+    loading,
+    error,
+    subscribeToMore
+  } = useQuery(FEED_QUERY, {
+    variables: getQueryVariables(isNewPage, page)
+  });
 
-  render() {
-    return (
-      <Query query={FEED_QUERY}>
-        {({ loading, error, data, subscribeToMore }) => {
-          if (loading) return <div>Fetching</div>
-          if (error) return <div>Error</div>
-
-          this._subscribeToNewLinks(subscribeToMore)
-
-          const linksToRender = data.feed.links
-
-          return (
-            <div>
-              {linksToRender.map((link, index) => (
-                <Link
-                  key={link.id}
-                  link={link}
-                  index={index}
-                  updateStoreAfterVote={this._updateCacheAfterVote}
-                />
-              ))}
-            </div>
-          )
-        }}
-      </Query>
-    )
-  }
-}
-```
-
-</Instruction>
-
-Let's understand what's going on here! You're using the `<Query />` component as always but now you're using [`subscribeToMore`](https://www.apollographql.com/docs/react/features/subscriptions.html#subscribe-to-more) received as prop into the component’s render prop function. Calling `_subscribeToNewLinks` with its respective `subscribeToMore` function you make sure that the component actually subscribes to the events. This call opens up a websocket connection to the subscription server.
-
-<Instruction>
-
-Still in `LinkList.js` implement `_subscribeToNewLinks` like so:
-
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-_subscribeToNewLinks = subscribeToMore => {
   subscribeToMore({
-    document: NEW_LINKS_SUBSCRIPTION,
-    updateQuery: (prev, { subscriptionData }) => {
-      if (!subscriptionData.data) return prev
-      const newLink = subscriptionData.data.newLink
-      const exists = prev.feed.links.find(({ id }) => id === newLink.id);
-      if (exists) return prev;
+    // ...
+  });
 
-      return Object.assign({}, prev, {
-        feed: {
-          links: [newLink, ...prev.feed.links],
-          count: prev.feed.links.length + 1,
-          __typename: prev.feed.__typename
-        }
-      })
-    }
-  })
-}
+  // ...
+};
 ```
 
 </Instruction>
 
-You're passing two arguments to `subscribeToMore`:
+The `subscribeToMore` function takes a single object as an
+argument. This object requires configuration for how to
+listen for and respond to a subscription.
 
-1.  `document`: This represents the subscription query itself. In your case, the subscription will fire every time a new link is created.
-1.  `updateQuery`: Similar to cache `update` prop, this function allows you to determine how the store should be updated with the information that was sent by the server after the event occurred. In fact, it follows exactly the same principle as a [Redux reducer](http://redux.js.org/docs/basics/Reducers.html): It takes as arguments the previous state (of the query that `subscribeToMore` was called on) and the subscription data that's sent by the server. You can then determine how to merge the subscription data into the existing state and return the updated data. All you're doing inside `updateQuery` is retrieving the new link from the received `subscriptionData`, merging it into the existing list of links and returning the result of this operation.
+At the very least, we need to pass a subscription document
+to the `document` key in this object. This is a GraphQL
+document where we define our subscription.
+
+We can also pass a field called `updateQuery` which can be
+used to update the cache, much like we would do in a
+mutation.
+
+Let's get started by providing the complete configuration we
+need for `subscribeToMore` to function properly.
+
+```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+// ...
+
+subscribeToMore({
+  document: NEW_LINKS_SUBSCRIPTION,
+  updateQuery: (prev, { subscriptionData }) => {
+    if (!subscriptionData.data) return prev;
+    const newLink = subscriptionData.data.newLink;
+    const exists = prev.feed.links.find(
+      ({ id }) => id === newLink.id
+    );
+    if (exists) return prev;
+
+    return Object.assign({}, prev, {
+      feed: {
+        links: [newLink, ...prev.feed.links],
+        count: prev.feed.links.length + 1,
+        __typename: prev.feed.__typename
+      }
+    });
+  }
+});
+```
 
 <Instruction>
 
-The last thing you need to do for this to work is add the `NEW_LINKS_SUBSCRIPTION` to the top of the file:
+The last thing we need to do for this to work is add the
+`NEW_LINKS_SUBSCRIPTION` to the top of the file:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const NEW_LINKS_SUBSCRIPTION = gql`
   subscription {
     newLink {
@@ -215,41 +257,50 @@ const NEW_LINKS_SUBSCRIPTION = gql`
       }
     }
   }
-`
+`;
 ```
 
 </Instruction>
 
-Awesome, that's it! You can test your implementation by opening two browser windows. In the first window, you have your application running on `http://localhost:3000/`. The second window you use to open a Playground and send a `post` mutation. When you're sending the mutation, you'll see the app update in realtime! ⚡️
+Awesome, that's it! We can test our implementation by
+opening two browser windows. In the first window, we have
+our application running on `http://localhost:3000/`. In the
+second window, we can open the GraphQL Playground and send a
+`post` mutation. When we send the mutation, we see the app
+update in realtime! ⚡️
 
-> **ATTENTION**: There's a currently a [bug](https://github.com/apollographql/apollo-link/issues/428) in the `apollo-link-ws` package that will prevent your app from running due to the following error: `Module not found: Can't resolve 'subscriptions-transport-ws' in '/.../hackernews-react-apollo/node_modules/apollo-link-ws/lib'`
-> The workaround until it's fixed is to manually install the `subscriptions-transport-ws` package with `yarn add subscriptions-transport-ws`.
+### Subscribing to New Votes
 
-### Subscribing to new votes
-
-Next you'll subscribe to new votes that are submitted by other users so that the latest vote count is always visible in the app.
+We can also subscribe to new votes that are submitted by
+other users so that the latest vote count is always visible
+in the app.
 
 <Instruction>
 
-Open `LinkList.js` and add the following method to the `LinkList` component:
+Open `LinkList.js` and add the following method to the
+`LinkList` component:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-_subscribeToNewVotes = subscribeToMore => {
-  subscribeToMore({
-    document: NEW_VOTES_SUBSCRIPTION
-  })
-}
+```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+subscribeToMore({
+  document: NEW_VOTES_SUBSCRIPTION
+});
 ```
 
 </Instruction>
 
-Similar as before, you're calling `subscribeToMore` but now using `NEW_VOTES_SUBSCRIPTION` as document. This time you're passing in a subscription that asks for newly created votes. When the subscription fires, Apollo Client automatically updates the link that was voted on.
+Similar to what we did before, we're calling
+`subscribeToMore` but now using `NEW_VOTES_SUBSCRIPTION` as
+the document. This time, we're passing in a subscription
+that asks for newly created votes. When the subscription
+fires, Apollo Client automatically updates the link that was
+voted on.
 
 <Instruction>
 
-Still in `LinkList.js` add the `NEW_VOTES_SUBSCRIPTION` to the top of the file:
+Still in `LinkList.js` add the `NEW_VOTES_SUBSCRIPTION` to
+the top of the file:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const NEW_VOTES_SUBSCRIPTION = gql`
   subscription {
     newVote {
@@ -275,20 +326,11 @@ const NEW_VOTES_SUBSCRIPTION = gql`
       }
     }
   }
-`
+`;
 ```
 
 </Instruction>
 
-<Instruction>
-
-Finally, go ahead and call `_subscribeToNewVotes` inside `render` as well you did with `_subscribeToNewLinks`:
-
-```js{2}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-this._subscribeToNewLinks(subscribeToMore)
-this._subscribeToNewVotes(subscribeToMore)
-```
-
-</Instruction>
-
-Fantastic! Your app is now ready for realtime and will immediately update links and votes whenever they're created by other users.
+Fantastic! Our app is now ready for realtime and will
+immediately update links and votes whenever they're created
+by other users.

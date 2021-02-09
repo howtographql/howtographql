@@ -26,6 +26,7 @@ export const Banner = () => (
           display: flex;
           align-items: center;
           color: black;
+          z-index: 100;
         }
         .title {
           font-size: 16px;
@@ -44,9 +45,9 @@ export const Banner = () => (
       <span className="title">
         Get the latest GraphQL news straight to your inbox. Subscribe to{' '}
         <span className="bold">GraphQL Weekly</span> today.
-      </span>
       <span className="link-arrow-wrapper">
         <LinkArrow />
+      </span>
       </span>
     </a>
   </div>
