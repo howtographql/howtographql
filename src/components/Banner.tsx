@@ -42,7 +42,7 @@ export const Banner = () => (
     <a className="banner" href="https://www.graphqlweekly.com/" target="_blank">
       <GraphQLWeekly />
       <span className="title">
-        Get the latest GraphQL news straight to your inbox. Subscribe to
+        Get the latest GraphQL news straight to your inbox. Subscribe to{' '}
         <span className="bold">GraphQL Weekly</span> today.
       </span>
       <span className="link-arrow-wrapper">
