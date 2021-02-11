@@ -47,7 +47,7 @@ Open your `index.js` file where we instantiate the server and add the following 
 
 ```graphql(path=".../hackernews-node/src/index.js)
 // ... previous import statements
-const { PubSub } = require('spollo-server')
+const { PubSub } = require('apollo-server')
 
 const pubsub = new PubSub()
 ```
