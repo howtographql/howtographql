@@ -10,7 +10,7 @@ import ContentOverview from '../components/home/ContentOverview';
 import Footer from '../components/home/Footer';
 import { MarkdownRemark, RelayConnection } from '../types';
 import CustomHelmet from '../components/CustomHelmet';
-import { Banner } from './../components/Banner';
+import { Banner } from '../components/Banner';
 
 interface Props {
   data: {

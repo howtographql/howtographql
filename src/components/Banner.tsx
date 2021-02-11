@@ -1,5 +1,5 @@
 import * as React from 'react';
-import GraphQLConf from '../assets/icons/GraphQLConf';
+import GraphQLWeekly from '../assets/icons/GraphQLWeekly';
 import LinkArrow from '../assets/icons/LinkArrow';
 
 export const Banner = () => (
@@ -40,18 +40,14 @@ export const Banner = () => (
         }
       `}
     </style>
-    <a
-      className="banner"
-      href="https://www.meetup.com/graphql-berlin/"
-      target="_blank"
-    >
-      <GraphQLConf />
+    <a className="banner" href="https://www.graphqlweekly.com/" target="_blank">
+      <GraphQLWeekly />
       <span className="title">
-        Check out Prisma's upcoming beginner-friendly{' '}
-        <span className="bold">GraphQL Meetup</span> on Feb 3, 2021{' '}
-      </span>
+        Get the latest GraphQL news straight to your inbox. Subscribe to{' '}
+        <span className="bold">GraphQL Weekly</span> today.
       <span className="link-arrow-wrapper">
         <LinkArrow />
+      </span>
       </span>
     </a>
   </div>
