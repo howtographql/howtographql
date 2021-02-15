@@ -5,7 +5,7 @@ description: 'Learn how to add filtering and pagination capabilities to a GraphQ
 question:
   Which arguments are typically used to paginate through a list in the Prisma Client API using limit-offset pagination?
 answers: ['skip & take', 'skip & orderBy', 'take & where', 'where & orderBy']
-correctAnswer: 1
+correctAnswer: 0
 ---
 
 This is an exciting section of the tutorial where you'll implement some key features of many robust APIs! The goal is to
