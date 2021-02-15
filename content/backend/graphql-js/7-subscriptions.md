@@ -71,7 +71,7 @@ const server = new ApolloServer({
     return {
       ...req,
       prisma,
-      pubsub
+      pubsub,
       userId:
         req && req.headers.authorization
           ? getUserId(req)
