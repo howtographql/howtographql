@@ -148,7 +148,9 @@ const CREATE_LINK_MUTATION = gql`
 
 Next, pass the `CREATE_LINK_MUTATION` to the `useMutation`
 hook and pass in the data provided in the input fields as
-variables.
+variables. 
+
+**Don't forget to replace the _TOKEN_ with a valid one. We have already covered how to sign-up & login to receive the token in the previous step.**
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 const CreateLink = () => {
@@ -157,6 +159,11 @@ const CreateLink = () => {
     variables: {
       description: formState.description,
       url: formState.url
+    },
+    context: {
+      headers: {
+        Authorization: "TOKEN"
+      }
     }
   });
   // ...
