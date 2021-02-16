@@ -623,8 +623,44 @@ sent and the server's response will be displayed in the
 _results_ pane on the right.
 
 <Instruction>
+  
+1. Since creating a `Post` is only authorized for a `User`, we need to login and put the token into the _HTTP Headers_ pane.
 
-Copy the following two mutations into the _editor_ pane.
+Copy the following mutation into the _editor_ pane and hit the play button to sign-up.
+
+```graphql
+mutation signUp {
+  signup(name: "MyUser", email: "myuser@howtographql.com", password: "123456") {
+    user {
+      id
+    }
+    token
+  }
+}
+```
+
+2. The sign-up mutation above will return a _token_. So we don't need to login at this point, but if your token got expired, copy the following mutation into the _editor_ pane and hit the play button to login.
+
+```graphql
+mutation login {
+  login(email: "myuser@howtographql.com", password: "123456") {
+    user {
+      id
+    }
+    token
+  }
+}
+```
+
+3. Now that you have a token, you must pass it as the `Authorization` header. Copy the following object into the _HTTP Headers_ pane. Don't forget to replace the `TOKEN` with the one you received.
+
+```
+{
+  "Authorization": "TOKEN"
+}
+```
+
+4. Copy the following two mutations into the _editor_ pane.
 
 ```graphql
 mutation CreatePrismaLink {
