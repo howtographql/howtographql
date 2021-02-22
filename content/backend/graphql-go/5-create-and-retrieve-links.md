@@ -1,6 +1,6 @@
 ---
 title: Create and Retrieve Links
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Links"
 description: "Enable Users to create Links and see them"
 ---
 

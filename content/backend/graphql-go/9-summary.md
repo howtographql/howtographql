@@ -1,6 +1,6 @@
 ---
 title: Summary
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Summary"
 description: "Summary of building a GraphQL server with GO backend"
 ---
 

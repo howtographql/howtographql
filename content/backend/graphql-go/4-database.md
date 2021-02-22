@@ -1,6 +1,6 @@
 ---
 title: Database
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Database "
 description: "Setup mysql db with migrations in golang"
 ---
 
