@@ -112,7 +112,7 @@ Here is what it looks like:
 }
 ```
 
-You could now simply execute this query in a [Playground](https://www.prisma.io/docs/graphql-ecosystem/graphql-playground/overview-chaha125ho) (against the _application schema_) and retrieve the results from your GraphQL server. But let's see how to run this query in your React app with urql!
+You could now simply execute this query in a [Playground](https://github.com/graphql/graphql-playground) (against the _application schema_) and retrieve the results from your GraphQL server. But let's see how to run this query in your React app with urql!
 
 ### Queries with urql
 

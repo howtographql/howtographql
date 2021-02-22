@@ -191,12 +191,12 @@ yarn add urql @urql/exchange-graphcache graphql graphql-tag
 
 Here's an overview of the packages you just installed:
 
-- [`urql`](https://github.com/FormidabLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
+- [`urql`](https://github.com/FormidableLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
 - [`@urql/exchange-graphcache`](https://github.com/FormidableLabs/urql-exchange-graphcache) is a replacement for `urql`'s default cache, which supports full normalized caching, which we'll set up later
 - [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - urql and its other packages use some of its functionality as well.
 - [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a utility to write GraphQL query definitions using [tagged template literals](https://mxstbr.blog/2016/11/styled-components-magic-explained/).
 
-> **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/architecture/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
+> **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
 
 That's it, you're ready to write some code! 🚀
 

@@ -377,7 +377,7 @@ Next, you need to pull in the functionality of Relay into your project. In parti
 3. [`babel-plugin-relay`](https://github.com/facebook/relay/tree/master/packages/babel-plugin-relay): Relay leverages a [Babel](https://babeljs.io/) plugin to transform the GraphQL code you write in a project and bring it into the right format for the Relay Compiler. Read more about it in the [official docs](https://facebook.github.io/relay/docs/babel-plugin-relay.html).
 
 
-> [Here](https://github.com/facebook/relay/blob/master/packages/ARCHITECTURE.md) is high-level overview on the architecture used for Relay Modern.
+> [Here](https://github.com/facebook/relay/tree/master/packages) is high-level overview on the architecture used for Relay Modern.
 
 <Instruction>
 

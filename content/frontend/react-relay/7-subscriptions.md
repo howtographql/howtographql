@@ -19,8 +19,6 @@ Events usually refer to mutations, so typically we're talking about events where
 
 Subscriptions are somewhat different from queries and mutations, since they don't follow a _request-response-cycle_ but instead represent a _stream_ of data. The most common way to implement subscriptions is by using WebSockets, where the server maintains a steady connection to the subscribed clients that it uses to send over the data upon each event.
 
-To get a feeling for how subscriptions work, you can also directly try them out in a [Playground](https://www.graph.cool/blog/2017-02-28-introducing-graphql-subscriptions-in4ohtae4e/#subscriptions-workflow-using-the-playground)!
-
 
 ### Subscriptions with Relay Modern
 
