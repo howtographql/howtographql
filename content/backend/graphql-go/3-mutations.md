@@ -1,6 +1,6 @@
 ---
 title: Mutations
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Mutations"
 description: "what are mutations and implementing a mutation in gqlgen"
 ---
 
