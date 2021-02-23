@@ -118,14 +118,14 @@ Open your browser at http://localhost:3000/graphiql
 
 You'll see a nice IDE that looks like this:
 
-![](http://i.imgur.com/EZIVYxP.png)
+![Browser open to localhost:4000/graphiql](http://i.imgur.com/EZIVYxP.png)
 
 Click on the **Docs** link at the upper right to see a generated documentation of your schema. You'll see the `Query` type there, and clicking it will show you the new `allLinks` field, exactly as you've defined it. The documentation in GraphiQL is generated automatically based on your schema. This works thanks to a mechanism called [Introspection](http://graphql.org/learn/introspection/).
 
-![](http://i.imgur.com/yEut1gg.png)
+![Generated documentation of your schema](http://i.imgur.com/yEut1gg.png)
 
 Try it out! On the left-most text box, type a simple query for listing all links and hit the **Play** button. This is what you'll see:
 
-![](http://i.imgur.com/W7gpVvV.png)
+![GraphQL APIs](http://i.imgur.com/W7gpVvV.png)
 
 You can play around as much as you want with this tool. It makes testing GraphQL APIs so fun and easy, you'll never want to live without it any more. 😎

@@ -29,7 +29,7 @@ It's important to note that GraphQL is actually *transport-layer agnostic*. This
 
 GraphQL also doesn't care about the database or the format that is used to store the data. You could use a SQL database like [AWS Aurora](https://aws.amazon.com/rds/aurora) or a NoSQL database like [MongoDB](https://www.mongodb.com/). 
 
-![](https://imgur.com/cRE6oeb.png)
+![GraphQL server with a connected database](https://imgur.com/cRE6oeb.png)
 *A standard greenfield architecture with one GraphQL server that connects to a single database.*
 
 
@@ -41,7 +41,7 @@ In that context, GraphQL can be used to *unify* these existing systems and hide 
 
 Just like in the previous architecture where the GraphQL server didn't care about the type of database being used, this time it doesn't care about the data sources that it needs to fetch the data that's needed to *resolve* a query.
 
-![](https://imgur.com/zQggcSX.png)
+![GraphQL layer that integrates existing systems](https://imgur.com/zQggcSX.png)
 *GraphQL allows you to hide the complexity of existing systems, such as microservices, legacy infrastructures or third-party APIs behind a single GraphQL interface.*
 
 #### 3. Hybrid approach with connected database and integration of existing system
@@ -50,7 +50,7 @@ Finally, it's possible to combine the two approaches and build a GraphQL server 
 
 When a query is received by the server, it will resolve it and either retrieve the required data from the connected database or some of the integrated APIs.
 
-![](https://imgur.com/73dByTz.png)
+![Hybrid approach with connected database and integration of existing system](https://imgur.com/73dByTz.png)
 *Both approaches can also be combined and the GraphQL server can fetch data from a single database as well as from an existing system - allowing for complete flexibility and pushing all data management complexity to the server.*
 
 ### Resolver Functions
@@ -61,7 +61,7 @@ As you learned in the previous chapter, the payload of a GraphQL query (or mutat
 
 When the server receives a query, it will call all the functions for the fields that are specified in the query's payload. It thus *resolves* the query and is able to retrieve the correct data for each field. Once all resolvers returned, the server will package data up in the format that was described by the query and send it back to the client.
 
-![](https://imgur.com/e1gBEP5.png)
+![Screenshot containing some of the resolved field names](https://imgur.com/e1gBEP5.png)
 *The above screenshot contains some of the resolved field names. Each field in the query corresponds to a [resolver function](http://graphql.org/learn/execution/#root-fields-resolvers). The GraphQL calls all required resolvers when a query comes in to fetch the specified data.*
 
 ###  GraphQL Client Libraries

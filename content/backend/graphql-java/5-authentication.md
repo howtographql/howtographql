@@ -226,7 +226,7 @@ And finally, you'll need to instantiate a `UserRepository` and update the schema
 
 With all this behind, all that's left is to test it out in GraphiQL:
 
-![](http://i.imgur.com/W3XsMKY.png)
+![test it out in GraphiQL](http://i.imgur.com/W3XsMKY.png)
 
 Great, now BoJack's in the game 😎 You're one step closer to awesomeness.
 
@@ -329,7 +329,7 @@ return SchemaParser.newParser()
 
 Restart Jetty and enjoy the fruit of your labor in GraphiQL:
 
-![](http://i.imgur.com/5m3uc2I.png)
+![enjoy the fruit of your labor in GraphiQL](http://i.imgur.com/5m3uc2I.png)
 
 The token in this example is just the user id. In reality, it should be a [JWT](https://jwt.io/) or similar.
 
