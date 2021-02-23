@@ -40,7 +40,7 @@ export default (props: Props) => {
         title={
           <span>
             Join us for <span className="bold">GraphQL Berlin Meetup #21</span>{' '}
-            on March 3, 2021.
+            on March 3, 2021
           </span>
         }
         link="https://www.meetup.com/graphql-berlin/events/276536880/"
