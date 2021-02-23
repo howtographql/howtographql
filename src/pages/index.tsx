@@ -35,7 +35,16 @@ export default (props: Props) => {
         overrideDescription={overrideDescription}
         location={props.location}
       />
-      <Banner />
+      <Banner
+        type="GRAPHQL_MEETUP"
+        title={
+          <>
+            Join us for <span className="bold">GraphQL Berlin Meetup #21</span>{' '}
+            on March 3, 2021.
+          </>
+        }
+        link="https://www.meetup.com/graphql-berlin/events/276536880/"
+      />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
       <WhatWeBuild />
