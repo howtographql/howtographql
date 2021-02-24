@@ -1,8 +1,14 @@
 import * as React from 'react';
+import GraphQLConf from '../assets/icons/GraphQLConf';
 import GraphQLWeekly from '../assets/icons/GraphQLWeekly';
 import LinkArrow from '../assets/icons/LinkArrow';
 
-export const Banner = () => (
+interface BannerProps {
+  title: React.ReactNode;
+  link: string;
+  type: 'GRAPHQL_WEEKLY' | 'GRAPHQL_MEETUP';
+}
+export const Banner = (props: BannerProps) => (
   <div className="banner-container">
     <style jsx={true}>
       {`
@@ -40,14 +46,17 @@ export const Banner = () => (
         }
       `}
     </style>
-    <a className="banner" href="https://www.graphqlweekly.com/" target="_blank">
-      <GraphQLWeekly />
+    <a className="banner" href={props.link} target="_blank">
+      {props.type === 'GRAPHQL_WEEKLY' ? (
+        <GraphQLWeekly />
+      ) : props.type === 'GRAPHQL_MEETUP' ? (
+        <GraphQLConf />
+      ) : null}
       <span className="title">
-        Get the latest GraphQL news straight to your inbox. Subscribe to{' '}
-        <span className="bold">GraphQL Weekly</span> today.
-      <span className="link-arrow-wrapper">
-        <LinkArrow />
-      </span>
+        {props.title}
+        <span className="link-arrow-wrapper">
+          <LinkArrow />
+        </span>
       </span>
     </a>
   </div>
