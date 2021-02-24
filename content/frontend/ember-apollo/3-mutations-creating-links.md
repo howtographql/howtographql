@@ -145,7 +145,7 @@ Pretty simple!
 
 Go ahead and see if the mutation works; run `yarn start` and you’ll see the following screen:
 
-![](http://i.imgur.com/om3TXDz.png)
+![Run yarn start to test the mutation](http://i.imgur.com/om3TXDz.png)
 
 Two input fields and a *submit*-button - not very pretty but functional.
 

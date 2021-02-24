@@ -218,7 +218,7 @@ You're also adding a second button to the right of the `Header` that users can u
 
 Here is what the app now looks like:
 
-![](http://imgur.com/tBxMVtb.png)
+![The completed component](http://imgur.com/tBxMVtb.png)
 
 Perfect, you're all set now to implement the authentication mutations.
 
@@ -328,7 +328,7 @@ To summarise what you've been coding:
 
 You can now create an account by providing a `name`, `email` and `password`. Once you've done that, the "Submit" button in the header will be displayed again:
 
-![](https://imgur.com/z4KILTw.png)
+![Create an account by providing name, email, and password](https://imgur.com/z4KILTw.png)
 
 If you haven't done so yet, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the "**need to create an account?**" button and provide some user data for the user you're creating. Finally, submit and if all went well, the app will navigate back to the homepage and your user was created.
 

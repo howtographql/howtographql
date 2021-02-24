@@ -83,7 +83,7 @@ end
 
 Done! Now you can vote on links:
 
-![](http://i.imgur.com/gHIj7ZW.png)
+![Vote on links](http://i.imgur.com/gHIj7ZW.png)
 
 ### Relating links with their votes
 
@@ -127,7 +127,7 @@ end
 
 Now you can see all votes for links:
 
-![](http://i.imgur.com/ZqezkWV.png)
+![Viewing all the votes](http://i.imgur.com/ZqezkWV.png)
 
 ### Relating users with their votes
 
@@ -172,4 +172,4 @@ end
 
 Now you can see all votes for users:
 
-![](http://i.imgur.com/Dhsy92u.png)
+![see all votes for users](http://i.imgur.com/Dhsy92u.png)

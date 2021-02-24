@@ -284,7 +284,7 @@ We're also adding a second button to the right of the
 
 Here is what the ready component looks like:
 
-![](https://imgur.com/FsHxKnu.png)
+![The Header component](https://imgur.com/FsHxKnu.png)
 
 Perfect, we're all set to implement the authentication
 functionality.
@@ -423,7 +423,7 @@ We can now create an account by providing a `name`, `email`
 and `password`. Once we do that, the **submit** button will
 be rendered again:
 
-![](https://imgur.com/bFPDTg2.png)
+![Create an account providing a name and email](https://imgur.com/bFPDTg2.png)
 
 If you haven't done so before, go ahead and test the login
 functionality. Run `yarn start` and open

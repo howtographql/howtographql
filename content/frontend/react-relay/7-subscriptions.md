@@ -238,7 +238,7 @@ relay-compiler --src ./src --schema schema.graphql
 
 All right, you can now run the app with `yarn start` to test your subscription. The best way to test subscriptions is to use two different windows (or simply tabs) that are both running the app. If you then submit a vote in one window, the app should automatically update in the second window as well. 🎉
 
-![](http://imgur.com/Rp4lYBS.gif)
+![Run the app with yarn start](http://imgur.com/Rp4lYBS.gif)
 
 
 

@@ -226,7 +226,7 @@ Enter some data into the fields, e.g.:
 
 Then click the _submit_-button. You won't get any visual feedback in the UI, but if you open the browser's console, you'll see the string from the log statement that you passed as a `callback` being printed: `Mutation completed`.
 
-![](http://imgur.com/T03eeoY.png)
+![Clicking the submit button to see mutation completed](http://imgur.com/T03eeoY.png)
 
 You can validate if the mutation actually worked by checking the current list of links in a Playground.
 

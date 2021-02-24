@@ -197,7 +197,7 @@ With every mutation you send, the `idCount` will increase and the following IDs 
 To verify that your mutation worked, you can send the `feed` query from before again – it now returns the additional
 Link that you created with the mutation:
 
-![](https://imgur.com/ZfJQwdB.png)
+![returns the additional Link](https://imgur.com/ZfJQwdB.png)
 
 However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need
 to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections,

@@ -91,7 +91,7 @@ export default App
 
 Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
-![](https://imgur.com/VJzRyjq.png)
+![Run the app to ensure everything works](https://imgur.com/VJzRyjq.png)
 
 ### Writing the GraphQL query
 

@@ -85,7 +85,7 @@ This will open a browser and navigate to
 `http://localhost:3000` where the app is running. If
 everything went well, we'll see the following:
 
-![](https://imgur.com/RZsBM1p.png)
+![App running on localhost:3000](https://imgur.com/RZsBM1p.png)
 
 <Instruction>
 
@@ -598,7 +598,7 @@ then running on `http://localhost:4000`) and then opens up a
 [GraphQL Playground](https://github.com/graphcool/graphql-playground)
 for us to explore and work with the API.
 
-![](https://imgur.com/xLyx3Sr.png)
+![Run yarn dev and view the GraphQL Playground](https://imgur.com/xLyx3Sr.png)
 
 > A Playground is a "GraphQL IDE", providing an interactive
 > environment that allows to send queries, mutations and
@@ -614,7 +614,7 @@ can be opened by clicking the green **SCHEMA** button on the
 right edge of the Playground. Consequently, it shows you the
 same information you saw in the application schema above:
 
-![](https://imgur.com/zhlNpOE.png)
+![GraphQL Playground](https://imgur.com/zhlNpOE.png)
 
 The left pane of the Playground is the _editor_ that you can
 use to write your queries, mutations and subscriptions. Once
@@ -659,7 +659,7 @@ select each mutation from the dropdown exactly once.
 
 </Instruction>
 
-![](https://imgur.com/d2y5jBL.png)
+![Press the play button](https://imgur.com/d2y5jBL.png)
 
 This creates two new `Link` records in the database. You can
 verify that the mutations actually worked by sending the

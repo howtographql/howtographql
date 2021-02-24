@@ -99,7 +99,7 @@ class Query(
 
 In Insomnia, try out the Relay query:
 
-![](https://i.imgur.com/JEg6jWG.png)
+![Relay query](https://i.imgur.com/JEg6jWG.png)
 
 Some differences from the last queries:
 
@@ -108,11 +108,11 @@ Some differences from the last queries:
 
 What about the pagination? Each field has some arguments for controlling it: `before`, `after,` `first` and `last`. On top of that, each edge has a `pageInfo` object, including the cursor for navigating between pages.
 
-![](https://i.imgur.com/WdIl6GK.png)
+![pageInfo object](https://i.imgur.com/WdIl6GK.png)
 
 The `first: 1` parameter limits the response for the first result. You also requested the `pageInfo`, which returned the navigation cursors.
 
-![](https://i.imgur.com/54DLMs8.png)
+![first: 1 parameter](https://i.imgur.com/54DLMs8.png)
 
 With `first: 1, after:"YXJyYXljb25uZWN0aW9uOjA="` the response returned is the first one after the last link.
 
@@ -172,6 +172,6 @@ class Mutation(
 
 The changes here are mostly on classes and methods names. You can now create links!
 
-![](https://i.imgur.com/hPNzfb0.png)
+![now create links](https://i.imgur.com/hPNzfb0.png)
 
 The variation here is the `input` argument, which accepts the defined `url` and `description` arguments as a dictionary.

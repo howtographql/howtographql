@@ -157,7 +157,7 @@ Still in `src/App.vue`, import `AppHeader` and add it to the `components` object
 
 That's it. You can now access two URLs: `http://localhost:8080/` will render `LinkList` and `http://localhost:8080/create` will render the `CreateLink` component you just wrote in the previous section.
 
-![](http://imgur.com/bcHzt5W.gif)
+![Access the app at localhost:8080](http://imgur.com/bcHzt5W.gif)
 
 
 ### Implement navigation

@@ -126,7 +126,7 @@ ReactDOM.render(
 
 That's it. If you run the app again, you can now access two URLs. `http://localhost:3000/` will render `LinkList` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
 
-![](https://imgur.com/X9bmkQH.png)
+![Run the app and access it at localhost:3000](https://imgur.com/X9bmkQH.png)
 
 ### Add automatic redirects
 

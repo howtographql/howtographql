@@ -59,7 +59,7 @@ yarn start
 
 This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
 
-![](http://imgur.com/Yujwwi6.png)
+![Navigating to localhost:3000](http://imgur.com/Yujwwi6.png)
 
 <Instruction>
 
@@ -456,13 +456,13 @@ yarn start
 
 The `yarn start` executes the `start` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API.
 
-![](https://imgur.com/V1hp4ID.png)
+![carrying the authentication token](https://imgur.com/V1hp4ID.png)
 
 > A Playground is a "GraphQL IDE", providing an interactive environment that allows to send queries, mutations and subscriptions to your GraphQL API. It is similar to a tool like [Postman](https://www.getpostman.com) which you might know from working with REST APIs, but comes with a lot of additional benefits.
 
 The first thing to note about the Playground is that it has built-in documentation for its GraphQL API. This documentation is generated based on the GraphQL schema and can be opened by clicking the green **SCHEMA**-button on the right edge of the Playground. Consequently, it shows you the same information you saw in the application schema above:
 
-![](https://imgur.com/8xK81qt.png)
+![The GraphQL Playground](https://imgur.com/8xK81qt.png)
 
 The left pane of the Playground is the _editor_ that you can use to write your queries, mutations and subscriptions. Once you click the play button in the middle, your request is sent and the server's response will be displayed in the _results_ pane on the right.
 
@@ -500,7 +500,7 @@ Click the **Play**-button in the middle of the two panes and select each mutatio
 
 </Instruction>
 
-![](https://imgur.com/2GViJwb.png)
+![Clicking the play button to select the mutation](https://imgur.com/2GViJwb.png)
 
 This creates two new `Link` records in the database. You can verify that the mutations actually worked by sending the following query in the already open Playground:
 

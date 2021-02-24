@@ -560,7 +560,7 @@ mutation {
 
 </Instruction>
 
-![](https://imgur.com/V1hp4ID.png)
+![carrying the authentication token](https://imgur.com/V1hp4ID.png)
 
 When your server receives this mutation, it invokes the `post` resolver and therefore validates the provided JWT. Additionally, the new `Link` that was created is now connected to
 the `User` for which you previously sent the `signup` mutation.

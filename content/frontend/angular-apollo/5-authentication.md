@@ -309,7 +309,7 @@ You're also adding a second button on the right side of the `HeaderComponent` th
 
 Here is what the `LoginComponent` and `HeaderComponent` components now look like:
 
-![](https://i.imgur.com/myNAp8K.png)
+![The Login component and Header component](https://i.imgur.com/myNAp8K.png)
 
 Before you can implement the authentication functionality in `src/app/login/login.component.ts`, you need to prepare the Graphcool project and enable authentication on the server-side.
 
@@ -784,7 +784,7 @@ export class AppComponent implements OnInit {
 
 You can now create an account by providing a `name`, `email` and `password`. Once you do so, the _submit_-button will be rendered again:
 
-![](http://imgur.com/WoWLmDJ.png)
+![Creating an account by providing name, email, and password](http://imgur.com/WoWLmDJ.png)
 
 ### Updating the `createLink`-mutation
 

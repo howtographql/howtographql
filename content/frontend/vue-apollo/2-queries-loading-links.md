@@ -209,7 +209,7 @@ new Vue({
 
 Run the app to check if everything works so far (`npm run dev`)! The app should now display the two links from the `allLinks` array:
 
-![](http://imgur.com/NKQswvL.png)
+![Run the app using npm run dev](http://imgur.com/NKQswvL.png)
 
 
 ### Writing the GraphQL Query

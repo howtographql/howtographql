@@ -244,7 +244,7 @@ yarn start
 
 This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you’ll see the following:
 
-![](http://i.imgur.com/ZZlb4ms.png)
+![Open the browser to localhost:4200](http://i.imgur.com/ZZlb4ms.png)
 
 <Instruction>
 

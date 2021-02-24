@@ -13,7 +13,7 @@ Being a language with a strong type system, GraphQL can predetermine if a query 
 
 Try it out! In the links query, ask for the `cheese` field and see how GraphQL returns back an error:
 
-![](https://i.imgur.com/Y00Dk0k.png)
+![ask for the cheese field and see how GraphQL returns back an error](https://i.imgur.com/Y00Dk0k.png)
 
 ### Graphene Errors
 On the application level, you can use the `GraphQLError` class or the good and old [Python exceptions](https://docs.python.org/3/tutorial/errors.html).
@@ -62,4 +62,4 @@ On `#1` and `#2` the code raises an exception – using two different exception 
 
 Try to vote in an invalid link and see what happens:
 
-![](https://i.imgur.com/zWTzRUz.png)
+![vote in an invalid link](https://i.imgur.com/zWTzRUz.png)

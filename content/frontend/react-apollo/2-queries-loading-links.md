@@ -131,7 +131,7 @@ Run the app to check if everything works so far! The app
 should now display the two links from the `linksToRender`
 array:
 
-![](https://imgur.com/CK8nPPh.png)
+![Run the app to check that it's working](https://imgur.com/CK8nPPh.png)
 
 ### Writing the GraphQL query
 

@@ -158,7 +158,7 @@ Open `src/components/AppHeader.vue` and put a new `RouterLink` between `new` and
 
 You can now navigate to the search functionality using the new button in the `AppHeader`:
 
-![](http://imgur.com/XxPdUvo.png)
+![See the search functionality in the Header component](http://imgur.com/XxPdUvo.png)
 
 Great, let's now define `ALL_LINKS_SEARCH_QUERY`.
 

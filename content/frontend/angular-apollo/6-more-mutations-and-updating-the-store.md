@@ -341,7 +341,7 @@ export const ALL_LINKS_QUERY = gql`
 
 All you do here is add information about the user who posted a link as well as information about the links' votes in the query's payload. You can now rerun the app, and the links will be displayed appropriately.
 
-![](https://i.imgur.com/8WLXSIe.png)
+![Run the app and view the links](https://i.imgur.com/8WLXSIe.png)
 
 Let's now move on and implement the upvote mutation!
 

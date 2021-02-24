@@ -248,7 +248,7 @@ subscription {
 In contrast to what happens when sending queries and mutations, you'll not immediately see the result of the operation. Instead, there's a loading spinner indicating that it's
 waiting for an event to happen.
 
-![](https://imgur.com/hmqRJws.png)
+![loading spinner](https://imgur.com/hmqRJws.png)
 
 Time to trigger a subscription event.
 
@@ -268,7 +268,7 @@ mutation {
 
 Now observe the Playground where the subscription was running:
 
-![](https://imgur.com/0BJQhWj.png)
+![subscription running](https://imgur.com/0BJQhWj.png)
 
 ### Adding a voting feature
 
@@ -641,4 +641,4 @@ mutation {
 }
 ```
 
-![](https://i.imgur.com/cYkqy1j.png)
+![authenticated when sending the mutation](https://i.imgur.com/cYkqy1j.png)

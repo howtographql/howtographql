@@ -168,7 +168,7 @@ const FEED_QUERY = gql`
 
 All you do here is include information about the user who posted a link as well as information about each link's votes in the query's payload. You can now run the app again and the links will be ddisplayed properly.
 
-![](https://imgur.com/tKzj3b5.png)
+![Include info on the user](https://imgur.com/tKzj3b5.png)
 
 > **Note**: If you're not able to fetch the links, restart the server and reload the browser. You could also check if everything is working as expected on `GraphQL Playground`!
 
@@ -359,7 +359,7 @@ Open `Header.js` and put a new `Link` between `new` and `submit`:
 
 You can now navigate to the search feature using the "search" button in the `Header`:
 
-![](http://imgur.com/XxPdUvo.png)
+![See the search functionality in the Header component](http://imgur.com/XxPdUvo.png)
 
 ### The Search Query
 

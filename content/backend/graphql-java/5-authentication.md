@@ -587,8 +587,8 @@ With this in place, it's possible to track who posted a link.
 
 Time to test it! Restart the server and create the link as usual, no changes here.
 
-![](http://i.imgur.com/GDVlEfY.png)
+![Restart and test the link](http://i.imgur.com/GDVlEfY.png)
 
 The good part comes when fetching all links. Try getting the user details via the new `postedBy` field:
 
-![](http://i.imgur.com/9PlICQM.png)
+![Fetching all the links](http://i.imgur.com/9PlICQM.png)
