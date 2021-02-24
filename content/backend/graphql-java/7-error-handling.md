@@ -21,11 +21,11 @@ At the highest level, `graphql-java-servlet` exposes a method (called `isClientE
 
 Check out the default behavior in GraphiQL by first asking for an non-existent `address` field of a link:
 
-![](http://i.imgur.com/ov6c4eQ.png)
+![Arrow pointing to Field address is undefined](http://i.imgur.com/ov6c4eQ.png)
 
 Then check out the behavior for application-specific errors by, for example, providing a wrong password to `signinUser`:
 
-![](http://i.imgur.com/fskuAah.png)
+![Arrow pointing to Internal Server Error(s)](http://i.imgur.com/fskuAah.png)
 
 To allow the user to properly sanitize outgoing messages, while keeping them relevant and specific, `graphql-java-servlet` exposes another extension point: the `GraphQLServlet#filterGraphQLErrors` method. By overriding this method it is possible to sanitize, filter, wrap or otherwise transform the collected errors before they're sent to the client.
 
@@ -77,7 +77,7 @@ This way, in addition to the syntactical and validation errors, data-fetching er
 
 As always, verify your work in GraphiQL:
 
-![](http://i.imgur.com/aiH4DcK.png)
+![Arrow pointing to Invalid credentials](http://i.imgur.com/aiH4DcK.png)
 
 For even lower-level control, it is possible to customize the execution strategy (the way the operations are executed, modeled by the `ExecutionStrategy` interface), and  override `ExecutionStrategy#handleDataFetchingException` method which translates Java exceptions into GraphQL errors.
 

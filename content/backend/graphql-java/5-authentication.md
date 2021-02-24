@@ -226,7 +226,7 @@ And finally, you'll need to instantiate a `UserRepository` and update the schema
 
 With all this behind, all that's left is to test it out in GraphiQL:
 
-![](http://i.imgur.com/W3XsMKY.png)
+![test it out in GraphiQL](http://i.imgur.com/W3XsMKY.png)
 
 Great, now BoJack's in the game 😎 You're one step closer to awesomeness.
 
@@ -329,7 +329,7 @@ return SchemaParser.newParser()
 
 Restart Jetty and enjoy the fruit of your labor in GraphiQL:
 
-![](http://i.imgur.com/5m3uc2I.png)
+![enjoy the fruit of your labor in GraphiQL](http://i.imgur.com/5m3uc2I.png)
 
 The token in this example is just the user id. In reality, it should be a [JWT](https://jwt.io/) or similar.
 
@@ -587,8 +587,8 @@ With this in place, it's possible to track who posted a link.
 
 Time to test it! Restart the server and create the link as usual, no changes here.
 
-![](http://i.imgur.com/GDVlEfY.png)
+![Restart and test the link](http://i.imgur.com/GDVlEfY.png)
 
 The good part comes when fetching all links. Try getting the user details via the new `postedBy` field:
 
-![](http://i.imgur.com/9PlICQM.png)
+![Fetching all the links](http://i.imgur.com/9PlICQM.png)

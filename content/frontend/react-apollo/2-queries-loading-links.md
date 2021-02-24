@@ -131,7 +131,7 @@ Run the app to check if everything works so far! The app
 should now display the two links from the `linksToRender`
 array:
 
-![](https://imgur.com/CK8nPPh.png)
+![Run the app to check that it's working](https://imgur.com/CK8nPPh.png)
 
 ### Writing the GraphQL query
 
@@ -156,7 +156,7 @@ Here is what it looks like:
 ```
 
 We could now simply execute this query in a
-[Playground](https://www.prisma.io/docs/graphql-ecosystem/graphql-playground/overview-chaha125ho)
+[Playground](https://github.com/graphql/graphql-playground)
 (against the _application schema_) and retrieve the results
 from the GraphQL server. But how can we use it inside our
 JavaScript code?

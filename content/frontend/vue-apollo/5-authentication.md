@@ -197,7 +197,7 @@ You're also adding a second button on the right side of the `AppHeader` that use
 
 Here is what the `AppLogin` and `AppHeader` components now look like:
 
-![](http://imgur.com/YgAgtTB.png)
+![AppLogin and AppHeader running](http://imgur.com/YgAgtTB.png)
 
 Before you can implement the authentication functionality in `src/components/AppLogin.vue`, you need to prepare the Graphcool project and enable authentication on the server-side.
 
@@ -223,7 +223,7 @@ Select the _Integrations_-tab on the left side-menu and then click on the _Email
 </Instruction>
 
 
-![](http://imgur.com/FkyzuuM.png)
+![The email-password-auth integration](http://imgur.com/FkyzuuM.png)
 
 This will open the popup that allows you to enable Graphcool's email-based authentication mechanism.
 
@@ -234,7 +234,7 @@ In the popup, simply click _Enable_.
 </Instruction>
 
 
-![](http://imgur.com/HNdmas3.png)
+![Click enable in the popup](http://imgur.com/HNdmas3.png)
 
 Having the `Email-and-Password` auth provider enabled adds two new mutations to the project's API:
 
@@ -500,7 +500,7 @@ new Vue({
 
 You can now create an account by providing a `name`, `email` and `password`. Once you do so, the _submit_-button will be rendered again:
 
-![](http://imgur.com/WoWLmDJ.png)
+![Creating an account by providing name, email, and password](http://imgur.com/WoWLmDJ.png)
 
 ### Updating the `createLink`-mutation
 

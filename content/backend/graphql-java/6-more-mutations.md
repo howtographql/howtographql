@@ -244,5 +244,5 @@ This one will require quite a few steps, so buckle up!
 
 Phew! That was a handful! 😩 Jump back into GraphiQL to see what has changed.
 
-![](http://i.imgur.com/yOGAMop.png)
+![View the changes in GraphiQL](http://i.imgur.com/yOGAMop.png)
 

@@ -182,11 +182,11 @@ Save the file to `src/main/webapp/index.html` (you may as well delete `index.jsp
 
 </Instruction>
 
-![](http://i.imgur.com/KlnKaZe.png)
+![Arrow to the Docs button in top right corner](http://i.imgur.com/KlnKaZe.png)
 
 If you type the same query from above into the left panel (notice the auto-completion!), you should get the same result but nicely formatted this time. You can also click [this link](http://localhost:8080/graphql?query={allLinks{url}}).
 
-![](http://i.imgur.com/jMO6hB9.png)
+![Arrow to play button to run ](http://i.imgur.com/jMO6hB9.png)
 
 Keep using GraphiQL to test out queries and mutation as you follow the tutorial.
 

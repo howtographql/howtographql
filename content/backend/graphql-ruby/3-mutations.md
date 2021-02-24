@@ -104,7 +104,7 @@ end
 
 To test, just restart the server again and use the new mutation with GraphiQL:
 
-![](http://i.imgur.com/pHNRZlG.png)
+![Testing with Playground](http://i.imgur.com/pHNRZlG.png)
 
 ### Testing with Unit Test
 

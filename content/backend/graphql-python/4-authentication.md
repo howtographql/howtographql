@@ -80,7 +80,7 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 
 Execute the following code in the GraphiQL interface:
 
-![](https://i.imgur.com/dyRB15P.png)
+![code in the GraphiQL interface](https://i.imgur.com/dyRB15P.png)
 
 In the response, you already can see the new user. Hurray!
 
@@ -118,7 +118,7 @@ class Query(users.schema.Query, links.schema.Query, graphene.ObjectType):
 
 To test it, send a query to the server:
 
-![](http://i.imgur.com/zqz6miO.png)
+![send a query to the server](http://i.imgur.com/zqz6miO.png)
 
 ### User Authentication
 The concept of authentication and authorization is enabled by default in Django using sessions. Since most of the web apps today are *stateless*, we are going to use the [django-graphql-jwt](https://github.com/flavors/django-graphql-jwt) library to implement [JWT Tokens](https://jwt.io/) in Graphene (thanks [mongkok](https://github.com/mongkok)!).
@@ -200,11 +200,11 @@ The library creates three Mutations for us, let's take a look at them.
 
 `TokenAuth` is used to authenticate the User with its username and password to obtain the JSON Web token.
 
-![](https://i.imgur.com/v8e8sjK.png)
+![TokenAuth is used to authenticate the User with its username and password to obtain the JSON Web token](https://i.imgur.com/v8e8sjK.png)
 
 `VerifyToken` to confirm that the token is valid, passing it as an argument.
 
-![](https://i.imgur.com/d03jVtP.png)
+![VerifyToken to confirm that the token is valid, passing it as an argument](https://i.imgur.com/d03jVtP.png)
 
 `RefreshToken` to obtain a new token within the renewed expiration time for non-expired tokens, if they are enabled to expire. Using it is outside the scope of this tutorial.
 
@@ -237,14 +237,14 @@ class Query(graphene.AbstractType):
 
 To test it out, we need to get a token using the `tokenAuth` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to use the Insomnia client:
 
-![](https://i.imgur.com/VelVdDB.png)
+![use the Insomnia client](https://i.imgur.com/VelVdDB.png)
 
 Under the `Header` tab on Insomnia, add the `AUTHORIZATION` HTTP header with your token content, prefixed by the word `JWT`:
 
-![](https://i.imgur.com/TyIN8zd.png)
+![Under the Header tab on Insomnia, add the AUTHORIZATION HTTP header with your token content, prefixed by the word JWT](https://i.imgur.com/TyIN8zd.png)
 
 Finally, let's make the `me` query, which should identify our User:
 
-![](https://i.imgur.com/v5lSss5.png)
+![me query, which should identify our User](https://i.imgur.com/v5lSss5.png)
 
 Awww yeah! You are now able to create users and sign in with them. Try to make the query without the HTTP header and an error message should appear.

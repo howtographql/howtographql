@@ -184,7 +184,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 </Instruction>
 
-![](http://imgur.com/ZBgeq22.png)
+![Press the Play button](http://imgur.com/ZBgeq22.png)
 
 This creates two new `Link` records in the database.
 
@@ -251,7 +251,7 @@ The Webpack template will be downloaded and you will be presented with several q
 
 Here is what my project setup looks like as an example:
 
-![](http://imgur.com/9qO3Lis.png)
+![Example project setup](http://imgur.com/9qO3Lis.png)
 
 Based on your choices, `vue-cli` will now create a new directory called `hackernews-vue-apollo` that has all the basic configuration setup.
 
@@ -269,7 +269,7 @@ npm run dev
 
 This will open a browser and navigate to `http://localhost:8080` where the app is running. If everything went well, you'll see the following:
 
-![](http://imgur.com/aVqZDG2.png)
+![Browser open to localhost:8080](http://imgur.com/aVqZDG2.png)
 
 
 <Instruction>

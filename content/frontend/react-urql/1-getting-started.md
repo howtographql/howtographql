@@ -59,7 +59,7 @@ yarn start
 
 This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
 
-![](http://imgur.com/Yujwwi6.png)
+![Navigating to localhost:3000](http://imgur.com/Yujwwi6.png)
 
 <Instruction>
 
@@ -191,12 +191,12 @@ yarn add urql @urql/exchange-graphcache graphql graphql-tag
 
 Here's an overview of the packages you just installed:
 
-- [`urql`](https://github.com/FormidabLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
+- [`urql`](https://github.com/FormidableLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
 - [`@urql/exchange-graphcache`](https://github.com/FormidableLabs/urql-exchange-graphcache) is a replacement for `urql`'s default cache, which supports full normalized caching, which we'll set up later
 - [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - urql and its other packages use some of its functionality as well.
 - [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a utility to write GraphQL query definitions using [tagged template literals](https://mxstbr.blog/2016/11/styled-components-magic-explained/).
 
-> **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/architecture/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
+> **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
 
 That's it, you're ready to write some code! 🚀
 
@@ -456,13 +456,13 @@ yarn start
 
 The `yarn start` executes the `start` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API.
 
-![](https://imgur.com/V1hp4ID.png)
+![carrying the authentication token](https://imgur.com/V1hp4ID.png)
 
 > A Playground is a "GraphQL IDE", providing an interactive environment that allows to send queries, mutations and subscriptions to your GraphQL API. It is similar to a tool like [Postman](https://www.getpostman.com) which you might know from working with REST APIs, but comes with a lot of additional benefits.
 
 The first thing to note about the Playground is that it has built-in documentation for its GraphQL API. This documentation is generated based on the GraphQL schema and can be opened by clicking the green **SCHEMA**-button on the right edge of the Playground. Consequently, it shows you the same information you saw in the application schema above:
 
-![](https://imgur.com/8xK81qt.png)
+![The GraphQL Playground](https://imgur.com/8xK81qt.png)
 
 The left pane of the Playground is the _editor_ that you can use to write your queries, mutations and subscriptions. Once you click the play button in the middle, your request is sent and the server's response will be displayed in the _results_ pane on the right.
 
@@ -500,7 +500,7 @@ Click the **Play**-button in the middle of the two panes and select each mutatio
 
 </Instruction>
 
-![](https://imgur.com/2GViJwb.png)
+![Clicking the play button to select the mutation](https://imgur.com/2GViJwb.png)
 
 This creates two new `Link` records in the database. You can verify that the mutations actually worked by sending the following query in the already open Playground:
 
