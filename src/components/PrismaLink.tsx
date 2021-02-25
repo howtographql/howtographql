@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function PrismaButton() {
+export default function PrismaLink() {
   return (
     <a className="prisma-button" href="https://prisma.io" target="_blank">
       <style jsx={true}>{`
