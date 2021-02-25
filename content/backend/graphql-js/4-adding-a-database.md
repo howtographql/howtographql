@@ -48,7 +48,7 @@ Speaking of being productive and building awesome stuff, let's jump back in and 
 First, let's install the Prisma CLI by running the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npm install @prisma/cli --save-dev
+npm install prisma --save-dev
 ```
 
 </Instruction>
