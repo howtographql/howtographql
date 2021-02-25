@@ -19,6 +19,10 @@ export default function Team() {
         p {
           @p: .tc, .mt38;
         }
+        .prisma-link {
+          color: rgba(23, 42, 58, 0.5);
+          text-decoration: underline;
+        }
         .bubbles {
           @p: .mt60, .flex, .flexWrap;
         }
@@ -52,7 +56,7 @@ export default function Team() {
         <h2>For the Community, by the Community</h2>
         <p>
           How to GraphQL was created by{' '}
-          <a href="https://prisma.io" target="_blank">
+          <a className="prisma-link" href="https://prisma.io" target="_blank">
             Prisma
           </a>{' '}
           and many amazing contributors. It's open-source and free of charge.
