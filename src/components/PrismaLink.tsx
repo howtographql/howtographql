@@ -2,22 +2,14 @@ import * as React from 'react';
 
 export default function PrismaLink() {
   return (
-    <a className="prisma-button" href="https://prisma.io" target="_blank">
+    <a className="prisma-link" href="https://prisma.io" target="_blank">
       <style jsx={true}>{`
-        .prisma-button {
-          border-radius: 100px;
-          padding: 10px 40px;
-          background: linear-gradient(
-            90deg,
-            rgba(26, 32, 45, 1) 0%,
-            #2d3748 58%
-          );
-          border: none;
+        .prisma-link {
+          margin-left: 4px;
         }
-
         .logo {
           height: 24px;
-          fill: rgb(255, 255, 255);
+          fill: rgba(26, 32, 45, 1);
         }
       `}</style>
       <svg
