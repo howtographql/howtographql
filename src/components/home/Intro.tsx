@@ -157,8 +157,10 @@ class Intro extends React.Component<Props, null> {
             The free and open-source tutorial to learn all around GraphQL to go
             from zero to production.
           </p>
-          <p>Brought to you by the GraphQL Community and</p>
-          <PrismaButton />
+          <div>
+            <p>Brought to you by the GraphQL Community and</p> <PrismaButton />
+          </div>
+
           <div className="center-container">
             <div
               className="watch-overview"
