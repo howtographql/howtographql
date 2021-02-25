@@ -10,6 +10,7 @@ export default function PrismaLink() {
         .logo {
           height: 24px;
           fill: rgba(26, 32, 45, 1);
+          margin-bottom: -4px;
         }
       `}</style>
       <svg

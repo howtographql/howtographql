@@ -102,7 +102,7 @@ class Intro extends React.Component<Props, null> {
           }
           p {
             @p: .mt25, .center, .tc;
-            max-width: 800px;
+            max-width: 870px;
           }
           .watch-overview {
             @p: .black40, .f16, .fw6, .mt25, .pa16, .ttu, .flex, .itemsCenter, .pointer;

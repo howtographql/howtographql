@@ -1,7 +1,7 @@
-import * as React from 'react'
-import Bubble from './Bubble'
-import Company from './Company'
-import { $v } from 'graphcool-styles'
+import * as React from 'react';
+import Bubble from './Bubble';
+import Company from './Company';
+import { $v } from 'graphcool-styles';
 
 export default function Team() {
   return (
@@ -38,7 +38,8 @@ export default function Team() {
             transform: scale(0.7);
             transform-origin: top left;
           }
-          h2, p {
+          h2,
+          p {
             padding-left: 30px;
             padding-right: 30px;
           }
@@ -50,12 +51,15 @@ export default function Team() {
       <div className="team">
         <h2>For the Community, by the Community</h2>
         <p>
-          How to GraphQL was created by Prisma and many amazing contributors.
-          It's open-source and free of charge.
+          How to GraphQL was created by{' '}
+          <a href="https://prisma.io" target="_blank">
+            Prisma
+          </a>{' '}
+          and many amazing contributors. It's open-source and free of charge.
         </p>
         <div className="bubbles-container">
           <div className="bubbles">
-            <div className='flex'>
+            <div className="flex">
               <Bubble
                 avatar={require('../../assets/graphics/contributors/brent.jpg')}
                 name="Brent Vatne"
@@ -211,7 +215,6 @@ export default function Team() {
             </div>
 
             <div style={{ marginTop: '40px', display: 'flex', marginLeft: 60 }}>
-
               <Bubble
                 avatar={require('../../assets/graphics/contributors/matt.jpg')}
                 name="Matt Dionis"
@@ -242,21 +245,21 @@ export default function Team() {
               <Bubble
                 avatar={require('../../assets/graphics/contributors/marioosh.jpg')}
                 name="Mariusz Nosiński"
-                description={"Sangria - Scala"}
+                description={'Sangria - Scala'}
                 x={170}
                 y={-10}
               />
               <Bubble
                 avatar={require('../../assets/graphics/contributors/robin.png')}
                 name="Robin MacPherson"
-                description={"graphql.js"}
+                description={'graphql.js'}
                 x={170}
                 y={-10}
-                />
-                <Bubble
+              />
+              <Bubble
                 avatar={require('../../assets/graphics/contributors/shayegan.jpg')}
                 name="Shayegan Hooshyari"
-                description={"graphql-go"}
+                description={'graphql-go'}
                 x={-670}
                 y={80}
               />
@@ -265,5 +268,5 @@ export default function Team() {
         </div>
       </div>
     </section>
-  )
+  );
 }
