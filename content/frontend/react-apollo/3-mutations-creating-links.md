@@ -11,8 +11,7 @@ answers:
   [
     "Only queries can be wrapped with the 'graphql'
     higher-order component",
-    "'<Mutation />' component allow variables,
-    optimisticResponse, refetchQueries, and update as props",
+    "'useMutation' hook provided by Apollo Client is used to send mutations to the GraphQL server",
     "When wrapping a component with a mutation using
     'graphql', Apollo only injects the mutation function
     into the render prop function",
