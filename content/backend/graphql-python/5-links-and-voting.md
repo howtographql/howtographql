@@ -1,6 +1,6 @@
 ---
 title: Links and Voting
-question: In which Python class is defined the arguments for a Mutation?
+question: In which Python class are the arguments for a Mutation defined?
 answers: ["Input", "Query", "Mutation", "Schema"]
 correctAnswer: 0
 description: Enable Users to create Links and to Vote on them
