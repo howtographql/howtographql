@@ -172,23 +172,23 @@ Then call `InitDB` and `Migrate`(Optional) In main func to create database conne
 ```go
 
 func main() {
+	func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
-	router := chi.NewRouter()
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
 	database.InitDB()
 	database.Migrate()
-	server := handler.GraphQL(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}}))
-	router.Handle("/", handler.Playground("GraphQL playground", "/query"))
-	router.Handle("/query", server)
+
+	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	http.Handle("/query", srv)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, router))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
-
 ```
 
 </Instruction>
