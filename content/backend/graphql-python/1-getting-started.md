@@ -39,7 +39,7 @@ The tool used to manage Python packages is `pip`, which should be available with
 With the virtual environment activated, run the following commands:
 
 ```bash
-pip install django==2.1.4 graphene-django==2.2.0 django-filter==2.0.0 django-graphql-jwt==0.1.5
+pip install django==2.2 graphene-django==2.2.0 django-filter==2.1.0 django-graphql-jwt==0.2.1
 django-admin startproject hackernews
 cd hackernews
 python manage.py migrate
