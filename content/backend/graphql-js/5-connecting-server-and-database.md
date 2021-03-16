@@ -180,6 +180,6 @@ npx prisma studio
 Running the command should open a tab in your browser automatically (running on `http://localhost:5555`) where you will see the following interface. Notice that you see a tab for your `Link` model and
 can also explore all models by hovering on the far left menu:
 
-![](https://i.imgur.com/SRIzETY.png)
+![see a tab for your Link model](https://i.imgur.com/SRIzETY.png)
 
-![](https://i.imgur.com/JSHElJ2.png)
+![hovering on the far left menu](https://i.imgur.com/JSHElJ2.png)

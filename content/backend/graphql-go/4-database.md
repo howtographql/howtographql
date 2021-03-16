@@ -10,7 +10,7 @@ Before we jump into implementing GraphQL schema we need to setup database to sav
 * Define our models and create migrations
 
 ## Setup MySQL <a name="setup-mysql"></a>
-If you have docker you can run [Mysql image]((https://hub.docker.com/_/mysql)) from docker and use it.
+If you have docker you can run [Mysql image](https://hub.docker.com/_/mysql) from docker and use it.
 
 <Instruction>
 

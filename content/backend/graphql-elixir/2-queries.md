@@ -80,7 +80,7 @@ That's it! You now have a schema that can do something. All you need to do now i
 
 It's time to test what you've done so far! For this you'll use [GraphiQL](https://github.com/graphql/graphiql), which you'll need to route to from within the router generated for us by Phoenix. Replace the contents of `lib/community_web/router.ex` with:
 
-```elixir(path=".../graphql-elixir/lib/community_web/router.ex")
+```elixir(path=".../graphql-elixir/blob/master/lib/community/web/router.ex")
 defmodule CommunityWeb.Router do
   use CommunityWeb, :router
 
@@ -102,11 +102,11 @@ end
 
 Start your server with `iex -S mix phx.server` and then open your browser to [localhost:4000/graphiql](http://localhost:4000/graphiql).
 
-![](http://i.imgur.com/EZIVYxP.png)
+![Browser open to localhost:4000/graphiql](http://i.imgur.com/EZIVYxP.png)
 
 Click on the **Docs** link at the upper right to see a generated documentation of your schema. You'll see the `Query` type there, and clicking it will show you the new `allLinks` field, exactly as you've defined it. The documentation in GraphiQL is generated automatically based on your schema. This works thanks to a mechanism called [Introspection](http://graphql.org/learn/introspection/).
 
-![](http://i.imgur.com/yEut1gg.png)
+![Generated documentation of your schema](http://i.imgur.com/yEut1gg.png)
 
 Try it out! On the left-most text box, type a simple query for listing all links and hit the **Play** button. This is what you'll see:
 ```graphql
@@ -119,6 +119,6 @@ Try it out! On the left-most text box, type a simple query for listing all links
 }
 ```
 
-![](http://i.imgur.com/W7gpVvV.png)
+![GraphQL APIs](http://i.imgur.com/W7gpVvV.png)
 
 You can play around as much as you want with this tool. It makes testing GraphQL APIs so fun and easy, you'll never want to live without it any more.

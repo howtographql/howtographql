@@ -218,7 +218,7 @@ You're also adding a second button to the right of the `Header` that users can u
 
 Here is what the app now looks like:
 
-![](http://imgur.com/tBxMVtb.png)
+![The completed component](http://imgur.com/tBxMVtb.png)
 
 Perfect, you're all set now to implement the authentication mutations.
 
@@ -328,7 +328,7 @@ To summarise what you've been coding:
 
 You can now create an account by providing a `name`, `email` and `password`. Once you've done that, the "Submit" button in the header will be displayed again:
 
-![](https://imgur.com/z4KILTw.png)
+![Create an account by providing name, email, and password](https://imgur.com/z4KILTw.png)
 
 If you haven't done so yet, go ahead and test the login functionality. Run `yarn start` and open `http://localhost:3000/login`. Then click the "**need to create an account?**" button and provide some user data for the user you're creating. Finally, submit and if all went well, the app will navigate back to the homepage and your user was created.
 
@@ -368,7 +368,7 @@ Just one more configuration option for the `Client`, that's it!
 Now all your GraphQL operations will have an `Authorization` header if a `token` is available. This works because `fetchExchange` will call `fetchOptions` for every request it sends and attaches them to its default `fetch` parameters. Your GraphQL API will use this token to retrieve data on the user that is currently logged in.
 
 > **Note**: In fully productionized apps you may run into cases where you need to reauthenticate or refresh the token on the fly, or maybe you can't retrieve the token synchronously.
-> In those cases it will make sense to write a custom Exchange that handles authentication for you. [You can find a guide on how to write an authentication exchange on the urql docs.](https://formidable.com/open-source/urql/docs/guides/#authentication)
+> In those cases it will make sense to write a custom Exchange that handles authentication for you. [You can find a guide on how to write an authentication exchange on the urql docs.](https://formidable.com/open-source/urql/docs/)
 
 ### Requiring authentication on the server-side
 

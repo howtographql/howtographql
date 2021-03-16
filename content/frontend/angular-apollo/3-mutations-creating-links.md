@@ -213,7 +213,7 @@ export class AppModule {
 
 You should now see the following screen:
 
-![](https://i.imgur.com/mPiqOCd.png)
+![The CreateLinkComponent](https://i.imgur.com/mPiqOCd.png)
 
 Two input fields and a _submit_-button - not very pretty but functional.
 

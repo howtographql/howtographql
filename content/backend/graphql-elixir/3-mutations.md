@@ -58,7 +58,7 @@ mutation {
 }
 ```
 
-![](http://i.imgur.com/pHNRZlG.png)
+![Testing with Playground](http://i.imgur.com/pHNRZlG.png)
 
 If you run your `allLinks` query again you'll now see we have a new link.
 

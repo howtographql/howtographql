@@ -127,7 +127,7 @@ So how about the setup? Well, the great news is that Prisma can do that for us r
 From the root directory of your project, create your first _migration_ by running the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npx prisma migrate dev --preview-feature
+npx prisma migrate dev
 ```
 
 </Instruction>
@@ -209,7 +209,7 @@ Let's break down what's going on here with the numbered comments:
 Take a moment to re-type the query line and notice the helpful autocompletion you get after typing `prisma.` and `prisma.link.` which lets us see all of the possible models we can
 access and operations we can use to query that data:
 
-![](https://i.imgur.com/Zrrqwmo.png)
+![typing prisma. and prisma.link.](https://i.imgur.com/Zrrqwmo.png)
 
 So now let's see things in action.
 
@@ -242,7 +242,7 @@ const newLink = await prisma.link.create({
 
 </Instruction>
 
-![](https://i.imgur.com/AUAtnxZ.png)
+![You successfully queried the database with Prisma Client](https://i.imgur.com/AUAtnxZ.png)
 
 Great! Re-run the previous command and this time you should now see your newly created link print in the terminal output! Much more satisfying ✨
 

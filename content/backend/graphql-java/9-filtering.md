@@ -124,4 +124,4 @@ Remember that this exact approach is just an example. You might as well implemen
 
 Cool! Check it out in GraphiQL!
 
-![](http://i.imgur.com/tL8owju.png)
+![View the changes in GraphiQL](http://i.imgur.com/tL8owju.png)

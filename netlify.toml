@@ -1,0 +1,14 @@
+[[redirects]]
+  from = "/graphql-scala/3-handling_arguments/"
+  to = "/graphql-scala/3-handling-arguments/"
+  status = 301
+
+[[redirects]]
+  from = "/graphql-scala/4-deferred_resolvers/"
+  to = "/graphql-scala/4-deferred-resolvers/"
+  status = 301
+
+[[redirects]]
+  from = "/graphql-scala/5-custom_scalars/"
+  to = "/graphql-scala/5-custom-scalars/"
+  status = 301

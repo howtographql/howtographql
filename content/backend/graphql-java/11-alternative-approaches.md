@@ -185,8 +185,8 @@ private static GraphQLSchema buildSchema() {
 
 If you now fire up GraphiQL, you'd get the exact same result as before:
 
-![](http://i.imgur.com/RQufTw6.png)
-![](http://i.imgur.com/NBQFPJ9.png)
+![Query links the same result as before](http://i.imgur.com/RQufTw6.png)
+![Mutation createlink same result as before](http://i.imgur.com/NBQFPJ9.png)
 
 The important points to note:
 

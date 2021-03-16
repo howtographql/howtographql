@@ -154,7 +154,7 @@ Open `Header.js` and put a new `Link` between `new` and
 We can now navigate to the search feature using the new
 button in the `Header`:
 
-![](https://imgur.com/7R4RlyG.png)
+![We can navigate to the search feature](https://imgur.com/7R4RlyG.png)
 
 Great, let's now go back to the `Search` component and see
 how we can implement the actual search.
