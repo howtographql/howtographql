@@ -321,7 +321,7 @@ As you can see, you added a new `Vote` type to the data model. It has one-to-man
 Now migrate your database schema with the following commands:
 
 ```
-npx prisma migrate dev --name 'add-vote-model' --preview-feature
+npx prisma migrate dev --name "add-vote-model"
 ```
 
 </Instruction>
