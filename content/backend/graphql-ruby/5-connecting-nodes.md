@@ -22,7 +22,7 @@ bundle exec rails db:migrate
 
 This would create our vote model, which is used to represent an user vote.
 
-```ruby(path=".../graphql-ruby/app/models/vote.rb")
+```ruby(path=".../graphql-ruby/blob/master/app/models/vote.rb")
 class Vote < ActiveRecord::Base
   belongs_to :user, validate: true
   belongs_to :link, validate: true

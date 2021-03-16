@@ -95,7 +95,7 @@ Just like with queries and mutations, the first step to implement a subscription
 
 Open your application schema and add the `Subscription` type:
 
-```graphql(path=".../hackernews-node/src/schema.graphql)
+```graphql(path=".../graphql-js/blob/master/src/schema.graphql#L28-L31")
 type Subscription {
   newLink: Link
 }

@@ -37,6 +37,7 @@ module.exports = class Html extends React.Component {
           type="application/xml"
           href="/sitemap.xml"
         />
+        <link rel="alernate" href={window.location.href} hreflang="en-us" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

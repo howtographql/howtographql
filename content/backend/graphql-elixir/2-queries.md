@@ -64,7 +64,7 @@ end
 
 If you aren't super familiar with Elixir, `&NewsResolver.all_links/3` is just a reference to the 3 arity function `all_links` found in the `CommunityWeb.NewsResolver` module. Neither this function nor this module exist yet though so go ahead and fix that by putting this code in `lib/community_web/resolvers/news_resolver.ex`.
 
-```elixir(path=".../graphql-elixir/lib/community_web/resolvers/news_resolver.ex")
+```elixir(path=".../graphql-elixir/blob/master/lib/community/web/resolvers/news_resolver.ex")
 defmodule CommunityWeb.NewsResolver do
   alias Community.News
 

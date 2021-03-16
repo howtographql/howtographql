@@ -389,7 +389,7 @@ subscriptions) we can send from your frontend app.
 
 Here is what it looks like:
 
-```graphql(path=".../hackernews-react-apollo/server/src/schema.graphql"&nocopy)
+```graphql(path=".../react-apollo/blob/master/server/src/schema.graphql")
 type Query {
   info: String!
   feed(
