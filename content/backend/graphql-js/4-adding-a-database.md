@@ -127,7 +127,7 @@ So how about the setup? Well, the great news is that Prisma can do that for us r
 From the root directory of your project, create your first _migration_ by running the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npx prisma migrate dev --preview-feature
+npx prisma migrate dev
 ```
 
 </Instruction>
