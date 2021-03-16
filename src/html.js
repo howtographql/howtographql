@@ -11,6 +11,7 @@ if (process.env.NODE_ENV === `production`) {
 
 module.exports = class Html extends React.Component {
   render() {
+    console.log(this.props)
     let css
     if (process.env.NODE_ENV === `production`) {
       css = (
