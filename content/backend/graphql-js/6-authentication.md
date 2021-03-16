@@ -66,7 +66,7 @@ After every change you make to the data model, you need to migrate your database
 In the root directory of the project, run the following command:
 
 ```bash(path=".../hackernews-node")
-npx prisma migrate dev --name "add-user-model" --preview-feature
+npx prisma migrate dev --name "add-user-model"
 ```
 
 </Instruction>
