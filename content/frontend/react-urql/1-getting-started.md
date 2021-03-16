@@ -330,7 +330,7 @@ From the mentioned files, only the application schema defined in `server/src/sch
 
 Here is what it looks like:
 
-```graphql(path=".../hackernews-react-urql/server/src/schema.graphql"&nocopy)
+```graphql(path=".../react-apollo/blob/master/server/src/schema.graphql")
 # import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from "./generated/prisma.graphql"
 
 type Query {

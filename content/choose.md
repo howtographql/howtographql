@@ -37,4 +37,4 @@ Here's an overview of the frontend tutorials we offer:
 
 ### Contribute a Tutorial
 
-Don't find the tutorial with your favorite technology? Maybe you want to contribute and create it yourself? <a href="mailto:burk@prisma.io">Get in touch!</a>
+If you haven't found the tutorial you're looking for or if you would like to contribute your own, please [get in touch with us at Prisma](https://twitter.com/prisma)!

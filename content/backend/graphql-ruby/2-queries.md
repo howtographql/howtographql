@@ -59,7 +59,7 @@ rails g graphql:object LinkType id:ID! url:String! description:String!
 
 This creates the file `app/graphql/types/link_type.rb` with the following content:
 
-```ruby(path=".../graphql-ruby/app/graphql/types/link_type.rb")
+```ruby(path=".../graphql-ruby/blob/master/app/graphql/types/link_type.rb")
 module Types
   class LinkType < BaseObject
     field :id, ID, null: false
