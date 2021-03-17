@@ -624,6 +624,44 @@ _results_ pane on the right.
 
 <Instruction>
 
+Create a user (if you haven't already)
+
+```graphql
+mutation {
+  signup(email:"test@test.com", password:"test", name:"test") {
+    user {
+      name
+      id
+    }
+  }
+}
+```
+
+Now log in to this user account: 
+
+```graphql
+mutation {
+  login(email:"test@test.com", password:"test") {
+    user {
+      name
+    }
+    token
+  }
+}
+```
+
+Copy the token and add the following to the HTTP Headers tab (lower left)
+
+```graphql
+{
+  "Authorization":" Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYxNjAwMzc0MH0.xE8ggC0KH9WQx3x9vJkRVkawfC83EUh5QqYzspjJ64c"
+}
+```
+  
+</Instruction>
+
+<Instruction>
+
 Copy the following two mutations into the _editor_ pane.
 
 ```graphql
