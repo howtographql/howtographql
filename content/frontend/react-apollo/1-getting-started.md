@@ -162,7 +162,7 @@ Open `public/index.html` and add a third `link` tag right
 below the two existing ones that pulls in Tachyons:
 
 ```html{3}(path=".../hackernews-react-apollo/public/index.html")
-<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+<meta charset="utf-8" />
 <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
 <link
   rel="stylesheet"
