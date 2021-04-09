@@ -381,7 +381,7 @@ main components:
   - `index.js` is the entry point for our GraphQL server.
 
 From the mentioned files, only the application schema
-defined in `server/src/schema.js` is relevant for you as a
+defined in `server/src/schema.graphql` is relevant for you as a
 frontend developer. This file contains the
 [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e)
 which defines all the operations (queries, mutations and
