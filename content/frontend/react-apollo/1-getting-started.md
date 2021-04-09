@@ -364,7 +364,7 @@ main components:
   resolvers (similar to an ORM).
   - `schema.prisma` defines our data model for the project.
     It uses the
-    [Prisma Schema Langauge](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema)
+    [Prisma Schema Language](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema)
     to define the shape of our databases tables and the
     relations between them.
   - `dev.db` is a SQLite database that will be used to store
