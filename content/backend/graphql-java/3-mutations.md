@@ -84,9 +84,9 @@ private static GraphQLSchema buildSchema() {
 
 Restart Jetty and test out your spiffy new mutation using GraphiQL:
 
-![](http://i.imgur.com/6l8HrQq.png)
+![Restart Jetty and test out your spiffy new mutation using GraphiQL](http://i.imgur.com/6l8HrQq.png)
 
 Re-run `allLinks` to verify your new link has indeed been persisted:
 
-![](http://i.imgur.com/X6pD0t0.png)
+![Re-run allLinks to verify your new link has indeed been persisted](http://i.imgur.com/X6pD0t0.png)
 

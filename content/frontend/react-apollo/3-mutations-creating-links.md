@@ -210,7 +210,7 @@ export default App;
 
 Now, when we run `yarn start`, we should see the following:
 
-![](https://imgur.com/FBEyWMp.png)
+![Running yarn start](https://imgur.com/FBEyWMp.png)
 
 Two input fields and a **Submit** button - not very pretty
 but functional.

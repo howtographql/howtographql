@@ -148,7 +148,7 @@ So, to summarize, Prisma Client exposes a CRUD API for the models in your datamo
 
 With these code changes, you can now go ahead and test if the new implementation with a database works as expected. As usual, run the following command in your terminal to start the GraphQL server:
 
-```bash(path=".../hackernews-node")
+```bash(path=".../hackernews-node/src/index.js")
 node src/index.js
 ```
 
@@ -180,6 +180,6 @@ npx prisma studio
 Running the command should open a tab in your browser automatically (running on `http://localhost:5555`) where you will see the following interface. Notice that you see a tab for your `Link` model and
 can also explore all models by hovering on the far left menu:
 
-![](https://i.imgur.com/SRIzETY.png)
+![see a tab for your Link model](https://i.imgur.com/SRIzETY.png)
 
-![](https://i.imgur.com/JSHElJ2.png)
+![hovering on the far left menu](https://i.imgur.com/JSHElJ2.png)

@@ -32,7 +32,7 @@ You will be able to remove it as soon as you add your own mutation below.
 
 The mutation type is automatically exposed in your schema:
 
-```ruby(path=".../graphql-ruby/app/graphql/graphql_tutorial_schema.rb")
+```ruby(path=".../graphql-ruby/blob/master/app/graphql/graphql_tutorial_schema.rb")
 class GraphqlTutorialSchema < GraphQL::Schema
   mutation Types::MutationType
   query Types::QueryType
@@ -104,7 +104,7 @@ end
 
 To test, just restart the server again and use the new mutation with GraphiQL:
 
-![](http://i.imgur.com/pHNRZlG.png)
+![Testing with Playground](http://i.imgur.com/pHNRZlG.png)
 
 ### Testing with Unit Test
 

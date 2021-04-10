@@ -47,7 +47,7 @@ Facebook started using GraphQL in 2012 in their native mobile apps. Interestingl
 
 The first time Facebook publicly spoke about GraphQL was at [React.js Conf 2015](https://www.youtube.com/watch?v=9sc8Pyc51uU) and shortly after announced their [plans to open source](https://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html) it. Because Facebook always used to speak about GraphQL in the context of [React](https://facebook.github.io/react/), it took a while for non-React developers to understand that GraphQL was by no means a technology that was limited to usage with React.
 
-![](http://imgur.com/0mbF21w.png)
+![Screenshot of YouTube video where Dan Schafer & Jing Chen publicly introduce GraphQL React.JS Conf 2015](http://imgur.com/0mbF21w.png)
 *[Dan Schafer](https://twitter.com/dlschafer) & [Jing Chen](https://twitter.com/jingc?lang=en) publicly introduce GraphQL React.JS Conf 2015. [Watch video](https://www.youtube.com/watch?v=9sc8Pyc51uU).*
 
 #### A rapidly growing Community
@@ -56,7 +56,7 @@ In fact, GraphQL is a technology that can be used everywhere a client communicat
 
 Today, GraphQL is used in production by [lots of different companies](http://graphql.org/users/) such as GitHub, Twitter, Yelp and Shopify - to name only a few.
 
-![](https://imgur.com/2RYRYB3.png)
+![GitHub, Twitter, Yelp, Shopify. and more logos](https://imgur.com/2RYRYB3.png)
 *Despite being such a young technology, GraphQL has already been widely adopted. Learn [who else](http://graphql.org/users/) is using GraphQL in production.*
 
 There are entire conferences dedicated to GraphQL such as [GraphQL Conf](https://graphqlconf.org/) and more resources like the [GraphQL Weekly](https://graphqlweekly.com/) newsletter.

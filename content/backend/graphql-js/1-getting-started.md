@@ -162,12 +162,12 @@ server, open a browser and navigate to that URL.
 What you'll then see is a [GraphQL Playground](https://github.com/prisma-labs/graphql-playground), a powerful "GraphQL
 IDE" that lets you explore the capabilities of your API in an interactive manner.
 
-![](https://imgur.com/9RC6x9S.png)
+![GraphQL Playground](https://imgur.com/9RC6x9S.png)
 
 By clicking the **DOCS**-button on the right, you can open the API documentation. This documentation is auto-generated
 based on your schema definition and displays all API operations and data types of your schema.
 
-![](https://imgur.com/81Ho6YM.png)
+![open the API documentation](https://imgur.com/81Ho6YM.png)
 
 Let's go ahead and send your very first GraphQL query. Type the following into the editor pane on the left side:
 
@@ -180,7 +180,7 @@ query {
 Now send the query to the server by clicking the **Play**-button in the center (or use the keyboard shortcut
 **CMD+ENTER** for Mac and **CTRL+ENTER** on Windows and Linux).
 
-![](https://imgur.com/EnW3HE5.png)
+![send the query to the server](https://imgur.com/EnW3HE5.png)
 
 Congratulations, you just implemented and successfully tested your first GraphQL query 🎉
 
@@ -207,7 +207,7 @@ restart it by running `node src/index.js` again.
 Now, send the query from before again. This time, it returns an error:
 `Error: Cannot return null for non-nullable field Query.info.`
 
-![](https://imgur.com/VLVE5Vv.png)
+![send the query from before again](https://imgur.com/VLVE5Vv.png)
 
 What happens here is that the underlying [`graphql-js`](https://github.com/graphql/graphql-js/) reference implementation
 ensures that the return types of your resolvers adhere to the type definitions in your GraphQL schema. Put differently,

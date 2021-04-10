@@ -1,6 +1,6 @@
 ---
 title: Authentication
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Authentication"
 description: "Implement authentication in gqlgen with jwt"
 ---
 

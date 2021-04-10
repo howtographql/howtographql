@@ -170,7 +170,7 @@ If we run the app again, we can now access two URLs.
 `http://localhost:3000/create` renders the `CreateLink`
 component we created in the previous section.
 
-![](https://imgur.com/ZhOECZf.png)
+![Run the app to access two URLs](https://imgur.com/ZhOECZf.png)
 
 ### Implement Navigation
 

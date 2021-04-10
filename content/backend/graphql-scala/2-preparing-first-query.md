@@ -100,7 +100,7 @@ val databaseSetup = DBIO.seq(
     Links forceInsertAll Seq(
       Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial"),
       Link(2, "http://graphql.org", "Official GraphQL web page"),
-      Link(3, "https://facebook.github.io/graphql/", "GraphQL specification")
+      Link(3, "https://graphql.org/", "GraphQL specification")
     )
 )
 ```
@@ -435,7 +435,7 @@ The response should looks like that:
       },
       {
         "id": 3,
-        "url": "https://facebook.github.io/graphql/",
+        "url": "https://graphql.org/",
         "description": "GraphQL specification"
       }
     ]

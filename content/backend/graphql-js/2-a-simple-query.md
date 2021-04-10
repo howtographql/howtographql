@@ -104,7 +104,7 @@ Go ahead and test the implementation by restarting the server (first use **CTRL+
 running, then execute `node src/index.js` again) and navigate to `http://localhost:4000` in your browser. If you expand
 the documentation of the Playground, you'll notice that another query called `feed` is now available:
 
-![](https://imgur.com/0EQ5P9p.png)
+![another query called feed](https://imgur.com/0EQ5P9p.png)
 
 Try it out by sending the following query:
 
