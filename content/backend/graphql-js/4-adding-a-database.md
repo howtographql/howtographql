@@ -69,7 +69,7 @@ Remember the GraphQL schema that you've been working with until now? Well, Prism
 file called `schema.prisma`. You can think of the `prisma.schema` file as a _database schema_. It has three components:
 
 1. **Data source**: Specifies your database connection.
-1. **Generator**: Indicates that you want to genenerate Prisma Client.
+1. **Generator**: Indicates that you want to generate Prisma Client.
 1. **Data model**: Defines your application _models_. Each model will be mapped to a table in the underlying database.
 
 Prisma's unique data model bridges the gap to help you reason about your data in a way that maps very well to the underlying database, while still providing an abstraction that
