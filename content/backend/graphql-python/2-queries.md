@@ -152,7 +152,7 @@ urlpatterns = [
 
 Open your browser and access `http://localhost:8000/graphql/`, you should see a screen like this:
 
-![](http://i.imgur.com/b8Zrtvh.png)
+![Access GraphiQL at localhost:8000/graphql](http://i.imgur.com/b8Zrtvh.png)
 
 On the right there's the **Documentation Explorer**, information about our schema created automatically through [introspection](http://graphql.org/learn/introspection/). On the left, to create your first query, typing the following:
 
@@ -168,6 +168,6 @@ query {
 
 You should see a response link this:
 
-![](http://i.imgur.com/bND8TCT.png)
+![Query response](http://i.imgur.com/bND8TCT.png)
 
 Congratulations! Play around a little bit, try to remove some fields or add others. Break it! It's the best way of learning!

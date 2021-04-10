@@ -87,7 +87,7 @@ query {
 }
 ```
 
-![](https://imgur.com/QlAXsKO.png)
+![sample query](https://imgur.com/QlAXsKO.png)
 
 ### Pagination
 
@@ -172,7 +172,7 @@ query {
 }
 ```
 
-![](https://imgur.com/lwGncCX.png)
+![test the pagination API ](https://imgur.com/lwGncCX.png)
 
 ### Sorting
 
@@ -331,4 +331,4 @@ query {
 }
 ```
 
-![](https://imgur.com/pybtMep.png)
+![test the revamped feed query](https://imgur.com/pybtMep.png)

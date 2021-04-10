@@ -207,7 +207,7 @@ import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 
 Here is what the ready component looks like:
 
-![](http://imgur.com/tBxMVtb.png)
+![The completed component](http://imgur.com/tBxMVtb.png)
  
 Before you can implement the authentication functionality in `Login.js`, you need to prepare the Graphcool project and enable authentication on the server-side.
 
@@ -232,7 +232,7 @@ Select the _Integrations_-tab in the left side-menu and then click on the _Email
 </Instruction>
 
 
-![](http://imgur.com/FkyzuuM.png)
+![The email-password-auth integration](http://imgur.com/FkyzuuM.png)
 
 This will open the popup that allows you to enable the Graphcool's email-based authentication mechanism.
 
@@ -243,7 +243,7 @@ In the popup, simply click _Enable_.
 </Instruction>
 
 
-![](http://imgur.com/HNdmas3.png)
+![Click enable in the popup](http://imgur.com/HNdmas3.png)
 
 Having the `Email-and-Password` auth provider enabled adds two new mutations to the project's API:
 
@@ -505,7 +505,7 @@ relay-compiler --src ./src --schema ./schema.graphql
 
 You can now create an account by providing a `name`, `email` and `password`. Once you did that, the _submit_-button will be rendered again:
 
-![](http://imgur.com/WoWLmDJ.png) 
+![Creating an account by providing name, email, and password](http://imgur.com/WoWLmDJ.png) 
 
 ### Updating the `createLink`-mutation
 

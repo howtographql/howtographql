@@ -114,7 +114,7 @@ val databaseSetup = DBIO.seq(
   Links forceInsertAll Seq(
     Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial",1, DateTime(2017,9,12)),
     Link(2, "http://graphql.org", "Official GraphQL web page",1, DateTime(2017,10,1)),
-    Link(3, "https://facebook.github.io/graphql/", "GraphQL specification",2, DateTime(2017,10,2))
+    Link(3, "https://graphql.org/", "GraphQL specification",2, DateTime(2017,10,2))
   ),
 
   Votes forceInsertAll Seq(

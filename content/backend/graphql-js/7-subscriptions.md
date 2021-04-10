@@ -47,7 +47,7 @@ Open your `index.js` file where we instantiate the server and add the following 
 
 ```graphql(path=".../hackernews-node/src/index.js)
 // ... previous import statements
-const { PubSub } = require('spollo-server')
+const { PubSub } = require('apollo-server')
 
 const pubsub = new PubSub()
 ```
@@ -71,7 +71,7 @@ const server = new ApolloServer({
     return {
       ...req,
       prisma,
-      pubsub
+      pubsub,
       userId:
         req && req.headers.authorization
           ? getUserId(req)
@@ -95,7 +95,7 @@ Just like with queries and mutations, the first step to implement a subscription
 
 Open your application schema and add the `Subscription` type:
 
-```graphql(path=".../hackernews-node/src/schema.graphql)
+```graphql(path=".../graphql-js/blob/master/src/schema.graphql#L28-L31")
 type Subscription {
   newLink: Link
 }
@@ -248,7 +248,7 @@ subscription {
 In contrast to what happens when sending queries and mutations, you'll not immediately see the result of the operation. Instead, there's a loading spinner indicating that it's
 waiting for an event to happen.
 
-![](https://imgur.com/hmqRJws.png)
+![loading spinner](https://imgur.com/hmqRJws.png)
 
 Time to trigger a subscription event.
 
@@ -268,7 +268,7 @@ mutation {
 
 Now observe the Playground where the subscription was running:
 
-![](https://imgur.com/0BJQhWj.png)
+![subscription running](https://imgur.com/0BJQhWj.png)
 
 ### Adding a voting feature
 
@@ -321,7 +321,7 @@ As you can see, you added a new `Vote` type to the data model. It has one-to-man
 Now migrate your database schema with the following commands:
 
 ```
-npx prisma migrate dev --name 'add-vote-model' --preview-feature
+npx prisma migrate dev --name "add-vote-model"
 ```
 
 </Instruction>
@@ -641,4 +641,4 @@ mutation {
 }
 ```
 
-![](https://i.imgur.com/cYkqy1j.png)
+![authenticated when sending the mutation](https://i.imgur.com/cYkqy1j.png)

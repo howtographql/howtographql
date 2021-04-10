@@ -66,7 +66,7 @@ After every change you make to the data model, you need to migrate your database
 In the root directory of the project, run the following command:
 
 ```bash(path=".../hackernews-node")
-npx prisma migrate dev --name "add-user-model" --preview-feature
+npx prisma migrate dev --name "add-user-model"
 ```
 
 </Instruction>
@@ -560,7 +560,7 @@ mutation {
 
 </Instruction>
 
-![](https://imgur.com/V1hp4ID.png)
+![carrying the authentication token](https://imgur.com/V1hp4ID.png)
 
 When your server receives this mutation, it invokes the `post` resolver and therefore validates the provided JWT. Additionally, the new `Link` that was created is now connected to
 the `User` for which you previously sent the `signup` mutation.

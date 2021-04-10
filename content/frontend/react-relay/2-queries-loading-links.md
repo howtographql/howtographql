@@ -112,7 +112,7 @@ export default App
 
 Run the app by calling `yarn start` to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
-![](http://imgur.com/J79QBD7.png)
+![Run the app by calling `yarn start`](http://imgur.com/J79QBD7.png)
 
 
 ### Loading Data from the Server
@@ -457,7 +457,7 @@ That's it, you can now run the app and you'll see the same links that you initia
 
 By the way, if you're curious to see what the actual query looked like that the `QueryRenderer` composed for you and that was sent over to the server, you can inspect the _Networking_-tab of your browser's dev tools:
 
-![](http://imgur.com/222Prig.png)
+![The query in QueryRenderer](http://imgur.com/222Prig.png)
 
 Awesome! You can now move on to learn about mutations in Relay.
 

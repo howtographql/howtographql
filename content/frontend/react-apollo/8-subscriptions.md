@@ -129,7 +129,7 @@ be forwarded to the `wsLink`, otherwise (if it's a _query_
 or _mutation_), the `authLink.concat(httpLink)` will take
 care of it:
 
-![](https://cdn-images-1.medium.com/max/720/1*KwnMO21k0d3UbyKWnlbeJg.png)
+![Apollo Link](https://cdn-images-1.medium.com/max/720/1*KwnMO21k0d3UbyKWnlbeJg.png)
 _Picture taken from
 [Apollo Link: The modular GraphQL network stack](https://dev-blog.apollodata.com/apollo-link-the-modular-graphql-network-stack-3b6d5fcf9244)
 by [Evans Hauser](https://twitter.com/EvansHauser)_

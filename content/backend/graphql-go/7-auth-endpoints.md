@@ -1,6 +1,6 @@
 ---
 title: Auth Endpoints
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Auth Endpoints"
 description: "Enable Users to register, login and refresh their token"
 ---
 

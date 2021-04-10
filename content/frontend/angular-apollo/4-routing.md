@@ -172,7 +172,7 @@ In `src/app/app.component.html` update your template to the following (`router-o
 
 That's it. You can now access two URLs: `http://localhost:4200/` will render `LinkListComponent` and `http://localhost:4200/create` will render the `CreateLinkComponent` component you just wrote in the previous section.
 
-![](https://imgur.com/KBoxhjP.gif)
+![Access the LinkListComponent at localhost:4200](https://imgur.com/KBoxhjP.gif)
 
 
 ### Implement navigation

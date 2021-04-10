@@ -49,7 +49,7 @@ A successful GraphQL query is supposed to return a JSON object with a root field
 }
 ```
 
-For more details, you can refer to the [GraphQL specification](http://facebook.github.io/graphql/#sec-Errors). 
+For more details, you can refer to the [GraphQL specification](http://spec.graphql.org/). 
 
 ### Does GraphQL Support Offline Usage?
 

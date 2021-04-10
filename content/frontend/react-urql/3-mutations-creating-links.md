@@ -182,7 +182,7 @@ export default App
 
 Now, run `yarn start` and you'll see the following screen:
 
-![](http://imgur.com/AJNlEfj.png)
+![Run yarn start](http://imgur.com/AJNlEfj.png)
 
 Two input fields and a "Submit" button. Not pretty, but functional.
 
