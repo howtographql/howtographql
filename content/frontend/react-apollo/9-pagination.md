@@ -170,7 +170,7 @@ the query will start. For example, if we passed a value of
 of the list will not be included in the response. `take`
 then defines the _limit_ or _how many_ elements we want to
 load from that list. If we pass in `10` for `skip` and `5`
-for `first`, we'll receive items 10 to 15 from the list.
+for `take`, we'll receive items 10 to 15 from the list.
 `orderBy` defines how the returned list should be sorted.
 
 But how can we pass the variables when using the `useQuery`
