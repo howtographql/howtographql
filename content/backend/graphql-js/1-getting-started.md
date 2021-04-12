@@ -64,14 +64,14 @@ won't do anything because `index.js` is still empty ¯\\\_(ツ )\_/¯
 Let's go and start building the GraphQL server! The first thing you need to is - surprise - add a dependency to the
 project.
 
-First, let's install an important dependency that will allow you to create your GraphQL server.
+First, let's install two important dependencies that will allow you to create your GraphQL server.
 
 <Instruction>
 
 Run the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npm install apollo-server
+npm install apollo-server graphql
 ```
 
 </Instruction>
