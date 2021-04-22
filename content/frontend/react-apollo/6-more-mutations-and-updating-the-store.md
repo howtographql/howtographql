@@ -481,7 +481,7 @@ We first read the current state of the results of the
 `FEED_QUERY`. Then we insert the newest link at beginning
 and write the query results back to the store. Note that we
 need to pass in a set of variables to the `readQuery` and
-`writeQuery` functions. It's not enough to simple pass the
+`writeQuery` functions. It's not enough to simply pass the
 `FEED_QUERY` query document in, we also need to specify the
 conditions of the original query we're targeting. In this
 case, we pass in variables that line up with the initial

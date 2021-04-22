@@ -4,18 +4,20 @@ pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Authentication"
 description: "Implement authentication in gqlgen with jwt"
 ---
 
-One of most common layers in web applications is authentication system, our app is no exception. For authentication we are going to use jwt tokens as our way to authentication users, lets see how it works.
+One of the most common layers in a web applications is the authentication layer. Our app is no exception. For authentication, we are going to use JWT tokens as the way to authenticate users. Let's see how it works.
 
 ## JWT <a name="jwt"></a>
-[JWT](https://jwt.io/) or Json Web Token is a string containing a hash that helps us verify who is using application. Every token is constructed of 3 parts like `xxxxx.yyyyy.zzzzz` and name of these parts are: Header, Payload and Signature. Explanation about these parts are more about JWT than our application you can read more about them [here](https://jwt.io/introduction/).
-whenever a user login to an app server generates a token for user, Usually server saves some information like username about the user in token to be able to recognize the user later using that token.This tokens get signed by a key so only the issuer app can reopen the token.
-We are going to implement this behavior in our app.
+[JWT](https://jwt.io/) or Json Web Token is a string containing a hash that helps us authenticate users. Every token is constructed of 3 parts, like `xxxxx.yyyyy.zzzzz`. These three parts are: Header, Payload, and Signature. We won't go into these three parts, because this is more about JWT and less about our application. You can read more about this [here](https://jwt.io/introduction/).
+Whenever a user logs in into our application, the server generates a token. Usually, the server includes information, like the username, in the token to be able to recognize the user later on. These tokens get signed by a secret key, so only the issuer (our application) can read the contents of the token.
+We are going to implement this behavior in our application.
 
 ### Setup <a name="setup"></a>
-In our app we need to be able to generate a token for users when they sign up or login and a middleware to authenticate users by the given token, then in our views we can know the user interacting with app. We will be using `github.com/dgrijalva/jwt-go` library to generate and parse JWT tokens.
+In our app, we need to be able to generate a token for users when they sign up or login. We also need to create some middleware to authenticate users by the given token, so we know who's connected to our server. We will be using the `github.com/dgrijalva/jwt-go` library to generate and parse JWT tokens.
+
 ### Generating and Parsing JWT Tokens <a name="generating-and-parsing-jwt-tokens"></a>
-We create a new directory pkg in the root of our application, you have seen that we used internal for what we want to only be internally used withing our app, pkg directory is for files that we don't mind if some outer code imports it into itself and generation and validation jwt tokens are this kinds of code.
-There is a concept named claims it's not only limited to JWT We'll see more about it in rest of the section.
+We'll create a new directory called ``pkg`` in the root of our application. You have seen that we've used ``internal`` for what we want to only be internally used within our app. The ``pkg`` directory is for files that could be imported anywhere in our application. JWT generation and validation scripts files like this.
+
+There is a concept called "claims". We'll see more about it in rest of the section.
 
 <Instruction>
 
@@ -66,13 +68,14 @@ func ParseToken(tokenStr string) (string, error) {
 
 </Instruction>
 
-Let's talk about what above code does:
-* GenerateToken function is going to be used whenever we want to generate a token for user, we save username in token claims and set token expire time to 5 minutes later also in claims.
-* ParseToken function is going to be used whenever we receive a token and want to know who sent this token.
+Let's talk about what the code above does:
+* GenerateToken function will be used whenever we want to generate a token for a user. We save username in the token claims and set the token expiration time to 5 minutes later.
+* ParseToken function will be used whenever we receive a token and want to know who sent the request.
 
 ## User SignUp and Login Functionality <a name="user-signup-and-login-functionality"></a>
-Til now we can generate a token for each user but before generating token for every user, we need to assure user exists in our database. Simply we need to query database to match the user with given username and password.
-Another thing is when a user tries to register we insert username and password in our database.
+Now we can generate a token for each user. Before generating a token for every user, we need to make sure the user exists in our database. 
+To do this, we just need to query the database to match the user with the given username and password.
+When a user tries to register we need to insert the username and password in our database.
 
 <Instruction>
 
@@ -122,15 +125,16 @@ func CheckPasswordHash(password, hash string) bool {
 
 </Instruction>
 
-The Create function is much like the CreateLink function we saw earlier but let's break down the Authenticate code:
-* first we have a query to select password from users table where username is equal to the username we got from resolver.
-* We use QueryRow instead of Exec we used earlier; the difference is `QueryRow()` will return a pointer to a `sql.Row`.
+The Create function is much like the CreateLink function we saw earlier. Let's break down the Authenticate code:
+* First we have a query to select the password from users table where username is equal to the username we got from the resolver.
+* We use QueryRow instead of Exec we used earlier; The difference is `QueryRow()` will return a pointer to a `sql.Row`.
 * Using `.Scan` method we fill the hashedPassword variable with the hashed password from database. Obviously you don't want to [save raw passwords](https://security.blogoverflow.com/2011/11/why-passwords-should-be-hashed/) in your database.
-* then we check if any user with given username exists or not, if there is not any we return `false`, and if we found any we check the user hashedPassword with the raw password given.(Notice that we save hashed passwords not raw passwords in database in line 23)
+* then we check if any user with the given username exists or not. If there isn't a match, we return `false`. If we found a match, we check the user hashedPassword with the raw password given.(Notice that we save hashed passwords not raw passwords in database in line 23)
 
-In the next part we set the tools we have together to detect the user that is using the app.
+In the next part, we gather the tools we have to detect which user is using the app.
+
 ## Authentication Middleware <a name="authentication-middleware"></a>
-Every time a request comes to our resolver before sending it to resolver we want to recognize the user sending request, for this purpose we have to write a code before every resolver, but using middleware we can have a auth middleware that executes before request send to resolver and does the authentication process. to read more about middlewares visit.
+Every time a request comes to our resolver, we need to know which user is sending the request. To accomplish this, we have to write middleware that's executed before the request reaches the resolver. This middleware resolves the user from the incoming request and passes this on to the resolver.
 
 <Instruction>
 
@@ -159,9 +163,9 @@ func GetUserIdByUsername(username string) (int, error) {
 
 </Instruction>
 
-We use this function to get user object with username in authentication middeware.
+We use this function to get user object with username in the authentication middeware.
 
-And now let's create our auth middleware, for more information visit [gql authentication docs](https://github.com/99designs/gqlgen/blob/master/docs/content/recipes/authentication.md).
+And now let's create our auth middleware. For more information visit [gql authentication docs](https://github.com/99designs/gqlgen/blob/master/docs/content/recipes/authentication.md).
 
 <Instruction>
 
@@ -230,7 +234,7 @@ func ForContext(ctx context.Context) *users.User {
 
 </Instruction>
 
-Now we use the middleware we declared in our server:
+Now we can use the middleware we created in our server:
 
 <Instruction>
 

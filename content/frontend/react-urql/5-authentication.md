@@ -368,7 +368,7 @@ Just one more configuration option for the `Client`, that's it!
 Now all your GraphQL operations will have an `Authorization` header if a `token` is available. This works because `fetchExchange` will call `fetchOptions` for every request it sends and attaches them to its default `fetch` parameters. Your GraphQL API will use this token to retrieve data on the user that is currently logged in.
 
 > **Note**: In fully productionized apps you may run into cases where you need to reauthenticate or refresh the token on the fly, or maybe you can't retrieve the token synchronously.
-> In those cases it will make sense to write a custom Exchange that handles authentication for you. [You can find a guide on how to write an authentication exchange on the urql docs.](https://formidable.com/open-source/urql/docs/)
+> In those cases it will make sense to write a custom Exchange that handles authentication for you. [You can find a guide on how to write an authentication exchange on the urql docs.](https://formidable.com/open-source/urql/docs/api/auth-exchange/)
 
 ### Requiring authentication on the server-side
 

@@ -339,7 +339,7 @@ Before we start the server, let's quickly understand the main components:
   [Prisma](https://www.prisma.io) setup. Prisma Client is used to access the
   database in our GraphQL resolvers (similar to an ORM).
   - `schema.prisma` defines our data model for the project. It uses the
-    [Prisma Schema Langauge](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema)
+    [Prisma Schema Language](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema)
     to define the shape of our databases tables and the relations between them.
   - `dev.db` is a SQLite database that will be used to store and retrieve data
     for this tutorial
@@ -353,8 +353,8 @@ Before we start the server, let's quickly understand the main components:
   - `index.js` is the entry point for our GraphQL server.
 
 From the mentioned files, only the application schema defined in
-`server/src/schema.js` is relevant for you as a frontend developer. This file
-contains the
+`server/src/schema.graphql` is relevant for you as a frontend developer. This
+file contains the
 [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e)
 which defines all the operations (queries, mutations and subscriptions) we can
 send from your frontend app.
