@@ -235,7 +235,7 @@ const Link = ({ index, link }) => {
 
 This step should feel pretty familiar by now. You're adding the new mutation inside of your component by adding the `useMutation` hook. You're also passing the `linkId` variable to `executeMutation`, since it's required by the `VoteMutation`'s definition.
 
-You can now go ahead and test this! Run `yarn start` in `hackernews-react-urql`, make sure that you're logged in, then click the upvote button on a link. You should then see the link's upvote number update automagically!
+You can now go ahead and test this! Run `yarn start` in `hackernews-react-urql`, make sure that you're logged in, then click the upvote button on a link. You should then see the link's upvote number update automatically!
 
 > **Remember**: We haven't set up any configuration for `@urql/exchange-graphcache` yet, but since it's a normalized cache, it knows that the link it receives back from the mutation needs to also be updated on the feed query!
 
