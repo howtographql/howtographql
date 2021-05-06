@@ -137,7 +137,7 @@ const data: Stack[] = [
     content: {
       title: 'graphql.js',
       description:
-        'Build your own GraphQL server with Node.js, graphql-yoga and Prisma',
+        'Build your own GraphQL server with Node.js, apollo-server and Prisma',
     },
     authorName: 'Robin MacPherson',
     beginnersChoice: true,
