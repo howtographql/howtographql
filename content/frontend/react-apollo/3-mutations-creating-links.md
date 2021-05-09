@@ -168,7 +168,7 @@ const CreateLink = () => {
 When we use the `useMutation` hook, we need to destructure
 out a function that can be used to call the mutaton. That's
 what `createLink` is in the code block above. We're now free
-to call the function whever we need to when the component
+to call the function whenever we need to when the component
 renders.
 
 Make a call to `createLink` in the `onSubmit` event on the
