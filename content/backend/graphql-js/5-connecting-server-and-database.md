@@ -84,12 +84,12 @@ const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: async (parent, args, context) => {
-      return context.prisma.link.findMany()
+      return await context.prisma.link.findMany()
     },
   },
   Mutation: {
-    post: (parent, args, context, info) => {
-      const newLink = context.prisma.link.create({
+    post: async (parent, args, context, info) => {
+      const newLink = await context.prisma.link.create({
         data: {
           url: args.url,
           description: args.description,
@@ -111,7 +111,7 @@ The `feed` resolver is implemented as follows:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
 feed: async (parent, args, context, info) => {
-  return context.prisma.link.findMany()
+  return await context.prisma.link.findMany()
 },
 ```
 
@@ -126,8 +126,8 @@ the database.
 The `post` resolver now looks like this:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
-post: (parent, args, context) => {
-  const newLink = context.prisma.link.create({
+post: async (parent, args, context) => {
+  const newLink = await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,
