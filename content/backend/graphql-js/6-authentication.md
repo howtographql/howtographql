@@ -484,7 +484,7 @@ const Link = require('./resolvers/Link')
 
 <Instruction>
 
-Then, update the definition of the `resolvers` object to looks as follows:
+Then, update the definition of the `resolvers` object to look as follows:
 
 ```js(path=".../hackernews-node/src/index.js")
 const resolvers = {
