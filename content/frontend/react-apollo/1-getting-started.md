@@ -121,7 +121,6 @@ The project structure should now look as follows:
 │   └── logo512.png
 │   └── robot.txt
 ├── src
-│   ├── App.test.js
 │   ├── components
 │   │   └── App.js
 │   │   └── App.test.js
