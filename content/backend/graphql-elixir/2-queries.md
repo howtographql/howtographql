@@ -74,7 +74,7 @@ defmodule CommunityWeb.NewsResolver do
 end
 ```
 
-That's it! You now have a schema that can do something. All you need to do now is setup our HTTP server with GraphiQL.
+That's it! You now have a schema that can do something. All you need to do now is setup our HTTP server with GraphQL.
 
 ### Testing with playground
 
