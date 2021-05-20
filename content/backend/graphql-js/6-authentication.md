@@ -52,7 +52,7 @@ To do this, we need to also define the relation by annotating the `postedBy` fie
 your Prisma schema, and all you're doing is defining what the foreign key of the related table will be. So in this case, we're adding an extra field to store the `id` of the `User`
 who posts a `Link`, and then telling Prisma that `postedById` will be equal to the `id` field in the `User` table.
 
-If this is quite new to you, don't worry! We're going be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with
+If this is quite new to you, don't worry! We're going to be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with
 Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations).
 
 ### Updating Prisma Client
