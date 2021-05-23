@@ -71,7 +71,7 @@ const server = new ApolloServer({
     return {
       ...req,
       prisma,
-      pubsub
+      pubsub,
       userId:
         req && req.headers.authorization
           ? getUserId(req)
@@ -157,7 +157,7 @@ Pop over to `Mutation.js` and locate your `post` resolver function, adding the f
 
 ```js{4,11,13}(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function post(parent, args, context, info) {
-  const userId = getUserId(context)
+  const { userId } = context;
 
   const newLink = await context.prisma.link.create({
     data: {

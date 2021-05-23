@@ -11,8 +11,7 @@ answers:
   [
     "Only queries can be wrapped with the 'graphql'
     higher-order component",
-    "'<Mutation />' component allow variables,
-    optimisticResponse, refetchQueries, and update as props",
+    "'useMutation' hook provided by Apollo Client is used to send mutations to the GraphQL server",
     "When wrapping a component with a mutation using
     'graphql', Apollo only injects the mutation function
     into the render prop function",
@@ -168,7 +167,7 @@ const CreateLink = () => {
 When we use the `useMutation` hook, we need to destructure
 out a function that can be used to call the mutaton. That's
 what `createLink` is in the code block above. We're now free
-to call the function whever we need to when the component
+to call the function whenever we need to when the component
 renders.
 
 Make a call to `createLink` in the `onSubmit` event on the
