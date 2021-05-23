@@ -68,8 +68,9 @@ func ParseToken(tokenStr string) (string, error) {
 
 </Instruction>
 
+
 Let's talk about what the code above does:
-* GenerateToken function will be used whenever we want to generate a token for a user. We save username in the token claims and set the token expiration time to 5 minutes later.
+* GenerateToken function will be used whenever we want to generate a token for a user. We save username in the token claims and set the token expiration time to 24 Hours later.
 * ParseToken function will be used whenever we receive a token and want to know who sent the request.
 
 ## User SignUp and Login Functionality <a name="user-signup-and-login-functionality"></a>
