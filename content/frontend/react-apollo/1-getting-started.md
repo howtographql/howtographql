@@ -624,11 +624,12 @@ _results_ pane on the right.
 
 <Instruction>
 
-Create a user (if you haven't already)
+At first you will create a user (if you haven't already). Send the following mutation to create a new `User`:
 
 ```graphql
 mutation {
-  signup(email:"test@test.com", password:"test", name:"test") {
+  signup(name: "Alice", email: "alice@prisma.io", password: "graphql") {
+    token
     user {
       name
       id
@@ -636,29 +637,21 @@ mutation {
   }
 }
 ```
+</Instruction>
 
-Now log in to this user account: 
+<Instruction>
 
-```graphql
-mutation {
-  login(email:"test@test.com", password:"test") {
-    user {
-      name
-    }
-    token
-  }
-}
-```
-
-Copy the token and add the following to the HTTP Headers tab (lower left)
+From the server's response, copy the authentication `token` and open another tab in the Playground. Inside that new tab, open the **HTTP HEADERS** pane in the bottom-left corner and specify the `Authorization` header. Replace the `__TOKEN__` placeholder in the following snippet with the copied token.
 
 ```graphql
 {
-  "Authorization":" Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYxNjAwMzc0MH0.xE8ggC0KH9WQx3x9vJkRVkawfC83EUh5QqYzspjJ64c"
+  "Authorization":" Bearer __TOKEN__"
 }
 ```
   
 </Instruction>
+
+Whenever you're now sending a query/mutation from that tab, it will carry the authentication token. This is necessary to perform queries and mutations that require you to be logged in. Now you will run two such mutations.
 
 <Instruction>
 
