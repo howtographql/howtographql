@@ -550,6 +550,37 @@ _results_ pane on the right.
 
 <Instruction>
 
+At first you will create a user (if you haven't already). Send the following mutation to create a new `User`:
+
+```graphql
+mutation {
+  signup(name: "Alice", email: "alice@prisma.io", password: "graphql") {
+    token
+    user {
+      name
+      id
+    }
+  }
+}
+```
+</Instruction>
+
+<Instruction>
+
+From the server's response, copy the authentication `token` and open another tab in the Playground. Inside that new tab, open the **HTTP HEADERS** pane in the bottom-left corner and specify the `Authorization` header. Replace the `__TOKEN__` placeholder in the following snippet with the copied token.
+
+```graphql
+{
+  "Authorization":" Bearer __TOKEN__"
+}
+```
+  
+</Instruction>
+
+Whenever you're now sending a query/mutation from that tab, it will carry the authentication token. This is necessary to perform queries and mutations that require you to be logged in. Now you will run two such mutations.
+
+<Instruction>
+
 Copy the following two mutations into the _editor_ pane.
 
 ```graphql
