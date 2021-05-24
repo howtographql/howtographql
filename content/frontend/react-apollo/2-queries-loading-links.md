@@ -14,7 +14,7 @@ answers:
   [
     "Using a higher-order component called 'graphql'",
     "Using the 'useQuery' hook and passing the GraphQL
-    query as an argument",
+    query document as an argument",
     "Using 'fetch' and putting the query in the body of the
     request",
     'Using XMLHTTPRequest and putting the query in the body
