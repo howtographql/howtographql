@@ -13,8 +13,8 @@ question:
 answers:
   [
     "Using a higher-order component called 'graphql'",
-    "Using the '<Query />' component and passing GraphQL
-    query as prop",
+    "Using the 'useQuery' hook and passing the GraphQL
+    query document as an argument",
     "Using 'fetch' and putting the query in the body of the
     request",
     'Using XMLHTTPRequest and putting the query in the body
