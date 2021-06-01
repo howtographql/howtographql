@@ -15,6 +15,7 @@ and getting list of links.
 
 <Instruction>
 Create a directory for project and initialize go modules file:
+  
 ```bash
 go mod init github.com/[username]/hackernews
 ```
