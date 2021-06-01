@@ -49,6 +49,7 @@ First, let's install the Prisma CLI by running the following command in your ter
 
 ```bash(path=".../hackernews-node/")
 npm install prisma --save-dev
+npm install @prisma/client
 ```
 
 </Instruction>
