@@ -39,11 +39,10 @@ export default (props: Props) => {
         type="GRAPHQL_MEETUP"
         title={
           <span>
-            Join us for <span className="bold">GraphQL Berlin Meetup #22</span>{' '}
-            on April 14, 2021
+            Prisma Day Workshop: Building GraphQL APIs with Prisma by Eve Porcello | June 29, 2021
           </span>
         }
-        link="https://www.meetup.com/graphql-berlin/events/277280108/"
+        link="https://prisma.zoom.us/webinar/register/WN_mjWIQ74ZQleZW1e3OC59Ig"
       />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
