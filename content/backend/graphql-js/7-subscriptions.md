@@ -95,7 +95,7 @@ Just like with queries and mutations, the first step to implement a subscription
 
 Open your application schema and add the `Subscription` type:
 
-```graphql(path=".../graphql-js/blob/master/src/schema.graphql#L28-L31")
+```graphql(path=".../hackernews-node/src/schema.graphql#L28")
 type Subscription {
   newLink: Link
 }
@@ -113,7 +113,7 @@ Next, go ahead and implement the resolver for the `newLink` field. Resolvers for
 
 To adhere to the modular structure of your resolver implementation, first create a new file called `Subscription.js`:
 
-```bash(path=".../hackernews-node)
+```bash(path=".../hackernews-node/src/resolvers/)
 touch src/resolvers/Subscription.js
 ```
 
