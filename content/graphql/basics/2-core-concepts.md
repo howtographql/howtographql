@@ -253,10 +253,13 @@ Putting it all together, this is the _full_ schema for all the queries and mutat
 ```graphql(nocopy)
 type Query {
   allPersons(last: Int): [Person!]!
+  allPosts(last: Int): [Post!]!
 }
 
 type Mutation {
   createPerson(name: String!, age: Int!): Person!
+  updatePerson(id: ID!, name: String!, age: String!): Person!
+  deletePerson(id: ID!): Person!
 }
 
 type Subscription {
@@ -264,6 +267,7 @@ type Subscription {
 }
 
 type Person {
+  id: ID!
   name: String!
   age: Int!
   posts: [Post!]!
