@@ -99,6 +99,7 @@ Your project structure should now look as follows:
 │   │   └── App.js
 │   ├── index.js
 │   ├── logo.svg
+│   ├── reportWebVitals.js
 │   └── styles
 │       ├── App.css
 │       └── index.css
