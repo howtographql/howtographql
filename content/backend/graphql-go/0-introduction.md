@@ -64,7 +64,7 @@ In GraphQL your API starts with a schema that defines all your types, queries
 and mutations, It helps others to understand your API. So it's like a contract
 between server and the client. Whenever you need to add a new capability to a
 GraphQL API you must redefine schema file and then implement that part in your
-code. GraphQL has it's
+code. GraphQL has its
 [Schema Definition Language](http://graphql.org/learn/schema/) for this purpose.
 gqlgen is a Go library for building GraphQL servers and has a nice feature that
 generates code based on your schema definition.
