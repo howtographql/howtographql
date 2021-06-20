@@ -36,7 +36,7 @@ bundle exec rails server
 
 This will install and start a new [Ruby On Rails](http://rubyonrails.org/) project. When you visit [http://localhost:3000](http://localhost:3000/) in a browser, you should see:
 
-![](http://i.imgur.com/RLFWuiq.jpg)
+![Yay! You're on Rails!](http://i.imgur.com/RLFWuiq.jpg)
 
 ### Setup Server
 

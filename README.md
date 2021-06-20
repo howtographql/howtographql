@@ -19,8 +19,8 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 
 - React & Apollo
 - React & Relay
-- Vue & Apollo
-- Ember & Apollo
+- Vue & Apollo (Out of date)
+- Ember & Apollo (Out of date)
 - Expo & Apollo (Coming Soon)
 - Angular & Apollo (Coming Soon)
 - VulcanJS (Coming Soon)
@@ -39,7 +39,7 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 
 ## Contributions / Fixes
 
-As the whole project is open-source, you're more than welcome to fix typos and other small issues yourself and create a PR for the fix. If you want to contribute a whole tutorial track, please [get in touch](mailto:burk@prisma.io).
+As the whole project is open-source, you're more than welcome to fix typos and other small issues yourself and create a PR for the fix. If you want to contribute a whole tutorial track or update one of the out of date tutorials please [get in touch](mailto:burk@prisma.io).
 
 ## Installation & Running locally
 

@@ -14,7 +14,7 @@ Scala is a very popular language nowadays and it's often chosen to deliver effic
 In the next chapters you'll learn how to build your own GraphQL server using Scala and the following technologies:
   * [Scala](https://www.scala-lang.org/) Scala language
   * [Akka HTTP](https://doc.akka.io/docs/akka-http/current/?language=scala) Web server to handle HTTP requests.
-  * [Sangria](http://sangria-graphql.org/) A library for GraphQL execution
+  * [Sangria](https://sangria-graphql.github.io/) A library for GraphQL execution
   * [Slick](http://slick.lightbend.com/) A Database query and access library.
   * [H2 Database](http://www.h2database.com/html/main.html) In-memory database.
   * [Graphiql](https://github.com/graphql/graphiql) A simple GraphQL console to play with.

@@ -174,7 +174,7 @@ components: {
 
 You should now see the following screen:
 
-![](http://imgur.com/KXMe1MG.png)
+![The app running at localhost:8080](http://imgur.com/KXMe1MG.png)
 
 Two input fields and a _submit_-button - not very pretty, but functional.
 

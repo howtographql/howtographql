@@ -195,7 +195,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 </Instruction>
 
-![](http://imgur.com/ZBgeq22.png)
+![Clicking the play button](http://imgur.com/ZBgeq22.png)
 
 This creates two new `Link` records in the database. You can verify that the mutations worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
@@ -268,7 +268,7 @@ npm start # or yarn start
 
 This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you'd see the following:
 
-![](http://i.imgur.com/9IUB9Qh.png)
+![Open a browser to localhost:4200](http://i.imgur.com/9IUB9Qh.png)
 
 <Instruction>
 

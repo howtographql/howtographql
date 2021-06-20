@@ -104,7 +104,7 @@ Router.map(function() {
 
 Run the app to check if everything works so far! The app should now display the two links from the array:
 
-![](http://i.imgur.com/Oky5GLx.png)
+![Run the app to check that it works](http://i.imgur.com/Oky5GLx.png)
 
 ### Writing the GraphQL Query
 

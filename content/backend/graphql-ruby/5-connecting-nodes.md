@@ -22,7 +22,7 @@ bundle exec rails db:migrate
 
 This would create our vote model, which is used to represent an user vote.
 
-```ruby(path=".../graphql-ruby/app/models/vote.rb")
+```ruby(path=".../graphql-ruby/blob/master/app/models/vote.rb")
 class Vote < ActiveRecord::Base
   belongs_to :user, validate: true
   belongs_to :link, validate: true
@@ -83,7 +83,7 @@ end
 
 Done! Now you can vote on links:
 
-![](http://i.imgur.com/gHIj7ZW.png)
+![Vote on links](http://i.imgur.com/gHIj7ZW.png)
 
 ### Relating links with their votes
 
@@ -127,7 +127,7 @@ end
 
 Now you can see all votes for links:
 
-![](http://i.imgur.com/ZqezkWV.png)
+![Viewing all the votes](http://i.imgur.com/ZqezkWV.png)
 
 ### Relating users with their votes
 
@@ -172,4 +172,4 @@ end
 
 Now you can see all votes for users:
 
-![](http://i.imgur.com/Dhsy92u.png)
+![see all votes for users](http://i.imgur.com/Dhsy92u.png)

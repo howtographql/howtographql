@@ -36,7 +36,7 @@ Authentication and authorization are often confused. _Authentication_ describes 
 
 Authentication in GraphQL can be implemented with common patterns such as [OAuth](https://oauth.net/).
 
-To implement authorization, it is [recommended](http://graphql.org/learn/authorization/) to delegate any data access logic to the business logic layer and not handle it directly in the GraphQL implementation. If you want to have some inspiration on how to implement authorization, you can take a look at [Graphcool's permission rules](https://www.graph.cool/docs/reference/auth/overview-ohs4aek0pe).
+To implement authorization, it is [recommended](http://graphql.org/learn/authorization/) to delegate any data access logic to the business logic layer and not handle it directly in the GraphQL implementation. If you want to have some inspiration on how to implement authorization, you can take a look at this blogpost on [how to implement authorization using GraphQL directives](https://www.prisma.io/blog/graphql-directive-permissions-authorization-made-easy-54c076b5368e).
 
 ### How to do Error Handling?
 
@@ -49,7 +49,7 @@ A successful GraphQL query is supposed to return a JSON object with a root field
 }
 ```
 
-For more details, you can refer to the [GraphQL specification](http://facebook.github.io/graphql/#sec-Errors). 
+For more details, you can refer to the [GraphQL specification](http://spec.graphql.org/). 
 
 ### Does GraphQL Support Offline Usage?
 

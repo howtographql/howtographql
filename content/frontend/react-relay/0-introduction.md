@@ -36,7 +36,7 @@ You'll create the React project with [`create-react-app`](https://github.com/fac
 
 ### Why a GraphQL Client?
 
-In the [Clients]() section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get bit more concrete.
+In the [Clients](/advanced/0-clients/) section in the GraphQL part, we already covered the responsibilities of a GraphQL client on a higher level, now it's time to get bit more concrete.
 
 In short, you should use a GraphQL client for tasks that are repetitive and agnostic to the app you're building. For example, being able to send queries and mutations without having to worry about lower-level networking details or maintaining a local cache. This is functionality that you'll want in any frontend application that's talking to a GraphQL server - why build it yourself if you can use one of the amazing GraphQL clients out there?
 

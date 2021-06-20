@@ -140,7 +140,7 @@ end
 
 Now, you can create a new user using [GraphiQL](https://github.com/graphql/graphiql):
 
-![](https://i.imgur.com/J3OeMk4.png)
+![Creating a new user](https://i.imgur.com/J3OeMk4.png)
 
 <Instruction>
 
@@ -244,7 +244,7 @@ end
 
 Now, you can get the token by using [GraphiQL](https://github.com/graphql/graphiql):
 
-![](https://i.imgur.com/7wYZXgw.png)
+![Getting a token in GraphiQL](https://i.imgur.com/7wYZXgw.png)
 
 <Instruction>
 
@@ -486,4 +486,4 @@ end
 
 Done! Now when you post links, they will be attached to your user, so you have to run  `SignInUser` beforehand.
 
-![](http://i.imgur.com/9ma8r8u.png)
+![Running SignInUser](http://i.imgur.com/9ma8r8u.png)

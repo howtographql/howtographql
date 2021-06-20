@@ -181,7 +181,7 @@ Then, open `app.component.html` and replace the current contents with the follow
 
 Run the app to check if everything works so far! The app should now display the two links from the `linksToRender` array:
 
-![](https://i.imgur.com/R7YcAlj.png)
+![Run the search to find linksToRender](https://i.imgur.com/R7YcAlj.png)
 
 
 ### Writing the GraphQL Query
