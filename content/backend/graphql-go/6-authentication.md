@@ -269,8 +269,8 @@ func main() {
 
 	database.InitDB()
 	database.Migrate()
-	server := handler.GraphQL(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}}))
-	router.Handle("/", handler.Playground("GraphQL playground", "/query"))
+	server := handler.NewDefaultServer(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}}))
+	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	router.Handle("/query", server)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
