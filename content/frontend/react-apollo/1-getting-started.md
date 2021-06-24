@@ -253,7 +253,7 @@ the network connections.
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{6-9,11-13,15-18,21-23}(path=".../hackernews-react-apollo/src/index.js")
+```js{6-9,11-13,15-18,21-23,28,30}(path=".../hackernews-react-apollo/src/index.js")
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
