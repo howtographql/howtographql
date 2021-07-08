@@ -212,12 +212,13 @@ The answer to this is called _conditional fragments_:
 ```graphql(nocopy)
 {
   allPersons {
-    name # works for `Adult` and `Child`
     ... on Child {
+      name
       school
     }
     ... on Adult {
-       work
+      name
+      work
     }
   }
 }
