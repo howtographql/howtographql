@@ -55,6 +55,8 @@ The approach that’s taken in GraphQL is radically different. Instead of having
 
 That means that the client needs to send more *information* to the server to express its data needs - this information is called a *query*.
 
+**Note**: Unforunately, we no longer provide the *Run in Sandbox* feature that is demonstrated in the video at 13:50. We are really sorry for the inconvenience.
+
 #### Basic Queries
 
 Let’s take a look at an example query that a client could send to a server:
