@@ -92,6 +92,10 @@ That might feel like a lot of steps, but the workflow will become automatic by t
 
 Your database is ready and Prisma Client is now updated to expose all the CRUD queries for the newly added `User` model – woohoo! 🎉
 
+```bash
+If you installed Prisma 1.31, or newer, the Prisma client is generated automatically after running `prisma deploy`. It is not necessary to generate it via a `post-deploy` hook any more, you can therefore remove the hook if you do not need it otherwise.
+```
+
 ### Extending the GraphQL schema
 
 Remember back when we were setting up your GraphQL server and discussed the process of schema-driven development? It all starts with extending your schema definition with the new
