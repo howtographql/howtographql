@@ -58,7 +58,7 @@ Here, you're creating an instance of `PubSub` and storing it in the variable `pu
 
 <Instruction>
 
-Now, in the same file, add `pubsub` to the context, just as did with `prisma`:
+Now, in the same file, add `pubsub` to the context, just as we did with `prisma`:
 
 ```js{11}graphql(path=".../hackernews-node/src/index.js)
 const server = new ApolloServer({
