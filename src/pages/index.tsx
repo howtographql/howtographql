@@ -39,10 +39,10 @@ export default (props: Props) => {
         type="GRAPHQL_MEETUP"
         title={
           <span>
-            Prisma Day Workshop: Building GraphQL APIs with Prisma by Eve Porcello | June 29, 2021
+            Subscribe to the GraphQL Weekly Newsletter
           </span>
         }
-        link="https://prisma.zoom.us/webinar/register/WN_mjWIQ74ZQleZW1e3OC59Ig"
+        link="https://www.graphqlweekly.com/"
       />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
