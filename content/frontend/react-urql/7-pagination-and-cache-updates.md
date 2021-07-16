@@ -12,7 +12,7 @@ videoAuthor: ""
 
 In this section of the tutorial we'll cover pagination. You'll implement a simple pagination approach so that users are able to view the links in smaller chunks rather than all at once with a long list of `Link` elements.
 
-You also haven't implemented any cache updates yet, which we'll also cover. With cache updates you can update the cache when a new post is created, which will cause your app to automagically render the new data.
+You also haven't implemented any cache updates yet, which we'll also cover. With cache updates you can update the cache when a new post is created, which will cause your app to automatically render the new data.
 
 ## Preparing the React Components
 
@@ -239,7 +239,7 @@ Still in `LinkList.js`, replace the `linksToRender` variable and move it above t
 
 ```js(path=".../hackernews-react-urql/src/components/LinkList.js")
 const linksToRender = React.useMemo(() => {
-  if (!data) {
+  if (!data || !data.feed) {
     return [];
   } else if (isNewPage) {
     return data.feed.links;
