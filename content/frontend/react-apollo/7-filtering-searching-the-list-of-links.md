@@ -6,18 +6,17 @@ description:
   "Learn how to use filters with GraphQL and Apollo Client.
   Prisma provides a powerful filter and ordering API that
   you'll explore in this example."
-question: "What's the purpose of the 'withApollo' function?"
+question: "Why is 'useLazyQuery' used instead of 'useQuery' for search?"
 answers:
   [
-    'You use it to send queries and mutations to a GraphQL
-    server',
-    "When wrapped around a component, it injects the
-    'ApolloClient' instance into the component's props",
-    'You have to use it everywhere where you want to use
-    Apollo functionality',
-    'It parses GraphQL code'
+    "'useLazyQuery' is faster than 'useQuery'",
+    "'useLazyQuery' does not run automatically when the component mounts and can be executed after pressing the OK button",
+    "There's very little difference between the two. 'useLazyQuery' was used to teach a new hook ",
+    "'useLazyQuery' runs automatically when the component mounts, which is what we want for search"
   ]
 correctAnswer: 1
+
+
 ---
 
 In this section, we'll implement a search feature and learn
