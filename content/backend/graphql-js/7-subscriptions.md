@@ -391,7 +391,7 @@ Add the following function to `src/resolvers/Mutation.js`:
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
 async function vote(parent, args, context, info) {
   // 1
-  const userId = getUserId(context)
+  const userId = context.userId
 
   // 2
   const vote = await context.prisma.vote.findUnique({
