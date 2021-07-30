@@ -49,7 +49,7 @@ For this mutation, first we have to check if user exists in database and given p
 
 <Instruction>
 
-`internal/users.go`:
+`internal/users/users.go`:
 ```go
 func (user *User) Authenticate() bool {
 	statement, err := database.Db.Prepare("select Password from Users WHERE Username = ?")
