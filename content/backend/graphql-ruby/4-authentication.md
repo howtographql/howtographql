@@ -115,7 +115,8 @@ module Mutations
         name: name,
         email: auth_provider&.[](:credentials)&.[](:email),
         password: auth_provider&.[](:credentials)&.[](:password)
-      )
+        password_confirmation: auth_provider&.[](:credentials)&.[](:password)
+  )
     end
   end
 end
