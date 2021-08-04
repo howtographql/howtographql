@@ -32,7 +32,7 @@ Let's start by adding the dependencies we'll need.
 <Instruction>
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-router react-router-dom
+yarn add react-router-dom
 ```
 
 </Instruction>
@@ -50,11 +50,9 @@ Create a new file in `src/components` and call it
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React from 'react';
-import { useHistory } from 'react-router';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const history = useHistory();
   return (
     <div className="flex pa1 justify-between nowrap orange">
       <div className="flex flex-fixed black">
@@ -190,7 +188,7 @@ mutation is completed.
 
 ```js{5}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // ...
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const CreateLink = () => {
   const history = useHistory();
