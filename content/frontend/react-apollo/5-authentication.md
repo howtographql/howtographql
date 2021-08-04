@@ -42,7 +42,7 @@ Create a new file in `src/components` and call it
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const history = useHistory();
@@ -208,8 +208,7 @@ Open `Header.js` and update `render` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React from 'react';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
 
 const Header = () => {
@@ -413,7 +412,7 @@ the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import { useMutation, gql } from '@apollo/client';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
 ```
 
