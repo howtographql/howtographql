@@ -100,7 +100,7 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 ```
 
-```js{2}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{2,3}(path=".../hackernews-react-apollo/src/components/App.js")
 import React, { Component } from 'react';
 import logo from './../logo.svg';
 import './../styles/App.css';
