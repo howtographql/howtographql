@@ -171,7 +171,7 @@ routing setup.
 
 Open `App.js` and update it to include the new route:
 
-```js{15}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{16}(path=".../hackernews-react-apollo/src/components/App.js")
 // ...
 import Login from './Login';
 
