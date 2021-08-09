@@ -1,17 +1,13 @@
 ---
 title: More Mutations and Updating the Store
-pageTitle:
-  'Mutations and Caching with GraphQL, React and Apollo
+pageTitle: 'Mutations and Caching with GraphQL, React and Apollo
   Tutorial'
-description:
-  "Learn how to use Apollo's imperative store API to update
+description: "Learn how to use Apollo's imperative store API to update
   the cache after a GraphQL mutation. The updates will
   automatically be reflected in our React components."
-question:
-  "What does the 'update' prop of Apollo's <Mutation />
+question: "What does the 'update' prop of Apollo's <Mutation />
   component do?"
-answers:
-  [
+answers: [
     'It allows to update your Apollo Client dependency
     locally',
     'It allows to update the local Apollo store in a
@@ -20,7 +16,7 @@ answers:
     result',
     "It updates the GraphQL schema locally so Apollo Client
     can verify your queries and mutations before they're
-    sent to the server"
+    sent to the server",
   ]
 correctAnswer: 2
 videoId: ''
@@ -372,14 +368,21 @@ cache, modify it, and commit the changes.
 
 ```js{7-29}(path=".../hackernews-react-apollo/src/components/Link.js")
 const Link = (props) => {
+
   // ...
   const [vote] = useMutation(VOTE_MUTATION, {
     variables: {
       linkId: link.id
     },
     update(cache, { data: { vote } }) {
+
       const { feed } = cache.readQuery({
         query: FEED_QUERY
+      },
+        variables: {
+            take,
+            skip,
+            orderBy
       });
 
       const updatedLinks = feed.links.map((feedLink) => {
@@ -396,8 +399,14 @@ const Link = (props) => {
         query: FEED_QUERY,
         data: {
           feed: {
+            ...feed,
             links: updatedLinks
           }
+        },
+        variables: {
+           take,
+           skip,
+           orderBy
         }
       });
     }
@@ -460,6 +469,7 @@ const [createLink] = useMutation(CREATE_LINK_MUTATION, {
         query: FEED_QUERY,
         data: {
           feed: {
+            ...feed,
             links: [post, ...data.feed.links]
           }
         },
@@ -490,15 +500,16 @@ variables we passed into the query in `LinkList.js`.
 <Instruction>
 
 The last thing we need to do for this to work is import the
-`FEED_QUERY` into that file:
+`FEED_QUERY` and `LINKS_PER_PAGE` into that file:
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { FEED_QUERY } from './LinkList';
+import { LINKS_PER_PAGE } from '../constants';
 ```
 
 </Instruction>
 
-Conversely, it also needs to be exported from where it is
+Conversely, `FEED_QUERY` also needs to be exported from where it is
 defined.
 
 <Instruction>
