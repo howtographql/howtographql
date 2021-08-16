@@ -126,7 +126,6 @@ let links = [{
 }]
 
 // 1
-let idCount = links.length
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
@@ -135,6 +134,9 @@ const resolvers = {
   Mutation: {
     // 2
     post: (parent, args) => {
+  
+    let idCount = links.length
+
        const link = {
         id: `link-${idCount++}`,
         description: args.description,

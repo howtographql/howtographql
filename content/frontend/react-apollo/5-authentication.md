@@ -42,7 +42,7 @@ Create a new file in `src/components` and call it
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const history = useHistory();
@@ -171,7 +171,7 @@ routing setup.
 
 Open `App.js` and update it to include the new route:
 
-```js{15}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{16}(path=".../hackernews-react-apollo/src/components/App.js")
 // ...
 import Login from './Login';
 
@@ -208,8 +208,7 @@ Open `Header.js` and update `render` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React from 'react';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
 
 const Header = () => {
@@ -413,7 +412,7 @@ the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import { useMutation, gql } from '@apollo/client';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
 ```
 
