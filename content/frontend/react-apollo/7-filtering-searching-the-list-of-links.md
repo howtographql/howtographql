@@ -34,8 +34,7 @@ Start by creating a new file called `Search.js` in
 
 ```js(path=".../hackernews-react-apollo/src/components/Search.js")
 import React, { useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
-import gql from 'graphql-tag';
+import { useLazyQuery, gql } from '@apollo/client';
 import Link from './Link';
 
 const Search = () => {
