@@ -43,7 +43,7 @@ To add TypeScript support for your NodeJS project, do the following:
 In your project directory, install the packages required to run a TypeScript project:
 
 ```bash
-npm install --save-dev typescript @types/node tsup
+npm install --save-dev typescript @types/node ts-node ts-node-dev
 ```
 
 </Instruction>
@@ -66,8 +66,8 @@ To make it easier to run your project, replace the `"scripts"` section in your `
 
 ```json
 "scripts": {
-  "dev": "tsup src/index.ts --watch --onSuccess \"node dist/index.js\"",
-  "start": "tsup src/index.ts && node dist/index.js"
+  "dev": "ts-node-dev src/index.ts",
+  "start": "ts-node src/index.ts"
 },
 ```
 

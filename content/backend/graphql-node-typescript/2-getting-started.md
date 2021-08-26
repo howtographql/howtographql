@@ -128,7 +128,7 @@ Now, try to run our project again (either with `npm run dev` or `npm run start`)
 
 </Instruction>
 
-So what do we did here?
+So what did we do here?
 
 First, we took our query, and parsed it using `parse` function of `graphql` - this will create a `DocumentNode` object that can later be executed by GraphQL.
 
@@ -249,4 +249,13 @@ There are a few things to note:
 
 ### Additional Resources
 
-* schema solutions
+As mentioned in the begining of this chapter, there are many ways to build and create your GraphQL schema. 
+
+Here are a few popular open-source libraries:
+
+* [`graphql`](https://graphql.org/graphql-js/type/) - you can use raw `graphql` using object classes in order to create your schema.
+* [`@graphql-tools/schema`](https://www.graphql-tools.com/docs/generate-schema) - schema-first library for creating executable schemas. 
+* [`nexus-graphql`](https://nexusjs.org/) - Declarative, Code-First GraphQL Schemas for JavaScript/TypeScript
+* [`typegraphql`](https://github.com/MichalLytek/type-graphql) - GraphQL schema and resolvers with TypeScript, using classes and decorators.
+* [`graphql-modules`](https://www.graphql-modules.com/) - schema first library for creating strict, reusable GraphQL schema modules.
+* [`giraphql`](https://github.com/hayes/giraphql/) - library for creating GraphQL schemas in typescript using a strongly typed code first approach

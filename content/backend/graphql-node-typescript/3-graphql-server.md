@@ -188,5 +188,6 @@ In the next steps we'll change our schema, and we'll add more capabilities to th
 
 ### Additional Resources
 
-* other network methonds
+* If you wish to use a different network transport, you can check [`graphql-ws`](https://github.com/enisdenjo/graphql-ws) for WebSocket, or [`graphql-sse`](https://github.com/enisdenjo/graphql-sse) for Server-Sent Events transport.
+
 
