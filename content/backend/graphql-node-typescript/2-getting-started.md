@@ -54,13 +54,13 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 
 const typeDefs = `
   type Query {
-    hello: String
+    info: String
   }
 `;
 
 const resolvers = {
   Query: {
-    hello: () => 'World',
+    info: () => 'Test',
   }
 }
 
@@ -74,7 +74,7 @@ export const schema = makeExecutableSchema({
 
 In the code-snippet above, we've created the following variables:
 
-- `typeDefs` - this is our GraphQL SDL definition. We created a `Query` type that exposes a field called `hello`, of type `String`. 
+- `typeDefs` - this is our GraphQL SDL definition. We created a `Query` type that exposes a field called `info`, of type `String`. 
 - `resolvers` - the resolvers for our types and fields, this is where the real logic is.
 - `schema` - a combination of the GraphQL SDL and the resolvers. We are using the `makeExecutableSchema` function to glue them together into a schema we can later use,
 
@@ -90,7 +90,7 @@ Based on the schema we created before, we can use the following query:
 
 ```graphql
 query {
-  hello
+  info
 }
 ```
 
@@ -107,7 +107,7 @@ import { execute, parse } from "graphql";
 import { schema } from "./schema";
 
 async function main() {
-  const myQuery = `query { hello }`;
+  const myQuery = `query { info }`;
 
   const result = await execute({
     schema,
@@ -123,7 +123,7 @@ main();
 Now, try to run our project again (either with `npm run dev` or `npm run start`), you should see in the output log the following:
 
 ```
-{ data: { hello: 'World' } }
+{ data: { info: 'Test' } }
 ```
 
 </Instruction>
@@ -141,186 +141,7 @@ The result of `execute` is the GraphQL result (or GraphQL response).
 
 The GraphQL engine took our query, and based on the fields we selected (called Selection-Set), it ran the resolvers, and returned their return value.
 
-
-// HERE
-
-### Creating a raw GraphQL server
-
-With the project directory in place, you can go ahead and create the entry point for your GraphQL server. This will be a
-file called `index.js`, located inside a directory called `src`.
-
-<Instruction>
-
-In your terminal, first create the `src` directory and then the empty `index.js` file:
-
-```bash(path=".../hackernews-node/")
-mkdir src
-touch src/index.js
-```
-
-</Instruction>
-
-> **Note**: The above code block is annotated with a directory name. It indicates _where_ you need to execute the
-> terminal command.
-
-To start the app, you can now execute `node src/index.js` inside the `hackernews-node` directory. At the moment, this
-won't do anything because `index.js` is still empty ¯\\\_(ツ )\_/¯
-
-Let's go and start building the GraphQL server! The first thing you need to is - surprise - add a dependency to the
-project.
-
-First, let's install two important dependencies that will allow you to create your GraphQL server.
-
-<Instruction>
-
-Run the following command in your terminal:
-
-```bash(path=".../hackernews-node/")
-npm install apollo-server graphql
-```
-
-</Instruction>
-
-[`apollo-server`](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server) is a fully-featured
-GraphQL server. It is based on [Express.js](https://expressjs.com/) and a few other libraries to help you build
-production-ready GraphQL servers.
-
-Here's a list of its features:
-
-- GraphQL spec-compliant
-- Realtime functionality with GraphQL subscriptions
-- Out-of-the-box support for GraphQL Playground
-- Extensible via Express middlewares
-- Resolves custom directives in your GraphQL schema
-- Query performance tracing
-- Runs everywhere: Can be deployed via Vercel, Up, AWS Lambda, Heroku etc.
-
-Perfect, it's time to write some code 🙌
-
-<Instruction>
-
-Open `src/index.js` and type the following:
-
-```js(path="../hackernews-node/src/index.js")
-const { ApolloServer } = require('apollo-server');
-
-// 1
-const typeDefs = `
-  type Query {
-    info: String!
-  }
-`
-
-// 2
-const resolvers = {
-  Query: {
-    info: () => `This is the API of a Hackernews Clone`
-  }
-}
-
-// 3
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-})
-
-server
-  .listen()
-  .then(({ url }) =>
-    console.log(`Server is running on ${url}`)
-  );
-```
-
-</Instruction>
-
-> **Note**: This code block is annotated with a file name. It indicates into which file you need to put the code that's
-> shown. The annotation also links to the corresponding file on GitHub to help you figure out _where_ in the file you
-> need to put it in case you are not sure about that.
-
-All right, let's understand what's going on here by walking through the numbered comments:
-
-1. The `typeDefs` constant defines your _GraphQL schema_ (more about this in a bit). Here, it defines a simple `Query`
-   type with one _field_ called `info`. This field has the type `String!`. The exclamation mark in the type definition
-   means that this field is required and can never be `null`.
-1. The `resolvers` object is the actual _implementation_ of the GraphQL schema. Notice how its structure is identical to
-   the structure of the type definition inside `typeDefs`: `Query.info`.
-1. Finally, the schema and resolvers are bundled and passed to `ApolloServer` which is imported from `apollo-server`.
-   This tells the server what API operations are accepted and how they should be resolved.
-
-Go ahead and test your GraphQL server!
-
-### Testing the GraphQL server
-
-<Instruction>
-
-In the root directory of your project, run the following command:
-
-```bash(path=".../hackernews-node/")
-node src/index.js
-```
-
-</Instruction>
-
-As indicated by the terminal output, the server is now running on `http://localhost:4000`. To test the API of your
-server, open a browser and navigate to that URL.
-
-What you'll then see is a [GraphQL Playground](https://github.com/prisma-labs/graphql-playground), a powerful "GraphQL
-IDE" that lets you explore the capabilities of your API in an interactive manner.
-
-![GraphQL Playground](https://imgur.com/9RC6x9S.png)
-
-By clicking the **DOCS**-button on the right, you can open the API documentation. This documentation is auto-generated
-based on your schema definition and displays all API operations and data types of your schema.
-
-![open the API documentation](https://imgur.com/81Ho6YM.png)
-
-Let's go ahead and send your very first GraphQL query. Type the following into the editor pane on the left side:
-
-```graphql
-query {
-  info
-}
-```
-
-Now send the query to the server by clicking the **Play**-button in the center (or use the keyboard shortcut
-**CMD+ENTER** for Mac and **CTRL+ENTER** on Windows and Linux).
-
-![send the query to the server](https://imgur.com/EnW3HE5.png)
-
-Congratulations, you just implemented and successfully tested your first GraphQL query 🎉
-
-Now, remember when we talked about the definition of the `info: String!` field and said the exclamation mark means this
-field could never be `null`. Well, since you're implementing the resolver, you are in control of what the value for that
-field is, right?
-
-So, what happens if you return `null` instead of the actual informative string in the resolver implementation? Feel free
-to try that out!
-
-In `index.js`, update the the definition of `resolvers` as follows:
-
-```js{3}(path=".../hackernews-node/src/index.js")
-const resolvers = {
-  Query: {
-    info: () => null,
-  }
-}
-```
-
-To test the results of this, you need to restart the server: First, stop it using **CTRL+C** on your keyboard, then
-restart it by running `node src/index.js` again.
-
-Now, send the query from before again. This time, it returns an error:
-`Error: Cannot return null for non-nullable field Query.info.`
-
-![send the query from before again](https://imgur.com/VLVE5Vv.png)
-
-What happens here is that the underlying [`graphql-js`](https://github.com/graphql/graphql-js/) reference implementation
-ensures that the return types of your resolvers adhere to the type definitions in your GraphQL schema. Put differently,
-it protects you from making stupid mistakes!
-
-This is in fact one of the core benefits of GraphQL in general: it enforces that the API actually behaves in the way
-that is promised by the schema definition! This way, everyone who has access to the GraphQL schema can always be 100%
-sure about the API operations and data structures that are returned by the API.
+The next chapter will teach your how to use your GraphQL schema to create a GraphQL server!
 
 ### A word on the GraphQL schema
 
@@ -426,4 +247,6 @@ There are a few things to note:
   - For the `createUser(name: String!)` field, the return type `User!` means this operation always returns a `User`
     object.
 
-Phew, enough theory 😠 Let's go and write some more code!
+### Additional Resources
+
+* schema solutions
