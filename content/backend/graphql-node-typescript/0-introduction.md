@@ -31,6 +31,8 @@ You are going to use the following technologies:
     highlighting.
   - Lets you easily share your API operations.
 
+You can find the [code of the tutorial in this repository](https://github.com/dotansimha/graphql-typescript-node-tutorial).
+
 ### What to expect
 
 The goal of this tutorial is to build an API for a [Hacker News](https://news.ycombinator.com/) clone. Here is a quick
