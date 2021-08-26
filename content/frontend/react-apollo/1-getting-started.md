@@ -51,7 +51,7 @@ we'll use `create-react-app` for that.
 To create new project, run the command below:
 
 ```bash
-yarn create react-app hackernews-react-apollo
+yarn create-react-app hackernews-react-apollo
 ```
 
 </Instruction>
