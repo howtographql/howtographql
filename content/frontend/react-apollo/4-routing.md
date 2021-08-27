@@ -209,9 +209,3 @@ const CreateLink = () => {
 After the mutation completes, React Router will navigate
 back to the `LinkList` component that's accessible on the
 root route: `/`.
-
-> **Note**: With our current setup, we won't see the newly
-> created `Link`, we'll just redirect to the main route. We
-> could refresh the page to see the changes made. We'll see
-> how to update the data after the mutation completes in the
-> `More Mutations and Updating the Store` chapter!
