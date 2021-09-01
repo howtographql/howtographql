@@ -147,7 +147,7 @@ Now, you can create a new user using [GraphiQL](https://github.com/graphql/graph
 ```graphql
 mutation {
   createUser(
-	name: "Test User",
+    name: "Test User",
     authProvider: {
       credentials: {
         email: "email@example.com",
