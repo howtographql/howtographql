@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Creating a GraphQL Server
 pageTitle: 'Getting Started with a GraphQL server'
 description:
   'Getting Started with a GraphQL server based on Fastify GraphQL-Helix'
