@@ -43,6 +43,12 @@ As the whole project is open-source, you're more than welcome to fix typos and o
 
 ## Installation & Running locally
 
+The project has some native (gyp) dependencies. To get this running, please make sure your environment it set with the following:
+
+1. Make sure to install a Node version manager (either [fnm](https://github.com/Schniz/fnm) or [nvm](https://github.com/nvm-sh/nvm))
+1. Point your environment to the version specified in `.nvmrc`.
+1. Make sure to load `.env` to your environment variables (some shell loads it automatically, but if not, you can do: `source .env` to load it)
+
 You can run a local instance of How to GraphQL by executing the following commands in a terminal:
 
 ```sh
@@ -53,3 +59,12 @@ yarn start # http://localhost:8000/
 ```
 
 > Note: If you're using Node 8, you might need to invoke `npm install -g node-gyp` before you're starting the app. More info [here](https://github.com/gatsbyjs/gatsby/issues/1754).
+
+#### Troubleshooting
+
+If you are having issues with `sharp` dependency, please make sure you have installed `>0.18.2` of it. Older versions have hardcoded dependency on a legacy artifactory. 
+
+To check the version you have, run: `yarn why sharp`. 
+
+If you are still having issues, please make sure that you have `SHARP_DIST_BASE_URL` environemnt variable set correctly (see `.env` file) and then run `yarn install` again.
+

@@ -110,7 +110,7 @@ Now let's understand how these new resolvers are working!
 The `feed` resolver is implemented as follows:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
-feed: async (parent, args, context, info) => {
+feed: (parent, args, context, info) => {
   return context.prisma.link.findMany()
 },
 ```
@@ -143,6 +143,8 @@ You're calling the `create` method on a `link` from your Prisma Client API. As a
 
 So, to summarize, Prisma Client exposes a CRUD API for the models in your datamodel for you to read and write in your database. These methods are auto-generated based on your model definitions in
 `schema.prisma`.
+
+You may also have noticed that ```newLink``` is an object of type ```Promise```. This is because all Prisma CRUD operations are asynchronous. This is not a problem as Apollo Server is capable of detecting, and automatically resolving any ```Promise``` object that is returned from resolver functions. 
 
 ### Testing the new implementation
 
