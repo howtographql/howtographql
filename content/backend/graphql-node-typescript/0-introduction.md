@@ -1,8 +1,8 @@
 ---
 title: Introduction
-pageTitle: 'Building a GraphQL Server with Node.js, Fastify, TypeScript & Prisma 2'
+pageTitle: 'Building a GraphQL Server with Node.js & TypeScript'
 description:
-  'Learn how to build a GraphQL server with Node.js, Fastify, TypeScript & Prisma 2 and best practices for authentication,
+  'Learn how to build a GraphQL server with Node.js, Fastify, TypeScript, GraphQL-Helix & Prisma 2 and best practices for authentication,
   filtering, pagination and subscriptions.'
 ---
 
@@ -13,7 +13,7 @@ standard for exposing the data and functionality of a web server.
 
 In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server entirely from scratch. 
 
-You are going to use the following technologies:
+You are going to use the following technologies: 
 
 - [Node.js](https://nodejs.org/) - as an engine and runtime for our server.
 - [TypeScript](https://www.typescriptlang.org/) - a strongly typed programming language which builds on JavaScript giving you better tooling at any scale.
@@ -22,20 +22,19 @@ You are going to use the following technologies:
 - [`graphql-helix`](https://github.com/contrawork/graphql-helix) - a collection of utility functions for building your own GraphQL HTTP server. 
 - [Prisma](https://www.prisma.io/): Replaces traditional ORMs. Use Prisma Client to access your database inside of
   GraphQL resolvers.
-- [GraphQL Playground](https://github.com/prisma/graphql-playground): A "GraphQL IDE" that allows you to interactively
+- [GraphiQL](https://github.com/graphql/graphiql): A "GraphQL IDE" that allows you to interactively
   explore the functionality of a GraphQL API by sending queries and mutations to it. It's somewhat similar to
   [Postman](https://www.getpostman.com/) which offers comparable functionality for REST APIs. Among other things,
-  GraphQL Playground:
+  GraphiQL:
   - Auto-generates comprehensive documentation for all available API operations.
   - Provides an editor where you can write queries, mutations & subscriptions, with auto-completion(!) and syntax
     highlighting.
-  - Lets you easily share your API operations.
 
 You can find the [code of the tutorial in this repository](https://github.com/dotansimha/graphql-typescript-node-tutorial).
 
 ### What to expect
 
-The goal of this tutorial is to build an API for a [Hacker News](https://news.ycombinator.com/) clone. Here is a quick
+The goal of this tutorial is to build an API for a [HackerNews](https://news.ycombinator.com/) clone. Here is a quick
 rundown of what to expect.
 
 You'll start by learning the basics of how a GraphQL server works, simply by defining a
