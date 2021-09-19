@@ -24,7 +24,7 @@ API will accept a _filter string_. The query then should only return the `Link` 
 
 Go ahead and add the `filter` string to the `feed` query in your application schema (under `src/schema.ts`):
 
-```graphql
+```graphql{3}(path="hackernews-node-ts/src/schema.graphql)
 type Query {
   info: String!
   feed(filter: String): [Link!]!
@@ -40,23 +40,29 @@ Next, you need to update the implementation of the `feed` resolver to account fo
 
 Now, update the `feed` resolver to look as follows:
 
-```ts
-feed: async (
-  parent: unknown,
-  args: { filter?: string },
-  context: GraphQLContext
-) => {
-  const where = args.filter
-    ? {
-        OR: [
-          { description: { contains: args.filter } },
-          { url: { contains: args.filter } },
-        ],
-      }
-    : {};
+```typescript{5-20}(path="hackernews-node-ts/src/schema.ts)
+const resolvers = {
+  // ... other resolvers ...
+  Query: {
+    // ... other resolvers ...
+    feed: async (
+      parent: unknown,
+      args: { filter?: string },
+      context: GraphQLContext
+    ) => {
+      const where = args.filter
+        ? {
+            OR: [
+              { description: { contains: args.filter } },
+              { url: { contains: args.filter } },
+            ],
+          }
+        : {};
 
-  return context.prisma.link.findMany({ where });
-},
+      return context.prisma.link.findMany({ where });
+    },
+  }
+}
 ```
 
 </Instruction>
@@ -84,7 +90,7 @@ query {
 }
 ```
 
-![sample query](https://imgur.com/QlAXsKO.png)
+![sample query](https://i.imgur.com/tICYe2e.png)
 
 ### Pagination
 
@@ -116,7 +122,7 @@ So, go ahead and add the `skip` and `take` arguments to the `feed` query.
 
 Open your application schema and adjust the `feed` query to accept `skip` and `take` arguments:
 
-```graphql
+```graphql{3}(path="hackernews-node-ts/src/schema.graphql)
 type Query {
   info: String!
   feed(filter: String, skip: Int, take: Int): [Link!]!
@@ -132,27 +138,33 @@ Now, adjust the resolver implementation:
 
 And now adjust the implementation of the `feed` resolver:
 
-```ts
-feed: async (
-  parent: unknown,
-  args: { filter?: string; skip?: number; take?: number },
-  context: GraphQLContext
-) => {
-  const where = args.filter
-    ? {
-        OR: [
-          { description: { contains: args.filter } },
-          { url: { contains: args.filter } },
-        ],
-      }
-    : {};
+```typescript{5,23-24}(path="hackernews-node-ts/src/schema.ts)
+const resolvers = {
+  // ... other resolvers ...
+  Query: {
+    // ... other resolvers ...
+    feed: async (
+      parent: unknown,
+      args: { filter?: string; skip?: number; take?: number },
+      context: GraphQLContext
+    ) => {
+      const where = args.filter
+        ? {
+            OR: [
+              { description: { contains: args.filter } },
+              { url: { contains: args.filter } },
+            ],
+          }
+        : {};
 
-  return context.prisma.link.findMany({
-    where,
-    skip: args.skip,
-    take: args.take,
-  });
-},
+      return context.prisma.link.findMany({
+        where,
+        skip: args.skip,
+        take: args.take,
+      });
+    },
+  }
+}
 ```
 
 </Instruction>
@@ -172,7 +184,7 @@ query {
 }
 ```
 
-![test the pagination API ](https://imgur.com/lwGncCX.png)
+![test the pagination API ](https://i.imgur.com/XeZgSJo.png)
 
 ### Sorting
 
@@ -186,7 +198,7 @@ from the Prisma API in the API of your GraphQL server. You can do so by creating
 
 Add the following enum definition to your GraphQL schema:
 
-```graphql
+```graphql(path="hackernews-node-ts/src/schema.graphql)
 input LinkOrderByInput {
   description: Sort
   url: Sort
@@ -223,7 +235,13 @@ The implementation of the resolver is similar to what you just did with the pagi
 
 Update the implementation of the `feed` resolver and pass the `orderBy` argument along to Prisma:
 
-```ts
+```typescript{1,13-17,34}(path="hackernews-node-ts/src/schema.ts)
+import { Link, User, Prisma } from "@prisma/client";
+
+const resolvers = {
+  // ... other resolvers ...
+  Query: {
+    // ... other resolvers ...
     feed: async (
       parent: unknown,
       args: {
@@ -254,6 +272,8 @@ Update the implementation of the `feed` resolver and pass the `orderBy` argument
         orderBy: args.orderBy,
       });
     },
+  }
+}
 ```
 
 </Instruction>
@@ -299,43 +319,51 @@ type Feed {
 
 Now, go ahead and adjust the `feed` resolver again:
 
-```ts
-feed: async (
-  parent: unknown,
-  args: {
-    filter?: string;
-    skip?: number;
-    take?: number;
-    orderBy?: {
-      description?: Prisma.SortOrder;
-      url?: Prisma.SortOrder;
-      createdAt?: Prisma.SortOrder;
-    };
-  },
-  context: GraphQLContext
-) => {
-  const where = args.filter
-    ? {
-        OR: [
-          { description: { contains: args.filter } },
-          { url: { contains: args.filter } },
-        ],
-      }
-    : {};
+```typescript{1,13-17,34}(path="hackernews-node-ts/src/schema.ts)
+import { Link, User, Prisma } from "@prisma/client";
 
-  const totalCount = await context.prisma.link.count({ where });
-  const links = await context.prisma.link.findMany({
-    where,
-    skip: args.skip,
-    take: args.take,
-    orderBy: args.orderBy,
-  });
+const resolvers = {
+  // ... other resolvers ...
+  Query: {
+    // ... other resolvers ...
+    feed: async (
+      parent: unknown,
+      args: {
+        filter?: string;
+        skip?: number;
+        take?: number;
+        orderBy?: {
+          description?: Prisma.SortOrder;
+          url?: Prisma.SortOrder;
+          createdAt?: Prisma.SortOrder;
+        };
+      },
+      context: GraphQLContext
+    ) => {
+      const where = args.filter
+        ? {
+            OR: [
+              { description: { contains: args.filter } },
+              { url: { contains: args.filter } },
+            ],
+          }
+        : {};
 
-  return {
-    count: totalCount,
-    links,
-  };
-},
+      const totalCount = await context.prisma.link.count({ where });
+      const links = await context.prisma.link.findMany({
+        where,
+        skip: args.skip,
+        take: args.take,
+        orderBy: args.orderBy,
+      });
+
+      return {
+        count: totalCount,
+        links,
+      };
+    },
+  }
+}
 ```
 
 </Instruction>
@@ -355,4 +383,4 @@ query {
 }
 ```
 
-![test the revamped feed query](https://imgur.com/pybtMep.png)
+![test the revamped feed query](https://i.imgur.com/cG95KH0.png)

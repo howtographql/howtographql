@@ -34,7 +34,7 @@ You'll be using a simple `PubSub` implementation from the `graphql-subscriptions
 - An existing model **updated**
 - An existing model is **deleted**
 
-You will do this by first adding an instance of `PubSub` to the context, just as we did with `PrismaClient`, and then calling its methods in the resolvers that handle each of the
+You will do this by first adding an instance of `PubSub` to the context, just as you did with `PrismaClient`, and then calling its methods in the resolvers that handle each of the
 above events.
 
 ### Setting up `PubSub`
@@ -71,7 +71,7 @@ export const pubSub = new TypedPubSub<PubSubChannels>(new PubSub());
 1. First, you declare a TypeScript `type PubSubChannels`, you'll later use that to define your type-safe events.
 1. Then, create an instanceo of `PubSub` and combine it with the type-safe events wrapper to form a fully-typed Pub/Sub instance.
 
-Now, you're adding the global instance of your `PubSub` and make sure it's available for your during your GraphQL execution, by injecting it to your `context`, just as we stored an instance of `PrismaClient` in the variable `prisma`.
+Now, you're adding the global instance of your `PubSub` and make sure it's available for your during your GraphQL execution, by injecting it to your `context`, just as you stored an instance of `PrismaClient` in the variable `prisma`.
 
 <Instruction>
 
@@ -104,7 +104,7 @@ export async function contextFactory(
 
 </Instruction>
 
-Great! Now we can access the methods we need to implement our subscriptions from inside our resolvers via `context.pubSub`!
+Great! Now you can access the methods you need to implement our subscriptions from inside our resolvers via `context.pubSub`!
 
 ### Subscribing to new `Link` elements
 
@@ -130,7 +130,7 @@ Next, go ahead and implement the resolver for the `newLink` field. Resolvers for
 1. Subscription resolvers are wrapped inside an object and need to be provided as the value for a `subscribe` field. You also need to provide another field called `resolve` that
    actually returns the data from the data emitted by the `AsyncIterator`.
 
-To get started with a new event, first we need to make sure it's declared correctly by the `PubSubChannels`. In this case, you are going to declare an event called `NEW_LINK`, and use the created `Link` object as payload.
+To get started with a new event, first make sure it's declared correctly by the `PubSubChannels`. In this case, you are going to declare an event called `NEW_LINK`, and use the created `Link` object as payload.
 
 <Instruction>
 
@@ -179,15 +179,15 @@ const resolvers = {
 
 In the code above, in `subscribe` function, you are using the `context.pubSub` to create an instance of `AsyncIterable` that listens to the `newLink` event. This will be the trigger for our GraphQL subscriptions. So in case of an active subscription, the `AsyncIterable` will be created, and a listener for the events will be active.
 
-Then, on every value emitted for that event, we will get our `resolve` function called with the event _payload_ (that matches the strucutre that we use for our events declaration in `PubSubChannels`)
+Then, on every value emitted for that event, you'll get our `resolve` function called with the event _payload_ (that matches the structure that you use for our events declaration in `PubSubChannels`).
 
 ### Adding subscriptions to your resolvers
 
-The last thing we need to do for our subscription implementation itself is to actually trigger that `newLink` event from our code!
+The last thing you need to do for our subscription implementation itself is to actually trigger that `newLink` event from our code!
 
 <Instruction>
 
-Still in `src/schema.ts`, locate your `post` resolver function, adding the following call to `pubSub.publish()` right before we return our `newLink`:
+Still in `src/schema.ts`, locate your `post` resolver function, adding the following call to `pubSub.publish()` right before you return the `newLink`:
 
 ```typescript{16}(path="hackernews-node-ts/src/schema.ts)
 const resolvers = {
@@ -215,10 +215,10 @@ const resolvers = {
 
 </Instruction>
 
-Now you can see how we pass the same string to the `publish` method as you added in your `subscribe` function just above, along with passing in the `newLink` as a second
+Now you can see how you pass the same string to the `publish` method as you added in your `subscribe` function just above, along with passing in the `newLink` as a second
 argument!
 
-Ok, I'm sure you're dying to test out your brand-spanking new Subscription! All we need to do now is make sure your GraphQL server knows about your changes.
+Ok, I'm sure you're dying to test out your brand-spanking new Subscription! All you need to do now is make sure your GraphQL server knows about your changes.
 
 All you need to test your GraphQL Subscription, is to make sure you are sending it over the network. 
 
@@ -492,7 +492,7 @@ const resolvers = {
 
 Here is what's going on:
 
-1. Make sure that we don't allow upvote without being authenticated.
+1. Make sure that our server don't allow upvote without being authenticated.
 1. Similar to what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the `getUserId` helper function. If it's valid, the function will return
    the `userId` of the `User` who is making the request. If the JWT is not valid, the function will throw an exception.
 1. To protect against those pesky "double voters" (or honest folks who accidentally click twice), you need to check if the vote already exists or not. First, you try to fetch a
