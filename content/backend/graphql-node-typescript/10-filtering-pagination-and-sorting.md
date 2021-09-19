@@ -319,7 +319,7 @@ type Feed {
 
 Now, go ahead and adjust the `feed` resolver again:
 
-```typescript{1,13-17,34}(path="hackernews-node-ts/src/schema.ts)
+```typescript{1,13-17,35}(path="hackernews-node-ts/src/schema.ts)
 import { Link, User, Prisma } from "@prisma/client";
 
 const resolvers = {
