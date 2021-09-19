@@ -15,25 +15,23 @@ Like before, you need to start by adding the new operation to your GraphQL schem
 
 <Instruction>
 
-In `src/schema.ts`, extend the `typeDefs` string as follows:
+In `src/schema.graphql`, extend the schema definition as follows:
 
-```ts
-const typeDefs = `
-  type Query {
-    info: String!
-    feed: [Link!]!
-  }
+```graphql{6-8}(path="hackernews-node-ts/src/schema.graphql")
+type Query {
+  info: String!
+  feed: [Link!]!
+}
 
-  type Mutation {
-    post(url: String!, description: String!): Link!
-  }
+type Mutation {
+  post(url: String!, description: String!): Link!
+}
 
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-  }
-`
+type Link {
+  id: ID!
+  description: String!
+  url: String!
+}
 ```
 
 </Instruction>
@@ -46,29 +44,36 @@ The next step in the process of adding a new feature to the API is to implement 
 
 Next, update the `resolvers` functions to look as follows:
 
-```ts
-let links = [{
+```ts{23-38}(path="hackernews-node-ts/src/schema.ts")
+type Link = {
+  id: string;
+  url: string;
+  description: string;
+}
+
+const links: Link[] = [{
   id: 'link-0',
   url: 'www.howtographql.com',
   description: 'Fullstack tutorial for GraphQL'
 }]
 
-// 1
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: () => links,
   },
   Link: {
-    id: (parent: any) => parent.id,
-    description: (parent: any) => parent.description,
-    url: (parent: any) => parent.url,
+    id: (parent: Link) => parent.id,
+    description: (parent: Link) => parent.description,
+    url: (parent: Link) => parent.url,
   },
   Mutation: {
-    post: (parent: any, args: any) => {
+    post: (parent: unknown, args: { description: string, url: string }) => {
+      // 1
       let idCount = links.length;
 
-      const link = {
+      // 2
+      const link: Link = {
         id: `link-${idCount++}`,
         description: args.description,
         url: args.url,
@@ -126,13 +131,16 @@ The server response will look as follows:
 }
 ```
 
+![Mutation response](https://i.imgur.com/MzpLiba.png)
+
+
 With every mutation you send, the `idCount` will increase and the following IDs for created links will be `link-2`,
 `link-3`, and so forth...
 
 To verify that your mutation worked, you can send the `feed` query from before again – it now returns the additional
 Link that you created with the mutation:
 
-![returns the additional Link](https://imgur.com/ZfJQwdB.png)
+![returns the additional Link](https://i.imgur.com/EjRMMiz.png)
 
 However, once you kill and restart the server, you'll notice that the previously added links are now gone and you need
 to add them again. This is because the links are only stored _in-memory_, in the `links` array. In the next sections,

@@ -101,7 +101,7 @@ To use your GraphQL scehma and consume data from it, your need to write a GraphQ
 
 Based on the schema your created before, you can use the following query:
 
-```graphql
+```graphql(nocopy)
 query {
   info
 }

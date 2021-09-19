@@ -2,8 +2,7 @@
 title: A Simple Query
 pageTitle: 'Resolving Queries with a GraphQL Server Tutorial'
 description:
-  'Learn how to define a GraphQL schema, implement query resolvers with Node.js and test your queries in a GraphQL
-  Playground.'
+  'Learn how to define a GraphQL schema, implement query resolvers with Node.js and test your queries in a GraphiQL.'
 ---
 
 In this section, you are going to implement the first API operation that provides the functionality of a Hacker News
@@ -23,21 +22,19 @@ So, let's go ahead and tackle the first step, extending the GraphQL schema defin
 
 <Instruction>
 
-In `src/schema.ts`, update the `typeDefs` constant to look as follows:
+In `src/schema.graphql`, update the GraphQL schema to look as follows:
 
-```ts
-const typeDefs = `
-  type Query {
-    info: String!
-    feed: [Link!]!
-  }
+```graphql{3,6-10}(path="hackernews-node-ts/src/schema.graphql")
+type Query {
+  info: String!
+  feed: [Link!]!
+}
 
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-  }
-`
+type Link {
+  id: ID!
+  description: String!
+  url: String!
+}
 ```
 
 </Instruction>
@@ -57,9 +54,16 @@ you'll add resolvers for the `id`, `description`, and `url` fields of the `Link`
 
 In `src/schema.ts`, add a new list with dummy data as well and update the `resolvers` to look as follows:
 
-```ts
+```typescript{2-6,8-13,19,22-26}(path="hackernews-node-ts/src/schema.ts")
 // 1
-let links = [{
+type Link = {
+  id: string;
+  url: string;
+  description: string;
+}
+
+// 2
+const links: Link[] = [{
   id: 'link-0',
   url: 'www.howtographql.com',
   description: 'Fullstack tutorial for GraphQL'
@@ -68,14 +72,14 @@ let links = [{
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    // 2
+    // 3
     feed: () => links,
   },
-  // 3
+  // 4
   Link: {
-    id: (parent: any) => parent.id,
-    description: (parent: any) => parent.description,
-    url: (parent: any) => parent.url,
+    id: (parent: Link) => parent.id,
+    description: (parent: Link) => parent.description,
+    url: (parent: Link) => parent.url,
   }
 }
 ```
@@ -84,6 +88,7 @@ const resolvers = {
 
 Let's walk through the numbered comments again:
 
+1. The `Link` type defines the TypeScript object strucutre that we wish to use in our code. 
 1. The `links` variable is used to store the links at runtime. For now, everything is stored only _in-memory_ rather
    than being persisted in a database.
 1. You're adding a new resolver for the `feed` root field. Notice that a resolver always has to be named _exactly_ after
@@ -91,10 +96,10 @@ Let's walk through the numbered comments again:
 1. Finally, you're adding three more resolvers for the fields on the `Link` type from the schema definition. We'll
    discuss what the `parent` argument that's passed into the resolver here is in a bit.
 
-Go ahead and test the implementation by running the server and navigate to `http://localhost:3000/playground` in your browser. If you expand
-the documentation of the Playground, you'll notice that another query called `feed` is now available:
+Go ahead and test the implementation by running the server and navigate to `http://localhost:3000/graphql` in your browser. If you expand
+the documentation of the GraphiQL, you'll notice that another query called `feed` is now available:
 
-![another query called feed](https://imgur.com/0EQ5P9p.png)
+![another query called feed](https://i.imgur.com/k60k4BC.png)
 
 Try it out by sending the following query:
 
@@ -123,6 +128,9 @@ Awesome, the server responds with the data you defined in `links`:
   }
 }
 ```
+
+![data returned from the server](https://i.imgur.com/vmzqOgl.png)
+
 
 Feel free to play around with the query by removing any fields from the selection set and observe the responses sent by
 the server.
@@ -158,9 +166,9 @@ to follow a very simple and trivial pattern:
 
 ```js(nocopy)
 Link: {
-  id: (parent) => parent.id,
-  description: (parent) => parent.description,
-  url: (parent) => parent.url,
+  id: (parent: Link) => parent.id,
+  description: (parent: Link) => parent.description,
+  url: (parent: Link) => parent.url,
 }
 ```
 

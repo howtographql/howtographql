@@ -27,7 +27,7 @@ npm install --save fastify
 
 Now, update `src/index.ts` to create a simple Fastify HTTP server on port `3000`: 
 
-```typescript{2,5-11}(path="hackernews-node-ts/src/index.ts")
+```typescript{2,5-13}(path="hackernews-node-ts/src/index.ts")
 import "graphql-import-node";
 import fastify from "fastify";
 
@@ -38,7 +38,9 @@ async function main() {
     reply.send({ test: true });
   });
 
-  server.listen(3000, "0.0.0.0");
+  server.listen(3000, "0.0.0.0", () => {
+    console.log(`Server is running on http://localhost:3000/`);
+  });
 }
 
 main();
@@ -76,7 +78,7 @@ Now, in order to accept incoming GraphQL requests and handle them, you can use G
 
 <Instruction>
 
-Change `src/index.ts` and replace the dummy request handler we had with the following:
+Change `src/index.ts` and replace the dummy request handler with the following:
 
 ```typescript{3,4,9-32}(path="hackernews-node-ts/src/index.ts")
 import 'graphql-import-node';
@@ -112,7 +114,9 @@ async function main() {
     }
   });
 
-  server.listen(3000, "0.0.0.0");
+  server.listen(3000, "0.0.0.0", () => {
+    console.log(`Server is running on http://localhost:3000/`);
+  });
 }
 
 main();
@@ -219,7 +223,7 @@ main();
 
 Now, run the server, and try to access `http://localhost:3000/graphql` in your browser. You should see GraphiQL UI, and from there you can explore the schema, the documentation, and even try to run queries! 
 
-In the next steps we'll change our schema, and we'll add more capabilities to the GraphQL schema and server!
+In the next steps you'll extend your schema, and add more capabilities to the GraphQL schema and server!
 
 ### Additional Resources
 
