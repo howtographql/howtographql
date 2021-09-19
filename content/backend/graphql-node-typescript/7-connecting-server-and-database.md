@@ -7,8 +7,7 @@ answers: ['It always provides access to a database', 'It carries the query argum
 correctAnswer: 3
 ---
 
-In this section, you're going to learn how to connect your GraphQL server to your database using [Prisma](https://www.prisma.io), which provides the interface to your database. This connection is
-implemented via [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+In this section, you're going to learn how to connect your GraphQL server to your database using [Prisma](https://www.prisma.io), which provides the interface to your database. This connection is implemented via [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
 
 ### Wiring up your GraphQL schema with Prisma Client
 
@@ -21,42 +20,38 @@ Remember how we said earlier that all GraphQL resolver functions _always_ receiv
 The `context` argument is a plain JavaScript object that every resolver in the resolver chain can read from and write to. Thus, it is basically a means for resolvers to communicate. A really helpful
 feature is that you can already write to the `context` at the moment when the GraphQL server itself is being initialized.
 
-This means that we can attach an instance of Prisma Client to the `context` when initializing the server and then access it from inside our resolvers via the `context` argument!
+This means that you can attach an instance of Prisma Client to the `context` when initializing the server and then access it from inside our resolvers via the `context` argument!
 
 That's all a bit theoretical, so let's see how it looks in action 💻
 
-### Updating the resolver functions to use Prisma Client
+You'll start by creating a new file called `src/context.ts` to handle our GraphQL `context` creation.
 
 <Instruction>
 
-First, import `PrismaClient` into `src/index.ts` at the top of the file:
+Create the new file, with the following content: 
 
-```ts
-import { PrismaClient } from '@prisma/client';
+```typescript{1-3}(path="hackernews-node-ts/src/context.ts)
+export async function contextFactory() {
+  return {};
+}
 ```
 
 </Instruction>
 
-Now you can attach an instance of PrismaClient to the `context` when the `GraphQLServer` is being initialized.
-
 <Instruction>
 
-In `src/index.ts`, right after creating our HTTP server, let's create a global connection to your Prisma, by adding that: 
+Now, you'll need to import the `contextFactory` function and make sure you add it as part of the GraphQL execution process:
 
-```ts
-const prisma = new PrismaClient();
-```
+```typescript{2,9}(path="hackernews-node-ts/src/index.ts)
+// ... other imports ...
+import { contextFactory } from "./context";
 
-Now, let's modify the GraphQL execution and add our `prisma` connection to the GraphQL execution `context`. 
-
-This will make the `prisma` object available for us during the execution of our `resolvers`: 
-
-```ts
+// In your Helix handler, add:
 const result = await processRequest({
   request,
   schema,
-  contextFactory: () => ({ prisma }),
   operationName,
+  contextFactory,
   query,
   variables,
 });
@@ -64,53 +59,78 @@ const result = await processRequest({
 
 </Instruction>
 
-Awesome! Now, the `context` object that's passed into all your GraphQL resolvers is being initialized right here and because you're attaching an instance of `PrismaClient` (as `prisma`) to it when the GraphQL server is instantiated, you'll now be able to access `context.prisma` in all of your resolvers.
+In the next step, you'll connect the Prisma client and your GraphQL server!
 
-To get the most out of the TypeScript language, we can create a type to represent the GraphQL context object, and later we can use it. 
+### Updating the resolver functions to use Prisma Client
 
 <Instruction>
 
-Create a new file called `src/context.ts` and add the following content:
+You'll start by importing `PrismaClient` into `src/context.ts` at the top of the file, created a global connection, and make it available as part of your GraphQL `context`.
 
-```ts
+Also, modify the GraphQL execution and add our `prisma` connection to the GraphQL execution `context`:
+
+```typescript{1,3,5-7,11}(path="hackernews-node-ts/src/context.ts)
 import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export type GraphQLContext = {
   prisma: PrismaClient;
 };
+
+export async function contextFactory(): Promise<GraphQLContext> {
+  return {
+    prisma,
+  };
+}
 ```
 
 </Instruction>
 
-This TypeScript type will repesent the structure of the GraphQL `context` we are using, and will help us to get better type-safety and auto-complete for the Prisma SDK.
+Awesome! This will make the `prisma` object available for us during the execution of our `resolvers`.
 
-Finally, it's time to refactor your resolvers. Again, we encourage you to type these changes yourself so that you can get used to Prisma's autocompletion and how to leverage that to intuitively figure out what resolvers should be on your own.
+Now, the `context` object that's passed into all your GraphQL resolvers is being initialized right here and because you're attaching an instance of `PrismaClient` (as `prisma`) to it when the GraphQL server is instantiated, you'll now be able to access `context.prisma` in all of your resolvers.
+
+To get the most out of the TypeScript language, you also created a `GraphQLContext` type to have strict validation, and to make it easier to type the resolvers later.
+
+This TypeScript type `GraphQLContext` will represent the structure of the GraphQL `context`, and will help us to get better type-safety and auto-complete for the Prisma SDK.
+
+Finally, it's time to refactor the GraphQL resolvers. Again, we encourage you to type these changes yourself so that you can get used to Prisma's autocompletion and how to leverage that to intuitively figure out what resolvers should be on your own.
 
 <Instruction>
 
-Open `src/schema.ts` and remove the `links` array entirely, as well as the `idCount` variable – you don't need those any more since the data will now be stored in an actual database.
+Open `src/schema.ts` and remove the `links` array entirely, as well as the `idCount` variable – you don't need those any more since the data will now be stored in an actual database. You can also remove `type Link`, because we'll replace it with the type generated by Prisma soon.
 
 </Instruction>
 
-Next, you need to update the implementation of the resolver functions because they're still accessing the variables that were just deleted. Plus, you now want to return actual data from the database
-instead of local dummy data.
+Next, you need to update the implementation of the resolver functions because they're still accessing the variables that were just deleted. Plus, you now want to return actual data from the database instead of local dummy data.
 
 <Instruction>
 
-Still in `src/schema.ts`, update the `resolvers` object to look as follows:
+In `src/schema.ts`, update the `resolvers` object to look as follows:
 
-```ts
+```typescript{2,4,9-11,19-31}(path="hackernews-node-ts/src/schema.ts)
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { GraphQLContext } from "./context";
+import typeDefs from "./schema.graphql";
+import { Link } from "@prisma/client";
+
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    feed: async (parent: unknown, args: unknown, context: GraphQLContext) => {
+    feed: async (parent: unknown, args: {}, context: GraphQLContext) => {
       return context.prisma.link.findMany();
     },
+  },
+  Link: {
+    id: (parent: Link) => parent.id,
+    description: (parent: Link) => parent.description,
+    url: (parent: Link) => parent.url,
   },
   Mutation: {
     post: (
       parent: unknown,
-      args: { url: string; description: string },
+      args: { description: string; url: string },
       context: GraphQLContext
     ) => {
       const newLink = context.prisma.link.create({
@@ -123,7 +143,15 @@ const resolvers = {
     },
   },
 };
+
+export const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
+
 ```
+
+> Notice that the code is changed now, and the `Link` type is being imported from the Prisma client instead of being hand-written. 
 
 </Instruction>
 
@@ -133,14 +161,19 @@ Now let's understand how these new resolvers are working!
 
 The `feed` resolver is implemented as follows:
 
-```ts
-feed: async (parent: unknown, args: unknown, context: GraphQLContext) => {
-  return context.prisma.link.findMany();
-},
+```typescript(nocopy)
+const resolvers = {
+  Query: {
+    // ...
+    feed: async (parent: unknown, args: {}, context: GraphQLContext) => {
+      return context.prisma.link.findMany();
+    },
+  },
+  // ...
+}
 ```
 
-It accesses the `prisma` object via the `context` argument we discussed a moment ago. As a reminder, this is actually an entire `PrismaClient` instance that's imported from the generated
-`@prisma/client` library, effectively allowing you to access your database through the Prisma Client API you set up in chapter 4.
+It accesses the `prisma` object via the `context` argument we discussed a moment ago. As a reminder, this is actually an entire `PrismaClient` instance that's imported from the generated `@prisma/client` library, effectively allowing you to access your database through the Prisma Client API you set up in chapter 4.
 
 Now, you should be able to imagine the complete system and workflow of a Prisma/GraphQL project, where our Prisma Client API exposes a number of database queries that let you read and write data in the database.
 
@@ -148,16 +181,24 @@ Now, you should be able to imagine the complete system and workflow of a Prisma/
 
 The `post` resolver now looks like this:
 
-```ts
-post: (parent: unknown, args: { url: string; description: string }, context: GraphQLContext) => {
-  const newLink = context.prisma.link.create({
-    data: {
-      url: args.url,
-      description: args.description,
+```typescript(nocopy)
+const resolvers = {
+  Mutation: {
+    post: (
+      parent: unknown,
+      args: { description: string; url: string },
+      context: GraphQLContext
+    ) => {
+      const newLink = context.prisma.link.create({
+        data: {
+          url: args.url,
+          description: args.description,
+        },
+      });
+      return newLink;
     },
-  });
-  return newLink;
-},
+  },
+};
 ```
 
 Similar to the `feed` resolver, you're simply invoking a function on the `PrismaClient` instance which is attached to the `context`.

@@ -77,7 +77,7 @@ Let's see it in action with your project!
 
 Open `schema.prisma` and add the following code:
 
-```graphql
+```graphql{3-4,13-18}(path="hackernews-node-ts/prisma/schema.prisma")
 // 1
 datasource db {
   provider = "sqlite"
@@ -170,7 +170,7 @@ Create a new file in the `src/` directory called `script.ts` and add the followi
 
 ```ts
 // 1
-const { PrismaClient } = require("@prisma/client")
+import { PrismaClient } from "@prisma/client";
 
 // 2
 const prisma = new PrismaClient()
