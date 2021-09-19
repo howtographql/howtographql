@@ -161,7 +161,7 @@ Now let's understand how these new resolvers are working!
 
 The `feed` resolver is implemented as follows:
 
-```typescript(nocopy)
+```typescript{4,6}(nocopy)
 const resolvers = {
   Query: {
     // ...
@@ -181,15 +181,15 @@ Now, you should be able to imagine the complete system and workflow of a Prisma/
 
 The `post` resolver now looks like this:
 
-```typescript(nocopy)
+```typescript{3,15}(nocopy)
 const resolvers = {
   Mutation: {
-    post: (
+    post: async (
       parent: unknown,
       args: { description: string; url: string },
       context: GraphQLContext
     ) => {
-      const newLink = context.prisma.link.create({
+      const newLink = await context.prisma.link.create({
         data: {
           url: args.url,
           description: args.description,

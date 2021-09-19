@@ -89,28 +89,32 @@ import { schema } from "./schema";
 async function main() {
   const server = fastify();
 
-  server.post("/graphql", async (req, reply) => {
-    const request: Request = {
-      headers: req.headers,
-      method: req.method,
-      query: req.query,
-      body: req.body,
-    };
+  server.route({
+    method: "POST",
+    url: "/graphql",
+    handler: async (req, reply) => {
+      const request: Request = {
+        headers: req.headers,
+        method: req.method,
+        query: req.query,
+        body: req.body,
+      };
 
-    const { operationName, query, variables } = getGraphQLParameters(request);
+      const { operationName, query, variables } = getGraphQLParameters(request);
 
-    const result = await processRequest({
-      request,
-      schema,
-      operationName,
-      query,
-      variables,
-    });
+      const result = await processRequest({
+        request,
+        schema,
+        operationName,
+        query,
+        variables,
+      });
 
-    if (result.type === "RESPONSE") {
-      reply.send(result.payload);
-    } else {
-      reply.send({ error: "Stream not supported at the moment" });
+      if (result.type === "RESPONSE") {
+        reply.send(result.payload);
+      } else {
+        reply.send({ error: "Stream not supported at the moment" });
+      }
     }
   });
 
@@ -173,43 +177,49 @@ To add GraphiQL to your server, create a new `GET /graphql` request handler, and
 ```typescript{3,9-17}(path="hackernews-node-ts/src/index.ts")
 import 'graphql-import-node';
 import fastify from "fastify";
-import { getGraphQLParameters, processRequest, Request, renderGraphiQL } from "graphql-helix";
+import { getGraphQLParameters, processRequest, Request, renderGraphiQL, shouldRenderGraphiQL } from "graphql-helix";
 import { schema } from "./schema";
 
 async function main() {
   const server = fastify();
 
-  server.get("/graphql", (req, reply) => {
-    reply.header("Content-Type", "text/html");
-    reply.send(
-      renderGraphiQL({
-        endpoint: "/graphql",
-      })
-    );
-  });
+  server.route({
+    method: ["POST", "GET"],
+    url: "/graphql",
+    handler: async (req, reply) => {
+      const request: Request = {
+        headers: req.headers,
+        method: req.method,
+        query: req.query,
+        body: req.body,
+      };
 
-  server.post("/graphql", async (req, reply) => {
-    const request: Request = {
-      headers: req.headers,
-      method: req.method,
-      query: req.query,
-      body: req.body,
-    };
+      if (shouldRenderGraphiQL(request)) {
+        reply.header("Content-Type", "text/html");
+        reply.send(
+          renderGraphiQL({
+            endpoint: "/graphql",
+          })
+        );
 
-    const { operationName, query, variables } = getGraphQLParameters(request);
+        return;
+      }
 
-    const result = await processRequest({
-      request,
-      schema,
-      operationName,
-      query,
-      variables,
-    });
+      const { operationName, query, variables } = getGraphQLParameters(request);
 
-    if (result.type === "RESPONSE") {
-      reply.send(result.payload);
-    } else {
-      reply.send({ error: "Stream not supported at the moment" });
+      const result = await processRequest({
+        request,
+        schema,
+        operationName,
+        query,
+        variables,
+      });
+
+      if (result.type === "RESPONSE") {
+        reply.send(result.payload);
+      } else {
+        reply.send({ error: "Stream not supported at the moment" });
+      }
     }
   });
 

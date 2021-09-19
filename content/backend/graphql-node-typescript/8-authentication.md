@@ -496,12 +496,12 @@ Modify `src/schema.ts` and change the resolver of `post` field to the following:
 ```typescript{4-6,12}(path="hackernews-node-ts/src/schema.ts)
 const resolvers = {
   Mutation: {
-    post: (parent: unknown, args: { url: string; description: string }, context: GraphQLContext) => {
+    post: async (parent: unknown, args: { url: string; description: string }, context: GraphQLContext) => {
       if (context.currentUser === null) {
         throw new Error("Unauthenticated!");
       }
 
-      const newLink = context.prisma.link.create({
+      const newLink = await context.prisma.link.create({
         data: {
           url: args.url,
           description: args.description,
