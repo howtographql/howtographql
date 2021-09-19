@@ -424,7 +424,7 @@ const result = await processRequest({
 
 Now, every incoming GraphQL request that has a valid token and a user, will also have the `context.currentUser` available with the authenticated user details. If an incoming request doesn't have that, the `context.currentUser` will be set to `null`. 
 
-So that's really cool, and to test that, we can add a new GraphQL field under `type Query` called `me` that just exposes the current user information.
+So that's really cool, and to test that, you can add a new GraphQL field under `type Query` called `me` that just exposes the current user information.
 
 <Instruction>
 
@@ -481,9 +481,9 @@ And if you'll run it, you'll see that the GraphQL server now being able to authe
 
 ### Connecting other resolvers
 
-If you remember, we initially added more new fields to our GraphQL schema, so let's implement the missing resolvers, based on the new capabilities that we have now.
+If you remember, we initially added more new fields to our GraphQL schema, so let's implement the missing resolvers, based on the new capabilities that you have now.
 
-To make sure we know how to identify the creator of each `Link`, let's modify the resolver of `Mutation.post` to ensure that only authenticated users can user it, and also add the current user id to the object we create on our database.
+To make sure our server knows how to identify the creator of each `Link`, let's modify the resolver of `Mutation.post` to ensure that only authenticated users can use it, and also add the current autenticated user id to the object created on our database.
 
 #### Protecting resolvers
 
@@ -583,7 +583,7 @@ const resolvers = {
 
 </Instruction>
 
-That's all! Now you have resolvers for all our fields, and we can signup, login, identify the user as part of our GraphQL server!
+That's all! Now you have resolvers for all fields, and you can signup, login, identify the user as part of our GraphQL server!
 
 You should be able to run complex GraphQL queries, for example:
 
