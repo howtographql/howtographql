@@ -140,11 +140,44 @@ end
 
 Now, you can create a new user using [GraphiQL](https://github.com/graphql/graphiql):
 
-![Creating a new user](https://i.imgur.com/J3OeMk4.png)
+<!-- ![Creating a new user](https://i.imgur.com/J3OeMk4.png) -->
+
+**Input:**
+
+```graphql
+mutation {
+  createUser(
+    name: "Test User",
+    authProvider: {
+      credentials: {
+        email: "email@example.com",
+        password: "123456"
+      }
+  	}
+  ) {
+    id
+    name
+    email
+  }
+}
+```
+**Output:**
+
+```graphql
+{
+  "data": {
+    "createUser": {
+      "id": "1",
+      "name": "Test User",
+      "email": "email@example.com"
+    }
+  }
+}
+```
 
 <Instruction>
 
-Here is how the unit test for your mutation is going to look like:
+Here is how the unit test for your mutation will look:
 
 ```ruby(path=".../graphql-ruby/test/graphql/mutations/create_user_test.rb")
 require 'test_helper'
