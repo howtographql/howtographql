@@ -108,7 +108,7 @@ model Link {
 Let's break down the three parts:
 
 1. **Data source**: Tells Prisma you'll be using SQLite for your database connection.
-1. **Generator**: Indicates that you want to genenerate Prisma Client.
+1. **Generator**: Indicates that you want to generate Prisma Client.
 1. **Data model**: Here, we have written out our `Link` as a model.
 
 The `Link` model defines the structure of the `Link` database table that Prisma is going to create for you in a bit.
