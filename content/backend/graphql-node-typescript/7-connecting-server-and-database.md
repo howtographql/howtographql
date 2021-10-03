@@ -107,7 +107,7 @@ Next, you need to update the implementation of the resolver functions because th
 
 <Instruction>
 
-In `src/schema.ts`, update the `resolvers` object to look as follows:
+In `src/schema.ts`, update the `resolvers` object and change imports to look as follows:
 
 ```typescript{2,4,9-11,19-31}(path="hackernews-node-ts/src/schema.ts)
 import { makeExecutableSchema } from "@graphql-tools/schema";
@@ -208,7 +208,7 @@ You're calling the `create` method on a `link` from your Prisma Client API. As a
 So, to summarize, Prisma Client exposes a CRUD API for the models in your datamodel for you to read and write in your database. These methods are auto-generated based on your model definitions in
 `schema.prisma`.
 
-You may also have noticed that ```newLink``` is an object of type ```Promise```. This is because all Prisma CRUD operations are asynchronous. This is not a problem as Apollo Server is capable of detecting, and automatically resolving any ```Promise``` object that is returned from resolver functions. 
+You may also have noticed that ```newLink``` is an object of type ```Promise```. This is because all Prisma CRUD operations are asynchronous. This is not a problem as Fastify Server is capable of detecting, and automatically resolving any ```Promise``` object that is returned from resolver functions. 
 
 ### Testing the new implementation
 

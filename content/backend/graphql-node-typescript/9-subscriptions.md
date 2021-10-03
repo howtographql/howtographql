@@ -49,7 +49,7 @@ npm install graphql-subscriptions typed-graphql-subscriptions
 
 </Instruction>
 
-You'll use `graphql-subscriptions` library in order to create an instanceo of `PubSub`, and `typed-graphql-subscriptions` to get better type-safety for the events emitted.
+You'll use `graphql-subscriptions` library in order to create an instance of `PubSub`, and `typed-graphql-subscriptions` to get better type-safety for the events emitted.
 
 <Instruction>
 
@@ -69,7 +69,7 @@ export const pubSub = new TypedPubSub<PubSubChannels>(new PubSub());
 </Instruction>
 
 1. First, you declare a TypeScript `type PubSubChannels`, you'll later use that to define your type-safe events.
-1. Then, create an instanceo of `PubSub` and combine it with the type-safe events wrapper to form a fully-typed Pub/Sub instance.
+1. Then, create an instance of `PubSub` and combine it with the type-safe events wrapper to form a fully-typed Pub/Sub instance.
 
 Now, you're adding the global instance of your `PubSub` and make sure it's available for your during your GraphQL execution, by injecting it to your `context`, just as you stored an instance of `PrismaClient` in the variable `prisma`.
 
@@ -472,7 +472,7 @@ const resolvers = {
       }
 
       // 4
-      const newVote = context.prisma.vote.create({
+      const newVote = await context.prisma.vote.create({
         data: {
           user: { connect: { id: userId } },
           link: { connect: { id: Number(args.linkId) } },
