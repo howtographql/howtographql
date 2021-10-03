@@ -22,7 +22,7 @@ API will accept a _filter string_. The query then should only return the `Link` 
 
 <Instruction>
 
-Go ahead and add the `filter` string to the `feed` query in your application schema (under `src/schema.ts`):
+Go ahead and add the `filter` string to the `feed` query in your application schema (under `src/schema.graphql`):
 
 ```graphql{3}(path="hackernews-node-ts/src/schema.graphql)
 type Query {
@@ -213,7 +213,7 @@ enum Sort {
 
 </Instruction>
 
-This represents the various ways that the list of `Link` elements can be sorted.
+This represents the various ways that the list of `Link` elements can be sorted (asc = ascending, desc = descending).
 
 <Instruction>
 
@@ -233,7 +233,7 @@ The implementation of the resolver is similar to what you just did with the pagi
 
 <Instruction>
 
-Update the implementation of the `feed` resolver and pass the `orderBy` argument along to Prisma:
+Update the implementation of the `feed` resolver, change the imports and pass the `orderBy` argument along to Prisma:
 
 ```typescript{1,13-17,34}(path="hackernews-node-ts/src/schema.ts)
 import { Link, User, Prisma } from "@prisma/client";

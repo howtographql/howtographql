@@ -414,7 +414,7 @@ const result = await processRequest({
   request,
   schema,
   operationName,
-  contextFactory: contextFactory(req),
+  contextFactory: () => contextFactory(req),
   query,
   variables,
 });
