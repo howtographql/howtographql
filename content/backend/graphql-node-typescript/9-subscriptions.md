@@ -220,41 +220,7 @@ argument!
 
 Ok, I'm sure you're dying to test out your brand-spanking new Subscription! All you need to do now is make sure your GraphQL server knows about your changes.
 
-All you need to test your GraphQL Subscription, is to make sure you are sending it over the network. 
-
-<Instruction>
-
-To do that, adjust your `src/index.ts` code to handle `"PUSH"` results using GraphQL-Helix.
-
-```typescript{12-28}(path="hackernews-node-ts/src/index.ts")
-const result = await processRequest({
-  request,
-  schema,
-  operationName,
-  contextFactory: () => contextFactory(req),
-  query,
-  variables,
-});
-
-if (result.type === "RESPONSE") {
-  reply.send(result.payload);
-} else if (result.type === "PUSH") {
-  reply.raw.setHeader("Content-Type", "text/event-stream");
-  reply.raw.setHeader("Connection", "keep-alive");
-  reply.raw.setHeader("Cache-Control", "no-cache,no-transform");
-  reply.raw.setHeader("x-no-compression", 1);
-
-  // If the request is closed by the client, we unsubscribe and stop executing the request
-  req.raw.on("close", () => {
-    result.unsubscribe();
-  });
-
-  // We subscribe to the event stream and push any new events to the client
-  await result.subscribe((result) => {
-    reply.raw.write(`data: ${JSON.stringify(result)}\n\n`);
-  });
-}
-```
+All you need to do in order to test your GraphQL Subscription is to open GraphiQL and try it! 
 
 </Instruction>
 

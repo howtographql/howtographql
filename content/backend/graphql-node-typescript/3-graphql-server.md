@@ -83,7 +83,7 @@ Change `src/index.ts` and replace the dummy request handler with the following:
 ```typescript{3,4,9-32}(path="hackernews-node-ts/src/index.ts")
 import 'graphql-import-node';
 import fastify from "fastify";
-import { getGraphQLParameters, processRequest, Request } from "graphql-helix";
+import { getGraphQLParameters, processRequest, Request, sendResult } from "graphql-helix";
 import { schema } from "./schema";
 
 async function main() {
@@ -110,11 +110,7 @@ async function main() {
         variables,
       });
 
-      if (result.type === "RESPONSE") {
-        reply.send(result.payload);
-      } else {
-        reply.send({ error: "Stream not supported at the moment" });
-      }
+      sendResult(result, reply.raw);
     }
   });
 
@@ -137,17 +133,22 @@ If you have `curl` installed on your machine, you should be able to run and see 
 ```bash
 curl -X POST http://localhost:3000/graphql -H "Content-type: application/json" --data-raw '{"query": "query { info }"}'
 ```
+
+And you should see in return: 
+
+```(nocopy)
+{ data: { info: 'Test' } }
+```
+
 </Instruction>
 
 So let's break down the code snippet for the server:
 
-1. Your created an new HTTP request handler, of type `POST`, based on the `/graphql` path. 
+1. You created a new HTTP request handler, of type `POST`, based on the `/graphql` path. 
 1. The handler takes the incoming raw HTTP request and builds a `Request` object out of it.
 1. Then, the `getGraphQLParameters` method of `graphql-helix` extracts all the neccesary information from the raw request. 
 1. The `processRequest` gets all the input parameters, and runs the GraphQL request pipeline for us.
-1. The result of the GraphQL operation is being returned and sent to the client.  
-
-> GraphQL-Helix supports real-time GraphQL and stream-based responses, that's why your code need to check it's result before sending it. At the moment, our server only supports regular responses (`type="RESPONSE"`). You'll later add support for more transports.  
+1. The result of the GraphQL operation is being returned and sent as response.
 
 ### The complete GraphQL execution pipeline
 
@@ -157,10 +158,10 @@ A complete GraphQL flow is consists of the following steps:
 1. `parse` - takes the GraphQL operation and parse it into a `DocuemntNode`.
 1. `validate` - uses the parsed GraphQL operation with the GraphQL schema, and validate it to make sure it matches the schema.
 1. Variables - GraphQL operations allow you to pass variables, which are just JSON object. 
-1. Context building - GraphQL allow you to pass a custom object, called `context`, and this object will be available for your resolvers. 
+1. Context - GraphQL allow you to pass a custom object, called `context`, and this object will be available for your resolvers. This is a useful technique you'll learn more about in next chapters.
 1. `execute` - takes the operation and runs the resovlers based on the selection-set.
 
-With `graphql-helix`, this flow becomes simpler because you can just use `processRequest`, because it runs for you `parse`, `validate`, variables parsing, context-building, and `execute` - all in a single function. 
+With `graphql-helix`, this flow becomes simpler because you can just use `processRequest`, and `graphql-helix` runs for you `parse`, `validate`, variables parsing, context-building, and `execute` - all in a single function. 
 
 ### Adding GraphiQL
 
@@ -177,7 +178,7 @@ To add GraphiQL to your server, create a new `GET /graphql` request handler, and
 ```typescript{3,9-17}(path="hackernews-node-ts/src/index.ts")
 import 'graphql-import-node';
 import fastify from "fastify";
-import { getGraphQLParameters, processRequest, Request, renderGraphiQL, shouldRenderGraphiQL } from "graphql-helix";
+import { getGraphQLParameters, processRequest, Request, renderGraphiQL, shouldRenderGraphiQL, sendResult } from "graphql-helix";
 import { schema } from "./schema";
 
 async function main() {
@@ -215,11 +216,7 @@ async function main() {
         variables,
       });
 
-      if (result.type === "RESPONSE") {
-        reply.send(result.payload);
-      } else {
-        reply.send({ error: "Stream not supported at the moment" });
-      }
+      sendResult(result, reply.raw);
     }
   });
 
@@ -232,6 +229,8 @@ main();
 </Instruction>
 
 Now, run the server, and try to access `http://localhost:3000/graphql` in your browser. You should see GraphiQL UI, and from there you can explore the schema, the documentation, and even try to run queries! 
+
+![GraphiQL](https://i.imgur.com/fbfgo43.png)
 
 In the next steps you'll extend your schema, and add more capabilities to the GraphQL schema and server!
 
