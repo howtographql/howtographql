@@ -23,7 +23,7 @@ Before you're moving on to configure the different routes for your application, 
 
 Go ahead and run `ng generate component header` and this create `header.component.ts` , `header.component.spec.ts`, `header.component.html`, `header.component.css` in `src/app/header` folder and add the following code in `header.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/header/header.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/header/header.component.ts")
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -136,7 +136,7 @@ import {AppRoutingModule} from './app.routing';
 
 Still in `src/app/app.module.ts`, import `AppRoutingModule` to the `AppModule`:
 
-```ts{25}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
+```typescript{25}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 // ...
 imports: [
     BrowserModule,
@@ -183,7 +183,7 @@ To wrap up this section, you need to implement an automatic redirect from `Creat
 
 Open `src/app/create-link/create-link.component.ts` and update the `createLink` method to look like the following:
 
-```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 // ...
 createLink() {
     this.apollo.mutate<CreateLinkMutationResponse>({
@@ -213,7 +213,7 @@ createLink() {
 
 Then import `Router` and update the `constructor` method to look like the following:
 
-```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 // ...
 import {Router} from '@angular/router';
 

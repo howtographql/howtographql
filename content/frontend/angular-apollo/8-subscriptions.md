@@ -39,7 +39,7 @@ Next, make sure your `ApolloClient` instance knows about the subscription server
 
 Open `src/app/apollo.config.ts` and add the following import near the top of the file:
 
-```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
 import {getOperationAST} from 'graphql';
 import {WebSocketLink} from 'apollo-link-ws';
 import {ApolloLink} from 'apollo-link';
@@ -52,7 +52,7 @@ import {ApolloLink} from 'apollo-link';
 
 Now update the configuration code like so:
 
-```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
 constructor(apollo: Apollo,
               httpLink: HttpLink) {
 
@@ -127,7 +127,7 @@ First, you need to add a subscription to `src/app/graphql.ts`:
 
 Open `src/app/graphql.ts` and add the following subscription:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 export const NEW_LINKS_SUBSCRIPTION = gql`
   subscription {
     Link(filter: {
@@ -166,7 +166,7 @@ You'll implement this subscription in the `LinkListComponent` since that's where
 
 Open `src/app/list-link/list-link.component.ts` and update the `watchQuery` implementation with the following code:
 
-```ts(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.")
+```typescript(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.")
     const allLinkQuery: ApolloQueryObservable<AllLinkQueryResponse> = this.apollo.watchQuery<AllLinkQueryResponse>({
       query: ALL_LINKS_QUERY
     });
@@ -200,7 +200,7 @@ Open `src/app/list-link/list-link.component.ts` and update the `watchQuery` impl
 
 Still in `src/app/list-link/list-link.component.ts` you now need to import `NEW_LINKS_SUBSCRIPTION`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
 import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION } from '../app/graphql'
 ```
 
@@ -222,7 +222,7 @@ Let's see what this looks like in action!
 
 Still in `src/app/list-link/list-link.component.ts` implement `updateQuery` like so:
 
-```ts(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
           const newAllLinks = [
             subscriptionData.Link.node,
             ...previous.allLinks
@@ -250,7 +250,7 @@ First, you need to add another subscription to `src/app/graphql.ts`:
 
 Open `src/app/graphql.ts` and add the following subscription:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 export const NEW_VOTES_SUBSCRIPTION = gql`
   subscription {
     Vote(filter: {
@@ -296,7 +296,7 @@ You'll also implement this subscription in the `LinkList` component since that's
 
 Open `src/app/list-link/list-link.component.ts` and call again the `sunscribeToMore` function with  the following object option:
 
-```ts(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
 {
         document: NEW_VOTES_SUBSCRIPTION,
         updateQuery: (previous, { subscriptionData }) => {
@@ -319,7 +319,7 @@ Open `src/app/list-link/list-link.component.ts` and call again the `sunscribeToM
 
 Still in `src/app/list-link/list-link.component.ts` you now need to update the import to add `NEW_VOTES_SUBSCRIPTION`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/list-link/list-link.component.ts")
 import { ALL_LINKS_QUERY, NEW_LINKS_SUBSCRIPTION, NEW_VOTES_SUBSCRIPTION } from '../app/graphql'
 ```
 

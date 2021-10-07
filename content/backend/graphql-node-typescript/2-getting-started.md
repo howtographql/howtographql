@@ -5,15 +5,15 @@ description:
   'Learn how write a GraphQL schema and how to try and run it.'
 ---
 
-In this chapter, you we'll learn about the GraphQL schema: 
+In this chapter, you will learn about the GraphQL schema: 
 
 1. How it performs as an API contract between the consumer and the provider,
 2. How you can use `graphql` library as a basic GraphQL execution mechanism
-3. What is a GraphQL operation and how we can use it.
+3. What is a GraphQL operation and how you can use it.
 
 ### Getting Started with GraphQL
 
-To get a better understanding of how GraphQL works, you can start by [reading this tutorial about GraphQL basics](https://graphql.org/learn/).
+To get a better understanding of how GraphQL works, you can start by [reading this tutorial about GraphQL basics](https://www.howtographql.com/basics/0-introduction/).
 
 If you are already familiar with the basics of GraphQL, here's a quick overview:
 
@@ -29,7 +29,7 @@ Later, you'll replace the direct execution with a GraphQL server (based on HTTP 
 
 ### Creating your first GraphQL schema
 
-There are many ways to create a GraphQL schema - in this tutorial, you are going to use schema-first approach, and build the schema with our `graphql-tools` library (take a look at the end of this chapter for more advanced/different solutions for creating your GraphQL schema).
+There are many ways to create a GraphQL schema - in this tutorial, you are going to use schema-first approach, and build the schema with the `@graphql-tools/schema` library (take a look at the end of this chapter for more advanced/different solutions for creating your GraphQL schema).
 
 <Instruction>
 
@@ -49,7 +49,7 @@ The command above will get you the following libraries installed in the project:
 
 </Instruction>
 
-A GraphQL schema can be written with GraphQL SDL (*S*chema *D*efinition *L*anguage) and then you'll attach GraphQL *resolvers* (you actual business-logic) to it. 
+A GraphQL schema can be written with GraphQL SDL (*S*chema *D*efinition *L*anguage), which is the GraphQL language for defining your API/contract. The actual code and business-logic of each field is called a GraphQL *resolvers*. 
 
 So let's get started by creating your first, very-simple, GraphQL schema.
 
@@ -96,7 +96,7 @@ export const schema = makeExecutableSchema({
 In the code-snippet above, you've created or used the following variables:
 
 - `typeDefs` - this is your GraphQL schema definition. You've created a `Query` type that exposes a field called `info`, of type `String`. You can import it directly from `.graphql` file thanks to `graphql-import-node`. 
-- `resolvers` - the resolvers for our types and fields, this is where the real logic is.
+- `resolvers` - the resolver functions are part of the GraphQL schema, and they are the actual implementation (code / logic) of the GraphQL schema.
 - `schema` - a combination of the GraphQL SDL and the resolvers. `makeExecutableSchema` function is in charge of gluing them together into an executable schema we can later use.
 
 Now that you have a GraphQL schema, you can use that to fetch data using a GraphQL `query`! 
@@ -115,7 +115,7 @@ query {
 }
 ```
 
-So before getting into all the complexity of running a complete GraphQL server, you can use this query and run it against our existing GraphQL schema, and just consume data from it. 
+So you don't have to get into all the complexity of running GraphQL server - you can use this query and run it against your GraphQL schema and get an immediate result. 
 
 To query our local schema, even without any fancy GraphQL client or even a GraphQL server, you can use GraphQL's `execute` function to just run the schema with the query.
 
@@ -146,7 +146,7 @@ main();
 
 Now, try to run our project again (either with `npm run dev` or `npm run start`), you should see in the output log the following:
 
-```
+```(nocopy)
 { data: { info: 'Test' } }
 ```
 
@@ -161,7 +161,7 @@ Then, the `execute` function of `graphql` was called with the following paramete
 
 The return value of `execute` is the GraphQL result (or, GraphQL response).
 
-The GraphQL engine took the query, and based on the fields we selected (called *Selection-Set*), it ran the resolvers, and returned their return value.
+The GraphQL engine takes the query, and based on the fields you selected (called the *Selection-Set*), it runs the resolvers, and returns their return value.
 
 The next chapter will teach your how to use your GraphQL schema to create a GraphQL server!
 
@@ -223,7 +223,7 @@ where the types of the root fields are `[User!]!`, `User` and `User!`. In the `i
 the root field was a `String`, which is a [scalar type](http://graphql.org/learn/schema/#scalar-types).
 
 When the type of a root field is an object type, you can further expand the query (or mutation/subscription) with fields
-of that object type. The expanded part is called _selection set_.
+of that object type.
 
 Here are the operations that are accepted by a GraphQL API that implements the above schema:
 

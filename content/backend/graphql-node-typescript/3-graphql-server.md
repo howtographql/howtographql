@@ -153,14 +153,14 @@ So let's break down the code snippet for the server:
 
 A complete GraphQL flow is consists of the following steps:
 
-1. Schema building - first, make sure that you have a GraphQL schema ready-to-use (built as executable schema). 
+1. Schema building - a GraphQL schema is built as executable schema (by combining the SDL and the resolvers) 
 1. `parse` - takes the GraphQL operation and parse it into a `DocuemntNode`.
 1. `validate` - uses the parsed GraphQL operation with the GraphQL schema, and validate it to make sure it matches the schema.
 1. Variables - GraphQL operations allow you to pass variables, which are just JSON object. 
 1. Context building - GraphQL allow you to pass a custom object, called `context`, and this object will be available for your resolvers. 
 1. `execute` - takes the operation and runs the resovlers based on the selection-set.
 
-With `graphql-helix`, this flow becomes simpler because you can just use `processRequest`.
+With `graphql-helix`, this flow becomes simpler because you can just use `processRequest`, because it runs for you `parse`, `validate`, variables parsing, context-building, and `execute` - all in a single function. 
 
 ### Adding GraphiQL
 

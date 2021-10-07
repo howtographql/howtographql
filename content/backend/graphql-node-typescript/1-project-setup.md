@@ -72,11 +72,22 @@ This will create a `tsconfig.json` file in your project. The [`tsconfig.json` is
 
 To make it easier to run your project, replace the `"scripts"` section in your `package.json` file with the following: 
 
-```json{2-3}(path="hackernews-node-ts/package.json")
-"scripts": {
-  "dev": "ts-node-dev src/index.ts",
-  "start": "ts-node src/index.ts"
-},
+```json{5-6}(path="hackernews-node-ts/package.json")
+{
+  "name": "hackernews-node-ts",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "start": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.2",
+    "ts-node": "^10.2.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.3"
+  }
+}
 ```
 
 </Instruction>
@@ -90,7 +101,7 @@ This will allow you to run the following scripts in your project directory:
 
 Now create the root entry point for your project, by creating a file under `src/index.ts` with the following:
 
-```ts(path="hackernews-node-ts/src/index.ts")
+```typescript(path="hackernews-node-ts/src/index.ts")
 console.log('Hello World!');
 ```
 
@@ -102,13 +113,17 @@ And to run your server in watch mode, run in your terminal:
 npm run dev
 ```
 
+> Watch mode tracks your project's files, and re-runs your project automatically on a file change.
+
 You should now see some log output regarding your build process, followed by:
 
-```
+```(nocopy)
 Hello World!
 ```
 
 > You can try to change the script, and notice that the server restarts automatically on every change!
+
+The `index.ts` is the project entrypoint - this is where you NodeJS project starts and this runs the rest of the code.
 
 </Instruction>
 

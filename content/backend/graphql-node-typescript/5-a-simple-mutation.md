@@ -44,7 +44,7 @@ The next step in the process of adding a new feature to the API is to implement 
 
 Next, update the `resolvers` functions to look as follows:
 
-```ts{23-38}(path="hackernews-node-ts/src/schema.ts")
+```typescript{23-38}(path="hackernews-node-ts/src/schema.ts")
 type Link = {
   id: string;
   url: string;

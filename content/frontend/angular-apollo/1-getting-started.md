@@ -435,7 +435,7 @@ The first thing you have to do when using Apollo is to configure your `ApolloCli
 
 Open `src/app/apollo.config.ts` and add the following contents :
 
-```ts{3-7,11-14,18-19,21-24,25-30}(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+```typescript{3-7,11-14,18-19,21-24,25-30}(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 // 1
@@ -487,7 +487,7 @@ Finally, we export the `GraphQLModule`.
 
 Open `src/app/app.module.ts` and import the GraphQLModule in AppModule:
 
-```ts{14}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
+```typescript{14}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 

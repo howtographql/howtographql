@@ -168,7 +168,7 @@ Let's write your first query with Prisma Client and break everything down. You'l
 
 Create a new file in the `src/` directory called `script.ts` and add the following code:
 
-```ts
+```typescript
 // 1
 import { PrismaClient } from "@prisma/client";
 
@@ -227,7 +227,7 @@ script.
 Type out the following lines of code yourself inside the temporary `src/script.ts`, right above the `allLinks` query and pay close attention to the incredibly helpful autocompletion.
 First, it helps us understand that `.create()` is the operation we need (just scroll through the options) and then it actually shows us exactly how to construct the mutation!
 
-```ts
+```typescript
 const newLink = await prisma.link.create({
   data: {
     description: 'Fullstack tutorial for GraphQL',

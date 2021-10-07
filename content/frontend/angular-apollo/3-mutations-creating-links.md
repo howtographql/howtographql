@@ -20,7 +20,7 @@ Like before, let's start by writing the Angular component where users will be ab
 <Instruction>
 In the root directory, go ahead and run `ng generate component create-link` and this create `create-link.component.ts` , `create-link.component.spec.ts`, `create-link.component.html`, `create-link.component.css` in `src/app/create-link` folder and add the following code in `create-link.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 import {Component, OnInit} from '@angular/core';
 
 @Component({
@@ -88,7 +88,7 @@ First, you need to define the mutation in your `graphql` file and parse your que
 
 In `src/app/graphql.ts`, add the following statement to the bottom of the file:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 // 1
 export const CREATE_LINK_MUTATION = gql`
   # 2
@@ -125,7 +125,7 @@ Let's retake a close look to understand what's going on:
 
 Before moving on, you need to import the mutation from the `graphql` file and the Apollo dependencies. Add the following to the top of `src/app/create-link/create-link.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 import {Apollo} from 'apollo-angular';
 import {CREATE_LINK_MUTATION, CreateLinkMutationResponse} from '../graphql';
 ```
@@ -140,7 +140,7 @@ Let's see the mutation in action!
 
 Still in `CreateLinkComponent.ts`, implement the `createLink` mutation as follows:
 
-```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 createLink() {
     this.apollo.mutate<CreateLinkMutationResponse>({
       mutation: CREATE_LINK_MUTATION,
@@ -176,7 +176,7 @@ Go ahead and see if the mutation works. To be able to test the code, open `src/a
 
 Next, check that the `CreateLinkComponent` components in `app.module.ts` is declared, the current contents should look like:
 
-```ts(path=".../hackernews-angular-apollo/src/app/app.module.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -237,7 +237,7 @@ Type `graphcool-framework playground` into a Terminal and send the following que
 
 You'll see the following server response:
 
-```ts
+```typescript
 {
   "data": {
     "allLinks": [
