@@ -11,7 +11,7 @@ This step will cover the initial NodeJS setup required, basic configuration for 
 
 ### Requirements
 
-- NodeJS installed on your operation system ([instructions](https://nodejs.org/en/download/package-manager/)). You can use any recent version (12/14/16).
+- Have NodeJS installed on your operation system ([instructions](https://nodejs.org/en/download/package-manager/)). You can use any recent version (12/14/16).
 - Your favorite terminal configured (you are going to use it a lot!)
 - Run `node -v`, `npm -v`, `npx -v` in your terminal and make sure these commands are available for use.
 

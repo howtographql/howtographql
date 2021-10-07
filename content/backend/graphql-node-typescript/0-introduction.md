@@ -2,7 +2,7 @@
 title: Introduction
 pageTitle: 'Building a GraphQL Server with Node.js & TypeScript'
 description:
-  'Learn how to build a GraphQL server with Node.js, Fastify, TypeScript, GraphQL-Helix & Prisma 2 and best practices for authentication,
+  'Learn how to build a GraphQL server with Node.js, Fastify, TypeScript, GraphQL-Helix & Prisma 3 and best practices for authentication,
   filtering, pagination and subscriptions.'
 ---
 
@@ -43,7 +43,7 @@ corresponding _resolver functions_. In the beginning, these resolvers will only 
 so nothing will persist beyond the runtime of the server.
 
 Nobody wants a server that's not able to store and persist data, right? Not to worry! Next, you're going to add a
-[SQLite](http://sqlite.org/) database to the project which will be accessed using [Prisma 2](https://www.prisma.io/).
+[SQLite](http://sqlite.org/) database to the project which will be accessed using [Prisma 3](https://www.prisma.io/).
 
 Once you have the database connected, you are going to add more advanced features to the API.
 
