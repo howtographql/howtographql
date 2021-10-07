@@ -36,8 +36,16 @@ There are many ways to create a GraphQL schema - in this tutorial, you are going
 Start by installing `graphql` and `@graphql-tools/schema` library in your project, using the following command:
 
 ```bash
-npm install --save graphql @graphql-tools/schema
+npm install --save graphql @graphql-tools/schema graphql-import-node
 ```
+
+> The package 
+
+The command above will get you the following libraries installed in the project:
+
+* `graphql` is the GraphQL engine implementation.
+* `@graphql-tools/schema` is a library for creating GraphQL executable schemas.
+* `graphql-import-node` is needed here in order to allow importing of `.graphql` files.
 
 </Instruction>
 

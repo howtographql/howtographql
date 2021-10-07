@@ -43,12 +43,18 @@ To add TypeScript support for your NodeJS project, do the following:
 In your project directory, install the packages required to run a TypeScript project:
 
 ```bash
-npm install --save-dev typescript @types/node ts-node ts-node-dev graphql-import-node
+npm install --save-dev typescript @types/node ts-node ts-node-dev
 ```
 
 </Instruction>
 
 This will add the dependencies to your project, and will update the `package.json`.
+
+The command above will get you the following libraries installed in the project:
+
+* `typescript` is the basic TypeScript langauge support and compiler.
+* `@types/node` is a package that contains the basic TypeScript types for NodeJS environment.
+* `ts-node` and `ts-node-dev` are libraries that allows you to run `.ts` files directly, without a compilation step to JavaScript.
 
 <Instruction>
 
@@ -85,14 +91,10 @@ This will allow you to run the following scripts in your project directory:
 Now create the root entry point for your project, by creating a file under `src/index.ts` with the following:
 
 ```ts(path="hackernews-node-ts/src/index.ts")
-import 'graphql-import-node';
-
 console.log('Hello World!');
 ```
 
 </Instruction>
-
-> The package `graphql-import-node` is needed here in order to allow importing of `.graphql` files.  
 
 And to run your server in watch mode, run in your terminal:
 
