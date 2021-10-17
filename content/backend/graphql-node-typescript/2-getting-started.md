@@ -39,8 +39,6 @@ Start by installing `graphql` and `@graphql-tools/schema` library in your projec
 npm install --save graphql @graphql-tools/schema graphql-import-node
 ```
 
-> The package 
-
 The command above will get you the following libraries installed in the project:
 
 * `graphql` is the GraphQL engine implementation.

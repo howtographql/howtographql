@@ -138,7 +138,7 @@ Now, adjust the resolver implementation:
 
 And now adjust the implementation of the `feed` resolver:
 
-```typescript{5,23-24}(path="hackernews-node-ts/src/schema.ts)
+```typescript{7,19-24}(path="hackernews-node-ts/src/schema.ts)
 const resolvers = {
   // ... other resolvers ...
   Query: {
@@ -219,7 +219,7 @@ This represents the various ways that the list of `Link` elements can be sorted 
 
 Now, adjust the `feed` query again to include the `orderBy` argument:
 
-```graphql
+```graphql(path="hackernews-node-ts/src/schema.graphql)
 type Query {
   info: String!
   feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): [Link!]!
@@ -300,7 +300,7 @@ returned by your API: `Feed`.
 
 Add the new `Feed` type to your GraphQL schema. Then also adjust the return type of the `feed` query accordingly:
 
-```graphql
+```graphql{3,7-10}(path="hackernews-node-ts/src/schema.graphql)
 type Query {
   info: String!
   feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): Feed!
@@ -319,7 +319,7 @@ type Feed {
 
 Now, go ahead and adjust the `feed` resolver again:
 
-```typescript{1,13-17,35}(path="hackernews-node-ts/src/schema.ts)
+```typescript{1,21-42}(path="hackernews-node-ts/src/schema.ts)
 import { Link, User, Prisma } from "@prisma/client";
 
 const resolvers = {

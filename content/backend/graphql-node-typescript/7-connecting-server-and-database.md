@@ -214,8 +214,32 @@ You may also have noticed that ```newLink``` is an object of type ```Promise```.
 
 With these code changes, you can now go ahead and test if the new implementation with a database works as expected. As usual, run the following command in your terminal to start the GraphQL server (`npm run dev`, or `npm start`)
 
-Then, open the GraphQL Playground at `http://localhost:3000/playground`. You can send the same `feed` query and `post` mutation as before. However, the difference is that this time the submitted links will be
+Then, open GraphiQL at `http://localhost:3000/playground`. You can send the same `feed` query and `post` mutation as before. However, the difference is that this time the submitted links will be
 persisted in your SQLite database. Therefore, if you restart the server, the `feed` query will keep returning the same links.
+
+<Instruction>
+
+Open GraphiQL and try to run the `feed` query and the `post` mutation:
+
+```graphql
+query {
+  feed {
+    id
+    url
+    description
+  }
+}
+```
+
+```graphql
+mutation {
+  post(url: "www.prisma.io", description: "Prisma replaces traditional ORMs") {
+    id
+  }
+}
+```
+
+</Instruction>
 
 ### Exploring your data in Prisma Studio
 

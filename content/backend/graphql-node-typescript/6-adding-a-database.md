@@ -146,21 +146,17 @@ Boom! 💥 You now have a database with a `Link` table! 🎉
 
 Check out the [Prisma Migrate docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-migrate) for a deeper dive on this.
 
-### Generating Prisma Client
+### Generated Prisma Client
 
-It's time to generate _Prisma Client_ based on your data model!
+Behind the scenes, when you are using Prisma, it generates files to `/node_modules/@prisma/client`, so everytime you use the `PrismaClient`, you get a tailer-made types that matches your models.  
 
-<Instruction>
-
-Run the following command in your terminal:
+You can also generate the _Prisma Client_ manually if it not up-to-date, by running the following command in your terminal:
 
 ```bash
 npx prisma generate
 ```
 
-</Instruction>
-
-It's as simple as that! You now have `/node_modules/@prisma/client` which can be imported and used in your code.
+### Updating the Prisma models
 
 Let's write your first query with Prisma Client and break everything down. You'll do that in a separate file to not mess with your current GraphQL server implementation.
 
@@ -247,8 +243,7 @@ Great! Re-run the previous command and this time you should now see your newly c
 To recap, this is the typical workflow you will follow when updating your data:
 
 1. Manually adjust your Prisma data model.
-2. Migrate your database using the `prisma migrate` CLI commands we covered.
-3. (Re-)generate Prisma Client
-4. Use Prisma Client in your application code to access your database.
+2. Run a database migration using the `prisma migrate` CLI command (and re-generate the Prisma Client types).
+3. Use Prisma Client in your application code to access your database.
 
 In the next chapters, you will evolve the API of your GraphQL server and use Prisma Client to access the database from inside your resolver functions.

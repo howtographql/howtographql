@@ -46,11 +46,9 @@ Notice how you're adding a new _relation field_ called `postedBy` to the `Link` 
 
 To do this, you need to also define the relation by annotating the `postedBy` field with
 [the `@relation` attribute](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations#the-relation-attribute). This is required for every relation field in
-your Prisma schema, and all you're doing is defining what the foreign key of the related table will be. So in this case, we're adding an extra field to store the `id` of the `User`
-who posts a `Link`, and then telling Prisma that `postedById` will be equal to the `id` field in the `User` table.
+your Prisma schema, and all you're doing is defining what the foreign key of the related table will be. So in this case, we're adding an extra field to store the `id` of the `User` who posts a `Link`, and then telling Prisma that `postedById` will be equal to the `id` field in the `User` table (if you are familiar with SQL, this kind of relation is being represented as one-to-many).
 
-If this is quite new to you, don't worry! We're going to be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with
-Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations).
+If this is quite new to you, don't worry! We're going to be adding a few of these relational fields and you'll get the hang of it as you go! For a deeper dive on relations with Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/relations).
 
 ### Updating Prisma Client
 
@@ -229,7 +227,7 @@ Let's use the good ol' numbered comments again to understand what's going on her
 1. You're then generating a JSON Web Token which is signed with an `APP_SECRET`. You still need to create this `APP_SECRET` and also install the `jwt` library that's used here.
 1. Finally, you return the `token` and the `user` in an object that adheres to the shape of an `AuthPayload` object from your GraphQL schema.
 
-You can now open the GraphQL Playground and play around with your new schema and resolvers, try to run the following mutations:
+You can now open GraphiQL and play around with your new schema and resolvers, try to run the following mutations:
 
 ```graphql
 mutation {
@@ -353,7 +351,7 @@ import { JwtPayload, verify } from "jsonwebtoken";
 export const APP_SECRET = "this is my secret";
 
 export async function authenticateUser(prisma: PrismaClient, request: FastifyRequest): Promise<User | null> {
-  if (request.headers.authorization) {
+  if (request?.headers?.authorization) {
     // 1
     const token = request.headers.authorization.split(" ")[1];
     // 2
@@ -456,7 +454,7 @@ const resolvers = {
 
 </Instruction>
 
-You can now try it in GraphQL Playground, with the following query:
+You can now try it in GraphiQL with the following query:
 
 ```graphql
 query {
@@ -467,7 +465,7 @@ query {
 }
 ```
 
-And under the `HEADERS` section of GraphQL Playground, add your authentication token in the following structure:
+And under the `HEADERS` section of GraphiQL, add your authentication token in the following structure:
 
 ```json
 {
@@ -481,7 +479,7 @@ And if you'll run it, you'll see that the GraphQL server now being able to authe
 
 ### Connecting other resolvers
 
-If you remember, we initially added more new fields to our GraphQL schema, so let's implement the missing resolvers, based on the new capabilities that you have now.
+If you remember, you added more new fields to the GraphQL schema (such as `Link.postedBy`), so let's implement the missing resolvers!
 
 To make sure our server knows how to identify the creator of each `Link`, let's modify the resolver of `Mutation.post` to ensure that only authenticated users can use it, and also add the current autenticated user id to the object created on our database.
 
@@ -493,7 +491,7 @@ Let's go and finish up the implementation, and connect everything together with 
 
 Modify `src/schema.ts` and change the resolver of `post` field to the following:
 
-```typescript{4-6,12}(path="hackernews-node-ts/src/schema.ts)
+```typescript{3-6,12}(path="hackernews-node-ts/src/schema.ts)
 const resolvers = {
   Mutation: {
     post: async (parent: unknown, args: { url: string; description: string }, context: GraphQLContext) => {
@@ -517,7 +515,7 @@ const resolvers = {
 
 </Instruction>
 
-You can now try it from your GraphQL Playground: 
+You can now try it from GraphiQL: 
 
 ```graphql
 mutation {

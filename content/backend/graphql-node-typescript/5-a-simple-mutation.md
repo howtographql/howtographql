@@ -3,7 +3,7 @@ title: A Simple Mutation
 pageTitle: 'Implementing Mutations in a GraphQL Server Tutorial'
 description:
   'Learn best practices for implementing GraphQL mutations with graphql-js, Node.js & Prisma. Test your implementation
-  in a GraphQL Playground.'
+  in a GraphiQL.'
 ---
 
 In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow you to _post_ new links
@@ -108,8 +108,7 @@ specify any arguments in the schema definition.
 
 ### Testing the mutation
 
-Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through
-the GraphQL Playground:
+Go ahead and restart your server so you can test the new API operations. Here is a sample mutation you can send through GraphiQL:
 
 ```graphql
 mutation {

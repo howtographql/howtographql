@@ -44,6 +44,8 @@ News. Each `Link` has an `id`, a `description`, and a `url`. You're then adding 
 that allows you to retrieve a list of `Link` elements. This list is guaranteed to never be `null` (if anything, it will
 be empty) and never contain any elements that are `null` - that's what the two exclamation marks are for.
 
+> If you wish to read more about GraphQL and nullability, go ahead to [GraphQL official documentation](https://graphql.org/learn/schema/#lists-and-non-null).
+
 ### Implement resolver functions
 
 The next step is to implement the resolver function for the `feed` query. In fact, one thing we haven't mentioned yet is
@@ -191,5 +193,5 @@ element inside the `links` list.
 > **Note**: To learn more about this, check out
 > [this](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#9d03) article.
 
-In any case, because the implementation of the `Link` resolvers is trivial, you can actually omit them and the server
+> The implementation of the `Link` resolvers is trivial, you can actually omit them and the server
 will work in the same way as it did before 👌 We just wanted you to understand what's happening under the hood 🚗

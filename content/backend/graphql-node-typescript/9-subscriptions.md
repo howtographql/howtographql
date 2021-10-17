@@ -34,8 +34,9 @@ You'll be using a simple `PubSub` implementation from the `graphql-subscriptions
 - An existing model **updated**
 - An existing model is **deleted**
 
-You will do this by first adding an instance of `PubSub` to the context, just as you did with `PrismaClient`, and then calling its methods in the resolvers that handle each of the
-above events.
+> `Pub/Sub` refers to a technique used to create a messaging pattern, where some parts of the code publishes events/messages, and other parts of the code subscribes and being notified about the events/messages. You are going to use that technique in order to create a simple subscription for the GraphQL Subscriptions, based on events published by the GraphQL mutations.  
+
+You will do this by first adding an instance of `PubSub` to the context, just as you did with `PrismaClient`, and then calling its methods in the resolvers that handle each of the above events.
 
 ### Setting up `PubSub`
 
@@ -127,8 +128,9 @@ type Subscription {
 Next, go ahead and implement the resolver for the `newLink` field. Resolvers for subscriptions are slightly different than the ones for queries and mutations:
 
 1. Rather than returning any data directly, they return an `AsyncIterator` which subsequently is used by the GraphQL server to push the event data to the client.
-1. Subscription resolvers are wrapped inside an object and need to be provided as the value for a `subscribe` field. You also need to provide another field called `resolve` that
-   actually returns the data from the data emitted by the `AsyncIterator`.
+1. Subscription resolvers are wrapped inside an object and need to be provided as the value for a `subscribe` field. You also need to provide another field called `resolve` that actually returns the data from the data emitted by the `AsyncIterator`.
+
+> Iterators in JavaScript bring the concept of iteration directly into the core language and provide a mechanism for customizing the behavior of loops. `AsyncIterator` is a built-in JavaScript types, that allow to to write iterators that might get the values updates in an `async` way ([you can find more information here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)).
 
 To get started with a new event, first make sure it's declared correctly by the `PubSubChannels`. In this case, you are going to declare an event called `NEW_LINK`, and use the created `Link` object as payload.
 
@@ -226,7 +228,7 @@ All you need to do in order to test your GraphQL Subscription is to open GraphiQ
 
 ### Testing subscriptions
 
-With all the code in place, it's time to test your realtime API ⚡️ You can do so by using two instances (i.e. browser windows) of the GraphQL Playground at once.
+With all the code in place, it's time to test your realtime API ⚡️ You can do so by using two instances (i.e. browser windows) of the GraphiQL at once.
 
 <Instruction>
 
@@ -273,7 +275,7 @@ Time to trigger a subscription event.
 
 <Instruction>
 
-Send the following `post` mutation inside a GraphQL Playground. Remember that you need to be authenticated for that (see the previous chapter to learn how that works):
+Send the following `post` mutation inside a GraphiQL. Remember that you need to be authenticated for that (see the previous chapter to learn how that works):
 
 ```graphql
 mutation {
@@ -345,20 +347,8 @@ npx prisma migrate dev --name "add-vote-model"
 
 </Instruction>
 
-To apply the changes and update your Prisma Client API so it exposes CRUD queries for the new `Vote` model, regenerate `PrismaClient`.
 
-<Instruction>
-
-Run the following command in your terminal:
-
-```bash(path="hackernews-node-ts")
-npx prisma generate
-```
-
-</Instruction>
-
-Now, with the process of schema-driven development in mind, go ahead and extend the schema definition of your application schema so that your GraphQL server also exposes a `vote`
-mutation:
+Now, with the process of schema-driven development in mind, go ahead and extend the schema definition of your application schema so that your GraphQL server also exposes a `vote` mutation:
 
 ```graphql{5}(path="hackernews-node-ts/src/schema.graphql")
 type Mutation {
