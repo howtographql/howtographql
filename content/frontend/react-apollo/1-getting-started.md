@@ -490,7 +490,7 @@ file is our SQLite database.
 > **Note**: You are free to use Postgres or MySQL for this tutorial if you
 > prefer. All aspects of the tutorial will still work with those databases.
 
-Next, let's run database migratons and generate Prisma Client.
+Next, let's run database migrations and generate Prisma Client.
 
 <Instruction>
 

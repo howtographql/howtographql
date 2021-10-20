@@ -9,7 +9,7 @@ videoId: b7tMHnxzK34
 duration: 10
 ---
 
-GraphQL has been released only as a *specification*. This means that GraphQL is in fact not more than a [long document](https://graphql.org/) that describes in detail the behaviour of a *GraphQL server.*
+GraphQL has been released only as a *specification*. This means that GraphQL is in fact not more than a [long document](https://spec.graphql.org/) that describes in detail the behaviour of a *GraphQL server.*
 
 ### Use Cases
 
