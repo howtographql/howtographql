@@ -71,10 +71,12 @@ First, let's install two important dependencies that will allow you to create yo
 Run the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npm install apollo-server graphql
+npm install apollo-server@^2 graphql
 ```
 
 </Instruction>
+
+> **Note**: The `@^2` added at the end of `apollo-server` specifies the major version to be installed. This tutorial was made with apollo-server version 2 in mind. We plan to migrate this tutorial to Apollo Server version 3, which was released in [July, 2021](https://www.apollographql.com/blog/announcement/backend/its-here-introducing-apollo-server-3/). For now though, you will use version 2, which is quite similar. You can optionally check the [github issue](https://github.com/howtographql/howtographql/issues/1377) on this topic to check progress regarding this planned migration. 
 
 [`apollo-server`](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server) is a fully-featured
 GraphQL server. It is based on [Express.js](https://expressjs.com/) and a few other libraries to help you build
