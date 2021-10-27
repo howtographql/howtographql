@@ -68,7 +68,7 @@ First, let's install two important dependencies that will allow you to create yo
 
 <Instruction>
 
-Run the following commands in your terminal:
+Run the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
 npm install apollo-server@^2 graphql
@@ -98,7 +98,7 @@ Perfect, it's time to write some code 🙌
 
 Open `src/index.js` and type the following:
 
-```typescript(path="../hackernews-node/src/index.js")
+```js(path="../hackernews-node/src/index.js")
 const { ApolloServer } = require('apollo-server');
 
 // 1
@@ -120,8 +120,6 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
 })
-
-let a : string = "df";
 
 server
   .listen()
