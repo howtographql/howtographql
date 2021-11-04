@@ -7,6 +7,7 @@ description: 'Creating an app with gqlgen'
 
 ## What are you going to build?
 
+
 In this tutorial we are going to create a Hackernews clone with Go and gqlgen,
 So our API will be able to handle registration, authentication, submitting links
 and getting list of links.
@@ -31,6 +32,7 @@ go run github.com/99designs/gqlgen init
 
 Here is a description from gqlgen about the generated files:
 
+
 - `gqlgen.yml` — The gqlgen config file, knobs for controlling the generated
   code.
 - `graph/generated/generated.go` — The GraphQL execution runtime, the bulk of
@@ -47,6 +49,7 @@ Here is a description from gqlgen about the generated files:
   right!
 
 ## Defining Our Schema <a name="defining-out-schema"></a>
+
 
 Now let's start with defining schema we need for our API. We have two types Link
 and User each of them for representing Link and User to client, a `links` Query
