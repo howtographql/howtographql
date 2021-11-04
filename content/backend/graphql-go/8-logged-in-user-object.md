@@ -1,6 +1,6 @@
 ---
 title: Logged in User
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Logged in User"
 description: "Get logged-in user in gqlgen"
 ---
 

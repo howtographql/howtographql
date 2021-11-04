@@ -1,6 +1,6 @@
 ---
 title: Auth Endpoints
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Auth Endpoints"
 description: "Enable Users to register, login and refresh their token"
 ---
 
@@ -49,7 +49,7 @@ For this mutation, first we have to check if user exists in database and given p
 
 <Instruction>
 
-`internal/users.go`:
+`internal/users/users.go`:
 ```go
 func (user *User) Authenticate() bool {
 	statement, err := database.Db.Prepare("select Password from Users WHERE Username = ?")

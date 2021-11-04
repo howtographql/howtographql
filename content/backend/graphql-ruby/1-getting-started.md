@@ -36,7 +36,7 @@ bundle exec rails server
 
 This will install and start a new [Ruby On Rails](http://rubyonrails.org/) project. When you visit [http://localhost:3000](http://localhost:3000/) in a browser, you should see:
 
-![](http://i.imgur.com/RLFWuiq.jpg)
+![Yay! You're on Rails!](http://i.imgur.com/RLFWuiq.jpg)
 
 ### Setup Server
 
@@ -49,7 +49,7 @@ Now, let's add GraphQL to the server. First, stop the server.
 Open `Gemfile` and add the following dependency to it:
 
 ```ruby(path=".../graphql-ruby/Gemfile")
-gem 'graphql', '1.9.17'
+gem 'graphql', '1.11.6'
 ```
 
 </Instruction>

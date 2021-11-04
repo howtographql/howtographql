@@ -50,7 +50,8 @@ export default function Chapter({ post, location, steps }: Props) {
   }
   const showBonus = location.pathname.startsWith('/basics/3-big-picture/')
   const title = post.frontmatter.pageTitle || getTitle(group, post)
-  const description = post.excerpt
+  const excerpt = post.excerpt
+  const description = post.frontmatter.description
   const stackName = getStackName(group)
   const contentTitle = (stackName && n === 0) ? `${stackName} Tutorial - ${post.frontmatter.title}` : post.frontmatter.title
 
@@ -58,7 +59,7 @@ export default function Chapter({ post, location, steps }: Props) {
     <div>
       <CustomHelmet 
       title={title}
-      description={description}
+      description={description || excerpt}
       location={location} 
       />
       <style jsx={true}>{`

@@ -25,7 +25,7 @@ end
 
 As before you'll need to actually write the `create_link` function inside the news resolver.
 
-```elixir(path=".../graphql-elixir/lib/community_web/resolvers/news_resolver.ex")
+```elixir(path=".../graphql-elixir/blob/master/lib/community/web/resolvers/news_resolver.ex")
 def create_link(_root, args, _info) do
   # TODO: add detailed error message handling later
   case News.create_link(args) do
@@ -58,7 +58,7 @@ mutation {
 }
 ```
 
-![](http://i.imgur.com/pHNRZlG.png)
+![Testing with Playground](http://i.imgur.com/pHNRZlG.png)
 
 If you run your `allLinks` query again you'll now see we have a new link.
 

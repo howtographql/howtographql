@@ -52,7 +52,7 @@ Don't worry about the `hackernews/hackernews` structure, this is just the way Dj
 
 The commands above will install the necessary libraries, create a new Django project, create the base Django tables and start its builtin web server. To test it, open your browser and access the `http://localhost:8000` address. You should see the following page:
 
-![](https://i.imgur.com/QDZzLye.png)
+![The install worked successfully!](https://i.imgur.com/QDZzLye.png)
 
 ### Configuring Graphene Django
 

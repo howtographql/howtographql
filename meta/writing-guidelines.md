@@ -8,7 +8,7 @@ Your tutorial should be divided into shorter _chapters_. Each chapter needs to b
 
 [Here](https://github.com/howtographql/howtographql/tree/master/content/frontend/react-apollo) is what the example structure for the React+Apollo tutorial looks like: 
 
-![](http://imgur.com/nGsYY1E.png)
+![List of files in GitHub](http://imgur.com/nGsYY1E.png)
 
 Also notice that each single chapter needs to have a **frontmatter** with the following information:
 
@@ -56,11 +56,11 @@ To get access to this endpoint, open up a terminal and navigate to the directory
 
 Often times, you'll want to combine a short instruction with a code block that the user has to copy into their project:
 
-![](http://imgur.com/4SrSHHu.png)
+![Writing a code block in Markdown](http://imgur.com/4SrSHHu.png)
 
 This is what a rendered instruction block (including code block) will look like: 
 
-![](http://imgur.com/pMeAkpB.png)
+![Code block and link](http://imgur.com/pMeAkpB.png)
 
 **IMPORTANT**: There are two important notes about using _code blocks_ in an instruction block:
 
@@ -100,7 +100,7 @@ const ALL_LINKS_QUERY = gql`
 
 This information will be displayed on top of the code block and will link to the actual file on GitHub:
 
-![](http://imgur.com/VyyZk5v.png)
+![Code block and link rendered](http://imgur.com/VyyZk5v.png)
 
 #### Adding a directory path a terminal command
 
@@ -109,7 +109,7 @@ yarn add react-apollo
 ```
 </code></pre>
 
-![](http://imgur.com/yeCfsk6.png)
+![Code block and link rendered](http://imgur.com/yeCfsk6.png)
 
 #### Adding / Hiding the "Copy"-button to a code block
 
@@ -186,7 +186,7 @@ You might not be able to cover all the topics that are relevant to your tutorial
 
 When you're showing a code block to the reader, make sure to explain what's going on in there. A nice approach approach is to put numbers on different parts inside the code block and then explain each step with 1 or 2 short sentences. For example:
 
-![](http://imgur.com/LLRqPgT.png)
+![Code block and instructions rendered](http://imgur.com/LLRqPgT.png)
 
 ### Write short paragraphs
 

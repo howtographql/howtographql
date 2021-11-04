@@ -43,7 +43,7 @@ A GraphQL server should be able to:
 }
 ```
 
-These are the basic features all GraphQL servers have, but of course, they can do much more as needed. You can read in more detail about the expected behavior of a GraphQL server in the [official specification](https://facebook.github.io/graphql/).
+These are the basic features all GraphQL servers have, but of course, they can do much more as needed. You can read in more detail about the expected behavior of a GraphQL server in the [official specification](https://graphql.org/).
 
 ### Schema-Driven Development
 
