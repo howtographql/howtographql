@@ -484,7 +484,7 @@ And if you'll run it, you'll see that the GraphQL server now being able to authe
 
 If you remember, you added more new fields to the GraphQL schema (such as `Link.postedBy`), so let's implement the missing resolvers!
 
-To make sure our server knows how to identify the creator of each `Link`, let's modify the resolver of `Mutation.post` to ensure that only authenticated users can use it, and also add the current autenticated user id to the object created on our database.
+To make sure our server knows how to identify the creator of each `Link`, let's modify the resolver of `Mutation.post` to ensure that only authenticated users can use it, and also add the current authenticated user id to the object created on our database.
 
 #### Protecting resolvers
 

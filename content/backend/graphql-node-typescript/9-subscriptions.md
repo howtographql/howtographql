@@ -7,7 +7,7 @@ answers:
   [
     'Subscriptions follow a request-response-cycle',
     'Subscriptions are best implemented with MailChimp',
-    'Subscriptions are a real-time GraphQL contract, and can be implemented with diffrerent real-time transports',
+    'Subscriptions are a real-time GraphQL contract, and can be implemented with different real-time transports',
     "Subscriptions are defined on the 'Query' type and annotated with the @realtime-directive"
   ]
 correctAnswer: 2

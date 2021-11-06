@@ -55,7 +55,7 @@ This will add the dependencies to your project, and will update the `package.jso
 
 The command above will get you the following libraries installed in the project:
 
-* `typescript` is the basic TypeScript langauge support and compiler.
+* `typescript` is the basic TypeScript language support and compiler.
 * `@types/node` is a package that contains the basic TypeScript types for NodeJS environment.
 * `ts-node` and `ts-node-dev` are libraries that allows you to run `.ts` files directly, without a compilation step to JavaScript.
 

@@ -93,7 +93,7 @@ const resolvers = {
 
 Let's walk through the numbered comments again:
 
-1. The `Link` type defines the TypeScript object strucutre that we wish to use in our code. 
+1. The `Link` type defines the TypeScript object structure that we wish to use in our code. 
 1. The `links` variable is used to store the links at runtime. For now, everything is stored only _in-memory_ rather
    than being persisted in a database.
 1. You're adding a new resolver for the `feed` root field. Notice that a resolver always has to be named _exactly_ after

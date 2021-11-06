@@ -106,7 +106,7 @@ model Link {
 Let's break down the three parts:
 
 1. **Data source**: Tells Prisma you'll be using SQLite for your database connection.
-1. **Generator**: Indicates that you want to genenerate Prisma Client.
+1. **Generator**: Indicates that you want to generate Prisma Client.
 1. **Data model**: Here, we have written out our `Link` as a model.
 
 The `Link` model defines the structure of the `Link` database table that Prisma is going to create for you in a bit.
@@ -151,7 +151,7 @@ Check out the [Prisma Migrate docs](https://www.prisma.io/docs/reference/tools-a
 
 ### Generated Prisma Client
 
-Behind the scenes, when you are using Prisma, it generates files to `/node_modules/@prisma/client`, so everytime you use the `PrismaClient`, you get a tailer-made types that matches your models.  
+Behind the scenes, when you are using Prisma, it generates files to `/node_modules/@prisma/client`, so every time you use the `PrismaClient`, you get a tailer-made types that matches your models.  
 
 You can also generate the _Prisma Client_ manually if it not up-to-date, by running the following command in your terminal:
 

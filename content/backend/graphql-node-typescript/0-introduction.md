@@ -21,7 +21,7 @@ You are going to use the following technologies:
 - [Node.js](https://nodejs.org/) - as an engine and runtime for our server.
 - [TypeScript](https://www.typescriptlang.org/) - a strongly typed programming language which builds on JavaScript giving you better tooling at any scale.
 - [`fastify`](https://www.fastify.io/) - a rising star in the HTTP servers ecosystem, very fast and efficient.
-- [`graphql-js`](https://github.com/graphql/graphql-js) - we will use the core `graphql` libray as execution engine for our server. 
+- [`graphql-js`](https://github.com/graphql/graphql-js) - we will use the core `graphql` library as execution engine for our server. 
 - [`graphql-helix`](https://github.com/contrawork/graphql-helix) - a collection of utility functions for building your own GraphQL HTTP server. 
 - [Prisma](https://www.prisma.io/): Replaces traditional ORMs. Use Prisma Client to access your database inside of
   GraphQL resolvers.
@@ -54,6 +54,6 @@ You'll start by implementing signup/login functionality that enables users to au
 also allow you to check the permissions of your users for certain API operations.
 
 Next, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding
-filtering and pagination capabalities to it.
+filtering and pagination capabilities to it.
 
 Let's get started 🚀
