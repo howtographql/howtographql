@@ -81,7 +81,7 @@ To make it easier to run your project, replace the `"scripts"` section in your `
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "ts-node-dev src/index.ts",
+    "dev": "ts-node-dev --exit-child src/index.ts",
     "start": "ts-node src/index.ts"
   },
   "devDependencies": {
