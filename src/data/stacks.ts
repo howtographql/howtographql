@@ -143,9 +143,9 @@ const data: Stack[] = [
     beginnersChoice: true,
   },
   {
-    title: 'graphql-node-typescript',
+    title: 'typescript-helix',
     type: 'backend',
-    key: 'graphql-node-typescript',
+    key: 'typescript-helix',
     images: [
       require('../assets/icons/nodejs.svg'),
       require('../assets/icons/graphql.svg'),
