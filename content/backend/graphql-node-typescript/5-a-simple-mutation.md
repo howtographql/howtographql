@@ -4,6 +4,9 @@ pageTitle: 'Implementing Mutations in a GraphQL Server Tutorial'
 description:
   'Learn best practices for implementing GraphQL mutations with graphql-js, Node.js & Prisma. Test your implementation
   in a GraphiQL.'
+question: 'What is a distinction between execution of queries and mutation?'
+answers: ['Mutations run parallel while queries run in series', 'Mutations and queries run in parallel', 'Mutation run in series and queries run in parallel', 'Mutations and queries run in series']
+correctAnswer: 2
 ---
 
 In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow you to _post_ new links

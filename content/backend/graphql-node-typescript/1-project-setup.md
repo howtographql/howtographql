@@ -3,6 +3,9 @@ title: Project Setup
 pageTitle: 'Creating a basic NodeJS & TypeScript project'
 description:
   'Learn how to setup a basic NodeJS & TypeScript project'
+question: 'What is `@types/node` package used for?'
+answers: ['To add NodeJS', 'To add TypeScript Language compiler', 'To run TypeScript files directly', 'To add TypeScript types for NodeJS environment']
+correctAnswer: 3
 ---
 
 In this section, you will learn how to create a basic NodeJS project with TypeScript. 

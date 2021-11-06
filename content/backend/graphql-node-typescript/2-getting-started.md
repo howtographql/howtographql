@@ -3,6 +3,9 @@ title: Getting Started
 pageTitle: 'Getting Started with a simple GraphQL schema'
 description:
   'Learn how write a GraphQL schema and how to try and run it.'
+question: 'What does `makeExecutableSchema` function do?'
+answers: ['Convert GraphQL SDL to DocumentNode', 'Combine multiple SDLs into one', 'Glue GraphQL SDL with Resolvers into an executable schema we can later use', 'Run schema with query']
+correctAnswer: 2
 ---
 
 In this chapter, you will learn about the GraphQL schema: 

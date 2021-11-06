@@ -2,6 +2,9 @@
 title: Adding a Database
 pageTitle: 'Creating a Prisma Database Service Tutorial'
 description: 'Learn how to add a database to your GraphQL server. The database is powered by Prisma and connected to the server via GraphQL bindings.'
+question: 'What is Prisma Studio?'
+answers: ['A GUI to view and edit data in your database', 'A declarative data modeling & migration system.', 'An auto-generated and type-safe query builder for Node.js & TypeScript', 'Tool to generate SQL']
+correctAnswer: 0
 ---
 
 In this section, you're going to set up a [SQLite](https://www.sqlite.org/index.html) to persist the data of incoming GraphQL mutations. Instead of writing SQL directly, you will

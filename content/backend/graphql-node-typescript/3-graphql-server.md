@@ -3,6 +3,9 @@ title: Creating a GraphQL Server
 pageTitle: 'Getting Started with a basic GraphQL server'
 description:
   'Getting Started with a GraphQL server based on Fastify and GraphQL-Helix'
+question: 'What is SSE used for?'
+answers: ['Push data to client from server over HTTP', 'Push data to client from server over WebSockets', 'Push data to server from client over HTTP', 'Push data to server from client over WebSockets']
+correctAnswer: 0
 ---
 
 Now that you have a GraphQL schema, and you understand the concept of GraphQL schema and a GraphQL query, it's time to create a real GraphQL server.

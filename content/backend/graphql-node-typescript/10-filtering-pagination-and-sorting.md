@@ -2,6 +2,9 @@
 title: Filtering, Pagination & Sorting
 pageTitle: 'GraphQL Filtering, Pagination & Sorting Tutorial with JavaScript'
 description: 'Learn how to add filtering and pagination capabilities to a GraphQL API with Node.js, Fastify & Prisma.'
+question: 'What style of pagination comes out of the box in GraphQL'
+answers: ["Offset-based pagination", "Cursor-based pagination", "Key-Set based pagination","None, you implement the style which fits your needs"]
+correctAnswer: 3
 ---
 
 This is an exciting section of the tutorial where you'll implement some key features of many robust APIs! The goal is to

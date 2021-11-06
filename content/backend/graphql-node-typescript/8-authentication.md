@@ -2,6 +2,9 @@
 title: Authentication 
 pageTitle: 'Implementing Authentication in a GraphQL server with Node.js'
 description: 'Learn best practices for implementing authentication and authorization with Node.js, TypeScript, Fastify & Prisma.'
+question: 'Which is JWT?'
+answers: ["Standard for creating web tokens", "Standard for creating GraphQL servers", "Standard for connecting with database", "Standard to execute queries"]
+correctAnswer: 0
 ---
 
 In this section, you're going to implement signup and login functionality that allows your users to authenticate against your GraphQL server.

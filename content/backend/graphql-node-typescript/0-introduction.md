@@ -4,6 +4,9 @@ pageTitle: 'Building a GraphQL Server with Node.js & TypeScript'
 description:
   'Learn how to build a GraphQL server with Node.js, Fastify, TypeScript, GraphQL-Helix & Prisma 3 and best practices for authentication,
   filtering, pagination and subscriptions.'
+question: 'What database are you using in this tutorial?'
+answers: ['PostgreSQL', 'MySQL', 'SQLite', 'Oracle']
+correctAnswer: 2
 ---
 
 ### Overview
