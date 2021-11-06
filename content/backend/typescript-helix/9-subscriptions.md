@@ -291,6 +291,8 @@ Now observe the GraphiQL where the subscription was running (left side is the su
 
 ![subscription running](https://i.imgur.com/6n0JdHh.png)
 
+> **Note**: If you see a loading spinner indefinitely, it maybe because of SSE disconnecting when the tab goes idle. Ensure that both the tabs are active.
+
 ### Adding a voting feature
 
 #### Implementing a `vote` mutation
