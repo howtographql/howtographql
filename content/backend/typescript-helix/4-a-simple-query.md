@@ -3,9 +3,9 @@ title: A Simple Query
 pageTitle: 'Resolving Queries with a GraphQL Server Tutorial'
 description:
   'Learn how to define a GraphQL schema, implement query resolvers with Node.js and test your queries in a GraphiQL.'
-question: 'Will server throw validation error if you don't provide value for Non-Null argument?'
-answers: ['Yes', 'No']
-correctAnswer: 0
+question: 'Does every field need an explicit resolver?'
+answers: ['Yes every field needs a resolver', 'No all resolvers are optional', 'No, trivial fields dont need a resolver', 'No, only root fields need a resolver']
+correctAnswer: 2
 ---
 
 In this section, you are going to implement the first API operation that provides the functionality of a Hacker News
