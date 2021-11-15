@@ -197,6 +197,12 @@ This is pretty straighforward. You're just reimplementing the same functionality
 
 <Instruction>
 
+Run the following command in your terminal:
+
+```sh
+npm install --save bcrypt jsonwebtoken
+```
+  
 Open `Mutation.js` and add the new `login` and `signup` resolvers (you'll add the `post` resolver in a bit):
 
 ```js(path=".../hackernews-node/src/resolvers/Mutation.js")
