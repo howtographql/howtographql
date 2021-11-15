@@ -25,7 +25,7 @@ ng generate component link-item
 
 This command will create a `link-item` folder containing several new files called `link-item.component.ts` , `link-item.component.spec.ts`, `link-item.component.html`, `link-item.component.css` in the `app` directory and add the following code in `link-item.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 import {Component, Input, OnInit} from '@angular/core';
 import {Link} from '../types';
 
@@ -67,7 +67,7 @@ Note, we will be writing all our typings in a `./src/app/types.ts` file and mere
 
 This command will create a `link-item` folder containing several new files called `link-item.component.ts` , `link-item.component.spec.ts`, `link-item.component.html`, `link-item.component.css` in the `app` directory and add the following code in `link-item.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/types.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/types.ts")
 export class Link {
   id: string;
   description: string;
@@ -87,7 +87,7 @@ Next, you'll implement the component that renders a list of link-items.
 
 Again, in the root directory, go ahead and run `ng generate component link-list` and this create `link-list.component.ts` , `link-list.component.spec.ts`, `link-list.component.html`, `link-list.component.css` in `src/app/link-list` folder and add the following code in `link-list.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 import {Component, OnInit} from '@angular/core';
 import {Link} from '../types';
 
@@ -139,7 +139,7 @@ Here, you're using mock data (`link-list.component.ts`) for now to make sure the
 
 To complete the setup, we should check that all the components in `app.module.ts`, created until now, are declared ,the current contents should look like:
 
-```ts(path=".../hackernews-angular-apollo/src/app/app.module.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -229,7 +229,7 @@ Create a file within `src/app` called `graphql.ts`. This is where all of your qu
 
 Open up `src/app/graphql.ts` and add your first query:
 
-```ts{2-3,5-15,17-21}(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript{2-3,5-15,17-21}(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 import {Link} from './types';
 // 1
 import gql from 'graphql-tag'
@@ -282,7 +282,7 @@ Open up `src/app/link-list/link-list.component.html`, update the HTML template t
 
 Then, open up `src/app/link-list/link-list.component.ts`, import `ALL_LINKS_QUERY`, remove the hard-coded `linksToRender`, and inject the `Apollo` service. Your `LinkListComponent` component should now look like this:
 
-```ts{5-6,17-18,23-25,27-28}(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript{5-6,17-18,23-25,27-28}(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 import {Component, OnInit} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import {Link} from '../types';

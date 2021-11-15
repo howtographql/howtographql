@@ -39,7 +39,7 @@ Start by running `ng generate component search` and this create `search.componen
 <Instruction>
 Then, add the following code in `search.component.ts`:
 
-```ts{6-7,}(path=".../hackernews-angular-apollo/src/app/search/search.component.ts")
+```typescript{6-7,}(path=".../hackernews-angular-apollo/src/app/search/search.component.ts")
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {Apollo} from 'apollo-angular';
@@ -116,7 +116,7 @@ Let's review what you are doing here.
 
 Now add the `SearchComponent` as a new route to the app. Open `src/app/app.routing.ts` and update it to look like the following:
 
-```ts{6-7,28-33}(path=".../hackernews-angular-apollo/src/router/index.ts")
+```typescript{6-7,28-33}(path=".../hackernews-angular-apollo/src/router/index.ts")
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LinkListComponent} from './link-list/link-list.component';
@@ -171,7 +171,7 @@ For the user to be able to navigate to the search functionality comfortably, you
 
 Open `src/app/header/header.component.html` and put a new `route` between `new` and `submit`:
 
-```ts{6-7}(path=".../hackernews-angular-apollo/src/app/header/header.component.")
+```typescript{6-7}(path=".../hackernews-angular-apollo/src/app/header/header.component.")
 <div class="flex pa1 justify-between nowrap orange">
   <div class="flex flex-fixed black">
     <div class="fw7 mr1">Hacker News</div>
@@ -205,7 +205,7 @@ Great, let's now define `ALL_LINKS_SEARCH_QUERY`.
 
 Open `src/app/graphql.ts` and add the following query definition to the file:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 export const ALL_LINKS_SEARCH_QUERY = gql`
   query AllLinksSearchQuery($searchText: String!) {
     allLinks(filter: {

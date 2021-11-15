@@ -39,7 +39,7 @@ Open `src/app/link-item/link-item.component.html` and update it to look like the
 
 Then, update the code in `link-item.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 // ...
 
 export class LinkItemComponent implements OnInit, OnDestroy {
@@ -107,7 +107,7 @@ Go ahead and implement the `timeDifferenceForDate` function next so you can impo
 
 Create a new file called `utils` in the `/src/app` directory with the following content:
 
-```ts(path=".../hackernews-angular-apollo/src/app/utils.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/utils.ts")
 function timeDifference(current: number, previous: number) {
   const milliSecondsPerMinute = 60 * 1000;
   const milliSecondsPerHour = milliSecondsPerMinute * 60;
@@ -151,7 +151,7 @@ export function timeDifferenceForDate(date: string) {
 
 Back in `src/app/link-item/link-item.component.ts`, import `timeDifferenceForDate`  at the top :
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 import {timeDifferenceForDate} from '../utils';
 ```
 
@@ -180,7 +180,7 @@ Open `src/app/link-list/link-list.component.html` and update the rendering of th
 <Instruction>
 Then, go ahead and update `src/app/link-list/link-list.component.ts` to look like the following:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 export class LinkListComponent implements OnInit, OnDestroy {
   allLinks: Link[] = [];
   loading: boolean = true;
@@ -279,7 +279,7 @@ graphcool-framework deploy
 
 With these changes in the schema, you now need to make a couple more changes to `src/app/types.ts` to reflect these updates in your typescript types. We create the `Vote` class then update the `Link` and `User` class.
 
-```ts(path=".../hackernews-angular-apollo/src/app/types.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/types.ts")
 export class Link {
   id?: string;
   description?: string;
@@ -313,7 +313,7 @@ Awesome! Now that you updated the schema and the typescript types, you can fix t
 
 Open `/src/app/graphql.ts` and update the definition of `ALL_LINKS_QUERY` to look as follows:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 export const ALL_LINKS_QUERY = gql`
   query AllLinksQuery {
     allLinks {
@@ -351,7 +351,7 @@ Let's now move on and implement the upvote mutation!
 
 Open `src/app/graphql.ts` and add the following mutation definition to the file:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 export const CREATE_VOTE_MUTATION = gql`
   mutation CreateVoteMutation($userId: ID!, $linkId: ID!) {
     createVote(userId: $userId, linkId: $linkId) {
@@ -390,7 +390,7 @@ This step should feel pretty familiar by now. You're adding the ability to call 
 
 As with the times before, you also need to import this constant near the top of the `script` block in `src/app/link-item/link-item.component.ts`. You need to import `GC_USER_ID` as well:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 import { CREATE_VOTE_MUTATION } from '../app/graphql'
 import { GC_USER_ID } from '../app/constants'
 ```
@@ -401,7 +401,7 @@ import { GC_USER_ID } from '../app/constants'
 
 Finally, you need to implement `voteForLink` as follows in `src/app/link-item/link-item.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 voteForLink() {
     const userId = localStorage.getItem(GC_USER_ID);
     const voterIds = this.link.votes.map(vote => vote.user.id);
@@ -445,7 +445,7 @@ You can implement this functionality by using Apollo's [imperative store API](ht
 
 Open `src/app/link-item/link-item.component.ts` and update the call to `CREATE_VOTE_MUTATION` inside the `voteForLink` method as follows:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 const mutationSubscription = this.apollo.mutate({
       mutation: CREATE_VOTE_MUTATION,
       variables: {
@@ -473,7 +473,7 @@ but the actual implementation of the `updateStoreAfterVote` will be done in the 
 
 Open `src/app/link-list/link-list.component.ts` and add the following method inside the `LinkListComponent`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 updateStoreAfterVote (store, createVote, linkId) {
     // 1
     const data = store.readQuery({
@@ -500,7 +500,7 @@ What's going on here?
 
 Then in `src/app/link-item/link-item.component.ts`, don't forgot to add `@Input` for the `updateStoreAfterVote` callback :
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 @Input()
 updateStoreAfterVote: UpdateStoreAfterVoteCallback;
 ```
@@ -511,7 +511,7 @@ updateStoreAfterVote: UpdateStoreAfterVoteCallback;
 
 The `UpdateStoreAfterVoteCallback` interface is defined as following:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 interface UpdateStoreAfterVoteCallback {
   (proxy: DataProxy, mutationResult: FetchResult<CreateVoteMutationResponse>, linkId: string);
 }
@@ -524,7 +524,7 @@ interface UpdateStoreAfterVoteCallback {
 
 Still in `src/app/link-item/link-item.component.ts`, you now need to import `ALL_LINKS_QUERY`:
 
-```ts{2-9,5-7,9-10}(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript{2-9,5-7,9-10}(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
 import { ALL_LINKS_QUERY, CREATE_VOTE_MUTATION } from '../app/graphql'
 ```
 

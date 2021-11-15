@@ -17,7 +17,7 @@ As in the sections before, you'll set the stage for the login functionality by p
 
 Go ahead and run `ng generate component login` and this create `login.component.ts` , `login.component.spec.ts`, `login.component.html`, `login.component.css` in `src/app/login` folder and add the following code inside `login.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/login/login.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/login/login.component.ts")
 import {Component, OnInit} from '@angular/core';
 
 @Component({
@@ -104,7 +104,7 @@ Next, you also need to provide the `src/app/constants.ts` file that we use to de
 
 In `src/app`, create a new file called `constants.ts` and add the following two definitions:
 
-```ts(path=".../hackernews-angular-apollo/src/app/constants.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/constants.ts")
 export const GC_USER_ID = 'graphcool-user-id'
 export const GC_AUTH_TOKEN = 'graphcool-auth-token'
 ```
@@ -119,7 +119,7 @@ With that component in place, you can go ahead and add a new route to your `src/
 
 Open `src/app/app.routing.ts` and update the `routes` array to include the new route:
 
-```ts{23-27}(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
+```typescript{23-27}(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
 const routes: Routes = [
   {
     path: '',
@@ -150,7 +150,7 @@ const routes: Routes = [
 
 Also import the `Login` component near top of the same file:
 
-```ts(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
 import {LoginComponent} from './login/login.component';
 ```
 
@@ -160,7 +160,7 @@ import {LoginComponent} from './login/login.component';
 
 Let's continue by creating a new file in `src/app` called `auth.service.ts` and add the following code inside:
 
-```ts(path=".../hackernews-angular-apollo/src/app/auth.service.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/auth.service.ts")
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -231,7 +231,7 @@ Note, don't forgot to inject `AuthService` in `app.module.ts`:
 
 </Instruction>
 <Instruction>
-```ts{31-33}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
+```typescript{31-33}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 providers: [
     AuthService
 ],
@@ -245,7 +245,7 @@ Finally, go ahead and add the `Login` link to the `Header` component that allows
 <Instruction>
 
 Open `src/app/header/header.ts` and update the file to look like the following:
-```ts(path=".../hackernews-angular-apollo/src/app/header/header.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/header/header.component.ts")
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -478,7 +478,7 @@ The goal in the new implementation is to retrieve the `name` argument from the i
 
 Open `signup.ts` and update the definition of the `EventData` interface like so:
 
-```ts{4}(path="../hackernews-angular-apollo/server/src/email-password/signup.ts")
+```typescript{4}(path="../hackernews-angular-apollo/server/src/email-password/signup.ts")
 interface EventData {
   email: string
   password: string
@@ -492,7 +492,7 @@ interface EventData {
 
 Still in `signup.ts`, adjust the implementation of the anonymous (and topmost) function to look as follows:
 
-```ts{8,26}(path="../hackernews-angular-apollo/server/src/email-password/signup.ts")
+```typescript{8,26}(path="../hackernews-angular-apollo/server/src/email-password/signup.ts")
 export default async (event: FunctionEvent<EventData>) => {
   console.log(event)
 
@@ -539,7 +539,7 @@ All you do is also retrieve the `name` from the input `event` and then pass it t
 
 Still in `signup.ts`, update the `createGraphcoolUser` function like so:
 
-```ts{1,7,17}(path="../hackernews-angular-apollo/server/src/email-password/signup.ts")
+```typescript{1,7,17}(path="../hackernews-angular-apollo/server/src/email-password/signup.ts")
 async function createGraphcoolUser(api: GraphQLClient, email: string, password: string, name: string): Promise<string> {
   const mutation = `
     mutation createGraphcoolUser($email: String!, $password: String!, $name: String!) {
@@ -590,7 +590,7 @@ Perfect, you're all set now to actually implement the authentication functionali
 
 Open `src/app/graphql.ts` and add the following two definitions to the file:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 import {Link, User} from './types';
 // ...
 export const CREATE_USER_MUTATION = gql`
@@ -666,7 +666,7 @@ All right, all that's left to do is to call the two mutations inside the `Login`
 
 Open `src/app/login/login.component.ts` and implement `confirm` as follows:
 
-```ts(path=".../hackernews-angular-apollo/src/app/login/login.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/login/login.component.ts")
 // ...
   login: boolean = true; // switch between Login and SignUp
   email: string = '';
@@ -731,7 +731,7 @@ The code is pretty straightforward. If the user wants to only login, you're call
 
 Also import the `CREATE_USER_MUTATION` and `SIGNIN_USER_MUTATION` constants and response interface near top of the component:
 
-```ts(path=".../hackernews-angular-apollo/src/app/login/login.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/login/login.component.ts")
 import {
   CREATE_USER_MUTATION,
   CreateUserMutationResponse,
@@ -758,7 +758,7 @@ import {AuthService} from './auth.service';
 
 Still in `src/app/app.component.ts` make the following change :
 
-```ts{1-2,9-12}(path=".../hackernews-apollo-apollo/src/app/app.component.ts")
+```typescript{1-2,9-12}(path=".../hackernews-apollo-apollo/src/app/app.component.ts")
 // ...
 export class AppComponent implements OnInit {
   title = 'app';
@@ -794,7 +794,7 @@ Since you're now able to authenticate users and also added a new relation betwee
 
 Open `src/app/graphql.ts` and update the definition of `CREATE_LINK_MUTATION` as follows:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 export const CREATE_LINK_MUTATION = gql`
   mutation CreateLinkMutation($description: String!, $url: String!, $postedById: ID!) {
     createLink(
@@ -826,7 +826,7 @@ Now you need to make sure that the `id` of the posting user is included when you
 
 Open `src/app/create-link/create-link.component.ts` and update the implementation of `createLink` like so:
 
-```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 createLink () {
     const postedById = localStorage.getItem(GC_USER_ID);
     if (!postedById) {
@@ -875,7 +875,7 @@ For this to work, you also need to import the `GC_USER_ID` key.
 
 Add the following import statement near the top of `src/app/create-link/create-link.component.ts`.
 
-```ts(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 import {GC_USER_ID} from '../constant';
 ```
 
@@ -896,7 +896,7 @@ Since all the API requests are actually created and sent by the `HttpLink` in yo
 
 Open `src/app/apollo.config.ts`, put the following code _after_ the creation of the `httpLink`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
     const middleware = new ApolloLink((operation, forward) => {
       const token = localStorage.getItem(GC_AUTH_TOKEN);
       if (token) {
@@ -913,7 +913,7 @@ Open `src/app/apollo.config.ts`, put the following code _after_ the creation of 
 <Instruction>
 
 Then, update the `apollo.create` configuration by adding the middleware:
-```ts(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
     apollo.create({
       link: middleware.concat(http),
       cache: new InMemoryCache()
@@ -926,7 +926,7 @@ Then, update the `apollo.create` configuration by adding the middleware:
 
 Finally, directly import the key that you need to retrieve the token from `localStorage` on top of the same file, `HttpHeaders` from `@angular/common/http` and `ApolloLink` from `apollo-link`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/constants.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/constants.ts")
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { ApolloLink } from 'apollo-link';

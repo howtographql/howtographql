@@ -143,6 +143,22 @@ const data: Stack[] = [
     beginnersChoice: true,
   },
   {
+    title: 'typescript-helix',
+    type: 'backend',
+    key: 'typescript-helix',
+    images: [
+      require('../assets/icons/nodejs.svg'),
+      require('../assets/icons/graphql.svg'),
+    ],
+    content: {
+      title: 'GraphQL with TypeScript',
+      description:
+        'Build your own GraphQL server with NodeJS, TypeScript and Prisma',
+    },
+    authorName: 'Dotan Simha',
+    beginnersChoice: true,
+  },
+  {
     title: 'graphql-elixir',
     type: 'backend',
     key: 'graphql-elixir',
