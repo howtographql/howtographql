@@ -105,21 +105,21 @@ import React from 'react';
 import CreateLink from './CreateLink';
 import Header from './Header';
 import LinkList from './LinkList';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
   return (
     <div className="center w85">
       <Header />
       <div className="ph3 pv1 background-gray">
-        <Switch>
-          <Route exact path="/" component={LinkList} />
+        <Routes>
+          <Route exact path="/" element={<LinkList/>} />
           <Route
             exact
             path="/create"
-            component={CreateLink}
+            element={<CreateLink/>}
           />
-        </Switch>
+        </Routes>
       </div>
     </div>
   );
