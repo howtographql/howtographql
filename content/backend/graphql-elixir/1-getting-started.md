@@ -35,7 +35,7 @@ You're going to build an app called Community, and you can think of it as a mini
 Use the `phx.new` generator (confirm with `y` when prompted):
 
 ```bash
-mix phx.new community --no-webpack --no-html
+mix phx.new community --no-html
 ```
 
 </Instruction>
