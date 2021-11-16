@@ -190,6 +190,35 @@ return (
 
 <Instruction>
 
+Our `PostMutation` will need a token, so we'll temporarily
+add one for it. Make it how you learned in the previous
+lessons and insert it in the `index.js`:
+
+```js{2,8,9,10,11,12,13,14,15,16,19}(path=".../hackernews-react-apollo/src/index.js")
+// ...
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000'
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = '<your token>';
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
+// ...
+```
+
 We're now ready to check wether the mutations are working.
 Open `App.js` and change it up as follows:
 
