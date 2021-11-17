@@ -181,24 +181,24 @@ when mutations are performed.
 <Instruction>
 
 Open `CreateLink.js` and update it to include the
-`useHistory` hook from React Router. In the body of the
-function, create a `history` reference and use it within the
+`useNavigate` hook from React Router. In the body of the
+function, create a `navigate` reference and use it within the
 `onCompleted` callback. This callback runs after the
 mutation is completed.
 
-```js{5}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{2,5,12}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 // ...
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CreateLink = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
       description: formState.description,
       url: formState.url
     },
-    onCompleted: () => history.push('/')
+    onCompleted: () => navigate('/')
   });
   // ...
 };
