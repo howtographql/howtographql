@@ -42,10 +42,10 @@ Create a new file in `src/components` and call it
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     login: true,
     email: '',
@@ -180,15 +180,15 @@ const App = () => {
     <div className="center w85">
       <Header />
       <div className="ph3 pv1 background-gray">
-        <Switch>
-          <Route exact path="/" component={LinkList} />
+        <Routes>
+          <Route exact path="/" element={<LinkList/>} />
           <Route
             exact
             path="/create"
-            component={CreateLink}
+            element={<CreateLink/>}
           />
-          <Route exact path="/login" component={Login} />
-        </Switch>
+          <Route exact path="/login" element={<Login/>} />
+        </Routes>
       </div>
     </div>
   );
@@ -208,11 +208,11 @@ Open `Header.js` and update `render` to look as follows:
 
 ```js(path=".../hackernews-react-apollo/src/components/Header.js")
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
 
 const Header = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authToken = localStorage.getItem(AUTH_TOKEN);
   return (
     <div className="flex pa1 justify-between nowrap orange">
@@ -250,7 +250,7 @@ const Header = () => {
             className="ml1 pointer black"
             onClick={() => {
               localStorage.removeItem(AUTH_TOKEN);
-              history.push(`/`);
+              navigate(`/`);
             }}
           >
             logout
@@ -341,7 +341,7 @@ _on behalf_ of that user). You'll learn 🔜 how to do so.
 Next, find the `div` element that has the class names
 `flex mt3` and replace it with the following:
 
-```js{2-12}(path=".../hackernews-react-apollo/src/components/Login.js")
+```js{4}(path=".../hackernews-react-apollo/src/components/Login.js")
 <div className="flex mt3">
   <button
     className="pointer mr2 button"
@@ -382,7 +382,7 @@ const [login] = useMutation(LOGIN_MUTATION, {
   },
   onCompleted: ({ login }) => {
     localStorage.setItem(AUTH_TOKEN, login.token);
-    history.push('/');
+    navigate('/');
   }
 });
 
@@ -394,7 +394,7 @@ const [signup] = useMutation(SIGNUP_MUTATION, {
   },
   onCompleted: ({ signup }) => {
     localStorage.setItem(AUTH_TOKEN, signup.token);
-    history.push('/');
+    navigate('/');
   }
 });
 ```
@@ -412,7 +412,7 @@ the file:
 
 ```js(path=".../hackernews-react-apollo/src/components/Login.js")
 import { useMutation, gql } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
 ```
 
