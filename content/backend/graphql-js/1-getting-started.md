@@ -71,7 +71,7 @@ First, let's install two important dependencies that will allow you to create yo
 Run the following command in your terminal:
 
 ```bash(path=".../hackernews-node/")
-npm install apollo-server@^2 graphql
+npm install apollo-server@^2 graphql@^14.6.0
 ```
 
 </Instruction>
