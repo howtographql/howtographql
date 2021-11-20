@@ -35,7 +35,7 @@ You're going to build an app called Community, and you can think of it as a mini
 Use the `phx.new` generator (confirm with `y` when prompted):
 
 ```bash
-mix phx.new community --no-webpack --no-html
+mix phx.new community --no-assets --no-html
 ```
 
 </Instruction>
@@ -46,8 +46,7 @@ In order to support GraphQL your application needs some additional dependencies 
 
 ```elixir(path=".../graphql-elixir/blob/master/mix.exs")
 {:absinthe, "~> 1.6"},
-{:absinthe_plug, "~> 1.5"},
-{:jason, "~> 1.1"}
+{:absinthe_plug, "~> 1.5"}
 ```
 
 <Instruction>
