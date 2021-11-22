@@ -110,7 +110,7 @@ Now let's understand how these new resolvers are working!
 The `feed` resolver is implemented as follows:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
-feed: (parent, args, context, info) => {
+feed: (parent, args, context) => {
   return context.prisma.link.findMany()
 },
 ```
@@ -126,7 +126,7 @@ the database.
 The `post` resolver now looks like this:
 
 ```js(path=".../hackernews-node/src/index.js"&nocopy)
-post: (parent, args, context) => {
+post: (parent, args, context, info) => {
   const newLink = context.prisma.link.create({
     data: {
       url: args.url,
