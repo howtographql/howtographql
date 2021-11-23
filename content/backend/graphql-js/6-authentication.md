@@ -180,7 +180,7 @@ Next, move the implementation of the `feed` resolver into `Query.js`.
 In `Query.js`, add the following function definition:
 
 ```js(path=".../hackernews-node/src/resolvers/Query.js")
-function feed(parent, args, context, info) {
+function feed(parent, args, context) {
   return context.prisma.link.findMany()
 }
 
