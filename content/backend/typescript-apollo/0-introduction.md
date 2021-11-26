@@ -10,7 +10,7 @@ answers:
     'An IDE to work with a GraphQL API',
     'A library to generate GraphQL Schema',
     'A REST client',
-    'A GraphQL Web Server'
+    'A GraphQL web server'
   ]
 correctAnswer: 3
 ---
@@ -23,10 +23,10 @@ standards for exposing the data and functionality of a web server.
 In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server entirely from scratch. You are going to use
 the following technologies:
 
-- [Typescript](https://www.typescriptlang.org/) - Strongly typed superset of Javascript that can be transpiled back to Javascript.  Typescript has enjoyed significant adoption and love in the developer community for the type-safety and improved developer experience it provides. 
-- [Apollo Server](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server): Fully-featured GraphQL Server with focus on easy setup, performance and great developer experience,
-- [Nexus](https://github.com/graphql-nexus/nexus): A library for creating robust, type-safe GraphQL Schema using Javascript/Typescript. 
-- [Prisma](https://www.prisma.io/): Next-generation Node.js and Typescript ORM. You can use the Prisma Client to access your database inside of
+- [TypeScript](https://www.typescriptlang.org/): Strongly typed superset of Javascript that can be transpiled back to Javascript.  Typescript has enjoyed significant adoption and love in the developer community for the type-safety and improved developer experience it provides. 
+- [Apollo Server](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server): Fully-featured GraphQL Server with focus on easy setup, performance and great developer experience.
+- [Nexus](https://github.com/graphql-nexus/nexus): A library for creating robust, type-safe GraphQL schemas using JavaScript/TypeScript. 
+- [Prisma](https://www.prisma.io/): Next-generation Node.js and TypeScript ORM. You can use Prisma Client to access your database inside of
   GraphQL resolvers.
 
 
@@ -38,7 +38,7 @@ rundown of what to expect.
 
 You'll start by learning the basics of how a GraphQL server works, start defining a
 [_GraphQL schema_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) for your server using [Nexus](https://github.com/graphql-nexus/nexus) and writing
-corresponding _resolver functions_. In the beginning, these resolvers will only work with data that's stored in-memory -
+corresponding _resolver functions_. In the beginning, these resolvers will only work with data that's stored in-memory —
 so nothing will persist beyond the runtime of the server.
 
 Nobody wants a server that's not able to store and persist data, right? Not to worry! Afterwards, you're going to add a
@@ -69,19 +69,19 @@ This course assumes you have have
 - Some experience working with databases (we're going to use a relational database but experience with document databases like MongoDB works too). 
 
 
-##### Assumed Tools and setup
+##### Assumed tools and setup
 
 Throughout this tutorial, we'll be making a few minor assumptions about your tools you are using: 
 
 - npm as the package manager.
 - VSCode as the IDE. 
-- `Unix` shell (like the terminal/shell in `linux` and `macOS`).
+- Unix shell (like the terminal/shell in linux and **macOS).**
 
 If you're using another set of tools, like Yarn (package manager), Windows (OS) or Webstorm (IDE), that's totally fine and welcome! Just know that you'll occasionally need to adapt minor instructions to your situation.
 
 ##### Annotated code blocks
 
-Most Code Blocks are explained with annotations. Take the following for example. Immediately following the codeblock are numbered points. Each corresponds to a line annotated with that number in the code block.
+Most code blocks are explained with annotations. Take the following for example. Immediately following the code block are numbered points. Each corresponds to a line annotated with that number in the code block.
 
 ```typescript
 const a = 1          // 1
@@ -93,11 +93,6 @@ const c: number = "Not a number";
 2. Use `any` to effectively disable type-checking and allow any type. 
 3. Use `// @ts-ignore` before a line to ignore typescript compiler errors. 
 
-##### Auxiliary content
-
-Sometimes **Note**s will be used to highlight content that isn't core to the current flow but related. It looks like this: 
-
-> **Note:** If you're interested to learn more about `abc`, you should check out `xyz` resource. 
 
 
 ##### Package installation with fixed major version
