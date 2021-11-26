@@ -39,11 +39,10 @@ export default (props: Props) => {
         type="GRAPHQL_MEETUP"
         title={
           <span>
-            Join us for <span className="bold">GraphQL Berlin Meetup #24</span>{' '}
-            on November 16, 2021
+            Subscribe to the GraphQL Weekly Newsletter
           </span>
         }
-        link="https://www.meetup.com/en-AU/graphql-berlin/events/281735333/"
+        link="https://www.graphqlweekly.com/"
       />
       <Intro steps={steps} location={props.location} />
       <Chooser mds={steps} location={props.location} history={props.history} />
