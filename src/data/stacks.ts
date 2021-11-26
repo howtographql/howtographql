@@ -143,7 +143,7 @@ const data: Stack[] = [
     beginnersChoice: true,
   },
   {
-    title: 'typescript-helix',
+    title: 'node-typescript-helix',
     type: 'backend',
     key: 'typescript-helix',
     images: [
