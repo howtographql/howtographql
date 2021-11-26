@@ -106,7 +106,7 @@ Now that you have a GraphQL schema, you can use that to fetch data using a Graph
 
 As explained before, the GraphQL schema is only your contract, and it exposes the set of all types and capabilities that your API layer can do. 
 
-To use your GraphQL scehma and consume data from it, your need to write a GraphQL `query` definition. 
+To use your GraphQL scehma and consume data from it, you will need to write a GraphQL `query` definition. 
 
 Based on the schema your created before, you can use the following query:
 
