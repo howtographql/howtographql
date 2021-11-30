@@ -20,18 +20,18 @@ you will understand some theory behind GraphQL and concepts related to the
 
 ### Checking your node version
 
-Before you begin, make sure that you are using a suitable version of Node.js. For this tutorial, your Node version should be `v12` or above. 
+Before you begin, make sure that you are using a suitable version of Node.js. For this tutorial, your Node.js version should be `v12` or above. 
 
 <Instruction>
 
-Use the following command to check the version of `node` you are using.
+Use the following command to check the version of `node` you are using:
 ```bash
 node --version
 ```
 
 </Instruction>
 
-If you need to upgrade your node version, you can do so directly from the [nodejs website](https://nodejs.org/en/) or using a version manager such as [nvm](https://github.com/nvm-sh/nvm). 
+If you need to upgrade your Node.js version, you can do so directly from the [Node.js website](https://nodejs.org/en/) or using a version manager such as [nvm](https://github.com/nvm-sh/nvm). 
 
 ### Creating the project
 
@@ -55,13 +55,13 @@ the configuration file for the Node.js app you're building. It lists all depende
 (such as _scripts_) needed for the app.
 
 
-### Installing and configuring typescript
+### Installing and configuring TypeScript
 
 Since this is a typescript tutorial, you will need to install `typescript`. You will also install `ts-node-dev`, which will enable you to transpile your TS files on the fly and restart your API on changes. You will soon see that this functionality will come in very handy during development. You will also need a `tsconfig.json` file to specify various Typescript compiler options. 
 
 <Instruction>
 
-In your terminal, go to the directory you created previously and install `typescript` and `ts-node-dev` as dev dependencies. You will also create a `tsconfig.json` file.
+In your terminal, go to the directory you created previously and install `typescript` and `ts-node-dev` as dev dependencies. You will also create a `tsconfig.json` file:
 
 ```bash(path=".../hackernews-typescript/")
 npm install --save-dev typescript@^4.3.5 ts-node-dev@^1.1.8
@@ -76,7 +76,7 @@ Great! Now that you have an empty `tsconfig` file, you need to specify the confi
 
 <Instruction> 
 
-Copy paste the configuration to your `tsconfig.json`
+Copy paste the configuration to your `tsconfig.json`:
 
 ```json(path=".../hackernews-typescript/tsconfig.json")
 {
@@ -108,7 +108,7 @@ Before writing any code, you will need to install some dependencies. You will ne
 
 <Instruction>
 
-Install the necessary packages along with their type definitions
+Install the necessary packages along with their type definitions:
 
 ```bash
 npm install apollo-server@^3.1.1 graphql@^15.5.1 nexus@^1.1.0
@@ -124,24 +124,26 @@ Here's a list of some cool features it has:
 
 - GraphQL spec-compliant
 - Out-of-the-box support for two GraphQL clients: Apollo Explorer and GraphQL Playground 
-- Can be configured for use with an [Express](https://expressjs.com/) server. 
+- Can be configured for use with an [Express](https://expressjs.com/) server
 - Query performance tracing
 - Runs everywhere: Can be deployed via Vercel, Standard VMs, AWS Lambda, Heroku etc.
 
-[`nexus`](https://github.com/graphql-nexus/nexus) is a library to create Type-Safe GraphQL Schemas with a Code-first approach (Since you write standard javascript/typescript code to define what your schema will look like, hence "code-first"). 
+[`nexus`](https://github.com/graphql-nexus/nexus) is a library to create type-safe GraphQL schemas with a [code-first](https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3) approach (since you write standard javascript/typescript code to define what your schema will look like, hence "code-first"). 
 
 It has a number of great features:   
 
 - Expressive, declarative API for building schemas
 - Full type-safety for free
-- Auto-generated graphql schema (`schema.graphql` file)
-- Works out of the box with existing graphql frameworks and middleware (`apollo-server`, `graphql-middleware`, etc.) 
+- Auto-generated GraphQL SDL (`schema.graphql` file)
+- Works out of the box with existing GraphQL frameworks and middleware (`apollo-server`, `graphql-middleware`, etc.) 
 
-With the project directory in place and dependencies installed, you will now set up a rudimentary GraphQL server. To start off, you will need two files, `schema.ts` for generating the schema with nexus and `index.ts` for creating a GraphQL web server with apollo.
+With the project directory in place and dependencies installed, you will now set up a rudimentary GraphQL server. To start off, you will need two files: 
+- `schema.ts` for generating the schema with Nexus
+- `index.ts` for creating a GraphQL web server with Apollo
 
 <Instruction>
 
-Create a `src` folder, create the necessary typescript files. 
+Create a `src` folder, create the necessary typescript files:
 
 ```bash(path=".../hackernews-typescript/")
 mkdir src
@@ -183,7 +185,7 @@ Let's see what happens when we run this code.
 
 <Instruction>
 
-Run the following command in your terminal
+Run the following command in your terminal:
 
 ```bash(path=".../hackernews-typescript/")
 npx ts-node --transpile-only src/schema
@@ -193,7 +195,7 @@ npx ts-node --transpile-only src/schema
 
 After running the script you should see two new files inside your root folder, `schema.graphql` and `nexus-typegen.ts`; these were generated by nexus. 
 
-The `schema.graphql` file contains a type called `Query` with a single field `ok`. This was created as a default schema, as you did not give nexus any further information about what types you want in the schema.
+The `schema.graphql` file contains a type called `Query` with a single field `ok`. This was created as a default schema, as you did not give Nexus any further information about what types you want in the schema.
 
 ```graphql(path=".../hackernews-typescript/schema.graphql"&nocopy)
 type Query {
@@ -201,13 +203,13 @@ type Query {
 }
 ```
 
-The `nexus-typegen.ts` contains a lot of autogenerated typescript `interfaces` and `types`. You won't have to dig too deep into these, as these will be added automatically to your nexus function signatures. Though at certain times, you might look up a type from here and use it manually in your code. 
+The `nexus-typegen.ts` contains a lot of auto-generated TypeScript `interfaces` and `types`. You won't have to dig too deep into these, as these will be added automatically to your nexus function signatures. Though at certain times, you might look up a type from here and use it manually in your code. 
 
 Before you move on to the next section, you will add a `generate` script to your `package.json` so you can quickly regenerate your schema at any time. You will also add another `dev` script, which will come in handy in the next section to start our web server. 
 
 <Instruction>
 
-Add the `generate` and `dev` script to your package.json
+Add the `generate` and `dev` script to your `package.json`:
 
 ```json{3-4}(path=".../hackernews-typescript/package.json")
   "scripts": {
@@ -227,7 +229,7 @@ Now that you have a schema, you can finally create your GraphQl server inside `i
 
 <Instruction>
 
-Write up the following code to start the server in `src/index.ts`. 
+Write up the following code to start the server in `src/index.ts`:
 
 ```typescript(path=".../hackernews-typescript/src/index.ts")
 import { ApolloServer } from "apollo-server";
@@ -250,7 +252,7 @@ server.listen({port}).then(({ url }) => {
 
 Let's understand what's going on here by walking through the numbered comments: 
 
-1. The schema object you created using `nexus` defines your GraphQL schema. You need to provide this when instantiating your server.
+1. The `schema` object you created using `nexus` defines your GraphQL schema. You need to provide this when instantiating your server.
 
 2. You start the server and specify the port. After the server starts, it returns a `url` string inside a promise. 
 
@@ -258,7 +260,7 @@ Now that your server is ready let's give it a run and see what happens!
 
 <Instruction> 
 
-Open up your terminal and run the following command
+Open up your terminal and run the following command:
 
 ```bash(path=".../hackernews-typescript/")
 npm run dev
@@ -277,13 +279,13 @@ Now if you navigate to `http://localhost:3000/` you should see the following pag
 
 ![Apollo Server Landing Page](https://i.imgur.com/2bOq8c1.png)
 
-If you click on the `Query your Server` button, you will be redirected to The Apollo Studio Explorer. This is an _online web-based GraphQL IDE_ for running queries and exploring your schema (along with many other advanced features). 
+If you click on the **Query your server** button, you will be redirected to The Apollo Studio Explorer. This is an _online web-based GraphQL IDE_ for running queries and exploring your schema (along with many other advanced features). 
 
 > **Note:** If you'd prefer an _offline_ IDE that does not need access to the internet, there's a section covering this at the bottom of this chapter. 
 
 ![Apollo Studio Explorer](https://i.imgur.com/jsDqCAi.png)
 
-In the schema tab placed on the left (the first icon under the apollo logo), you can see the entire GraphQL schema. There's not much there right now, but in the future it will come in handy to explore the details of your schema. 
+In the **Schema** tab placed on the left (the first icon under the apollo logo), you can see the entire GraphQL schema. There's not much there right now, but in the future it will come in handy to explore the details of your schema. 
 
 ![Schema Apollo Studio](https://i.imgur.com/fJK6FGq.gif)
 
@@ -291,7 +293,7 @@ Now, you will run the `ok` Query.
 
 <Instruction> 
 
-Go back to the explorer tab (below the Schema tab) and type the following query in the `Operations` window. Then press the `Query` button.
+Go back to the **Explorer** tab (below the **Schema** tab) and type the following query in the **Operations** window. Then press the **Query** button:
 
 ```graphql
 query Query {
@@ -303,7 +305,7 @@ query Query {
 
 You should see a response like this: 
 
-```graphql(nocopy)
+```js(nocopy)
 {
   "data": {
     "ok": true
@@ -316,11 +318,11 @@ You should see a response like this:
 Congratulations, you just implemented and successfully tested your first GraphQL query 🎉
 
 
-> **Note:** Quickly try something, make a quick change *anywhere* in your code. You will see the server restart again with a  message in your console log saying "Restarting: ...". This is because `ts-node-dev` will constantly check your code for any changes and update the server to reflect those changes. **From now on, you will always keep ts-node-dev running.** This will not only ensure that your server is always running, but it will also ensure nexus generates the most updated representation of your GraphQL SDL and types. 
+> **Note:** Quickly try something, make a quick change *anywhere* in your code. You will see the server restart again with a  message in your logging output saying `"Restarting: ..."`. This is because `ts-node-dev` will constantly check your code for any changes and update the server to reflect those changes. **From now on, you will always keep `ts-node-dev running`.** This will not only ensure that your server is always running, but it will also ensure Nexus generates the most updated representation of your GraphQL SDL and types. 
 
 ### A word on the GraphQL schema
 
-Now it's time to understand the basics of a GraphQL Schema. At the core of every GraphQL API, there is a GraphQL schema. So, let's quickly talk about it.
+Now it's time to understand the basics of a GraphQL schema. At the core of every GraphQL API, there is a GraphQL schema. So, let's quickly talk about it.
 
 > **Note**: In this tutorial, we'll only scratch the surface of this topic. If you want to go a bit more in-depth and
 > learn more about the GraphQL schema as well as its role in a GraphQL API, be sure to check out
@@ -427,7 +429,7 @@ There are a few things to note:
 Phew, enough theory 😠 Let's go and write some more code!
 
 
-### **OPTIONAL:** GraphQL Playground, An Offline alternative to Apollo Studio Explorer
+### **Optional:** GraphQL Playground, an offline alternative to Apollo Studio Explorer
 
 By default, Apollo Server version 3 (the one we are using) comes with Apollo Studio. However if you're following this tutorial series without an internet connection or simply would prefer an IDE that does not need an internet connection, then read  on. 
 
