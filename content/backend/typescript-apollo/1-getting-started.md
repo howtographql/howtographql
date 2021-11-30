@@ -279,13 +279,13 @@ Now if you navigate to `http://localhost:3000/` you should see the following pag
 
 ![Apollo Server Landing Page](https://i.imgur.com/2bOq8c1.png)
 
-If you click on the **Query your server** button, you will be redirected to The Apollo Studio Explorer. This is an _online web-based GraphQL IDE_ for running queries and exploring your schema (along with many other advanced features). 
+If you click on the **Query your server** button, you will be redirected to the Apollo Studio Explorer. This is an _online web-based GraphQL IDE_ for running queries and exploring your schema (along with many other advanced features). 
 
 > **Note:** If you'd prefer an _offline_ IDE that does not need access to the internet, there's a section covering this at the bottom of this chapter. 
 
 ![Apollo Studio Explorer](https://i.imgur.com/jsDqCAi.png)
 
-In the **Schema** tab placed on the left (the first icon under the apollo logo), you can see the entire GraphQL schema. There's not much there right now, but in the future it will come in handy to explore the details of your schema. 
+In the **Schema** tab placed on the left (the first icon under the Apollo logo), you can see the entire GraphQL schema. There's not much there right now, but in the future it will come in handy to explore the details of your schema. 
 
 ![Schema Apollo Studio](https://i.imgur.com/fJK6FGq.gif)
 
@@ -318,7 +318,7 @@ You should see a response like this:
 Congratulations, you just implemented and successfully tested your first GraphQL query 🎉
 
 
-> **Note:** Quickly try something, make a quick change *anywhere* in your code. You will see the server restart again with a  message in your logging output saying `"Restarting: ..."`. This is because `ts-node-dev` will constantly check your code for any changes and update the server to reflect those changes. **From now on, you will always keep `ts-node-dev running`.** This will not only ensure that your server is always running, but it will also ensure Nexus generates the most updated representation of your GraphQL SDL and types. 
+> **Note:** Quickly try something, make a quick change *anywhere* in your code. You will see the server restart again with a  message in your logging output saying `"Restarting: ..."`. This is because `ts-node-dev` will constantly check your code for any changes and update the server to reflect those changes. **From now on, you will always keep `ts-node-dev running`.** This will ensure that your server is always running and that Nexus generates the most updated representation of your GraphQL SDL and types. 
 
 ### A word on the GraphQL schema
 
