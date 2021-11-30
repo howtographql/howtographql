@@ -1,15 +1,15 @@
 ---
 title: Summary
-pageTitle: 'Building a GraphQL Server with Typescript Tutorial'
+pageTitle: 'Building a GraphQL Server with TypeScript Tutorial'
 description:
-  'You learned how to build a GraphQL server with Typescript and best practices for filters, authentication and pagination.'
+  'You learned how to build a GraphQL server with TypeScript and best practices for filters, authentication and pagination.'
 question: Did you find this tutorial useful?
 answers: ['What tutorial?', 'Yes, I learned something!', 'No, I even forgot what I knew before!', 'Fish!']
 correctAnswer: 1
 ---
 
 In this tutorial, you learned how to build a GraphQL server from scratch. The stack you used was based on
-[Typescript](https://www.typescriptlang.org/),
+[TypeScript](https://www.typescriptlang.org/),
 [Apollo-server](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server), [Nexus](https://nexusjs.org/) and
 [Prisma](https://www.prisma.io/).
 

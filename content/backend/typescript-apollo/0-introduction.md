@@ -1,14 +1,14 @@
 ---
 title: Introduction
-pageTitle: 'Building a GraphQL Server with Typescript & Apollo'
+pageTitle: 'Building a GraphQL Server with TypeScript & Apollo'
 description:
-  'Learn how to build a GraphQL server with Apollo, Typescript, Nexus & Prisma and best practices for authentication,
+  'Learn how to build a GraphQL server with Apollo, TypeScript, Nexus & Prisma and best practices for authentication,
   filtering and pagination.'
 question: 'What is Apollo Server?'
 answers:
   [
     'An IDE to work with a GraphQL API',
-    'A library to generate GraphQL Schema',
+    'A library to generate GraphQL schema',
     'A REST client',
     'A GraphQL web server'
   ]
@@ -23,7 +23,7 @@ standards for exposing the data and functionality of a web server.
 In this tutorial, you'll learn how to build an _idiomatic_ GraphQL server entirely from scratch. You are going to use
 the following technologies:
 
-- [TypeScript](https://www.typescriptlang.org/): Strongly typed superset of Javascript that can be transpiled back to Javascript.  Typescript has enjoyed significant adoption and love in the developer community for the type-safety and improved developer experience it provides. 
+- [TypeScript](https://www.typescriptlang.org/): Strongly typed superset of JavaScript that can be transpiled back to JavaScript.  TypeScript has enjoyed significant adoption and love in the developer community for the type-safety and improved developer experience it provides. 
 - [Apollo Server](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server): Fully-featured GraphQL Server with focus on easy setup, performance and great developer experience.
 - [Nexus](https://github.com/graphql-nexus/nexus): A library for creating robust, type-safe GraphQL schemas using JavaScript/TypeScript. 
 - [Prisma](https://www.prisma.io/): Next-generation Node.js and TypeScript ORM. You can use Prisma Client to access your database inside of
@@ -63,7 +63,7 @@ This tutorial is _beginner friendly_. Nevertheless, some prior knowledge is nece
 
 This tutorial assumes you have have
 
-- Basic knowledge Javascript or Typescript (Typescript knowledge isn't mandatory, if you know javascript that is fine too).
+- Basic knowledge JavaScript or TypeScript (TypeScript knowledge isn't mandatory, if you know JavaScript that is fine too).
 - Basic knowledge of web development (if you've ever built or worked on an API or web server before, you should be good to go).
 - Some experience working with databases (we're going to use a relational database but experience with document databases like MongoDB works too). 
 
@@ -94,9 +94,9 @@ const b: any = 1     // 2
 // @ts-ignore        // 3
 const c: number = "Not a number";
 ```
-1. Typescript automatically infers the type of A `number` since it is not provided. 
+1. TypeScript automatically infers the type of `a` as `number` since it is not explicitly provided. 
 2. Use `any` to effectively disable type-checking and allow any type. 
-3. Use `// @ts-ignore` before a line to ignore typescript compiler errors. 
+3. Use `// @ts-ignore` before a line to ignore TypeScript compiler errors. 
 
 
 
@@ -116,7 +116,7 @@ If you want to upgrade a package to a new major version not instructed in the tu
 
 ##### Copy-pasting code from the tutorial
 
-As you progress you'll be writing code, of course. Often you'll have the chance to copy and paste our code, but we strongly suggest if you're just starting out to **write the code yourself**. This will expose you to the _experience_ of writing code in a Typescript codebase with type-safety features. This includes things like autocompletion and letting static safety guide your implementations, e.g. inside a GraphQL resolver. Also if you're new to TypeScript getting used to encountering, understanding, and fixing static type errors is essential practice. 
+As you progress you'll be writing code, of course. Often you'll have the chance to copy and paste our code, but we strongly suggest if you're just starting out to **write the code yourself**. This will expose you to the _experience_ of writing code in a TypeScript codebase with type-safety features. This includes things like autocompletion and letting static safety guide your implementations, e.g. inside a GraphQL resolver. Also if you're new to TypeScript getting used to encountering, understanding, and fixing static type errors is essential practice. 
 
 That said at no time should you feel _frustrated_. If things just aren't working, copy-paste our work as needed. Then, once things _are_ working, taking a moment muck around, break things, fix them again, etc. is almost always time well spent.
 

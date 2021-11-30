@@ -1,7 +1,7 @@
 ---
 title: Authentication 
-pageTitle: 'Implementing Authentication in a GraphQL server with Typescript'
-description: 'Learn best practices for implementing authentication and authorization with Typescript, Apollo Server & Prisma.'
+pageTitle: 'Implementing Authentication in a GraphQL server with TypeScript'
+description: 'Learn best practices for implementing authentication and authorization with TypeScript, Apollo Server & Prisma.'
 question: 'Which HTTP header field carries the authentication token?'
 answers: ['Cache-Control', 'Token', 'Authorization', 'Authentication']
 correctAnswer: 2
@@ -59,7 +59,7 @@ Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-in
 
 This is a great time to refresh your memory on the workflow we described for your project at the end of [Chapter 4](../4-adding-a-database/).
 
-After every change you make to the data model, you need to migrate your database re-generate the Prisma Client. 
+After every change you make to the data model, you need to migrate your database re-generate Prisma Client. 
 
 <Instruction>
 
@@ -74,7 +74,7 @@ npx prisma migrate dev --name "add-user-model"
 This command has now generated your second migration inside of `prisma/migrations`, and you can start to see how this becomes a historical record of how your database evolves over
 time.
 
-You will notice once again that the Prisma Client gets regenerated automatically when you run a migration. Your database structure and the Prisma Client has both been updated to reflect the changes for the newly added `User` model – woohoo! 🎉
+You will notice once again that Prisma Client gets regenerated automatically when you run a migration. Your database structure and Prisma Client has both been updated to reflect the changes for the newly added `User` model – woohoo! 🎉
 
 
 ### Extending the GraphQL schema with the `User` type 
@@ -159,7 +159,7 @@ type User {
 ### Updating the `Link` type
 
 Note that, the relation between `User` and `Link` is bidirectional. A `user` has zero or more `links` that he/she has created, and similary a `link` is optionally connected to a `user` who _posted_ the link. To reflect this bidirectional relation, you will add a `postedBy` field to the existing `Link` model definition in
-your GraphQL Schema. 
+your GraphQL schema. 
 
 
 <Instruction>

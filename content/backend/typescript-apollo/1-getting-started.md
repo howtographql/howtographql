@@ -1,8 +1,8 @@
 ---
 title: Getting Started
-pageTitle: 'Getting Started with GraphQL, Typescript and Apollo'
+pageTitle: 'Getting Started with GraphQL, TypeScript and Apollo'
 description:
-  'Learn how to setup a GraphQL server with Typescript & Apollo as well as best practices for defining the GraphQL schema.'
+  'Learn how to setup a GraphQL server with TypeScript & Apollo as well as best practices for defining the GraphQL schema.'
 question: 'What role do the root fields play for a GraphQL API?'
 answers:
   [
@@ -57,7 +57,7 @@ the configuration file for the Node.js app you're building. It lists all depende
 
 ### Installing and configuring TypeScript
 
-Since this is a typescript tutorial, you will need to install `typescript`. You will also install `ts-node-dev`, which will enable you to transpile your TS files on the fly and restart your API on changes. You will soon see that this functionality will come in very handy during development. You will also need a `tsconfig.json` file to specify various Typescript compiler options. 
+Since this is a TypeScript tutorial, you will need to install `typescript`. You will also install `ts-node-dev`, which will enable you to transpile your TS files on the fly and restart your API on changes. You will soon see that this functionality will come in very handy during development. You will also need a `tsconfig.json` file to specify various TypeScript compiler options. 
 
 <Instruction>
 
@@ -96,10 +96,10 @@ Copy paste the configuration to your `tsconfig.json`:
 ```
 </Instruction>
 
-> **Note:** Setting `"strict": true` enables a wide range of type checking behavior that results in more type-safe programs. However it can also lead to some type errors that are actually rather benign. If you get stuck with a type error that you know isn't a bug, but you are having difficulty satisfying the typescript compiler, you could consider turning this to `false` or using the `// @ts-ignore` comment to turn off that specific error/warning. 
+> **Note:** Setting `"strict": true` enables a wide range of type checking behavior that results in more type-safe programs. However it can also lead to some type errors that are actually rather benign. If you get stuck with a type error that you know isn't a bug, but you are having difficulty satisfying the TypeScript compiler, you could consider turning this to `false` or using the `// @ts-ignore` comment to turn off that specific error/warning. 
 
 
-To learn more about the options used here, you can check out the [tsconfig reference](https://www.typescriptlang.org/tsconfig) in the Typescript documentation. 
+To learn more about the options used here, you can check out the [tsconfig reference](https://www.typescriptlang.org/tsconfig) in the TypeScript documentation. 
 
 ### Creating your server layout
 
@@ -128,7 +128,7 @@ Here's a list of some cool features it has:
 - Query performance tracing
 - Runs everywhere: Can be deployed via Vercel, Standard VMs, AWS Lambda, Heroku etc.
 
-[`nexus`](https://github.com/graphql-nexus/nexus) is a library to create type-safe GraphQL schemas with a [code-first](https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3) approach (since you write standard javascript/typescript code to define what your schema will look like, hence "code-first"). 
+[`nexus`](https://github.com/graphql-nexus/nexus) is a library to create type-safe GraphQL schemas with a [code-first](https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3) approach (since you write standard JavaScript/TypeScript code to define what your schema will look like, hence "code-first"). 
 
 It has a number of great features:   
 
@@ -143,7 +143,7 @@ With the project directory in place and dependencies installed, you will now set
 
 <Instruction>
 
-Create a `src` folder, create the necessary typescript files:
+Create a `src` folder, create the necessary TypeScript files:
 
 ```bash(path=".../hackernews-typescript/")
 mkdir src
@@ -179,7 +179,7 @@ All right, let’s understand what’s going on here by walking through the numb
 
 1. Your GraphQL schema will consist of many types that you will pass as an array to the `types` object. For now, it is intentionally kept empty.  
 2. The first output file that `nexus` will generate for you is a GraphQL `schema` file of type `.graphql`. This is the GraphQL _Schema Definition Language_ (SDL) for defining the structure of your API. You will learn more about this later in the chapter!
-3. The second output file is a typescript file known as `typegen`, which will contain typescript type definitions for all types in your GraphQL schema. These generated types will help ensure typesafety in your application code and keep your GraphQL Schema _definition_ in sync with your schema _implementation_. Again, more on this later. 
+3. The second output file is a TypeScript file known as `typegen`, which will contain TypeScript type definitions for all types in your GraphQL schema. These generated types will help ensure typesafety in your application code and keep your GraphQL schema _definition_ in sync with your schema _implementation_. Again, more on this later. 
 
 Let's see what happens when we run this code. 
 
@@ -225,7 +225,7 @@ Add the `generate` and `dev` script to your `package.json`:
 
 ### Creating a GraphQL server
 
-Now that you have a schema, you can finally create your GraphQl server inside `index.ts`. 
+Now that you have a schema, you can finally create your GraphQL server inside `index.ts`. 
 
 <Instruction>
 

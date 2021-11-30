@@ -2,7 +2,7 @@
 title: A Simple Mutation
 pageTitle: 'Implementing Mutations in a GraphQL Server Tutorial'
 description:
-  'Learn best practices for implementing GraphQL mutations with Nexus and Typescript. Test your implementation
+  'Learn best practices for implementing GraphQL mutations with Nexus and TypeScript. Test your implementation
   in Apollo Studio Explorer.'
 question: What is the second argument that's passed into GraphQL resolvers used for?
 answers:

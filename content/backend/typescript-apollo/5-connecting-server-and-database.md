@@ -43,7 +43,7 @@ Now you will create the `context` object and attach the `PrismaClient` to it.
 
 <Instruction>
 
-Create the `context` object, along with the `context` typescript interface. 
+Create the `context` object, along with the `context` TypeScript interface. 
 
 ```typescript(path=".../hackernews-typescript/src/context.ts")
 import { PrismaClient } from "@prisma/client";
@@ -62,7 +62,7 @@ export const context: Context = {   // 2
 </Instruction>
 
 
-You're following a fairly standard typescript workflow here of defining a `type` or `interface` and then creating the object. Let's understand the numbered comments: 
+You're following a fairly standard TypeScript workflow here of defining a `type` or `interface` and then creating the object. Let's understand the numbered comments: 
 
 1. First you have defined the `context` interface, which specifies what objects will be attached to the `context` object. Right now it's just an instance of `PrismaClient`, but this can change as the project grows. 
 

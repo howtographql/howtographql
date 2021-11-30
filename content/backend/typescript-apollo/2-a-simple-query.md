@@ -18,9 +18,9 @@ In this section, you are going to implement the first API operation that provide
 clone: querying a feed of _links_ that were posted by other users.
 
 
-### Understanding the code first approach to GraphQL API Development
+### Understanding the code-first approach to GraphQL API development
 
-Now that you understand GraphQL Schemas a bit better, let's talk about the workflow you will be using when adding a new feature to the API. When working with a code-first tool like `nexus`, the process will look like this:
+Now that you understand GraphQL schemas a bit better, let's talk about the workflow you will be using when adding a new feature to the API. When working with a code-first tool like `nexus`, the process will look like this:
 
 1. Define the components of your schema (`types`, `fields`, `root` object types, etc) using `nexus`. 
 
@@ -154,7 +154,7 @@ export interface NexusGenObjects {
 }
 ```
 
-> **Note**: One of the major advantages of the code-first approach is that you don't have to worry about keeping your GraphQL types and your typescript types going out of sync. Since nexus is the source of truth that generates both, there is no risk of _schema drift_. 
+> **Note**: One of the major advantages of the code-first approach is that you don't have to worry about keeping your GraphQL types and your TypeScript types going out of sync. Since nexus is the source of truth that generates both, there is no risk of _schema drift_. 
 
 ### Implementing the Feed Query
 
@@ -218,7 +218,7 @@ Alright, a lot of things are happening here. Let's go through the numbered comme
 
 > **Note**: You might be wondering why you don't have to implement resolvers for `id`, `description` and `url` field for the `Link` type. This will be clarified at the end of the chapter. 
 
-Let's check out the changes in the GraphQL Schema.
+Let's check out the changes in the GraphQL schema.
 
 ```graphql{8}(path=".../hackernews-typescript/schema.graphql"&nocopy)
 type Link {
