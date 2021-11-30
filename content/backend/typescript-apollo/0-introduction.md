@@ -36,8 +36,8 @@ the following technologies:
 The goal of this tutorial is to build an API for a [Hacker News](https://news.ycombinator.com/) clone. Here is a quick
 rundown of what to expect.
 
-You'll start by learning the basics of how a GraphQL server works, start defining a
-[_GraphQL schema_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) for your server using [Nexus](https://github.com/graphql-nexus/nexus) and writing
+You'll start by learning how a GraphQL server works. Then you will define the
+[_GraphQL schema_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) for your server using [Nexus](https://github.com/graphql-nexus/nexus) and write the
 corresponding _resolver functions_. In the beginning, these resolvers will only work with data that's stored in-memory —
 so nothing will persist beyond the runtime of the server.
 
@@ -55,14 +55,13 @@ Finally, you'll allow the consumers of the API to constrain the list of items th
 Throughout the tutorial you will learn GraphQL bit by bit, through _theory, writing code and reading external resources_. You'll learn not just the _how_ of various technology choices, but also the _why_, including their pros, cons and tradeoffs. 
 
 
+## Prerequisites
 
-## Conventions and Assumptions
-
-There's a few conventions and assumptions followed throughout this tutorial that you should know about.
+This tutorial is _beginner friendly_. Nevertheless, some prior knowledge is necessary to follow this tutorial. 
 
 ##### Assumed knowledge
 
-This course assumes you have have
+This tutorial assumes you have have
 
 - Basic knowledge Javascript or Typescript (Typescript knowledge isn't mandatory, if you know javascript that is fine too).
 - Basic knowledge of web development (if you've ever built or worked on an API or web server before, you should be good to go).
@@ -78,6 +77,12 @@ Throughout this tutorial, we'll be making a few minor assumptions about your too
 - Unix shell (like the terminal/shell in linux and **macOS).**
 
 If you're using another set of tools, like Yarn (package manager), Windows (OS) or Webstorm (IDE), that's totally fine and welcome! Just know that you'll occasionally need to adapt minor instructions to your situation.
+
+
+## Hints and conventions
+
+There are a few conventions and assumptions followed throughout this tutorial that you should know about. While knowing these conventions might help you follow the tutorial, it is still _optional reading_. Feel free to continue to the next chapter if you want to get started immediately. 
+
 
 ##### Annotated code blocks
 
