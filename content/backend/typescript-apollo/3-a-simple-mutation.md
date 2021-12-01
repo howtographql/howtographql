@@ -15,7 +15,7 @@ answers:
 correctAnswer: 1
 ---
 
-In this section, you'll learn how to add a mutation to the GraphQL API. This mutation will allow you to _post_ new links
+In this section, you'll learn how to add a mutation to your GraphQL API. This mutation will allow you to _post_ new links
 to the server.
 
 ### Creating a mutation for adding new links
@@ -65,13 +65,13 @@ export const LinkMutation = extendType({  // 1
 
 Let's see what's going on with the numbered comments: 
 
-1. You're extending the `Mutation` type to add a new root field. You did something similar in the last chapter with the `Query` type. Nothing new so far. 
+1. You're extending the `Mutation` type to add a new root field. You did something similar in the last chapter with the `Query` type.  
 
-2. The name of the mutation is `post` and it returns a (non nullable) `link` object. 
+2. The name of the mutation is defined as `post` and it returns a (non nullable) `link` object. 
 
-3. Something new! Here you define the arguments to your Mutation. You can pass arguments to your GraphQL API endpoints (just like in REST). In this case, the two arguments you need to pass are `description` and `url`. Both arguments mandatory (hence the `nonNull()`) because both are needed to create a new `link`.  
+3. Here you define the arguments to your mutation. You can pass arguments to your GraphQL API endpoints (just like in REST). In this case, the two arguments you need to pass are `description` and `url`. Both arguments mandatory (hence the `nonNull()`) because both are needed to create a new `link`.  
 
-4. You're now using the second argument that’s passed into all resolver functions: `args`. Any guesses what it’s used for? ... Correct! 💡 It carries the arguments for the operation – in this case the `url` and `description` of the Link to be created.
+4. You're now using the second argument that’s passed into all resolver functions: `args`. Any guesses what it’s used for? ... Correct! 💡 It carries the arguments for the operation – in this case the `url` and `description` of the link to be created.
 
 5. `idCount` serves as a very rudimentary way to generate new `id` values for our `link` objects. Finally, you add your new `link` object to the `links` array and return the newly created object. 
 
@@ -107,7 +107,7 @@ The server response should look as follows:
 
 With every mutation you send, the `idCount` will increase and the following IDs for created links will be `4`, `5`, and so forth…
 
-To verify that your mutation worked, you can send the feed query from before again – it now returns the additional Link that you created with the mutation:
+To verify that your mutation worked, you can send the feed query from before again — it now returns the additional Link that you created with the mutation:
 
 ![Test post mutation](https://i.imgur.com/frPk28Z.gif)
 
@@ -118,7 +118,7 @@ server.
 
 ### Exercise
 
-If you want to practice writing more code with  Nexus and implementing GraphQL resolvers a bit more, here's an _optional_ challenge for you. Based on your
+If you want to practice writing more code with  Nexus and implementing GraphQL resolvers, here's an _optional_ challenge for you. Based on your
 current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular,
 implement the queries and mutations that have the following definitions:
 
