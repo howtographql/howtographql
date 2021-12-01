@@ -128,7 +128,7 @@ Here's a list of some cool features it has:
 - Query performance tracing
 - Runs everywhere: Can be deployed via Vercel, Standard VMs, AWS Lambda, Heroku etc.
 
-[`nexus`](https://github.com/graphql-nexus/nexus) is a library to create type-safe GraphQL schemas with a [code-first](https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3) approach (since you write standard JavaScript/TypeScript code to define what your schema will look like, hence "code-first"). 
+[ Nexus](https://github.com/graphql-nexus/nexus) is a library to create type-safe GraphQL schemas with a [code-first](https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3) approach (since you write standard JavaScript/TypeScript code to define what your schema will look like, hence "code-first"). 
 
 It has a number of great features:   
 
@@ -155,7 +155,7 @@ touch src/schema.ts src/index.ts
 
 ### Setting up Nexus
 
-Finally it's time to write some code 🙌. You will now setup `nexus` in your project to create a very basic GraphQL schema. 
+Finally it's time to write some code 🙌. You will now setup  Nexus in your project to create a very basic GraphQL schema. 
 
 <Instruction>
 
@@ -178,7 +178,7 @@ export const schema = makeSchema({
 All right, let’s understand what’s going on here by walking through the numbered comments:
 
 1. Your GraphQL schema will consist of many types that you will pass as an array to the `types` object. For now, it is intentionally kept empty.  
-2. The first output file that `nexus` will generate for you is a GraphQL `schema` file of type `.graphql`. This is the GraphQL _Schema Definition Language_ (SDL) for defining the structure of your API. You will learn more about this later in the chapter!
+2. The first output file that  Nexus will generate for you is a GraphQL `schema` file of type `.graphql`. This is the GraphQL _Schema Definition Language_ (SDL) for defining the structure of your API. You will learn more about this later in the chapter!
 3. The second output file is a TypeScript file known as `typegen`, which will contain TypeScript type definitions for all types in your GraphQL schema. These generated types will help ensure typesafety in your application code and keep your GraphQL schema _definition_ in sync with your schema _implementation_. Again, more on this later. 
 
 Let's see what happens when we run this code. 
@@ -220,7 +220,7 @@ Add the `generate` and `dev` script to your `package.json`:
 ```
 </Instruction>
 
-1. You can run `npm run generate` to update your `schema.graphql` and `nexus-typegen.ts` file when there are any changes in your `nexus` code.
+1. You can run `npm run generate` to update your `schema.graphql` and `nexus-typegen.ts` file when there are any changes in your  Nexus code.
 2. You can use `npm run dev` to start the web server and watch for any changes. 
 
 ### Creating a GraphQL server
@@ -252,7 +252,7 @@ server.listen({port}).then(({ url }) => {
 
 Let's understand what's going on here by walking through the numbered comments: 
 
-1. The `schema` object you created using `nexus` defines your GraphQL schema. You need to provide this when instantiating your server.
+1. The `schema` object you created using  Nexus defines your GraphQL schema. You need to provide this when instantiating your server.
 
 2. You start the server and specify the port. After the server starts, it returns a `url` string inside a promise. 
 

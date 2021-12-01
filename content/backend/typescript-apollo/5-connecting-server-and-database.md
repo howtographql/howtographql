@@ -96,7 +96,7 @@ The two options you are passing to `contextType` are:
 2. Name of the exported type in that module.
                                        
 
-Now, `nexus` will ensure all `context` arguments match the `Context` interface 👌. There's just one thing left to do, add the context to our server. 
+Now,  Nexus will ensure all `context` arguments match the `Context` interface 👌. There's just one thing left to do, add the context to our server. 
 
 <Instruction>           
 

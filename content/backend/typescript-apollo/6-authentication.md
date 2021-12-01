@@ -79,7 +79,7 @@ You will notice once again that Prisma Client gets regenerated automatically whe
 
 ### Extending the GraphQL schema with the `User` type 
 
-Now that you have a `User` data model in your database schema, it's time to add a `User` type to your GraphQL schema. To keep your codebase modular and readable, you are going to put the `nexus` definitions and resolver code in a separate `src/graphql/User.ts` file. 
+Now that you have a `User` data model in your database schema, it's time to add a `User` type to your GraphQL schema. To keep your codebase modular and readable, you are going to put the  Nexus definitions and resolver code in a separate `src/graphql/User.ts` file. 
 
 <Instruction>
 
@@ -91,7 +91,7 @@ touch src/graphql/User.ts
 
 </Instruction>
 
-Now just like you did with `link`, you are going to write the `nexus` type definition for the `user` type using the `objectType` function. 
+Now just like you did with `link`, you are going to write the  Nexus type definition for the `user` type using the `objectType` function. 
 
 <Instruction>
 
@@ -130,7 +130,7 @@ Most of the fields on the `User` type should be clear. The field worth discussin
 
 <Instruction>
 
-Add `User.ts` to `nexus` by exporting it in `index.ts`
+Add `User.ts` to  Nexus by exporting it in `index.ts`
 
 
 ```typescript{2}(path="../hackernews-typescript/src/graphql/index.ts")
@@ -235,7 +235,7 @@ type Mutation {
 3. The `login` mutation will check the provided `email` and `password` and login an existing user. 
 
 
-> **Note:** We did something different this time from the typical workflow we have been following through this tutorial. We designed the GraphQL fields and types in SDL _before_ writing the `nexus` code for them. For many people, designing the schema outline in SDL _beforehand_ is more intuitive, so feel free to do this before writing the `nexus` code, if you prefer. Remember, you can always convert your SDL into valid `nexus` types using the [Nexus SDL converter](https://nexusjs.org/converter).
+> **Note:** We did something different this time from the typical workflow we have been following through this tutorial. We designed the GraphQL fields and types in SDL _before_ writing the  Nexus code for them. For many people, designing the schema outline in SDL _beforehand_ is more intuitive, so feel free to do this before writing the  Nexus code, if you prefer. Remember, you can always convert your SDL into valid  Nexus types using the [Nexus SDL converter](https://nexusjs.org/converter).
 
 First, you will need a new file for the auth code. You will also need to install a few dependencies. `bcryptjs` is a cryptography library that helps you has hash and securely store a password. `jsonwebtoken` is a library to generate and verify JSON Web Tokens.
 
@@ -251,7 +251,7 @@ npm install --save-dev @types/bcryptjs@~2.4.0  @types/jsonwebtoken@~8.5.0
 
 </Instruction>
 
-Now you will define the types related to Authentication using `nexus`. 
+Now you will define the types related to Authentication using  Nexus. 
 
 <Instruction>
 
@@ -273,12 +273,12 @@ export const AuthPayload = objectType({
 
 </Instruction>
 
-You should be sufficiently familiar by now with the `nexus` syntax to understand what's going on here. Now it's time to implement the `signup` mutation. 
+You should be sufficiently familiar by now with the  Nexus syntax to understand what's going on here. Now it's time to implement the `signup` mutation. 
 
 
 <Instruction>
 
-Add the `signup` mutation and resolver in `Auth.ts` using `extendType` from `nexus`. 
+Add the `signup` mutation and resolver in `Auth.ts` using `extendType` from  Nexus. 
 
 ```typescript{1-40}(path="../hackernews-typescript/src/graphql/Auth.ts")
 
@@ -425,7 +425,7 @@ Before these new mutations can work, you need to do a few small things. First ad
 
 <Instruction>
 
-Add the `graphql/Auth.ts` exports to `index.ts` so `nexus` can generate the new mutations. 
+Add the `graphql/Auth.ts` exports to `index.ts` so  Nexus can generate the new mutations. 
 
 ```typescript{3}(path="../hackernews-typescript/src/graphql/index.ts")
 export * from "./Link";

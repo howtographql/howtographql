@@ -20,7 +20,7 @@ to the server.
 
 ### Creating a mutation for adding new links
 
-Like before, you need to start by adding the `post` mutation in `nexus`. You will define both the mutation signature along with its resolver. 
+Like before, you need to start by adding the `post` mutation in  Nexus. You will define both the mutation signature along with its resolver. 
 
 
 
@@ -80,7 +80,7 @@ Understand everything? Take some time if you need to.
 After you're ready, try a small experiment: 
 
 
-> **Experiment:** Change the `return link;` at the end of the `resolve` function to `return null;`. You'll see that your IDE raises an error. This is because you defined the return type of the `post` GraphQL endpoint/field to be a non nullable `link` object. Return anything else except a `link` object in the resolver, and the `nexus` generated types will immediately catch the violation! 
+> **Experiment:** Change the `return link;` at the end of the `resolve` function to `return null;`. You'll see that your IDE raises an error. This is because you defined the return type of the `post` GraphQL endpoint/field to be a non nullable `link` object. Return anything else except a `link` object in the resolver, and the  Nexus generated types will immediately catch the violation! 
 
 ### Testing the mutation 
 
@@ -118,7 +118,7 @@ server.
 
 ### Exercise
 
-If you want to practice writing more code with `nexus` and implementing GraphQL resolvers a bit more, here's an _optional_ challenge for you. Based on your
+If you want to practice writing more code with  Nexus and implementing GraphQL resolvers a bit more, here's an _optional_ challenge for you. Based on your
 current implementation, extend the GraphQL API with full CRUD functionality for the `Link` type. In particular,
 implement the queries and mutations that have the following definitions:
 
