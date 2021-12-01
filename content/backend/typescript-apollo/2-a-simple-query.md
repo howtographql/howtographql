@@ -39,7 +39,7 @@ You will start by creating the `graphql` module to organize all your Nexus code.
 
 <Instruction>
 
-Open your terminal and create the `graphql` directory and the `Link.ts` and `index.ts` file inside it.
+Open your terminal and create the `graphql` directory and the `Link.ts` and `index.ts` file inside it:
 
 ```bash(path=".../hackernews-typescript/")
 mkdir src/graphql 
@@ -50,11 +50,11 @@ touch src/graphql/index.ts
 
 </Instruction>
 
-Now, you will define the `Link` [type](https://graphql.org/graphql-js/object-types/). To do this, you will use the `objectType` function from the Nexus package. 
+Now, you will define the `Link` [type](https://graphql.org/graphql-js/object-types/). To do this, you will use the `objectType` function from the `nexus` library. 
 
 <Instruction>
 
-Write the following code inside `src/graphql/Link.ts`
+Write the following code inside `src/graphql/Link.ts`:
 
 ```typescript{}(path="../hackernews-typescript/src/graphql/Link.ts")
 import { objectType } from "nexus";
@@ -71,10 +71,10 @@ export const Link = objectType({
 
 </Instruction>
 
-`objectType` is used to create a new `type` in your GraphQL schema. Let's dig into the syntax
+`objectType` is used to create a new `type` in your GraphQL schema. Let's dig into the syntax:
 
-1. The `name` option defines the name of the Type.
-2. Inside the `definition`, you can add different fields that get added to the type. 
+1. The `name` option defines the name of the type
+2. Inside the `definition`, you can add different fields that get added to the type
 3. This adds a field named `id` of type `Int`
 4. This adds a field named `description` of type `String`
 5. This adds a field named `url` of type `String`
@@ -85,7 +85,7 @@ Now that you have defined the type, you need to hook it up to the `makeSchema` f
 
 <Instruction>
 
-Write the following export in `graphql/index.ts`
+Write the following export in `graphql/index.ts`:
 
 ```typescript{1}(path="../hackernews-typescript/src/graphql/index.ts")
 export * from "./Link"; 
@@ -93,13 +93,13 @@ export * from "./Link";
 
 </Instruction>
 
-Since `index.js` or `index.ts` is accepted as the default entry point to a folder/module in nodejs, you can export everything from the `graphql` folder here. (You can learn more about this behavior in the [Node.js docs](https://nodejs.org/api/modules.html#folders-as-modules)).
+Since `index.js` or `index.ts` is accepted as the default entry point to a folder/module in Node.js, you can export everything from the `graphql` folder here. You can learn more about this behavior in the [Node.js docs](https://nodejs.org/api/modules.html#folders-as-modules).
 
 Now update `makeSchema` to use all the imports coming in from the `src/graphql` module. 
 
 <Instruction>
 
-Import `src/graphql` in `src/schema.ts`
+Import `src/graphql` in `src/schema.ts`:
 
 ```typescript{3,6}(path="../hackernews-typescript/src/schema.ts")
 import { makeSchema } from "nexus";
@@ -117,7 +117,7 @@ export const schema = makeSchema({
 
 </Instruction>
 
-Let's go through the changes marked with comments
+Let's go through the changes marked with comments:
 
 1. You are importing the `graphql` model which exports the `Link` objectType through `index.ts`. The import is named `types`. 
 
@@ -154,15 +154,15 @@ export interface NexusGenObjects {
 }
 ```
 
-> **Note**: One of the major advantages of the code-first approach is that you don't have to worry about keeping your GraphQL types and your TypeScript types going out of sync. Since nexus is the source of truth that generates both, there is no risk of _schema drift_. 
+> **Note**: One of the major advantages of the code-first approach is that you don't have to worry about having your GraphQL types and your TypeScript types going out of sync. Since nexus is the source of truth that generates both, there is no risk of the two mismatching. 
 
-### Implementing the Feed Query
+### Implementing the feed query
 
 Now that the `Link` type is ready, you will create a `feed` query to return all the created `link` objects. 
 
 <Instruction>
 
-Make the following changes to implement the `feed` query in `src/graphql/Link.ts` 
+Make the following changes to implement the `feed` query in `src/graphql/Link.ts`:
 
 ```typescript{1-2,13-37}(path="../hackernews-typescript/src/graphql/Link.ts")
 import { extendType, objectType } from "nexus";
@@ -214,11 +214,11 @@ Alright, a lot of things are happening here. Let's go through the numbered comme
 
 3. You define the return type of the `feed` query as a _not nullable_ array of link type objects (In the SDL the return type will look like this: `[Link!]!`). 
 
-4. `resolve` is the name of the _resolver function_ of the `feed` query. A resolver is the _implementation_ of a GraphQL field. Every field on each _type_ (including the _root types_) has a _resolver function_ which is executed to get the return value when calling that _type_. For now, our resolver implementation is very simple, it just returns the `links` array. The resolve function has three arguments, ``parent``, ``args``, ``context`` and ``info``. We will get to these later.
+4. `resolve` is the name of the _resolver function_ of the `feed` query. A resolver is the _implementation_ for a GraphQL field. Every field on each _type_ (including the _root types_) has a _resolver function_ which is executed to get the return value when fetching that _type_. For now, our resolver implementation is very simple, it just returns the `links` array. The resolve function has three arguments, ``parent``, ``args``, ``context`` and ``info``. We will get to these later.
 
 > **Note**: You might be wondering why you don't have to implement resolvers for `id`, `description` and `url` field for the `Link` type. This will be clarified at the end of the chapter. 
 
-Let's check out the changes in the GraphQL schema.
+Let's check out the changes in the GraphQL schema:
 
 ```graphql{8}(path=".../hackernews-typescript/schema.graphql"&nocopy)
 type Link {
@@ -317,13 +317,13 @@ element inside the `links` array.
 
 > **Note 2:** If you're having a hard time wrapping your head around the GraphQL execution  process and order of execution, a nice example is available [here](https://www.howtographql.com/advanced/1-server/).
 
-#### Understanding Trivial Resolvers
+#### Understanding trivial resolvers
 
 One thing that's still a bit weird in the implementation right now is the lack of resolvers for the fields in the `Link` type, namely `id`, `description` and `url`.
 
-The reason that these fields do not need explicit resolvers implemented is that the GraphQL type system is smart enough to automatically infer these resolvers. For example, since the GraphQL server knows that the `Link` type contains the `id` field, it will automatically resolve the field with the `id` variable available to each object in the `link` array in our code.
+The reason that these fields do not need explicit resolver implementations is that the GraphQL type system is smart enough to automatically infer these resolvers. For example, the GraphQL server knows that the `Link` type contains the `id` field. So it will automatically resolve this field with the `id` variable available to each object in the `link` array.
 
-In fact, many other GraphQL libraries will also let you omit _trivial resolvers_ like this and will just assume that if a resolver isn't provided for a field, that a property of the same name should be read and returned.
+In fact, many other GraphQL libraries will also let you omit _trivial resolvers_ and will just assume that if a resolver isn't provided for a field, that a property of the same name should be read and returned.
 
-> **Note:** To learn more about Trivial resolvers, check out the [GrahQL docs](https://graphql.org/learn/execution/#trivial-resolvers)
+> **Note:** To learn more about trivial resolvers, check out the [GrahQL docs](https://graphql.org/learn/execution/#trivial-resolvers).
 
