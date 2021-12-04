@@ -289,7 +289,7 @@ In the **Schema** tab placed on the left (the first icon under the Apollo logo),
 
 ![Schema Apollo Studio](https://i.imgur.com/fJK6FGq.gif)
 
-Now, you will run the `ok` Query.
+Now, you will run the `ok` query.
 
 <Instruction> 
 

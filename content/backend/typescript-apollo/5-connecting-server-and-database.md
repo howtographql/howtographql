@@ -128,7 +128,7 @@ Open `index.js` and remove the `links` array entirely, as well as the `idCount` 
 </Instruction>
 
 
-There are two resolvers that need to be updated, those for the `feed` Query as well as the `post` Mutation. 
+There are two resolvers that need to be updated, those for the `feed` query as well as the `post` mutation. 
 
 <Instruction> 
 

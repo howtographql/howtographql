@@ -331,7 +331,7 @@ Let's use the good ol' numbered comments again to understand what's going on her
 4. You're then generating a JSON Web Token which is signed with an `APP_SECRET`. The information encoded in the token is the `id` of the newly created user. You still need to create and export this `APP_SECRET`, something we will cover soon.
 5. Finally, you return the `token` and the `user` in an object that adheres to the shape of the `AuthPayload` type that you just defined.
 
-You'll notice that your IDE raises a few errors right now, like the `APP_SECRET` import at the top. But these will get fixed soon. Now continue by adding the `login` mutation. To do this you don't need to call `extendType` again, you just add a `login` field alongside the existing `signup` field in the `definition(t)` call for Mutation.
+You'll notice that your IDE raises a few errors right now, like the `APP_SECRET` import at the top. But these will get fixed soon. Now continue by adding the `login` mutation. To do this you don't need to call `extendType` again, you just add a `login` field alongside the existing `signup` field in the `definition(t)` call for inside `AuthMutation`.
 
 
 <Instruction>
