@@ -30,7 +30,7 @@ For code modularity, you will create a dedicated file for initializing the conte
 
 <Instruction>
 
-In the `src` folder, create the `context.ts` file
+In the `src` folder, create the `context.ts` file:
 
 ```bash(path=".../hackernews-typescript/")
 touch src/context.ts 
@@ -43,7 +43,7 @@ Now you will create the `context` object and attach the `PrismaClient` to it.
 
 <Instruction>
 
-Create the `context` object, along with the `context` TypeScript interface. 
+Create the `context` object, along with the `Context` TypeScript interface:
 
 ```typescript(path=".../hackernews-typescript/src/context.ts")
 import { PrismaClient } from "@prisma/client";
@@ -62,19 +62,19 @@ export const context: Context = {   // 2
 </Instruction>
 
 
-You're following a fairly standard TypeScript workflow here of defining a `type` or `interface` and then creating the object. Let's understand the numbered comments: 
+You're following a fairly standard TypeScript workflow here of defining a `type` or `interface` and then creating the object. Let's go through the numbered comments: 
 
-1. First you have defined the `context` interface, which specifies what objects will be attached to the `context` object. Right now it's just an instance of `PrismaClient`, but this can change as the project grows. 
+1. First you have defined the `Context` interface, which specifies what objects will be attached to the `context` object. Right now it's just an instance of `PrismaClient`, but this can change as the project grows. 
 
-2. You're exporting the `context` object, so that it can be used in your GraphQL server. 
+2. You're exporting the `context` object, so that it can be imported and used by the GraphQL server.
 
 
-Now, you will configure Nexus to know the type of our GraphQL context by adjusting the configuration of the makeSchema in our `src/schema.ts.` 
+Now, you will configure Nexus to know the type of your GraphQL context by adjusting the configuration of `makeSchema` in `src/schema.ts.` 
 
 
 <Instruction>
 
-In `src` add a new `contextType` object to the `makeSchema` function call. 
+In `src/schema.ts` add a new `contextType` object to the `makeSchema` function call:
 
 ```typescript{7-9}(path=".../hackernews-typescript/src/schema.ts")
 export const schema = makeSchema({
@@ -92,15 +92,15 @@ export const schema = makeSchema({
 
 The two options you are passing to `contextType` are:
 
-1. Path to the file (also known as a `module`) where the context type is exported.
-2. Name of the exported type in that module.
+1. Path to the file (also sometimes called a module) where the context interface (or type) is exported.
+2. Name of the exported interface in that module.
                                        
 
 Now,  Nexus will ensure all `context` arguments match the `Context` interface 👌. There's just one thing left to do, add the context to our server. 
 
 <Instruction>           
 
-Import the `context` and add it to your `ApolloServer` instance in `index.ts`.
+Import the `context` and add it to your `ApolloServer` instance in `index.ts`:
 
 ```typescript{1,5}(path=".../hackernews-typescript/src/index.ts")    
 import { context } from "./context";   
@@ -112,12 +112,12 @@ export const server = new ApolloServer({
 ```
 
 Awesome! Now, the `context` object will be initialized with an instance of `PrismaClient` (as `prisma`) when 
-`ApolloServer` is instantiated. So you'll now be able to access `context.prisma` in all of your resolvers.        
+`ApolloServer` is instantiated. So you'll now be able to access Prisma with `context.prisma` in all of your resolvers.        
 
 
-### Updating the resolver functions to use your Database
+### Updating the resolver functions to use your database
 
-Finally, it’s time to refactor your resolvers. Again, we encourage you to type these changes yourself so that you can get used to Prisma’s autocompletion and how to leverage that to intuitively figure out what resolvers should be on your own.
+Finally, it’s time to refactor your resolvers. Again, we encourage you to type these changes yourself so that you can get used to Prisma’s autocompletion and how to leverage that to intuitively figure out on your own what the resolvers should be.
 
 Since you will now be using an actual database, there's no need to keep the `links` array. So you can safely get rid of it. 
 
@@ -132,9 +132,9 @@ There are two resolvers that need to be updated, those for the `feed` query as w
 
 <Instruction> 
 
-Go to `src/graphql/Link.ts` and update the resolvers.
+Go to `src/graphql/Link.ts` and update the resolvers:
 
-```typescript{1,8,24-30}(path="../hackernews-typescript/src/graphql/Link.ts")
+```typescript{1,8,23-30}(path="../hackernews-typescript/src/graphql/Link.ts")
 export const LinkQuery = extendType({
     type: "Query",
     definition(t) {
@@ -173,14 +173,14 @@ export const LinkMutation = extendType({
 
 </Instruction>
 
-Now let's understand how these new resolvers are working!
+Let's understand how these new resolvers are working:
 
-1. You find and return all the `link` objects in your database. To do this you are using the `PrismaClient` instance (`context.prisma`) available via the `context` argument we discussed a moment ago.
+1. You find and return all the `link` objects in your database. To do this you are using the `PrismaClient` instance available through `context.prisma`.
 
-2. Similar to the `feed` resolver, you're simply invoking a function on the `PrismaClient` instance. You're calling the `create` method on a `link` from your Prisma Client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
+2. Similar to the `feed` resolver, you're simply invoking a function on the `PrismaClient` instance. You're calling the `create` method on the `link` model from your Prisma Client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
 
 
-> *Note:* Prisma queries return [```Promise```](https://nodejs.dev/learn/understanding-javascript-promises) objects as these are asynchronous. So in both `resolvers` you are returning a `Promise`. This is not a problem as Apollo Server is capable of detecting and automatically resolving any ```Promise``` object that is returned from resolver functions. 
+> *Note:* Prisma queries return [`Promise`](https://nodejs.dev/learn/understanding-javascript-promises) objects as these are asynchronous. So in both resolvers you are returning a `Promise`. This is not a problem as Apollo Server is capable of detecting and automatically resolving any `Promise` object that is returned from resolver functions. 
 
 
 ### Testing the new implementation
