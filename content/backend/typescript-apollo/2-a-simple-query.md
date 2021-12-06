@@ -2,7 +2,7 @@
 title: A Simple Query
 pageTitle: 'Resolving Queries with a GraphQL Server Tutorial'
 description:
-  'Learn how to define a GraphQL schema with nexus, implement query resolvers and test your queries in Apollo Studio Explorer'
+  'Learn how to define a GraphQL schema with Nexus, implement query resolvers and test your queries in Apollo Studio Explorer'
 question: How are GraphQL queries resolved?
 answers:
   [

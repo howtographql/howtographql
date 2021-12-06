@@ -165,7 +165,7 @@ Your database is now in sync with your schema.
 ✔ Generated Prisma Client (3.5.0) to ./node_modules/@prisma/client in 302ms
 ```
 
-This means that Prisma has automatically generated the Prisma _Client_ based on your data model. The Prisma Client contains everything you need to run queries against your database. Just like  Nexus it is designed to be completely type-safe. By default, Prisma Client is generated in `/node_modules/@prisma/client`, which can be imported and used in your code.
+This means that Prisma has automatically generated the Prisma _Client_ based on your data model. The Prisma Client contains everything you need to run queries against your database. Just like Nexus it is designed to be completely type-safe. By default, Prisma Client is generated in `/node_modules/@prisma/client`, which can be imported and used in your code.
 
 > *Note:* If for whatever reason you would like to regenerate Prisma Client, you can always do so independent of a migration using the `npx prisma generate` command.
 
