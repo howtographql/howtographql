@@ -551,7 +551,7 @@ Let's understand the changes made to `context.ts`:
 
 1. The context `interface` is updated to have a `userId` type. This is optional because no `userId` will be attached to the `context` when requests are sent without the `Authorization` header. 
 
-2. Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. `Apollo-server` is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object. 
+2. Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. Apollo-server is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object. 
 
 
 ### Updating the `post` mutation
@@ -602,7 +602,7 @@ Let's go through the two changes:
 
 1. If the `userId` does not exist in `context`, the resolver raises an error. As a result, only authorized users can add a new `link`.  
 
-2. To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represnts this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be connected to. 
+2. To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represnts this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be associated with. 
 
 At long last, the code for this chapter is complete! This was a pretty long chapter, give yourself a congratulations for finishing it. Now it's time to test the authentication feature. 
 
@@ -645,7 +645,7 @@ With the `Authorization` header in place, send the following mutation to your Gr
 
 ```graphql
 mutation {
-  post(url: "nexusjs.org", description: "Code-First GraphQL Schemas for JavaScript/TypeScript") {
+  post(url: "nexusjs.org", description: "Code-First GraphQL schemas for JavaScript/TypeScript") {
     id
     description
     url
@@ -666,7 +666,7 @@ the `User` for which you previously sent the `signup` mutation.
 
 <Instruction>
 
-To verify everything worked, you can send the following `login` mutation, which also requests the links created by the user you created just now. Verify that the `links` field contains the link you just created. :
+To verify everything worked, you can send the following `login` mutation, which also requests the links created by the user you created just now. Verify that the `links` field contains the link you just created:
 
 ```graphql
 mutation {
@@ -685,7 +685,7 @@ mutation {
 
 </Instruction>
 
-The response will look similar to this
+The response will look similar to this:
 
 ```json(nocopy)
 {
@@ -697,7 +697,7 @@ The response will look similar to this
         "links": [
           {
             "url": "nexusjs.org",
-            "description": "Code-First GraphQL Schemas for JavaScript/TypeScript"
+            "description": "Code-First GraphQL schemas for JavaScript/TypeScript"
           }
         ]
       }
@@ -756,7 +756,7 @@ Let's run Prisma Studio and see it in action!
 
 <Instruction>
 
-Run the following command in your terminal
+Run the following command in your terminal:
 
 ```bash(path=".../hackernews-typescript")
 npx prisma studio
