@@ -122,9 +122,9 @@ const authors: Author[] = [
   {
     avatar: require('../assets/graphics/contributors/robin.png'),
     bio:
-      "Robin is a full-stack software engineer and budding data scientist who also loves learning foreign (human) languages. He is a co-founder @ Journaly.io, runs a language learning YouTube channel, and works at StyleSeat in San Francisco.",
-    link: 'https://www.youtube.com/user/TheLifeOfRob/',
-    job: 'Software Engineer @ StyleSeat // CEO @ Journaly',
+      "Robin is a Full-Stack Software Engineer who also loves learning human foreign languages. He is the creator of the foreign-language journaling app, Journaly.com and also runs a language learning YouTube channel.",
+    link: 'https://www.robinmacpherson.co',
+    job: 'Software Engineer & Creator @ Journaly',
     name: 'Robin MacPherson'
   },
   {
