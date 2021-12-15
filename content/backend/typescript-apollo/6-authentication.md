@@ -19,7 +19,7 @@ You'll also want to add a _relation_ between the `User` and the existing `Link` 
 
 Open `prisma/schema.prisma` and add the `User` model, making sure to also update your existing `Link` model accordingly:
 
-```graphql{6-7,10-16}(path=".../hackernews-node/prisma/data model.prisma")
+```graphql{6-7,10-16}(path=".../hackernews-node/prisma/schema.prisma")
 model Link {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
@@ -150,10 +150,9 @@ type User {
   name: String!
 }
 ```
-
 </Instruction>
 
-> **Note:** You might have noticed the definition of `links` field in the GraphQL schema is very similar to the definition of the `links` field in the `schema.prisma` file. The prisma schema language bears a lot of resemblences to the GraphQL SDL, making it easy to reason about the properties of both schema files. 
+> **Note:** You might have noticed the definition of `links` field in the GraphQL schema is very similar to the definition of the `links` field in the `schema.prisma` file. The Prisma schema language bears a lot of resemblences to the GraphQL SDL, making it easy to reason about the properties of both schema files. 
 
 
 ### Updating the `Link` type
