@@ -50,6 +50,8 @@ You'll start by implementing signup/login functionality that enables users to au
 
 Then, you're going to add a vote feature. 
 
+Afterwards, you're going to learn about custom GraphQL scalars and how to add custom scalars to your application. 
+
 Finally, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding sorting, filtering and pagination capabalities to it.
 
 Throughout the tutorial you will learn GraphQL bit by bit, through _theory, writing code and reading external resources_. You'll learn not just the _how_ of various technology choices, but also the _why_, including their pros, cons and tradeoffs. 
@@ -74,7 +76,7 @@ Throughout this tutorial, we'll be making a few minor assumptions about your too
 
 - npm as the package manager.
 - VSCode as the IDE. 
-- Unix shell (like the terminal/shell in linux and **macOS).**
+- Unix shell (like the terminal/shell in linux and **macOS**).
 
 If you're using another set of tools, like Yarn (package manager), Windows (OS) or Webstorm (IDE), that's totally fine and welcome! Just know that you'll occasionally need to adapt minor instructions to your situation.
 
