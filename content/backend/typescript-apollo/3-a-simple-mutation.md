@@ -95,7 +95,7 @@ mutation {
 ```
 
 The server response should look as follows:
-```graphql
+```json(nocopy)
 {
   "data": {
     "post": {

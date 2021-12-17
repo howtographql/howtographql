@@ -252,7 +252,7 @@ query {
 Awesome, the server responds with the data you defined in `links`:
 
 
-```json
+```json(nocopy)
 {
   "data": {
     "feed": [

@@ -477,7 +477,7 @@ query {
 
 You should see a return similar to the following: 
 
-```json
+```json(nocopy)
 {
   "data": {
     "feed": {
