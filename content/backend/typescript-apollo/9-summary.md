@@ -13,8 +13,7 @@ In this tutorial, you learned how to build a GraphQL server from scratch. The st
 [Apollo-server](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server), [Nexus](https://nexusjs.org/) and
 [Prisma](https://www.prisma.io/).
 
-`apollo-server` is a fast and simple GraphQL server library built on top of [Express.js](https://expressjs.com/). It
-comes with several features, such as a web based GraphQL Client.
+`apollo-server` is a fast and simple GraphQL server library. It comes with several features, such as a web based GraphQL Client.
 
 The resolvers of your GraphQL server are implemented using Prisma Client which is responsible for database access.
 

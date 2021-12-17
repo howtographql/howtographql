@@ -29,7 +29,7 @@ Now that you understand GraphQL schemas a bit better, let's talk about the workf
 3. Implement the corresponding _resolver functions_ for the added fields.
 
 
-> **Note**: Sometimes step 1 and 2 might be iterative instead of linear. During the design and brainstorming process, it is easier to think in terms of the final GraphQL SDL than nexus code. To convert an SDL to nexus code, you can always use the [Nexus SDL converter](https://nexusjs.org/converter).
+> **Note**: Sometimes step 1 and 2 might be iterative instead of linear. During the design and brainstorming process, it is easier to think in terms of the final GraphQL SDL than Nexus code. To convert an SDL to Nexus code, you can always use the [Nexus SDL converter](https://nexusjs.org/converter).
 
 ### Extending the schema definition with the `Link` type
 
@@ -139,7 +139,7 @@ type Query {
 ```
 
 
-> **Note**: If you have a terminal running with `npm run dev`, your schema should get updated automatically. Otherwise, you can always run `npm run generate` to make nexus regenerate your schema. 
+> **Note**: If you have a terminal running with `npm run dev`, your schema should get updated automatically. Otherwise, you can always run `npm run generate` to make Nexus regenerate your schema. 
 
 If you take a look at `nexus-typegen.ts`, you will see that it has a new `Link` interface as well. This is really convenient because the interface signature is identical to that of the `link` type in your GraphQL schema. 
 
@@ -154,7 +154,7 @@ export interface NexusGenObjects {
 }
 ```
 
-> **Note**: One of the major advantages of the code-first approach is that you don't have to worry about having your GraphQL types and your TypeScript types going out of sync. Since nexus is the source of truth that generates both, there is no risk of the two mismatching. 
+> **Note**: One of the major advantages of the code-first approach is that you don't have to worry about having your GraphQL types and your TypeScript types going out of sync. Since Nexus is the source of truth that generates both, there is no risk of the two mismatching. 
 
 ### Implementing the feed query
 
