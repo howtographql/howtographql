@@ -353,7 +353,7 @@ While the built-in scalars support most of the common use-cases, your applicatio
 
 Nexus allows you to create custom scalars for your GraphQL schema using a standardized interface. To do this, you will need to provide the functions that _serialize_ and _deserialize_ data for that scalar. It's important to note that under the hood Nexus uses the `GraphQLScalarType` class from the `graphql` library. Most applications in the node ecosystem uses this classs when defining custom scalars. As a result scalars defined across different libraries in the node ecosystem are often compatible with each other. 
 
-The [graphql-scalars](https://github.com/Urigo/graphql-scalars) library provides a large set of custom Scalars for creating precise type-safe GraphQL schemas. You are going to import and use the `DateTime` scalar from this library in your GraphQL API. 
+The [`graphql-scalars`](https://github.com/Urigo/graphql-scalars) library provides a large set of custom scalars for creating precise type-safe GraphQL schemas. You are going to import and use the `DateTime` scalar from this library in your GraphQL API. 
 
 ### Adding the `DateTime` scalar
 
@@ -361,7 +361,7 @@ Start by adding the `graphql-scalars` library to your application.
 
 <Instruction>
 
-Install graphql-scalars using npm: 
+Install `graphql-scalars` using npm: 
 
 ```bash(path=".../hackernews-typescript/")
 npm install graphql-scalars@^1.14.1
@@ -387,7 +387,7 @@ Now let's add a new DateTime scalar to your API.
 
 <Instruction>
 
-Export the `GraphQLDateTime` scalar to your application:
+Inside of `Date.ts`, export the `GraphQLDateTime` scalar to your application:
 
 ```typescript(path="../hackernews-typescript/src/graphql/scalars/Date.ts")
 import { asNexusMethod } from "nexus";

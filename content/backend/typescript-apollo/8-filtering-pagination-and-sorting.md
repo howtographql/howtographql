@@ -186,7 +186,7 @@ Let's dig deeper into the changes:
 1. The `skip` and `take` arguments are both optional integers, representing the offset and limit, respectively. 
 2. The Prisma Client API will take the `skip` and `take` arguments as additional options to the `findMany` query and return the `link` records accordingly. If either of the arguments is absent, we pass `undefined` to Prisma client. Prisma Client interprets any undefined value as _do nothing_. There is a type mismatch between the Nexus generated type (`number | undefined | null`) and the type expected by Prisma (`number | undefined`) for these two options. For this reason, typecasting is needed.
 
-> **Note:** In Javascript and Typescript, undefined and null are often used interchangeably. However, Prisma makes a distinction between the two. In Prisma, `null` is a specific _value_ and `undefined` means _do nothing_ or ignore. More information is available in the [Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-client/null-and-undefined). 
+> **Note:** In JavaScript and TypeScript, `undefined` and `null` are often used interchangeably. However, Prisma makes a distinction between the two. In Prisma, `null` is a specific _value_ and `undefined` means _do nothing_ or ignore. More information is available in the [Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-client/null-and-undefined). 
 
 
 The updated feed query should look like this in your GraphQL schema:

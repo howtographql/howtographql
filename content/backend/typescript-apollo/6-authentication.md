@@ -91,7 +91,7 @@ touch src/graphql/User.ts
 
 </Instruction>
 
-Now just like you did with `link`, you are going to write the Nexus type definition for the `User` type using the `objectType` function. 
+Now just like you did with `Link`, you are going to write the Nexus type definition for the `User` type using the `objectType` function. 
 
 <Instruction>
 
@@ -124,7 +124,7 @@ The field worth discussing is the one called `links`:
 
 2. The `links` field needs to implement a resolve function. Previously, you only needed to implement resolvers for fields in `Query` and `Mutation`. Since the resolver for the `links` field is non-trivial, meaning GraphQL can't infer it automatically as the `User` object returned from your database does not automatically contain the `links` type. So unlike the other fields in the `User` type, you need to explcitly define the `links` resolver. 
 
-3. This is the prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains the all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call. 
+3. This is the Prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains the all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call. 
 
 > **Note:** If you're having a hard time understanding the theory behind the `parent` argument and non-trivial resolvers, you should review the topic at the end of [Chapter 2](../2-a-simple-query/).
 
@@ -254,7 +254,7 @@ Now you will define the types related to authentication using Nexus.
 
 <Instruction>
 
-Define the `AuthPayLoad` type: 
+Define the `AuthPayLoad` type in `Auth.ts`: 
 
 ```typescript(path="../hackernews-typescript/src/graphql/Auth.ts")
 import { objectType } from "nexus";
@@ -550,12 +550,12 @@ Let's understand the changes made to `context.ts`:
 
 1. The context `interface` is updated to have a `userId` type. This is optional because no `userId` will be attached to the `context` when requests are sent without the `Authorization` header. 
 
-2. Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. Apollo-server is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object. 
+2. Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. Apollo Server is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object. 
 
 
 ### Updating the `post` mutation
 
-Now that there is an authentication scheme in place, you are going to make two changes to the `post` mutation. Firstly you are going to enforce only authenticated users can create a new `link` using the `post` mutation. Secondly, in your database, you are going to connect the `link` with the user who is posting through the `postedBy` relation.
+Now that there is an authentication scheme in place, you are going to make two changes to the `post` mutation. Firstly you are going to enforce only authenticated users can create a new `Link` record using the `post` mutation. Secondly, in your database, you are going to connect the `Link`  with the `User` who is posting through the `postedBy` relation.
 
 <Instruction>
 
@@ -601,7 +601,7 @@ Let's go through the two changes:
 
 1. If the `userId` does not exist in `context`, the resolver raises an error. As a result, only authorized users can add a new `link`.  
 
-2. To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represnts this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be associated with. 
+2. To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represents this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be associated with. 
 
 At long last, the code for this chapter is complete! This was a pretty long chapter, give yourself a congratulations for finishing it. Now it's time to test the authentication feature. 
 
@@ -628,7 +628,7 @@ mutation {
 
 <Instruction>
 
-From the server's response, copy the authentication `token`. Now in the `Headers` tab in the bottom middle, add a new header. The name of the header will be `Authorization` and value will be `"Bearer __TOKEN__`". Make sure that the header is enabled by clicking the blue tick mark. 
+From the server's response, copy the authentication `token`. Now in the `Headers` tab in the bottom middle, add a new header. The name of the header will be `Authorization` and value will be "`Bearer __TOKEN__`". Make sure that the header is enabled by clicking the blue tick mark. 
 
 
 </Instruction>
