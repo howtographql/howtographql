@@ -119,7 +119,7 @@ export const schema = makeSchema({
 
 Let's go through the changes marked with comments:
 
-1. You are importing the `graphql` model which exports the `Link` objectType through `index.ts`. The import is named `types`. 
+1. You are importing the `graphql` model which exports the `Link` object type through `index.ts`. The import is named `types`. 
 
 2. You are passing `types` to the `makeSchema` function. Nexus will do its thing to generate the SDL from this. 
 
@@ -141,7 +141,7 @@ type Query {
 
 > **Note**: If you have a terminal running with `npm run dev`, your schema should get updated automatically. Otherwise, you can always run `npm run generate` to make Nexus regenerate your schema. 
 
-If you take a look at `nexus-typegen.ts`, you will see that it has a new `Link` interface as well. This is really convenient because the interface signature is identical to that of the `link` type in your GraphQL schema. 
+If you take a look at `nexus-typegen.ts`, you will see that it has a new `Link` interface as well. This is really convenient because the interface signature is identical to that of the `Link` type in your GraphQL schema. 
 
 ```typescript{2-6}(path=".../hackernews-typescript/nexus-typegen.ts"&nocopy)
 export interface NexusGenObjects {
@@ -177,7 +177,7 @@ export const Link = objectType({
     },
 });
 
-let links : NexusGenObjects["Link"][]= [   // 1
+let links: NexusGenObjects["Link"][]= [   // 1
     {
         id: 1,
         url: "www.howtographql.com",
@@ -214,7 +214,7 @@ Alright, a lot of things are happening here. Let's go through the numbered comme
 
 3. You define the return type of the `feed` query as a _not nullable_ array of link type objects (In the SDL the return type will look like this: `[Link!]!`). 
 
-4. `resolve` is the name of the _resolver function_ of the `feed` query. A resolver is the _implementation_ for a GraphQL field. Every field on each _type_ (including the _root types_) has a _resolver function_ which is executed to get the return value when fetching that _type_. For now, our resolver implementation is very simple, it just returns the `links` array. The resolve function has three arguments, ``parent``, ``args``, ``context`` and ``info``. We will get to these later.
+4. `resolve` is the name of the _resolver function_ of the `feed` query. A resolver is the _implementation_ for a GraphQL field. Every field on each _type_ (including the _root types_) has a _resolver function_ which is executed to get the return value when fetching that _type_. For now, our resolver implementation is very simple, it just returns the `links` array. The resolve function has four arguments, `parent`, `args`, `context` and `info`. We will get to these later.
 
 > **Note**: You might be wondering why you don't have to implement resolvers for `id`, `description` and `url` field for the `Link` type. This will be clarified at the end of the chapter. 
 

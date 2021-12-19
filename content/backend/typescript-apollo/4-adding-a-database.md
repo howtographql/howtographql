@@ -49,8 +49,8 @@ Speaking of being productive and building awesome stuff, let's jump back in and 
 First, let's install the Prisma CLI and Prisma Client by running the following command in your terminal:
 
 ```bash(path=".../hackernews-typescript/")
-npm install prisma^3.5.0 --save-dev
-npm install @prisma/client^3.5.0
+npm install prisma@^3.5.0 --save-dev
+npm install @prisma/client@^3.5.0
 ```
 
 </Instruction>
@@ -148,9 +148,9 @@ You will get a prompt asking you to provide a name for the migration. Let's name
 Take a look at the `prisma` directory in your project's file system. You'll see that there is now a `/migrations` directory that Prisma Migrate created for you when running the
 above command.
 
-For now, the important thing to understand is that we have told Prisma with our data model, "I want to create a `Link` table to store data about _links_, and here's what that data
-will look like. Prisma then generates the necessary migration and packages it into a dedicated directory with its own `sql` file containing detailed information about the
-specific migration. This is then put inside that `prisma/migrations` directory, which becomes a historical reference of how your database evolves over time with each individual
+For now, the important thing to understand is that we have told Prisma with our data model, "I want to create a `Link` table to store data about _links_, and here's what that data will look like". 
+
+Prisma then generates the necessary migration and packages it into a dedicated directory with its own `.sql` file containing detailed information about the specific migration. This is then put inside that `prisma/migrations` directory, which becomes a historical reference of how your database evolves over time with each individual
 migration you make!
 
 Boom! 💥 You now have a database with a `Link` table! 🎉
@@ -165,7 +165,7 @@ Your database is now in sync with your schema.
 ✔ Generated Prisma Client (3.5.0) to ./node_modules/@prisma/client in 302ms
 ```
 
-This means that Prisma has automatically generated the Prisma _Client_ based on your data model. The Prisma Client contains everything you need to run queries against your database. Just like Nexus it is designed to be completely type-safe. By default, Prisma Client is generated in `/node_modules/@prisma/client`, which can be imported and used in your code.
+This means that Prisma has automatically generated _Prisma Client_ based on your data model. Prisma Client contains everything you need to run queries against your database. Just like Nexus it is designed to be completely type-safe. By default, Prisma Client is generated in `/node_modules/@prisma/client`, which can be imported and used in your code.
 
 > *Note:* If for whatever reason you would like to regenerate Prisma Client, you can always do so independent of a migration using the `npx prisma generate` command.
 
