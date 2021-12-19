@@ -59,7 +59,7 @@ Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-in
 
 This is a great time to refresh your memory on the workflow we described for your project at the end of [Chapter 4](../4-adding-a-database/).
 
-After every change you make to the data model, you need to migrate your database and re-generate the Prisma Client. 
+After every change you make to the data model, you need to migrate your database and re-generate Prisma Client. 
 
 <Instruction>
 

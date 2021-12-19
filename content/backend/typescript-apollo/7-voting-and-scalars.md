@@ -364,7 +364,7 @@ Start by adding the `graphql-scalars` library to your application.
 Install graphql-scalars using npm: 
 
 ```bash(path=".../hackernews-typescript/")
-npm install graphql-scalars^1.14.1
+npm install graphql-scalars@^1.14.1
 ```
 
 </Instruction>
@@ -471,7 +471,7 @@ export const Link = objectType({
 
 1. The `dateTime` field should automatically be available when defining any type using Nexus, thanks to the `asNexusMethod` call. This field will get resolved automatically during queries as the `Link` model inside Prisma already has a `createdAt` field. 
 
-The new `Link` type definition should look like this:
+The updated `Link` type definition should be as follows:
 
 ```graphql{2}(path="../hackernews-typescript/schema.graphql"&nocopy)
 type Link {

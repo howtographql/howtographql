@@ -190,7 +190,7 @@ let links : NexusGenObjects["Link"][]= [   // 1
     },
 ];
 
-export const PostQuery = extendType({  // 2
+export const LinkQuery = extendType({  // 2
     type: "Query",
     definition(t) {
         t.nonNull.list.nonNull.field("feed", {   // 3

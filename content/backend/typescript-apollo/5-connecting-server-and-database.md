@@ -195,7 +195,7 @@ persisted in your SQLite database. Therefore, even if you restart the server, th
 The `PrismaClient` instance has access to _all_ of your database models, effectively allowing you to do all CRUD (create, read, update, delete) operations on the data models you set up in your `schema.prisma`. 
 
 Now, you should be able to imagine the complete system and workflow of a Prisma/GraphQL project, where your Prisma Client API exposes a number of database queries that let you read and write data in
-the database. Your GraphQL resolvers will leverage the Prisma Client API to perform various `query` and `mutation` operations and return the result of the execution.
+the database. Your GraphQL resolvers will leverage Prisma Client API to perform various `query` and `mutation` operations and return the result of the execution.
 
 So, to summarize, Prisma Client exposes a CRUD API for the models in your schema for you to read and write in your database. These methods are auto-generated based on your model definitions in
 `schema.prisma`.
