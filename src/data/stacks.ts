@@ -125,23 +125,6 @@ const data: Stack[] = [
     authorName: 'Nikolas Burk',
     beginnersChoice: true,
   },
-
-  {
-    title: 'graphql-node',
-    type: 'backend',
-    key: 'graphql-js',
-    images: [
-      require('../assets/icons/nodejs.svg'),
-      require('../assets/icons/graphql.svg'),
-    ],
-    content: {
-      title: 'graphql.js',
-      description:
-        'Build your own GraphQL server with Node.js, apollo-server and Prisma',
-    },
-    authorName: 'Robin MacPherson',
-    beginnersChoice: true,
-  },
   {
     title: 'typescript-apollo',
     type: 'backend',
@@ -151,11 +134,27 @@ const data: Stack[] = [
       require('../assets/icons/apollo.svg'),
     ],
     content: {
-      title: 'Typescript + Apollo Server',
+      title: 'TypeScript + Apollo Server',
       description:
           'Build your own GraphQL server with TypeScript, Apollo Server, Nexus and Prisma',
     },
     authorName: 'Tasin Ishmam',
+    beginnersChoice: true,
+  },
+  {
+    title: 'javascript-apollo',
+    type: 'backend',
+    key: 'graphql-js',
+    images: [
+      require('../assets/icons/nodejs.svg'),
+      require('../assets/icons/graphql.svg'),
+    ],
+    content: {
+      title: 'JavaScript + Apollo Server',
+      description:
+        'Build your own GraphQL server with Node.js, Apollo Server and Prisma',
+    },
+    authorName: 'Robin MacPherson',
     beginnersChoice: true,
   },
   {
