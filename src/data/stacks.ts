@@ -143,6 +143,22 @@ const data: Stack[] = [
     beginnersChoice: true,
   },
   {
+    title: 'typescript-apollo',
+    type: 'backend',
+    key: 'typescript-apollo',
+    images: [
+      require('../assets/icons/typescript.svg'),
+      require('../assets/icons/apollo.svg'),
+    ],
+    content: {
+      title: 'Typescript + Apollo Server',
+      description:
+          'Build your own GraphQL server with TypeScript, Apollo Server, Nexus and Prisma',
+    },
+    authorName: 'Tasin Ishmam',
+    beginnersChoice: true,
+  },
+  {
     title: 'node-typescript-helix',
     type: 'backend',
     key: 'typescript-helix',
