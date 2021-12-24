@@ -116,6 +116,29 @@ to add them again. This is because the links are only stored _in-memory_, in the
 you will learn how to add a _database_ to the GraphQL server in order to persist the data beyond the runtime of the
 server.
 
+
+
+ > **Note:** When a GraphQL query or mutation has arguments (like the `post` mutation you just executed), you will need to pass concrete values for the arguments. There are two ways of reading values from the client. The first is the inlined method, where you pass the variable data directly in the query (this is what you just used). The other method involves passing data through variables. In this method the API call and the data are _separated_ from each other. The above `post` mutation, rewritten to use variables, would look like this: 
+
+> ```graphql(nocopy)
+mutation($description: String!, $url: String!) {
+  post(description: $description, url: $url) {
+    id
+  }
+}
+```
+
+> With the variables being passed separately like this: 
+
+> ```json(nocopy)
+{
+  "description": "www.prisma.io",
+  "url": "Next-generation Node.js and TypeScript ORM"
+}
+```
+
+> Apollo Studio tends to prefer the variable method. It supports code completion through variables and has a separate **Variables** tab in the bottom to define the variables. However, for copy-pasting convenience, this tutorial will follow the inline method. If you're manually typing up the commands, feel free to use the method which is most convenient for you.
+
 ### Exercise
 
 If you want to practice writing more code with Nexus and implementing GraphQL resolvers, here's an _optional_ challenge for you. Based on your

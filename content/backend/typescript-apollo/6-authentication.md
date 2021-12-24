@@ -279,7 +279,8 @@ You should be sufficiently familiar by now with the Nexus syntax to understand w
 
 Add the `signup` mutation and resolver in `Auth.ts` using `extendType` from Nexus:
 
-```typescript{1-42}(path="../hackernews-typescript/src/graphql/Auth.ts")
+```typescript{1-43}(path="../hackernews-typescript/src/graphql/Auth.ts")
+import { objectType, extendType, nonNull, stringArg } from "nexus";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { APP_SECRET } from "../utils/auth";
@@ -626,14 +627,30 @@ mutation {
 
 </Instruction>
 
+You should see a response like this:
+
+```json(nocopy)
+{
+  "data": {
+    "signup": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY0MDM0MDY0NX0.MOcEmbbywdYw3GTNxpdLda1XX4WsyWFZls09E_Ot6D0",
+      "user": {
+        "id": 1
+      }
+    }
+  }
+}
+
+```
+
 <Instruction>
 
-From the server's response, copy the authentication `token`. Now in the `Headers` tab in the bottom middle, add a new header. The name of the header will be `Authorization` and value will be "`Bearer __TOKEN__`". Make sure that the header is enabled by clicking the blue tick mark. 
+From the server's response, copy the authentication `token`. Now in the `Headers` tab in the bottom middle, add a new header. The name of the header will be `Authorization` and value will be "`Bearer __TOKEN__`", where "`__TOKEN__`" should be replaced with *your* auth token.  Make sure that the header is enabled by clicking the blue tick mark. 
 
 
 </Instruction>
 
-![Adding Authorization Header](https://i.imgur.com/dFekQoe.png)
+![Adding Authorization Header](https://imgur.com/rB5glDx.png)
 
 
 Now whenever you're sending a query/mutation, it will carry the JWT token.

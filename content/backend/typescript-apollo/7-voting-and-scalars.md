@@ -423,10 +423,10 @@ export * from "./scalars/Date";
 
 Once your server restarts, you should see a new type in `schema.graphql`:
 
-```graphql{1-4}(path="../hackernews-typescript/schema.graphql"&nocopy)
-"""
+```graphql{1-10}(path="../hackernews-typescript/schema.graphql"&nocopy)
+""""
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-"""
+""""
 scalar DateTime
 ```
 
@@ -521,4 +521,4 @@ Your result should look similar to the following:
 }
 ```
 
-> **Note:** If you want to learn more about custom GrapQL scalars in the context of the Node ecosystem, [this article](https://medium.com/@alizhdanov/lets-understand-graphql-scalars-3b2b016feb4a) is worth reading. You can also check out the [Nexus docs](https://nexusjs.org/docs/api/scalar-type#exposing-scalar-as-method) for understanding how to create and use custom scalars with Nexus. 
+> **Note:** If you want to learn more about custom GraphQL scalars in the context of the Node ecosystem, [this article](https://medium.com/@alizhdanov/lets-understand-graphql-scalars-3b2b016feb4a) is worth reading. You can also check out the [Nexus docs](https://nexusjs.org/docs/api/scalar-type#exposing-scalar-as-method) for understanding how to create and use custom scalars with Nexus. 
