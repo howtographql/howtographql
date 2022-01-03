@@ -318,7 +318,7 @@ You should see a response like this:
 Congratulations, you just implemented and successfully tested your first GraphQL query 🎉
 
 
-> **Note:** Quickly try something, make a quick change *anywhere* in your code. You will see the server restart again with a  message in your logging output saying `"Restarting: ..."`. This is because `ts-node-dev` will constantly check your code for any changes and update the server to reflect those changes. **From now on, you will always keep keep `ts-node-dev` running.** This will ensure that your server is always running and that Nexus generates the most updated representation of your GraphQL SDL and types. 
+> **Note:** Quickly try something, make a quick change *anywhere* in your code. You will see the server restart again with a  message in your logging output saying `"Restarting: ..."`. This is because `ts-node-dev` will constantly check your code for any changes and update the server to reflect those changes. **From now on, you will always keep `ts-node-dev` running.** This will ensure that your server is always running and that Nexus generates the most updated representation of your GraphQL SDL and types. 
 
 ### A word on the GraphQL schema
 
