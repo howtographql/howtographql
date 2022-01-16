@@ -39,7 +39,7 @@ Graphcool generally exposes two different GraphQL APIs whose type definitions sl
 
 Currently, subscriptions are only supported for the Simple API. However, you can still use subscriptions with the Relay API by making some manual adjustments to the `schema.graphql` which you feed into the `relay-compiler`. 
 
-Notice that we already did these manual adjustments for you and you already have them in your project as you imported the project from [this URL](https://graphqlbin.com/hn-relay-full.graphql) in chapter 3. If you're interested in what these changes actually look like, take a look at the `Subscription` type in `schema.grahpql`. 
+Notice that we already did these manual adjustments for you and you already have them in your project as you imported the project from [this URL](https://graphqlbin.com/hn-relay-full.graphql) in chapter 3. If you're interested in what these changes actually look like, take a look at the `Subscription` type in `schema.graphql`. 
 
 ### Configuring the Relay Environment
 
