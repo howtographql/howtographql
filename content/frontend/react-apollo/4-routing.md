@@ -32,7 +32,7 @@ Let's start by adding the dependencies we'll need.
 <Instruction>
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-router-dom
+yarn add react-router-dom@^6.2.1
 ```
 
 </Instruction>
@@ -113,9 +113,8 @@ const App = () => {
       <Header />
       <div className="ph3 pv1 background-gray">
         <Routes>
-          <Route exact path="/" element={<LinkList/>} />
+          <Route path="/" element={<LinkList/>} />
           <Route
-            exact
             path="/create"
             element={<CreateLink/>}
           />
