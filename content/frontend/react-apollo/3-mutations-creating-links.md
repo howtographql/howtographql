@@ -149,10 +149,14 @@ Next, pass the `CREATE_LINK_MUTATION` to the `useMutation`
 hook and pass in the data provided in the input fields as
 variables.
 
-```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+```js{7-12}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 const CreateLink = () => {
-  // ...
-  const [createLink] = useMutation(CREATE_LINK_MUTATION, {
+    const [formState, setFormState] = useState({
+        description: '',
+        url: ''
+    });
+    
+    const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
       description: formState.description,
       url: formState.url
@@ -169,6 +173,8 @@ out a function that can be used to call the mutaton. That's
 what `createLink` is in the code block above. We're now free
 to call the function whenever we need to when the component
 renders.
+
+<Instruction>
 
 Make a call to `createLink` in the `onSubmit` event on the
 `form` tag.
@@ -187,39 +193,13 @@ return (
   </div>
 );
 ```
+</Instruction>
+
+We're now ready to check wether the mutations are working.
+
 
 <Instruction>
 
-Our `PostMutation` will need a token, so we'll temporarily
-add one for it. Make it how you learned in the previous
-lessons and insert it in the `index.js`:
-
-```js{2,8,9,10,11,12,13,14,15,16,19}(path=".../hackernews-react-apollo/src/index.js")
-// ...
-import { setContext } from '@apollo/client/link/context';
-
-const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = '<your token>';
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : ''
-    }
-  }
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-});
-// ...
-```
-
-We're now ready to check wether the mutations are working.
 Open `App.js` and change it up as follows:
 
 ```js{2,6}(path=".../hackernews-react-apollo/src/components/App.js")
