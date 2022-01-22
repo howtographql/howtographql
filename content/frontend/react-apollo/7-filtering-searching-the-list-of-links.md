@@ -80,26 +80,24 @@ later.
 Let's now add the `Search` component as a new route to the
 app. Open `App.js` and update it to look as follows:
 
-```js{18}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{16}(path=".../hackernews-react-apollo/src/components/App.js")
 const App = () => (
   <div className="center w85">
     <Header />
     <div className="ph3 pv1 background-gray">
-      <Switch>
+      <Routes>
         <Route
-          exact
           path="/"
-          render={() => <Redirect to="/new/1" />}
+          element={<Navigate replace to="/new/1" />}
         />
 
         <Route
-          exact
           path="/create"
-          component={CreateLink}
+          element={<CreateLink/>}
         />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/search" component={Search} />
-      </Switch>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/search"element={<Search/>}/>
+      </Routes>
     </div>
   </div>
 );
@@ -117,39 +115,8 @@ import Search from './Search';
 
 </Instruction>
 
-For the user to be able to comfortably navigate to the
-search functionality, let's also add a new navigation item
-to the `Header`.
 
-<Instruction>
-
-Open `Header.js` and put a new `Link` between `new` and
-`submit`:
-
-```js{6-9}(path=".../hackernews-react-apollo/src/components/Header.js")
-<div className="flex flex-fixed black">
-  <div className="fw7 mr1">Hacker News</div>
-  <Link to="/" className="ml1 no-underline black">
-    new
-  </Link>
-  <div className="ml1">|</div>
-  <Link to="/search" className="ml1 no-underline black">
-    search
-  </Link>
-  {authToken && (
-    <div className="flex">
-      <div className="ml1">|</div>
-      <Link to="/create" className="ml1 no-underline black">
-        submit
-      </Link>
-    </div>
-  )}
-</div>
-```
-
-</Instruction>
-
-We can now navigate to the search feature using the new
+We can now navigate to the search feature using the search
 button in the `Header`:
 
 ![We can navigate to the search feature](https://imgur.com/7R4RlyG.png)
@@ -234,7 +201,7 @@ module.exports = {
 
 > **Note**: To understand what's going on in this resolver,
 > check out the
-> [Node tutorial](https://www.howtographql.com/graphql-js/0-introduction/).
+> [filtering chapter of the Node tutorial](https://www.howtographql.com/graphql-js/8-filtering-pagination-and-sorting/).
 
 In this case, two `where` conditions are specified: A link
 is only returned if either its `url` contains the provided
@@ -254,7 +221,7 @@ want to execute the query when the **OK** button is clicked.
 Let's include `useLazyQuery` and execute it when the **OK**
 button is clicked.
 
-```js(path=".../hackernews-react-apollo/src/components/Search.js")
+```js{2-4,16,19}(path=".../hackernews-react-apollo/src/components/Search.js")
 const Search = () => {
   const [searchFilter, setSearchFilter] = useState('');
   const [executeSearch, { data }] = useLazyQuery(
@@ -285,13 +252,6 @@ const Search = () => {
     </>
   );
 };
-```
-
-We'll want to be sure to import `useLazyQuery` at the top of
-the file.
-
-```js(path=".../hackernews-react-apollo/src/components/Search.js")
-import { useLazyQuery } from '@apollo/client';
 ```
 
 The implementation is almost trivial! We're executing the
