@@ -374,7 +374,7 @@ const Link = (props) => {
     variables: {
       linkId: link.id
     },
-    update(cache, { data: { vote } }) {
+    update: (cache, {data: {vote}}) => {
       const { feed } = cache.readQuery({
         query: FEED_QUERY
       });

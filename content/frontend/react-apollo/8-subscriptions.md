@@ -152,16 +152,14 @@ our app "realtime".
 
 Open `LinkList.js` and update current component as follow:
 
-```js{1-11}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{2-10}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const LinkList = () => {
   const {
     data,
     loading,
     error,
     subscribeToMore
-  } = useQuery(FEED_QUERY, {
-    variables: getQueryVariables(isNewPage, page)
-  });
+  } = useQuery(FEED_QUERY);
 
   subscribeToMore({
     // ...
