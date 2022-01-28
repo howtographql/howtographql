@@ -48,7 +48,7 @@ Facebook started using GraphQL in 2012 in their native mobile apps. Interestingl
 The first time Facebook publicly spoke about GraphQL was at [React.js Conf 2015](https://www.youtube.com/watch?v=9sc8Pyc51uU) and shortly after announced their [plans to open source](https://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html) it. Because Facebook always used to speak about GraphQL in the context of [React](https://facebook.github.io/react/), it took a while for non-React developers to understand that GraphQL was by no means a technology that was limited to usage with React.
 
 ![Screenshot of YouTube video where Dan Schafer & Jing Chen publicly introduce GraphQL React.JS Conf 2015](http://imgur.com/0mbF21w.png)
-*[Dan Schafer](https://twitter.com/dlschafer) & [Jing Chen](https://twitter.com/jingc?lang=en) publicly introduce GraphQL React.JS Conf 2015. [Watch video](https://www.youtube.com/watch?v=9sc8Pyc51uU).*
+*[Dan Schafer](https://twitter.com/dlschafer) & [Jing Chen](https://twitter.com/jingc?lang=en) publicly introduced GraphQL at React.JS Conf 2015. [Watch video](https://www.youtube.com/watch?v=9sc8Pyc51uU).*
 
 #### A rapidly growing Community
 
