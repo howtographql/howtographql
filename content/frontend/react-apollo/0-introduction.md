@@ -162,8 +162,3 @@ how it processes GraphQL operations and results via
 [`@urql/exchange-graphcache`](https://github.com/FormidableLabs/urql-exchange-graphcache)
 it is basically equivalent in functionality with Apollo, but
 with a smaller footprint and a very focused API.
-
-
-##### GitHub Repository
-
-Note that there is a GitHub repository at https://github.com/howtographql/react-apollo containing the finished code you will build in this tutorial. You can always check this out if you get stuck during the tutorial.
