@@ -77,7 +77,7 @@ WebSocket connection. We'll use `split` for proper "routing"
 of the requests and update the constructor call of
 `ApolloClient` like so:
 
-```js{1-9, 11-21}(path=".../hackernews-react-apollo/src/index.js")
+```js{1-9,11-21,24}(path=".../hackernews-react-apollo/src/index.js")
 const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/graphql`,
   options: {
@@ -109,7 +109,7 @@ const client = new ApolloClient({
 </Instruction>
 
 We're instantiating a `WebSocketLink` that knows about the
-**subscriptions** endpoint. The **subscriptions** endpoint
+_subscriptions endpoint_. The _subscriptions endpoint_
 in this case is similar to the HTTP endpoint, except that it
 uses the `ws` (WebSocket) protocol instead of `http`. Notice
 that we're also authenticating the WebSocket connection with
@@ -152,36 +152,14 @@ our app "realtime".
 
 Open `LinkList.js` and update current component as follow:
 
-```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-const getQueryVariables = (isNewPage, page) => {
-  const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
-  const take = isNewPage ? LINKS_PER_PAGE : 100;
-  const orderBy = { createdAt: 'desc' };
-  return { take, skip, orderBy };
-};
-
+```js{2-10}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 const LinkList = () => {
-  const history = useHistory();
-  const isNewPage = history.location.pathname.includes(
-    'new'
-  );
-  const pageIndexParams = history.location.pathname.split(
-    '/'
-  );
-  const page = parseInt(
-    pageIndexParams[pageIndexParams.length - 1]
-  );
-
-  const pageIndex = page ? (page - 1) * LINKS_PER_PAGE : 0;
-
   const {
     data,
     loading,
     error,
     subscribeToMore
-  } = useQuery(FEED_QUERY, {
-    variables: getQueryVariables(isNewPage, page)
-  });
+  } = useQuery(FEED_QUERY);
 
   subscribeToMore({
     // ...
@@ -232,6 +210,8 @@ subscribeToMore({
 });
 ```
 
+The definition of `updateQuery` is somewhat similar to that of `update` defined in `Login.js` and `CreateLink.js`. 
+
 <Instruction>
 
 The last thing we need to do for this to work is add the
@@ -262,11 +242,24 @@ const NEW_LINKS_SUBSCRIPTION = gql`
 
 </Instruction>
 
-Awesome, that's it! We can test our implementation by
+The `NEW_LINKS_SUBSCRIPTION` will use the `subscription` operation of the GraphQL server to listen for any newly created links.
+
+Now we can test our implementation by
 opening two browser windows. In the first window, we have
 our application running on `http://localhost:3000/`. In the
-second window, we can open the GraphQL Playground and send a
-`post` mutation. When we send the mutation, we see the app
+second window, we can open the GraphQL Playground running in `http://localhost:4000/` and send a
+`post` mutation. Here is an example mutation you can try:
+
+
+```graphql
+mutation {
+  post(url: "www.graphqlweekly.com", description: "A weekly newsletter about GraphQL") {
+    id
+  }
+}
+```
+
+When you send the mutation, you should see the app
 update in realtime! ⚡️
 
 ### Subscribing to New Votes
@@ -277,13 +270,16 @@ in the app.
 
 <Instruction>
 
-Open `LinkList.js` and add the following method to the
+Open `LinkList.js` and add another `subscribeToMore` method call to the
 `LinkList` component:
 
-```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-subscribeToMore({
-  document: NEW_VOTES_SUBSCRIPTION
-});
+```js{2-4}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+const LinkList = () => {
+  // ...
+  subscribeToMore({
+    document: NEW_VOTES_SUBSCRIPTION
+  });
+  // ...
 ```
 
 </Instruction>
@@ -334,3 +330,6 @@ const NEW_VOTES_SUBSCRIPTION = gql`
 Fantastic! Our app is now ready for realtime and will
 immediately update links and votes whenever they're created
 by other users.
+
+> **Note:** If you want to learn more about how subscriptions are implemented in the GraphQL server, check out the
+> [subscriptions chapter of the Node tutorial](https://www.howtographql.com/graphql-js/7-subscriptions/).

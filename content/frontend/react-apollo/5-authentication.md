@@ -181,13 +181,12 @@ const App = () => {
       <Header />
       <div className="ph3 pv1 background-gray">
         <Routes>
-          <Route exact path="/" element={<LinkList/>} />
+          <Route path="/" element={<LinkList/>} />
           <Route
-            exact
             path="/create"
             element={<CreateLink/>}
           />
-          <Route exact path="/login" element={<Login/>} />
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </div>
     </div>
@@ -217,13 +216,11 @@ const Header = () => {
   return (
     <div className="flex pa1 justify-between nowrap orange">
       <div className="flex flex-fixed black">
-        <div className="fw7 mr1">Hacker News</div>
+        <Link to="/" className="no-underline black">
+          <div className="fw7 mr1">Hacker News</div>
+        </Link>           
         <Link to="/" className="ml1 no-underline black">
           new
-        </Link>
-        <div className="ml1">|</div>
-        <Link to="/top" className="ml1 no-underline black">
-          top
         </Link>
         <div className="ml1">|</div>
         <Link
@@ -543,16 +540,23 @@ Open `/server/src/resolvers/Mutation.js` and give a look how
 it was implemented:
 
 ```js(path=".../hackernews-react-apollo/server/src/resolvers/Mutation.js")
-function post(parent, args, context, info) {
+async function post(parent, args, context, info) {
   const { userId } = context;
 
-  const newLink = context.prisma.link.create({
+  let postedBy = undefined
+  if (userId) {
+    postedBy = { connect: { id: userId } }
+  }
+
+  const newLink = await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,
-      postedBy: { connect: { id: userId } }
+      postedBy
     }
   });
+  
+  context.pubsub.publish('NEW_LINK', newLink);  // not important for now
 
   return newLink;
 }
@@ -563,6 +567,8 @@ function post(parent, args, context, info) {
 In this code block, we're extracting the `userId` from the
 `context` object of the request and using it to directly
 [`connect`](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/relation-queries)
-it with the `Link` that's created. The `userId` is placed on
+it with the `Link` that's created using the `postedBy` relation. The `userId` is placed on
 `context` by extracting it from the `Authorization` header
-when we set up the server context in `index.js`.
+when we set up the server context in `index.js`. 
+
+When creating posts without logging in, the `Authorization` header is not provided, then `userId` will be absent. In this case, `postedBy` will also be undefined and will be ignored by Prisma. 

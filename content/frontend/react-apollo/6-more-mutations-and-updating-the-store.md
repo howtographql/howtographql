@@ -45,16 +45,12 @@ Open `Link.js` and update the returned JSX to look like
 this:
 
 ```js(path=".../hackernews-react-apollo/src/components/Link.js")
-import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
+import { AUTH_TOKEN } from '../constants';
 // ...
 
 const Link = (props) => {
   const { link } = props;
   const authToken = localStorage.getItem(AUTH_TOKEN);
-
-  const take = LINKS_PER_PAGE;
-  const skip = 0;
-  const orderBy = { createdAt: 'desc' };
 
   return (
     <div className="flex mt2 items-start">
@@ -64,7 +60,7 @@ const Link = (props) => {
           <div
             className="ml1 gray f11"
             style={{ cursor: 'pointer' }}
-            onClick={vote}
+            onClick={() => {console.log("Clicked vote button")}}
           >
             ▲
           </div>
@@ -74,7 +70,7 @@ const Link = (props) => {
         <div>
           {link.description} ({link.url})
         </div>
-        {authToken && (
+        {(
           <div className="f6 lh-copy gray">
             {link.votes.length} votes | by{' '}
             {link.postedBy ? link.postedBy.name : 'Unknown'}{' '}
@@ -85,6 +81,8 @@ const Link = (props) => {
     </div>
   );
 };
+
+export default Link;
 ```
 
 </Instruction>
@@ -284,9 +282,9 @@ const VOTE_MUTATION = gql`
 Once more, let's use the `useMutation` hook to do the
 voting. We'll call the function that runs the mutation
 `vote` and will pass the `VOTE_MUTATION` GraphQL mutation to
-it.
+it. The `vote` function will be called in the `onClick` handler for the `div` with the up caret (▲) calls upvote button. 
 
-```js{2-6}(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{2-6,15}(path=".../hackernews-react-apollo/src/components/Link.js")
 const Link = (props) => {
   // ...
   const [vote] = useMutation(VOTE_MUTATION, {
@@ -360,8 +358,7 @@ cache, but in some circumstances, we do.
 
 When we perform mutations that affect a list of data, we
 need to manually intervene to update the cache. We'll
-implement this functionality by using Apollo's
-[caching data](https://www.apollographql.com/docs/react/caching/cache-configuration/#after-mutations).
+implement this functionality by using the [update callback](https://www.apollographql.com/docs/react/data/mutations/#the-update-function) of `useMutation`.  
 
 <Instruction>
 
@@ -370,14 +367,14 @@ additional behavior in the `update` callback. This runs
 after the mutation has completed and allows us to read the
 cache, modify it, and commit the changes.
 
-```js{7-29}(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{6-31}(path=".../hackernews-react-apollo/src/components/Link.js")
 const Link = (props) => {
   // ...
   const [vote] = useMutation(VOTE_MUTATION, {
     variables: {
       linkId: link.id
     },
-    update(cache, { data: { vote } }) {
+    update: (cache, {data: {vote}}) => {
       const { feed } = cache.readQuery({
         query: FEED_QUERY
       });
@@ -421,6 +418,14 @@ out using `{ data: { vote } }`. Once we have the new list of
 votes, we can commit the changes to the cache using
 `cache.writeQuery`, passing in the new data.
 
+
+The last thing we need to do for this to work is import the
+`FEED_QUERY` into the `Link` file:
+
+```js(path=".../hackernews-react-apollo/src/components/Link.js")
+import { FEED_QUERY } from './LinkList';
+```
+
 That's it! The `update` function will now be executed and
 make sure that the store gets updated properly after a
 mutation was performed. The store update will trigger a
@@ -436,24 +441,21 @@ Open `CreateLink.js` and following what we did before, add
 an `update` callback to the `useMutation` hook to update the
 Apollo store.
 
-```js{6-34}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+
+
+
+
+
+
+```js{6-19}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
       description: formState.description,
       url: formState.url
     },
     update: (cache, { data: { post } }) => {
-      const take = LINKS_PER_PAGE;
-      const skip = 0;
-      const orderBy = { createdAt: 'desc' };
-
       const data = cache.readQuery({
         query: FEED_QUERY,
-        variables: {
-          take,
-          skip,
-          orderBy
-        }
       });
 
       cache.writeQuery({
@@ -463,14 +465,9 @@ const [createLink] = useMutation(CREATE_LINK_MUTATION, {
             links: [post, ...data.feed.links]
           }
         },
-        variables: {
-          take,
-          skip,
-          orderBy
-        }
       });
     },
-    onCompleted: () => history.push('/new/1')
+    onCompleted: () => navigate("/")
   });
 ```
 
@@ -489,8 +486,8 @@ variables we passed into the query in `LinkList.js`.
 
 <Instruction>
 
-The last thing we need to do for this to work is import the
-`FEED_QUERY` into that file:
+We need to import the
+`FEED_QUERY` into the file. 
 
 ```js(path=".../hackernews-react-apollo/src/components/CreateLink.js")
 import { FEED_QUERY } from './LinkList';
@@ -498,19 +495,6 @@ import { FEED_QUERY } from './LinkList';
 
 </Instruction>
 
-Conversely, it also needs to be exported from where it is
-defined.
-
-<Instruction>
-
-Open `LinkList.js` and adjust the definition of the
-`FEED_QUERY` by adding the `export` keyword to it:
-
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-export const FEED_QUERY = ...
-```
-
-</Instruction>
 
 Awesome, now the store also updates with the right
 information after new links are added. The app is getting

@@ -49,32 +49,28 @@ can navigate through.
 
 Open `App.js` and adjust the component to look like this:
 
-```js{20-24}(path=".../hackernews-react-apollo/src/components/App.js")
+```js{5-8,16-20}(path=".../hackernews-react-apollo/src/components/App.js")
 const App = () => (
   <div className="center w85">
     <Header />
     <div className="ph3 pv1 background-gray">
-      <Switch>
+      <Routes>
         <Route
-          exact
           path="/"
-          render={() => <Redirect to="/new/1" />}
+          element={<Navigate replace to="/new/1" />}
         />
-
         <Route
-          exact
           path="/create"
-          component={CreateLink}
+          element={<CreateLink/>}
         />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/top" component={LinkList} />
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/search"element={<Search/>}/>
+        <Route path="/top" element={<LinkList/>} />
         <Route
-          exact
           path="/new/:page"
-          component={LinkList}
+          element={<LinkList/>}
         />
-      </Switch>
+      </Routes>
     </div>
   </div>
 );
@@ -82,7 +78,7 @@ const App = () => (
 
 </Instruction>
 
-Let's be sure to import the `Redirect` component so we don't
+Let's be sure to import the `Navigate` component so we don't
 get any errors.
 
 <Instruction>
@@ -90,7 +86,7 @@ get any errors.
 Update the router import on the top of the file:
 
 ```js{}(path=".../hackernews-react-apollo/src/components/App.js")
-import { Redirect, Route, Switch } from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 ```
 
 </Instruction>
@@ -111,11 +107,19 @@ Before moving on, quickly add a new navigation item to the
 Open `Header.js` and add the following lines _between_ the
 `/` and the `/search` routes:
 
-```js(path=".../hackernews-react-apollo/src/components/Header.js")
-<Link to="/top" className="ml1 no-underline black">
-  top
-</Link>
-<div className="ml1">|</div>
+```html{4-7}(path=".../hackernews-react-apollo/src/components/Header.js")
+  <Link to="/" className="ml1 no-underline black">
+    new
+  </Link>
+  <div className="ml1">|</div>
+  <Link to="/top" className="ml1 no-underline black">
+    top
+  </Link>
+  <div className="ml1">|</div>
+  <Link
+    to="/search"
+    className="ml1 no-underline black"
+  >
 ```
 
 </Instruction>
@@ -183,23 +187,22 @@ call to `useQuery`.
 Still in `LinkList.js`, adjust the `useQuery` hook to accept
 the variables we want to pass to the query.
 
-```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import { useHistory } from 'react-router';
+```js{1,6-16,23-25}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+import { useLocation } from 'react-router-dom';
 
 // ...
 
 const LinkList = () => {
-  const history = useHistory();
-  const isNewPage = history.location.pathname.includes(
+  const location = useLocation();
+  const isNewPage = location.pathname.includes(
     'new'
   );
-  const pageIndexParams = history.location.pathname.split(
+  const pageIndexParams = location.pathname.split(
     '/'
   );
   const page = parseInt(
     pageIndexParams[pageIndexParams.length - 1]
   );
-
   const pageIndex = page ? (page - 1) * LINKS_PER_PAGE : 0;
 
   const {
@@ -208,7 +211,8 @@ const LinkList = () => {
     error,
     subscribeToMore
   } = useQuery(FEED_QUERY, {
-    variables: getQueryVariables(isNewPage, page)
+    variables: getQueryVariables(isNewPage, page),
+    fetchPolicy: "cache-and-network"  // see note for explanation
   });
 
   // ...
@@ -217,11 +221,15 @@ const LinkList = () => {
 
 </Instruction>
 
+We use the `useLocation` hook to get the current pathname of the page being visited. 
+
 We're passing in an object as the second argument to
 `useQuery`, right after we pass in the `FEED_QUERY`
 document. We can use this object to modify the behavior of
 the query in various ways. One of the most common things we
 do with it is to provide `variables`.
+
+> **Note:** We made a small tweak to the caching policy of this query using the `fetchPolicy` option. This is to solve a [bug in pagination](https://github.com/howtographql/howtographql/issues/1360) with the current implementation. This is a temporary/stopgap solution, and the tutorial will be updated later to fix the underlying problem. 
 
 <Instruction>
 
@@ -232,10 +240,6 @@ retrieve the variables. Let's implement the
 </Instruction>
 
 ```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import { LINKS_PER_PAGE } from '../constants';
-
-// ...
-
 const getQueryVariables = (isNewPage, page) => {
   const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
   const take = isNewPage ? LINKS_PER_PAGE : 100;
@@ -280,6 +284,17 @@ export const LINKS_PER_PAGE = 5;
 
 </Instruction>
 
+<Instruction>
+
+Now adjust the import statement from `../constants` in
+`LinkList.js` to also include the new constant:
+
+```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+import { LINKS_PER_PAGE } from '../constants';
+```
+
+</Instruction>
+
 ### Implementing Navigation
 
 Next, we need functionality for the user to switch between
@@ -314,7 +329,7 @@ return (
               className="pointer mr2"
               onClick={() => {
                 if (page > 1) {
-                  history.push(`/new/${page - 1}`);
+                  navigate(`/new/${page - 1}`);
                 }
               }}
             >
@@ -328,7 +343,7 @@ return (
                   data.feed.count / LINKS_PER_PAGE
                 ) {
                   const nextPage = page + 1;
-                  history.push(`/new/${nextPage}`);
+                  navigate(`/new/${nextPage}`);
                 }
               }}
             >
@@ -344,16 +359,6 @@ return (
 
 </Instruction>
 
-<Instruction>
-
-Now adjust the import statement from `../constants` in
-`LinkList.js` to also include the new constant:
-
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
-import { LINKS_PER_PAGE } from '../constants';
-```
-
-</Instruction>
 
 Since the setup is slightly more complicated now, we are
 going to calculate the list of links to be rendered in a
@@ -379,17 +384,36 @@ const getLinksToRender = (isNewPage, data) => {
 
 </Instruction>
 
-For the `newPage`, we simply return all the links returned
+For the `/new` route, we simply return all the links returned
 by the query. That's logical since here we don't have to
 make any manual modifications to the list that is to be
 rendered. If the user loaded the component from the `/top`
 route, we'll sort the list according to the number of votes
 and return the top 10 links.
 
+<Instruction>
+
+Finally, we need to add the `useNavigate` hook to `LinkList`
+
+```js{1,6}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+import {useLocation, useNavigate} from 'react-router-dom';
+
+// ...
+
+const LinkList = () => {
+  const navigate = useNavigate();
+
+  // ...
+}
+```
+
+
+</Instruction>
+
 Let's have a closer look at the logic for the **Next** and
 **Previous** links.
 
-```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{}(path=".../hackernews-react-apollo/src/components/LinkList.js"&nocopy)
 {
   isNewPage && (
     <div className="flex ml4 mv3 gray">
@@ -397,7 +421,7 @@ Let's have a closer look at the logic for the **Next** and
         className="pointer mr2"
         onClick={() => {
           if (page > 1) {
-            history.push(`/new/${page - 1}`);
+            navigate(`/new/${page - 1}`);
           }
         }}
       >
@@ -408,7 +432,7 @@ Let's have a closer look at the logic for the **Next** and
         onClick={() => {
           if (page <= data.feed.count / LINKS_PER_PAGE) {
             const nextPage = page + 1;
-            history.push(`/new/${nextPage}`);
+            navigate(`/new/${nextPage}`);
           }
         }}
       >
@@ -450,7 +474,7 @@ to get passed the same variables that we defined before.
 With that information, open `Link.js` and update the
 `update` function on the `useMutation` hook:
 
-```js{5-7, 16-20, 40-44}(path=".../hackernews-react-apollo/src/components/Link.js")
+```js{1,5-7,16-20,40-44}(path=".../hackernews-react-apollo/src/components/Link.js")
 import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
 
 // ...
@@ -463,7 +487,7 @@ const [vote] = useMutation(VOTE_MUTATION, {
   variables: {
     linkId: link.id
   },
-  update(cache, { data: { vote } }) {
+  update: (cache, {data: {vote}}) => {
     const { feed } = cache.readQuery({
       query: FEED_QUERY,
       variables: {
@@ -501,6 +525,56 @@ const [vote] = useMutation(VOTE_MUTATION, {
 ```
 
 </Instruction>
+
+<Instruction>
+
+Similarly update the `update` function of the `useMutation` hook in `CreateLink.js`
+
+```js{1,10-12,16-20,30-34}(path=".../hackernews-react-apollo/src/components/CreateLink.js")
+import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
+
+// ...
+const [createLink] = useMutation(CREATE_LINK_MUTATION, {
+    variables: {
+      description: formState.description,
+      url: formState.url
+    },
+    update: (cache, {data: {post}}) => {
+      const take = LINKS_PER_PAGE;
+      const skip = 0;
+      const orderBy = {createdAt: 'desc'};
+
+      const data = cache.readQuery({
+        query: FEED_QUERY,
+        variables: {
+          take,
+          skip,
+          orderBy
+        }
+      });
+
+      cache.writeQuery({
+        query: FEED_QUERY,
+        data: {
+          feed: {
+            links: [post, ...data.feed.links]
+          }
+        },
+        variables: {
+          take,
+          skip,
+          orderBy
+        }
+      });
+    },
+    onCompleted: () => {
+      navigate("/")
+    }
+  });
+```
+
+</Instruction>
+
 
 We have now added a simple pagination system to the app,
 allowing users to load links in small chunks instead of

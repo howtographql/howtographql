@@ -32,7 +32,7 @@ Let's start by adding the dependencies we'll need.
 <Instruction>
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add react-router-dom
+yarn add react-router-dom@^6.2.1
 ```
 
 </Instruction>
@@ -56,7 +56,9 @@ const Header = () => {
   return (
     <div className="flex pa1 justify-between nowrap orange">
       <div className="flex flex-fixed black">
-        <div className="fw7 mr1">Hacker News</div>
+        <Link to="/" className="no-underline black">
+          <div className="fw7 mr1">Hacker News</div>
+        </Link>        
         <Link to="/" className="ml1 no-underline black">
           new
         </Link>
@@ -113,9 +115,8 @@ const App = () => {
       <Header />
       <div className="ph3 pv1 background-gray">
         <Routes>
-          <Route exact path="/" element={<LinkList/>} />
+          <Route path="/" element={<LinkList/>} />
           <Route
-            exact
             path="/create"
             element={<CreateLink/>}
           />

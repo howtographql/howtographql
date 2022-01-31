@@ -76,13 +76,13 @@ import Link from './Link';
 const LinkList = () => {
   const linksToRender = [
     {
-      id: '1',
+      id: 'link-id-1',
       description:
         'Prisma gives you a powerful database toolkit 😎',
       url: 'https://prisma.io'
     },
     {
-      id: '2',
+      id: 'link-id-2',
       description: 'The best GraphQL client',
       url: 'https://www.apollographql.com/docs/react/'
     }
@@ -173,7 +173,9 @@ any errors for us.
 Open up `LinkList.js` and add the query to the top of the
 file:
 
-```js(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{3-18}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+import React from 'react';
+import Link from './Link';
 import { useQuery, gql } from '@apollo/client';
 
 const FEED_QUERY = gql`
