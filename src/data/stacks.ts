@@ -204,21 +204,21 @@ const data: Stack[] = [
     authorName: 'Radoslav Stankov',
     color2: '#a5152a',
   },
-  {
-    title: 'graphql-java',
-    type: 'backend',
-    key: 'graphql-java',
-    images: [
-      require('../assets/icons/java.svg'),
-      require('../assets/icons/graphql.svg'),
-    ],
-    content: {
-      title: 'graphql-java',
-      description:
-        'Build your own GraphQL server with the Java programming language',
-    },
-    authorName: 'Bojan Tomic',
-  },
+  // {
+  //   title: 'graphql-java',
+  //   type: 'backend',
+  //   key: 'graphql-java',
+  //   images: [
+  //     require('../assets/icons/java.svg'),
+  //     require('../assets/icons/graphql.svg'),
+  //   ],
+  //   content: {
+  //     title: 'graphql-java',
+  //     description:
+  //       'Build your own GraphQL server with the Java programming language',
+  //   },
+  //   authorName: 'Bojan Tomic',
+  // },
   {
     title: 'graphql-python',
     type: 'backend',

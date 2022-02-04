@@ -18,23 +18,22 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 #### Frontend
 
 - React & Apollo
-- React & Relay
+- React & Relay (Out of date)
 - Vue & Apollo (Out of date)
 - Ember & Apollo (Out of date)
-- Expo & Apollo (Coming Soon)
-- Angular & Apollo (Coming Soon)
-- VulcanJS (Coming Soon)
 
 #### Backend
 
-- Prisma
-- graphql-js / JavaScript
-- Absinthe / Elixir
-- graphql-ruby / Ruby
-- graphql-java / Java
-- Graphene / Python
-- gqlgen / Go
-- Sangria / Scala (Coming Soon)
+- javascript-apollo / JavaScript & Apollo
+- typescript-apollo / Typescript & Apollo
+- typescript-helix / Typescript & Helix
+- graphql-elixir / Absinthe & Elixir
+- graphql-ruby / Ruby and GraphQL Gem
+- graphql-python / Python & Graphene
+- graphql-go / Go & gqlgen
+- graphql-scala / Scala & Sangria   
+- graphql-java / Java (Out of date)
+
 
 
 ## Contributions / Fixes
