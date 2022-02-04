@@ -93,22 +93,22 @@ const data: Stack[] = [
 //     },
 //     authorName: 'Nikolas Burk',
 //   },
-  {
-    title: 'React + urql',
-    type: 'frontend',
-    key: 'react-urql',
-    images: [
-      require('../assets/icons/react.svg'),
-      require('../assets/icons/urql.svg'),
-    ],
-    content: {
+    {
       title: 'React + urql',
-      description:
-        'Learn how to get started with React and urql on the frontend',
+      type: 'frontend',
+      key: 'react-urql',
+      images: [
+        require('../assets/icons/react.svg'),
+        require('../assets/icons/urql.svg'),
+      ],
+      content: {
+        title: 'React + urql',
+        description:
+          'Learn how to get started with React and urql on the frontend',
+      },
+      authorName: 'Jovi & Phil from Formidable',
+      beginnersChoice: false,
     },
-    authorName: 'Jovi & Phil from Formidable',
-    beginnersChoice: true,
-  },
   {
     title: 'React + Apollo',
     type: 'frontend',
@@ -155,14 +155,14 @@ const data: Stack[] = [
         'Build your own GraphQL server with Node.js, Apollo Server and Prisma',
     },
     authorName: 'Robin MacPherson',
-    beginnersChoice: true,
+    beginnersChoice: false,
   },
   {
     title: 'node-typescript-helix',
     type: 'backend',
     key: 'typescript-helix',
     images: [
-      require('../assets/icons/nodejs.svg'),
+      require('../assets/icons/typescript.svg'),
       require('../assets/icons/graphql.svg'),
     ],
     content: {
@@ -171,7 +171,7 @@ const data: Stack[] = [
         'Build your own GraphQL server with NodeJS, TypeScript and Prisma',
     },
     authorName: 'Dotan Simha',
-    beginnersChoice: true,
+    beginnersChoice: false,
   },
   {
     title: 'graphql-elixir',
