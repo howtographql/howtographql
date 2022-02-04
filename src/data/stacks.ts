@@ -93,22 +93,22 @@ const data: Stack[] = [
 //     },
 //     authorName: 'Nikolas Burk',
 //   },
-    {
-      title: 'React + urql',
-      type: 'frontend',
-      key: 'react-urql',
-      images: [
-        require('../assets/icons/react.svg'),
-        require('../assets/icons/urql.svg'),
-      ],
-      content: {
-        title: 'React + urql',
-        description:
-          'Learn how to get started with React and urql on the frontend',
-      },
-      authorName: 'Jovi & Phil from Formidable',
-      beginnersChoice: false,
-    },
+    // {
+    //   title: 'React + urql',
+    //   type: 'frontend',
+    //   key: 'react-urql',
+    //   images: [
+    //     require('../assets/icons/react.svg'),
+    //     require('../assets/icons/urql.svg'),
+    //   ],
+    //   content: {
+    //     title: 'React + urql',
+    //     description:
+    //       'Learn how to get started with React and urql on the frontend',
+    //   },
+    //   authorName: 'Jovi & Phil from Formidable',
+    //   beginnersChoice: false,
+    // },
   {
     title: 'React + Apollo',
     type: 'frontend',
