@@ -1,38 +1,38 @@
 /* tslint:disable */
 import { Stack } from '../types'
 const data: Stack[] = [
-  {
-    title: 'React + VulcanJS',
-    type: 'frontend',
-    key: 'react-vulcanjs',
-    images: [
-      require('../assets/icons/react.svg'),
-      require('../assets/icons/vulcan.svg'),
-    ],
-    content: {
-      title: 'React + Relay',
-      description:
-        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
-    },
-    authorName: 'Sacha Greif',
-    comingSoon: true,
-  },
-  {
-    title: 'Expo + Apollo',
-    type: 'frontend',
-    key: 'expo-apollo',
-    images: [
-      require('../assets/icons/expo.svg'),
-      require('../assets/icons/apollo.svg'),
-    ],
-    content: {
-      title: 'Expo + Apollo',
-      description:
-        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
-    },
-    authorName: 'Brent Vatne',
-    comingSoon: true,
-  },
+  // {
+  //   title: 'React + VulcanJS',
+  //   type: 'frontend',
+  //   key: 'react-vulcanjs',
+  //   images: [
+  //     require('../assets/icons/react.svg'),
+  //     require('../assets/icons/vulcan.svg'),
+  //   ],
+  //   content: {
+  //     title: 'React + Relay',
+  //     description:
+  //       "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+  //   },
+  //   authorName: 'Sacha Greif',
+  //   comingSoon: true,
+  // },
+  // {
+  //   title: 'Expo + Apollo',
+  //   type: 'frontend',
+  //   key: 'expo-apollo',
+  //   images: [
+  //     require('../assets/icons/expo.svg'),
+  //     require('../assets/icons/apollo.svg'),
+  //   ],
+  //   content: {
+  //     title: 'Expo + Apollo',
+  //     description:
+  //       "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+  //   },
+  //   authorName: 'Brent Vatne',
+  //   comingSoon: true,
+  // },
 //   {
 //     title: 'Ember + Apollo',
 //     type: 'frontend',
