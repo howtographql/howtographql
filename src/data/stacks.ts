@@ -1,38 +1,38 @@
 /* tslint:disable */
 import { Stack } from '../types'
 const data: Stack[] = [
-  {
-    title: 'React + VulcanJS',
-    type: 'frontend',
-    key: 'react-vulcanjs',
-    images: [
-      require('../assets/icons/react.svg'),
-      require('../assets/icons/vulcan.svg'),
-    ],
-    content: {
-      title: 'React + Relay',
-      description:
-        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
-    },
-    authorName: 'Sacha Greif',
-    comingSoon: true,
-  },
-  {
-    title: 'Expo + Apollo',
-    type: 'frontend',
-    key: 'expo-apollo',
-    images: [
-      require('../assets/icons/expo.svg'),
-      require('../assets/icons/apollo.svg'),
-    ],
-    content: {
-      title: 'Expo + Apollo',
-      description:
-        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
-    },
-    authorName: 'Brent Vatne',
-    comingSoon: true,
-  },
+  // {
+  //   title: 'React + VulcanJS',
+  //   type: 'frontend',
+  //   key: 'react-vulcanjs',
+  //   images: [
+  //     require('../assets/icons/react.svg'),
+  //     require('../assets/icons/vulcan.svg'),
+  //   ],
+  //   content: {
+  //     title: 'React + Relay',
+  //     description:
+  //       "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+  //   },
+  //   authorName: 'Sacha Greif',
+  //   comingSoon: true,
+  // },
+  // {
+  //   title: 'Expo + Apollo',
+  //   type: 'frontend',
+  //   key: 'expo-apollo',
+  //   images: [
+  //     require('../assets/icons/expo.svg'),
+  //     require('../assets/icons/apollo.svg'),
+  //   ],
+  //   content: {
+  //     title: 'Expo + Apollo',
+  //     description:
+  //       "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+  //   },
+  //   authorName: 'Brent Vatne',
+  //   comingSoon: true,
+  // },
 //   {
 //     title: 'Ember + Apollo',
 //     type: 'frontend',
@@ -93,22 +93,22 @@ const data: Stack[] = [
 //     },
 //     authorName: 'Nikolas Burk',
 //   },
-  {
-    title: 'React + urql',
-    type: 'frontend',
-    key: 'react-urql',
-    images: [
-      require('../assets/icons/react.svg'),
-      require('../assets/icons/urql.svg'),
-    ],
-    content: {
-      title: 'React + urql',
-      description:
-        'Learn how to get started with React and urql on the frontend',
-    },
-    authorName: 'Jovi & Phil from Formidable',
-    beginnersChoice: true,
-  },
+    // {
+    //   title: 'React + urql',
+    //   type: 'frontend',
+    //   key: 'react-urql',
+    //   images: [
+    //     require('../assets/icons/react.svg'),
+    //     require('../assets/icons/urql.svg'),
+    //   ],
+    //   content: {
+    //     title: 'React + urql',
+    //     description:
+    //       'Learn how to get started with React and urql on the frontend',
+    //   },
+    //   authorName: 'Jovi & Phil from Formidable',
+    //   beginnersChoice: false,
+    // },
   {
     title: 'React + Apollo',
     type: 'frontend',
@@ -155,14 +155,14 @@ const data: Stack[] = [
         'Build your own GraphQL server with Node.js, Apollo Server and Prisma',
     },
     authorName: 'Robin MacPherson',
-    beginnersChoice: true,
+    beginnersChoice: false,
   },
   {
     title: 'node-typescript-helix',
     type: 'backend',
     key: 'typescript-helix',
     images: [
-      require('../assets/icons/nodejs.svg'),
+      require('../assets/icons/typescript.svg'),
       require('../assets/icons/graphql.svg'),
     ],
     content: {
@@ -171,7 +171,7 @@ const data: Stack[] = [
         'Build your own GraphQL server with NodeJS, TypeScript and Prisma',
     },
     authorName: 'Dotan Simha',
-    beginnersChoice: true,
+    beginnersChoice: false,
   },
   {
     title: 'graphql-elixir',
@@ -204,21 +204,21 @@ const data: Stack[] = [
     authorName: 'Radoslav Stankov',
     color2: '#a5152a',
   },
-  {
-    title: 'graphql-java',
-    type: 'backend',
-    key: 'graphql-java',
-    images: [
-      require('../assets/icons/java.svg'),
-      require('../assets/icons/graphql.svg'),
-    ],
-    content: {
-      title: 'graphql-java',
-      description:
-        'Build your own GraphQL server with the Java programming language',
-    },
-    authorName: 'Bojan Tomic',
-  },
+  // {
+  //   title: 'graphql-java',
+  //   type: 'backend',
+  //   key: 'graphql-java',
+  //   images: [
+  //     require('../assets/icons/java.svg'),
+  //     require('../assets/icons/graphql.svg'),
+  //   ],
+  //   content: {
+  //     title: 'graphql-java',
+  //     description:
+  //       'Build your own GraphQL server with the Java programming language',
+  //   },
+  //   authorName: 'Bojan Tomic',
+  // },
   {
     title: 'graphql-python',
     type: 'backend',
