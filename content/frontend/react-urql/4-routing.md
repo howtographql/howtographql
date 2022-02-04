@@ -10,7 +10,7 @@ duration: 0
 videoAuthor: ""
 ---
 
-In this section, you'll learn how to use [react-router 5](https://github.com/ReactTraining/react-router) with urql to add some navigation to your app!
+In this section, you'll learn how to use [react-router](https://github.com/ReactTraining/react-router) with urql to add some navigation to your app!
 
 ### Install dependencies
 
@@ -19,10 +19,12 @@ First add the required dependencies to the app. Open a terminal, navigate to you
 <Instruction>
 
 ```bash(path=".../hackernews-react-urql")
-yarn add react-router react-router-dom
+yarn add react-router react-router-dom@^5.1 
 ```
 
 </Instruction>
+
+> **Note:** We are using `v5` of `react-router-dom` due to certain breaking changes in the later versions that are incompatible with this tutorial. 
 
 ### Create a Header
 
