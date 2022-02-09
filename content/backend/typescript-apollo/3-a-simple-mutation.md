@@ -49,8 +49,8 @@ export const LinkMutation = extendType({  // 1
                 let idCount = links.length + 1;  // 5
                 const link = {
                     id: idCount,
-                    description: args.description,
-                    url: args.url,
+                    description: description,
+                    url: url,
                 };
                 links.push(link);
                 return link;
