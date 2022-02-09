@@ -23,11 +23,11 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) 
 	// 2
 	link.User = user
 	linkID := link.Save()
-	grahpqlUser := &model.User{
+	graphqlUser := &model.User{
 		ID:   user.ID,
 		Name: user.Username,
 	}
-	return &model.Link{ID: strconv.FormatInt(linkID, 10), Title:link.Title, Address:link.Address, User:grahpqlUser}, nil
+	return &model.Link{ID: strconv.FormatInt(linkID, 10), Title:link.Title, Address:link.Address, User:graphqlUser}, nil
 }
 ```
 
@@ -48,11 +48,11 @@ func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 	var dbLinks []links.Link
 	dbLinks = links.GetAll()
 	for _, link := range dbLinks{
-		grahpqlUser := &model.User{
+		graphqlUser := &model.User{
 			ID:   link.User.ID,
 			Name: link.User.Username,
 		}
-		resultLinks = append(resultLinks, &model.Link{ID: link.ID, Title: link.Title, Address: link.Address, User: grahpqlUser})
+		resultLinks = append(resultLinks, &model.Link{ID: link.ID, Title: link.Title, Address: link.Address, User: graphqlUser})
 	}
 	return resultLinks, nil
 }
