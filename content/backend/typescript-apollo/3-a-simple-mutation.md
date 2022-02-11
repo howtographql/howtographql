@@ -99,7 +99,7 @@ The server response should look as follows:
 {
   "data": {
     "post": {
-      "id": 1
+      "id": 3
     }
   }
 }
