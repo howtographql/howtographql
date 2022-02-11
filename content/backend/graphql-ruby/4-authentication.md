@@ -57,7 +57,7 @@ gem 'bcrypt', '~> 3.1.13'
 Then run:
 
 ```bash
-bundle update
+bundle install
 ```
 
 </Instruction>
