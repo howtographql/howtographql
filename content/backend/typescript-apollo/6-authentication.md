@@ -216,8 +216,8 @@ You will be implementing [JWT-based authentication](https://morioh.com/p/79f6f8b
 
 ```graphql(nocopy)
 type AuthPayload {  // 1
-  token: String
-  user: User
+  token: String!
+  user: User!
 }
 
 
