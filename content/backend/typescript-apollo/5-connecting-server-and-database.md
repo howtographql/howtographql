@@ -80,11 +80,11 @@ In `src/schema.ts` add a new `contextType` object to the `makeSchema` function c
 export const schema = makeSchema({
     types,
     outputs: {
-        typegen: join(__dirname, "..", "nexus-typegen.ts"), 
-        schema: join(__dirname, "..", "schema.graphql"), 
+        typegen: join(process.cwd(), "nexus-typegen.ts"),
+        schema: join(process.cwd(), "schema.graphql"),
     },
     contextType: {  
-        module: join(__dirname, "./context.ts"),  // 1
+        module: join(process.cwd(), "./src/context.ts"),  // 1
         export: "Context",  // 2
     },
 });

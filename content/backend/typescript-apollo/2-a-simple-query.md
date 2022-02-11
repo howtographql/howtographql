@@ -109,8 +109,8 @@ import * as types from "./graphql";   // 1
 export const schema = makeSchema({
     types,   // 2
     outputs: {
-        typegen: join(__dirname, "..", "nexus-typegen.ts"), 
-        schema: join(__dirname, "..", "schema.graphql"), 
+        typegen: join(process.cwd(), "nexus-typegen.ts"),
+        schema: join(process.cwd(), "schema.graphql"),
     },
 });
 ```
