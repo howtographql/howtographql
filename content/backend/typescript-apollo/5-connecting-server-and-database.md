@@ -180,7 +180,7 @@ Let's understand how these new resolvers are working:
 2. Similar to the `feed` resolver, you're simply invoking a function on the `PrismaClient` instance. You're calling the `create` method on the `Link` model from your Prisma Client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
 
 
-> *Note:** Prisma queries return [`Promise`](https://nodejs.dev/learn/understanding-javascript-promises) objects as these are asynchronous. So in both resolvers you are returning a `Promise`. This is not a problem as Apollo Server is capable of detecting and automatically resolving any `Promise` object that is returned from resolver functions. 
+> **Note:** Prisma queries return [`Promise`](https://nodejs.dev/learn/understanding-javascript-promises) objects as these are asynchronous. So in both resolvers you are returning a `Promise`. This is not a problem as Apollo Server is capable of detecting and automatically resolving any `Promise` object that is returned from resolver functions. 
 
 
 ### Testing the new implementation
