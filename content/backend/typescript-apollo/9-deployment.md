@@ -8,30 +8,30 @@ answers: ['Workflows need to be triggered manually', 'Workflows are triggered af
 correctAnswer: 2
 ---
 
-In this section of the tutorial, you will be deploying your API to production so that it can be used by you and others. Unlike the previous sections, you will not develop any new features for your application in this chapter. Instead, you will refactor your application to make it suitable for deployment on [Heroku](https://dashboard.heroku.com/). Additionally, you will also automate the deployment process using [GitHub Actions](https://docs.github.com/en/actions) (this is also referred to as [continious deployment](https://en.wikipedia.org/wiki/Continuous_deployment)). 
+In this section of the tutorial, you will be deploying your API to production so that it can be used by you and others. Unlike the previous sections, you will not develop any new features for your API in this chapter. Instead, you will refactor the project to make it suitable for deployment on [Heroku](https://dashboard.heroku.com/). Additionally, you will automate the deployment process using [GitHub Actions](https://docs.github.com/en/actions) (this is also referred to as [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment)). 
 
 ### Prerequisites 
 
 You will need to install a few command line tools and create some accounts to follow along with this chapter. We suggest you do this now so as not to break the flow of the tutorial.
 
 - **GitHub (Account)**: Create a free account on [GitHub](https://github.com/join).
-- **GitHub (CLI)**: Install the latest stable version of the [GitHub CLI](https://cli.github.com/). Afterward, [log in to your GitHub account](https://cli.github.com/manual/gh_auth_login) on the CLI. 
+- **GitHub (CLI)**: Install the latest stable version of the [GitHub CLI](https://cli.github.com/). Afterward, [login to your GitHub account](https://cli.github.com/manual/gh_auth_login) on the CLI. 
 - **Heroku (Account)**: Create a free account on [Heroku](https://signup.heroku.com/). 
-- **Heroku (CLI)**: Install the latest stable version of the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Afterward, [log in to your Heroku account](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli) on the Heroku CLI. 
+- **Heroku (CLI)**: Install the latest stable version of the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Afterward, [login to your Heroku account](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli) on the Heroku CLI. 
 - **[Docker](https://docs.docker.com/get-docker/)** and **[Docker Compose](https://docs.docker.com/compose/install/)**
 
-> **Note:** Docker and Docker Compose will be used to run an instance of PostgreSQL database. If you prefer, you can install and run [PostgreSQL](https://www.postgresql.org/download/) natively as well. If you choose to run natively, you will need to make some slight changes to the instructions shown in this tutorial. 
+> **Note:** Docker and Docker Compose will be used to run an instance of the PostgreSQL database. If you prefer, you can install and run [PostgreSQL](https://www.postgresql.org/download/) natively as well. If you choose to run natively, you will need to make some slight changes to the instructions shown in this tutorial. 
 
 
 With that out of the way, let's get started!
 
 ### Adding version control
 
-In order to automate the deployment process, you will need to use version control to synchronize changes with your production application. This tutorial will not cover the basics of using version control. 
+In order to automate the deployment process, you will need to use version control to synchronize changes with the production deployment. This tutorial will not cover the basics of using version control. 
 
 > **Note 1:** If you need to learn the basics of using git, I would suggest [this series](https://www.atlassian.com/git/tutorials/setting-up-a-repository). To understand the git commands used in this tutorial, the first two articles of this series are sufficient.  
 
-> **Note 2:** If you are already using version control and have a repository set up in GitHub for this project, you can skip this section.  
+> **Note 2:** If you are already using version control and have a repository set up on GitHub for this project, you can skip this section.  
 
 <Instruction>
 
@@ -113,7 +113,7 @@ Once this command finishes execution, you should be able to see the repository w
 
 ### Changing SQLite to PostgreSQL 
 
-You have been using SQLite as the database of your application throughout this tutorial. However, SQLite is not _typically_ used for production web backends for a number of reasons. So before you start working on deployment, you will migrate from SQLite to a more conventional and powerful backend database: PostgreSQL.
+You have been using SQLite as the database for your API throughout this tutorial. However, SQLite is not _typically_ used for production web backends for a number of reasons. So before you start working on deployment, you will migrate from SQLite to a more conventional and powerful backend database: PostgreSQL.
 
 > **Note:** In the real world, it is quite rare for an application to undergo a database migration. We chose SQLite for this tutorial as it is very simple and easy to use. However, deploying SQLite to Heroku would be difficult and need a lot of extra configuration (more info [here](https://devcenter.heroku.com/articles/sqlite3)). This is why you will migrate to PostgreSQL for this chapter. 
 
@@ -190,7 +190,7 @@ Let's go through some of the import parts of this compose file:
 1. the `image` field represents the docker image that will be used.
 2. The `environment` array specifies which environment variables get passed to the container during initialization. This is typically used to pass configuration options and secrets (such as username and password) to the container.
 3. The `volumes` array is used for persisting data in the host file system. 
-4. The `ports` array is used to map ports from the host machine to the container. The format follows the convention of "host_port:container_port". In this case, you are mappping the port `5432` of the host machine to port `5432` of the `postgres` container. 5432 is conventionally the port used by PostgreSQL. 
+4. The `ports` array is used to map ports from the host machine to the container. The format follows the convention of "host_port:container_port". In this case, you are mapping the port `5432` of the host machine to port `5432` of the `postgres` container. 5432 is conventionally the port used by PostgreSQL. 
 
 With that out of the way, we can spin up the database with one simple command. Before you move on to the next instruction, make sure that nothing is already running on port 5432, in which case, the following command will fail. 
 
@@ -209,7 +209,7 @@ If everything worked properly, the new terminal window should show logs saying t
 > **Note:** You cannot close the new terminal window as it will also stop the container. You can avoid this if you add `-d` to the previous command, like this: `docker-compose up -d`
 
 
-Now you will need to securely provide the connection URL to the newly created PostgreSQL instance to Prisma. To do this, you will use the `.env` file.
+You will also need to securely provide the connection URL to the newly created PostgreSQL instance to Prisma. To do this, you will use the `.env` file.
 
 <Instruction>
 
@@ -221,7 +221,7 @@ touch .env
 
 </Instruction>
 
-Now it's time to provide the connection string that Prisma can use to connect to PostgreSQL. Remember that inside the `schema.prisma` fileyou defined the connection string environment variable as `DATABASE_URL`. 
+Now it's time to provide the connection string that Prisma can use to connect to PostgreSQL. Remember that inside the `schema.prisma` file you defined the connection string environment variable as `DATABASE_URL`. 
 
 <Instruction>
 
@@ -236,7 +236,7 @@ This is the format used by Prisma for connection strings:
 
 ![Prisma Connection String format](https://i.imgur.com/qxnUKrS.png)
 
-Note that the **Arguments** portion is optional and is not present in your connection string. 
+Note that the **Arguments** portion is optional and is absent in your connection string. 
 
 This format is based on the [official PostgreSQLl format for connection URLs](https://www.postgresql.org/docs/current/libpq-connect.html#libpq-connstring). You can find more information about this in the [Prisma docs](https://www.prisma.io/docs/concepts/database-connectors/postgresql). 
 
@@ -252,10 +252,10 @@ npx prisma migrate dev --name init
 
 </Instruction>
 
-We have already covered the concept behind the `migrate` command in [Chapter 4](../4-adding-a-database/). This command will also regenerate Prisma Client, this time for PostgreSQL. 
+We have already covered the core concept behind the `migrate` command in [Chapter 4](../4-adding-a-database/). This command will also regenerate Prisma Client based on the most recent schema. 
 
 
-Re-start your server with `npm run dev`. All your data will have disappeared, but all functionality should remain intact. Feel free to test out all the queries/mutations and see for yourself. 
+You can now restart server with `npm run dev`. While your previous data will have disappeared, all functionality should remain intact. Feel free to test out all the queries/mutations to see if they work as expected. 
 
 <Instruction>
 
@@ -268,11 +268,9 @@ git commit -m "migrate database to postgres"
 
 </Instruction>
 
-### Update `index.ts` to make it suitable for production
+### Update `index.ts` to make it suitable for deployment
 
-You will need to make a few changes to the `index.ts` to make the application ready for production. Let's start 
-
-
+You will need to make a few changes to the `index.ts` to make the API ready for deployment. 
 
 <Instruction>
 
@@ -304,19 +302,19 @@ server.listen({ port }).then(({ url }) => {
 
 </Instruction>
 
-The changes are explained here:
+Let's explain the changes: 
 
-1. "Introspection" is a feature that allows a GraphQL client to inspect the entire GraphQL API schema from the server. Apollo by default turns off introspection in production as a security measure ([more info](https://www.apollographql.com/blog/graphql/security/why-you-should-disable-graphql-introspection-in-production/#:~:text=Turning%20off%20introspection%20in%20production,%2C%20resolvers%2C%20introspection%3A%20process.)). However we decided to keep it on for convenience, though it's not something you would normally do in a production application.
+1. "[Introspection](https://graphql.org/learn/introspection/)" is a feature that allows a GraphQL client to ask a GraphQL server for information about what queries it supports. Apollo turns off introspection in production by default as a security measure ([more info](https://www.apollographql.com/blog/graphql/security/why-you-should-disable-graphql-introspection-in-production/#:~:text=Turning%20off%20introspection%20in%20production,%2C%20resolvers%2C%20introspection%3A%20process.)). However, we decided to keep introspection on for convenience, though this is not something you would normally do in a production application.
 
-2. Similar to introspection, Apollo also turns off Apollo Sandbox in the production version of your application. Once again, as this is not a real application with production workloads, we decided to explicitly keep it on for convenience.
+2. Similar to introspection, Apollo also turns off Apollo Sandbox in the production version of an app. Once again, as this is not a real application with production workloads, we explicitly decided to keep it on for convenience.
 
-3. Previously, Apollo Server was running on port 3000 on your local machine. In production, heroku will provide the port number the application will run on, through the `port` environment variable.
+3. Previously, Apollo Server was running on port 3000 on your local machine. In production, Heroku will provide the port number the app will run on through the `port` environment variable.
 
-> **Note:** You might be wondering how Apollo Server determines wether your app is running in development or production. It does this by using the `NODE_ENV` environment variable, which is typically set to "production" when deplying an application (this is done automatically by Heroku). 
+> **Note:** Apollo Server determines whether your app is running in development or production by using the `NODE_ENV` environment variable, which is typically set to "production" during deployment (this is done automatically by Heroku). 
 
 ### Create new scripts in `package.json` 
 
-So far, you have been using `ts-node` to run your TypeScript code. However this has a memory and performance overhead. In production you will transpile your code to JavaScript using the TypeScript compiler and run the JavaScript code directly using `node`. To do this, you will  to create a few additional scripts in your `package.json`. You will also need to add a new script to apply migrations to your production database. 
+So far, you have been using `ts-node` to run your TypeScript code. However, this has a memory and performance overhead. In production, you will transpile your code to JavaScript using the TypeScript compiler and run the JavaScript code directly using `node`. To do this, you will need to create two additional scripts in your `package.json`. You will also need to add a new script to apply migrations to your production database. 
 
 
 <Instruction> 
@@ -338,13 +336,15 @@ Update your `package.json` with the following scripts:
 
 Here's what the scripts are doing:
 
-1. The `migrate:deploy` script is used to apply all pending migrations to the production database by running `prisma migrate deploy`. This is somewhat different from `prisma migrate dev`, which you have been using to generate/apply migrations in your local/development database. You can find more information about the `migrate deploy` command in the [Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-migrate#production-and-testing-environments).
-2. Tne `build` script is used to build the application, making it ready for production. This involves three steps: first running `prisma generate` to create the Prisma Client, then running `src/schema.ts` to generate the nexus assets, and finally running the TypeScript compiler (or `tsc`) to transpile your code to javascript. 
+1. The `migrate:deploy` script is used to apply all pending migrations to the production database by running `prisma migrate deploy`. This command is somewhat different from `prisma migrate dev`, which you have been using to generate/apply migrations in your development database. You can find more information about the `migrate deploy` command in the [Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-migrate#production-and-testing-environments).
+2. The `build` script is used to build the app from scratch. This involves three steps: first running `prisma generate` to create the Prisma Client, then running `src/schema.ts` to generate the nexus assets, and finally running the TypeScript compiler (or `tsc`) to transpile your TypeScript code to JavaScript. 
 3. The `start` command runs the JavaScript code transpiled by `tsc` using `node`. Notice that the code generated by `tsc` goes into the `dist` folder because of the `outDir` option specified in your `tsconfig.json`. 
+
+Now you will create another commit. 
 
 <Instruction>
 
-Add your project source files to git and create a new commit
+Add your project source files to git and create a new commit:
 
 ```bash(path=".../hackernews-typescript/")
 git add .
@@ -358,11 +358,11 @@ With that out of the way, it's time to get started deploying the app! 🚀
 
 ### Creating resources on Heroku 
 
-In this section you will create heroku app along with a postgres database to host your application. Make sure you have created a heroku account and logged into the CLI with the `heroku login` command before proceeding with this section. 
+In this section, you will create the Heroku app along with a PostgreSQL database to host your API. Make sure you have created a Heroku account and logged into the CLI with the `heroku login` command before proceeding with this section. 
 
 <Instruction>
 
-Inside the root folder of your application, start a new heroku app with the following command. Make sure to replace "app-name-placeholder" with a meaningful name for your application. 
+Inside the root folder of your project, start a new Heroku app with the following command. _Before running the command, make sure to replace "app-name-placeholder" with a meaningful name for your app._
 
 ```bash(path=".../hackernews-typescript/")
 heroku apps:create app-name-placeholder
@@ -378,17 +378,17 @@ Creating ⬢ app-name-placeholder... done
 https://app-name-placeholder.herokuapp.com/ | http://app-name-placeholder.herokuapp.com/
 ```
 
-We will use "app-name-placeholder" as a placeholder name for the heroku app throughout the rest of the tutorial, replace it with your app name when appropriate. 
+We will use "app-name-placeholder" as a placeholder name for the Heroku app throughout the rest of the tutorial; replace it with your app name when appropriate. 
 
-You can also go to your [heroku dashboard](https://dashboard.heroku.com/apps) on a browser to verify the newly created app.
+You can also go to your [Heroku dashboard](https://dashboard.heroku.com/apps) on a browser to verify the newly created app.
 
 ![Heroku dashboard](https://i.imgur.com/VVXSmkV.png)
 
-Heroku has different kinds of add-ons that can be used to add features or extend your application. You will now use the [heroku-postgres](https://www.heroku.com/postgres) add-on to create a database for your application. 
+Heroku has different kinds of add-ons that can be used to add features or extend your app. You will now use the [heroku-postgres](https://www.heroku.com/postgres) add-on to create a database for your app. 
 
 <Instruction>
 
-Create a postgres database instance for your heroku app with the following command: 
+Create a PostgreSQL database instance for your Heroku app with the following command: 
 
 ```bash(path=".../hackernews-typescript/")
 heroku addons:create heroku-postgresql:hobby-dev
@@ -407,20 +407,20 @@ Database has been created and is available
 Created postgresql-cubic-54990 as DATABASE_URL
 ```
 
-This command also creates a new environment variable called `DATABASE_URL` in the Heroku dyno, which contains the connection string to the postgres database. This is very convenient for us because when we deploy our application, prisma will have access to the production database automatically, without any additional configuration on our end. The connection string uses the same format as prisma too! 
+This command also creates a new environment variable called `DATABASE_URL` in the Heroku app, which contains the connection string to the PostgreSQL database. This is very convenient because when you deploy the API, Prisma will have access to the production database automatically, without any additional configuration on your end. The connection string uses the same format as Prisma too! 
 
 > **Note:** You can check your production database connection string with this command: `heroku config:get DATABASE_URL`. 
 
 Now that we have set up the necessary resources on Heroku, it's time to set up a deployment pipeline that will ensure continuous deployment. 
 
 
-### Implenting continious deployment using GitHub Actions
+### Implementing continuous deployment using GitHub Actions
 
-GitHub Actions is an automation platform that can be used for continious integration (CI) and continious deployment (CD). It has an API for orchestrating workflows based on events in GitHub and can be used to build, test, and deploy your directly code from GitHub.
+GitHub Actions is an automation platform that can be used for continuous integration (CI) and continuous deployment (CD). It has an API for orchestrating workflows based on events in GitHub and can be used to build, test, and deploy your code directly from GitHub.
 
-To configure GitHub Actions, you define _workflows_ using the yaml file format. These workflows are stored in the `.github/workflows` directory of your project. Workflows can be configured to run on different repository events, e.g., when a commit is pushed to the repository or when a pull request is created.
+To configure GitHub Actions, you define _workflows_ using the "yaml" file format. These workflows are stored in the `.github/workflows` directory of your project. You can configure workflows to run on different repository events, e.g., when a commit is pushed to the repository or when a pull request is created.
 
-Each workflow can contain one or more _jobs_ which are dedicated tasks, which run in an isolated environment (known as a "runner"). A single job can also have one or more steps. In this project you will create a single workflow with a `deploy` job. 
+Each workflow can contain one or more _jobs_ which are dedicated tasks, which run in an isolated environment (known as a "runner"). A single job can also have one or more steps. In this project, you will create a single workflow with a job called `deploy`. 
 
 <Instruction>
 
@@ -503,7 +503,7 @@ gh secret set HEROKU_EMAIL
 
 <Instruction>
 
-Similarly, create the `HEROKU_APP_NAME` secret using the name of the heroku app you just created as the value. 
+Similarly, create the `HEROKU_APP_NAME` secret using the name of the Heroku app you just created as the value. 
 
 ```bash(path=".../hackernews-typescript/")
 gh secret set HEROKU_APP_NAME
@@ -512,7 +512,7 @@ gh secret set HEROKU_APP_NAME
 </Instruction>
 
 
-You can check or verify the heroku app name by running the following command in the root of your project: 
+You can check or verify the Heroku app name by running the following command in the root of your project: 
 
 ```bash(path=".../hackernews-typescript/")
 heroku apps:info
@@ -540,7 +540,7 @@ heroku config:get DATABASE_URL
 
 <Instruction>
 
-Set the `DATABASE_URL` secret using the url retreived from your Heroku app. 
+Set the `DATABASE_URL` secret using the URL retreived from your Heroku app. 
 
 ```bash(path=".../hackernews-typescript/")
 gh secret set DATABASE_URL
@@ -570,12 +570,15 @@ git commit --allow-empty -m "trigger build"
 git push
 ```
 
-Once you have pushed a commit, quickly go to the **Actions** tab of your GitHub repository and you should see that the workflow is _in progress_. 
+Once you have pushed a commit, quickly go to the **Actions** tab of your GitHub repository, and you should see that the workflow is _in progress_. 
 
 ![Workflow in progress in the Actions tab](https://i.imgur.com/8xBtd3q.png)
 
 
-You can also go inside the workflow to inspect the status of any job. To verify that the deployment went successfully, click on the most recent workflow in the **All workflows** table in the **Actions** tab for your repository. Then click on the **deploy** job located in the **Jobs** table to the left-hand side. Finally, click  on the **Run akhileshns/heroku-deploy@v3.12.12** step to expand the logs. If everything went successfully you should see something similar to the following near the end: 
+You can also go inside the workflow to inspect the status of any job. To verify that the deployment went successfully:
+Click on the most recent workflow in the **All workflows** table in the **Actions** tab for your repository. Then click on the **deploy** job located in the **Jobs** table to the left-hand side. Finally, Click on the **Run akhileshns/heroku-deploy@v3.12.12** step to expand the logs.
+
+If everything goes successfully, you should see something similar to the following near the end of the logs: 
 
 ```bash
 remote: -----> Launching...        
@@ -585,13 +588,13 @@ remote:        https://***.herokuapp.com/ deployed to Heroku
 
 ![Check details GitHub Actions](https://i.imgur.com/yeYWWFm.gif)
 
-If everything went smoothly, your API should be live on Heroku. Every time you push a new commit to GitHub, the workflow will automatically run, rebuilding the app and deploying it to Heroku. 
+Your API should now be live on Heroku. Every time you push a new commit to GitHub, the workflow will be triggered automatically, rebuilding the app and redeploying it to Heroku. 
 
-> **Note:** If you're wondering how will Heroku actually *start* the application; it will use the `npm run build` and `npm run start` command. For all Node.js applications, Heroku will check for the `build` script and run it if available. Then it will start the app using the `start` script. So having a `start` script is necessary for a Node.js application deployed to Heroku. 
+> **Note:**  Heroku will use the `npm run build` and `npm run start` commands to start the application by itself. For all Node.js apps, Heroku will check for the `build` script and run it if it is available. Finally, it will start the app using the `start` script. So a Node.js app deployed to Heroku needs to have a `start` script.  
 
 <Instruction>
 
-To access your application in a browser, run the following command to be redirected to your application: 
+To access your app in a browser, run the following command: 
 
 ```bash(path=".../hackernews-typescript/")
 heroku open
@@ -601,7 +604,7 @@ heroku open
 
 Press the **Query Your Server** button to be redirected to Apollo Studio Explorer. At this point, you should run a few queries to test out all functionality. The commands tested at the end of [Chapter 6](../6-authentication/) are a good way to test out the main functionalities. 
 
-> **Note:** The url for your Heroku App is also provided as **Web URL** by the folowing CLI command: `heroku apps:info` 
+> **Note:** The URL for your Heroku App is also provided as **Web URL** by the following CLI command: `heroku apps:info` 
 
 <Instruction>
 
@@ -666,7 +669,7 @@ query FeedQuery{
 
 ### Exploring your data in Prisma Data Platform 
 
-Previously, you were using Prisma Studio to interact directly with you data. However, it is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a  hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/), called the **Data Browser**.  
+Previously, you were using Prisma Studio to directly interact with your data. However, Prisma Studio is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/), called the **Data Browser**.  
 
 To get started, go to https://cloud.prisma.io/ and click **Continue with GitHub**. The Prisma app will then ask for permission to read your Email address. Click on **Authorize Prisma** to proceed. In the dashboard, click on **New Project**. Then you will need to click on **Add an Organization or Account** under the dropdown in **GitHub Account**. Since you will be importing an existing GitHub project to Prisma, you will need to install Prisma and give it read and write access to that GitHub repository. 
 
@@ -674,13 +677,13 @@ In case you are a part of multiple organizations, you will first be asked to cho
 
 Now you will be redirected back to the **Configure project** page. Choose **Import a Prisma repository** and then select the **hackernews-typescript** repository. Then give a suitable name to your project (this is the name of the Prisma Data Platform project, not to be confused with the name of the repository). Now click **Next** to continue. 
 
-Now you will be shown the **Configure environment** page. Since you already have a database created, choose **Use my own database**. Then paste the connection string you received from Heroku. You can leave the other options to their default value. Finally click on **Create project** to proceed. You will be given a connection URl to the [Prisma Data Proxy](https://www.prisma.io/docs/concepts/data-platform/data-proxy), which you can **skip** as you won't be using it. 
+Now you will be shown the **Configure environment** page. Since you already have a database created, choose **Use my own database**. Then paste the connection string you received from Heroku. You can leave the other options to their default value. Finally, click on **Create project** to proceed. You will be given a connection URL to the [Prisma Data Proxy](https://www.prisma.io/docs/concepts/data-platform/data-proxy), which you can **skip** as you won't be using the Data Proxy at the moment. 
 
-Alright! With all the configuration out of the way, click on the **Data Browser** on the left-hand side to get a hosted version of the Prisma Studio. The next time you log into the Prisma Data Platform, your created project should be available for you to access. It will also be synced with any schema changes pushed to the `master` branch on GitHub. 
+Alright! With all the configuration out of the way, click on the **Data Browser** on the left-hand side to get a hosted version of the Prisma Studio. The next time you log in to the Prisma Data Platform, this project should be available for you to access. It will also be synced with any schema changes pushed to the `master` branch on GitHub. 
 
 ![Onboarding the Prisma Data Platform](https://i.imgur.com/ktA3N1Y.gif)
 
-Just like Prisma Studio, the Data Browser allows you to explore and edit your data. The Prisma Data Platform also has collaboration features and permission levels, useful when working with a team. Feel free to explore all the features or learn more about the Prisma Data Platform by reading the [docs](https://www.prisma.io/docs/concepts/data-platform/about-platform). 
+Just like Prisma Studio, the Data Browser allows you to explore and edit your data. The Prisma Data Platform also has collaboration features and permission levels, which are useful when working with a team. Feel free to explore all the features or learn more about the Prisma Data Platform by reading the [docs](https://www.prisma.io/docs/concepts/data-platform/about-platform). 
 
 
 
