@@ -1,27 +1,26 @@
 ---
 title: Deploying to Production
-pageTitle: 'Continuous Deployment Tutorial with Heroku and Github Actions'
-description: 'Learn how to create a continuous deployment (CD) pipeline with Github Actions for a GraphQL API with TypeScript, Apollo Server & Prisma.'
+pageTitle: 'Continuous Deployment Tutorial with Heroku and GitHub Actions'
+description: 'Inside .'
 question:
-  Placeholder question?
-answers: ['skip & take', 'skip & orderBy', 'take & where', 'where & orderBy']
-correctAnswer: 0
+  When does a workflow get triggered automatically on GitHub Actions?
+answers: ['Workflows need to be triggered manually', 'Workflows are triggered after every push', 'Workflows are triggered based on configurable events', 'Workflows are triggered when any underlying job is triggered']
+correctAnswer: 2
 ---
 
-In this section of the tutorial you will be deplying your API to production, so that it can be used by you and others. Unlike the previous sections, you will not develop any new features for your application in this chapter. Instead you will refactor your application to make it suitable for deployment on [Heroku](https://dashboard.heroku.com/). Additionally you will also automate the deployment process using [Github Actions](https://docs.github.com/en/actions) (this is also referred to as [continious deployment](https://en.wikipedia.org/wiki/Continuous_deployment)). 
+In this section of the tutorial, you will be deploying your API to production so that it can be used by you and others. Unlike the previous sections, you will not develop any new features for your application in this chapter. Instead, you will refactor your application to make it suitable for deployment on [Heroku](https://dashboard.heroku.com/). Additionally, you will also automate the deployment process using [GitHub Actions](https://docs.github.com/en/actions) (this is also referred to as [continious deployment](https://en.wikipedia.org/wiki/Continuous_deployment)). 
 
 ### Prerequisites 
 
-You will need to install a few command line tools and create some accounts to follow along with this chapter. We suggest you do this now so as to not break the flow of the tutorial.
+You will need to install a few command line tools and create some accounts to follow along with this chapter. We suggest you do this now so as not to break the flow of the tutorial.
 
 - **GitHub (Account)**: Create a free account on [GitHub](https://github.com/join).
-- **Github (CLI)**: Install the latest stable version of the [Github CLI](https://cli.github.com/). Afterwards, [log in to your GitHub account](https://cli.github.com/manual/gh_auth_login) on the CLI. 
+- **GitHub (CLI)**: Install the latest stable version of the [GitHub CLI](https://cli.github.com/). Afterward, [log in to your GitHub account](https://cli.github.com/manual/gh_auth_login) on the CLI. 
 - **Heroku (Account)**: Create a free account on [Heroku](https://signup.heroku.com/). 
-- **Heroku (CLI)**: Install the latest stable version of the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Afterwards, [log in to your Heroku account](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli) on the Heroku CLI. 
+- **Heroku (CLI)**: Install the latest stable version of the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Afterward, [log in to your Heroku account](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli) on the Heroku CLI. 
 - **[Docker](https://docs.docker.com/get-docker/)** and **[Docker Compose](https://docs.docker.com/compose/install/)**
 
-> **Note:** Docker and Docker Compose are used to run an instance of PostgreSQL database. If you prefer, you can install and run [PostgreSQL](https://www.postgresql.org/download/) natively as well. Since this tutorial will use docker to run PostgreSQL, you will need to make some slight changes. 
-
+> **Note:** Docker and Docker Compose will be used to run an instance of PostgreSQL database. If you prefer, you can install and run [PostgreSQL](https://www.postgresql.org/download/) natively as well. If you choose to run natively, you will need to make some slight changes to the instructions shown in this tutorial. 
 
 
 With that out of the way, let's get started!
@@ -30,9 +29,9 @@ With that out of the way, let's get started!
 
 In order to automate the deployment process, you will need to use version control to synchronize changes with your production application. This tutorial will not cover the basics of using version control. 
 
-> **Note 1:** If you need to learn the basics of using git, I would suggest [this series](https://www.atlassian.com/git/tutorials/setting-up-a-repository). To understand the git commands used in this tutorial, the first two articles are sufficient.  
+> **Note 1:** If you need to learn the basics of using git, I would suggest [this series](https://www.atlassian.com/git/tutorials/setting-up-a-repository). To understand the git commands used in this tutorial, the first two articles of this series are sufficient.  
 
-> **Note 2:** If you are already using version control and have a repository set up in github for this project, you can skip this section.  
+> **Note 2:** If you are already using version control and have a repository set up in GitHub for this project, you can skip this section.  
 
 <Instruction>
 
@@ -90,7 +89,7 @@ gh repo create hackernews-typescript --source . --private
 ```
 </Instruction>
 
-This command will create a new private repository inside your GitHub account with the name `hackernews-typescript`. The final results of the above command should look like this (with "YourGitHubHandle" being replaced by your _actual_ GitHub handle): 
+This command will create a new private repository inside your GitHub account with the name `hackernews-typescript`. The final results of the above command should look like the following, with "YourGitHubHandle" being replaced by your _actual_ GitHub handle: 
 
 ```shell(nocopy)
 ✓ Created repository YourGitHubHandle/hackernews-typescript on GitHub
@@ -121,7 +120,7 @@ You have been using SQLite as the database of your application throughout this t
 
 <Instruction>
 
-Start by removing the sqlite file and migrations from the `prisma` folder:
+Start by removing the SQLite file and migrations from the `prisma` folder:
 
 ```bash(path=".../hackernews-typescript/")
 rm -rf prisma/migrations
@@ -129,7 +128,7 @@ rm prisma/dev.db
 ```
 </Instruction>
 
-Now that all SQLite assets have been removed, it's time to change our configure our prisma schema to use PostgreSQL.
+Now that all SQLite assets have been removed, it's time to change our configure our Prisma schema to use PostgreSQL.
 
 <Instruction>
 
@@ -146,16 +145,16 @@ datasource db {
 
 Let's understand what is happening: 
 
-1. The `provider` field signifies the type of the underlying database. You changed the field from `sqlite` to `postgresql`. 
+1. The `provider` field signifies the underlying database type. You changed the field from `sqlite` to `postgresql`.  
 
-2. The `url` field specifies the connection string to the database. In case of SQLite, this is simply the file path. In case of PostgreSQL, the database connection path will be read from the `DATABASE_URL` [environment variable](https://www.prisma.io/docs/guides/development-environment/environment-variables) of the machine's local environment. 
+2. The `url` field specifies the connection string to the database. For SQLite, this is simply the file path. In the case of PostgreSQL, the database connection path will be read from the `DATABASE_URL` [environment variable](https://www.prisma.io/docs/guides/development-environment/environment-variables) of the machine's local environment. 
 
 
-Now, you need to run an instance of PostgreSQL on your local machine. You are going to do this using a dockerized version of PostgreSQL. 
+Now, you need to run an instance of PostgreSQL on your local machine. You are going to do this using a containerized version of PostgreSQL. 
 
 <Instruction>
 
-Create a `docker-compose.yml` file to store your postgres container configuration:
+Create a `docker-compose.yml` file to store your PostgreSQL container configuration:
 
 ```bash(path=".../hackernews-typescript/")
 touch docker-compose.yml
@@ -188,12 +187,12 @@ volumes:
 
 Let's go through some of the import parts of this compose file:
 
-1. the `image` field represents the docker image to be used 
+1. the `image` field represents the docker image that will be used.
 2. The `environment` array specifies which environment variables get passed to the container during initialization. This is typically used to pass configuration options and secrets (such as username and password) to the container.
 3. The `volumes` array is used for persisting data in the host file system. 
-4. The `ports` array is used to map ports from the host machine to the container. The format follows the convetion of "host_port:container_port". In this case, you are mappping the port `5432` of the host machine to that of the `postgres` container. 5432 is conventionally the port used by postgres. 
+4. The `ports` array is used to map ports from the host machine to the container. The format follows the convention of "host_port:container_port". In this case, you are mappping the port `5432` of the host machine to port `5432` of the `postgres` container. 5432 is conventionally the port used by PostgreSQL. 
 
-Now, with that out of the way, we can spin up the database with one simple command. Before you move on to the next instruction, make sure that nothing is already running on port 5432, in which case, the following command will fail. 
+With that out of the way, we can spin up the database with one simple command. Before you move on to the next instruction, make sure that nothing is already running on port 5432, in which case, the following command will fail. 
 
 <Instruction>
 
@@ -205,12 +204,12 @@ docker-compose up
 
 </Instruction>
 
-If everything worked properly, the new terminal window should show logs saying that the "postgres" container starting up successfully. 
+If everything worked properly, the new terminal window should show logs saying that the "postgres" container has started up successfully. 
 
 > **Note:** You cannot close the new terminal window as it will also stop the container. You can avoid this if you add `-d` to the previous command, like this: `docker-compose up -d`
 
 
-Now you will need to securely provide the connection url to the newly created PostgreSQL instance to Prisma. To do this you will use the `.env` file
+Now you will need to securely provide the connection URL to the newly created PostgreSQL instance to Prisma. To do this, you will use the `.env` file.
 
 <Instruction>
 
@@ -222,7 +221,7 @@ touch .env
 
 </Instruction>
 
-Now it's time to provide the connection string that Prisma can use to connect to PostgreSQL. Remember that inside your `schema.prisma` you defined the environment variable name as `DATABASE_URL`. 
+Now it's time to provide the connection string that Prisma can use to connect to PostgreSQL. Remember that inside the `schema.prisma` fileyou defined the connection string environment variable as `DATABASE_URL`. 
 
 <Instruction>
 
@@ -239,7 +238,7 @@ This is the format used by Prisma for connection strings:
 
 Note that the **Arguments** portion is optional and is not present in your connection string. 
 
-This format is based on the [official PostgreSQLl format for connection URLs](https://www.postgresql.org/docs/current/libpq-connect.html#libpq-connstring). You can find more information about it in the [Prisma docs](https://www.prisma.io/docs/concepts/database-connectors/postgresql). 
+This format is based on the [official PostgreSQLl format for connection URLs](https://www.postgresql.org/docs/current/libpq-connect.html#libpq-connstring). You can find more information about this in the [Prisma docs](https://www.prisma.io/docs/concepts/database-connectors/postgresql). 
 
 Now it's time to create migrations again, but this time for your new PostgreSQL database. 
 
@@ -669,7 +668,7 @@ query FeedQuery{
 
 Previously, you were using Prisma Studio to interact directly with you data. However, it is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a  hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/), called the **Data Browser**.  
 
-To get started, go to https://cloud.prisma.io/ and click **Continue with GitHub**. The Prisma app will then ask for permission to read your Email address. Click on **Authorize Prisma** to proceed. In the dashboard, click on **New Project**. Then you will need to click on **Add an Organization or Account** under the dropdown in **Github Account**.  Since you will be importing an existing GitHub project to Prisma, you will need to install Prisma and give it read and write access to that GitHub repository. 
+To get started, go to https://cloud.prisma.io/ and click **Continue with GitHub**. The Prisma app will then ask for permission to read your Email address. Click on **Authorize Prisma** to proceed. In the dashboard, click on **New Project**. Then you will need to click on **Add an Organization or Account** under the dropdown in **GitHub Account**. Since you will be importing an existing GitHub project to Prisma, you will need to install Prisma and give it read and write access to that GitHub repository. 
 
 In case you are a part of multiple organizations, you will first be asked to choose which account you want to use. Then you will have to choose if you want to install Prisma on *all repositories* or *select repositories*. Choose **Only select repositories** and choose the **hackernews-typescript** repository. Then click on **Install**. 
 
