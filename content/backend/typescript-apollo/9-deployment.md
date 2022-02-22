@@ -8,13 +8,13 @@ answers: ['Workflows need to be triggered manually', 'Workflows are triggered af
 correctAnswer: 2
 ---
 
-In this section of the tutorial, you will be deploying your API to production so that it can be used by you and others. Unlike the previous sections, you will not develop any new features for your API in this chapter. Instead, you will refactor the project to make it suitable for deployment on [Heroku](https://dashboard.heroku.com/). Additionally, you will automate the deployment process using [GitHub Actions](https://docs.github.com/en/actions) (this is also referred to as [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment)). 
+In this tutorial, you will deploy your API to production so that you and others can access it publicly. You will also refactor the project to make it ready for deployment on [Heroku](https://dashboard.heroku.com/). Additionally, you will automate the deployment process using [GitHub Actions](https://docs.github.com/en/actions) – also referred to as [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
 
 ### Prerequisites 
 
-You will need to install a few command line tools and create some accounts to follow along with this chapter. We suggest you do this now so as not to break the flow of the tutorial.
+You will need to install a few command line utilities and create some accounts to follow this chapter. We suggest you do this now so as not to break the flow of the tutorial.
 
-- **GitHub (Account)**: Create a free account on [GitHub](https://github.com/join).
+- **GitHub (Account)**: Create a free [GitHub](https://github.com/join) account.
 - **GitHub (CLI)**: Install the latest stable version of the [GitHub CLI](https://cli.github.com/). Afterward, [login to your GitHub account](https://cli.github.com/manual/gh_auth_login) on the CLI. 
 - **Heroku (Account)**: Create a free account on [Heroku](https://signup.heroku.com/). 
 - **Heroku (CLI)**: Install the latest stable version of the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Afterward, [login to your Heroku account](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli) on the Heroku CLI. 
@@ -27,11 +27,11 @@ With that out of the way, let's get started!
 
 ### Adding version control
 
-In order to automate the deployment process, you will need to use version control to synchronize changes with the production deployment. This tutorial will not cover the basics of using version control. 
+To automate the deployment process, you will need version control to synchronize the changes on your local machine with the production deployment. This tutorial will not cover the basics of using version control. 
 
-> **Note 1:** If you need to learn the basics of using git, I would suggest [this series](https://www.atlassian.com/git/tutorials/setting-up-a-repository). To understand the git commands used in this tutorial, the first two articles of this series are sufficient.  
+> **Note 1:** If you're unfamiliar with the basics git, I would suggest [this series by Atlassian](https://www.atlassian.com/git/tutorials/setting-up-a-repository). To understand the git commands used in this tutorial, the first two articles of this series are sufficient.
 
-> **Note 2:** If you are already using version control and have a repository set up on GitHub for this project, you can skip this section.  
+> **Note 2:** If you have already set up version control and a repository on GitHub for this project, you can jump ahead to the **Changing SQLite to PostgreSQL** section.
 
 <Instruction>
 
@@ -45,11 +45,11 @@ touch .gitignore
 </Instruction>
 
 
-Before you can commit anything, you need to add some files to your `.gitignore`. 
+Before you commit any file, you need to add some files to the `.gitignore` file. 
 
 <Instruction>
 
-Update your `.gitignore` with the following files and folders:
+Update your `.gitignore` file with the following contents:
 
 ```(path=".../hackernews-typescript/.gitignore")
 node_modules
@@ -60,11 +60,11 @@ dist
 
 </Instruction>
 
-Now it's time to create your first commit 🎉 
+Now it's time to create your first commit. 🎉 
 
 <Instruction>
 
-Add your project source files to git and create your first commit:
+Add your project source files to the git staging area and create your first commit:
 
 ```bash(path=".../hackernews-typescript/")
 git add .
@@ -75,9 +75,9 @@ git commit -m "first commit"
 
 Now that you have a local commit, it's time to create a remote repository on GitHub. You can do this entirely from your terminal using the GitHub command line tool (also known as `gh`). 
 
-> **Note 1:** If you haven't installed `gh` and logged in with your GitHub credentials, you must do it now.
+> **Note 1:** If you haven't installed `gh` and logged in with your GitHub credentials, you can do so with the `gh auth login` command.
 
-> **Note 2:** If you're not comfortable using the CLI to create a repository, you can do it the conventional way using the GitHub website graphical user interface (GUI). However, this will not be shown in this tutorial. 
+> **Note 2:** If you're not comfortable using the CLI to create a repository, you can do it using [GitHub's](https://github.com/new) graphical user interface (GUI). However, this tutorial will not demonstrate how to do this. 
 
 
 <Instruction>
@@ -89,11 +89,11 @@ gh repo create hackernews-typescript --source . --private
 ```
 </Instruction>
 
-This command will create a new private repository inside your GitHub account with the name `hackernews-typescript`. The final results of the above command should look like the following, with "YourGitHubHandle" being replaced by your _actual_ GitHub handle: 
+This command will create a private repository inside your GitHub account called `hackernews-typescript`. The final results of the above command should look like the following, with "<username>" being replaced by your _actual_ GitHub handle: 
 
 ```shell(nocopy)
-✓ Created repository YourGitHubHandle/hackernews-typescript on GitHub
-✓ Added remote git@github.com:YourGitHubHandle/hackernews-typescript.git
+✓ Created repository <username>/hackernews-typescript on GitHub
+✓ Added remote git@github.com:<username>/hackernews-typescript.git
 ```
 
 <Instruction>
@@ -106,16 +106,16 @@ git push origin master
 
 </Instruction>
 
-Once this command finishes execution, you should be able to see the repository with all your code under your GitHub profile. 
+Once this command finishes execution, you should see the repository with all your code under your GitHub profile. 
 
 > **Note:** This tutorial assumes the name of your default branch is "master". In case it is "main", replace "master" with "main" in the above command. 
 
 
 ### Changing SQLite to PostgreSQL 
 
-You have been using SQLite as the database for your API throughout this tutorial. However, SQLite is not _typically_ used for production web backends for a number of reasons. So before you start working on deployment, you will migrate from SQLite to a more conventional and powerful backend database: PostgreSQL.
+The previous tutorials have been using SQLite as the database for your API. However, SQLite is not _typically_ used for production web backends for several reasons. So, before you start working on deployment, you will migrate from SQLite to a more conventional and powerful database: PostgreSQL.
 
-> **Note:** In the real world, it is quite rare for an application to undergo a database migration. We chose SQLite for this tutorial as it is very simple and easy to use. However, deploying SQLite to Heroku would be difficult and need a lot of extra configuration (more info [here](https://devcenter.heroku.com/articles/sqlite3)). This is why you will migrate to PostgreSQL for this chapter. 
+> **Note:** We chose SQLite for this tutorial as it requires minimal setup and configuration. However, deploying SQLite to Heroku would be difficult and need a lot of extra configuration (more info [here](https://devcenter.heroku.com/articles/sqlite3)). This is why you will migrate to PostgreSQL for this chapter. 
 
 
 <Instruction>
@@ -128,11 +128,11 @@ rm prisma/dev.db
 ```
 </Instruction>
 
-Now that all SQLite assets have been removed, it's time to change our configure our Prisma schema to use PostgreSQL.
+Now that all SQLite assets have been removed, it's time to update your Prisma schema to use PostgreSQL.
 
 <Instruction>
 
-Change the `datasource` API block in your `schema.prisma` file as follows: 
+Update the `datasource` API block in your `schema.prisma` file as follows: 
 
 ```graphql{2-3}(path=".../hackernews-node/prisma/schema.prisma")
 datasource db {
