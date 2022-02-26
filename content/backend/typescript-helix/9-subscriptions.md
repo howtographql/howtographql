@@ -412,10 +412,9 @@ const resolvers = {
         throw new Error("You must login in order to use upvote!");
       }
 
-      // 2
       const userId = context.currentUser.id;
 
-      // 3
+      // 2
       const vote = await context.prisma.vote.findUnique({
         where: {
           linkId_userId: {
@@ -429,7 +428,7 @@ const resolvers = {
         throw new Error(`Already voted for link: ${args.linkId}`);
       }
 
-      // 4
+      // 3
       const newVote = await context.prisma.vote.create({
         data: {
           user: { connect: { id: userId } },
@@ -437,7 +436,7 @@ const resolvers = {
         },
       });
 
-      // 5
+      // 4
       context.pubSub.publish("newVote", { createdVote: newVote });
 
       return newVote;
@@ -451,8 +450,6 @@ const resolvers = {
 Here is what's going on:
 
 1. Make sure that our server don't allow upvote without being authenticated.
-1. Similar to what you're doing in the `post` resolver, the first step is to validate the incoming JWT with the `getUserId` helper function. If it's valid, the function will return
-   the `userId` of the `User` who is making the request. If the JWT is not valid, the function will throw an exception.
 1. To protect against those pesky "double voters" (or honest folks who accidentally click twice), you need to check if the vote already exists or not. First, you try to fetch a
    vote with the same `linkId` and `userId`. If the vote exists, it will be stored in the `vote` variable, resulting in the boolean `true` from your call to `Boolean(vote)` --
    throwing an error kindly telling the user that they already voted.
