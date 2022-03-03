@@ -98,7 +98,7 @@ This command will create a private repository inside your GitHub account called 
 
 <Instruction>
 
-Push your local commit to the newly created remote repository on GitHub. 
+Push your local commit to the new remote repository on GitHub. 
 
 ```
 git push origin master
@@ -143,14 +143,14 @@ datasource db {
 
 </Instruction>
 
-Let's understand what is happening: 
+There are two fields that you should understand: 
 
 1. The `provider` field signifies the underlying database type. You changed the field from `sqlite` to `postgresql`.  
 
-2. The `url` field specifies the connection string to the database. For SQLite, this is simply the file path. In the case of PostgreSQL, the database connection path will be read from the `DATABASE_URL` [environment variable](https://www.prisma.io/docs/guides/development-environment/environment-variables) of the machine's local environment. 
+2. The `url` field specifies the database connection string. For SQLite, this was a path to the file. In the case of PostgreSQL, the database connection string will be read from the `DATABASE_URL` [environment variable](https://www.prisma.io/docs/guides/development-environment/environment-variables) that will be defined in the project's `.env` configuration. 
 
 
-Now, you need to run an instance of PostgreSQL on your local machine. You are going to do this using a containerized version of PostgreSQL. 
+Now you need a PostgreSQL database running on your local machine. You are going to do this using a containerized version of PostgreSQL. 
 
 <Instruction>
 
