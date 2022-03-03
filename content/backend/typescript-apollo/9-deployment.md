@@ -384,11 +384,11 @@ You can also go to your [Heroku dashboard](https://dashboard.heroku.com/apps) on
 
 ![Heroku dashboard](https://i.imgur.com/VVXSmkV.png)
 
-Heroku has different kinds of add-ons that can be used to add features or extend your app. You will now use the [heroku-postgres](https://www.heroku.com/postgres) add-on to create a database for your app. 
+[Heroku add-ons](https://elements.heroku.com/addons) are components that support your application, such as data storage, monitoring, analytics, data processing, and more. You will now use the [heroku-postgres](https://www.heroku.com/postgres) add-on to create a database for your app. 
 
 <Instruction>
 
-Create a PostgreSQL database instance for your Heroku app with the following command: 
+Create a PostgreSQL database for your Heroku app with the following command: 
 
 ```bash(path=".../hackernews-typescript/")
 heroku addons:create heroku-postgresql:hobby-dev
@@ -416,7 +416,7 @@ Now that we have set up the necessary resources on Heroku, it's time to set up a
 
 ### Implementing continuous deployment using GitHub Actions
 
-GitHub Actions is an automation platform that can be used for continuous integration (CI) and continuous deployment (CD). It has an API for orchestrating workflows based on events in GitHub and can be used to build, test, and deploy your code directly from GitHub.
+GitHub Actions is an automation tool used for continuous integration (CI) and continuous deployment (CD). It allows orchestrating workflows based on events in GitHub and can be used to build, test, and deploy your code directly from GitHub.
 
 To configure GitHub Actions, you define _workflows_ using the "yaml" file format. These workflows are stored in the `.github/workflows` directory of your project. You can configure workflows to run on different repository events, e.g., when a commit is pushed to the repository or when a pull request is created.
 
@@ -424,7 +424,7 @@ Each workflow can contain one or more _jobs_ which are dedicated tasks, which ru
 
 <Instruction>
 
-Create a `.github/workflows` directory and a new workflow inside it. 
+Create a `.github/workflows` directory and a new deployment workflow file. 
 
 ```bash(path=".../hackernews-typescript/")
 mkdir .github
