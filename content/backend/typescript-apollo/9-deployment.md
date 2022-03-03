@@ -89,11 +89,11 @@ gh repo create hackernews-typescript --source . --private
 ```
 </Instruction>
 
-This command will create a private repository inside your GitHub account called `hackernews-typescript`. The final results of the above command should look like the following, with "<username>" being replaced by your _actual_ GitHub handle: 
+This command will create a private repository inside your GitHub account called `hackernews-typescript`. The final results of the above command should look like the following, with "\_\_username\_\_" being replaced by your _actual_ GitHub handle: 
 
 ```shell(nocopy)
-✓ Created repository <username>/hackernews-typescript on GitHub
-✓ Added remote git@github.com:<username>/hackernews-typescript.git
+✓ Created repository __username__/hackernews-typescript on GitHub
+✓ Added remote git@github.com:__username__/hackernews-typescript.git
 ```
 
 <Instruction>
