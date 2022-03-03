@@ -588,7 +588,7 @@ remote:        https://***.herokuapp.com/ deployed to Heroku
 
 ![Check details GitHub Actions](https://i.imgur.com/yeYWWFm.gif)
 
-Your API should now be live on Heroku. Every time you push a new commit to GitHub, the workflow will be triggered automatically, rebuilding the app and redeploying it to Heroku. 
+Your API should now be live on Heroku. Every time you push a new commit to the `main` or `master` branch to GitHub, the workflow will be triggered automatically, rebuilding the app and redeploying it to Heroku. 
 
 > **Note:**  Heroku will use the `npm run build` and `npm run start` commands to start the application by itself. For all Node.js apps, Heroku will check for the `build` script and run it if it is available. Finally, it will start the app using the `start` script. So a Node.js app deployed to Heroku needs to have a `start` script.  
 
@@ -669,7 +669,7 @@ query FeedQuery{
 
 ### Exploring your data in Prisma Data Platform 
 
-Previously, you were using Prisma Studio to directly interact with your data. However, Prisma Studio is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/), called the **Data Browser**.  
+Previously, you were using Prisma Studio to directly interact with your data. However, Prisma Studio is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/?utm_source=howtographql&utm_campaign=typescript-apollo), called the _Data Browser_.  
 
 To get started, go to https://cloud.prisma.io/ and click **Continue with GitHub**. The Prisma app will then ask for permission to read your Email address. Click on **Authorize Prisma** to proceed. In the dashboard, click on **New Project**. Then you will need to click on **Add an Organization or Account** under the dropdown in **GitHub Account**. Since you will be importing an existing GitHub project to Prisma, you will need to install Prisma and give it read and write access to that GitHub repository. 
 
@@ -679,7 +679,7 @@ Now you will be redirected back to the **Configure project** page. Choose **Impo
 
 Now you will be shown the **Configure environment** page. Since you already have a database created, choose **Use my own database**. Then paste the connection string you received from Heroku. You can leave the other options to their default value. Finally, click on **Create project** to proceed. You will be given a connection URL to the [Prisma Data Proxy](https://www.prisma.io/docs/concepts/data-platform/data-proxy), which you can **skip** as you won't be using the Data Proxy at the moment. 
 
-Alright! With all the configuration out of the way, click on the **Data Browser** on the left-hand side to get a hosted version of the Prisma Studio. The next time you log in to the Prisma Data Platform, this project should be available for you to access. It will also be synced with any schema changes pushed to the `master` branch on GitHub. 
+Alright! With all the configuration out of the way, click on the **Data Browser** button on the left-hand side to get a hosted version of the Prisma Studio. The next time you log in to the Prisma Data Platform, this project should be available for you to access. It will also be synced with any schema changes pushed to the `master` branch on GitHub.
 
 ![Onboarding the Prisma Data Platform](https://i.imgur.com/ktA3N1Y.gif)
 
