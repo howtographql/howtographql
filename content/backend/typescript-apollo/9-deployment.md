@@ -484,7 +484,7 @@ In the GitHub Actions workflow you just created, you referenced quite a few `sec
 
 You can set secrets using the GitHub website GUI or the `gh` CLI tool. In this tutorial, you will learn how to do it using the CLI. If you prefer to do it using the website, take a look at [this guide](https://docs.github.com/en/actions/security-guides/encrypted-secrets). 
 
-The syntax for creating a new secret using `gh secret set SECRET_NAME`, where `SECRET_NAME` should be replaced with the name of your secret.  
+The syntax for creating a new secret using `gh secret set SECRET_NAME`, where `SECRET_NAME` should be replaced with the name of your secret.  Running this command will initiate an interactive prompt where you will have to enter the secret value. 
 
 The first secret you will set will be `HEROKU_EMAIL`. This is the email account you used to create your Heroku account. 
 
@@ -550,7 +550,7 @@ gh secret set DATABASE_URL
 
 </Instruction>
 
-That's it! All the secrets have been set and it is now possible to deploy and execute your github action. If you want to see the name of the secrets available in your repository, you can do so using the `gh secret list` command. 
+That's it! All the secrets have been set and it is now possible to deploy and execute your GitHub Action. If you want to see the name of the secrets available in your repository, you can do so using the `gh secret list` command. 
 
 
 <Instruction>
