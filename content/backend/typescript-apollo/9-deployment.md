@@ -304,17 +304,19 @@ server.listen({ port }).then(({ url }) => {
 
 Let's explain the changes: 
 
-1. "[Introspection](https://graphql.org/learn/introspection/)" is a feature that allows a GraphQL client to ask a GraphQL server for information about what queries it supports. Apollo turns off introspection in production by default as a security measure ([more info](https://www.apollographql.com/blog/graphql/security/why-you-should-disable-graphql-introspection-in-production/#:~:text=Turning%20off%20introspection%20in%20production,%2C%20resolvers%2C%20introspection%3A%20process.)). However, we decided to keep introspection on for convenience, though this is not something you would normally do in a production application.
+1. "[Introspection](https://graphql.org/learn/introspection/)" is a feature that allows a GraphQL client to ask a GraphQL server for information about what queries it supports. Apollo turns off introspection in production by default as a security measure. However, we decided to keep introspection as it makes it easier to explore the API, though this is not something you usually do in a production application.
+
+>  Read further on [Why You Should Disable GraphQL Introspection In Production – GraphQL Security](https://www.apollographql.com/blog/graphql/security/why-you-should-disable-graphql-introspection-in-production/).
 
 2. Similar to introspection, Apollo also turns off Apollo Sandbox in the production version of an app. Once again, as this is not a real application with production workloads, we explicitly decided to keep it on for convenience.
 
-3. Previously, Apollo Server was running on port 3000 on your local machine. In production, Heroku will provide the port number the app will run on through the `port` environment variable.
+3. Previously, Apollo Server was running on port `3000` on your local machine. Heroku will provide the port number the app will run on through the `port` environment variable in production.
 
-> **Note:** Apollo Server determines whether your app is running in development or production by using the `NODE_ENV` environment variable, which is typically set to "production" during deployment (this is done automatically by Heroku). 
+> **Note:** Apollo Server determines whether your app is running in development or production by using the `NODE_ENV` environment variable, which is set automatically to "production" during deployment by Heroku.
 
 ### Create new scripts in `package.json` 
 
-So far, you have been using `ts-node` to run your TypeScript code. However, this has a memory and performance overhead. In production, you will transpile your code to JavaScript using the TypeScript compiler and run the JavaScript code directly using `node`. To do this, you will need to create two additional scripts in your `package.json`. You will also need to add a new script to apply migrations to your production database. 
+So far, you have been using `ts-node` to run your TypeScript code. However, this has a memory and performance overhead. In production, you will transpile your code to JavaScript using the TypeScript compiler and run the JavaScript code directly using `node`. To do this, you will need to create two additional scripts in your `package.json`. You will also add a new script to apply database migrations to your production database. 
 
 
 <Instruction> 
@@ -336,8 +338,8 @@ Update your `package.json` with the following scripts:
 
 Here's what the scripts are doing:
 
-1. The `migrate:deploy` script is used to apply all pending migrations to the production database by running `prisma migrate deploy`. This command is somewhat different from `prisma migrate dev`, which you have been using to generate/apply migrations in your development database. You can find more information about the `migrate deploy` command in the [Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-migrate#production-and-testing-environments).
-2. The `build` script is used to build the app from scratch. This involves three steps: first running `prisma generate` to create the Prisma Client, then running `src/schema.ts` to generate the nexus assets, and finally running the TypeScript compiler (or `tsc`) to transpile your TypeScript code to JavaScript. 
+1. The `migrate:deploy` script applies all pending migrations to the production database by running `prisma migrate deploy`. This command is somewhat different from `prisma migrate dev`, which you have used to generate/apply migrations in your development database. You can find more information about the `migrate deploy` command in the [Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-migrate#production-and-testing-environments).
+2. The `build` script first runs `prisma generate` to create the Prisma Client, then runs `src/schema.ts` to generate the nexus assets, and finally transpiles your TypeScript code to JavaScript using the TypeScript compiler (or `tsc`). 
 3. The `start` command runs the JavaScript code transpiled by `tsc` using `node`. Notice that the code generated by `tsc` goes into the `dist` folder because of the `outDir` option specified in your `tsconfig.json`. 
 
 Now you will create another commit. 
@@ -407,7 +409,7 @@ Database has been created and is available
 Created postgresql-cubic-54990 as DATABASE_URL
 ```
 
-This command also creates a new environment variable called `DATABASE_URL` in the Heroku app, which contains the connection string to the PostgreSQL database. This is very convenient because when you deploy the API, Prisma will have access to the production database automatically, without any additional configuration on your end. The connection string uses the same format as Prisma too! 
+This command also creates a new environment variable called `DATABASE_URL` in the Heroku app, the connection string to the PostgreSQL database. This is very convenient because when you deploy the API, Prisma will have access to the production database automatically, without any additional configuration on your end. The connection string uses the same format as Prisma too! 
 
 > **Note:** You can check your production database connection string with this command: `heroku config:get DATABASE_URL`. 
 
