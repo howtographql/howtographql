@@ -471,10 +471,10 @@ jobs:
 Let's understand what is going on here:
 
 1. The `name` keyword defines the name of the workflow. 
-2. `on` is used to define which events will cause the workflow to run automatically. In this case, it will run on a new any push to `master` or `main` remote branches. 
-3. The `uses` keyword specifies that this step will run `v2` of the `actions/checkout` action. This is an action that checks out your repository onto the runner. 
+2. `on` is used to define which events will trigger the workflow to run automatically. In this case, it will run on a push to the `main` or `master` remote branch. 
+3. The `uses` keyword specifies that this step will run `v2` of the [`actions/checkout`](https://github.com/actions/checkout) action. This action checks-out your repository to the runner so your workflow can access it. 
 4. The `run` keyword is used to execute any arbitrary shell command on the runner. In this case, you are using `npm ci` which is similar to `npm install`, but more suitable for automated environments. Details are available on the [npm docs](https://docs.npmjs.com/cli/v8/commands/npm-ci)
-5. The runner will execute the `migrate:deploy` npm script. This is to synchronize any database changes to the production database. The `env` is used to pass the production database connection string to the test runner.
+5. The runner will execute the `migrate:deploy` npm script. This is to synchronize any database changes to the production database. The `env` property provides the database connection string to the runner.
 6. This command uses the `heroku-deploy@v3.12.12` action to deploy the final code to Heroku. The `with` keyword is used to pass certain parameters to the action. 
 
 
@@ -482,7 +482,7 @@ Let's understand what is going on here:
 
 In the GitHub Actions workflow you just created, you referenced quite a few `secrets`. Secrets allow you to store sensitive information in your repository instead of keeping them in your code. These secrets can be accessed by your GitHub Action when executing a workflow. 
 
-Secrets can be set using the GitHub website graphical user interface as well as the `gh` CLI tool. In this tutorial you will learn how to do it using the CLI. If you would prefer to do it using the website, take a look at [this guide](https://docs.github.com/en/actions/security-guides/encrypted-secrets). 
+You can set secrets using the GitHub website GUI or the `gh` CLI tool. In this tutorial, you will learn how to do it using the CLI. If you prefer to do it using the website, take a look at [this guide](https://docs.github.com/en/actions/security-guides/encrypted-secrets). 
 
 The syntax for creating a new secret using `gh secret set SECRET_NAME`, where `SECRET_NAME` should be replaced with the name of your secret.  
 
