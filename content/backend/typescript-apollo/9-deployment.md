@@ -185,14 +185,14 @@ volumes:
 ```
 </Instruction>
 
-Let's go through some of the import parts of this compose file:
+Here is what is happening inside the `docker-compose.yml` file:
 
-1. the `image` field represents the docker image that will be used.
-2. The `environment` array specifies which environment variables get passed to the container during initialization. This is typically used to pass configuration options and secrets (such as username and password) to the container.
-3. The `volumes` array is used for persisting data in the host file system. 
-4. The `ports` array is used to map ports from the host machine to the container. The format follows the convention of "host_port:container_port". In this case, you are mapping the port `5432` of the host machine to port `5432` of the `postgres` container. 5432 is conventionally the port used by PostgreSQL. 
+1. The `image` option defines what Docker image to use.
+2. The `environment` option specifies the environment variables passed to the container during initialization. You can define the configuration options and secrets – such as the username and password – the container will use here.
+3. The `volumes` option is used for persisting data in the host file system. 
+4. The `ports` option maps ports from the host machine to the container. The format follows the convention of "host_port:container_port". In this case, you are mapping the port `5432` of the host machine to port `5432` of the `postgres` container. `5432` is conventionally the port used by PostgreSQL. 
 
-With that out of the way, we can spin up the database with one simple command. Before you move on to the next instruction, make sure that nothing is already running on port 5432, in which case, the following command will fail. 
+With that out of the way, you can now spin up the database with one command. Before you move on to the next instruction, make sure that nothing is already running on port `5432`, in which case, the following command will fail. 
 
 <Instruction>
 
@@ -221,7 +221,7 @@ touch .env
 
 </Instruction>
 
-Now it's time to provide the connection string that Prisma can use to connect to PostgreSQL. Remember that inside the `schema.prisma` file you defined the connection string environment variable as `DATABASE_URL`. 
+Now it's time to provide a connection string that Prisma can connect to PostgreSQL. Remember that inside the `schema.prisma` file you defined the connection string environment variable as `DATABASE_URL`. 
 
 <Instruction>
 
@@ -232,15 +232,15 @@ DATABASE_URL=postgres://prisma:prisma@localhost:5432/hackernews-db
 ```
 </Instruction>
 
-This is the format used by Prisma for connection strings:
+This is the format used by Prisma for PostgreSQL connection strings:
 
 ![Prisma Connection String format](https://i.imgur.com/qxnUKrS.png)
 
 Note that the **Arguments** portion is optional and is absent in your connection string. 
 
-This format is based on the [official PostgreSQLl format for connection URLs](https://www.postgresql.org/docs/current/libpq-connect.html#libpq-connstring). You can find more information about this in the [Prisma docs](https://www.prisma.io/docs/concepts/database-connectors/postgresql). 
+This format is based on the [official PostgreSQL format for connection URLs](https://www.postgresql.org/docs/current/libpq-connect.html#libpq-connstring). You can find more information about this in the [Prisma docs](https://www.prisma.io/docs/concepts/database-connectors/postgresql). 
 
-Now it's time to create migrations again, but this time for your new PostgreSQL database. 
+Now it's time to recreate the migrations, but this time specific to PostgreSQL.
 
 <Instruction>
 
@@ -252,14 +252,14 @@ npx prisma migrate dev --name init
 
 </Instruction>
 
-We have already covered the core concept behind the `migrate` command in [Chapter 4](../4-adding-a-database/). This command will also regenerate Prisma Client based on the most recent schema. 
+[Chapter 4](../4-adding-a-database/) covers the core concept behind the `migrate` command. This command will also regenerate Prisma Client based on the most recent schema. 
 
 
-You can now restart server with `npm run dev`. While your previous data will have disappeared, all functionality should remain intact. Feel free to test out all the queries/mutations to see if they work as expected. 
+Restart server with `npm run dev`. While your previous data will have disappeared, all functionality should remain intact. Feel free to test out all the queries/mutations to confirm they work as expected. 
 
 <Instruction>
 
-Add all your changes and create a new commit: 
+Commit all your changes to version control: 
 
 ```bash(path=".../hackernews-typescript/")
 git add .
@@ -268,7 +268,7 @@ git commit -m "migrate database to postgres"
 
 </Instruction>
 
-### Update `index.ts` to make it suitable for deployment
+### Update `index.ts` to make it deployment ready
 
 You will need to make a few changes to the `index.ts` to make the API ready for deployment. 
 
