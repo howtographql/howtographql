@@ -684,21 +684,29 @@ query FeedQuery{
 
 ### Exploring your data in Prisma Data Platform 
 
-Previously, you were using Prisma Studio to directly interact with your data. However, Prisma Studio is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/?utm_source=howtographql&utm_campaign=typescript-apollo), called the _Data Browser_.  
+Previously, you were using Prisma Studio to interact with your data directly. However, Prisma Studio is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/?utm_source=howtographql&utm_campaign=typescript-apollo), called the _Data Browser_.  
 
-To get started, go to https://cloud.prisma.io/ and click **Continue with GitHub**. The Prisma app will then ask for permission to read your Email address. Click on **Authorize Prisma** to proceed. In the dashboard, click on **New Project**. Then you will need to click on **Add an Organization or Account** under the dropdown in **GitHub Account**. Since you will be importing an existing GitHub project to Prisma, you will need to install the Prisma GitHub app and give it read and write access to that GitHub repository. 
+To get started with the Prisma Data Platform, follow the steps outlined below:
 
-In case you are a part of multiple organizations, you will first be asked to choose which account you want to use. Then you will have to choose if you want to install Prisma on *all repositories* or *select repositories*. Choose **Only select repositories** and choose the **hackernews-typescript** repository. Then click on **Install**. 
-
-Now you will be redirected back to the **Configure project** page. Choose **Import a Prisma repository** and then select the **hackernews-typescript** repository. Then give a suitable name to your project (this is the name of the Prisma Data Platform project, not to be confused with the name of the repository). Now click **Next** to continue. 
-
-Now you will be shown the **Configure environment** page. Since you already have a database created, choose **Use my own database**. Then paste the connection string you received from Heroku. You can leave the other options to their default value. Finally, click on **Create project** to proceed. You will be given a connection URL to the [Prisma Data Proxy](https://www.prisma.io/docs/concepts/data-platform/data-proxy), which you can **skip** as you won't be using the Data Proxy at the moment. 
-
-Alright! With all the configuration out of the way, click on the **Data Browser** button on the left-hand side to get a hosted version of the Prisma Studio. The next time you log in to the Prisma Data Platform, this project should be available for you to access. It will also be synced with any schema changes pushed to the `master` branch on GitHub.
+1. Go to the [Prisma Data Platform](https://cloud.prisma.io/?utm_source=howtographql&utm_campaign=typescript-apollo).
+2. Click **Continue with GitHub** and click **Authorize Prisma** to proceed. 
+3. In the dashboard, click on **New Project**. Then under the dropdown in **GitHub Account**, click on **Add an Organization or Account**. 
+4. (**Optional**) If you are part of one or more organizations, choose which account or organization you want to use.
+5. Now, you can choose to install Prisma on *all repositories* or *select repositories*. Choose **Only select repositories** and choose the **hackernews-typescript** repository. Then click on **Install** to be redirected to the **Configure project** page.
+6. Choose **Import a Prisma repository** and under the **Repository** field, select the **hackernews-typescript** repository.
+7. Give a suitable name to your project (this is the name of the Prisma Data Platform project, not to be confused with the name of the repository) and click **Next** to continue.
+8. In the  **Configure environment** page, choose **Use my own database**. 
+9. Paste the connection string you received from Heroku under the **Connection String** field. 
+10. Click on **Create project** to proceed. You will be given a connection URL to the [Prisma Data Proxy](https://www.prisma.io/docs/concepts/data-platform/data-proxy), which you can **Skip** as you won't be using the Data Proxy at the moment.  
+11. Click on the **Data Browser** button on the left-hand side to get a hosted version of the Prisma Studio.
 
 ![Onboarding the Prisma Data Platform](https://i.imgur.com/ktA3N1Y.gif)
 
-Just like Prisma Studio, the Data Browser allows you to explore and edit your data. The Prisma Data Platform also has collaboration features and permission levels, which are useful when working with a team. Feel free to explore all the features or learn more about the Prisma Data Platform by reading the [docs](https://www.prisma.io/docs/concepts/data-platform/about-platform). 
+
+The next time you log in to the Prisma Data Platform, the project you just created should be available for you to access. The project will also be synced with any schema changes pushed to the selected branch on GitHub.
+
+
+Like Prisma Studio, the Data Browser allows you to explore and edit your data. The Prisma Data Platform also has collaboration features and permission levels, helpful when working with a team. It also has a Query Console, which allows you to write and execute Prisma queries against your production database. Feel free to explore all the features or learn more about the Prisma Data Platform by reading the [docs](https://www.prisma.io/docs/concepts/data-platform/about-platform). 
 
 
 
