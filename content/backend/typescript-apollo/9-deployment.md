@@ -8,22 +8,22 @@ answers: ['Workflows need to be triggered manually', 'Workflows are triggered af
 correctAnswer: 2
 ---
 
-In this tutorial, you will deploy your API to production so that you and others can access it publicly. You will also refactor the project to make it ready for deployment on [Heroku](https://dashboard.heroku.com/). Additionally, you will automate the deployment process using [GitHub Actions](https://docs.github.com/en/actions) – also referred to as [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
+In this tutorial, you will deploy your API to production so that you and others can access it publicly. You will also refactor the project to make it ready for deployment on [Heroku](https://dashboard.heroku.com/). Additionally, you will automate the deployment process using [GitHub Actions](https://docs.github.com/en/actions) — also referred to as [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
 
 ### Prerequisites 
 
 You will need to install a few command line utilities and create some accounts to follow this chapter. We suggest you do this now so as not to break the flow of the tutorial.
 
-- **GitHub (Account)**: Create a free [GitHub](https://github.com/join) account.
-- **GitHub (CLI)**: Install the latest stable version of the [GitHub CLI](https://cli.github.com/). Afterward, [login to your GitHub account](https://cli.github.com/manual/gh_auth_login) on the CLI. 
-- **Heroku (Account)**: Create a free account on [Heroku](https://signup.heroku.com/). 
-- **Heroku (CLI)**: Install the latest stable version of the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Afterward, [login to your Heroku account](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli) on the Heroku CLI. 
-- **[Docker](https://docs.docker.com/get-docker/)** and **[Docker Compose](https://docs.docker.com/compose/install/)**
+1. **GitHub (Account)**: Create a free [GitHub](https://github.com/join) account.
+1. **GitHub (CLI)**: Install the latest stable version of the [GitHub CLI](https://cli.github.com/). Afterward, [login to your GitHub account](https://cli.github.com/manual/gh_auth_login) on the CLI. 
+1. **Heroku (Account)**: Create a free account on [Heroku](https://signup.heroku.com/). 
+1. **Heroku (CLI)**: Install the latest stable version of the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). Afterward, [login to your Heroku account](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli) on the Heroku CLI. 
+1. **[Docker](https://docs.docker.com/get-docker/)** and **[Docker Compose](https://docs.docker.com/compose/install/)**
 
 > **Note:** Docker and Docker Compose will be used to run an instance of the PostgreSQL database. If you prefer, you can install and run [PostgreSQL](https://www.postgresql.org/download/) natively as well. If you choose to run natively, you will need to make some slight changes to the instructions shown in this tutorial. 
 
 
-With that out of the way, let's get started!
+With that out of the way, you can get started!
 
 ### Adding version control
 
@@ -146,8 +146,7 @@ datasource db {
 There are two fields that you should understand: 
 
 1. The `provider` field signifies the underlying database type. You changed the field from `sqlite` to `postgresql`.  
-
-2. The `url` field specifies the database connection string. For SQLite, this was a path to the file. In the case of PostgreSQL, the database connection string will be read from the `DATABASE_URL` [environment variable](https://www.prisma.io/docs/guides/development-environment/environment-variables) that will be defined in the project's `.env` configuration. 
+1. The `url` field specifies the database connection string. For SQLite, this was a path to the file. In the case of PostgreSQL, the database connection string will be read from the `DATABASE_URL` [environment variable](https://www.prisma.io/docs/guides/development-environment/environment-variables) that will be defined in the project's `.env` configuration. 
 
 
 Now you need a PostgreSQL database running on your local machine. You are going to do this using a containerized version of PostgreSQL. 
@@ -161,20 +160,24 @@ touch docker-compose.yml
 ```
 </Instruction>
 
+
+
 <Instruction>
+
+Create the following configuration inside the `docker-compose.yml` file: 
 
 ```yaml{}(path=".../hackernews-typescript/docker-compose.yml")
 version: '3.8'
 services:
 
-  # Docker connection string for local machine: postgres://prisma:prisma@localhost:5432/
+  # Docker connection string for local machine: postgres://postgres:postgres@localhost:5432/
 
   postgres:
     image: postgres:10.3    # 1
     restart: always
     environment:            # 2
-      - POSTGRES_USER=prisma
-      - POSTGRES_PASSWORD=prisma
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:                # 3
       - postgres:/var/lib/postgresql/data
     ports:
@@ -183,6 +186,7 @@ services:
 volumes:
   postgres:
 ```
+
 </Instruction>
 
 Here is what is happening inside the `docker-compose.yml` file:
@@ -204,9 +208,20 @@ docker-compose up
 
 </Instruction>
 
-If everything worked properly, the new terminal window should show logs saying that the "postgres" container has started up successfully. 
+If everything worked properly, the new terminal window should show logs saying that the database system is ready to accept connections. The logs should be similar to this
 
-> **Note:** You cannot close the new terminal window as it will also stop the container. You can avoid this if you add `-d` to the previous command, like this: `docker-compose up -d`
+```shell{}(nocopy)
+....
+postgres_1  | 2022-03-05 12:47:02.410 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres_1  | 2022-03-05 12:47:02.410 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+postgres_1  | 2022-03-05 12:47:02.411 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres_1  | 2022-03-05 12:47:02.419 UTC [1] LOG:  database system is ready to accept connections
+```
+
+
+> **Note 1:** You cannot close the new terminal window as it will also stop the container. You can avoid this if you add `-d` to the previous command, like this: `docker-compose up -d`. 
+
+> **Note 2:** Once started, the container will persist even if you restart your machine. At any point if you want to stop the database container, use the following command from the terminal in the root folder of your project: `docker-compose down`.
 
 
 You will also need to securely provide the connection URL to the newly created PostgreSQL instance to Prisma. To do this, you will use the `.env` file.
@@ -228,7 +243,7 @@ Now it's time to provide a connection string that Prisma can connect to PostgreS
 Specify the `DATABASE_URL` variable inside the `.env` file:
 
 ```bash(path=".../hackernews-typescript/.env")
-DATABASE_URL=postgres://prisma:prisma@localhost:5432/hackernews-db
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/hackernews-db
 ```
 </Instruction>
 
@@ -302,17 +317,14 @@ server.listen({ port }).then(({ url }) => {
 
 </Instruction>
 
-Let's explain the changes: 
+You have made the following changes: 
 
-1. "[Introspection](https://graphql.org/learn/introspection/)" is a feature that allows a GraphQL client to ask a GraphQL server for information about what queries it supports. Apollo turns off introspection in production by default as a security measure. However, we decided to keep introspection as it makes it easier to explore the API, though this is not something you usually do in a production application.
-
->  Read further on [Why You Should Disable GraphQL Introspection In Production – GraphQL Security](https://www.apollographql.com/blog/graphql/security/why-you-should-disable-graphql-introspection-in-production/).
-
+1. [Introspection](https://graphql.org/learn/introspection/) is a feature that allows a GraphQL client to ask a GraphQL server for information about what queries it supports. Apollo turns off introspection in production by default as a security measure. However, you are keeping introspection as it makes it easier to explore the API, though this is not something you usually do in a production application.
 2. Similar to introspection, Apollo also turns off Apollo Sandbox in the production version of an app. Once again, as this is not a real application with production workloads, we explicitly decided to keep it on for convenience.
-
 3. Previously, Apollo Server was running on port `3000` on your local machine. Heroku will provide the port number the app will run on through the `port` environment variable in production.
 
 > **Note:** Apollo Server determines whether your app is running in development or production by using the `NODE_ENV` environment variable, which is set automatically to "production" during deployment by Heroku.
+
 
 ### Create new scripts in `package.json` 
 
@@ -438,7 +450,8 @@ touch .github/workflows/deployment.yml
 
 <Instruction>
 
-Define the `deploy` job inside the newly created workflow:
+Define the action inside the newly created workflow:
+
 
 ```yaml{}(path=".../hackernews-typescript/.github/workflows/continuous-integration.yml")
 name: deploy-hackernews-app-heroku                       # 1
@@ -468,7 +481,7 @@ jobs:
 
 </Instruction>
 
-Let's understand what is going on here:
+Here's what is going on here:
 
 1. The `name` keyword defines the name of the workflow. 
 2. `on` is used to define which events will trigger the workflow to run automatically. In this case, it will run on a push to the `main` or `master` remote branch. 
@@ -673,7 +686,7 @@ query FeedQuery{
 
 Previously, you were using Prisma Studio to directly interact with your data. However, Prisma Studio is meant to be used with your development or test database and is not a great option to interact with production data. To solve this problem, Prisma has a hosted version of Prisma Studio inside the [Prisma Data Platform](https://cloud.prisma.io/?utm_source=howtographql&utm_campaign=typescript-apollo), called the _Data Browser_.  
 
-To get started, go to https://cloud.prisma.io/ and click **Continue with GitHub**. The Prisma app will then ask for permission to read your Email address. Click on **Authorize Prisma** to proceed. In the dashboard, click on **New Project**. Then you will need to click on **Add an Organization or Account** under the dropdown in **GitHub Account**. Since you will be importing an existing GitHub project to Prisma, you will need to install Prisma and give it read and write access to that GitHub repository. 
+To get started, go to https://cloud.prisma.io/ and click **Continue with GitHub**. The Prisma app will then ask for permission to read your Email address. Click on **Authorize Prisma** to proceed. In the dashboard, click on **New Project**. Then you will need to click on **Add an Organization or Account** under the dropdown in **GitHub Account**. Since you will be importing an existing GitHub project to Prisma, you will need to install the Prisma GitHub app and give it read and write access to that GitHub repository. 
 
 In case you are a part of multiple organizations, you will first be asked to choose which account you want to use. Then you will have to choose if you want to install Prisma on *all repositories* or *select repositories*. Choose **Only select repositories** and choose the **hackernews-typescript** repository. Then click on **Install**. 
 
