@@ -173,7 +173,7 @@ services:
   # Docker connection string for local machine: postgres://postgres:postgres@localhost:5432/
 
   postgres:
-    image: postgres:10.3    # 1
+    image: postgres:13.5    # 1
     restart: always
     environment:            # 2
       - POSTGRES_USER=postgres
