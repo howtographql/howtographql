@@ -123,7 +123,7 @@ Since you will now be using an actual database, there's no need to keep the `lin
 
 <Instruction>
 
-Open `index.js` and remove the `links` array entirely, as well as the `idCount` variable – you don't need those anymore since the data will now be stored in an actual database.
+Open `src/graphql/Link.ts` and remove the `links` array entirely, as well as the `idCount` variable – you don't need those anymore since the data will now be stored in an actual database.
 
 </Instruction>
 
@@ -134,7 +134,7 @@ There are two resolvers that need to be updated, those for the `feed` query as w
 
 Go to `src/graphql/Link.ts` and update the resolvers:
 
-```typescript{1,8,23-30}(path="../hackernews-typescript/src/graphql/Link.ts")
+```typescript{7,23-30}(path="../hackernews-typescript/src/graphql/Link.ts")
 export const LinkQuery = extendType({
     type: "Query",
     definition(t) {
