@@ -70,9 +70,9 @@ npx prisma init
 Remember the GraphQL schema that you've been working with until now? Well, Prisma has a schema, too! Inside the `prisma` directory that was created in the last step, you'll see a
 file called `schema.prisma`. You can think of the `schema.prisma` file as a _database schema_. It has three components:
 
-1. **Data source**: Specifies your database connection.
-1. **Generator**: Indicates that you want to generate Prisma Client.
-1. **Data model**: Defines your application _models_. Each model will be mapped to a table in the underlying database.
+- **Data source**: Specifies your database connection.
+- **Generator**: Indicates that you want to generate Prisma Client.
+- **Data model**: Defines your application _models_. Each model will be mapped to a table in the underlying database.
 
 Prisma's unique data model bridges the gap to help you reason about your data in a way that maps very well to the underlying database, while still providing an abstraction that
 allows you to be productive with type safety and auto-completion.
@@ -108,11 +108,11 @@ model Link {
 
 Let's dig deeper into this:
 
-1. **Data source**: Tells Prisma you'll be using SQLite for your database connection, along with the path to the SQLite file.
-2. **Generator**: Indicates that you want to generate Prisma Client. 
-3. **Data model**: The `Link` model defines the structure of the `Link` database table that Prisma is going to create for you in a bit. Each field in the model consists of a field name, field type and additional attributes (`@id`, `@default`, etc) that define various behavior. 
-4. The `@id` attribute signifies that the `id` field is the _primary-key_ for the `Link` database table. The `@default` attribute signifies how the field is to be generated if an explicit value is not specified when creating a `link` record.
-5. The `@default` attribute for `createdAt` also specifies the default value in case the `createdAt` field is not manually specified. The `DateTime` type follows a standard ISO 8601-formatted string (eg: `2021-11-16T21:48:39.798Z`).
+- `// 1`: **Data source**: Tells Prisma you'll be using SQLite for your database connection, along with the path to the SQLite file.
+- `// 2`: **Generator**: Indicates that you want to generate Prisma Client. 
+- `// 3`: **Data model**: The `Link` model defines the structure of the `Link` database table that Prisma is going to create for you in a bit. Each field in the model consists of a field name, field type and additional attributes (`@id`, `@default`, etc) that define various behavior. 
+- `// 4`: The `@id` attribute signifies that the `id` field is the _primary-key_ for the `Link` database table. The `@default` attribute signifies how the field is to be generated if an explicit value is not specified when creating a `link` record.
+- `// 5`: The `@default` attribute for `createdAt` also specifies the default value in case the `createdAt` field is not manually specified. The `DateTime` type follows a standard ISO 8601-formatted string (eg: `2021-11-16T21:48:39.798Z`).
 
 
 
@@ -211,11 +211,11 @@ main()
 
 Let's break down what's going on here with the numbered comments:
 
-1. Import the `PrismaClient` constructor from the `@prisma/client` node module.
-2. Instantiate `PrismaClient`.
-3. Define an `async` function called `main` to send queries to the database. You will write all your queries inside this function. You are calling the `findMany()` query, which will return all the `link` records that exist in the database.
-4. Call the `main` function.
-5. Close the database connections when the script terminates.
+- `// 1`: Import the `PrismaClient` constructor from the `@prisma/client` node module.
+- `// 2`: Instantiate `PrismaClient`.
+- `// 3`: Define an `async` function called `main` to send queries to the database. You will write all your queries inside this function. You are calling the `findMany()` query, which will return all the `link` records that exist in the database.
+- `// 4`: Call the `main` function.
+- `// 5`: Close the database connections when the script terminates.
 
 Take a moment to re-type the query line and notice the helpful autocompletion you get after typing `prisma.` and `prisma.link.`. The autocompletion lets us see all of the possible models we can
 access and operations we can use to query that data:
@@ -276,9 +276,9 @@ Much more satisfying ✨
 
 To recap, this is the typical workflow you will follow when updating your data:
 
-1. Manually adjust your Prisma data model.
-2. Migrate your database using the `prisma migrate` CLI commands we covered.
-3. (Re-)generate Prisma Client.
-4. Use Prisma Client in your application code to access your database.
+- Manually adjust your Prisma data model.
+- Migrate your database using the `prisma migrate` CLI commands we covered.
+- (Re-)generate Prisma Client.
+- Use Prisma Client in your application code to access your database.
 
 In the next chapters, you will evolve the API of your GraphQL server and use Prisma Client to access the database from inside your resolver functions.

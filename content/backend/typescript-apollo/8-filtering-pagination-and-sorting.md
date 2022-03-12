@@ -60,9 +60,8 @@ export const LinkQuery = extendType({
 
 Let's go through the comments and see what is going on: 
 
-1. Notice that the `filter` argument is _optional_. It can be omitted to skip filtering. 
-
-2. In case a `filter` argument is provided, you're constructing a `where` object that expresses the filter condition. The filter condition can be defined as: _The `description` or `url` (or both) should have some substring that matches the filter string_. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions. If no `filter` argument is provided, the `where` condition will be an empty object and work as it did previously. 
+- `// 1`: Notice that the `filter` argument is _optional_. It can be omitted to skip filtering. 
+- `// 2`: In case a `filter` argument is provided, you're constructing a `where` object that expresses the filter condition. The filter condition can be defined as: _The `description` or `url` (or both) should have some substring that matches the filter string_. This `where` argument is used by Prisma to filter out those `Link` elements that don't adhere to the specified conditions. If no `filter` argument is provided, the `where` condition will be an empty object and work as it did previously. 
 
 
 After this change, this is what the updated `feed` query should look like:
@@ -183,8 +182,8 @@ export const LinkQuery = extendType({
 
 Let's dig deeper into the changes:
 
-1. The `skip` and `take` arguments are both optional integers, representing the offset and limit, respectively. 
-2. The Prisma Client API will take the `skip` and `take` arguments as additional options to the `findMany` query and return the `link` records accordingly. If either of the arguments is absent, we pass `undefined` to Prisma client. Prisma Client interprets any undefined value as _do nothing_. There is a type mismatch between the Nexus generated type (`number | undefined | null`) and the type expected by Prisma (`number | undefined`) for these two options. For this reason, typecasting is needed.
+- `// 1`: The `skip` and `take` arguments are both optional integers, representing the offset and limit, respectively. 
+- `// 2`: The Prisma Client API will take the `skip` and `take` arguments as additional options to the `findMany` query and return the `link` records accordingly. If either of the arguments is absent, you pass `undefined` to Prisma client. Prisma Client interprets any undefined value as _do nothing_. There is a type mismatch between the Nexus generated type (`number | undefined | null`) and the type expected by Prisma (`number | undefined`) for these two options. For this reason, typecasting is needed.
 
 > **Note:** In JavaScript and TypeScript, `undefined` and `null` are often used interchangeably. However, Prisma makes a distinction between the two. In Prisma, `null` is a specific _value_ and `undefined` means _do nothing_ or ignore. More information is available in the [Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-client/null-and-undefined). 
 
@@ -322,9 +321,8 @@ export const LinkQuery = extendType({
 
 There are two changes here:
 
-1. The new `orderBy` argument is an array of input type `LinkOrderByInput`. In this argument, you can provide one or more sorting criteria (`createdAt`, `description` and `url`) and specify the sorting order (`asc` or `desc`) and the links in the feed will be ordered accordingly. In this scheme, it is possible to sort the feed by _multiple_ fields (eg: Sort by `url`, in case of match, sort of `createdAt`) by passing more than one instance of `LinkOrderByInput`. 
-
-2. The `orderBy` option you're passing to Prisma works very similar to the previous `skip` and `take` options. Once again, typecasting is necessary to strip the `null` option from the Nexus generated type. 
+- `// 1`: The new `orderBy` argument is an array of input type `LinkOrderByInput`. In this argument, you can provide one or more sorting criteria (`createdAt`, `description` and `url`) and specify the sorting order (`asc` or `desc`) and the links in the feed will be ordered accordingly. In this scheme, it is possible to sort the feed by _multiple_ fields (eg: Sort by `url`, in case of match, sort of `createdAt`) by passing more than one instance of `LinkOrderByInput`. 
+- `// 2`: The `orderBy` option you're passing to Prisma works very similar to the previous `skip` and `take` options. Once again, typecasting is necessary to strip the `null` option from the Nexus generated type. 
 
 It's time to give it a try. Here's a query that sorts the links by their creation date:
 
@@ -388,8 +386,8 @@ export const Feed = objectType({
 
 The `Feed` type will be used as the return type of the `feed` query. Let's take a look at how it's defined:
 
-1. `links` is an array of `Link` type objects. This is infact the current return type of the `feed` query.
-2. `count` is an integer that will mention the number of `links` available in the database that match the `feed` query criteria. This is important to have as when using the `take` pagination argument, the number of `links` _returned_ might be different from the number of links _available_ in the database. 
+- `// 1`: `links` is an array of `Link` type objects. This is infact the current return type of the `feed` query.
+- `// 2`: `count` is an integer that will mention the number of `links` available in the database that match the `feed` query criteria. This is important to have as when using the `take` pagination argument, the number of `links` _returned_ might be different from the number of links _available_ in the database. 
 
 
 </Instruction>
@@ -454,11 +452,9 @@ export const LinkQuery = extendType({
 
 Let's see what has changed:
 
-1. The return type of the `feed` query has been updated. It now returns a single non-nullable instance of the `Feed` type. 
-
-2. Here, you are using the Prisma [`count` API](https://www.prisma.io/docs/concepts/components/prisma-client/aggregation-grouping-summarizing#count) to return the number of records in the database that match the current filtering condition. The `skip`, `take` and `orderBy` options are not relevant when finding the count, so they have been omitted in this query. 
-
-3. The object returned by the `resolve` function has been updated to match the signature of the `Feed` type. 
+- `// 1`: The return type of the `feed` query has been updated. It now returns a single non-nullable instance of the `Feed` type. 
+- `// 2`: Here, you are using the Prisma [`count` API](https://www.prisma.io/docs/concepts/components/prisma-client/aggregation-grouping-summarizing#count) to return the number of records in the database that match the current filtering condition. The `skip`, `take` and `orderBy` options are not relevant when finding the count, so they have been omitted in this query. 
+- `// 3`: The object returned by the `resolve` function has been updated to match the signature of the `Feed` type. 
 
 Let's try the updated `feed` query: 
 

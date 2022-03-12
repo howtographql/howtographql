@@ -120,11 +120,9 @@ export const User = objectType({
 
 The field worth discussing is the one called `links`: 
 
-1. The `links` field is a non-nullable array of `Link` type objects. It represents all the `links` that have been posted by that particular user.  
-
-2. The `links` field needs to implement a resolve function. Previously, you only needed to implement resolvers for fields in `Query` and `Mutation`. Since the resolver for the `links` field is non-trivial, meaning GraphQL can't infer it automatically as the `User` object returned from your database does not automatically contain the `links` type. So unlike the other fields in the `User` type, you need to explcitly define the `links` resolver. 
-
-3. This is the Prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains the all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call. 
+- `// 1`: The `links` field is a non-nullable array of `Link` type objects. It represents all the `links` that have been posted by that particular user.  
+- `// 2`: The `links` field needs to implement a resolve function. Previously, you only needed to implement resolvers for fields in `Query` and `Mutation`. Since the resolver for the `links` field is non-trivial, meaning GraphQL can't infer it automatically as the `User` object returned from your database does not automatically contain the `links` type. So unlike the other fields in the `User` type, you need to explcitly define the `links` resolver. 
+- `// 3`: This is the Prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains the all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call. 
 
 > **Note:** If you're having a hard time understanding the theory behind the `parent` argument and non-trivial resolvers, you should review the topic at the end of [Chapter 2](../2-a-simple-query/).
 
@@ -188,9 +186,8 @@ export const Link = objectType({
 
 What are the changes here? Let's take a look 🔎:
 
-1. You are adding a `postedBy` field of type `User`. Notice this field does not have a `nonNull` attached, meaning it is an optional field (it can return `null`). 
-
-2. The implementaiton of the resolver for `postedBy` should feel familiar, as it is very similar to what you did for the `links` field in `User`. In the query, you are fetching the `link` record first using `findUnique({ where: { id: parent.id } })` and then the associated `user` relation who posted the link by chaining `postedBy()`.  
+- `// 1`: You are adding a `postedBy` field of type `User`. Notice this field does not have a `nonNull` attached, meaning it is an optional field (it can return `null`). 
+- `// 2`: The implementaiton of the resolver for `postedBy` should feel familiar, as it is very similar to what you did for the `links` field in `User`. In the query, you are fetching the `link` record first using `findUnique({ where: { id: parent.id } })` and then the associated `user` relation who posted the link by chaining `postedBy()`.  
 
  
 > **Note:** This interesting syntax where you can traverse and fetch relation fields by chaining the field name (`findUnique(...).relationFieldName()`) is called the [Fluent API](https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#fluent-api) in Prisma. This API has a very interesting batching behavior that is very useful for implementing GraphQL resolvers as it solves a common problem known as the _"N+1 problem"_. This is an advanced optimization topic that we won't cover in this tutorial, but feel free to learn more from [here](https://www.prisma.io/docs/guides/performance-and-optimization/query-optimization-performance#solving-n1-in-graphql-with-findunique-and-prismas-dataloader). 
@@ -227,11 +224,9 @@ type Mutation {
 }
 ```
 
-1. The `AuthPayload` is a new type and it is very important to our JWT-based authentication scheme. It is the return type for both `signup` and `login` and contains a JWT token in the `token` field. The `user` field returns data for the `user` which initiated the `signup` or `login`. 
-
-2. The `signup` mutation will create a new `user` record in the database as well as generate a `token` that they can use later. The arguments are `email`, `password` and `name`, matching those needed to create a `user` record. 
-
-3. The `login` mutation will check the provided `email` and `password` and login an existing user. 
+- `// 1`: The `AuthPayload` is a new type and it is very important to our JWT-based authentication scheme. It is the return type for both `signup` and `login` and contains a JWT token in the `token` field. The `user` field returns data for the `user` which initiated the `signup` or `login`. 
+- `// 2`: The `signup` mutation will create a new `user` record in the database as well as generate a `token` that they can use later. The arguments are `email`, `password` and `name`, matching those needed to create a `user` record. 
+- `// 3`: The `login` mutation will check the provided `email` and `password` and login an existing user. 
 
 
 > **Note:** We did something different this time from the typical workflow we have been following throughout this tutorial. We designed the GraphQL fields and types in SDL _before_ writing the Nexus code for them. For many people, designing the schema outline in SDL _beforehand_ is more intuitive. So feel free to do write the SDL beforehand if you prefer. You can always convert your SDL into valid Nexus types using the [Nexus SDL converter](https://nexusjs.org/converter).
@@ -326,11 +321,11 @@ export const AuthMutation = extendType({
 
 Let's use the good ol' numbered comments again to understand what's going on here: 
 
-1. The `signup` mutation field returns an instace of `AuthPayLoad`. It has three arguments,  `email`, `password` and `name`, all of which are mandatory. This is the exact same method signature you saw before for the `signup` mutation. 
-2. In the `signup` mutation resolver, the first thing to do is hash the `User`'s password using the `bcryptjs` library.
-3. The next step is to use your Prisma Client instance to store the new `User` record in the database.
-4. You're then generating a JSON Web Token which is signed with an `APP_SECRET`. The information encoded in the token is the `id` of the newly created user. You still need to create and export this `APP_SECRET`, something we will cover soon.
-5. Finally, you return the `token` and the `user` in an object that adheres to the shape of the `AuthPayload` type that you just defined.
+- `// 1`: The `signup` mutation field returns an instace of `AuthPayLoad`. It has three arguments,  `email`, `password` and `name`, all of which are mandatory. This is the exact same method signature you saw before for the `signup` mutation. 
+- `// 2`: In the `signup` mutation resolver, the first thing to do is hash the `User`'s password using the `bcryptjs` library.
+- `// 3`: The next step is to use your Prisma Client instance to store the new `User` record in the database.
+- `// 4`: You're then generating a JSON Web Token which is signed with an `APP_SECRET`. The information encoded in the token is the `id` of the newly created user. You still need to create and export this `APP_SECRET`, something we will cover soon.
+- `// 5`: Finally, you return the `token` and the `user` in an object that adheres to the shape of the `AuthPayload` type that you just defined.
 
 You'll notice that your IDE raises a few errors right now, like the `APP_SECRET` import at the top. But these will get fixed soon. Now continue by adding the `login` mutation. To do this you don't need to call `extendType` again, you just add a `login` field alongside the existing `signup` field in the `definition(t)` call inside `AuthMutation`.
 
@@ -413,11 +408,11 @@ export const AuthMutation = extendType({
 You will notice that the signature for the `login` field is quite similar to that of `signup`. Let's go through the numbered comments: 
 
 
-1. Instead of _creating_ a new `User` object, you're now using your Prisma Client instance to retrieve an existing `User` record by the `email` address that was sent along as an
+- `// 1`: Instead of _creating_ a new `User` object, you're now using your Prisma Client instance to retrieve an existing `User` record by the `email` address that was sent along as an
    argument in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error.
-2. The next step is to compare the provided password with the one that is stored in the database. If the two don't match, you're returning an error as well.
-3. You are creating a JWT token, just like `signup`. The information encoded in the token you are issuing contains the `id` of the user trying to log in.  
-4. In the end, you're returning `token` and `user` again.
+- `// 2`: The next step is to compare the provided password with the one that is stored in the database. If the two don't match, you're returning an error as well.
+- `// 3`: You are creating a JWT token, just like `signup`. The information encoded in the token you are issuing contains the `id` of the user trying to log in.  
+- `// 4`: In the end, you're returning `token` and `user` again.
 
 > **Note:** Notice that resolvers for both `login` and `signup` are `async`. This is because you need to perform a few asynchronous operations and make use of the `await` keyword in these resolvers. 
 
@@ -501,12 +496,9 @@ export function decodeAuthHeader(authHeader: String): AuthTokenPayload { // 2
 
 Let's understand what is going on here: 
 
-1. `AuthTokenPayload` interface is based on the shape of the JWT token that we issued during `signup` and `login`. When the server decodes an issued token, it should expect a response in this format. 
-
+- `// 1`: `AuthTokenPayload` interface is based on the shape of the JWT token that we issued during `signup` and `login`. When the server decodes an issued token, it should expect a response in this format. 
 2. The `decodeAuthHeader` function takes the `Authorization` header and parses it to return the payload of the JWT. 
-
 3. The `Authorization` header, contains the `type` or scheme of authorization followed by the token. In our case, `"Bearer"` represents the authorization scheme. Since the server is only interested in the JWT token itself, you can get rid of the `"Bearer"` and keep only the token. _If you're interested to learn more, here is a nice [stackoverflow question](https://security.stackexchange.com/q/108662) explaining this convention_. 
-
 4. The `jwt.verify()` functions decodes the token. It also needs access to the secret (or a public key) which was used to sign the token. 
 
 
@@ -549,9 +541,8 @@ export const context = ({ req }: { req: Request }): Context => {   // 2
 Let's understand the changes made to `context.ts`: 
 
 
-1. The context `interface` is updated to have a `userId` type. This is optional because no `userId` will be attached to the `context` when requests are sent without the `Authorization` header. 
-
-2. Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. Apollo Server is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object. 
+- `// 1`: The context `interface` is updated to have a `userId` type. This is optional because no `userId` will be attached to the `context` when requests are sent without the `Authorization` header. 
+- `// 2`: Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. Apollo Server is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object. 
 
 
 ### Updating the `post` mutation
@@ -600,9 +591,8 @@ export const LinkMutation = extendType({
 
 Let's go through the two changes: 
 
-1. If the `userId` does not exist in `context`, the resolver raises an error. As a result, only authorized users can add a new `link`.  
-
-2. To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represents this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be associated with. 
+- `// 1`: If the `userId` does not exist in `context`, the resolver raises an error. As a result, only authorized users can add a new `link`.  
+- `// 2`: To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represents this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be associated with. 
 
 At long last, the code for this chapter is complete! This was a pretty long chapter, give yourself a congratulations for finishing it. Now it's time to test the authentication feature. 
 

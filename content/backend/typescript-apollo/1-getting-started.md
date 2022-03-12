@@ -177,9 +177,9 @@ export const schema = makeSchema({
 
 All right, let’s understand what’s going on here by walking through the numbered comments:
 
-1. Your GraphQL schema will consist of many types that you will pass as an array to the `types` object. For now, it is intentionally kept empty.  
-2. The first output file that Nexus will generate for you is a GraphQL `schema` file of type `.graphql`. This is the GraphQL _Schema Definition Language_ (SDL) for defining the structure of your API. You will learn more about this later in the chapter!
-3. The second output file is a TypeScript file known as `typegen`, which will contain TypeScript type definitions for all types in your GraphQL schema. These generated types will help ensure typesafety in your application code and keep your GraphQL schema _definition_ in sync with your schema _implementation_. Again, more on this later. 
+- `// 1`: Your GraphQL schema will consist of many types that you will pass as an array to the `types` object. For now, it is intentionally kept empty.  
+- `// 2`: The first output file that Nexus will generate for you is a GraphQL `schema` file of type `.graphql`. This is the GraphQL _Schema Definition Language_ (SDL) for defining the structure of your API. You will learn more about this later in the chapter!
+- `// 3`: The second output file is a TypeScript file known as `typegen`, which will contain TypeScript type definitions for all types in your GraphQL schema. These generated types will help ensure typesafety in your application code and keep your GraphQL schema _definition_ in sync with your schema _implementation_. Again, more on this later. 
 
 Let's see what happens when we run this code. 
 
@@ -220,8 +220,8 @@ Add the `generate` and `dev` script to your `package.json`:
 ```
 </Instruction>
 
-1. You can run `npm run generate` to update your `schema.graphql` and `nexus-typegen.ts` file when there are any changes in your Nexus code.
-2. You can use `npm run dev` to start the web server and watch for any changes. 
+- You can run `npm run generate` to update your `schema.graphql` and `nexus-typegen.ts` file when there are any changes in your Nexus code.
+- You can use `npm run dev` to start the web server and watch for any changes. 
 
 ### Creating a GraphQL server
 
@@ -252,9 +252,8 @@ server.listen({port}).then(({ url }) => {
 
 Let's understand what's going on here by walking through the numbered comments: 
 
-1. The `schema` object you created using Nexus defines your [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e). You need to provide this when instantiating your server since that's how Apollo Server knows which API operations to support in the GraphQL API.
-
-2. You start the server and specify the port. After the server starts, it returns a `url` string inside a promise. 
+- `// 1`: The `schema` object you created using Nexus defines your [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e). You need to provide this when instantiating your server since that's how Apollo Server knows which API operations to support in the GraphQL API.
+- `// 2`: You start the server and specify the port. After the server starts, it returns a `url` string inside a promise. 
 
 Now that your server is ready let's give it a run and see what happens!
 

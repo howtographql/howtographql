@@ -98,9 +98,9 @@ const b: any = 1     // 2
 // @ts-ignore        // 3
 const c: number = "Not a number";
 ```
-1. TypeScript automatically infers the type of `a` as `number` since it is not explicitly provided. 
-2. Use `any` to effectively disable type-checking and allow any type. 
-3. Use `// @ts-ignore` before a line to ignore TypeScript compiler errors. 
+- `// 1`: TypeScript automatically infers the type of `a` as `number` since it is not explicitly provided. 
+- `// 2`: Use `any` to effectively disable type-checking and allow any type. 
+- `// 3`: Use `// @ts-ignore` before a line to ignore TypeScript compiler errors. 
 
 
 
