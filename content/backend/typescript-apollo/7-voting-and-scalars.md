@@ -261,7 +261,7 @@ You also need to update the `User` type.
 
 Add the `votes` field in the `User` type:
 
-```typescript{15-21}(path="../hackernews-typescript/src/graphql/Link.ts")
+```typescript{15-21}(path="../hackernews-typescript/src/graphql/User.ts")
 export const User = objectType({
     name: "User",
     definition(t) {
