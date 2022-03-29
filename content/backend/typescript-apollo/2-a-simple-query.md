@@ -325,5 +325,5 @@ The reason that these fields do not need explicit resolver implementations is th
 
 In fact, many other GraphQL libraries will also let you omit _trivial resolvers_ and will just assume that if a resolver isn't provided for a field, that a property of the same name should be read and returned.
 
-> **Note:** To learn more about trivial resolvers, check out the [GrahQL docs](https://graphql.org/learn/execution/#trivial-resolvers).
+> **Note:** To learn more about trivial resolvers, check out the [GraphQL docs](https://graphql.org/learn/execution/#trivial-resolvers).
 
