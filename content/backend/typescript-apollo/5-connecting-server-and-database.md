@@ -64,9 +64,8 @@ export const context: Context = {   // 2
 
 You're following a fairly standard TypeScript workflow here of defining a `type` or `interface` and then creating the object. Let's go through the numbered comments: 
 
-1. First you have defined the `Context` interface, which specifies what objects will be attached to the `context` object. Right now it's just an instance of `PrismaClient`, but this can change as the project grows. 
-
-2. You're exporting the `context` object, so that it can be imported and used by the GraphQL server.
+- `// 1`: First you have defined the `Context` interface, which specifies what objects will be attached to the `context` object. Right now it's just an instance of `PrismaClient`, but this can change as the project grows. 
+- `// 2`: You're exporting the `context` object, so that it can be imported and used by the GraphQL server.
 
 
 Now, you will configure Nexus to know the type of your GraphQL context by adjusting the configuration of `makeSchema` in `src/schema.ts.` 
@@ -92,8 +91,8 @@ export const schema = makeSchema({
 
 The two options you are passing to `contextType` are:
 
-1. Path to the file (also sometimes called a module) where the context interface (or type) is exported.
-2. Name of the exported interface in that module.
+- `// 1`: Path to the file (also sometimes called a module) where the context interface (or type) is exported.
+- `// 2`: Name of the exported interface in that module.
                                        
 
 Now, Nexus will ensure all `context` arguments match the `Context` interface 👌. There's just one thing left to do, add the context to our server. 
@@ -165,7 +164,7 @@ export const LinkMutation = extendType({
                 });
                 return newLink;
             },
-        });
+        });`
     },
 });
 
@@ -175,9 +174,8 @@ export const LinkMutation = extendType({
 
 Let's understand how these new resolvers are working:
 
-1. You find and return all the `Link` records in your database. To do this you are using the `PrismaClient` instance available through `context.prisma`.
-
-2. Similar to the `feed` resolver, you're simply invoking a function on the `PrismaClient` instance. You're calling the `create` method on the `Link` model from your Prisma Client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
+- `// 1`: You find and return all the `Link` records in your database. To do this you are using the `PrismaClient` instance available through `context.prisma`.
+- `// 2`: Similar to the `feed` resolver, you're simply invoking a function on the `PrismaClient` instance. You're calling the `create` method on the `Link` model from your Prisma Client API. As arguments, you're passing the data that the resolvers receive via the `args` parameter.
 
 
 > **Note:** Prisma queries return [`Promise`](https://nodejs.dev/learn/understanding-javascript-promises) objects as these are asynchronous. So in both resolvers you are returning a `Promise`. This is not a problem as Apollo Server is capable of detecting and automatically resolving any `Promise` object that is returned from resolver functions. 

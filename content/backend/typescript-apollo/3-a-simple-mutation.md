@@ -65,15 +65,11 @@ export const LinkMutation = extendType({  // 1
 
 Let's see what's going on with the numbered comments: 
 
-1. You're extending the `Mutation` type to add a new root field. You did something similar in the last chapter with the `Query` type.  
-
-2. The name of the mutation is defined as `post` and it returns a (non nullable) `link` object. 
-
-3. Here you define the arguments to your mutation. You can pass arguments to your GraphQL API endpoints (just like in REST). In this case, the two arguments you need to pass are `description` and `url`. Both arguments mandatory (hence the `nonNull()`) because both are needed to create a new `link`.  
-
-4. You're now using the second argument that’s passed into all resolver functions: `args`. Any guesses what it’s used for? ... Correct! 💡 It carries the arguments for the operation – in this case the `url` and `description` of the link to be created.
-
-5. `idCount` serves as a very rudimentary way to generate new `id` values for our `link` objects. Finally, you add your new `link` object to the `links` array and return the newly created object. 
+- `// 1`: You're extending the `Mutation` type to add a new root field. You did something similar in the last chapter with the `Query` type.  
+- `// 2`: The name of the mutation is defined as `post` and it returns a (non nullable) `link` object. 
+- `// 3`: Here you define the arguments to your mutation. You can pass arguments to your GraphQL API endpoints (just like in REST). In this case, the two arguments you need to pass are `description` and `url`. Both arguments mandatory (hence the `nonNull()`) because both are needed to create a new `link`.  
+- `// 4`: You're now using the second argument that’s passed into all resolver functions: `args`. Any guesses what it’s used for? ... Correct! 💡 It carries the arguments for the operation – in this case the `url` and `description` of the link to be created.
+- `// 5`: `idCount` serves as a very rudimentary way to generate new `id` values for our `link` objects. Finally, you add your new `link` object to the `links` array and return the newly created object. 
 
 Understand everything? Take some time if you need to. 
 
