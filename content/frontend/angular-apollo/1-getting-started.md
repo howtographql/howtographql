@@ -195,7 +195,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 </Instruction>
 
-![](http://imgur.com/ZBgeq22.png)
+![Clicking the play button](http://imgur.com/ZBgeq22.png)
 
 This creates two new `Link` records in the database. You can verify that the mutations worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
@@ -268,7 +268,7 @@ npm start # or yarn start
 
 This will open a browser and navigate to `http://localhost:4200` where the app is running. If everything went well, you'd see the following:
 
-![](http://i.imgur.com/9IUB9Qh.png)
+![Open a browser to localhost:4200](http://i.imgur.com/9IUB9Qh.png)
 
 <Instruction>
 
@@ -435,7 +435,7 @@ The first thing you have to do when using Apollo is to configure your `ApolloCli
 
 Open `src/app/apollo.config.ts` and add the following contents :
 
-```ts{3-7,11-14,18-19,21-24,25-30}(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
+```typescript{3-7,11-14,18-19,21-24,25-30}(path=".../hackernews-angular-apollo/src/app/apollo.config.ts")
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 // 1
@@ -487,7 +487,7 @@ Finally, we export the `GraphQLModule`.
 
 Open `src/app/app.module.ts` and import the GraphQLModule in AppModule:
 
-```ts{14}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
+```typescript{14}(path=".../hackernews-angular-apollo/src/app/app.module.ts")
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 

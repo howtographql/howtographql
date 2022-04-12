@@ -119,6 +119,38 @@ const authors: Author[] = [
     job: 'Open Source @ Formidable',
     name: 'Jovi & Phil from Formidable'
   },
+  {
+    avatar: require('../assets/graphics/contributors/robin.png'),
+    bio:
+      "Robin is a Full-Stack Software Engineer who also loves learning human foreign languages. He is the creator of the foreign-language journaling app, Journaly.com and also runs a language learning YouTube channel.",
+    link: 'https://www.robinmacpherson.co',
+    job: 'Software Engineer & Creator @ Journaly',
+    name: 'Robin MacPherson'
+  },
+  {
+    avatar: require('../assets/graphics/contributors/shayegan.jpg'),
+    bio:
+      "A software engineer who wants to share.",
+    link: 'https://twitter.com/glyphack',
+    job: 'Software engineer',
+    name: 'Shayegan Hooshyari'
+  },
+  {
+    avatar: require('../assets/graphics/contributors/dotan.jpeg'),
+    bio:
+      "Dotan is the CTO of The Guild.",
+    link: 'https://github.com/dotansimha',
+    job: 'CTO @ The Guild',
+    name: 'Dotan Simha'
+  },
+  {
+    avatar: require('../assets/graphics/contributors/tasin.jpg'),
+    bio:
+        "Tasin is a Backend Software Engineer interested in web development and machine learning. He loves learning and writing about exciting new technologies.",
+    job: 'Developer Success Engineer @ Prisma',
+    link: 'https://tasinishmam.com/',
+    name: 'Tasin Ishmam'
+  }
 ]
 
 export default keyBy(authors, 'name')

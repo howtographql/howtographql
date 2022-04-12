@@ -45,4 +45,4 @@ class Query(graphene.ObjectType):
 
 To test it, just pass the `search` argument to the query:
 
-![](https://i.imgur.com/JdUSjJx.png)
+![pass the search argument to the query](https://i.imgur.com/JdUSjJx.png)

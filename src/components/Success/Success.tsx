@@ -1,21 +1,21 @@
-import * as React from 'react'
-import { MarkdownRemark, Step } from '../../types'
-import Markdown from '../Tutorials/Markdown'
-import Result from './Result'
-import Share from './Share'
-import CheckoutGraphcool from './CheckoutGraphcool'
-import CustomHelmet from '../CustomHelmet'
+import * as React from 'react';
+import { MarkdownRemark, Step } from '../../types';
+import Markdown from '../Tutorials/Markdown';
+import Result from './Result';
+import Share from './Share';
+import CheckoutGraphcool from './CheckoutGraphcool';
+import CustomHelmet from '../CustomHelmet';
 
 interface Props {
-  post: MarkdownRemark
-  steps: { [key: string]: Step[] }
+  post: MarkdownRemark;
+  steps: { [key: string]: Step[] };
 }
 
 export default function Success({ post, steps }: Props) {
   return (
     <div>
       <style jsx={true}>{`
-        h1 {
+        h2 {
           @p: .fw6, .mb60;
         }
         .content {
@@ -34,10 +34,10 @@ export default function Success({ post, steps }: Props) {
       <Result steps={steps} />
       <Share />
       <div className="content">
-        <h1>{post.frontmatter.title}</h1>
+        <h2>{post.frontmatter.title}</h2>
         <Markdown html={post.html} steps={steps} />
       </div>
       <CheckoutGraphcool />
     </div>
-  )
+  );
 }

@@ -50,6 +50,6 @@ end
 
 All done!
 
-![](http://i.imgur.com/oZZnuMG.png)
+![Add skip and first to LinksSearch](http://i.imgur.com/oZZnuMG.png)
 
 In https://github.com/howtographql/graphql-ruby you can find the final project + a couple of further improvements 😺.

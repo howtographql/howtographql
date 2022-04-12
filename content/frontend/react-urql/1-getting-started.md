@@ -59,7 +59,7 @@ yarn start
 
 This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
 
-![](http://imgur.com/Yujwwi6.png)
+![Navigating to localhost:3000](http://imgur.com/Yujwwi6.png)
 
 <Instruction>
 
@@ -99,7 +99,7 @@ Your project structure should now look as follows:
 │   │   └── App.js
 │   ├── index.js
 │   ├── logo.svg
-│   ├── serviceWorker.js
+│   ├── reportWebVitals.js
 │   └── styles
 │       ├── App.css
 │       └── index.css
@@ -191,12 +191,12 @@ yarn add urql @urql/exchange-graphcache graphql graphql-tag
 
 Here's an overview of the packages you just installed:
 
-- [`urql`](https://github.com/FormidabLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
+- [`urql`](https://github.com/FormidableLabs/urql) offers the basic `urql` client which includes React hooks and components, and a basic document cache by default
 - [`@urql/exchange-graphcache`](https://github.com/FormidableLabs/urql-exchange-graphcache) is a replacement for `urql`'s default cache, which supports full normalized caching, which we'll set up later
 - [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - urql and its other packages use some of its functionality as well.
 - [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a utility to write GraphQL query definitions using [tagged template literals](https://mxstbr.blog/2016/11/styled-components-magic-explained/).
 
-> **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/architecture/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
+> **Note**: You can find more information on [how urql's Exchanges work in its docs](https://formidable.com/open-source/urql/docs/). Generally speaking, every GraphQL operation goes through a chain of middleware that can transform, filter, or fulfill them. Every core feature in urql including fetching, deduplication, and caching is implemented using Exchanges.
 
 That's it, you're ready to write some code! 🚀
 
@@ -317,20 +317,20 @@ You now have a new directory called `server` inside your project that contains a
 
 Before we start the server, let's quickly understand the main components:
 
-- `prisma`: This directory holds all the files that relate to your [Prisma](https://www.prisma.io) setup. The Prisma client is used to access the database in your GraphQL resolvers (similar to an ORM).
+- `prisma`: This directory holds all the files that relate to your [Prisma](https://www.prisma.io) setup.  Prisma Client is used to access the database in your GraphQL resolvers (similar to an ORM).
   - `prisma.yml` is the root configuration file for your Prisma project.
-  - `datamodel.prisma` defines your data model in the GraphQL [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). When using Prisma, the datamodel is used to describe the database schema.
+  - `datamodel.prisma` defines your data model in the GraphQL [Schema Definition Language](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL). When using Prisma, the datamodel is used to describe the database schema.
 - `src`: This directory holds the source files for your GraphQL server.
   - `schema.graphql` contains your **application schema**. The application schema defines the GraphQL operations you can send from the frontend. We'll take a closer look at this file in just a bit.
   - `generated/prisma-client` contains the auto-generated Prisma client, a type-safe database access library (similar to an ORM).
-  - `resolvers` contains the [_resolver functions_](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e#1880) for the operations defined in the application schema.
+  - `resolvers` contains the [_resolver functions_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e#resolvers-implement-the-api) for the operations defined in the application schema.
   - `index.js` is the entry point for your GraphQL server.
 
-From the mentioned files, only the application schema defined in `server/src/schema.graphql` is relevant for you as a frontend developer. This file contains the [GraphQL schema](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e) which defines all the operations (queries, mutations and subscriptions) you can send from your frontend app.
+From the mentioned files, only the application schema defined in `server/src/schema.graphql` is relevant for you as a frontend developer. This file contains the [GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) which defines all the operations (queries, mutations and subscriptions) you can send from your frontend app.
 
 Here is what it looks like:
 
-```graphql(path=".../hackernews-react-urql/server/src/schema.graphql"&nocopy)
+```graphql(path=".../react-apollo/blob/master/server/src/schema.graphql")
 # import Link, Vote, LinkSubscriptionPayload, VoteSubscriptionPayload from "./generated/prisma.graphql"
 
 type Query {
@@ -456,13 +456,13 @@ yarn start
 
 The `yarn start` executes the `start` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API.
 
-![](https://imgur.com/V1hp4ID.png)
+![carrying the authentication token](https://imgur.com/V1hp4ID.png)
 
 > A Playground is a "GraphQL IDE", providing an interactive environment that allows to send queries, mutations and subscriptions to your GraphQL API. It is similar to a tool like [Postman](https://www.getpostman.com) which you might know from working with REST APIs, but comes with a lot of additional benefits.
 
 The first thing to note about the Playground is that it has built-in documentation for its GraphQL API. This documentation is generated based on the GraphQL schema and can be opened by clicking the green **SCHEMA**-button on the right edge of the Playground. Consequently, it shows you the same information you saw in the application schema above:
 
-![](https://imgur.com/8xK81qt.png)
+![The GraphQL Playground](https://imgur.com/8xK81qt.png)
 
 The left pane of the Playground is the _editor_ that you can use to write your queries, mutations and subscriptions. Once you click the play button in the middle, your request is sent and the server's response will be displayed in the _results_ pane on the right.
 
@@ -500,7 +500,7 @@ Click the **Play**-button in the middle of the two panes and select each mutatio
 
 </Instruction>
 
-![](https://imgur.com/2GViJwb.png)
+![Clicking the play button to select the mutation](https://imgur.com/2GViJwb.png)
 
 This creates two new `Link` records in the database. You can verify that the mutations actually worked by sending the following query in the already open Playground:
 

@@ -57,6 +57,6 @@ This simply renders two links that users can use to navigate between the `/links
 
 That’s it. If you run `yarn start`, you can now access two URLs. `http://localhost:4200/` will render all links and `http://localhost:4200/create` renders the form to add a link component you just wrote in the previous section.
 
-![](http://i.imgur.com/zxf1Dfv.png)
+![Run yarn start to see the app at localhost:4200](http://i.imgur.com/zxf1Dfv.png)
 
 You've already integrated the redirect after creating a new link, so this section is super simple, but necessary!
