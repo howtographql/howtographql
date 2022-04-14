@@ -138,7 +138,7 @@ export * from "./User"
 
 </Instruction>
 
-Now, the `makeSchema` function in `schema.ts` will pick up on the new `User` type automatically. If your server is running in `dev` mode, your `schema.graphql` should be immidiately updated with the `User` type. You can also run `npm run generate` at any time to do this. This is what the type should look like: 
+Now, the `makeSchema` function in `schema.ts` will pick up on the new `User` type automatically. If your server is running in `dev` mode, your `schema.graphql` should be immediately updated with the `User` type. You can also run `npm run generate` at any time to do this. This is what the type should look like: 
 
 ```graphql(path="../hackernews-typescript/schema.graphql"&nocopy)
 type User {
