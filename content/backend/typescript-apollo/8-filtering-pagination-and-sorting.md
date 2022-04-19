@@ -380,6 +380,7 @@ export const Feed = objectType({
     definition(t) {
         t.nonNull.list.nonNull.field("links", { type: Link }); // 1
         t.nonNull.int("count"); // 2
+        t.id("id");  // 3
     },
 });
 ```
@@ -388,15 +389,17 @@ The `Feed` type will be used as the return type of the `feed` query. Let's take 
 
 - `// 1`: `links` is an array of `Link` type objects. This is infact the current return type of the `feed` query.
 - `// 2`: `count` is an integer that will mention the number of `links` available in the database that match the `feed` query criteria. This is important to have as when using the `take` pagination argument, the number of `links` _returned_ might be different from the number of links _available_ in the database. 
+- `// 3`: `id` is a field of type `ID`, which the built-in GraphQL type for unique identifiers. It is serialized and deserialized the same way as a `String` type. 
 
 
 </Instruction>
 
 The newly generated `Feed` type looks like this in your GraphQL schema:
 
-```graphql{1-4}(path="../hackernews-typescript/schema.graphql"&nocopy)
+```graphql{1-5}(path="../hackernews-typescript/schema.graphql"&nocopy)
 type Feed {
   count: Int!
+  id: ID
   links: [Link!]!
 }
 ```
@@ -405,7 +408,7 @@ type Feed {
 
 Now, adjust the `feed` query signature and resolver: 
 
-```typescript{4-5,12,21-35}(path="../hackernews-typescript/src/graphql/Link.ts")
+```typescript{4-5,12,21-38}(path="../hackernews-typescript/src/graphql/Link.ts")
 export const LinkQuery = extendType({
     type: "Query",
     definition(t) {
@@ -437,10 +440,12 @@ export const LinkQuery = extendType({
                 });
 
                 const count = await context.prisma.link.count({ where });  // 2
-
-                return {  // 3
+                const id = `main-feed:${JSON.stringify(args)}`;  // 3
+                  
+                return {  // 4
                     links,
                     count,
+                    id,
                 };
             },
         });
@@ -454,7 +459,8 @@ Let's see what has changed:
 
 - `// 1`: The return type of the `feed` query has been updated. It now returns a single non-nullable instance of the `Feed` type. 
 - `// 2`: Here, you are using the Prisma [`count` API](https://www.prisma.io/docs/concepts/components/prisma-client/aggregation-grouping-summarizing#count) to return the number of records in the database that match the current filtering condition. The `skip`, `take` and `orderBy` options are not relevant when finding the count, so they have been omitted in this query. 
-- `// 3`: The object returned by the `resolve` function has been updated to match the signature of the `Feed` type. 
+- `// 3`: You are generating a unique `id` for the `feed` query by serializing the input arguments provided to the query and adding it to the end of the identifier. This will ensure that for different arguments, the `feed` query will always generate different and unique identifiers. 
+- `// 4`: The object returned by the `resolve` function has been updated to match the signature of the `Feed` type. 
 
 Let's try the updated `feed` query: 
 
