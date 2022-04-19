@@ -375,8 +375,8 @@ additional definition of the `User` type is required because otherwise the schem
 What are the API operations that can be derived from this schema definition? Well, we know that each API operation
 always needs to start with a root field. However, we haven't learned yet what it looks like when the _type_ of a root
 field is itself another [object type](http://graphql.org/learn/schema/#object-types-and-fields). This is the case here,
-where the types of the root fields are `[User!]!`, `User` and `User!`. In the `info` example from before, the type of
-the root field was a `String`, which is a scalar type. 
+where the types of the root fields are `[User!]!`, `User` and `User!`. In the `ok` example from before, the type of
+the root field was a `Boolean`, which is a scalar type. 
 
 [Scalar types](http://graphql.org/learn/schema/#scalar-types) are the most basic types in a GraphQL schema, with no sub-fields of their own. They are similar to the primitive types in programming languages. GraphQL comes with a 5 default scalar types out of the box: `Int`, `Float`, `String`, `Boolean` and `ID`. It's also possible to define or import new custom scalar types, based on your application needs. This is something you will learn more about later in the tutorial. 
 
