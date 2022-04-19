@@ -187,7 +187,7 @@ call to `useQuery`.
 Still in `LinkList.js`, adjust the `useQuery` hook to accept
 the variables we want to pass to the query.
 
-```js{1,6-16,23-25}(path=".../hackernews-react-apollo/src/components/LinkList.js")
+```js{1,6-16,23-24}(path=".../hackernews-react-apollo/src/components/LinkList.js")
 import { useLocation } from 'react-router-dom';
 
 // ...
@@ -212,7 +212,6 @@ const LinkList = () => {
     subscribeToMore
   } = useQuery(FEED_QUERY, {
     variables: getQueryVariables(isNewPage, page),
-    fetchPolicy: "cache-and-network"  // see note for explanation
   });
 
   // ...
@@ -228,8 +227,6 @@ We're passing in an object as the second argument to
 document. We can use this object to modify the behavior of
 the query in various ways. One of the most common things we
 do with it is to provide `variables`.
-
-> **Note:** We made a small tweak to the caching policy of this query using the `fetchPolicy` option. This is to solve a [bug in pagination](https://github.com/howtographql/howtographql/issues/1360) with the current implementation. This is a temporary/stopgap solution, and the tutorial will be updated later to fix the underlying problem. 
 
 <Instruction>
 
