@@ -165,7 +165,7 @@ Implement the `resolve` function for the `vote` mutation:
 import { objectType, extendType, nonNull, intArg } from "nexus";
 import { User } from "@prisma/client";
 
-export const Vote = objectType({  // 1
+export const Vote = objectType({ 
     name: "Vote",
     definition(t) {
         t.nonNull.field("link", { type: "Link" });
