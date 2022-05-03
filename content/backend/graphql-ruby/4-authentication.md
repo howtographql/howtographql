@@ -99,7 +99,7 @@ Then create a mutation for creating a user:
 ```ruby(path=".../graphql-ruby/app/graphql/mutations/create_user.rb")
 module Mutations
   class CreateUser < BaseMutation
-    # often we will need input types for specific mutation
+    # often we will need input types for a specific mutation
     # in those cases we can define those input types in the mutation class itself
     class AuthProviderSignupData < Types::BaseInputObject
       argument :credentials, Types::AuthProviderCredentialsInput, required: false
