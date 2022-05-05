@@ -346,7 +346,7 @@ You'll need that object to be different in every request now though, since each 
 
 <Instruction>
 
-Thankfully, the [graphql gem](https://rubygems.org/gems/graphql) allows that you'll just have to change the auto-generated `graphql_controller.rb` to accomplish this:
+Thankfully, the [graphql gem](https://rubygems.org/gems/graphql) allows that. You'll just have to change the auto-generated `graphql_controller.rb` to accomplish this:
 
 ```ruby(path=".../graphql-ruby/app/controllers/graphql_controller.rb")
 class GraphqlController < ApplicationController
