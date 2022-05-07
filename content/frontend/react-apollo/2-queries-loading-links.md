@@ -261,4 +261,4 @@ That's it! You should see the exact same screen as before.
 > the server needs to run as well - so you have two running
 > processes in your terminal: One for the server and one for
 > the React app. To start the server, navigate into the
-> `server` directory and run `yarn start`.
+> `server` directory and run `yarn dev`.
