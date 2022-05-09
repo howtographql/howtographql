@@ -426,7 +426,7 @@ This is pretty straightforward since the generated token is so simple. Like was 
 
 <Instruction>
 
-Your server can now detect the user that triggered each GraphQL request. This could be useful in many situations. For example, the authenticated user should be exactly the one that posted a link being created with the `createLink` mutation. You can now store this information for each link.
+Your server can now detect the user that triggered each GraphQL request. This could be useful in many situations. For example, the authenticated user should be the exact same user that's posting a link being created with the `createLink` mutation. You can now store this information for each link.
 
 First run the following script:
 
