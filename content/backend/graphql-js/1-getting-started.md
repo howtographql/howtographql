@@ -193,7 +193,7 @@ field is, right?
 So, what happens if you return `null` instead of the actual informative string in the resolver implementation? Feel free
 to try that out!
 
-In `index.js`, update the the definition of `resolvers` as follows:
+In `index.js`, update the definition of `resolvers` as follows:
 
 ```js{3}(path=".../hackernews-node/src/index.js")
 const resolvers = {
