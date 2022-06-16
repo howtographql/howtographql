@@ -142,6 +142,10 @@ func InitDB() {
 	Db = db
 }
 
+func CloseDB() error {
+	return Db.Close()
+}
+
 func Migrate() {
 	if err := Db.Ping(); err != nil {
 		log.Fatal(err)
@@ -163,6 +167,7 @@ func Migrate() {
 
 `InitDB` Function creates a connection to our database and `Migrate` function runs migrations file for us.
 In `Migrate function we apply migrations just like we did with command line but with this function your app will always apply the latest migrations before start.
+`CloseDB` function is responsible to close database connection after application exists. We call this function with defer keyword to exceute it when main function finishes.
 
 Then call `InitDB` and `Migrate`(Optional) In main func to create database connection at the start of the app:
 
@@ -180,6 +185,7 @@ func main() {
 	router := chi.NewRouter()
 
 	database.InitDB()
+	defer database.CloseDB()
 	database.Migrate()
 	server := handler.NewDefaultServer(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}}))
 	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
