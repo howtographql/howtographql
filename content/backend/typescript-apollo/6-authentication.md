@@ -122,7 +122,7 @@ The field worth discussing is the one called `links`:
 
 - `// 1`: The `links` field is a non-nullable array of `Link` type objects. It represents all the `links` that have been posted by that particular user.  
 - `// 2`: The `links` field needs to implement a resolve function. Previously, you only needed to implement resolvers for fields in `Query` and `Mutation`. Since the resolver for the `links` field is non-trivial, meaning GraphQL can't infer it automatically as the `User` object returned from your database does not automatically contain the `links` type. So unlike the other fields in the `User` type, you need to explcitly define the `links` resolver. 
-- `// 3`: This is the Prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains the all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call. 
+- `// 3`: This is the Prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call. 
 
 > **Note:** If you're having a hard time understanding the theory behind the `parent` argument and non-trivial resolvers, you should review the topic at the end of [Chapter 2](../2-a-simple-query/).
 

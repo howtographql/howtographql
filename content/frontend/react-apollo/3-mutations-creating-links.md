@@ -169,7 +169,7 @@ const CreateLink = () => {
 </Instruction>
 
 When we use the `useMutation` hook, we need to destructure
-out a function that can be used to call the mutaton. That's
+out a function that can be used to call the mutation. That's
 what `createLink` is in the code block above. We're now free
 to call the function whenever we need to when the component
 renders.

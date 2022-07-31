@@ -52,7 +52,7 @@ Then, you're going to add a vote feature.
 
 Afterwards, you're going to learn about custom GraphQL scalars and how to add custom scalars to your application. 
 
-Then, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding sorting, filtering and pagination capabalities to it.
+Then, you'll allow the consumers of the API to constrain the list of items they retrieve from the API by adding sorting, filtering and pagination capabilities to it.
 
 Finally you will learn how to create a automatic deployment pipeline for the API to a cloud provider (Heroku) using GitHub Actions.
 
