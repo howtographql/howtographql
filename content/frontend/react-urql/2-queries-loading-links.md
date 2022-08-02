@@ -118,35 +118,34 @@ You could now simply execute this query in a [Playground](https://github.com/gra
 
 When using urql, you've got several ways of sending queries to the server. The React bindings for urql call methods on the Client that return a "stream" of results. These low-level methods are called `executeQuery`, `executeMutation`, and `executeSubscription`. The returned stream of results is implemented using the [Wonka library, which you can read more about on its site](https://wonka.kitten.sh/).
 
-A practical example of using these is a little longer than using the React bindings, but would look as follows:
+A slightly higher-level, programmatic API are the `query` and `mutation` methods on the Client. These allow you to pass in a GraphQL document and variables directly, without having to call urql's `createRequest` helper function. A practical example of using the `query` method looks as follows:
 
 ```js(nocopy)
-import { createRequest } from 'urql'
 import { pipe, subscribe } from 'wonka'
 
-const request = createRequest(gql`
-  {
-    feed {
-      links {
-        id
-      }
-    }
-  }
-`, {
-  // ... variables
-});
+const GET_FEED = gql`{ feed { links { id } } }`
 
 pipe(
-  client.executeQuery(request),
+  client.query(GET_FEED, { /* vars */ }),
   subscribe(response => {
     console.log(response.data.feed);
   })
 );
 ```
 
-> **Note**: `urql` is planned to expose helper methods on its Client that internally call `useRequest` for you eventually, but since it is primarily meant to be used with its React bindings, these methods haven't been implemented yet. Stay tuned!
+Here we're using Wonka to subscribe to the stream of results. However when you're using these programmatic methods for instance in Node.js, you may only be interested in one result. In this case you can convert the stream to a Promise!
 
-The more declarative way when using React however is to use [`urql`'s hook APIs](https://formidable.com/open-source/urql/docs/api/#react-components-and-hooks) to manage your GraphQL data just using components.
+```js(nocopy)
+const GET_FEED = gql`{ feed { links { id } } }`
+
+client.query(GET_FEED, { /* vars */ })
+  .toPromise()
+  .then(res => console.log(response.data.feed));
+```
+
+This is nice to quickly send some requests, but let's see how to send queries **in React**!
+
+The more declarative way when using React is to use [`urql`'s hook APIs](https://formidable.com/open-source/urql/docs/api/#react-components-and-hooks) to manage your GraphQL data just using components.
 
 Depending on whether you're using queries, mutations, or subscriptions there are three corresponding hooks: `useQuery`, `useMutation`, and `useSubscription`. All three also have corresponding components with render prop APIs.
 
