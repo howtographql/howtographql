@@ -51,7 +51,7 @@ class Resolvers::LinksSearch
   # scope is starting point for search
   scope { Link.all }
 
-  type types[Types::LinkType]
+  type [Types::LinkType]
 
   # inline input type definition for the advanced filter
   class LinkFilter < ::Types::BaseInputObject
