@@ -75,11 +75,11 @@ Let's consider the major change that's introduced with GraphQL in going from a r
 3. store data locally (either simply in memory or persistent)
 4. display data in the UI
 
-With the ideal *declarative data fetching* approach, a client shouldn't be doing more than the following two steps:
+With the ideal *declarative data fetching* approach, a client can be up and running with the following two steps:
 
 1. describe data requirements
 2. display data in UI
 
-All the lower-level networking tasks as well as storing the data should be abstracted away and the declaration of data dependencies should be the dominant part. 
+All the lower-level networking tasks as well as persistent storage of data should be abstracted away and the declaration of data dependencies should be the dominant part. 
 
 This is precisely what GraphQL client libraries like Relay or Apollo will enable you to do. They provide the abstraction that you need to be able to focus on the important parts of your application rather than having to deal with the repetitive implementation of infrastructure.
