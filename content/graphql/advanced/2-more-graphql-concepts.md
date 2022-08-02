@@ -10,7 +10,7 @@ correctAnswer: 3
 
 ### Enhancing Reusability with Fragments
 
-_Fragments_ are a handy feature to help to improve the structure and reusability of your GraphQL code. A fragment is a collection of fields on a specific type.
+_Fragments_ are a handy feature to help improve the structure and reusability of your GraphQL code. A fragment is a collection of fields on a specific type.
 
 Let's assume we have the following type:
 
