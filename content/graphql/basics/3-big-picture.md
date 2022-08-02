@@ -27,7 +27,7 @@ This architecture will be the most common for *greenfield* projects. In the setu
 
 It's important to note that GraphQL is actually *transport-layer agnostic*. This means it can potentially be used with any available network protocol. So, it is potentially possible to implement a GraphQL server based on TCP, WebSockets, etc.   
 
-GraphQL also doesn't care about the database or the format that is used to store the data. You could use a SQL database like [AWS Aurora](https://aws.amazon.com/rds/aurora) or a NoSQL database like [MongoDB](https://www.mongodb.com/). 
+GraphQL also doesn't care about the database or the format that is used to store the data. You could use a SQL database like [AWS Aurora](https://aws.amazon.com/rds/aurora) or a NoSQL database like [MongoDB](https://www.mongodb.com/). Newer databases like [FaunaDB](https://fauna.com/blog/getting-started-with-graphql-part-1-importing-and-querying-your-schema) include native GraphQL support, which means you don't have to write resolvers.
 
 ![GraphQL server with a connected database](https://imgur.com/cRE6oeb.png)
 *A standard greenfield architecture with one GraphQL server that connects to a single database.*
