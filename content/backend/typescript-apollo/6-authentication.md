@@ -512,7 +512,7 @@ Update `src/context.ts` to add the decoded JWT from the request header:
 
 ```typescript{2-3,9,12-22}(path=".../hackernews-typescript/src/context.ts")
 import { PrismaClient } from "@prisma/client";
-import { decodeAuthHeader, AuthTokenPayload } from "./utils/auth";   
+import { decodeAuthHeader } from "./utils/auth";   
 import { Request } from "express";  
 
 export const prisma = new PrismaClient();
