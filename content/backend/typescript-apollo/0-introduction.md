@@ -29,7 +29,7 @@ the following technologies:
 - [Prisma](https://www.prisma.io/): Next-generation Node.js and TypeScript ORM. You can use Prisma Client to access your database inside of
   GraphQL resolvers.
 
-
+> **Note**: This tutorial is slightly outdated. For an up-to-date tutorial, check out this one: [Build a Fully Type-Safe Application with GraphQL, Prisma & React](https://www.prisma.io/blog/series/e2e-typesafety-graphql-react-yiw81oBkun).
 
 ## What this tutorial will cover
 
@@ -130,5 +130,6 @@ That said at no time should you feel _frustrated_. If things just aren't working
 Note that there is a GitHub repository at https://github.com/howtographql/typescript-apollo/ containing the finished code you will build in this tutorial. You can always check this out if you get stuck during the tutorial.
 
 
-
 Alright, let's get started 🚀
+
+> **Note**: This tutorial is slightly outdated. For an up-to-date tutorial, check out this one: [Build a Fully Type-Safe Application with GraphQL, Prisma & React](https://www.prisma.io/blog/series/e2e-typesafety-graphql-react-yiw81oBkun).
