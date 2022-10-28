@@ -37,6 +37,8 @@ the following technologies:
     highlighting.
   - Lets you easily share your API operations.
 
+> **Note**: This tutorial is slightly outdated. For an up-to-date tutorial, check out this one: [Build a Fully Type-Safe Application with GraphQL, Prisma & React](https://www.prisma.io/blog/series/e2e-typesafety-graphql-react-yiw81oBkun).
+
 ### What to expect
 
 The goal of this tutorial is to build an API for a [Hacker News](https://news.ycombinator.com/) clone. Here is a quick
