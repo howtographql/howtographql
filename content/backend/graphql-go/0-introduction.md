@@ -26,7 +26,7 @@ A GraphQL server is able to receive requests in GraphQL Query Language format
 and return response in desired form. GraphQL is a query language for API so you
 can send queries and ask for what you need and exactly get that piece of data.
 In this sample query we are looking for address, title of the links and name of
-the user who add it:
+the user who added it:
 
 ```
 query {
