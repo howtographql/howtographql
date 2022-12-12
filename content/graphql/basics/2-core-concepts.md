@@ -1,7 +1,7 @@
 ---
 title: Core Concepts
 pageTitle: GraphQL Core Concepts Tutorial
-description: "Learn about the basic GraphQL language concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema & SDL. Try them out in your own sandbox."
+description: "Learn about the basic GraphQL language concepts, such as Queries, Mutations, Subscriptions and the GraphQL Schema & SDL."
 question: "What are GraphQL subscriptions used for?"
 answers: ["Event-based realtime functionality", "Schema-based realtime functionality", "You use them to subscribe to the GraphQL Weekly newsletter", "They combine Queries and Mutations and allow you to read and write data"]
 correctAnswer: 0
@@ -9,11 +9,11 @@ videoId: NeQfq0U5LnI
 duration: 15
 ---
 
-In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. We also prepared a sandbox environment for you, based on [graphql-up](https://www.npmjs.com/package/graphql-up), that you can use to experiment with what you learn.  
+In this chapter, you'll learn about some fundamental language constructs of GraphQL. That includes a first glimpse at the syntax for defining _types_ as well as sending _queries_ and _mutations_. 
 
 ### The Schema Definition Language (SDL)
 
-GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://blog.graph.cool/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL).
+GraphQL has its own type system that’s used to define the _schema_ of an API. The syntax for writing schemas is called [Schema Definition Language](https://www.prisma.io/blog/graphql-sdl-schema-definition-language-6755bcb9ce51) (SDL).
 
 Here is an example of how we can use the SDL to define a simple type called `Person`:
 
@@ -55,11 +55,11 @@ The approach that’s taken in GraphQL is radically different. Instead of having
 
 That means that the client needs to send more *information* to the server to express its data needs - this information is called a *query*.
 
+**Note**: Unfortunately, we no longer provide the *Run in Sandbox* feature that is demonstrated in the video at 13:50. We are really sorry for the inconvenience.
+
 #### Basic Queries
 
 Let’s take a look at an example query that a client could send to a server:
-
-<Playground height="200">
 
 ```graphql(nocopy)
 {
@@ -68,8 +68,6 @@ Let’s take a look at an example query that a client could send to a server:
   }
 }
 ```
-
-</Playground>
 
 The `allPersons` field in this query is called the _root field_ of the query. Everything that follows the root field, is called the _payload_ of the query. The only field that's specified in this query's payload is `name`.
 
@@ -89,8 +87,6 @@ Notice that each person only has the `name` in the response, but the `age` is no
 
 If the client also needed the persons' `age`, all it has to do is slightly adjust the query and include the new field in the query’s payload:
 
-<Playground>
-
 ```graphql
 {
   allPersons {
@@ -100,11 +96,7 @@ If the client also needed the persons' `age`, all it has to do is slightly adjus
 }
 ```
 
-</Playground>
-
 One of the major advantages of GraphQL is that it allows for naturally querying *nested* information. For example, if you wanted to load all the `posts` that a `Person` has written, you could simply follow the structure of your types to request this information:
-
-<Playground>
 
 ```graphql
 {
@@ -118,14 +110,9 @@ One of the major advantages of GraphQL is that it allows for naturally querying 
 }
 ```
 
-</Playground>
-
-
 #### Queries with Arguments
 
 In GraphQL, each *field* can have zero or more arguments if that's specified in the *schema*. For example, the `allPersons` field could have a `last` parameter to only return up to a specific number of persons. Here's what a corresponding query would look like:
-
-<Playground>
 
 ```graphql(nocopy)
 {
@@ -134,8 +121,6 @@ In GraphQL, each *field* can have zero or more arguments if that's specified in 
   }
 }
 ```
-
-</Playground>
 
 ### Writing Data with Mutations
 
@@ -147,8 +132,6 @@ Next to requesting information from a server, the majority of applications also 
 
 Mutations follow the same syntactical structure as queries, but they always need to start with the `mutation` keyword. Here’s an example for how we might create a new `Person`:
 
-<Playground>
-
 ```graphql(nocopy)
 mutation {
   createPerson(name: "Bob", age: 36) {
@@ -157,8 +140,6 @@ mutation {
   }
 }
 ```
-
-</Playground>
 
 Notice that similar to the query we wrote before, the mutation also has a _root field_ - in this case it's called `createPerson`. We also already learned about the concepts of arguments for fields. In this case, the `createPerson` field takes two arguments that specify the new person's `name` and `age`.
 
@@ -185,8 +166,6 @@ type Person {
 
 Now, when a new `Person` is created, you could directly ask for the `id` in the payload of the mutation, since that is information that wasn’t available on the client beforehand:
 
-<Playground>
-
 ```graphql(nocopy)
 mutation {
   createPerson(name: "Alice", age: 36) {
@@ -194,9 +173,6 @@ mutation {
   }
 }
 ```
-
-</Playground>
-
 
 ### Realtime Updates with Subscriptions
 
@@ -279,10 +255,13 @@ Putting it all together, this is the _full_ schema for all the queries and mutat
 ```graphql(nocopy)
 type Query {
   allPersons(last: Int): [Person!]!
+  allPosts(last: Int): [Post!]!
 }
 
 type Mutation {
   createPerson(name: String!, age: Int!): Person!
+  updatePerson(id: ID!, name: String!, age: String!): Person!
+  deletePerson(id: ID!): Person!
 }
 
 type Subscription {
@@ -290,6 +269,7 @@ type Subscription {
 }
 
 type Person {
+  id: ID!
   name: String!
   age: Int!
   posts: [Post!]!
@@ -305,6 +285,6 @@ type Post {
 
 To learn more about the core concepts in GraphQL, be sure to check out the following article series:
 
-- [GraphQL Server Basics (Part I): GraphQL Schemas, TypeDefs & Resolvers Explained](https://blog.graph.cool/graphql-server-basics-the-schema-ac5e2950214e)
-- [GraphQL Server Basics (Part II): The Network Layer](https://blog.graph.cool/graphql-server-basics-the-network-layer-51d97d21861)
-- [GraphQL Server Basics (Part III): Demystifying the `info` argument in GraphQL resolvers](https://blog.graph.cool/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a)
+- [GraphQL Server Basics (Part I): GraphQL Schemas, TypeDefs & Resolvers Explained](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e)
+- [GraphQL Server Basics (Part II): The Network Layer](https://www.prisma.io/blog/graphql-server-basics-the-network-layer-51d97d21861)
+- [GraphQL Server Basics (Part III): Demystifying the `info` argument in GraphQL resolvers](https://www.prisma.io/blog/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a)

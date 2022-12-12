@@ -113,7 +113,7 @@ Select the *Integrations*-tab in the left side-menu and then click on the *Email
 
 </Instruction>
 
-![](http://i.imgur.com/25iMZtf.png)
+![The integrations tab](http://i.imgur.com/25iMZtf.png)
 
 This will open the popup that allows you to enable the Graphcool’s email-based authentication mechanism.
 

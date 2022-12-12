@@ -10,7 +10,7 @@ Any good server should be able to handle errors well. Otherwise, it becomes hard
 
 In fact, if you try right now to send an invalid request to the server, such as a request with a field that doesn't exist, you'll already get a pretty good error message back. For example:
 
-![](https://i.imgur.com/kHTelsi.png)
+![Request with a field that doesn't exist error](https://i.imgur.com/kHTelsi.png)
 
 ### Application errors
 
@@ -68,7 +68,7 @@ end
 
 Now when you try to submit a link with invalid arguments you get an error.
 
-![](http://i.imgur.com/e5ZgK9c.png)
+![a link with invalid arguments you get an error](http://i.imgur.com/e5ZgK9c.png)
 
 
 *You can learn more about GraphQL errors [here](http://blog.rstankov.com/graphql-mutations-and-form-errors/).*

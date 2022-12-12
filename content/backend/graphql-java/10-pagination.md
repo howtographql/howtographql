@@ -62,9 +62,9 @@ Note that the parameter type for both *must* be `Number` because `graphql-java-t
 
 Wasn't that easy? Jump back to GraphiQL and paginate away!
 
-![](http://i.imgur.com/ln7Ltgv.png)
-![](http://i.imgur.com/Vm4TZQd.png)
+![Jump back to GraphiQL and paginate away 1](http://i.imgur.com/ln7Ltgv.png)
+![Jump back to GraphiQL and paginate away 2](http://i.imgur.com/Vm4TZQd.png)
 
 You can still, of course, get all links:
 
-![](http://i.imgur.com/pCd1e4j.png)
+![Jump back to GraphiQL and paginate away 3](http://i.imgur.com/pCd1e4j.png)

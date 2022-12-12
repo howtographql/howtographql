@@ -19,7 +19,7 @@ Once more, you first need to prepare the Angular components for this new functio
 
 Open `src/app/app.routing.ts` and adjust the routes like so:
 
-```ts{13-27}(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
+```typescript{13-27}(path=".../hackernews-angular-apollo/src/app/app.routing.ts")
 routes: Routes = [
   {
     path: '',
@@ -100,7 +100,7 @@ We need to add quite a bit of logic to the `LinkListComponent` to account for th
 
 Open `src/app/graphql.ts` and add three arguments to the `AllLinksQuery` by replacing the `ALL_LINKS_QUERY` definition with the following. Note that you are also adding the `count` property from `_allLinksMeta` so that you have access to the count of links:
 
-```ts(path=".../hackernews-angular-apollo/src/app/graphql.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/graphql.ts")
 export const ALL_LINKS_QUERY = gql`
   query AllLinksQuery($first: Int, $skip: Int, $orderBy: LinkOrderBy) {
     allLinks(first: $first, skip: $skip, orderBy: $orderBy) {
@@ -143,7 +143,7 @@ You need to update the references to this query in the `CreateLink` component.
 
 Open `src/app/create-link/create-link.component.ts` and update the `update` callback within the mutation to look like this:
 
-```ts{47-51,57-61}(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
+```typescript{47-51,57-61}(path=".../hackernews-angular-apollo/src/app/create-link/create-link.component.ts")
 update: (store, { data: { createLink } }) => {
         const data: any = store.readQuery({
           query: ALL_LINKS_QUERY,
@@ -175,7 +175,7 @@ Here you are merely adding the variables that this query now expects.
 
 Next, open `src/app/link-list/link-list.component.ts` and update `watchQuery` function call:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
     // 0
     const pageParams$: Observable<number> = this.route.paramMap
       .map((params) => {
@@ -254,7 +254,7 @@ You also need to define the `LINKS_PER_PAGE` constant and then import it into th
 
 Open `src/app/constants.ts` and add the following definition:
 
-```ts(path=".../hackernews-angular-apollo/src/app/constants.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/constants.ts")
 export const LINKS_PER_PAGE = 5;
 ```
 
@@ -264,7 +264,7 @@ export const LINKS_PER_PAGE = 5;
 
 Still in the `LinkListComponent`, add the following variables:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
   first$: Observable<number>;
   skip$: Observable<number>;
   orderBy$: Observable<string | null>;
@@ -277,7 +277,7 @@ Still in the `LinkListComponent`, add the following variables:
 
 Now add an import statement from `../app/constants` in `src/app/link-list/link-list.component.ts`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 import { LINKS_PER_PAGE } from '../app/constants';
 ```
 
@@ -289,7 +289,7 @@ You also need to map `linksPerPage` to `LINKS_PER_PAGE` in `src/app/link-list/li
 
 Add a `linksPerPage` property to the `LinkListComponent`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
   linksPerPage = LINKS_PER_PAGE;
 ```
 
@@ -329,7 +329,7 @@ Since you added `pageNumber` as one of the `Input` on `hn-link-item`, you now ne
 
 Open `src/app/link-item/link-item.component.ts` and add the `pageNumber` `Input`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.ts")
   @Input()
   pageNumber: number = 0;
 ```
@@ -362,7 +362,7 @@ npm install --save lodash
 
 Now, in `src/app/link-list/link-list.component.ts`, import `lodash`:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 import _ from 'lodash'
 ```
 
@@ -372,7 +372,7 @@ import _ from 'lodash'
 
 Still in `src/app/link-list/link-list.component.ts`, add the `orderedLinks` getter and implement it as following :
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 get orderedLinks(): Observable<Link[]> {
     return this.route.url
       .map((segments) => segments.toString())
@@ -392,7 +392,7 @@ get orderedLinks(): Observable<Link[]> {
 
 Still in `src/app/link-list/link-list.component.ts` there are four more `getter` properties you need to add as follows:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
   get isFirstPage(): Observable<boolean> {
     return this.route.paramMap
       .map((params) => {
@@ -427,7 +427,7 @@ You also need to add a `count` property to the `LinkListComponent`.
 
 Still in `src/app/link-list/link-list.component.ts` add `count` property and initialize it to 0:
 
-```ts{4}(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript{4}(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
   count = 0;
 ```
 
@@ -439,7 +439,7 @@ Next, you'll implement the functionality for the _Previous_- and _Next_-buttons.
 
 In `src/app/link-list/link-list.component.ts`, add the following two methods that will be called when the buttons are pressed:
 
-```ts(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
+```typescript(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
 nextPage () {
   const page = parseInt(this.$route.params.page, 10)
   if (page < this.count / LINKS_PER_PAGE) {

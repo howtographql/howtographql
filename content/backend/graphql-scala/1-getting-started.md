@@ -120,7 +120,7 @@ Our server extends an `App` trait so SBT can find it and run when you'll use `sb
 
 At the 2nd point, there is defined port number we want to use, you could choose it during project initialization.
 
-What is worth pointing out here: In our example I use [Spray JSON](https://github.com/spray/spray-json) library for marshalling and unmarshalling JSON objects, but it isn't obligatory for you. You can use whatever JSON library you want. [On this page](http://sangria-graphql.org/download/) you can find which JSON libraries Sangria can play with.
+What is worth pointing out here: In our example I use [Spray JSON](https://github.com/spray/spray-json) library for marshalling and unmarshalling JSON objects, but it isn't obligatory for you. You can use whatever JSON library you want. [On this page](https://sangria-graphql.github.io/) you can find which JSON libraries Sangria can play with.
 
 ### Database configuration
 

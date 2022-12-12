@@ -175,7 +175,7 @@ Click the _Play_-button in the middle of the two panes and select each mutation 
 
 </Instruction>
 
-![](http://imgur.com/ZBgeq22.png)
+![Click the Play button](http://imgur.com/ZBgeq22.png)
 
 This creates two new `Link` records in the database. You can verify that the mutations actually worked by either viewing the currently stored data in the [data browser](https://www.graph.cool/docs/reference/console/data-browser-och3ookaeb/) (simply click _DATA_ in the left side-menu) or by sending the following query in the already open Playground:
 
@@ -248,7 +248,7 @@ yarn start
 
 This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
 
-![](http://imgur.com/Yujwwi6.png)
+![Navigating to localhost:3000](http://imgur.com/Yujwwi6.png)
 
 <Instruction>
 
@@ -377,7 +377,7 @@ Next, you need to pull in the functionality of Relay into your project. In parti
 3. [`babel-plugin-relay`](https://github.com/facebook/relay/tree/master/packages/babel-plugin-relay): Relay leverages a [Babel](https://babeljs.io/) plugin to transform the GraphQL code you write in a project and bring it into the right format for the Relay Compiler. Read more about it in the [official docs](https://facebook.github.io/relay/docs/babel-plugin-relay.html).
 
 
-> [Here](https://github.com/facebook/relay/blob/master/packages/ARCHITECTURE.md) is high-level overview on the architecture used for Relay Modern.
+> [Here](https://github.com/facebook/relay/tree/master/packages) is high-level overview on the architecture used for Relay Modern.
 
 <Instruction>
 

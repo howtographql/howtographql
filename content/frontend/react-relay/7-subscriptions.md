@@ -19,8 +19,6 @@ Events usually refer to mutations, so typically we're talking about events where
 
 Subscriptions are somewhat different from queries and mutations, since they don't follow a _request-response-cycle_ but instead represent a _stream_ of data. The most common way to implement subscriptions is by using WebSockets, where the server maintains a steady connection to the subscribed clients that it uses to send over the data upon each event.
 
-To get a feeling for how subscriptions work, you can also directly try them out in a [Playground](https://www.graph.cool/blog/2017-02-28-introducing-graphql-subscriptions-in4ohtae4e/#subscriptions-workflow-using-the-playground)!
-
 
 ### Subscriptions with Relay Modern
 
@@ -41,7 +39,7 @@ Graphcool generally exposes two different GraphQL APIs whose type definitions sl
 
 Currently, subscriptions are only supported for the Simple API. However, you can still use subscriptions with the Relay API by making some manual adjustments to the `schema.graphql` which you feed into the `relay-compiler`. 
 
-Notice that we already did these manual adjustments for you and you already have them in your project as you imported the project from [this URL](https://graphqlbin.com/hn-relay-full.graphql) in chapter 3. If you're interested in what these changes actually look like, take a look at the `Subscription` type in `schema.grahpql`. 
+Notice that we already did these manual adjustments for you and you already have them in your project as you imported the project from [this URL](https://graphqlbin.com/hn-relay-full.graphql) in chapter 3. If you're interested in what these changes actually look like, take a look at the `Subscription` type in `schema.graphql`. 
 
 ### Configuring the Relay Environment
 
@@ -240,7 +238,7 @@ relay-compiler --src ./src --schema schema.graphql
 
 All right, you can now run the app with `yarn start` to test your subscription. The best way to test subscriptions is to use two different windows (or simply tabs) that are both running the app. If you then submit a vote in one window, the app should automatically update in the second window as well. 🎉
 
-![](http://imgur.com/Rp4lYBS.gif)
+![Run the app with yarn start](http://imgur.com/Rp4lYBS.gif)
 
 
 

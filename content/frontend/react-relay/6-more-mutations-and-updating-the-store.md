@@ -167,7 +167,7 @@ relay-compiler --src ./src --schema ./schema.graphql
 
 You can now run the app again and will see the links being rendered with the additional information that you just added!
 
-![](http://imgur.com/eHaPg3L.png)
+![Run the app again to see the links](http://imgur.com/eHaPg3L.png)
 
 Let's now move on and implement the upvote mutation!
 
@@ -377,6 +377,6 @@ relay-compiler --src ./src --schema ./schema.graphql
 
 Fantastic! If you run the app you'll be able to vote on the different links that have been posted. 👏
 
-![](http://imgur.com/RUBwP7H.png)
+![View the links that have been posted](http://imgur.com/RUBwP7H.png)
 
 The app is getting into shape!

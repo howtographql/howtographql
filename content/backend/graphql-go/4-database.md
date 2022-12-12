@@ -1,19 +1,20 @@
 ---
 title: Database
-pageTitle: "Building a GraphQL Server with Go Backend Tutorial"
+pageTitle: "Building a GraphQL Server with Go Backend Tutorial | Database "
 description: "Setup mysql db with migrations in golang"
 ---
 
 Before we jump into implementing GraphQL schema we need to setup database to save users and links, This is not supposed to be tutorial about databases in go but here is what we are going to do:
-* setup MySQL
-* define our models and create migrations
+* Setup MySQL
+* Create MySQL database
+* Define our models and create migrations
 
 ## Setup MySQL <a name="setup-mysql"></a>
-If you have docker you can run [Mysql image]((https://hub.docker.com/_/mysql)) from docker and use it.
+If you have docker you can run [Mysql image](https://hub.docker.com/_/mysql) from docker and use it.
 
 <Instruction>
 
-`docker run --name mysql -e MYSQL_ROOT_PASSWORD=dbpass -d mysql:latest`
+`docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=dbpass -e MYSQL_DATABASE=hackernews -d mysql:latest`
 now run `docker ps` and you should see our mysql image is running:
 ```
 CONTAINER ID        IMAGE                                                               COMMAND                  CREATED             STATUS              PORTS                  NAMES
@@ -21,22 +22,33 @@ CONTAINER ID        IMAGE                                                       
 
 ```
 
-</Instruction>
+## Create MySQL database <a name="create-mysql-database"></a>
+You have already started `mysql` instance in the previous step. Now we will need to create our `hackernews` database in that instance.
+To create the database run these commands.
 
 <Instruction>
 
-Now create a database for our application:
-```bash
-docker exec -it mysql bash
-mysql -u root -p
-CREATE DATABASE hackernews;
-```
+`docker exec -it mysql bash`
+
+It will open the bash terminal inside `mysql` instance.
+
+
+In the next step we will open `mysql` repl as the root user:
+
+`mysql -u root -p`
+
+
+It will ask you for root password, enter `dbpass` and enter.
+
+Now we are inside `mysql` repl. To create the database, run this command:
+
+`CREATE DATABASE hackernews;`
 
 </Instruction>
 
 ## Models and migrations <a name="models-and-migrations"></a>
 We need to create migrations for our app so every time our app runs it creates tables it needs to work properly, we are going to use [golang-migrate](https://github.com/golang-migrate/migrate) package.
-create a folder structure for our database files:
+Create a folder structure for our database files in the project root directory:
 ```
 go-graphql-hackernews
 --internal
@@ -51,7 +63,7 @@ Install go mysql driver and golang-migrate packages then create migrations:
 
 ```
 go get -u github.com/go-sql-driver/mysql
-go build -tags 'mysql' -ldflags="-X main.Version=$(git describe --tags)" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/cmd/migrate
+go build -tags 'mysql' -ldflags="-X main.Version=1.0.0" -o $GOPATH/bin/migrate github.com/golang-migrate/migrate/v4/cmd/migrate/
 cd internal/pkg/db/migrations/
 migrate create -ext sql -dir mysql -seq create_users_table
 migrate create -ext sql -dir mysql -seq create_links_table
@@ -60,7 +72,7 @@ migrate create -ext sql -dir mysql -seq create_links_table
 </Instruction>
 
 migrate command will create two files for each migration ending with .up and .down; up is responsible for applying migration and down is responsible for reversing it.
-open `create_users_table.up.sql` and add table for our users:
+open `000001_create_users_table.up.sql` and add table for our users:
 
 <Instruction>
 
@@ -75,7 +87,7 @@ CREATE TABLE IF NOT EXISTS Users(
 
 </Instruction>
 
-in `create_links_table.up.sql`:
+in `000002_create_links_table.up.sql`:
 
 <Instruction>
 
@@ -92,10 +104,10 @@ CREATE TABLE IF NOT EXISTS Links(
 
 </Instruction>
 
-We need one table for saving links and one table for saving users, Then we apply these to our database using migrate command.
+We need one table for saving links and one table for saving users, Then we apply these to our database using migrate command. Run this command in your project root directory.
 
 ```bash
-  migrate -database mysql://root:dbpass@(172.17.0.2:3306)/hackernews -path internal/pkg/db/migrations/mysql up
+  migrate -database mysql://root:dbpass@/hackernews -path internal/pkg/db/migrations/mysql up
 ```
 
 Last thing is that we need a connection to our database, for this we create a mysql.go under mysql folder(We name this file after mysql since we are now using mysql and if we want to have multiple databases we can add other folders) with a function to initialize connection to database for later use.
@@ -118,7 +130,8 @@ import (
 var Db *sql.DB
 
 func InitDB() {
-	db, err := sql.Open("mysql", "root:dbpass@(172.17.0.2:3306)/hackernews")
+	// Use root:dbpass@tcp(172.17.0.2)/hackernews, if you're using Windows.
+	db, err := sql.Open("mysql", "root:dbpass@tcp(localhost)/hackernews")
 	if err != nil {
 		log.Panic(err)
 	}
@@ -127,6 +140,10 @@ func InitDB() {
  		log.Panic(err)
 	}
 	Db = db
+}
+
+func CloseDB() error {
+	return Db.Close()
 }
 
 func Migrate() {
@@ -150,26 +167,32 @@ func Migrate() {
 
 `InitDB` Function creates a connection to our database and `Migrate` function runs migrations file for us.
 In `Migrate function we apply migrations just like we did with command line but with this function your app will always apply the latest migrations before start.
+`CloseDB` function is responsible to close database connection after application exists. We call this function with defer keyword to execute it when main function finishes.
 
-Then call `InitDB` and `Migrate`(Optional) In main func to create database connection at the start of the app:
+Then call `InitDB` and `Migrate`(Optional) in main func to create database connection at the start of the app:
 
 <Instruction>
 
+`server.go`:
 ```go
+
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
-	database.InitDB()
-	database.Migration()
+	router := chi.NewRouter()
 
-	http.Handle("/", handler.Playground("GraphQL playground", "/query"))
-	http.Handle("/query", handler.GraphQL(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}})))
+	database.InitDB()
+	defer database.CloseDB()
+	database.Migrate()
+	server := handler.NewDefaultServer(hackernews.NewExecutableSchema(hackernews.Config{Resolvers: &hackernews.Resolver{}}))
+	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	router.Handle("/query", server)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
 
 ```

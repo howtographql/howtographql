@@ -168,7 +168,7 @@ const FEED_QUERY = gql`
 
 All you do here is include information about the user who posted a link as well as information about each link's votes in the query's payload. You can now run the app again and the links will be ddisplayed properly.
 
-![](https://imgur.com/tKzj3b5.png)
+![Include info on the user](https://imgur.com/tKzj3b5.png)
 
 > **Note**: If you're not able to fetch the links, restart the server and reload the browser. You could also check if everything is working as expected on `GraphQL Playground`!
 
@@ -235,7 +235,7 @@ const Link = ({ index, link }) => {
 
 This step should feel pretty familiar by now. You're adding the new mutation inside of your component by adding the `useMutation` hook. You're also passing the `linkId` variable to `executeMutation`, since it's required by the `VoteMutation`'s definition.
 
-You can now go ahead and test this! Run `yarn start` in `hackernews-react-urql`, make sure that you're logged in, then click the upvote button on a link. You should then see the link's upvote number update automagically!
+You can now go ahead and test this! Run `yarn start` in `hackernews-react-urql`, make sure that you're logged in, then click the upvote button on a link. You should then see the link's upvote number update automatically!
 
 > **Remember**: We haven't set up any configuration for `@urql/exchange-graphcache` yet, but since it's a normalized cache, it knows that the link it receives back from the mutation needs to also be updated on the feed query!
 
@@ -359,7 +359,7 @@ Open `Header.js` and put a new `Link` between `new` and `submit`:
 
 You can now navigate to the search feature using the "search" button in the `Header`:
 
-![](http://imgur.com/XxPdUvo.png)
+![See the search functionality in the Header component](http://imgur.com/XxPdUvo.png)
 
 ### The Search Query
 

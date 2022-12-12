@@ -17,7 +17,7 @@ Install this generator:
 ```bash
 mix local.hex --force && \
 mix local.rebar --force && \
-mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+mix archive.install hex phx_new
 ```
 
 </Instruction>
@@ -35,7 +35,7 @@ You're going to build an app called Community, and you can think of it as a mini
 Use the `phx.new` generator (confirm with `y` when prompted):
 
 ```bash
-mix phx.new community --no-brunch --no-html
+mix phx.new community --no-assets --no-html
 ```
 
 </Instruction>
@@ -44,9 +44,9 @@ Say `y` to the question about fetching and installing dependencies, and then cd 
 
 In order to support GraphQL your application needs some additional dependencies which are configured in the `mix.exs` file. They go inside the list found within the `defp deps do` function:
 
-```elixir(path=".../graphql-elixir/mix.exs")
-{:absinthe_ecto, "~> 0.1.0"},
-{:absinthe_plug, "~> 1.3.0"},
+```elixir(path=".../graphql-elixir/blob/master/mix.exs")
+{:absinthe, "~> 1.6"},
+{:absinthe_plug, "~> 1.5"}
 ```
 
 <Instruction>

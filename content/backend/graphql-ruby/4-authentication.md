@@ -57,7 +57,7 @@ gem 'bcrypt', '~> 3.1.13'
 Then run:
 
 ```bash
-bundle update
+bundle install
 ```
 
 </Instruction>
@@ -140,18 +140,51 @@ end
 
 Now, you can create a new user using [GraphiQL](https://github.com/graphql/graphiql):
 
-![](https://i.imgur.com/J3OeMk4.png)
+<!-- ![Creating a new user](https://i.imgur.com/J3OeMk4.png) -->
+
+**Input:**
+
+```graphql
+mutation {
+  createUser(
+    name: "Test User",
+    authProvider: {
+      credentials: {
+        email: "email@example.com",
+        password: "123456"
+      }
+  	}
+  ) {
+    id
+    name
+    email
+  }
+}
+```
+**Output:**
+
+```graphql
+{
+  "data": {
+    "createUser": {
+      "id": "1",
+      "name": "Test User",
+      "email": "email@example.com"
+    }
+  }
+}
+```
 
 <Instruction>
 
-Here is how the unit test for your mutation is going to look like:
+Here is how the unit test for your mutation will look:
 
 ```ruby(path=".../graphql-ruby/test/graphql/mutations/create_user_test.rb")
 require 'test_helper'
 
 class Mutations::CreateUserTest < ActiveSupport::TestCase
   def perform(args = {})
-    Mutations::CreateUser.new(object: nil, field: nil, context: {}).resolve(args)
+    Mutations::CreateUser.new(object: nil, field: nil, context: {}).resolve(**args)
   end
 
   test 'create new user' do
@@ -244,7 +277,7 @@ end
 
 Now, you can get the token by using [GraphiQL](https://github.com/graphql/graphiql):
 
-![](https://i.imgur.com/7wYZXgw.png)
+![Getting a token in GraphiQL](https://i.imgur.com/7wYZXgw.png)
 
 <Instruction>
 
@@ -255,7 +288,7 @@ require 'test_helper'
 
 class Mutations::SignInUserTest < ActiveSupport::TestCase
   def perform(args = {})
-    Mutations::SignInUser.new(object: nil, field: nil, context: { session: {} }).resolve(args)
+    Mutations::SignInUser.new(object: nil, field: nil, context: { session: {} }).resolve(**args)
   end
 
   def create_user
@@ -486,4 +519,4 @@ end
 
 Done! Now when you post links, they will be attached to your user, so you have to run  `SignInUser` beforehand.
 
-![](http://i.imgur.com/9ma8r8u.png)
+![Running SignInUser](http://i.imgur.com/9ma8r8u.png)

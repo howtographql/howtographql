@@ -9,7 +9,7 @@ export default function CheckoutGraphcool() {
           @p: .pa60, .bt, .bBlack10, .bw2, .relative, .overflowHidden;
           background: #FBFBFB;
         }
-        h1 {
+        h2 {
           @p: .black80, .lhTitle, .mb25, .fw6;
           font-size: 30px;
           max-width: 400px;
@@ -64,7 +64,7 @@ export default function CheckoutGraphcool() {
       </div>
       <div className="content">
         <div className="left">
-          <h1>Next step: Build something in production.</h1>
+          <h2>Next step: Build something in production.</h2>
           <p>
             Use your new knowledge and start building a production app.
             Prisma

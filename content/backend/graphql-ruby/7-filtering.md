@@ -105,11 +105,11 @@ end
 
 Try your new filter out now:
 
-![](https://i.imgur.com/9DCu9VL.png)
+![Try your new filter out](https://i.imgur.com/9DCu9VL.png)
 
 You can even do more complicated searches:
 
-![](https://i.imgur.com/8oBkRfJ.png)
+![You can even do more complicated searches](https://i.imgur.com/8oBkRfJ.png)
 
 <Instruction>
 

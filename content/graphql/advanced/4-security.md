@@ -192,4 +192,4 @@ The GitHub public API actually uses this approach to throttle their clients. Tak
 
 GraphQL is great to use for clients because it gives them so much more power. But that power also gives them the possibility to abuse your GraphQL server with very expensive queries.
 
-There are many approaches to secure your GraphQL server against these queries, but none of them is bullet proof. It's important to know what options are available and know their limits so we take the best decisions!
+There are many approaches to secure your GraphQL server against these queries, but none of them are bullet proof. It's important to know what options are available and know their limits so we take the best decisions!

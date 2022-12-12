@@ -43,7 +43,7 @@ A GraphQL server should be able to:
 }
 ```
 
-These are the basic features all GraphQL servers have, but of course, they can do much more as needed. You can read in more detail about the expected behavior of a GraphQL server in the [official specification](https://facebook.github.io/graphql/).
+These are the basic features all GraphQL servers have, but of course, they can do much more as needed. You can read in more detail about the expected behavior of a GraphQL server in the [official specification](https://graphql.org/).
 
 ### Schema-Driven Development
 
@@ -53,7 +53,7 @@ An important thing to note about building a GraphQL server is that the main deve
 2. Implement functions called **resolvers** to handle these types and their fields.
 3. As new requirements arrive, go back to step 1 to update the schema and continue through the other steps.
 
-The schema is a *contract* agreed on between the frontend and backend, so keeping it at the center allows both sides of the development to evolve without going off the spec. This also makes it easier to parallelize the work, since the frontend can move on with full knowledge of the API from the start, using a simple mocking service (or even a full backend such as [Graphcool](https://www.graph.cool/)) which can later be easily replaced with the final server.
+The schema is a *contract* agreed on between the frontend and backend, so keeping it at the center allows both sides of the development to evolve without going off the spec. This also makes it easier to parallelize the work, since the frontend can move on with full knowledge of the API from the start, using a simple mocking service which can later be easily replaced with the final server.
 
 ### Revisions
 

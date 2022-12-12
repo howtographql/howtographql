@@ -1,8 +1,8 @@
 ---
 title: Links and Voting
-question: In which Python class is defined the arguments for a Mutation?
-answers: ["Input", "Query", "Mutation", "Schema"]
-correctAnswer: 0
+question: In which Python class are the arguments for a Mutation defined?
+answers: ["Arguments", "Query", "Mutation", "Schema"]
+correctAnswer: 2
 description: Enable Users to create Links and to Vote on them
 ---
 
@@ -85,7 +85,7 @@ class CreateLink(graphene.Mutation):
 
 To test it, send a mutation to the server (remember to use the token!):
 
-![](https://i.imgur.com/XBsEwK8.png)
+![send a mutation to the server](https://i.imgur.com/XBsEwK8.png)
 
 Neat!
 
@@ -162,7 +162,7 @@ class Mutation(graphene.ObjectType):
 
 Voting time! Try to vote for the first link:
 
-![](https://i.imgur.com/5NUS0fu.png)
+![vote for the first link](https://i.imgur.com/5NUS0fu.png)
 
 ### Relating Links and Votes
 You can already vote, but you can't see it! A solution for this is being able to get a list of all the votes and a list of votes from each link. Follow the next steps to accomplish it:
@@ -183,7 +183,7 @@ class VoteType(DjangoObjectType):
 
 <Instruction>
 
-And add the `votes` field and the `resolve_links` method:
+And add the `votes` field and the `resolve_votes` method:
 
 ```python(path=".../graphql-python/hackernews/links/schema.py")
 # ...code
@@ -203,10 +203,10 @@ class Query(graphene.ObjectType):
 
 Awesome! On Insomnia, try to fetch the list of votes:
 
-![](https://i.imgur.com/LJ0CMn6.png)
+![fetch the list of votes](https://i.imgur.com/LJ0CMn6.png)
 
 To close this chapter, make a query for all the links and see how smoothly the votes become available:
 
-![](https://i.imgur.com/jAlDphd.png)
+![make a query for all the links and see how smoothly the votes become available](https://i.imgur.com/jAlDphd.png)
 
 Yay!

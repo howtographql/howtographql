@@ -138,7 +138,7 @@ ReactDOM.render(
 
 That's it. If you run `yarn start`, you can now access two URLs. `http://localhost:3000/` will render `LinkListPage` and `http://localhost:3000/create` renders the `CreateLink` component you just wrote in the previous section.
 
-![](http://imgur.com/I16JzwW.png)
+![Running yarn start to see the app at localhost:3000](http://imgur.com/I16JzwW.png)
 
 ### Implement navigation
 
