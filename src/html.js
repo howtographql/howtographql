@@ -74,8 +74,6 @@ module.exports = class Html extends React.Component {
         ` }}
       >
       </script>
-      <script src="https://cdn.ravenjs.com/3.16.1/raven.min.js" crossorigin="anonymous">
-      </script>
       </html>
     )
   }
