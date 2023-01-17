@@ -71,7 +71,7 @@ The goal of this concept is to _enrich_ a simple list of items with meta informa
 
 > Note: The article [Understanding pagination: REST, GraphQL, and Relay](https://dev-blog.apollodata.com/understanding-pagination-rest-graphql-and-relay-b10f835549e7) on the Apollo blog has a great overview on different pagination models.
 
-If you've wondered why in the previous chapters you had to do the `edges`-`node`-dance everytime you needed to access information about the items in a list that was returned by the server - this is the answer to it. Instead of directly exposing the items that are inside the list, a connection will store additional data about the _context_ of each item, where context refers to the position of the item in the list as well as the parts of the list that come directly before and after it. 
+If you've wondered why in the previous chapters you had to do the `edges`-`node`-dance every time you needed to access information about the items in a list that was returned by the server - this is the answer to it. Instead of directly exposing the items that are inside the list, a connection will store additional data about the _context_ of each item, where context refers to the position of the item in the list as well as the parts of the list that come directly before and after it. 
 
 To be more concrete, here is what the Relay server needs to provide so that a list of items is considered a connection:
 

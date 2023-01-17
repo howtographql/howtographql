@@ -533,13 +533,13 @@ You can check or verify the Heroku app name by running the following command in 
 heroku apps:info
 ```
 
-Now you will need to retreive your `HEROKU_API_KEY`. This key is available under the **Account** tab of your Heroku [**Account Settings**](https://dashboard.heroku.com/account). Go to the [**Account Settings**](https://dashboard.heroku.com/account) and scroll down to **API Key**. Finally press the **Reveal** button to retreive the key. 
+Now you will need to retrieve your `HEROKU_API_KEY`. This key is available under the **Account** tab of your Heroku [**Account Settings**](https://dashboard.heroku.com/account). Go to the [**Account Settings**](https://dashboard.heroku.com/account) and scroll down to **API Key**. Finally press the **Reveal** button to retrieve the key. 
 
 ![Heroku account API key](https://i.imgur.com/llG5CfB.png) 
 
 <Instruction>
 
-Set the `HEROKU_API_KEY` secret using the key retreived from your Heroku account. 
+Set the `HEROKU_API_KEY` secret using the key retrieved from your Heroku account. 
 
 ```bash(path=".../hackernews-typescript/")
 gh secret set HEROKU_API_KEY
@@ -555,7 +555,7 @@ heroku config:get DATABASE_URL
 
 <Instruction>
 
-Set the `DATABASE_URL` secret using the URL retreived from your Heroku app. 
+Set the `DATABASE_URL` secret using the URL retrieved from your Heroku app. 
 
 ```bash(path=".../hackernews-typescript/")
 gh secret set DATABASE_URL

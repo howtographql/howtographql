@@ -1,6 +1,6 @@
 ---
 title: Queries
-pageTitle: 'Building a GraphQL Server with Go Backend Tutorial | Quiries'
+pageTitle: 'Building a GraphQL Server with Go Backend Tutorial | Queries'
 description: 'what are queries and implementing a query in gqlgen'
 ---
 

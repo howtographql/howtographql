@@ -156,4 +156,4 @@ type Mutation {
 }
 ```
 
-The [Nexus documentation](https://nexusjs.org/docs/) might come in handy when attempting this excercise. 
+The [Nexus documentation](https://nexusjs.org/docs/) might come in handy when attempting this exercise. 

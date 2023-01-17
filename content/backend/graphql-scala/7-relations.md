@@ -534,7 +534,7 @@ We achieved our goal for this chapter, our models have new functions:
 
 Now we can fetch the related data...
 
-The current state of fileds we've changed in this chapter you can compare with those gists:
+The current state of fields we've changed in this chapter you can compare with those gists:
 
 [DAO.scala](https://gist.github.com/marioosh/7c3ee5fed1238c5daf89a4459727f575#file-dao-scala)  
 [models/package.scala](https://gist.github.com/marioosh/7c3ee5fed1238c5daf89a4459727f575#file-models_package-scala)  

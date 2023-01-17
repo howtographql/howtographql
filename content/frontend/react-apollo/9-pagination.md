@@ -252,7 +252,7 @@ returning values for `skip`, `take`, and `orderBy`. For
 `skip`, we first check whether we are currently on the
 `/new` route. If so, the value for `skip` is the current
 page (subtracting `1` to handle the index) multiplied by the
-`LINKS_PER_PAGE` contstant. If we're not on the `/new`
+`LINKS_PER_PAGE` constant. If we're not on the `/new`
 route, the value for `skip` is `0`. We use the same
 `LINKS_PER_PAGE` constant to determine how many links to
 `take`.

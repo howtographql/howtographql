@@ -41,7 +41,7 @@ In your tutorials, you should always speak very directly to the reader. Particul
 
 Instruction blocks will be visually highlighted on the website. This has two advantages:
 
-1. Fast readers who are only interested in moving forward with the code don't have to spend unnessessary time reading explanations since it's very clear when in the tutorial they're required to perform an action
+1. Fast readers who are only interested in moving forward with the code don't have to spend unnecessary time reading explanations since it's very clear when in the tutorial they're required to perform an action
 2. It's less likely that a reader will accidentally miss a part where they were required to do something
 
 You'll use the `<Instruction>` tag to mark a sentence or a paragraph as an instruction. Notice that the **opening and closing tags need to have one line break in between the content**. This is what a simple example looks like:

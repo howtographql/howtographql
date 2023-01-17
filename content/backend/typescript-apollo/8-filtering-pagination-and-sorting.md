@@ -387,7 +387,7 @@ export const Feed = objectType({
 
 The `Feed` type will be used as the return type of the `feed` query. Let's take a look at how it's defined:
 
-- `// 1`: `links` is an array of `Link` type objects. This is infact the current return type of the `feed` query.
+- `// 1`: `links` is an array of `Link` type objects. This is in fact the current return type of the `feed` query.
 - `// 2`: `count` is an integer that will mention the number of `links` available in the database that match the `feed` query criteria. This is important to have as when using the `take` pagination argument, the number of `links` _returned_ might be different from the number of links _available_ in the database. 
 - `// 3`: `id` is a field of type `ID`, which the built-in GraphQL type for unique identifiers. It is serialized and deserialized the same way as a `String` type. 
 

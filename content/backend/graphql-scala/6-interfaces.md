@@ -13,7 +13,7 @@ correctAnswer: 3
 
 Before you go further, try to implement the changes yourself. I think, at this point, you have the necessary knowledge to add the `User` and `Vote` models. I'll show what to do later in this chapter, but try to implement it yourself first.
 
-What you have to do:  
+What you have to do:
 
 1. Add `User` class with fields: `id`, `name`, `email`, `password` and `createdAt`
 1. Add `Vote` class with fields: `id`, `createdAt`, `userId`, `linkId`(you don't have to to define any relations for now)
@@ -68,7 +68,7 @@ Sample entities:
 
 In DBSchema in the function `databaseSetup`, add an action `Users.schema.create` at beginning of the function and then add a few users later in this function:
 
-```scala  
+```scala
 Users forceInsertAll Seq(
     User(1, "mario", "mario@example.com", "s3cr3t"),
     User(2, "Fred", "fred@flinstones.com", "wilmalove")
@@ -93,7 +93,7 @@ def getUsers(ids: Seq[Int]): Future[Seq[User]] = {
 
 </Instruction>
 
-Dont' forget about `import com.howtographql.scala.sangria.models.User`...
+Don't forget about `import com.howtographql.scala.sangria.models.User`...
 
 GraphQL part:
 
@@ -278,7 +278,7 @@ query {
     id
     createdAt
   }
-}  
+}
 ```
 
 ### Finding common parts
@@ -350,7 +350,7 @@ val IdentifiableType = InterfaceType(
     Field("id", IntType, resolve = _.value.id)
   )
 )
-  
+
 implicit val LinkType = deriveObjectType[Unit, Link](
     Interfaces(IdentifiableType)
 )
@@ -364,10 +364,10 @@ Now if you look into the schema definition in graphiql console you will see that
 
 So far so good. We made many changes in this chapter, so if you like you can compare current state o files with the following snippets.
 
-[GraphQLSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-graphqlschema-scala)  
-[models/package.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-models_package-scala)  
-[DAO.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dao-scala)  
-[DBSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dbschema-scala)  
+[GraphQLSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-graphqlschema-scala)
+[models/package.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-models_package-scala)
+[DAO.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dao-scala)
+[DBSchema.scala](https://gist.github.com/marioosh/6f75f24bb5e5fd6fc3d46472147c4551#file-dbschema-scala)
 
 
 ---

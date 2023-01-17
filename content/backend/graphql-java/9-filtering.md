@@ -16,20 +16,20 @@ You'll now apply this idea to add filtering to the already defined `allLinks` qu
 1. Start by add a new argument to its schema definition
 
 	<Instruction>
-	
+
 	Introduce the `LinkFilter` argument to `allLinks`
-	
+
 	```graphql(path=".../hackernews-graphql-java/src/main/resources/schema.graphqls")
 	type Query {
 	  allLinks(filter: LinkFilter): [Link]
 	}
-	
+
 	input LinkFilter {
 	  description_contains: String
 	  url_contains: String
 	}
 	```
-	
+
 	</Instruction>
 
 Remember that this exact approach is just an example. You might as well implement filtering using any other format.
@@ -37,56 +37,56 @@ Remember that this exact approach is just an example. You might as well implemen
 2. Create the corresponding data-class
 
 	<Instruction>
-	
+
 	The `LinkFilter` POJO should look something like the following:
-	
+
 	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkFilter.java")
 	import com.fasterxml.jackson.annotation.JsonProperty;
-	
+
 	public class LinkFilter {
-	
+
 	    private String descriptionContains;
 	    private String urlContains;
-	
+
 	    @JsonProperty("description_contains") //the name must match the schema
 	    public String getDescriptionContains() {
 	        return descriptionContains;
 	    }
-	
+
 	    public void setDescriptionContains(String descriptionContains) {
 	        this.descriptionContains = descriptionContains;
 	    }
-	
+
 	    @JsonProperty("url_contains")
 	    public String getUrlContains() {
 	        return urlContains;
 	    }
-	
+
 	    public void setUrlContains(String urlContains) {
 	        this.urlContains = urlContains;
 	    }
 	}
 	```
-	
+
 	</Instruction>
 
 3. The logic needs to allow filtering
 
 	<Instruction>
-	
-	Update `LinkRespository#getAllLinks` to accept an optional filter:
-	
+
+	Update `LinkRepository#getAllLinks` to accept an optional filter:
+
 	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkRepository.java")
 	public List<Link> getAllLinks(LinkFilter filter) {
 	    Optional<Bson> mongoFilter = Optional.ofNullable(filter).map(this::buildFilter);
-	    
+
 	    List<Link> allLinks = new ArrayList<>();
 	    for (Document doc : mongoFilter.map(links::find).orElseGet(links::find)) {
 	        allLinks.add(link(doc));
 	    }
 	    return allLinks;
 	}
-	
+
 	//builds a Bson from a LinkFilter
 	private Bson buildFilter(LinkFilter filter) {
 	    String descriptionPattern = filter.getDescriptionContains();
@@ -105,21 +105,21 @@ Remember that this exact approach is just an example. You might as well implemen
 	    return descriptionCondition != null ? descriptionCondition : urlCondition;
 	}
 	```
-	
+
 	</Instruction>
 
 4. Finally, update `Query` to add the new argument to the top-level method:
 
 	<Instruction>
-	
+
 	Add the `filter` parameter to `Query#allLinks`:
-	
+
 	```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/Query.java")
 	public List<Link> allLinks(LinkFilter filter) {
 	    return linkRepository.getAllLinks(filter);
 	}
 	```
-	
+
 	</Instruction>
 
 Cool! Check it out in GraphiQL!

@@ -160,7 +160,7 @@ This one will require quite a few steps, so buckle up!
 	
 	</Instruction>
 
-4. This is an interesting step. You need to create a new scalar type to represent an instant in time. For this, you need an instance of `GraphQLScalarType`. For reference on how to create these, you can check out the build-in types in [`graphql-java`](https://github.com/graphql-java/graphql-java/blob/master/src/main/java/graphql/Scalars.java#L34).
+4. This is an interesting step. You need to create a new scalar type to represent an instant in time. For this, you need an instance of `GraphQLScalarType`. For reference on how to create these, you can check out the built-in types in [`graphql-java`](https://github.com/graphql-java/graphql-java/blob/master/src/main/java/graphql/Scalars.java#L34).
 
 	<Instruction>
 	

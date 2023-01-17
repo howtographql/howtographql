@@ -81,8 +81,8 @@ lazy val AuthProviderSignupDataInputType: InputObjectType[AuthProviderSignupData
 
 </Instruction>
 
-To avoid circular dependencies of types, like we've experiences in the last chapter ther a suggestion to use `lazy` keyword for every type.
-But in case above, `AuthProviderEmail` is nested object in `AuthProviderSignupData` which is built by macro. Thats why we had to add `implicit`
+To avoid circular dependencies of types, like we've experiences in the last chapter their a suggestion to use `lazy` keyword for every type.
+But in case above, `AuthProviderEmail` is nested object in `AuthProviderSignupData` which is built by macro. That's why we had to add `implicit`
 we have to have this nested object type in the scope in the time of macro executing.
 
 
