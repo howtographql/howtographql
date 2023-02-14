@@ -59,4 +59,14 @@ The `skip` and `first` uses [Python Slicing](https://www.dotnetperls.com/slice-p
 
 Testing it in the Insomnia interface:
 
+```
+query {
+  links(first: 2, skip: 1) {
+    id
+    url
+    description
+  }
+}
+```
+
 ![Insomnia interface](https://i.imgur.com/pcNvb8y.png)

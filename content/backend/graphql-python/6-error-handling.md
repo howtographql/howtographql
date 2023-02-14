@@ -13,6 +13,16 @@ Being a language with a strong type system, GraphQL can predetermine if a query 
 
 Try it out! In the links query, ask for the `cheese` field and see how GraphQL returns back an error:
 
+```
+query {
+  links {
+    id
+    url
+    cheese
+  }
+}
+```
+
 ![ask for the cheese field and see how GraphQL returns back an error](https://i.imgur.com/Y00Dk0k.png)
 
 ### Graphene Errors
@@ -61,5 +71,22 @@ class CreateVote(graphene.Mutation):
 On `#1` and `#2` the code raises an exception – using two different exception classes – but giving the same result, stopping its execution and returning the message between parentheses.
 
 Try to vote in an invalid link and see what happens:
+
+```
+mutation {
+  createVote(linkId: 10) {
+    user {
+      id
+      username
+      email
+    }
+    link {
+      id
+      description
+      url
+    }
+  }
+}
+```
 
 ![vote in an invalid link](https://i.imgur.com/zWTzRUz.png)

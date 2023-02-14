@@ -80,6 +80,18 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 
 Execute the following code in the GraphiQL interface:
 
+```
+mutation {
+  createUser(username: "jonatas", email: "jonatas@example.com", password: "123456A!") {
+    user {
+      id
+      username
+      email
+    }
+  }
+}
+```
+
 ![code in the GraphiQL interface](https://i.imgur.com/dyRB15P.png)
 
 In the response, you already can see the new user. Hurray!
@@ -117,6 +129,16 @@ class Query(users.schema.Query, links.schema.Query, graphene.ObjectType):
 </Instruction>
 
 To test it, send a query to the server:
+
+```
+query {
+  users {
+    id
+    username
+    email
+  }
+}
+```
 
 ![send a query to the server](http://i.imgur.com/zqz6miO.png)
 
@@ -200,9 +222,25 @@ The library creates three Mutations for us, let's take a look at them.
 
 `TokenAuth` is used to authenticate the User with its username and password to obtain the JSON Web token.
 
+```
+mutation {
+  tokenAuth(username: "jonatas", password: "123456A!") {
+    token
+  }
+}
+```
+
 ![TokenAuth is used to authenticate the User with its username and password to obtain the JSON Web token](https://i.imgur.com/v8e8sjK.png)
 
 `VerifyToken` to confirm that the token is valid, passing it as an argument.
+
+```
+mutation {
+  verifyToken(token: "__token__") {
+    payload
+  }
+}
+```
 
 ![VerifyToken to confirm that the token is valid, passing it as an argument](https://i.imgur.com/d03jVtP.png)
 
@@ -237,6 +275,14 @@ class Query(graphene.AbstractType):
 
 To test it out, we need to get a token using the `tokenAuth` Mutation and use it in our Query with the `AUTHORIZATION` HTTP header, using the `JWT` prefix. Now, we are going to use the Insomnia client:
 
+```
+mutation {
+  tokenAuth(username: "jonatas", password: "123456A!") {
+    token
+  }
+}
+```
+
 ![use the Insomnia client](https://i.imgur.com/VelVdDB.png)
 
 Under the `Header` tab on Insomnia, add the `AUTHORIZATION` HTTP header with your token content, prefixed by the word `JWT`:
@@ -244,6 +290,15 @@ Under the `Header` tab on Insomnia, add the `AUTHORIZATION` HTTP header with you
 ![Under the Header tab on Insomnia, add the AUTHORIZATION HTTP header with your token content, prefixed by the word JWT](https://i.imgur.com/TyIN8zd.png)
 
 Finally, let's make the `me` query, which should identify our User:
+
+```
+query {
+  me {
+    id
+    username
+  }
+}
+```
 
 ![me query, which should identify our User](https://i.imgur.com/v5lSss5.png)
 
