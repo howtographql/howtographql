@@ -106,15 +106,15 @@ module Mutations
     end
 
     argument :name, String, required: true
-    argument :auth_provider, AuthProviderSignupData, required: false
+    argument :signup_data, AuthProviderSignupData, required: false
 
     type Types::UserType
 
-    def resolve(name: nil, auth_provider: nil)
+    def resolve(name: nil, signup_data: nil)
       User.create!(
         name: name,
-        email: auth_provider&.[](:credentials)&.[](:email),
-        password: auth_provider&.[](:credentials)&.[](:password)
+        email: signup_data&.[](:credentials)&.[](:email),
+        password: signup_data&.[](:credentials)&.[](:password)
       )
     end
   end
@@ -190,7 +190,7 @@ class Mutations::CreateUserTest < ActiveSupport::TestCase
   test 'create new user' do
     user = perform(
       name: 'Test User',
-      auth_provider: {
+      signup_data: {
         credentials: {
           email: 'email@example.com',
           password: '[omitted]'
