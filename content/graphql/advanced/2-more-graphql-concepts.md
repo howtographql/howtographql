@@ -149,6 +149,8 @@ In GraphQL, there are two different kinds of types.
 
 In every GraphQL schema, you can define your own scalar and object types. An often cited example for a custom scalar would be a `Date` type where the implementation needs to define how that type is validated, serialized, and deserialized.
 
+Learn more about [Object Type](https://graphql.org/learn/schema/#object-types-and-fields) and [Scalar Type](https://graphql.org/learn/schema/#scalar-types)
+
 #### Enums
 
 GraphQL allows you to define _enumerations_ types (short _enums_), a language feature to express the semantics of a type that has a fixed set of values. We could thus define a type called `Weekday` to represent all the days of a week:
