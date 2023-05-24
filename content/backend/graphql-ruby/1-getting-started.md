@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 pageTitle: "Getting Started Building a GraphQL Server with Ruby Tutorial"
-description: "Learn how to setup a GraphQL server with graphql-ruby and best practices for defining the GraphQL schema."
+description: "Learn how to set up a GraphQL server with graphql-ruby and best practices for defining the GraphQL schema."
 ---
 
 ### Defining the Scope
@@ -17,7 +17,7 @@ In this tutorial, you will implement the backend for a [Hackernews](https://news
 
 It's time for you to create your project!
 
-First, you'll need to have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) installed on your system. If that's not the case, make sure to install it [now](https://www.ruby-lang.org/en/documentation/installation/). This tutorial requires version 2.3.0 or higher.
+First, you'll need to have [Ruby](https://www.ruby-lang.org) installed on your system. If that's not the case, make sure to [install it](https://www.ruby-lang.org/en/documentation/installation/) now. This tutorial requires version 2.3.0 or higher.
 
 <Instruction>
 
@@ -38,11 +38,11 @@ This will install and start a new [Ruby On Rails](http://rubyonrails.org/) proje
 
 ![Yay! You're on Rails!](http://i.imgur.com/RLFWuiq.jpg)
 
-### Setup Server
+### Set up your Server
 
 Now, let's add GraphQL to the server. First, stop the server.
 
-> Usually you don't need to restart [Ruby On Rails](http://rubyonrails.org/), but when you are adding new gems (libraries), this is required.
+> **Note:** Usually you don't need to restart Rails while developing, but when you are adding new gems (libraries), this is required.
 
 <Instruction>
 
