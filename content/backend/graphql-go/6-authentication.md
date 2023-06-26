@@ -86,7 +86,7 @@ package users
 
 import (
 	"database/sql"
-	"github.com/glyphack/go-graphql-hackernews/internal/pkg/db/mysql"
+	"github.com/glyphack/graphql-golang/internal/pkg/db/mysql"
 	"golang.org/x/crypto/bcrypt"
 
 	"log"
@@ -179,8 +179,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/glyphack/go-graphql-hackernews/internal/users"
-	"github.com/glyphack/go-graphql-hackernews/pkg/jwt"
+	"github.com/glyphack/graphql-golang/internal/users"
+	"github.com/glyphack/graphql-golang/pkg/jwt"
 )
 
 var userCtxKey = &contextKey{"user"}
@@ -244,14 +244,14 @@ Now we can use the middleware we created in our server:
 package main
 
 import (
-	"github.com/glyphack/go-graphql-hackernews/internal/auth"
+	"github.com/glyphack/graphql-golang/internal/auth"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/99designs/gqlgen/handler"
 	hackernews "github.com/glyphack/go-graphql-hackernews"
-	"github.com/glyphack/go-graphql-hackernews/internal/pkg/db/mysql"
+	"github.com/glyphack/graphql-golang/internal/pkg/db/mysql"
 	"github.com/go-chi/chi"
 )
 
