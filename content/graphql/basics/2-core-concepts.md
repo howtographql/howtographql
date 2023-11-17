@@ -260,7 +260,7 @@ type Query {
 
 type Mutation {
   createPerson(name: String!, age: Int!): Person!
-  updatePerson(id: ID!, name: String!, age: String!): Person!
+  updatePerson(id: ID!, name: String!, age: Int!): Person!
   deletePerson(id: ID!): Person!
 }
 
