@@ -130,3 +130,15 @@ A lot of tools available in the GraphQL ecosystem use the introspection system t
 [GraphQL Playground](https://github.com/graphcool/graphql-playground) is a powerful "GraphQL IDE" for interactively working with a GraphQL API. It features an editor for GraphQL queries, mutations and subscriptions, equipped with autocompletion and validation as well as a documentation explorer to quickly visualize the structure of a schema (powered by introspection). It also can display your query history or lets you work with multiple GraphQL APIs side-by-side. It also seamlessly integrates with [`graphql-config`](https://github.com/graphcool/graphql-config).
 
 It is an incredibly powerful tool for development. It allows you to debug and try queries on a GraphQL server without having to write plain GraphQL queries over `curl`, for example.
+
+## Prisma Pulse 
+
+[Prisma Pulse](https://www.prisma.io/data-platform/pulse) enables you to easily implement GraphQL subscriptions or live queries with real-time updates from the database in a robust, scalable and type-safe way. 
+
+It is compatible with all popular libraries from the GraphQL ecosystem, such as Apollo Server and GraphQL Yoga.
+
+## Prisma Accelerate
+
+[Prisma Accelerate](https://www.prisma.io/data-platform/accelerate) is a global database cache with a scalable connection pool that can help speed up your database queries. 
+
+It's especially useful when you're deploying your GraphQL API in a serverless environment where a lot of traffic may quickly exhaust your database connection limit. Accelerate's edge caching further ensures that your resolvers can return data faster because they don't need to fetch the data all the way from the database.
