@@ -39,7 +39,7 @@ export default (props: Props) => {
         type="GRAPHQL_MEETUP"
         title={
           <span>
-            Subscribe to the GraphQL Weekly Newsletter
+            Subscribe to the GraphQL Newsletter
           </span>
         }
         link="https://www.graphqlweekly.com/"
