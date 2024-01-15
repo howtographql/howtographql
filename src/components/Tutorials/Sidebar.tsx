@@ -126,7 +126,7 @@ export default class Sidebar extends React.Component<Props, {}> {
                   />
                 </div>}
             {isApollo
-              ? <p>Get started with <a href="https://www.prisma.io/apollo?utm_source=htg&utm_medium=sidebar">Prisma + GraphQL</a></p>
+              ? <p>Get started with <a href="https://www.prisma.io/apollo?utm_source=htg&utm_medium=sidebar">Prisma + Apollo</a></p>
               : <p>Get started with <a href="https://www.prisma.io/graphql?utm_source=htg&utm_medium=sidebar">Prisma + GraphQL</a></p>}
           </div>
         </div>
