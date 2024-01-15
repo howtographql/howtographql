@@ -88,7 +88,7 @@ export default class Sidebar extends React.Component<Props, {}> {
             }
           }
           .steps-list > p {
-            @p: .mt25, .black30, .fw6, .f14;
+            @p: .mt25, .black40, .fw6, .f15;
           }
         `}</style>
         <div className="sidebar" ref={this.setRef}>
