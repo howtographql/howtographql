@@ -87,6 +87,9 @@ export default class Sidebar extends React.Component<Props, {}> {
               @p: .dn;
             }
           }
+          .steps-list > p {
+            @p: .mt25, .black30, .fw6, .f14;
+          }
         `}</style>
         <div className="sidebar" ref={this.setRef}>
           <div className="steps-list fade-before">
