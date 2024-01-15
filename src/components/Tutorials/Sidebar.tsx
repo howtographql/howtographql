@@ -48,6 +48,7 @@ export default class Sidebar extends React.Component<Props, {}> {
     const isGraphQLChapter = ['basics', 'advanced'].includes(group)
     const isChooseTutorial = location.pathname.includes('/choose')
     const showChoose = isGraphQLChapter || isChooseTutorial
+    const isApollo = location.pathname.includes('apollo') || location.pathname.includes('graphql-js')
 
     return (
       <div className="sidebar-container">
@@ -124,7 +125,9 @@ export default class Sidebar extends React.Component<Props, {}> {
                     onClickLink={this.props.onClickLink}
                   />
                 </div>}
-            <p>Get started with <a href="https://www.prisma.io/graphql?utm_source=htg&utm_medium=sidebar">Prisma + GraphQL</a></p>
+            {isApollo
+              ? <p>Get started with <a href="https://www.prisma.io/apollo?utm_source=htg&utm_medium=sidebar">Prisma + GraphQL</a></p>
+              : <p>Get started with <a href="https://www.prisma.io/graphql?utm_source=htg&utm_medium=sidebar">Prisma + GraphQL</a></p>}
           </div>
         </div>
       </div>
