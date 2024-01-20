@@ -195,7 +195,7 @@ return (
 ```
 </Instruction>
 
-We're now ready to check wether the mutations are working.
+We're now ready to check whether the mutations are working.
 
 
 <Instruction>

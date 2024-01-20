@@ -28,7 +28,7 @@ npm install --save fastify
 
 <Instruction>
 
-Now, update `src/index.ts` to create a simple Fastify HTTP server on port `3000`: 
+Now, update `src/index.ts` to create a simple Fastify HTTP server on port `3000`:
 
 ```typescript{2,5-13}(path="hackernews-node-ts/src/index.ts")
 import "graphql-import-node";
@@ -53,15 +53,15 @@ main();
 
 > You've removed the basic GraphQL setup from this file, but don't worry - in a few minutes you'll add it with more capabilities and a real server!
 
-Now, try to run your server again with `npm run dev` (or, `npm run start`). You shouldn't see any special output in the log, but you can now open your browser and navigate to `http://localhost:3000/`. 
+Now, try to run your server again with `npm run dev` (or, `npm run start`). You shouldn't see any special output in the log, but you can now open your browser and navigate to `http://localhost:3000/`.
 
-You'll see that the server replys with the `{ test: true }` response - this is great, because in the next steps you'll learn how to replace that with the GraphQL response!
+You'll see that the server replies with the `{ test: true }` response - this is great, because in the next steps you'll learn how to replace that with the GraphQL response!
 
 ### Adding GraphQL to the server
 
-Now that you have an HTTP server running, you'll add support for GraphQL. 
+Now that you have an HTTP server running, you'll add support for GraphQL.
 
-In the previous chapter you've learned that you need a GraphQL operation and a GraphQL schema in order to execute, and now it's time to implement a complete GraphQL execution pipeline, based on HTTP. 
+In the previous chapter you've learned that you need a GraphQL operation and a GraphQL schema in order to execute, and now it's time to implement a complete GraphQL execution pipeline, based on HTTP.
 
 > When dealing with network-based GraphQL implementations, the GraphQL server needs to do more than `parse` + `execute` and that's exactly what GraphQL-Helix does for you. The next section explains how a GraphQL pipeline works.
 
@@ -127,7 +127,7 @@ main();
 
 </Instruction>
 
-You can now try to run your server, and you should be able to run our query in a HTTP-based GraphQL request. 
+You can now try to run your server, and you should be able to run our query in a HTTP-based GraphQL request.
 
 <Instruction>
 
@@ -137,7 +137,7 @@ If you have `curl` installed on your machine, you should be able to run and see 
 curl -X POST http://localhost:3000/graphql -H "Content-type: application/json" --data-raw '{"query": "query { info }"}'
 ```
 
-And you should see in return: 
+And you should see in return:
 
 ```(nocopy)
 { data: { info: 'Test' } }
@@ -147,9 +147,9 @@ And you should see in return:
 
 So let's break down the code snippet for the server:
 
-1. You created a new HTTP request handler, of type `POST`, based on the `/graphql` path. 
+1. You created a new HTTP request handler, of type `POST`, based on the `/graphql` path.
 1. The handler takes the incoming raw HTTP request and builds a `Request` object out of it.
-1. Then, the `getGraphQLParameters` method of `graphql-helix` extracts all the neccesary information from the raw request. 
+1. Then, the `getGraphQLParameters` method of `graphql-helix` extracts all the necessary information from the raw request.
 1. The `processRequest` gets all the input parameters, and runs the GraphQL request pipeline for us.
 1. The result of the GraphQL operation is being returned and sent as response.
 
@@ -157,14 +157,14 @@ So let's break down the code snippet for the server:
 
 A complete GraphQL flow is consists of the following steps:
 
-1. Schema building - a GraphQL schema is built as executable schema (by combining the SDL and the resolvers) 
-1. `parse` - takes the GraphQL operation and parse it into a `DocuemntNode`.
+1. Schema building - a GraphQL schema is built as executable schema (by combining the SDL and the resolvers)
+1. `parse` - takes the GraphQL operation and parse it into a `DocumentNode`.
 1. `validate` - uses the parsed GraphQL operation with the GraphQL schema, and validate it to make sure it matches the schema.
-1. Variables - GraphQL operations allow you to pass variables, which are just JSON object. 
+1. Variables - GraphQL operations allow you to pass variables, which are just JSON object.
 1. Context - GraphQL allow you to pass a custom object, called `context`, and this object will be available for your resolvers. This is a useful technique you'll learn more about in next chapters.
 1. `execute` - takes the operation and runs the resovlers based on the selection-set.
 
-With `graphql-helix`, this flow becomes simpler because you can just use `processRequest`, and `graphql-helix` runs for you `parse`, `validate`, variables parsing, context-building, and `execute` - all in a single function. 
+With `graphql-helix`, this flow becomes simpler because you can just use `processRequest`, and `graphql-helix` runs for you `parse`, `validate`, variables parsing, context-building, and `execute` - all in a single function.
 
 ### Adding GraphiQL
 
@@ -233,7 +233,7 @@ main();
 
 </Instruction>
 
-Now, run the server, and try to access `http://localhost:3000/graphql` in your browser. You should see GraphiQL UI, and from there you can explore the schema, the documentation, and even try to run queries! 
+Now, run the server, and try to access `http://localhost:3000/graphql` in your browser. You should see GraphiQL UI, and from there you can explore the schema, the documentation, and even try to run queries!
 
 ![GraphiQL](https://i.imgur.com/fbfgo43.png)
 
@@ -242,5 +242,3 @@ In the next steps you'll extend your schema, and add more capabilities to the Gr
 ### Additional Resources
 
 * If you wish to use a different network transport, you can check [`graphql-ws`](https://github.com/enisdenjo/graphql-ws) for WebSocket, or [`graphql-sse`](https://github.com/enisdenjo/graphql-sse) for Server-Sent Events transport.
-
-

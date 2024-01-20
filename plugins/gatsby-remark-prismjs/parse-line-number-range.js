@@ -15,7 +15,7 @@ module.exports = function (language) {
     path: null,
     nocopy: false
 
-    // removes the () part completly from the string, so the {} logic is untouched
+    // removes the () part completely from the string, so the {} logic is untouched
   };if (language.split('(').length > 1) {
     var i0 = language.indexOf('(');
     var i1 = language.lastIndexOf(')');

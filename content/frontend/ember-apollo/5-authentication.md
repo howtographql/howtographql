@@ -232,7 +232,7 @@ Perfect, you’re all set now to actually implement the authentication functiona
 
 ### Authentication with Graphcool
 
-Time to quickly add the remaning methods to your `auth` service that would allow us to login, sign up, and logout. 
+Time to quickly add the remaining methods to your `auth` service that would allow us to login, sign up, and logout. 
 
 First you need to add the `signInUserMutation` and `createUser` mutations to your mutations folder.
 
@@ -553,7 +553,7 @@ The last piece to all of this is that you need to pass in that route-action to y
 
 <Instruction>
 
-In `app/templates/application.hbs` change your `site-header` component to recieve the following:
+In `app/templates/application.hbs` change your `site-header` component to receive the following:
 
 ```html(path=".../hackernews-ember-apollo/app/templates/application.hbs")
 <div class='center w85'>

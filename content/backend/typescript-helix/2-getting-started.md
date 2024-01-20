@@ -272,7 +272,7 @@ There are a few things to note:
 
 ### Additional Resources
 
-As mentioned in the begining of this chapter, there are many ways to build and create your GraphQL schema. 
+As mentioned in the beginning of this chapter, there are many ways to build and create your GraphQL schema. 
 
 Here are a few popular open-source libraries:
 

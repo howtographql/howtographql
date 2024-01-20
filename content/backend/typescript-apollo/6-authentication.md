@@ -1,5 +1,5 @@
 ---
-title: Authentication 
+title: Authentication
 pageTitle: 'Implementing Authentication in a GraphQL server with TypeScript'
 description: 'Learn best practices for implementing authentication and authorization with TypeScript, Apollo Server & Prisma.'
 question: 'Which HTTP header field carries the authentication token?'
@@ -59,7 +59,7 @@ Prisma, check out these [docs](https://www.prisma.io/docs/reference/tools-and-in
 
 This is a great time to refresh your memory on the workflow we described for your project at the end of [Chapter 4](../4-adding-a-database/).
 
-After every change you make to the data model, you need to migrate your database and re-generate Prisma Client. 
+After every change you make to the data model, you need to migrate your database and re-generate Prisma Client.
 
 <Instruction>
 
@@ -77,9 +77,9 @@ time.
 You will notice once again that Prisma Client gets regenerated automatically when you run a migration. Your database structure and Prisma Client has both been updated to reflect the changes for the newly added `User` model – woohoo! 🎉
 
 
-### Extending the GraphQL schema with the `User` type 
+### Extending the GraphQL schema with the `User` type
 
-Now that you have a `User` data model in your database schema, it's time to add a `User` type to your GraphQL schema. To keep your codebase modular and readable, you are going to put the Nexus definitions and resolver code in a separate `src/graphql/User.ts` file. 
+Now that you have a `User` data model in your database schema, it's time to add a `User` type to your GraphQL schema. To keep your codebase modular and readable, you are going to put the Nexus definitions and resolver code in a separate `src/graphql/User.ts` file.
 
 <Instruction>
 
@@ -91,7 +91,7 @@ touch src/graphql/User.ts
 
 </Instruction>
 
-Now just like you did with `Link`, you are going to write the Nexus type definition for the `User` type using the `objectType` function. 
+Now just like you did with `Link`, you are going to write the Nexus type definition for the `User` type using the `objectType` function.
 
 <Instruction>
 
@@ -113,16 +113,16 @@ export const User = objectType({
                     .findUnique({ where: { id: parent.id } })
                     .links();
             },
-        }); 
+        });
     },
 });
 ```
 
-The field worth discussing is the one called `links`: 
+The field worth discussing is the one called `links`:
 
-- `// 1`: The `links` field is a non-nullable array of `Link` type objects. It represents all the `links` that have been posted by that particular user.  
-- `// 2`: The `links` field needs to implement a resolve function. Previously, you only needed to implement resolvers for fields in `Query` and `Mutation`. Since the resolver for the `links` field is non-trivial, meaning GraphQL can't infer it automatically as the `User` object returned from your database does not automatically contain the `links` type. So unlike the other fields in the `User` type, you need to explcitly define the `links` resolver. 
-- `// 3`: This is the Prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call. 
+- `// 1`: The `links` field is a non-nullable array of `Link` type objects. It represents all the `links` that have been posted by that particular user.
+- `// 2`: The `links` field needs to implement a resolve function. Previously, you only needed to implement resolvers for fields in `Query` and `Mutation`. Since the resolver for the `links` field is non-trivial, meaning GraphQL can't infer it automatically as the `User` object returned from your database does not automatically contain the `links` type. So unlike the other fields in the `User` type, you need to explicitly define the `links` resolver.
+- `// 3`: This is the Prisma query that returns the associated `user.links` for a certain user from your database. You are using the `parent` argument which contains all the fields of the user that you are trying to resolve. Using the `parent.id` you can fetch the appropriate user record from your database and return the relevant `links` by chaining in the `links()` call.
 
 > **Note:** If you're having a hard time understanding the theory behind the `parent` argument and non-trivial resolvers, you should review the topic at the end of [Chapter 2](../2-a-simple-query/).
 
@@ -132,13 +132,13 @@ Add `User.ts` to Nexus by exporting it in `index.ts`:
 
 
 ```typescript{2}(path="../hackernews-typescript/src/graphql/index.ts")
-export * from "./Link"; 
+export * from "./Link";
 export * from "./User"
 ```
 
 </Instruction>
 
-Now, the `makeSchema` function in `schema.ts` will pick up on the new `User` type automatically. If your server is running in `dev` mode, your `schema.graphql` should be immediately updated with the `User` type. You can also run `npm run generate` at any time to do this. This is what the type should look like: 
+Now, the `makeSchema` function in `schema.ts` will pick up on the new `User` type automatically. If your server is running in `dev` mode, your `schema.graphql` should be immediately updated with the `User` type. You can also run `npm run generate` at any time to do this. This is what the type should look like:
 
 ```graphql(path="../hackernews-typescript/schema.graphql"&nocopy)
 type User {
@@ -150,13 +150,13 @@ type User {
 ```
 </Instruction>
 
-> **Note:** You might have noticed the definition of `links` field in the GraphQL schema is very similar to the definition of the `links` field in the `schema.prisma` file. The Prisma schema language bears a lot of resemblences to the GraphQL SDL, making it easy to reason about the properties of both schema files. 
+> **Note:** You might have noticed the definition of `links` field in the GraphQL schema is very similar to the definition of the `links` field in the `schema.prisma` file. The Prisma schema language bears a lot of resemblences to the GraphQL SDL, making it easy to reason about the properties of both schema files.
 
 
 ### Updating the `Link` type
 
-Note that, the relation between `User` and `Link` is bidirectional. A `user` has zero or more `links` that they have created. Similary a single `link` is _optionally_ connected to a `user` who _posted_ the link. To reflect this bidirectional relation, you will add a `postedBy` field to the existing `Link` model definition in
-your GraphQL schema. 
+Note that, the relation between `User` and `Link` is bidirectional. A `user` has zero or more `links` that they have created. Similarly a single `link` is _optionally_ connected to a `user` who _posted_ the link. To reflect this bidirectional relation, you will add a `postedBy` field to the existing `Link` model definition in
+your GraphQL schema.
 
 
 <Instruction>
@@ -186,11 +186,11 @@ export const Link = objectType({
 
 What are the changes here? Let's take a look 🔎:
 
-- `// 1`: You are adding a `postedBy` field of type `User`. Notice this field does not have a `nonNull` attached, meaning it is an optional field (it can return `null`). 
-- `// 2`: The implementaiton of the resolver for `postedBy` should feel familiar, as it is very similar to what you did for the `links` field in `User`. In the query, you are fetching the `link` record first using `findUnique({ where: { id: parent.id } })` and then the associated `user` relation who posted the link by chaining `postedBy()`.  
+- `// 1`: You are adding a `postedBy` field of type `User`. Notice this field does not have a `nonNull` attached, meaning it is an optional field (it can return `null`).
+- `// 2`: The implementation of the resolver for `postedBy` should feel familiar, as it is very similar to what you did for the `links` field in `User`. In the query, you are fetching the `link` record first using `findUnique({ where: { id: parent.id } })` and then the associated `user` relation who posted the link by chaining `postedBy()`.
 
- 
-> **Note:** This interesting syntax where you can traverse and fetch relation fields by chaining the field name (`findUnique(...).relationFieldName()`) is called the [Fluent API](https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#fluent-api) in Prisma. This API has a very interesting batching behavior that is very useful for implementing GraphQL resolvers as it solves a common problem known as the _"N+1 problem"_. This is an advanced optimization topic that we won't cover in this tutorial, but feel free to learn more from [here](https://www.prisma.io/docs/guides/performance-and-optimization/query-optimization-performance#solving-n1-in-graphql-with-findunique-and-prismas-dataloader). 
+
+> **Note:** This interesting syntax where you can traverse and fetch relation fields by chaining the field name (`findUnique(...).relationFieldName()`) is called the [Fluent API](https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#fluent-api) in Prisma. This API has a very interesting batching behavior that is very useful for implementing GraphQL resolvers as it solves a common problem known as the _"N+1 problem"_. This is an advanced optimization topic that we won't cover in this tutorial, but feel free to learn more from [here](https://www.prisma.io/docs/guides/performance-and-optimization/query-optimization-performance#solving-n1-in-graphql-with-findunique-and-prismas-dataloader).
 
 
 The change in your GraphQL schema is pretty minimal. Let's take a look:
@@ -204,10 +204,10 @@ type Link {
 }
 ```
 
-Now that you have defined the `User` type and updated the `Link` type in your GraphQL schema and database models, you're all set to implement authentication! 
+Now that you have defined the `User` type and updated the `Link` type in your GraphQL schema and database models, you're all set to implement authentication!
 
 
-### Implementing the `signup` and `login` mutation 
+### Implementing the `signup` and `login` mutation
 
 You will be implementing [JWT-based authentication](https://morioh.com/p/79f6f8b073f8) for the API. To do this, you will need to add two new fields to the `Mutation` type, one for `login` and another for `signup`. This is what the final GraphQL API will look like for these two fields:
 
@@ -224,9 +224,9 @@ type Mutation {
 }
 ```
 
-- `// 1`: The `AuthPayload` is a new type and it is very important to our JWT-based authentication scheme. It is the return type for both `signup` and `login` and contains a JWT token in the `token` field. The `user` field returns data for the `user` which initiated the `signup` or `login`. 
-- `// 2`: The `signup` mutation will create a new `user` record in the database as well as generate a `token` that they can use later. The arguments are `email`, `password` and `name`, matching those needed to create a `user` record. 
-- `// 3`: The `login` mutation will check the provided `email` and `password` and login an existing user. 
+- `// 1`: The `AuthPayload` is a new type and it is very important to our JWT-based authentication scheme. It is the return type for both `signup` and `login` and contains a JWT token in the `token` field. The `user` field returns data for the `user` which initiated the `signup` or `login`.
+- `// 2`: The `signup` mutation will create a new `user` record in the database as well as generate a `token` that they can use later. The arguments are `email`, `password` and `name`, matching those needed to create a `user` record.
+- `// 3`: The `login` mutation will check the provided `email` and `password` and login an existing user.
 
 
 > **Note:** We did something different this time from the typical workflow we have been following throughout this tutorial. We designed the GraphQL fields and types in SDL _before_ writing the Nexus code for them. For many people, designing the schema outline in SDL _beforehand_ is more intuitive. So feel free to do write the SDL beforehand if you prefer. You can always convert your SDL into valid Nexus types using the [Nexus SDL converter](https://nexusjs.org/converter).
@@ -235,21 +235,21 @@ First, you will need a new file for the auth code. You will also need to install
 
 <Instruction>
 
-Create a new `Auth.ts` file and install the two libraries (along with their types): 
+Create a new `Auth.ts` file and install the two libraries (along with their types):
 
 ```bash(path=".../hackernews-typescript/")
 touch src/graphql/Auth.ts
-npm install bcryptjs@~2.4.0 jsonwebtoken@~8.5.0  
+npm install bcryptjs@~2.4.0 jsonwebtoken@~8.5.0
 npm install --save-dev @types/bcryptjs@~2.4.0  @types/jsonwebtoken@~8.5.0
 ```
 
 </Instruction>
 
-Now you will define the types related to authentication using Nexus. 
+Now you will define the types related to authentication using Nexus.
 
 <Instruction>
 
-Define the `AuthPayLoad` type in `Auth.ts`: 
+Define the `AuthPayLoad` type in `Auth.ts`:
 
 ```typescript(path="../hackernews-typescript/src/graphql/Auth.ts")
 import { objectType } from "nexus";
@@ -267,7 +267,7 @@ export const AuthPayload = objectType({
 
 </Instruction>
 
-You should be sufficiently familiar by now with the Nexus syntax to understand what's going on here. Now it's time to implement the `signup` mutation. 
+You should be sufficiently familiar by now with the Nexus syntax to understand what's going on here. Now it's time to implement the `signup` mutation.
 
 
 <Instruction>
@@ -285,9 +285,9 @@ export const AuthMutation = extendType({
     type: "Mutation",
     definition(t) {
         t.nonNull.field("signup", { // 1
-            type: "AuthPayload",  
-            args: {  
-                email: nonNull(stringArg()), 
+            type: "AuthPayload",
+            args: {
+                email: nonNull(stringArg()),
                 password: nonNull(stringArg()),
                 name: nonNull(stringArg()),
             },
@@ -319,9 +319,9 @@ export const AuthMutation = extendType({
 
 </Instruction>
 
-Let's use the good ol' numbered comments again to understand what's going on here: 
+Let's use the good ol' numbered comments again to understand what's going on here:
 
-- `// 1`: The `signup` mutation field returns an instace of `AuthPayLoad`. It has three arguments,  `email`, `password` and `name`, all of which are mandatory. This is the exact same method signature you saw before for the `signup` mutation. 
+- `// 1`: The `signup` mutation field returns an instance of `AuthPayLoad`. It has three arguments,  `email`, `password` and `name`, all of which are mandatory. This is the exact same method signature you saw before for the `signup` mutation.
 - `// 2`: In the `signup` mutation resolver, the first thing to do is hash the `User`'s password using the `bcryptjs` library.
 - `// 3`: The next step is to use your Prisma Client instance to store the new `User` record in the database.
 - `// 4`: You're then generating a JSON Web Token which is signed with an `APP_SECRET`. The information encoded in the token is the `id` of the newly created user. You still need to create and export this `APP_SECRET`, something we will cover soon.
@@ -332,14 +332,14 @@ You'll notice that your IDE raises a few errors right now, like the `APP_SECRET`
 
 <Instruction>
 
-In `Auth.ts`, extend the definition of `mutation` to add a new `login` field: 
+In `Auth.ts`, extend the definition of `mutation` to add a new `login` field:
 
 ```typescript{5-38}(path="../hackernews-typescript/src/graphql/Auth.ts")
 export const AuthMutation = extendType({
     type: "Mutation",
     definition(t) {
-        
-        t.nonNull.field("login", { 
+
+        t.nonNull.field("login", {
             type: "AuthPayload",
             args: {
                 email: nonNull(stringArg()),
@@ -405,16 +405,16 @@ export const AuthMutation = extendType({
 
 </Instruction>
 
-You will notice that the signature for the `login` field is quite similar to that of `signup`. Let's go through the numbered comments: 
+You will notice that the signature for the `login` field is quite similar to that of `signup`. Let's go through the numbered comments:
 
 
 - `// 1`: Instead of _creating_ a new `User` object, you're now using your Prisma Client instance to retrieve an existing `User` record by the `email` address that was sent along as an
    argument in the `login` mutation. If no `User` with that email address was found, you're returning a corresponding error.
 - `// 2`: The next step is to compare the provided password with the one that is stored in the database. If the two don't match, you're returning an error as well.
-- `// 3`: You are creating a JWT token, just like `signup`. The information encoded in the token you are issuing contains the `id` of the user trying to log in.  
+- `// 3`: You are creating a JWT token, just like `signup`. The information encoded in the token you are issuing contains the `id` of the user trying to log in.
 - `// 4`: In the end, you're returning `token` and `user` again.
 
-> **Note:** Notice that resolvers for both `login` and `signup` are `async`. This is because you need to perform a few asynchronous operations and make use of the `await` keyword in these resolvers. 
+> **Note:** Notice that resolvers for both `login` and `signup` are `async`. This is because you need to perform a few asynchronous operations and make use of the `await` keyword in these resolvers.
 
 
 Before these new mutations can work, you need to do a few small things. First add the `graphql/Auth.ts` exports to `index.ts`.
@@ -431,7 +431,7 @@ export * from "./Auth";
 </Instruction>
 
 
-Now create the `src/utils/auth.ts` file and export the `APP_SECRET` constant. 
+Now create the `src/utils/auth.ts` file and export the `APP_SECRET` constant.
 
 <Instruction>
 
@@ -456,17 +456,17 @@ export const APP_SECRET = "GraphQL-is-aw3some";
 
 </Instruction>
 
-This `APP_SECRET` is well...a secret! It's used to sign and verify the authenticity of the JWTs generated by your server. Its value can really be anything as long as it is sufficiently long and random so that an attacker can't easily guess what it is. 
+This `APP_SECRET` is well...a secret! It's used to sign and verify the authenticity of the JWTs generated by your server. Its value can really be anything as long as it is sufficiently long and random so that an attacker can't easily guess what it is.
 
-> **Note:** It's very important that you protect the value of `APP_SECRET`. If any third party acquires this value they can trivially forge JWTs and break your authentication scheme. Secrets like this should *never* be kept inside the code itself in a production application as you risk leaking it with version control. You could use something like an `.env` file to securely store the value of `APP_SECRET`. However, since this is a tutorial, we decided to keep things simple and not take these measures. 
+> **Note:** It's very important that you protect the value of `APP_SECRET`. If any third party acquires this value they can trivially forge JWTs and break your authentication scheme. Secrets like this should *never* be kept inside the code itself in a production application as you risk leaking it with version control. You could use something like an `.env` file to securely store the value of `APP_SECRET`. However, since this is a tutorial, we decided to keep things simple and not take these measures.
 
-Whew, the `login` and `signup` mutation is finally complete 🎉. You should see the new mutation updated in your `schema.graphql` file. 
+Whew, the `login` and `signup` mutation is finally complete 🎉. You should see the new mutation updated in your `schema.graphql` file.
 
-### Verifying client side JWT tokens 
+### Verifying client side JWT tokens
 
 In the last section you implemented the `login` and `signup` mutation, both of which return a valid JWT token of the user (along with data about the user) as a `AuthPayLoad` type object. However, there's one important piece of the puzzle still missing: allowing the server verify a request with a valid JWT token attached to it.
 
-In order to do this, we are going to use the [HTTP Authorization header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization). Essentially, any API request from a client with a valid JWT token will include a header called `Authorization` which will contain said token. The server will then verify the JWT token before proceeding with the API request. In case of an invalid token, the server will return an error. 
+In order to do this, we are going to use the [HTTP Authorization header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization). Essentially, any API request from a client with a valid JWT token will include a header called `Authorization` which will contain said token. The server will then verify the JWT token before proceeding with the API request. In case of an invalid token, the server will return an error.
 
 
 <Instruction>
@@ -494,16 +494,16 @@ export function decodeAuthHeader(authHeader: String): AuthTokenPayload { // 2
 
 </Instruction>
 
-Let's understand what is going on here: 
+Let's understand what is going on here:
 
-- `// 1`: `AuthTokenPayload` interface is based on the shape of the JWT token that we issued during `signup` and `login`. When the server decodes an issued token, it should expect a response in this format. 
-- `// 2`: The `decodeAuthHeader` function takes the `Authorization` header and parses it to return the payload of the JWT. 
-- `// 3`: The `Authorization` header, contains the `type` or scheme of authorization followed by the token. In our case, `"Bearer"` represents the authorization scheme. Since the server is only interested in the JWT token itself, you can get rid of the `"Bearer"` and keep only the token. _If you're interested to learn more, here is a nice [stackoverflow question](https://security.stackexchange.com/q/108662) explaining this convention_. 
-- `// 4`: The `jwt.verify()` functions decodes the token. It also needs access to the secret (or a public key) which was used to sign the token. 
+- `// 1`: `AuthTokenPayload` interface is based on the shape of the JWT token that we issued during `signup` and `login`. When the server decodes an issued token, it should expect a response in this format.
+- `// 2`: The `decodeAuthHeader` function takes the `Authorization` header and parses it to return the payload of the JWT.
+- `// 3`: The `Authorization` header, contains the `type` or scheme of authorization followed by the token. In our case, `"Bearer"` represents the authorization scheme. Since the server is only interested in the JWT token itself, you can get rid of the `"Bearer"` and keep only the token. _If you're interested to learn more, here is a nice [stackoverflow question](https://security.stackexchange.com/q/108662) explaining this convention_.
+- `// 4`: The `jwt.verify()` functions decodes the token. It also needs access to the secret (or a public key) which was used to sign the token.
 
 
 
-There's one more issue to solve. The GraphQL resolvers don't have access to the `request` headers and have no way to get the token from the `Authorization` header. To solve this, you are going to add the `userId` received from the decoded JWT to the  GraphQL `context`, so that every resolver has access to the `userId`. 
+There's one more issue to solve. The GraphQL resolvers don't have access to the `request` headers and have no way to get the token from the `Authorization` header. To solve this, you are going to add the `userId` received from the decoded JWT to the  GraphQL `context`, so that every resolver has access to the `userId`.
 
 <Instruction>
 
@@ -512,8 +512,8 @@ Update `src/context.ts` to add the decoded JWT from the request header:
 
 ```typescript{2-3,9,12-22}(path=".../hackernews-typescript/src/context.ts")
 import { PrismaClient } from "@prisma/client";
-import { decodeAuthHeader, AuthTokenPayload } from "./utils/auth";   
-import { Request } from "express";  
+import { decodeAuthHeader, AuthTokenPayload } from "./utils/auth";
+import { Request } from "express";
 
 export const prisma = new PrismaClient();
 
@@ -528,9 +528,9 @@ export const context = ({ req }: { req: Request }): Context => {   // 2
             ? decodeAuthHeader(req.headers.authorization)
             : null;
 
-    return {  
+    return {
         prisma,
-        userId: token?.userId, 
+        userId: token?.userId,
     };
 };
 ```
@@ -538,11 +538,11 @@ export const context = ({ req }: { req: Request }): Context => {   // 2
 </Instruction>
 
 
-Let's understand the changes made to `context.ts`: 
+Let's understand the changes made to `context.ts`:
 
 
-- `// 1`: The context `interface` is updated to have a `userId` type. This is optional because no `userId` will be attached to the `context` when requests are sent without the `Authorization` header. 
-- `// 2`: Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. Apollo Server is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object. 
+- `// 1`: The context `interface` is updated to have a `userId` type. This is optional because no `userId` will be attached to the `context` when requests are sent without the `Authorization` header.
+- `// 2`: Instead of being an object, `context` is now a _function_ which needs to be executed to return the actual object of type `Context`. Apollo Server is smart enough to recognize this change from object to function and will execute the function (with some arguments, like the HTTP request) to resolve the final context object.
 
 
 ### Updating the `post` mutation
@@ -564,7 +564,7 @@ export const LinkMutation = extendType({
                 description: nonNull(stringArg()),
                 url: nonNull(stringArg()),
             },
-            resolve(parent, args, context) {   
+            resolve(parent, args, context) {
                 const { description, url } = args;
                 const { userId } = context;
 
@@ -589,12 +589,12 @@ export const LinkMutation = extendType({
 
 </Instruction>
 
-Let's go through the two changes: 
+Let's go through the two changes:
 
-- `// 1`: If the `userId` does not exist in `context`, the resolver raises an error. As a result, only authorized users can add a new `link`.  
-- `// 2`: To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represents this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be associated with. 
+- `// 1`: If the `userId` does not exist in `context`, the resolver raises an error. As a result, only authorized users can add a new `link`.
+- `// 2`: To connect the `User` with the `Link`, you are specifying a value for the `postedBy` field (which represents this `Link` to `User` relation). The `connect` operator is used by Prisma to specify which `user` the newly created `link` should be associated with.
 
-At long last, the code for this chapter is complete! This was a pretty long chapter, give yourself a congratulations for finishing it. Now it's time to test the authentication feature. 
+At long last, the code for this chapter is complete! This was a pretty long chapter, give yourself a congratulations for finishing it. Now it's time to test the authentication feature.
 
 ### Testing the authentication flow
 
@@ -635,7 +635,7 @@ You should see a response like this:
 
 <Instruction>
 
-From the server's response, copy the authentication `token`. Now in the `Headers` tab in the bottom middle, add a new header. The name of the header will be `Authorization` and value will be "`Bearer __TOKEN__`", where "`__TOKEN__`" should be replaced with *your* auth token.  Make sure that the header is enabled by clicking the blue tick mark. 
+From the server's response, copy the authentication `token`. Now in the `Headers` tab in the bottom middle, add a new header. The name of the header will be `Authorization` and value will be "`Bearer __TOKEN__`", where "`__TOKEN__`" should be replaced with *your* auth token.  Make sure that the header is enabled by clicking the blue tick mark.
 
 
 </Instruction>
@@ -746,14 +746,14 @@ Moreover, if you try to create a new `link` with the `Authorization` header abse
 
 ```
 
-> **Note:** These error messages are a bit long. If you want more readable errors for your end users, check out [this article](https://www.apollographql.com/docs/apollo-server/data/errors/#throwing-errors) on throwing errors in the Apollo documentaiton.
+> **Note:** These error messages are a bit long. If you want more readable errors for your end users, check out [this article](https://www.apollographql.com/docs/apollo-server/data/errors/#throwing-errors) on throwing errors in the Apollo documentation.
 
 ### Exploring your data in Prisma Studio
 
 Prisma ships with a powerful database GUI where you can interact with your data: [Prisma Studio](https://github.com/prisma/studio).
 
 Prisma Studio is different from a typical database GUI (such as [TablePlus](https://tableplus.com/)) in that it provides a layer of abstraction which allows you to see your data represented as it is
-in your Prisma data model. So not only can you browse, you can _explore the relations_ between different models (tables) as well. You can also filter results as well as create, update and delete data. 
+in your Prisma data model. So not only can you browse, you can _explore the relations_ between different models (tables) as well. You can also filter results as well as create, update and delete data.
 
 This is one of the several ways that Prisma bridges the gap between how you structure and interact with your data in your application and how it is actually structured and represented in the
 underlying database. One major benefit of this is that it helps you to build intuition and understanding of these two linked but separate layers over time.
@@ -774,10 +774,9 @@ Running the command should open a tab in your browser automatically (running on 
 
 <Instruction>
 
-Explore Prisma studio and try out different things. Explore the relation between `Link` and `User` through the data browser. Try creating and deleting records, or modifying existing ones. 
+Explore Prisma studio and try out different things. Explore the relation between `Link` and `User` through the data browser. Try creating and deleting records, or modifying existing ones.
 
 </Instruction>
 
 
 ![Explore Data Prisma Studio](https://i.imgur.com/tmwOCDd.gif)
-

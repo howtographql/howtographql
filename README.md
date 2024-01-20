@@ -65,5 +65,5 @@ If you are having issues with `sharp` dependency, please make sure you have inst
 
 To check the version you have, run: `yarn why sharp`. 
 
-If you are still having issues, please make sure that you have `SHARP_DIST_BASE_URL` environemnt variable set correctly (see `.env` file) and then run `yarn install` again.
+If you are still having issues, please make sure that you have `SHARP_DIST_BASE_URL` environment variable set correctly (see `.env` file) and then run `yarn install` again.
 

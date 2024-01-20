@@ -136,7 +136,7 @@ To get started with a new event, first make sure it's declared correctly by the 
 
 <Instruction>
 
-Open `src/pubsub.ts` and delcare the new event:
+Open `src/pubsub.ts` and declare the new event:
 
 ```typescript{1,6}(path="hackernews-node-ts/src/pubsub.ts")
 import { Link } from "@prisma/client";

@@ -177,7 +177,7 @@ export default () => {
       const link = proxyStore.get(linkId)
       link.getLinkedRecord('votes').setValue(newVoteCount, 'count')
     },
-    onError: error => console.log(`An error occured:`, error)
+    onError: error => console.log(`An error occurred:`, error)
   }
 
   requestSubscription(
@@ -198,7 +198,7 @@ Let's take a closer look at the subscription query that you're storing in `newVo
 
 ### Initiating the Subscription
 
-Now that you have all required infrastructure setup, you can go ahead and actually iniate a subscription! For our project, it's not too important where exactly the subscription is invoked as there are no context-dependent arguments that the subscription needs. However, it is important that the subscription only gets invoked once, so you don't want to put it into the `Link` component where it would be invoked as many times as `Link` elements are rendered. You'll therefore put it into the `LinkList` component.
+Now that you have all required infrastructure setup, you can go ahead and actually initiate a subscription! For our project, it's not too important where exactly the subscription is invoked as there are no context-dependent arguments that the subscription needs. However, it is important that the subscription only gets invoked once, so you don't want to put it into the `Link` component where it would be invoked as many times as `Link` elements are rendered. You'll therefore put it into the `LinkList` component.
 
 <Instruction>
 

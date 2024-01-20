@@ -23,17 +23,17 @@ and then you created a corresponding POJO:
 
 ```java(nocopy)
 public class Link {
-    
+
     private final String id;
     private final String url;
     private final String description;
-    
+
     //constructors, getters and setters
     //...
 }
 ```
 
-Both of these blocks contain the exact same information. Worse yet, changing one requires immediate change to the other. This makes refactoring risky and cumbersome. On the other hand, if you're trying to introduce a GraphQL API into an existing project, writing the schema practically means re-describing the entire existing model. This is both expensive and error-prone, and still suffers from duplication. 
+Both of these blocks contain the exact same information. Worse yet, changing one requires immediate change to the other. This makes refactoring risky and cumbersome. On the other hand, if you're trying to introduce a GraphQL API into an existing project, writing the schema practically means re-describing the entire existing model. This is both expensive and error-prone, and still suffers from duplication.
 
 ### Code-first style
 
@@ -61,7 +61,7 @@ Additionally, it will be much more comfortable to work if the [method parameter 
 
 <Instruction>
 
-So enable the `-paramaters` javac option by configuring the `maven-compiler-plugin` as follows:
+So enable the `-parameters` javac option by configuring the `maven-compiler-plugin` as follows:
 
 ```xml(path=".../hackernews-graphql-java/pom.xml")
 <plugin>
@@ -121,7 +121,7 @@ Decorate the interesting bits in `LinkResolver` too:
 
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/LinkResolver.java")
 public class LinkResolver { //1
-    
+
     private final UserRepository userRepository;
 
     LinkResolver(UserRepository userRepository) {
@@ -167,14 +167,14 @@ Things to note:
 
 <Instruction>
 
-Finally, to generate the schema from the classes, update `GraphQLEndoint#buildSchema` to look as follows:
+Finally, to generate the schema from the classes, update `GraphQLEndpoint#buildSchema` to look as follows:
 
 ```java(path=".../hackernews-graphql-java/src/main/java/com/howtographql/hackernews/GraphQLEndoint.java")
 private static GraphQLSchema buildSchema() {
     Query query = new Query(linkRepository); //create or inject the service beans
     LinkResolver linkResolver = new LinkResolver(userRepository);
     Mutation mutation = new Mutation(linkRepository, userRepository, voteRepository);
-    
+
     return new GraphQLSchemaGenerator()
             .withOperationsFromSingletons(query, linkResolver, mutation) //register the beans
             .generate(); //done :)
@@ -191,7 +191,6 @@ If you now fire up GraphiQL, you'd get the exact same result as before:
 The important points to note:
 
 * You never defined the schema explicitly (meaning you won't have to update it when the code changes either).
-* You don't have to separate the logic for manipulating `Link`s into the top level queries (`allLinks` inside `Query`), embedded ones (`postedBy` inside `LinkResolver`) and mutations (`createLink` inside `Mutation`). All the queries and mutations operating on links could have been placed into a single class (e.g. `LinkService`), yet having them separate was not a hurdle either. This implies that your legacy code and best practices can stay untouched. 
+* You don't have to separate the logic for manipulating `Link`s into the top level queries (`allLinks` inside `Query`), embedded ones (`postedBy` inside `LinkResolver`) and mutations (`createLink` inside `Mutation`). All the queries and mutations operating on links could have been placed into a single class (e.g. `LinkService`), yet having them separate was not a hurdle either. This implies that your legacy code and best practices can stay untouched.
 
 This is just a glance at the alternative style of development. There are many more possibilities to explore, so take a look at what [the ecosystem](https://github.com/graphql-java/awesome-graphql-java) has to offer. For more info on `graphql-spqr` check out [the project page](https://github.com/leangen/graphql-spqr), and for a full example see [here](https://github.com/leangen/graphql-spqr-samples).
-

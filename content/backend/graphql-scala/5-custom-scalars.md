@@ -66,7 +66,7 @@ Add column mapper for our `DateTime` type in `DBSchema` object (before the `Link
 import java.sql.Timestamp
 
 
-//and at the begining of the class' body:
+//and at the beginning of the class' body:
 implicit val dateTimeColumnType = MappedColumnType.base[DateTime, Timestamp](
     dt => new Timestamp(dt.clicks),
     ts => DateTime(ts.getTime)
@@ -132,7 +132,7 @@ object DBSchema {
   val Links = TableQuery[LinksTable]
 
   /**
-    * Load schema and populate sample data withing this Sequence od DBActions
+    * Load schema and populate sample data within this Sequence od DBActions
     */
   val databaseSetup = DBIO.seq(
     Links.schema.create,
@@ -181,7 +181,7 @@ In `GraphQLSchema` add the following code:
 //imports:
 import sangria.ast.StringValue
 
-//begining of the object's body:
+//beginning of the object's body:
 implicit val GraphQLDateTime = ScalarType[DateTime](//1
   "DateTime",//2
   coerceOutput = (dt, _) => dt.toString, //3

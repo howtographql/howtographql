@@ -10,7 +10,7 @@ module.exports = language => {
     nocopy: false,
   }
 
-  // removes the () part completly from the string, so the {} logic is untouched
+  // removes the () part completely from the string, so the {} logic is untouched
   if (language.split(`(`).length > 1) {
     const i0 = language.indexOf('(')
     const i1 = language.lastIndexOf(')')

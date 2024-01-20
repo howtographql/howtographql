@@ -8,10 +8,10 @@ correctAnswer: 1
 ---
 
 
-In this chapter, you will add a voting feature that lets your users _upvote_ certain links. Along the way, you will learn about representing many-to-many relationships using Prisma. Then you will learn about custom scalar types and how to add a `DateTime` scalar to your GraphQL API. Finally you are going to use the `DateTime` scalar to add a new `createdAt` field to the `Link` type. 
+In this chapter, you will add a voting feature that lets your users _upvote_ certain links. Along the way, you will learn about representing many-to-many relationships using Prisma. Then you will learn about custom scalar types and how to add a `DateTime` scalar to your GraphQL API. Finally you are going to use the `DateTime` scalar to add a new `createdAt` field to the `Link` type.
 
 
-You will start with the voting feature. 
+You will start with the voting feature.
 
 
 ### Updating the Prisma schema
@@ -45,12 +45,12 @@ model User {
 
 </Instruction>
 
-Let's go through the numbered comments to understand the changes: 
+Let's go through the numbered comments to understand the changes:
 
-- `// 1`: The `Link` model has a new `voters` relation field which is connected to _multiple_ `User` records. Similarly, the `User` model has a new `votes` relation field which is connected to _multple_ `Link` records. This kind of relation is called _many-to-many_ in relational database terminology. To represent such a relation in the database, a separate table is needed, which is often called the _join table_ or _relation table_. However, Prisma abstracts this away for you and manages this table under the hood (without you having to worry about it), so it's not visible in the Prisma schema. 
-- `// 2`: You can see there's a new attribute in the relation annotation called `name`. Notice that now there is more than one relation between the `User` and `Link` model (A _one-to-many_ `PostedBy` relation and a _many-to-many_ `Votes` relation). As a result, the `name` attribute needs to be specified in the relation annotation so that Prisma can identify the relation a field is referencing. 
+- `// 1`: The `Link` model has a new `voters` relation field which is connected to _multiple_ `User` records. Similarly, the `User` model has a new `votes` relation field which is connected to _multiple_ `Link` records. This kind of relation is called _many-to-many_ in relational database terminology. To represent such a relation in the database, a separate table is needed, which is often called the _join table_ or _relation table_. However, Prisma abstracts this away for you and manages this table under the hood (without you having to worry about it), so it's not visible in the Prisma schema.
+- `// 2`: You can see there's a new attribute in the relation annotation called `name`. Notice that now there is more than one relation between the `User` and `Link` model (A _one-to-many_ `PostedBy` relation and a _many-to-many_ `Votes` relation). As a result, the `name` attribute needs to be specified in the relation annotation so that Prisma can identify the relation a field is referencing.
 
-> **Note:** The many-to-many relation where Prisma manages the relation table is called an _implicit_ many-to-many relation. Alternatively, you can choose to define the relation table inside your Prisma schema _explicitly_. This is called an _explicit_ many-to-many relation. Your use-case will determine which of the two you should use. When you don't need to attach additional information to the relation (as is the case for your vote relation), it's easier to use an implicit many-to-many relation. In cases where there is additional data associated with the relation itself, you will need to use an explicit many-to-many relation. You can optionally read more about this in the [Prisma documentation](https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations#relational-databases). 
+> **Note:** The many-to-many relation where Prisma manages the relation table is called an _implicit_ many-to-many relation. Alternatively, you can choose to define the relation table inside your Prisma schema _explicitly_. This is called an _explicit_ many-to-many relation. Your use-case will determine which of the two you should use. When you don't need to attach additional information to the relation (as is the case for your vote relation), it's easier to use an implicit many-to-many relation. In cases where there is additional data associated with the relation itself, you will need to use an explicit many-to-many relation. You can optionally read more about this in the [Prisma documentation](https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations#relational-databases).
 
 <Instruction>
 
@@ -62,18 +62,18 @@ npx prisma migrate dev --name "add-vote-relation"
 
 </Instruction>
 
-Just like before, the Prisma Client API will automatically be updated to reflect the changes to your schema. 
+Just like before, the Prisma Client API will automatically be updated to reflect the changes to your schema.
 
 
-### Adding a `vote` mutation 
+### Adding a `vote` mutation
 
-Now that your database model has been updated, it's time to implement the `vote` mutation, which any logged in user can call to cast a vote for a particular link. Note that this application will only support upvotes, and only logged in users will be allowed to vote on a link. 
+Now that your database model has been updated, it's time to implement the `vote` mutation, which any logged in user can call to cast a vote for a particular link. Note that this application will only support upvotes, and only logged in users will be allowed to vote on a link.
 
 You will start by creating a `Vote.ts` file.
 
 <Instruction>
 
-Create a new `Vote.ts` file inside the `src/graphql` directory: 
+Create a new `Vote.ts` file inside the `src/graphql` directory:
 
 ```bash(path=".../hackernews-typescript/")
 touch src/graphql/Vote.ts
@@ -82,7 +82,7 @@ touch src/graphql/Vote.ts
 </Instruction>
 
 
-Before creating the vote mutation you will also need to define its return type. 
+Before creating the vote mutation you will also need to define its return type.
 
 
 <Instruction>
@@ -109,7 +109,7 @@ export const VoteMutation = extendType({  // 2
             args: {
                 linkId: nonNull(intArg()),
             },
-            
+
         })
     }
 })
@@ -120,7 +120,7 @@ export const VoteMutation = extendType({  // 2
 
 This code follows the same pattern you have used in the last few chapters. Let's take a look:
 
-- `// 1`: The `Vote` type is a union of two things: the link in question and the user who just cast the vote. 
+- `// 1`: The `Vote` type is a union of two things: the link in question and the user who just cast the vote.
 - `// 2`: The `vote` mutation will return an instance of `Vote` type. The caller will also provide the `linkId` argument which identifies the link in question. The `userId` does not need to be provided as an argument because it can be decoded from the Authentication header.
 
 To incorporate these changes to your GraphQL schema, there's something else you need to do.
@@ -157,13 +157,13 @@ type Vote {
 ```
 <Instruction>
 
-Implement the `resolve` function for the `vote` mutation: 
+Implement the `resolve` function for the `vote` mutation:
 
 ```typescript{2,12-38}(path="../hackernews-typescript/src/graphql/Vote.ts")
 import { objectType, extendType, nonNull, intArg } from "nexus";
 import { User } from "@prisma/client";
 
-export const Vote = objectType({ 
+export const Vote = objectType({
     name: "Vote",
     definition(t) {
         t.nonNull.field("link", { type: "Link" });
@@ -183,7 +183,7 @@ export const VoteMutation = extendType({
                 const { userId } = context;
                 const { linkId } = args;
 
-                if (!userId) {  // 1 
+                if (!userId) {  // 1
                     throw new Error("Cannot vote without logging in.");
                 }
 
@@ -218,9 +218,9 @@ Let's understand what's happening in the resolver:
 
 - `// 1`: If the user provides a valid JWT token, then the `userId` variable will be available in the `context` argument. This check prevents users that are not logged in from trying to vote.
 - `// 2`: The `voters` field for the link needs to be updated with a new user. The update query has two parts: the `where` option specifies which link to update, and the `data` option specifies the update payload. In this case, we simply want to attach a new user to the _many-to-many_ relation represented by the `voters` field. This can be done using the `connect` option.
-- `// 3`: The resolver will return an object of `Vote` type, which contains the user and link in question. The typecasting (`user as User`) is necessary as the type returned by `prisma.user.findUnique` is `User | null`, whereas the type expected from the resolve function is `User`.  
+- `// 3`: The resolver will return an object of `Vote` type, which contains the user and link in question. The typecasting (`user as User`) is necessary as the type returned by `prisma.user.findUnique` is `User | null`, whereas the type expected from the resolve function is `User`.
 
-Now you will update the definition of the `Link` type in your GraphQL schema to add the `voters` field. 
+Now you will update the definition of the `Link` type in your GraphQL schema to add the `voters` field.
 
 <Instruction>
 
@@ -248,7 +248,7 @@ export const Link = objectType({
                     .findUnique({ where: { id: parent.id } })
                     .voters();
             }
-        })  
+        })
     },
 });
 
@@ -256,7 +256,7 @@ export const Link = objectType({
 
 </Instruction>
 
-- `// 1`: The definition of the `voters` field in the GraphQL schema is similar to that of the Prisma data model you updated earlier. The syntax of the `resolve` function is also very similar to the previous `resolve` function written for the `postedBy` field. 
+- `// 1`: The definition of the `voters` field in the GraphQL schema is similar to that of the Prisma data model you updated earlier. The syntax of the `resolve` function is also very similar to the previous `resolve` function written for the `postedBy` field.
 
 
 You also need to update the `User` type.
@@ -296,7 +296,7 @@ export const User = objectType({
 
 </Instruction>
 
-All right, that’s it! Now let's test the implementation of the `vote` mutation! When executing the following instruction, make sure the `Authorization` header is enabled and has a valid token. 
+All right, that’s it! Now let's test the implementation of the `vote` mutation! When executing the following instruction, make sure the `Authorization` header is enabled and has a valid token.
 
 
 <Instruction>
@@ -320,7 +320,7 @@ mutation {
 
 </Instruction>
 
-You should see an output similar to the following: 
+You should see an output similar to the following:
 
 ```json(nocopy)
 {
@@ -342,30 +342,30 @@ You should see an output similar to the following:
 ![Vote mutation](https://i.imgur.com/oIIXH9C.png)
 
 
-Awesome! Now it's time to learn about GraphQL scalars. 
+Awesome! Now it's time to learn about GraphQL scalars.
 
 
-### What are GraphQL scalars? 
+### What are GraphQL scalars?
 
-As mentioned before, scalars are the basic types in a GraphQL schema, similar to the primitive types in programming languages. While doing this tutorial, you have used a few of the built-in scalar types, notably `String` and `Int`. 
+As mentioned before, scalars are the basic types in a GraphQL schema, similar to the primitive types in programming languages. While doing this tutorial, you have used a few of the built-in scalar types, notably `String` and `Int`.
 
-While the built-in scalars support most of the common use-cases, your application might need support for other custom scalars. For example, currently in our application, the `Link.url` field has a `String` scalar type. However, you might want to create an `Url` scalar to add custom validation logic and reject invalid urls. The benefit of scalars is that they simultaneously define the _representation_ and _validation_ for the primitive data types in your API. 
+While the built-in scalars support most of the common use-cases, your application might need support for other custom scalars. For example, currently in our application, the `Link.url` field has a `String` scalar type. However, you might want to create an `Url` scalar to add custom validation logic and reject invalid urls. The benefit of scalars is that they simultaneously define the _representation_ and _validation_ for the primitive data types in your API.
 
 
 
 ### Custom scalars with Nexus
 
-Nexus allows you to create custom scalars for your GraphQL schema using a standardized interface. To do this, you will need to provide the functions that _serialize_ and _deserialize_ data for that scalar. It's important to note that under the hood Nexus uses the `GraphQLScalarType` class from the `graphql` library. Most applications in the node ecosystem uses this class when defining custom scalars. As a result scalars defined across different libraries in the node ecosystem are often compatible with each other. 
+Nexus allows you to create custom scalars for your GraphQL schema using a standardized interface. To do this, you will need to provide the functions that _serialize_ and _deserialize_ data for that scalar. It's important to note that under the hood Nexus uses the `GraphQLScalarType` class from the `graphql` library. Most applications in the node ecosystem uses this class when defining custom scalars. As a result scalars defined across different libraries in the node ecosystem are often compatible with each other.
 
-The [`graphql-scalars`](https://github.com/Urigo/graphql-scalars) library provides a large set of custom scalars for creating precise type-safe GraphQL schemas. You are going to import and use the `DateTime` scalar from this library in your GraphQL API. 
+The [`graphql-scalars`](https://github.com/Urigo/graphql-scalars) library provides a large set of custom scalars for creating precise type-safe GraphQL schemas. You are going to import and use the `DateTime` scalar from this library in your GraphQL API.
 
 ### Adding the `DateTime` scalar
 
-Start by adding the `graphql-scalars` library to your application. 
+Start by adding the `graphql-scalars` library to your application.
 
 <Instruction>
 
-Install `graphql-scalars` using npm: 
+Install `graphql-scalars` using npm:
 
 ```bash(path=".../hackernews-typescript/")
 npm install graphql-scalars@^1.14.1
@@ -387,7 +387,7 @@ touch src/graphql/scalars/Date.ts
 </Instruction>
 
 
-Now let's add a new DateTime scalar to your API. 
+Now let's add a new DateTime scalar to your API.
 
 <Instruction>
 
@@ -402,10 +402,10 @@ export const GQLDate = asNexusMethod(GraphQLDateTime, "dateTime");  // 2
 
 </Instruction>
 
-Let's understand what you did here: 
+Let's understand what you did here:
 
-- `// 1`: The `GraphQLDateTime` is a pre-built custom scalar from the `graphql-scalars` library. It uses the [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) specification, which is also used by Prisma for its own `DateTime` type. 
-- `// 2`: The `asNexusMethod` allows you to expose a custom scalar as a Nexus type. It takes two arguments: A custom scalar and the name for the Nexus type. 
+- `// 1`: The `GraphQLDateTime` is a pre-built custom scalar from the `graphql-scalars` library. It uses the [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) specification, which is also used by Prisma for its own `DateTime` type.
+- `// 2`: The `asNexusMethod` allows you to expose a custom scalar as a Nexus type. It takes two arguments: A custom scalar and the name for the Nexus type.
 
 
 To enable the new `DateTime` scalar, you will need to pass it to your Nexus `makeSchema` call. This can easily be done at `src/graphql/index.ts`.
@@ -434,7 +434,7 @@ scalar DateTime
 ```
 
 
-Alright! It's time to put this new scalar to use in the `Link` type. Note that you usually update your database model before making changes to the GraphQL type definition. However the `createdAt` field _already exists_ in the `Link` Prisma model. 
+Alright! It's time to put this new scalar to use in the `Link` type. Note that you usually update your database model before making changes to the GraphQL type definition. However the `createdAt` field _already exists_ in the `Link` Prisma model.
 
 
 <Instruction>
@@ -472,7 +472,7 @@ export const Link = objectType({
 </Instruction>
 
 
-- `// 1`: The `dateTime` field should automatically be available when defining any type using Nexus, thanks to the `asNexusMethod` call. This field will get resolved automatically during queries as the `Link` model inside Prisma already has a `createdAt` field. 
+- `// 1`: The `dateTime` field should automatically be available when defining any type using Nexus, thanks to the `asNexusMethod` call. This field will get resolved automatically during queries as the `Link` model inside Prisma already has a `createdAt` field.
 
 The updated `Link` type definition should be as follows:
 
@@ -487,7 +487,7 @@ type Link {
 }
 ```
 
-That's it! You can now access the `createdAt` field in any `Link` type. You can test this using the `feed` query and adding `createdAt` to the selection set like this: 
+That's it! You can now access the `createdAt` field in any `Link` type. You can test this using the `feed` query and adding `createdAt` to the selection set like this:
 
 
 ```graphql
@@ -524,4 +524,4 @@ Your result should look similar to the following:
 }
 ```
 
-> **Note:** If you want to learn more about custom GraphQL scalars in the context of the Node ecosystem, [this article](https://medium.com/@alizhdanov/lets-understand-graphql-scalars-3b2b016feb4a) is worth reading. You can also check out the [Nexus docs](https://nexusjs.org/docs/api/scalar-type#exposing-scalar-as-method) for understanding how to create and use custom scalars with Nexus. 
+> **Note:** If you want to learn more about custom GraphQL scalars in the context of the Node ecosystem, [this article](https://medium.com/@alizhdanov/lets-understand-graphql-scalars-3b2b016feb4a) is worth reading. You can also check out the [Nexus docs](https://nexusjs.org/docs/api/scalar-type#exposing-scalar-as-method) for understanding how to create and use custom scalars with Nexus.
