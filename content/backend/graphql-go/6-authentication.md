@@ -236,6 +236,7 @@ func ForContext(ctx context.Context) *users.User {
 </Instruction>
 
 Now we can use the middleware we created in our server:
+Create a new folder in the root directory called 'server' and move the server.go file to the directory you just created.
 
 <Instruction>
 
@@ -249,7 +250,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/99designs/gqlgen/handler"
+	"github.com/99designs/gqlgen/graphql/handler"
 	hackernews "github.com/glyphack/go-graphql-hackernews"
 	"github.com/glyphack/go-graphql-hackernews/internal/pkg/db/mysql"
 	"github.com/go-chi/chi"
