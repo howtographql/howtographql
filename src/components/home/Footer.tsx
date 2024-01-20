@@ -35,7 +35,7 @@ export default function Footer() {
       `}</style>
       <span>
         Made with <span className="love"> ♥ </span> by{' '}
-        <a href="https://www.prisma.io" target="_blank">Prisma</a> and the
+        <a href="https://www.prisma.io?utm_source=htg&utm_medium=footer" target="_blank">Prisma</a> and the
         amazing
         GraphQL community
       </span>

@@ -73,7 +73,7 @@ export default function CheckoutGraphcool() {
           </p>
           <a
             className="btn green small"
-            href="https://www.prisma.io"
+            href="https://www.prisma.io?utm_source=htg&utm_medium=success&next-step"
             target="_blank"
           >
             <Icon
@@ -88,12 +88,12 @@ export default function CheckoutGraphcool() {
           <h3>More Resources</h3>
           <Tutorial
             title="Prisma Quickstart"
-            link="https://www.prisma.io/docs/-a002"
+            link="https://www.prisma.io/docs/getting-started?utm_source=htg&utm_medium=success&get-started"
             description="The fastest way to get started with Prisma"
           />
           <Tutorial
             title="Community Tutorials"
-            link="https://www.prisma.io/tutorials"
+            link="https://www.prisma.io/tutorials?utm_source=htg&utm_medium=success&community-tutorials"
             description="Tutorials all around GraphQL, databases & ORMs"
           />
         </div>

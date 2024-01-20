@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export default function PrismaLink() {
   return (
-    <a className="prisma-link" href="https://prisma.io" target="_blank">
+    <a className="prisma-link" href="https://prisma.io?utm_source=htg&utm_medium=home" target="_blank">
       <style jsx={true}>{`
         .prisma-link {
           margin-left: 4px;

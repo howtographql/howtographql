@@ -12,7 +12,7 @@ In the following section, you can choose from one of the many hands-on tutorials
 
 Choose your favorite programming language to get started with GraphQL on the server-side:
 
-- [**Node.js**](https://www.howtographql.com/graphql-js/1-getting-started/) (_Beginners Choice_): This tutorial uses the [graphql-js](https://github.com/graphql/graphql-js) reference implementation. You'll build a GraphQL server using [Node.js](https://nodejs.org/en/), the [graphql-yoga](https://github.com/graphcool/graphql-yoga) server library and [Prisma](https://www.prisma.io).
+- [**Node.js**](https://www.howtographql.com/graphql-js/1-getting-started/) (_Beginners Choice_): This tutorial uses the [graphql-js](https://github.com/graphql/graphql-js) reference implementation. You'll build a GraphQL server using [Node.js](https://nodejs.org/en/), the [graphql-yoga](https://github.com/graphcool/graphql-yoga) server library and [Prisma](https://www.prisma.io?utm_source=htg&utm_medium=content&utm_campaign=choose).
 - [**Ruby**](https://www.howtographql.com/graphql-ruby/0-introduction/): Learn how to build a GraphQL server in Ruby with this tutorial based on the [graphql-ruby](https://github.com/rmosolgo/graphql-ruby) library.
 - [**Java**](https://www.howtographql.com/graphql-java/0-introduction/): Learn how to build a GraphQL server in Java with this tutorial based on the [graphql-java](https://github.com/graphql-java/graphql-java) library.
 - [**Elixir**](https://www.howtographql.com/graphql-elixir/0-introduction/): Learn how to build a GraphQL server in Elixir with this tutorial based on the [Absinthe](https://github.com/absinthe-graphql/absinthe) library.

@@ -56,7 +56,7 @@ export default function Team() {
         <h2>For the Community, by the Community</h2>
         <p>
           How to GraphQL was created by{' '}
-          <a className="prisma-link" href="https://prisma.io" target="_blank">
+          <a className="prisma-link" href="https://prisma.io?utm_source=htg&utm_medium=home&created-by" target="_blank">
             Prisma
           </a>{' '}
           and many amazing contributors. It's open-source and free of charge.
