@@ -23,6 +23,11 @@ type User struct {
 
 </Instruction>
 
+Note that in the following code we are importing the `database` & `users` pacakge from our own codebase.
+The import path for those packages in this snippet is reffering to the implementation of this guide.
+You are probably creating your own project so you can replace the `"github.com/glyphack/graphql-golang` import path with your own.
+You can refer to [this document](https://go.dev/doc/code#ImportingLocal) to understand how the module path is declared.
+
 <Instruction>
 
 `internal/links/links.go`:
@@ -30,8 +35,8 @@ type User struct {
 package links
 
 import (
-	database "github.com/glyphack/go-graphql-hackernews/internal/pkg/db/mysql"
-	"github.com/glyphack/go-graphql-hackernews/internal/users"
+	database "github.com/glyphack/graphql-golang/internal/pkg/db/mysql"
+	"github.com/glyphack/graphql-golang/internal/users"
 	"log"
 )
 
