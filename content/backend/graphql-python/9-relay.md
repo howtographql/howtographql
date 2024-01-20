@@ -99,6 +99,30 @@ class Query(
 
 In Insomnia, try out the Relay query:
 
+```
+query {
+  relayLinks {
+    edges {
+      node {
+        id
+        url
+        description
+        votes {
+          edges {
+            node {
+              id
+              user {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ![Relay query](https://i.imgur.com/JEg6jWG.png)
 
 Some differences from the last queries:
@@ -108,9 +132,45 @@ Some differences from the last queries:
 
 What about the pagination? Each field has some arguments for controlling it: `before`, `after,` `first` and `last`. On top of that, each edge has a `pageInfo` object, including the cursor for navigating between pages.
 
+```
+query {
+  relayLinks(first: 1) {
+    edges {
+      node {
+        id
+        url
+        description
+      }
+    }
+    pageInfo {
+      startCursor
+      endCursor
+    }
+  }
+}
+```
+
 ![pageInfo object](https://i.imgur.com/WdIl6GK.png)
 
 The `first: 1` parameter limits the response for the first result. You also requested the `pageInfo`, which returned the navigation cursors.
+
+```
+query {
+  relayLinks(first: 1, after: "YXJyYXljb25uZWN0aW9uOjA=") {
+    edges {
+      node {
+        id
+        url
+        description
+      }
+    }
+    pageInfo {
+      startCursor
+      endCursor
+    }
+  }
+}
+```
 
 ![first: 1 parameter](https://i.imgur.com/54DLMs8.png)
 
@@ -171,6 +231,21 @@ class Mutation(
 </Instruction>
 
 The changes here are mostly on classes and methods names. You can now create links!
+
+```
+mutation {
+  relayCreateLink(input: {
+    url: "http://deployeveryday.com",
+    description: "Author's Blog"}
+  ) {
+    link {
+      id
+      url
+      description
+    }
+  }
+}
+```
 
 ![now create links](https://i.imgur.com/hPNzfb0.png)
 

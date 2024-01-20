@@ -78,8 +78,31 @@ This will make sure our schema knows the mutation created.
 ### Creating a Link
 Time to play! In the GraphiQL interface, enter the following data and see how a link gets created:
 
+```
+mutation {
+  createLink(
+    url: "http://github.com",
+    description: "Lots of Code!"
+  ) {
+    id
+    url
+    description
+  }
+}
+```
+
 ![link getting created ](http://i.imgur.com/L2BA6eV.png)
 
 After, try to query the data again, you should see the new link.
+
+```
+query {
+  links {
+    id
+    description
+    url
+  }
+}
+```
 
 ![see new link](http://i.imgur.com/wjinT5F.png)

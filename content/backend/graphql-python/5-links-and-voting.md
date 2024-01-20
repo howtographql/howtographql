@@ -85,6 +85,21 @@ class CreateLink(graphene.Mutation):
 
 To test it, send a mutation to the server (remember to use the token!):
 
+```
+mutation {
+  createLink(url: "https://github.com/jonatasbaldin", description: "Jonatas' GitHub") {
+    id
+    url
+    description
+    postedBy {
+      id
+      username
+      email
+    }
+  }
+}
+```
+
 ![send a mutation to the server](https://i.imgur.com/XBsEwK8.png)
 
 Neat!
@@ -162,6 +177,23 @@ class Mutation(graphene.ObjectType):
 
 Voting time! Try to vote for the first link:
 
+```
+mutation {
+  createVote(linkId: 1) {
+    user {
+      id
+      username
+      email
+    }
+    link {
+      id
+      description
+      url
+    }
+  }
+}
+```
+
 ![vote for the first link](https://i.imgur.com/5NUS0fu.png)
 
 ### Relating Links and Votes
@@ -203,9 +235,41 @@ class Query(graphene.ObjectType):
 
 Awesome! On Insomnia, try to fetch the list of votes:
 
+```
+query {
+  votes {
+    id
+    user {
+      id
+      username
+    }
+    link {
+      id
+      url
+    }
+  }
+}
+```
+
 ![fetch the list of votes](https://i.imgur.com/LJ0CMn6.png)
 
 To close this chapter, make a query for all the links and see how smoothly the votes become available:
+
+```
+query {
+  links {
+    id
+    url
+    votes {
+      id
+      user {
+        id
+        username
+      }
+    }
+  }
+}
+```
 
 ![make a query for all the links and see how smoothly the votes become available](https://i.imgur.com/jAlDphd.png)
 
