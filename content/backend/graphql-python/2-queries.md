@@ -166,7 +166,7 @@ query {
 }
 ```
 
-You should see a response link this:
+You should see a response like this:
 
 ![Query response](http://i.imgur.com/bND8TCT.png)
 
