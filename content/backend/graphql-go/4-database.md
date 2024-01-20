@@ -172,6 +172,8 @@ In `Migrate function we apply migrations just like we did with command line but 
 Then call `InitDB` and `Migrate`(Optional) in main func to create database connection at the start of the app:
 
 <Instruction>
+	
+At this point we also prepare the app to use the [Chi](https://github.com/go-chi/chi) `router` as our HTTP handler for upcoming implementations of authentication and middleware. Note that we replace the `nil` handler in `http.ListenAndServe(":"+port, nil)` with our created Chi `router`.
 
 `server.go`:
 ```go
