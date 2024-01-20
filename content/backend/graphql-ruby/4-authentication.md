@@ -99,7 +99,7 @@ Then create a mutation for creating a user:
 ```ruby(path=".../graphql-ruby/app/graphql/mutations/create_user.rb")
 module Mutations
   class CreateUser < BaseMutation
-    # often we will need input types for specific mutation
+    # often we will need input types for a specific mutation
     # in those cases we can define those input types in the mutation class itself
     class AuthProviderSignupData < Types::BaseInputObject
       argument :credentials, Types::AuthProviderCredentialsInput, required: false
@@ -346,7 +346,7 @@ You'll need that object to be different in every request now though, since each 
 
 <Instruction>
 
-Thankfully, the [graphql gem](https://rubygems.org/gems/graphql) allows that you'll just have to change the auto-generated `graphql_controller.rb` to accomplish this:
+Thankfully, the [graphql gem](https://rubygems.org/gems/graphql) allows that. You'll just have to change the auto-generated `graphql_controller.rb` to accomplish this:
 
 ```ruby(path=".../graphql-ruby/app/controllers/graphql_controller.rb")
 class GraphqlController < ApplicationController
@@ -426,7 +426,7 @@ This is pretty straightforward since the generated token is so simple. Like was 
 
 <Instruction>
 
-Your server can now detect the user that triggered each GraphQL request. This could be useful in many situations. For example, the authenticated user should be exactly the one that posted a link being created with the `createLink` mutation. You can now store this information for each link.
+Your server can now detect the user that triggered each GraphQL request. This could be useful in many situations. For example, the authenticated user should be the exact same user that's posting a link being created with the `createLink` mutation. You can now store this information for each link.
 
 First run the following script:
 
