@@ -69,7 +69,7 @@ At the end, the execution algorithm puts everything together into the correct sh
 
 One thing to note is that most GraphQL server implementations will provide "default resolvers" - so you don't have to specify a resolver function for every single field. In GraphQL.js, for example, you don't need to specify resolvers when the parent object of the resolver contains a field with the correct name.
 
-Read more in-depth about GraphQL execution in the ["GraphQL Explained" post](https://dev-blog.apollodata.com/graphql-explained-5844742f195e) on the Apollo blog.
+Read more in-depth about GraphQL execution in the ["GraphQL Explained" post](https://www.apollographql.com/blog/graphql-explained) on the Apollo blog.
 
 ## Batched Resolving
 
