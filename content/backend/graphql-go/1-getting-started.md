@@ -121,6 +121,6 @@ go run github.com/99designs/gqlgen generate
 > this error, edit `graph/schema.resolvers.go` file and delete functions
 > `CreateTodo` and `Todos`. Now run the command again.
 
-After gqlgen generated code for us, we'll have to implement our schema, we do
-that in ‍‍‍‍`schema.resolvers.go`, as you see there is functions for Queries and
-Mutations we defined in our schema.
+After gqlgen has generated code for us, we'll have to implement our schema resolveres, we do
+that in ‍‍‍‍`schema.resolvers.go`, as you see there are functions for Queries and
+Mutations that we defined in our schema.
