@@ -45,12 +45,12 @@ You will do this by first adding an instance of `PubSub` to the context, just as
 To setup your PubSub object, start by installing the following packages: 
 
 ```bash
-npm install graphql-subscriptions typed-graphql-subscriptions
+npm install graphql-subscriptions
 ```
 
 </Instruction>
 
-You'll use `graphql-subscriptions` library in order to create an instance of `PubSub`, and `typed-graphql-subscriptions` to get better type-safety for the events emitted.
+You'll use `graphql-subscriptions` library in order to create an instance of `PubSub`.
 
 <Instruction>
 
@@ -58,19 +58,18 @@ To get start with an instance of your `PubSub`, create a new file called `src/pu
 
 ```typescript(path="hackernews-node-ts/src/pubsub.ts)
 import { PubSub } from "graphql-subscriptions";
-import { TypedPubSub } from "typed-graphql-subscriptions";
 
 // 1
 export type PubSubChannels = {};
 
 // 2
-export const pubSub = new TypedPubSub<PubSubChannels>(new PubSub());
+export const pubSub = new PubSub<PubSubChannels>();
 ```
 
 </Instruction>
 
 1. First, you declare a TypeScript `type PubSubChannels`, you'll later use that to define your type-safe events.
-1. Then, create an instance of `PubSub` and combine it with the type-safe events wrapper to form a fully-typed Pub/Sub instance.
+1. Then, create an instance of `PubSub` and add a type argument of the PubSubChannels to form a fully-typed Pub/Sub instance.
 
 Now, you're adding the global instance of your `PubSub` and make sure it's available for your during your GraphQL execution, by injecting it to your `context`, just as you stored an instance of `PrismaClient` in the variable `prisma`.
 
@@ -141,13 +140,12 @@ Open `src/pubsub.ts` and delcare the new event:
 ```typescript{1,6}(path="hackernews-node-ts/src/pubsub.ts")
 import { Link } from "@prisma/client";
 import { PubSub } from "graphql-subscriptions";
-import { TypedPubSub } from "typed-graphql-subscriptions";
 
 export type PubSubChannels = {
   newLink: [{ createdLink: Link }];
 };
 
-export const pubSub = new TypedPubSub<PubSubChannels>(new PubSub());
+export const pubSub = new PubSub<PubSubChannels>();
 ```
 
 </Instruction>
@@ -167,7 +165,7 @@ const resolvers = {
   Subscription: {
     newLink: {
       subscribe: (parent: unknown, args: {}, context: GraphQLContext) => {
-        return context.pubSub.asyncIterator("newLink");
+        return context.pubSub.asyncIterableIterator("newLink");
       },
       resolve: (payload: PubSubChannels["newLink"][0]) => {
         return payload.createdLink;
