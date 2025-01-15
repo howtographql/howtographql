@@ -8,7 +8,7 @@ One of the most common layers in a web applications is the authentication layer.
 
 ## JWT <a name="jwt"></a>
 [JWT](https://jwt.io/) or Json Web Token is a string containing a hash that helps us authenticate users. Every token is constructed of 3 parts, like `xxxxx.yyyyy.zzzzz`. These three parts are: Header, Payload, and Signature. We won't go into these three parts, because this is more about JWT and less about our application. You can read more about this [here](https://jwt.io/introduction/).
-Whenever a user logs in into our application, the server generates a token. Usually, the server includes information, like the username, in the token to be able to recognize the user later on. These tokens get signed by a secret key, so only the issuer (our application) can read the contents of the token.
+Whenever a user logs in into our application, the server generates a token. Usually, the server includes information, like the username, in the token to be able to recognize the user later on. These tokens get signed by a secret key, so only the issuer (our application) can verify the authenticity and integrity of the token.
 We are going to implement this behavior in our application.
 
 ### Setup <a name="setup"></a>
@@ -46,7 +46,7 @@ func GenerateToken(username string) (string, error) {
 	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
 	tokenString, err := token.SignedString(SecretKey)
 	if err != nil {
-		log.Fatal("Error in Generating key")
+		log.Fatal("Error signing the token")
 		return "", err
 	}
 	return tokenString, nil
