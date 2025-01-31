@@ -9,7 +9,7 @@ videoId: oCT4HOJsUZQ
 duration: 5
 ---
 
-[GraphQL](http://www.graphql.org/) is a new API standard that provides a more efficient, powerful and flexible alternative to REST. It was developed and [open-sourced by Facebook](https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html) and is now maintained by a large community of companies and individuals from all over the world.
+[GraphQL](http://www.graphql.org/) is a new API standard that provides a more efficient, powerful and flexible alternative to REST. It was developed and [open-sourced by Facebook](https://legacy.reactjs.org/blog/2015/02/20/introducing-relay-and-graphql.html) and is now maintained by a large community of companies and individuals from all over the world.
 
 > APIs have become ubiquitous components of software infrastructures. In short, an **API** defines how a **client** can load data from a **server**.
 
