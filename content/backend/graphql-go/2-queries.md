@@ -52,10 +52,10 @@ now run the server with `go run server.go` and send this query in Graphiql:
 
 ```
 query {
-	links{
+  links {
     title
     address,
-    user{
+    user {
       name
     }
   }
