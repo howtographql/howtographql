@@ -49,11 +49,17 @@ Speaking of being productive and building awesome stuff, let's jump back in and 
 First, let's install the Prisma CLI and Prisma Client by running the following command in your terminal:
 
 ```bash(path=".../hackernews-typescript/")
-npm install prisma@^3.5.0 --save-dev
-npm install @prisma/client@^3.5.0
+npm install prisma@latest --save-dev
+npm install @prisma/client@latest
+```
+
+```bash(path=".../hackernews-typescript/")
+npm install typescript@latest
 ```
 
 </Instruction>
+
+> **Note:** Prisma requires TypeScript 5.1+. Ensure that your typescript is up to date
 
 Next, use the Prisma CLI to initialize Prisma in the project.
 
