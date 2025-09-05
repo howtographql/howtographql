@@ -126,7 +126,7 @@ authenticate subsequent requests against your GraphQL API. This information is b
 <Instruction>
 
 Finally, you need to reflect that the relation between `User` and `Link` should be bi-directional by adding the `postedBy` field to the existing `Link` model definition in
-`schema.ts`:
+`schema.graphql`:
 
 ```graphql{5}(path="hackernews-node-ts/src/schema.graphql)
 type Link {
